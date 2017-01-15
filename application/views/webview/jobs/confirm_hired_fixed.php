@@ -280,8 +280,8 @@ $(document).ready(function() {
 		$.post("<?php echo base_url() ?>Jobs/confirm_hired", { form: $form.serialize() },  function(data) {
 
 			if (data.success) {
-                $('.success').html(data.message);
-				setTimeout(function(){ window.location = "<?php echo base_url();?>offer?job_id=<?=$job_id?>"; }, 5000);
+               // $('.success').html(data.message);
+				setTimeout(function(){ window.location = "<?php echo base_url();?>offer?job_id=<?=$job_id?>"; }, 100);
             }
 			else{
 				$('.success').html(data.message);
@@ -308,10 +308,22 @@ $(document).ready(function() {
                 if(res == "done"){
                   window.location.replace("/pay/clientpay");
                 }else {
-                  $('#hr_msg').text(res);
-									$('#hr_btnpay').prop('disabled', false);
+                 
+                  
+                   //$('#hr_msg').text(res);                  
+                  var result=$.parseJSON(res);
+                  if(result.success==true)
+                  {
+                       $('.success').html(result.message);
+                       setTimeout(function(){ window.location = "<?php echo base_url();?>offer?job_id=<?=$job_id?>"; }, 1000);
+                  }
+                  else 
+                  {
+                   $('.success').html("Failed payment for Insufficient funds");
+                  }
+		$('#hr_btnpay').prop('disabled', false);
                 }
-                console.log(res);
+               // console.log(res);
             });
         event.preventDefault();
     });
