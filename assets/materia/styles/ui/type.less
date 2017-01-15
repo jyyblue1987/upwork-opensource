@@ -1,0 +1,63 @@
+// Inline turns list items into inline-block
+.list-inline > li:first-child {
+  padding-left: 0;
+}
+
+blockquote {
+	border-left: 4px solid @blockquote-border-color;
+}
+
+.blockquote-reverse,
+blockquote.pull-right {
+	border-right: 4px solid @blockquote-border-color;
+}
+
+h5, h6 {
+	 font-weight: @headings-font-weight + 100;
+}
+
+
+.text-light {
+	font-weight: 300;
+}
+
+.text-bold {
+	font-weight: bold;
+}
+
+.text-primary {
+	.text-emphasis-variant(@brand-primary);
+}
+
+.text-warning {
+	.text-emphasis-variant(@brand-warning);
+}
+
+.text-success {
+	.text-emphasis-variant(@brand-success);
+}
+
+.text-info {
+	.text-emphasis-variant(@brand-info);
+}
+
+.text-danger {
+	.text-emphasis-variant(@brand-danger);
+}
+
+.text-pink {
+  .text-emphasis-variant(@brand-pink);
+}
+
+.text-purple {
+  .text-emphasis-variant(@brand-purple);
+}
+
+.list-unstyled {
+	margin-bottom: 0;
+}
+
+
+.xsmall {
+	font-size: 10px;
+}

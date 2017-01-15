@@ -1,0 +1,133 @@
+//
+// Forms
+// --------------------------------------------------
+
+.form-control {
+	box-shadow: none;
+	.transition(.2s ease-in-out);
+	border: none;
+	border-radius: 0!important;
+	border-bottom: 1px solid #e0e0e0;
+	position: relative;
+	overflow: hidden;
+	&:focus {
+		box-shadow: none;
+		border-bottom-color: @m-blue-dark;
+		box-shadow: inset 0 -1px @m-blue-dark;
+		content: ""; 	// remove cross mark in IE10
+	}
+	
+	.placeholder(lighten(@gray-light, 20%));
+}
+
+
+
+.form-control.datepicker {
+	&:focus {box-shadow: none!important;}
+}
+
+.form-group {
+	// border: 1px solid;
+}
+
+
+
+label {
+	font-weight: 500;
+}
+
+.control-label {
+	// margin-top: 8px;
+}
+
+.form-inline {
+	@media (min-width: @screen-sm-min) {
+		.form-group {
+			> [class], [type] {
+				margin-right: 5px;
+			}
+		}
+
+	}
+}
+
+// override
+.has-success, .has-warning, .has-error {
+	
+	.form-control, .form-control:focus {
+		box-shadow: none;
+
+	}
+}
+
+.has-success {
+	.form-control {
+		border-color: darken(@state-success-border, 10%);
+		&:focus {
+			border-color: darken(@state-success-border, 30%);
+			background: lighten(@state-success-border, 12%);
+		}
+	}
+}
+
+.has-warning {
+	.form-control {
+		border-color: darken(@state-warning-border, 10%);
+		&:focus {
+			border-color: darken(@state-warning-border, 30%);
+			background: lighten(@state-warning-border, 8%);
+		}
+	}
+}
+
+.has-error {
+	.form-control {
+		border-color: darken(@state-danger-border, 10%);
+		&:focus {
+			border-color: darken(@state-danger-border, 30%);
+			background: lighten(@state-danger-border, 10%);
+		}
+	}
+}
+
+
+// Position radios and checkboxes better (overriding)
+input[type="radio"],
+input[type="checkbox"] {
+	margin: 3.5px 0 0;
+}
+
+// Overriding here
+.input-sm {
+	.input-size(@input-height-small; @padding-small-vertical; @padding-small-horizontal; @font-size-small; @line-height-small; @border-radius-small);
+}
+
+.input-lg {
+	.input-size(@input-height-large; (@padding-large-vertical - 2); @padding-large-horizontal; @font-size-base; @line-height-large; @border-radius-base);
+}
+
+
+.form-horizontal, .form-inline {
+	.form-group-lg {
+		.form-control, .input-group-btn .btn{
+			&:extend(.input-lg);
+		}
+	}
+	.form-group-sm {
+		.form-control, .input-group-btn .btn {
+			&:extend(.input-sm);
+		}
+	}
+}
+
+
+
+// ==== form validation (ng classes) (global)
+// ng-dirty - control has been interacted.
+input.ng-valid.ng-dirty {
+	&:extend(.has-success .form-control all);
+}
+
+input.ng-invalid.ng-dirty {
+	&:extend(.has-error .form-control all);
+}

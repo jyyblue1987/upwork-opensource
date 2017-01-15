@@ -1,0 +1,71 @@
+
+
+.table {
+	th {
+		font-weight: 600;
+	}
+
+	> thead > tr > th, 
+	> tbody > tr > td,
+	> tfoot > tr > td {
+		vertical-align: middle;
+		padding-left: @panel-body-padding;
+		padding-right: @panel-body-padding;
+	}
+
+
+	> thead > tr > th {
+		border-bottom-width: 1px;
+	}
+}
+
+
+.table {
+	.progress {
+		margin-bottom: 0;
+		margin-top: 2px;
+	}
+}
+
+// adjust  some content's margin/padding in tables
+
+.table {
+	.ui-checkbox {
+		margin-top: 10px;
+	}
+}
+
+
+
+// data table
+.table {
+
+	thead th > .th {
+		position: relative;
+		// border: 1px solid;
+		display: inline-block;
+		padding: 8px;
+		float: right;
+		.translate(0; 3px);
+
+		> [class*='icon'] {
+			cursor: pointer;
+			position: absolute;
+			color: @gray-lighter;
+			font-size: 16px;
+			&:hover {
+				color: @text-color;
+			}
+			&.active {
+				visibility: hidden;
+			}
+		}
+		> .icon-up {
+			top: -8px;
+		}
+		> .icon-down {
+			bottom: -8px;
+		}
+	}
+
+}

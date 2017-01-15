@@ -1,0 +1,36 @@
+#butcancel{
+	padding:20px 112px 20px 15px;
+
+}
+#how_work{
+	padding-top:0px;
+}
+.clear1{
+	clear:both;
+}
+.navbar-nav > li {
+    margin:3px 0px 0px 11px;
+}
+.navbar-nav > li > a {
+    font-size:18px;
+}
+.top_header .navbar-right > li > a {
+    font-size:15px;
+}
+#big_header {
+    height:70vh;
+}
+#big_header h1 {
+    font-size: 30px;
+    padding:60px 0px 15px 0px;
+}
+
+#big_header h3 {
+    font-size: 16px;
+}
+#sliderButton {
+    width: 323px;
+}
+#sliderButton button {
+    padding: 5px 8px;
+}

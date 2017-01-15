@@ -1,0 +1,80 @@
+
+html, body {
+    height: 100%;
+    min-height: 100%;
+}
+
+body {
+	letter-spacing: .5px;
+    background: #efefef;
+    // background: #fff;
+}
+
+*:focus {
+    outline: none!important;
+}
+
+hr {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+hr.dotted {
+    border-style: dotted;
+}
+
+hr.dashed {
+    border-style: dashed;
+}
+
+// ionicons icons 
+.ion, .ionicons {
+    line-height: @line-height-base;
+    font-size: @font-size-base + 2;
+}
+
+// font-awesome icons
+.fa {
+    line-height: @line-height-base;
+    font-size: @font-size-base - 1;
+}
+
+
+
+code {
+    font-size: 75%;
+}
+
+
+.filler {
+    display: block;
+    height: 7px;
+    background: darken(@gray-lightest, 3%);
+}
+.filler-sm {
+    height: 5px!important;
+}
+.filler-xs {
+    height: 2px!important;
+}
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+
+.bg-primary,
+.bg-success,
+.bg-info,
+.bg-warning,
+.bg-danger,
+.bg-pink,
+.bg-purple {
+    color: #fff!important;
+}
+
+.bg-primary { background-color: @brand-primary!important; }
+.bg-success { background-color: @brand-success!important; }
+.bg-info { background-color: @brand-info!important; }
+.bg-warning { background-color: @brand-warning!important; }
+.bg-danger { background-color: @brand-danger!important; }
+.bg-pink { background-color: @brand-pink!important; }
+.bg-purple { background-color: @brand-purple!important; }

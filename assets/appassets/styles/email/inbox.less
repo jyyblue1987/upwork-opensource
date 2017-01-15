@@ -1,0 +1,133 @@
+body {
+	// background: #fff;
+}
+.page.page-email {
+	// margin: 0; padding: 0;
+	.compose-btn {
+		position: fixed;
+		bottom: 15px; 
+		right: 15px;
+		.square(46px);
+		z-index: 10001;
+		border-radius: 100%;
+	}
+	
+	.email-nav {
+		// border: 1px solid;
+		// padding: 15px;
+		padding-top: 15px;
+		
+		// ==== navigation
+		.navigation {}
+		.navigation li {
+			&.active {
+				> a, a:hover{
+					background: @brand-pink;
+					color: #fff;
+					border-radius: @border-radius-base;
+				}
+			}
+		}
+
+		.navigation li > a, .labels li > a  {
+			color: @text-color;
+			display: block;
+			padding: @padding-base-vertical @padding-base-horizontal;
+			> span {
+				margin-right: 10px;
+			}
+			&:hover {
+				background: @gray-lighter;
+			}
+		}
+		.labels li > a > span {
+			font-size: 10px;
+			.translate(0; -1px);
+		}
+	}
+
+	
+	.email-content {
+		// ===== email-lists (summary)
+		.email-lists {
+			border: 1px solid @gray-lighter;
+			background: #fff;
+			box-shadow: 0 1px 6px rgba(0,0,0,.05);
+			margin-top: 15px;
+			white-space: nowrap;
+			overflow-y: hidden;
+			li {
+				width: 300px;
+				padding: 20px;
+				padding-bottom: 15px;
+				border-right: 1px solid @gray-lighter;
+				.transition(.2s);
+				display: inline-block;
+				margin-left: -4px;
+				white-space:normal;
+				&.read {
+					a, a p {
+						color: lighten(@text-color, 30%);
+						font-weight: 100;
+					}
+				}
+				&.active {
+					background: @state-warning-bg;
+				}
+				&:not(.active):hover {
+					background: @gray-lighter;
+				}
+				a {
+					color: @text-color;
+					font-weight: 600;
+				}
+				a .sender-name {}
+
+				a .subject {
+					font-size: @font-size-h4*.9;
+					margin-bottom: 5px;
+					margin-top: 5px;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;	// this insure text will never flow onto next line
+				}
+				a .summary {
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+
+				}
+				a .group .remove-email {
+					&:hover {
+						color: @brand-danger;
+					}
+				}
+			}
+		}
+
+
+		// ===== .email-view
+		.email-view {
+			padding: 20px;
+			border: 1px solid @gray-lighter;
+			background: #fff;
+			box-shadow: 0 1px 6px rgba(0,0,0,.05);
+			.email-description {
+				.attachment {
+					overflow: hidden;
+					border: 1px solid @gray-lighter;
+					display: inline-block;
+					.size(200px; 180px);
+					text-align: center;
+					.text {
+						padding: 10px;
+					}
+				}
+				.attachment img {
+					max-width: 100%;
+				}
+			}
+		}
+	}
+	
+}

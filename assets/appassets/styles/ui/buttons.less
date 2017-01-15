@@ -1,0 +1,167 @@
+
+
+
+.btn {
+	box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+	.transition(.2s);
+	position: relative;
+	> i:before {
+		margin-right: 6px;
+	}
+	&:hover {
+			box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12); 
+	}
+
+}
+
+.btn.btn-default:hover {
+	background: #fff!important;
+}
+// Comment these classes from bootstrap/buttons
+.btn-lg {
+	// line-height: ensure even-numbered height of button next to large input
+	.button-size(@padding-large-vertical + 1; @padding-large-horizontal; @font-size-base + 1; @line-height-large; @border-radius-base);
+	&.btn-rounded {
+		border-radius: @padding-large-horizontal;
+	}
+}
+
+// Rounded Btns
+.btn-rounded {
+	border-radius: @padding-base-horizontal + 2;
+}
+
+
+
+
+
+// extra buttons variant
+// -- pink button
+.btn-pink {
+  .button-variant(@btn-pink-color; @btn-pink-bg; @btn-pink-border);
+}
+// -- purple button
+.btn-purple {
+  .button-variant(@btn-purple-color; @btn-purple-bg; @btn-purple-border);
+}
+
+
+
+// Line variant
+.btn-line-default {
+	.button-line-variant(@btn-default-color; @btn-default-bg; @btn-default-border);
+}
+
+.btn-line-primary {
+	.button-line-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
+}
+
+.btn-line-success {
+	.button-line-variant(@btn-success-color; @btn-success-bg; @btn-success-border);
+}
+
+.btn-line-info {
+	.button-line-variant(@btn-info-color; @btn-info-bg; @btn-info-border);
+}
+
+.btn-line-warning {
+	.button-line-variant(@btn-warning-color; @btn-warning-bg; @btn-warning-border);
+}
+
+.btn-line-danger {
+	.button-line-variant(@btn-danger-color; @btn-danger-bg; @btn-danger-border);
+}
+
+.btn-line-pink {
+	.button-line-variant(@btn-pink-color; @btn-pink-bg; @btn-pink-border);
+}
+
+.btn-line-purple {
+	.button-line-variant(@btn-purple-color; @btn-purple-bg; @btn-purple-border);
+}
+
+// === icon circle
+.btn-icon-circle {
+	border-radius: 100%;
+}
+
+
+// Social Btns
+.btn-twitter { .button-social-variant(#fff; @social-twitter; @social-twitter) }
+.btn-facebook { .button-social-variant(#fff; @social-facebook; @social-facebook) }
+.btn-gplus { .button-social-variant(#fff; @social-gplus; @social-gplus) }
+.btn-instagram { .button-social-variant(#fff; @social-instagram; @social-instagram) }
+.btn-vimeo { .button-social-variant(#fff; @social-vimeo; @social-vimeo) }
+.btn-flickr { .button-social-variant(#fff; @social-flickr; @social-flickr) }
+.btn-github { .button-social-variant(#fff; @social-github; @social-github) }
+.btn-linkedin { .button-social-variant(#fff; @social-linkedin; @social-linkedin) }
+.btn-pinterest { .button-social-variant(#fff; @social-pinterest; @social-pinterest) }
+.btn-dribbble { .button-social-variant(#fff; @social-dribbble; @social-dribbble) }
+.btn-skype { .button-social-variant(#fff; @social-skype; @social-skype) }
+.btn-behance { .button-social-variant(#fff; @social-behance; @social-behance) }
+.btn-rss { .button-social-variant(#fff; @social-rss; @social-rss) }
+.btn-youtube { .button-social-variant(#fff; @social-youtube; @social-youtube) }
+
+
+
+// button width
+.btn-w100 {width: 100px}
+.btn-w120 {width: 120px}
+.btn-w140 {width: 140px}
+.btn-w200 {width: 200px}
+.btn-wfull {width: 100%; text-align: center;}
+
+
+
+.btn-group-xs > .btn { &:extend(.btn-xs); }
+.btn-group-sm > .btn { &:extend(.btn-sm); }
+.btn-group-lg > .btn { &:extend(.btn-lg); }
+
+
+// Icons Btns
+.btn-icon-inline {
+	.btn-icon-inline();
+}
+
+
+
+/// =========== button tags
+// ========================
+.btn-tag {
+	border-radius: @border-radius-base;
+	display: inline-block;
+	border: transparent;
+	padding: @padding-small-vertical (@padding-small-horizontal - 4) @padding-small-vertical @padding-small-horizontal*2.2;
+	font-size: @font-size-small;
+	position: relative;
+	margin-right: 15px!important;
+	margin-bottom: 10px;
+	&:before, &:after {
+		position: absolute;
+		content: "";
+	}
+	&:before {
+		right: -25px; top: 0;
+		border-style: solid;
+		border-width: 13px;
+		border-color: transparent;
+	}
+	&:after {
+		left: 8px; top: 9px;
+		background: #fff;
+		.square(6px);
+		border-radius: 100%;
+		box-shadow: inset 0 1px rgba(0, 0, 0, .3);
+	}
+}
+
+
+
+.btn-tag-default { .btn-tag-variant(lighten(@text-color, 5%); @gray-lighter)}
+.btn-tag-primary { .btn-tag-variant(#fff; @brand-primary) }
+.btn-tag-success { .btn-tag-variant(#fff; @brand-success) }
+.btn-tag-danger { .btn-tag-variant(#fff; @brand-danger) }
+.btn-tag-warning { .btn-tag-variant(#fff; @brand-warning) }
+.btn-tag-info { .btn-tag-variant(#fff; @brand-info) }
+.btn-tag-pink { .btn-tag-variant(#fff; @brand-pink) }
+.btn-tag-purple { .btn-tag-variant(#fff; @brand-purple) }

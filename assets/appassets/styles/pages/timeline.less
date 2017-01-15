@@ -1,0 +1,118 @@
+.page-timeline {
+
+	.timeline {
+		position: relative;
+		overflow: hidden;
+		min-height: 100%;
+		&:before {
+			position: absolute;
+			content: "";
+			left: 50%;
+			.translate(-50%; 0);
+			height: 100%;
+			width: 6px;
+			background: #fff;
+			z-index: 1;
+			box-shadow: 0 0 1px rgba(0, 0, 0, .05);
+		}
+		
+	}
+
+	.timeline li {
+		margin-bottom: 30px;
+		.clearfix();
+	}
+
+	.timeline .event-time {
+		width: 46%;
+		float: right;
+		.date {}
+		.time {}
+	}
+
+	.timeline .event-icon {
+		display: inline-block;
+		.square(42px);
+		border-radius:50%;
+		color: #fff;
+		text-align: center;
+		position: absolute;
+		left: 50%;
+		z-index: 99;
+		.translate(-50%; 0);
+		> i {.vertical-center2()}
+		&.event-icon-primary {background: @brand-primary; border: 4px solid lighten(@brand-primary, 4%); }
+		&.event-icon-success {background: @brand-success; border: 4px solid lighten(@brand-success, 4%); }
+		&.event-icon-info {background: @brand-info; border: 4px solid lighten(@brand-info, 4%); }
+		&.event-icon-danger {background: @brand-danger; border: 4px solid lighten(@brand-danger, 4%); }
+		&.event-icon-pink {background: @brand-pink; border: 4px solid lighten(@brand-pink, 4%); }
+		&.event-icon-warning {background: @brand-warning; border: 4px solid lighten(@brand-warning, 4%); }
+		&.event-icon-default {background: #fff; border: 4px solid @gray-lighter; }
+	}
+
+	.timeline .event {
+		background: #fff;
+		padding: 20px;
+		width: 46%;
+		float: left;
+		box-shadow: 0 1px 2px rgba(0,0,0,.02);
+		border: 1px solid @gray-lightest;
+		position: relative;
+		// create arrows
+		&:before, &:after {
+			.square(14px);
+			top: 16px;
+			right: -6px;
+			position: absolute;
+			content: "";
+			.rotate(45deg);
+			background: #fff;
+		}
+		&:after {
+			border: 1px solid darken(@gray-lighter, 4%);
+			z-index: -1;
+			right: -6.5px;
+		}
+
+	}
+
+	.timeline .on-right {
+		.event {float: right}
+		.event-time {float: left; text-align: right;}
+		.event:before {left: -6px; right: auto;}
+		.event:after {left: -6.5px; right: auto}
+	}
+
+
+
+	// ==== for small screen
+	@media (max-width: @screen-xs-max) {
+		.timeline {
+			&:before {
+				left: 20%;
+				.translate(-20%; 0);
+			}
+			.event-icon {
+				left:18.2%; 
+				.translate(-18.2%; 0);
+			}
+
+			.event-time {
+				float: left;
+			}
+			.event {
+				float: right;
+				width: 70%;
+				margin-top: -52px;
+				&:before {left: -6px; right: auto;}
+				&:after {left: -6.5px; right: auto}
+			}
+			.on-right {
+				.event-time {float: left; text-align: left;}
+			}
+		}
+		
+	}
+
+
+}

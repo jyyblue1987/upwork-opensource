@@ -1,0 +1,24 @@
+@font-face {
+    font-family:'Brandon_light';
+    src: url('../fonts/Brandon_light.otf');
+}
+
+@font-face {
+    font-family:'Brandon_med';
+    src: url('../fonts/Brandon_med.otf');
+}
+
+@font-face {
+    font-family:'Brandon_bld';
+    src: url('../fonts/Brandon_bld.otf');
+}
+
+@font-face {
+    font-family:'MYRIADPRO-REGULAR';
+    src: url('../fonts/MYRIADPRO-REGULAR.OTF');
+}
+
+@font-face {
+    font-family:'BRINBE';
+    src: url('../fonts/BRINBE_.TTF');
+}

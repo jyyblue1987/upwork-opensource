@@ -1,0 +1,47 @@
+.page-app-calendar {
+
+	.calevents {
+		> li {
+			border: 1px solid @gray-lighter;
+			background: #fff;
+			padding: 10px 15px;
+			font-size: @font-size-small;
+			margin-bottom: 15px;
+			box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+			position: relative;
+			.event-name {
+				border: none;
+				box-shadow: none;
+				padding: 2px 0!important;
+				width: 90%;
+			}
+			.event-date {
+				font-size: @font-size-small - 1;
+				margin-bottom: 5px;
+			}
+			.event-name {
+				font-weight: 500;
+				margin-bottom: 4px;
+			}
+			.event-remove-icon {
+				position: absolute;
+				top: 5px; right: 15px;
+				cursor: pointer;
+				opacity: .8;
+				&:hover {
+					opacity: 1;
+				}
+			}
+			.event-colors {
+				text-align: right;
+			}
+			.event-colors > li {
+				display: inline-block; 
+				margin-right: 2px;
+				.square(12px);
+				border-radius: 100%;
+				cursor:pointer;
+			}
+		}
+	}
+}

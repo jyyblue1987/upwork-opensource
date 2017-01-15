@@ -1,0 +1,74 @@
+<div class="page page-forms-uploader" flow-prevent-drop>
+
+	<ol class="breadcrumb breadcrumb-small">
+		<li>Forms</li>
+		<li class="active"><a href="#/forms/uploader">File Uploader</a></li>
+	</ol>
+
+
+	<div class="page-wrap">
+		
+		<!-- row -->
+		<div class="row">
+			<div class="col-sm-12">
+
+				<alert type="info" class="mb20">
+					<strong>Note:</strong> This is just an example of plugin flow.js. No files are actually uploaded.
+				</alert>
+
+				<!-- row -->
+				<div class="row mb20" flow-init flow-files-submitted="$flow.upload()">
+					<div class="col-md-5 mb15">
+						<div class="dropzone" flow-drop flow-btn>
+							<!-- <span class="btn btn-default btn-sm" flow-btn flow-directory ng-show="$flow.supportDirectory">Upload Folders</span> -->
+							<div class="drop-info">
+								<i class="ion ion-upload"></i>
+								<h3 class="mt0 text-bold">DropZone</h3>
+								<p>Drag files to upload <strong class="text-muted">(or click)</strong></p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-7">
+						<table class="table table-bordered table-condensed" style="background: #fff">
+							<thead>
+								<tr>
+									<th class="col-sm-4">Name</th>
+									<th>Size</th>
+									<th>Progress</th>
+									<th class="col-sm-1">Status</th>
+									<th class="col-sm-1">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="file in $flow.files">
+									<td class="text-bold">{{file.relativePath}}</td>
+									<td class="small">{{file.size | number: 0}} B</td>
+									<td>
+										<progressbar value="file.progress()*100" class="progress-xs progress-striped" type="primary" ng-class="{active: file.isUploading()}"></progressbar>
+									</td>
+									<td class="text-center">
+										<span class="ion ion-checkmark-circled text-success" ng-show="file.isComplete()"></span>
+									</td>
+									<td>
+										<span class="btn btn-xs btn-danger ion ion-trash-a" ng-click="file.cancel()"></span>
+										<span class="btn btn-xs btn-warning ion ion-pause" ng-click="file.pause()"></span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<a class="btn btn-small btn-success btn-sm" ng-click="$flow.resume()">Resume all</a>
+						<a class="btn btn-small btn-danger btn-sm" ng-click="$flow.pause()">Pause all</a>
+						<a class="btn btn-small btn-info btn-sm" ng-click="$flow.cancel()">Cancel all</a>
+					</div>
+
+
+				</div> <!-- inner row -->
+				
+			</div>  <!-- #end col -->
+		</div> <!-- #end row -->
+
+
+
+	</div> <!-- #end page-wrap -->
+</div>

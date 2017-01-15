@@ -1,0 +1,115 @@
+
+.clear1{
+	clear:both;
+}
+
+#project_area_table h1 {
+    text-align: center;
+}
+.searchTable_div select {
+    font-family: 'Raleway';
+    font-weight: 400;
+    font-size: 12px;
+    color: #09c0d1;
+    padding: 8px 12px 8px 12px;
+    margin: 11px 11px;
+    width: 140px;
+    border: 1px solid #cccaca;
+    border-radius:2px;
+}
+.searchTable_div form input {
+    padding: 8px 15px 8px 15px;
+    margin: 0px 12px;
+}
+.searchTable_div1 select {
+    font-family: 'Raleway';
+    font-weight: 400;
+    font-size: 12px;
+    color: #09c0d1;
+    padding: 8px 12px 8px 12px;
+    margin: 11px 11px;
+    width: 140px;
+    border: 1px solid #cccaca;
+    border-radius:2px;
+}
+.searchTable_div1 input {
+    padding: 8px 15px 8px 15px;
+    margin: 0px 12px;
+}
+#slider-range {
+    width: 141px;
+    margin: 20px auto;
+}
+.searchTable_div2{
+    padding: 8px 15px 8px 15px;
+    margin: 0px 12px;
+}
+
+
+.searchTable_div form button {
+    padding:8px;
+    margin:0px 0px 12px -14px;
+}
+
+#Profiles h1 {
+    text-align: center;
+}
+
+.view_Profiles_area__Ul_div1 {
+    max-width: 374px;
+    margin: 0px auto;
+}
+
+.view_Profiles_area__Ul_div1 ul li h4 {
+    margin:2px -3px -20px -3px;
+    font-size: 33px;
+}
+.view_Profiles_area__Ul_div2 ul {
+    margin: 0px 0px 0px 14px;
+}
+
+.view_Profiles_area__Ul_div1 ul li {
+    padding: 10px 9px 10px 10px;
+	font-size:13px;
+}
+.view_Profiles_area__Ul_div1 ul {
+    margin-left: 3px;
+}
+#view_Profiles_area .view_Profiles_area_div button {
+    margin: 20px 0px 0px -9px;
+}
+
+#pagination {
+    padding:10px 20px 0px 0px;
+}
+.outBlog_div_sub_div1 {
+    margin-top: 20px;
+    width: 243px;
+    margin: 16px auto;
+}
+
+
+.arrow-left {
+    margin:0px 0px 25px 13px;
+}
+.arrow-right {
+    margin:0px -10px 0px 0px;
+}
+/****************************/
+
+.big_footer {
+    text-align:center;
+}
+
+.footer1 ul {
+    list-style-type: none;
+    padding-top:7px;
+}
+
+.footer2 button {
+    margin: 0px 0px 86px -3px;
+}
+
+.footer2 input {
+    margin: 0px 0px 0px 107px;
+}

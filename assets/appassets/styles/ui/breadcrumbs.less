@@ -1,0 +1,12 @@
+.breadcrumb-small {
+	font-weight: 500;
+	font-size: @font-size-xsmall;
+	text-transform: uppercase;
+	> li {
+		color: lighten(@text-color, 15%);
+		+ li:before {
+			display: inline-block;
+			.translate(0; -1px);
+		}
+	}
+}

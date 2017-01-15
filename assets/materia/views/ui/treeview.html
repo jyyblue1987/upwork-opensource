@@ -1,0 +1,63 @@
+<div class="page page-ui-treeview" ng-controller="TreeViewDemoCtrl">
+
+	<ol class="breadcrumb breadcrumb-small">
+		<li>UI Kit</li>
+		<li class="active"><a href="#/ui/tabs">Tree View</a></li>
+	</ol>
+
+
+	<div class="page-wrap">
+		
+		<!-- row -->
+		<div class="row">
+			
+			<div class="col-sm-4">
+				<div class="tree-api">
+					<button ng-click="try_changing_the_tree_data()" class="btn btn-default mb15 btn-wfull">Change The Tree Definition</button>
+					<br>
+					<button ng-click="try_async_load()" class="btn btn-default btn-wfull">Load Tree Data Asynchronously</button>
+					<hr>
+					<h6>Test the Tree Control API:</h6>
+	                <button ng-click="my_tree.select_first_branch()" class="btn btn-default mb10">First Branch</button>
+	                <br>
+	                <button ng-click="my_tree.select_next_sibling()" class="btn btn-default mb10 mr5">Next Sibling</button>
+	                <button ng-click="my_tree.select_prev_sibling()" class="btn btn-default mb10 mr5">Prev Sibling</button>
+	                <br>
+	                <button ng-click="my_tree.select_next_branch()" class="btn btn-default mb10 mr5">Next Branch</button>
+	                <button ng-click="my_tree.select_prev_branch()" class="btn btn-default mb10 mr5">Prev Branch</button>
+	                <br>
+	                <button ng-click="my_tree.select_parent_branch()" class="btn btn-default mb10 mr5">Parent</button>
+	                <hr>
+	                <button ng-click="my_tree.expand_branch()" class="btn btn-default mb10 mr5">Expand</button>
+	                <button ng-click="my_tree.collapse_branch()" class="btn btn-default mb10 mr5">Collapse</button>
+	                <button ng-click="my_tree.expand_all()" class="btn btn-default mb10 mr5">Expand All</button>
+	                <button ng-click="my_tree.collapse_all()" class="btn btn-default  mb10 mr5">Collapse All</button>
+	                <hr>
+	                <button ng-click="try_adding_a_branch()" class="btn btn-default btn-primary">Add Branch</button>
+                </div>
+			</div>
+
+			<div class="col-sm-4">
+				<div class="tree-view">
+					<span ng-if="doing_async">...loading...</span>
+					<abn-tree
+						 tree-data="my_data" 
+						 tree-control="my_tree" 
+						 on-select="my_tree_handler(branch)" 
+						 expand-level="2" 
+						 initial-selection="Vegetable"
+						 icon-leaf="ion ion-document"
+						 icon-expand="ion ion-plus"
+						 icon-collapse="ion ion-minus">
+					</abn-tree>
+				</div>
+			</div>
+
+			<div class="col-sm-4">
+				<div class="alert alert-success">{{ output }}</div>
+			</div>
+
+		</div> <!-- #end row -->
+
+	</div> <!-- #end page-wrap -->
+</div>

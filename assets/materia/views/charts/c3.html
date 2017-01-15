@@ -1,0 +1,127 @@
+<div class="page page-charts-c3" ng-controller="c3ChartDemoCtrl">
+
+	<ol class="breadcrumb breadcrumb-small">
+		<li>Charts</li>
+		<li class="active"><a href="#/charts/c3">C3</a></li>
+	</ol>
+
+
+	<div class="page-wrap">
+
+		<!-- row -->
+		<div class="row">
+
+			<!-- Line Chart -->
+			<div class="col-md-6">
+				<div class="panel panel-default panel-stacked panel-hovered mb20">
+					<div class="panel-heading">Line Chart</div>
+					<div class="panel-body">
+						<c3-chart id="c3chartline" config="lineconfig"></c3-chart>
+					</div>
+				</div>
+			</div>
+
+			<!-- Spline Chart -->
+			<div class="col-md-6">
+				<div class="panel panel-default panel-stacked panel-hovered mb20">
+					<div class="panel-heading">Spline Chart</div>
+					<div class="panel-body">
+						<c3-chart id="c3chartspline" config="splineconfig"></c3-chart>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Step Chart -->
+			<div class="col-md-6">
+				<div class="panel panel-default panel-stacked panel-hovered mb20">
+					<div class="panel-heading">Step Chart</div>
+					<div class="panel-body">
+						<c3-chart id="c3chartstep" config="stepconfig"></c3-chart>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Bar Chart -->
+			<div class="col-md-6">
+				<div class="panel panel-default panel-stacked panel-hovered mb20">
+					<div class="panel-heading">Bar Chart</div>
+					<div class="panel-body">
+						<c3-chart id="c3chartbar" config="barconfig"></c3-chart>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Area Chart -->
+			<div class="col-md-6">
+				<div class="panel panel-default panel-stacked panel-hovered mb20">
+					<div class="panel-heading">Area Chart</div>
+					<div class="panel-body">
+						<c3-chart id="c3chartarea" config="areaconfig"></c3-chart>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Stacked Bar Chart -->
+			<div class="col-md-6">
+				<div class="panel panel-default panel-stacked panel-hovered mb20">
+					<div class="panel-heading">Stacked Bar Chart</div>
+					<div class="panel-body">
+						<c3-chart id="c3chartstackedbar" config="stackedbarconfig"></c3-chart>
+					</div>
+				</div>
+			</div>
+
+			
+			<!-- Pie Chart -->
+			<div class="col-md-6">
+				<div class="panel panel-default panel-stacked panel-hovered mb20">
+					<div class="panel-heading">Pie Chart</div>
+					<div class="panel-body">
+						<c3-chart id="c3chartpie" config="pieconfig"></c3-chart>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Donut Chart -->
+			<div class="col-md-6">
+				<div class="panel panel-default panel-stacked panel-hovered mb20">
+					<div class="panel-heading">Donut Chart</div>
+					<div class="panel-body">
+						<c3-chart id="c3chartdonut" config="donutconfig"></c3-chart>
+					</div>
+				</div>
+			</div>
+
+		</div><!-- #end row -->
+
+
+		<!-- Additions - easypiechart -->
+		<div class="row">
+			<div class="col-sm-12">
+				<alert type="warning">
+					<p>Addition: Easy Pie chart by rendro. See doc <a href="http://rendro.github.io/easy-pie-chart/" target="_blank">here</a></p>
+				</alert>
+			</div>
+			<!-- Easy Pie Chart -->
+			<div class="col-md-6">
+				<div class="panel panel-default panel-stacked panel-hovered mb20">
+					<div class="panel-heading">Easy Pie Chart</div>
+					<div class="panel-body">
+						<div easypiechart percent="epcPercent" options="epcOpts" class="easypiechart">
+							<div class="data">
+								<strong>{{epcPercent}}%</strong>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> <!-- #end row -->
+
+
+	</div> <!-- #end page wrap -->
+</div>

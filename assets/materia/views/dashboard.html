@@ -1,0 +1,368 @@
+<div class="page page-dashboard" ng-controller="DashboardCtrl">
+	
+	<div class="page-wrap">
+
+		<div class="row">
+			<!-- dashboard header -->
+			<div class="col-md-12">
+				<div class="dash-head clearfix mt15 mb20">
+					<div class="left">
+						<h4 class="mb5 text-light">Welcome to Materia</h4>
+						<p class="small"><strong>AngularJS</strong> admin app</p>
+					</div>
+					<div class="right mt10">
+						<span sparkline type="bar" bar-color="#4CAF50">10,8,4,10,7,0,3,4,6,5,9,12,9</span>
+						<h5 class="text-bold mb0 mt5">$1,33,404</h5>
+					</div>
+				</div>
+			</div>
+		</div> <!-- #end row -->
+
+		<!-- mini boxes -->
+		<div class="row">
+			<div class="col-md-3 col-sm-6">
+				<div class="panel panel-default mb20 mini-box panel-hovered">
+					<div class="panel-body">
+						<div class="clearfix">
+							<div class="info left">
+								<h4 class="mt0 text-primary text-bold">$30,200</h4>
+								<h5 class="text-light mb0">All Earnings</h5>
+							</div>
+							<div class="right ion ion-ios-pulse icon"></div>
+						</div>
+					</div>
+					<div class="panel-footer clearfix panel-footer-sm panel-footer-primary">
+						<p class="mt0 mb0 left">% change</p>
+						<span sparkline class="right" type="bar" bar-color="#fff" width="1.15em" height="1.15em">10,8,9,3,5,8,5</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-3 col-sm-6">
+				<div class="panel panel-default mb20 mini-box panel-hovered">
+					<div class="panel-body">
+						<div class="clearfix">
+							<div class="info left">
+								<h4 class="mt0 text-success text-bold">320K+</h4>
+								<h5 class="text-light mb0">Page Views</h5>
+							</div>
+							<div class="right ion ion-ios-people-outline icon"></div>
+						</div>
+					</div>
+					<div class="panel-footer clearfix panel-footer-sm panel-footer-success">
+						<p class="mt0 mb0 left">% change</p>
+						<span sparkline class="right" type="bar" bar-color="#fff" width="1.15em" height="1.15em">3,5,9,8,6,10</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-3 col-sm-6">
+				<div class="panel panel-default mb20 mini-box panel-hovered">
+					<div class="panel-body">
+						<div class="clearfix">
+							<div class="info left">
+								<h4 class="mt0 text-info text-bold">110</h4>
+								<h5 class="text-light mb0">Task Completed</h5>
+							</div>
+							<div class="right ion ion-ios-flask-outline icon"></div>
+						</div>
+					</div>
+					<div class="panel-footer clearfix panel-footer-sm panel-footer-info">
+						<p class="mt0 mb0 left">% change</p>
+						<span sparkline class="right" type="bar" bar-color="#fff" width="1.15em" height="1.15em">5,9,9,8,6,6</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-3 col-sm-6">
+				<div class="panel panel-default mb20 mini-box panel-hovered">
+					<div class="panel-body">
+						<div class="clearfix">
+							<div class="info left">
+								<h4 class="mt0 text-pink text-bold">10K+</h4>
+								<h5 class="text-light mb0">Downloads</h5>
+							</div>
+							<div class="right ion ion-ios-cloud-download-outline icon"></div>
+						</div>
+					</div>
+					<div class="panel-footer clearfix panel-footer-sm panel-footer-pink">
+						<p class="mt0 mb0 left">% change</p>
+						<span sparkline class="right" type="bar" bar-color="#fff" width="1.15em" height="1.15em">6,4,9,10,6,2</span>
+					</div>
+				</div>
+			</div>
+			<!-- #end mini boxes -->
+		</div> <!-- #end row -->
+
+		<!-- row -->
+		<div class="row">
+
+			<!-- Analytics -->
+			<div class="col-md-7">
+				<div class="panel panel-default mb20 panel-hovered analytics">
+					<div class="panel-heading">Analytics</div>
+					<div class="panel-body">
+						<c3-chart id="c3chartAnalytics" config="analyticsconfig"></c3-chart>
+						<div class="inline-charts mt30">
+							<ul class="list-unstyled clearfix">
+								<li class="col-md-3 col-xs-6">
+									<span sparkline fill-color="#fff" line-color="#3F51B5" width="3em" height="3em">9,3,5,8,6,5,2,0,7,5</span>
+									<p class="mt5"><strong>Downloads</strong></p>
+								</li>
+								<li class="col-md-3 col-xs-6">
+									<span sparkline line-color="#FDD835" fill-color="#fff"  width="3em" height="3em">2,3,5,9,8,6,9,10,4</span>
+									<p class="mt5"><strong>Uploads</strong></p>
+								</li>
+								<li class="col-md-3 col-xs-6">
+									<span sparkline fill-color="#fff"line-color="#4CAF50" width="3em"  height="3em">3,5,9,8,6,10,2,8,7</span>
+									<p class="mt5"><strong>Page Views</strong></p>
+								</li>
+								<li class="col-md-3 col-xs-6">
+									<span sparkline fill-color="#fff" line-color="#E91E63" width="3em" height="3em">3,5,9,8,6,9,7,4,10</span>
+									<p class="mt5"><strong>Unique Visits</strong></p>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				
+			</div> <!-- #end analytics -->
+
+
+			<!-- recent activities -->
+			<div class="col-md-5">
+				<div class="panel panel-default mb20 activities">
+					<div class="panel-heading">Activities</div>
+					<div class="panel-body">
+						<ul class="list-unstyled">
+							<li class="primary">
+								<span class="point"></span>
+								<span class="time small text-muted">2 mins ago</span>
+								<p>Jonathan attend a meeting.</p>
+							</li>
+							<li class="success">
+								<span class="point"></span>
+								<span class="time small text-muted">1 hour ago</span>
+								<p>Designed the wordpress theme</p>
+							</li>
+							<li class="warning">
+								<span class="point"></span>
+								<span class="time small text-muted">4:30 p.m</span>
+								<p>Lily created her account.</p>
+							</li>
+							<li class="info">
+								<span class="point"></span>
+								<span class="time small text-muted">2 days ago</span>
+								<p>Your domain will expired in 13 days.</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- #end recent activities -->
+			
+
+			<div class="col-md-5">
+				<div class="panel panel-default mb20 panel-hovered">
+					<div class="panel-heading">Usage Stats</div>
+					<div class="panel-body">
+						<ul class="list-unstyled">
+							<li class="col-md-4 col-sm-4">
+								<div easypiechart percent="storagePercent" options="storageOpts" class="easypiechart">
+									<div class="data">
+										<strong class="xsmall">{{storagePercent}}%</strong>
+										<p class="xsmall">Storage</p>
+									</div>
+								</div>
+							</li>
+							<li class="col-md-4 col-sm-4">
+								<div easypiechart percent="serverPercent" options="serverOpts" class="easypiechart">
+									<div class="data">
+										<strong class="xsmall">{{serverPercent}}%</strong>
+										<p class="xsmall">Server</p>
+									</div>
+								</div>
+							</li>
+							<li class="col-md-4 col-sm-4">
+								<div easypiechart percent="clientPercent" options="clientOpts" class="easypiechart">
+									<div class="data">
+										<strong class="xsmall">{{clientPercent}}%</strong>
+										<p class="xsmall">Client</p>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div> <!-- #end row -->
+
+				<!-- row -->
+		<div class="row">
+
+			<!-- profile -->
+			<div class="col-md-4 col-sm-6">
+				<div class="panel panel-default mb20 panel-hovered profile-widget">
+					<div class="panel-body">
+						<div class="clearfix mb15 top-info">
+							<div class="left-side">
+								<h3 class="text-light mt0">Robert Smith</h3>
+								<p><strong>About:&nbsp;</strong>WebDesigner</p>
+								<p><strong>Hobbies:&nbsp;</strong>Listening Music, learn new things and playing guitar.</p>
+								<p>
+									<strong>Skills: </strong> 
+									<label class="label label-pink">html5</label>
+									<label class="label label-pink">css3</label>
+									<label class="label label-pink">jquery</label>
+								</p>
+							</div>
+							<div class="right-side">
+								<img src="images/admin.jpg" alt="user">
+								<div ng-init="x = 4" class="rating">
+						   	 		<rating ng-model="x" max="5" state-on="'fa fa-star'" state-off="'fa fa-star-o'" class="text-warning"></rating>
+						   	 	</div>
+							</div>
+						</div>
+						<ul class="user-badges list-unstyled row">
+							<li class="col-xs-4">
+								<i class="ion ion-ios-chatboxes-outline text-success"></i>
+								<strong>192</strong>
+								<button class="btn btn-success btn-xs mt15">View</button>
+							</li>
+							<li class="col-xs-4">
+								<i class="ion ion-ios-heart-outline text-primary"></i>
+								<strong>5K+</strong>
+								<button class="btn btn-info btn-xs mt15">Follow</button>
+							</li>
+							<li class="col-xs-4">
+								<i class="ion ion-ios-body text-danger"></i>
+								<strong>32</strong>
+								<button class="btn btn-primary btn-xs mt15">Profile</button>
+							</li>
+						</ul>
+					</div> <!-- #end panel-body -->
+				</div>
+			</div>
+
+			<!-- browser share -->
+			<div class="col-md-4 col-sm-6">
+				<div class="panel panel-default mb20 panel-hovered">
+					<div class="panel-heading">Browser Share</div>
+					<div class="panel-body text-center">
+						<c3-chart id="c3chartbrowsershare" config="browserconfig"></c3-chart>
+					</div>
+				</div>
+			</div>
+
+			
+			<!-- list widgets -->
+			<div class="col-md-4 col-sm-12">
+				<div class="panel panel-default mb20 list-widget">
+					<ul class="list-unstyled clearfix">
+						<li>
+							<i class="fa fa-file-o"></i>
+							<span class="text">File List</span>
+							<span class="badge badge-xs badge-primary right">100</span>
+						</li>
+						<li>
+							<i class="fa fa-comments-o"></i>
+							<span class="text">Messages</span>
+							<span class="badge badge-xs badge-info right">40+</span>
+						</li>
+						<li>
+							<i class="fa fa-bullhorn"></i>
+							<span class="text">Notifications</span>
+							<span class="badge badge-xs badge-success right">22</span>
+						</li>
+						<li>
+							<i class="fa fa-hdd-o"></i>
+							<span class="text">Bandwidth usage</span>
+							<span class="badge badge-xs badge-danger right">80%</span>
+						</li>
+						<li>
+							<i class="fa fa-microphone"></i>
+							<span class="text">Calls Attended</span>
+							<span class="badge badge-xs badge-info circle right">5</span>
+						</li>
+						<li>
+							<i class="fa fa-bookmark-o"></i>
+							<span class="text">Bookmarks Today</span>
+							<span class="badge badge-xs circle badge-warning right">2</span>
+						</li>
+						<li>
+							<i class="fa fa-bug"></i>
+							<span class="text">Bug Fix Today</span>
+							<span class="badge badge-xs circle badge-danger right">8</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- #end row -->
+
+		<!-- row -->
+		<div class="row">
+			
+			<!-- todo list -->
+			<div class="col-md-5" ng-include=" 'views/todo.html' "></div>
+
+
+			<!-- Project stats -->
+			<div class="col-md-7">
+				<div class="panel panel-default mb20 panel-hovered project-stats table-responsive">
+					<div class="panel-heading">Project Stats</div>
+					<div class="panel-body">	
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Id</th>
+									<th class="col-sm-5">Project</th>
+									<th class="col-sm-1">Progress</th>
+									<th>Date</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>101</td>
+									<td>Designing Wordpress Theme</td>
+									<td class="text-center">
+										<span sparkline type="pie" slice-colors="[#4CAF50,#eee]" width="2em" height="2em">2,8</span>
+									</td>
+									<td>20<sup>th</sup> Jan 2015</td>
+								</tr>
+
+								<tr>
+									<td>220</td>
+									<td>Convert to SASS</td>
+									<td class="text-center">
+										<span sparkline type="pie" slice-colors="[#4CAF50,#eee]" width="2em" height="2em">4,6</span>
+									</td>
+									<td>28<sup>th</sup> Jan 2015</td>
+								</tr>
+
+								<tr>
+									<td>310</td>
+									<td>Adding animations to template</td>
+									<td class="text-center">
+										<span sparkline type="pie" slice-colors="[#4CAF50,#eee]" width="2em" height="2em">7,3</span>
+									</td>
+									<td>02<sup>nd</sup> Feb 2015</td>
+								</tr>
+
+								<tr>
+									<td>405</td>
+									<td>Lorem ipsum dolar sit amet</td>
+									<td class="text-center">
+										<span sparkline type="pie" slice-colors="[#4CAF50,#eee]" width="2em" height="2em">4,6</span>
+									</td>
+									<td>28<sup>th</sup> Mar 2015</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div> 
+		</div> <!-- #end row -->
+
+	</div> <!-- #end page-wrap -->
+</div>

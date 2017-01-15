@@ -1,0 +1,41 @@
+
+.clear1{
+	clear:both;
+}
+
+
+/*******End header******/
+.bottom-list ul li a{
+	padding:15px 60px 15px 0px;
+}
+.bottom-list{
+	text-align:center;
+}
+.bottom-list{
+	padding-bottom:10px;
+}
+/*******End bottomlist************/
+
+#butupdat{
+	
+}
+#butcancel{
+
+	
+}
+.big_footer {
+    text-align:center;
+}
+
+.footer1 ul {
+    list-style-type: none;
+    padding-top:7px;
+}
+
+.footer2 button {
+    margin: 0px 0px 86px -3px;
+}
+
+.footer2 input {
+    margin: 0px 0px 0px 107px;
+}

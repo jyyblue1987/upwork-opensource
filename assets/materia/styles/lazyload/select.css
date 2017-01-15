@@ -1,0 +1,153 @@
+/*!
+ * ui-select
+ * http://github.com/angular-ui/ui-select
+ * Version: 0.9.5 - 2014-12-12T16:07:20.859Z
+ * License: MIT
+ */
+/* Style when highlighting a search. */
+.ui-select-highlight {
+  font-weight: bold;
+}
+.ui-select-offscreen {
+  clip: rect(0 0 0 0) !important;
+  width: 1px !important;
+  height: 1px !important;
+  border: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  outline: 0 !important;
+  left: 0px !important;
+  top: 0px !important;
+}
+/* Select2 theme */
+.select2-result-single {
+  padding-left: 0;
+}
+.select2-locked > .select2-search-choice-close {
+  display: none;
+}
+.select-locked > .ui-select-match-close {
+  display: none;
+}
+/* Bootstrap theme */
+.btn-default-focus {
+  color: #333;
+  background-color: #EBEBEB;
+  text-decoration: none;
+}
+.input-group > .ui-select-bootstrap.dropdown {
+  /* Instead of relative */
+  position: static;
+}
+.input-group > .ui-select-boostrap > input.ui-select-search.form-control {
+  border-radius: 2px;
+}
+.ui-select-bootstrap .ui-select-toggle {
+  position: relative;
+}
+.ui-select-bootstrap .ui-select-toggle > .caret,
+.ui-select-bootstrap > .ui-select-match > .caret {
+  position: absolute;
+  top: 46%;
+  right: 15px;
+}
+.ui-select-bootstrap > .ui-select-match {
+  text-align: left;
+  background: #fff;
+  box-shdow: 0 1px rgba(0, 0, 0, 0.04);
+}
+.ui-select-bootstrap > .ui-select-match > button.btn {
+  box-shadow: none;
+}
+.ui-select-bootstrap > .ui-select-match > button.btn:hover {
+  background: inherit;
+  box-shadow: none;
+  border: 1px solid #e9e9e9;
+}
+.ui-select-bootstrap > .ui-select-match > button.btn:focus,
+.ui-select-bootstrap > .ui-select-match > button.btn:hover {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.ui-select-bootstrap > .ui-select-search:focus {
+  border: 1px solid #eeeeee;
+}
+.ui-select-bootstrap .ui-select-choices {
+  width: 100%;
+  padding: 4px;
+  height: auto;
+  border-radius: 0 0 2px 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  max-height: 250px;
+  border-top: 0;
+  overflow-x: hidden;
+}
+.ui-select-bootstrap .ui-select-choices-group .divider {
+  display: none;
+}
+.ui-select-bootstrap .ui-select-choices-group .ui-select-choices-group-label {
+  font-weight: 800;
+  color: #333;
+  padding: 7.2px 10px;
+}
+.ui-select-bootstrap .ui-select-choices-group .ui-select-choices-row > a {
+  padding-left: 18px;
+}
+.ui-select-bootstrap .ui-select-choices-row.active > a {
+  outline: 0;
+  background-color: #3f51b5;
+  color: #fff;
+}
+.ui-select-bootstrap .ui-select-choices-row.disabled > a,
+.ui-select-bootstrap .ui-select-choices-row.active.disabled > a {
+  color: #888;
+  cursor: not-allowed;
+  background-color: #fff;
+}
+.ui-select-bootstrap .ui-select-choices-row > a {
+  display: block;
+  padding: 4px 15px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.57142857;
+  color: #464646;
+  white-space: nowrap;
+}
+.ui-select-bootstrap .ui-select-choices-row > a:hover,
+.ui-select-bootstrap .ui-select-choices-row > a:focus {
+  text-decoration: none;
+  color: #fff;
+  background-color: #3f51b5;
+}
+.ui-select-multiple.ui-select-bootstrap {
+  height: auto;
+  padding: .3em;
+}
+.ui-select-multiple.ui-select-bootstrap input.ui-select-search {
+  background-color: transparent !important;
+  /* To prevent double background when disabled */
+  border: none;
+  outline: none;
+  height: 1.666666em;
+}
+.ui-select-multiple.ui-select-bootstrap {
+  overflow: visible;
+}
+
+.ui-select-multiple.ui-select-bootstrap .ui-select-match .close {
+  font-size: 16px;
+  line-height: 1.2;
+}
+.ui-select-multiple.ui-select-bootstrap .ui-select-match-item {
+  outline: 0;
+}
+/* fix hide/show angular animation */
+.ui-select-match.ng-hide-add,
+.ui-select-search.ng-hide-add {
+  display: none !important;
+}
+/* Mark invalid Bootstrap */
+.ui-select-bootstrap.ng-dirty.ng-invalid > button.btn.ui-select-match {
+  border-color: #D44950;
+}

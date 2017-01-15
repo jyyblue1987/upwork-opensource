@@ -1,0 +1,88 @@
+<div class="page page-ui-progressBars">
+
+	<ol class="breadcrumb breadcrumb-small">
+		<li>UI Kit</li>
+		<li class="active"><a href="#/ui/progress">Progress Bars</a></li>
+	</ol>
+
+
+	<div class="page-wrap" ng-controller="ProgressDemoCtrl">
+		
+		<!-- row -->
+		<div class="row">
+
+			<div class="col-sm-4 mb20">
+				<div class="mb15 mt15">
+					<p>Progress bar can be created with simply one line of html code shown below:</p>
+					<code>&lt;progressbar value="40"&gt;&lt;/progressbar&gt;</code>
+				</div>
+				<p>You can style the progress bars with different colors and sizes with <code>type</code> attribute and different size classes. Supported sizes are <code>progress-xxs</code>, <code>progress-xs</code> and <code>progress-sm</code></p>
+			</div>
+
+			<div class="col-sm-4">
+				<div class="panel panel-default mb20 panel-hovered panel-stacked">
+					<div class="panel-heading">Colors</div>
+					<div class="panel-body">
+						<progressbar value="55" class="progress-xs" type="primary"></progressbar>
+						<progressbar value="55" class="progress-xs" type="success"></progressbar>
+						<progressbar value="55" class="progress-xs" type="info"></progressbar>
+						<progressbar value="55" class="progress-xs" type="warning"></progressbar>
+						<progressbar value="55" class="progress-xs" type="danger"></progressbar>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-sm-4">
+				<div class="panel panel-default mb20 panel-hovered panel-stacked">
+					<div class="panel-heading">Sizes</div>
+					<div class="panel-body">
+						<progressbar value="55" class="progress-xxs" type="primary"></progressbar>
+						<progressbar value="55" class="progress-xs" type="success"></progressbar>
+						<progressbar value="55" class="progress-sm" type="info"></progressbar>
+						<progressbar value="55" class="progress-rounded" type="danger"></progressbar>
+						<progressbar value="55" class="progress-rounded progress-sm" type="warning"></progressbar>
+					</div>
+				</div>
+			</div>
+			
+		</div> <!-- #end row -->
+
+
+		<!-- row -->
+		<div class="row">
+			<div class="col-sm-5">
+				<div class="panel panel-default panel-hovered panel-stacked">
+					<div class="panel-heading">Variations</div>
+					<div class="panel-body">
+						<progressbar class="progress-striped active progress-sm" max="200" value="166" type="danger"></progressbar>
+						<progressbar class="progress-striped" value="45" type="primary">45%</progressbar>
+						<progress class="progress-xs">
+							<bar ng-repeat="bar in stacked track by $index" value="bar.value" type="{{bar.type}}"></bar>
+						</progress>
+						<progress>
+							<bar ng-repeat="bar in stacked track by $index" value="bar.value" type="{{bar.type}}">
+								<span ng-hide="bar.value < 2">{{bar.value}}%</span>
+							</bar>
+						</progress>
+						<progress class="progress-striped active progress-sm">
+							<bar ng-repeat="bar in stacked track by $index" value="bar.value" type="{{bar.type}}"></bar>
+						</progress>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-4">
+				<div class="mb15 mt15">
+					<p>Progress bar can be of different variations also with optional label to show progress rate.</p>
+					<p>Also you can display stacked progress bars with list of <code>&lt;bar&gt;</code> elements inside a<code>&lt;progress&gt;</code> element.</p>
+				</div>
+				
+			</div>
+
+
+		</div>
+		<!-- #end row -->
+
+
+	</div> <!-- #end page-wrap -->
+</div>

@@ -1,0 +1,492 @@
+<div class="page page-ui-buttons">
+
+	<ol class="breadcrumb breadcrumb-small">
+		<li>Home</li>
+		<li class="active"><a href="#/material">Material</a></li>
+	</ol>
+
+
+	<div class="page-wrap">
+		
+
+		<div class="row">
+			<!-- buttons -->
+			<div class="col-md-6">
+				<h3 class="text-light">Buttons</h3>
+				<div class="panel panel-lined panel-hovered panel-stacked mb20">
+					<div class="panel-body">
+						<md-content>
+							<p class="small text-pink text-uppercase text-normal mb20">Flat</p>
+							<section class="mb15">
+								<md-button>Simple</md-button>
+								<md-button md-no-ink class="md-primary">Primary (md-noink)</md-button>
+								<md-button ng-disabled="true" class="md-primary">Disabled</md-button>
+								<md-button class="md-warn">Warn</md-button>
+							</section>
+
+							<p class="small text-pink text-uppercase text-normal mb20">Raised</p>
+							<section class="mb15">
+								<md-button class="md-raised">Button</md-button>
+								<md-button class="md-raised md-primary">Primary</md-button>
+								<md-button ng-disabled="true" class="md-raised md-primary">Disabled</md-button>
+								<md-button class="md-raised md-warn">Warn</md-button>
+							</section>
+
+							<p class="small text-pink text-uppercase text-normal mb20">Icons</p>
+							<section class="mb15">
+								<md-button class="md-fab">
+									<md-icon md-font-icon="ion ion-android-settings"></md-icon>
+								</md-button>
+
+								<md-button class="md-fab md-primary">
+									<md-icon md-font-icon="ion ion-social-android"></md-icon>
+								</md-button>
+
+								<md-button class="md-fab md-warn">
+									<md-icon md-font-icon="ion ion-social-angular"></md-icon>
+								</md-button>
+
+								<md-button class="md-fab md-accent md-mini">
+									<md-icon md-font-icon="ion ion-social-apple"></md-icon>
+								</md-button>
+							</section>
+						</md-content>
+					</div>
+				</div>
+			</div>
+
+			<!-- Divider -->
+			<div class="col-md-6">
+				<h3 class="text-light">Divider</h3>
+				<div class="panel panel-lined panel-hovered panel-stacked mb20">
+					<div class="panel-body" ng-controller="dividerDemo">
+						<md-content>
+							<md-list>
+								<md-list-item class="md-3-line" ng-repeat="item in messages">
+									<div class="md-list-item-text">
+										<h3>{{item.what}}</h3>
+										<h4>{{item.who}}</h4>
+										<p>{{item.notes}}</p>
+									</div>
+									<md-divider ng-if="!$last"></md-divider>
+								</md-list-item>
+							</md-list>
+						</md-content>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<!-- sub-header -->
+			<div class="col-md-6">
+				<h3 class="text-light">Sub Header</h3>
+				<div class="panel panel-lined panel-hovered panel-stacked mb20">
+					<div class="panel-body" ng-controller="SubheaderCtrl" style="padding: 0; margin: 5px 0">
+						<md-content style="height: 400px;">
+							<section>
+								<md-subheader class="md-primary">Unread Messages</md-subheader>
+								<md-list layout-padding>
+									<md-list-item class="md-3-line" ng-repeat="message in messages">
+										<img ng-src="{{message.face}}" class="md-avatar circle" alt="{{message.who}}">
+										<div class="md-list-item-text">
+											<h3>{{message.what}}</h3>
+											<h4>{{message.who}}</h4>
+											<p>
+												{{message.notes}}
+											</p>
+										</div>
+									</md-list-item>
+								</md-list>
+							</section>
+							<section>
+								<md-subheader class="md-warn">Late Messages</md-subheader>
+								<md-list layout="column" layout-padding>
+									<md-list-item class="md-3-line" ng-repeat="message in messages">
+										<img ng-src="{{message.face}}" class="md-avatar" alt="{{message.who}}">
+										<div class="md-list-item-text">
+											<h3>{{message.what}}</h3>
+											<h4>{{message.who}}</h4>
+											<p>
+												{{message.notes}}
+											</p>
+										</div>
+									</md-list-item>
+								</md-list>
+							</section>
+							<section>
+								<md-subheader>Read Messages</md-subheader>
+								<md-list layout="column" layout-padding>
+									<md-list-item class="md-3-line" ng-repeat="message in messages">
+										<img ng-src="{{message.face}}" class="md-avatar" alt="{{message.who}}">
+										<div class="md-list-item-text">
+											<h3>{{message.what}}</h3>
+											<h4>{{message.who}}</h4>
+											<p>
+												{{message.notes}}
+											</p>
+										</div>
+									</md-list-item>
+								</md-list>
+							</section>
+						</md-content>
+					</div>
+				</div>
+			</div>
+
+			<!-- Whiteframe -->
+			<div class="col-md-6">
+				<h3 class="text-light">WhiteFrame</h3>
+				<div class="panel panel-lined panel-hovered panel-stacked mb20">
+					<div class="panel-body">
+						<md-whiteframe class="md-whiteframe-z1 mb20" layout layout-align="center center" style="padding: 20px">
+							<span>.md-whiteframe-z1</span>
+						</md-whiteframe>
+						<md-whiteframe class="md-whiteframe-z2 mb20" layout layout-align="center center" style="padding: 20px">
+							<span>.md-whiteframe-z2</span>
+						</md-whiteframe>
+						<md-whiteframe class="md-whiteframe-z3 mb20" layout layout-align="center center" style="padding: 20px">
+							<span>.md-whiteframe-z3</span>
+						</md-whiteframe>
+						<md-whiteframe class="md-whiteframe-z4 mb20" layout layout-align="center center" style="padding: 20px">
+							<span>.md-whiteframe-z4</span>
+						</md-whiteframe>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<!-- progress circular -->
+			<div class="col-md-6">
+				<h3 class="text-light">Progress Circular</h3>
+				<div class="panel panel-lined panel-hovered panel-stacked mb20">
+					<div class="panel-body" ng-controller="progressCircularDemo">
+						<p class="small text-pink text-uppercase text-normal mb20">Determinate</p>
+						<div layout="row" layout-sm="column" layout-align="space-around" class="mb20">
+							<md-progress-circular md-mode="determinate" value="{{determinateValue}}"></md-progress-circular>
+						</div>
+						<p class="small text-pink text-uppercase text-normal mb20">Ineterminate</p>
+						<div layout="row" layout-sm="column" layout-align="space-around" class="mb20">
+							<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+						</div>
+						<p class="small text-pink text-uppercase text-normal mb20">Theming</p>
+						<div layout="row" layout-sm="column" layout-align="space-around" class="mb20">
+							<md-progress-circular class="md-hue-2" md-mode="indeterminate"></md-progress-circular>
+							<md-progress-circular class="md-accent" md-mode="indeterminate"></md-progress-circular>
+							<md-progress-circular class="md-accent md-hue-1" md-mode="indeterminate"></md-progress-circular>
+							<md-progress-circular class="md-warn md-hue-3" md-mode="indeterminate"></md-progress-circular>
+							<md-progress-circular class="md-warn" md-mode="indeterminate"></md-progress-circular>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- progress Linear -->
+			<div class="col-md-6">
+				<h3 class="text-light">Progress Linear</h3>
+				<div class="panel panel-lined panel-hovered panel-stacked mb20">
+					<div class="panel-body" ng-controller="progressLinearDemo">
+						<div class="mb20">
+						<md-progress-linear md-mode="indeterminate"></md-progress-linear>
+						</div>
+						<div class="mb20">
+						<md-progress-linear class="md-warn" md-mode="buffer" value="{{determinateValue}}" md-buffer-value="{{determinateValue2}}">
+						</md-progress-linear>
+						</div>
+						<div class="mb20">
+						<md-progress-linear class="md-accent" md-mode="{{mode}}" value="{{determinateValue}}"></md-progress-linear>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+
+			<!-- dialogs -->
+			<div class="col-md-6">
+				<h3 class="text-light">Dialogs</h3>
+				<div class="panel panel-lined panel-hovered panel-stacked mb20">
+					<div class="panel-body" ng-controller="MdDialogDemo">
+						<p>Open a dialog over the app's content. Press escape or click outside to close the dialog and send focus back to the triggering button.</p>
+						<div layout="column" layout-align="center" >
+							<md-button class="md-primary" ng-click="showAlert($event)">
+								Alert Dialog
+							</md-button>
+							<div class="gap"></div>
+							<md-button class="md-primary" ng-click="showConfirm($event)">
+								Confirm Dialog
+							</md-button>							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<!-- slider -->
+			<div class="col-md-12">
+				<h3 class="text-light">Slider</h3>
+				<div class="panel panel-lined panel-hovered panel-stacked mb20">
+					<div class="panel-body" ng-controller="MdSliderDemo">
+						<div class="row">
+							<div class="col-md-6">
+								<md-content>
+								<h5 class="text-light">
+									RGB <span ng-attr-style="border: 1px solid #333; background: rgb({{color.red}},{{color.green}},{{color.blue}})">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+								</h5>
+								<div layout>
+									<div flex="10" layout layout-align="center center">
+										<span class="md-body-1">R</span>
+									</div>
+									<md-slider flex min="0" max="255" ng-model="color.red" aria-label="red" id="red-slider" class></md-slider>
+									<div flex="20" layout layout-align="center center">
+										<input type="number" ng-model="color.red" aria-label="red" aria-controls="red-slider">
+									</div>
+								</div>
+								<div layout>
+									<div flex="10" layout layout-align="center center">
+										<span class="md-body-1">G</span>
+									</div>
+									<md-slider flex ng-model="color.green" min="0" max="255" aria-label="green" id="green-slider" class="md-accent"></md-slider>
+									<div flex="20" layout layout-align="center center">
+										<input type="number" ng-model="color.green" aria-label="green" aria-controls="green-slider">
+									</div>
+								</div>
+								<div layout>
+									<div flex="10" layout layout-align="center center">
+										<span class="md-body-1">B</span>
+									</div>
+									<md-slider flex ng-model="color.blue" min="0" max="255" aria-label="blue" id="blue-slider" class="md-primary">
+									</md-slider>
+									<div flex="20" layout layout-align="center center">
+										<input type="number" ng-model="color.blue" aria-label="blue" aria-controls="blue-slider">
+									</div>
+								</div>
+								</md-content>
+							</div> <!-- #inner col -->
+
+
+							<div class="col-md-6">
+								<h5 class="text-light">Rating: {{rating}}/5 - demo of theming classes</h5>
+								<md-content>
+								<div layout>
+									<div flex="10" layout layout-align="center center">
+										<span class="md-body-1">default</span>
+									</div>
+									<md-slider flex md-discrete ng-model="rating1" step="1" min="1" max="5" aria-label="rating">
+									</md-slider>
+								</div>
+								<div layout>
+									<div flex="10" layout layout-align="center center">
+										<span class="md-body-1">md-warn</span>
+									</div>
+									<md-slider flex class="md-warn" md-discrete ng-model="rating2" step="1" min="1" max="5" aria-label="rating">
+									</md-slider>
+								</div>
+								<div layout>
+									<div flex="10" layout layout-align="center center">
+										<span class="md-body-1">md-primary</span>
+									</div>
+									<md-slider flex class="md-primary" md-discrete ng-model="rating3" step="1" min="1" max="5" aria-label="rating">
+									</md-slider>
+								</div>
+								</md-content>
+							</div>
+
+							<div class="col-md-12">
+								<h5 class="text-light">Disabled</h5>
+							 	<md-slider ng-model="disabled1" ng-disabled="true" aria-label="Disabled 1"></md-slider>
+							    <md-slider ng-model="disabled2" ng-disabled="true" aria-label="Disabled 2"></md-slider>
+							</div>
+						</div> <!-- #inner row -->
+					</div>
+				</div> <!-- #panel -->
+
+			</div> <!-- #col -->
+
+		</div> <!-- #row -->
+
+
+		<div class="row">
+			<!-- checkbox -->
+			<div class="col-md-6">
+				<h3 class="text-light">Checkbox</h3>
+				<div class="panel panel-lined panel-hovered panel-stacked mb20">
+					<div class="panel-body" ng-controller="MdCheckboxDemo">
+						<div>
+							<md-checkbox ng-model="data.cb1" aria-label="Checkbox 1">
+								Checkbox 1: {{ data.cb1 }}
+							</md-checkbox>
+						</div>
+						<div>
+							<md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-true-value="'yup'" ng-false-value="'nope'" class="md-warn">
+								Checkbox 2 (md-warn): {{ data.cb2 }}
+							</md-checkbox>
+						</div>
+						<div>
+							<md-checkbox ng-disabled="true" aria-label="Disabled checkbox" ng-model="data.cb3">
+								Checkbox: Disabled
+							</md-checkbox>
+						</div>
+						<div>
+							<md-checkbox ng-disabled="true" aria-label="Disabled checked checkbox" ng-model="data.cb4" ng-init="data.cb4=true">
+								Checkbox: Disabled, Checked
+							</md-checkbox>
+						</div>
+						<div>
+							<md-checkbox md-no-ink aria-label="Checkbox No Ink" ng-model="data.cb5" class="md-primary">
+								Checkbox (md-primary): No Ink
+							</md-checkbox>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- radio/switch -->
+			<div class="col-md-6">
+				<h3 class="text-light">Radios/Switches</h3>
+				<div class="panel panel-lined panel-hovered panel-stacked mb20">
+					<div class="panel-body" ng-controller="MdRadioSwitchDemo">
+						<div class="col-md-6">
+							<p class="mb0">Selected Value: <span class="radioValue">{{ data.group1 }}</span> </p>
+							<md-radio-group ng-model="data.group1">
+								<md-radio-button value="Apple" class="md-primary">Apple</md-radio-button>
+								<md-radio-button value="Banana"> Banana </md-radio-button>
+								<md-radio-button value="Mango">Mango</md-radio-button>
+								<md-radio-button value="Orange">Orange</md-radio-button>
+								<md-radio-button value="Pineapple">Pineapple</md-radio-button>
+							</md-radio-group>
+						</div>
+
+						<div class="col-md-6">
+							<p>Switches</p>
+							<md-switch ng-model="data.cb1" aria-label="Switch 1">
+								{{ data.cb1 }}
+							</md-switch>
+							<md-switch ng-model="data.cb2" aria-label="Switch 2" ng-true-value="'yup'" ng-false-value="'nope'" class="md-warn">
+								(md-warn): {{ data.cb2 }}
+							</md-switch>
+							<md-switch ng-disabled="true" aria-label="Disabled switch" ng-model="disabledModel">
+								(Disabled)
+							</md-switch>
+							<md-switch ng-disabled="true" aria-label="Disabled active switch" ng-model="data.cb4">
+								(Disabled, Active)
+							</md-switch>
+							<md-switch class="md-primary" md-no-ink aria-label="Switch No Ink" ng-model="data.cb5">
+								(md-primary): No Ink
+							</md-switch>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-md-12 mb20">
+				<h3 class="text-light">Tabs</h3>
+			
+				<md-content class="md-padding">
+					<md-tabs md-dynamic-height md-border-bottom>
+					<md-tab label="one">
+					<md-content class="md-padding">
+						<h1 class="md-display-2">Tab One</h1>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+					</md-content>
+					</md-tab>
+					<md-tab label="two">
+						<md-content class="md-padding">
+							<h1 class="md-display-2">Tab Two</h1>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim.</p>
+							<p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+						</md-content>
+					</md-tab>
+					<md-tab label="three">
+						<md-content class="md-padding">
+							<h1 class="md-display-2">Tab Three</h1>
+							<p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+						</md-content>
+					</md-tab>
+					</md-tabs>
+				</md-content>
+			</div>
+
+		</div> <!-- #row -->
+
+
+
+		<div class="row">
+			<!-- input form -->
+			<div class="col-md-12">
+				<div class="panel panel-primary mb20 panel-hovered">
+					<div class="panel-heading">Basic Usage</div>
+					<div class="panel-body" ng-controller="MdInputDemo">
+						<md-content md-theme="docs-dark" layout-padding layout="row" layout-sm="column">
+							<md-input-container>
+								<label>Title</label>
+								<input ng-model="user.title">
+							</md-input-container>
+							<md-input-container>
+								<label>Email</label>
+								<input ng-model="user.email" type="email">
+							</md-input-container>
+						</md-content>
+						<md-content layout-padding>
+							<form name="userForm">
+								<div layout layout-sm="column">
+									<md-input-container style="width:80%">
+										<label>Company (Disabled)</label>
+										<input ng-model="user.company" disabled>
+									</md-input-container>
+									<md-input-container flex>
+										<label>Submission Date</label>
+										<input type="date" ng-model="user.submissionDate">
+									</md-input-container>
+								</div>
+								<div layout layout-sm="column">
+									<md-input-container flex>
+										<label>First Name</label>
+										<input ng-model="user.firstName" placeholder="Placeholder text">
+									</md-input-container>
+									<md-input-container flex>
+										<label>Last Name</label>
+										<input ng-model="theMax">
+									</md-input-container>
+								</div>
+								<md-input-container flex>
+									<label>Address</label>
+									<input ng-model="user.address">
+								</md-input-container>
+								<md-input-container md-no-float>
+								<input ng-model="user.address2" placeholder="Address 2">
+								</md-input-container>
+								<div layout layout-sm="column">
+									<md-input-container flex>
+									<label>City</label>
+									<input ng-model="user.city">
+								</md-input-container>
+								<md-input-container flex>
+								<label>State</label>
+								<input ng-model="user.state">
+								</md-input-container>
+								<md-input-container flex>
+								<label>Postal Code</label>
+								<input ng-model="user.postalCode">
+								</md-input-container>
+								</div>
+								<md-input-container flex>
+								<label>Biography</label>
+								<textarea ng-model="user.biography" columns="1" md-maxlength="150"></textarea>
+								</md-input-container>
+							</form>
+						</md-content>
+					</div>
+				</div>
+			</div> <!-- #col -->
+		</div> <!-- row -->
+
+	</div> <!-- #end page-wrap -->
+</div>

@@ -1,0 +1,117 @@
+<div class="page page-email" ng-controller="EmailCtrl">
+
+
+	<div class="page-wrap">
+		<button type="button" class="btn btn-pink ion ion-plus compose-btn" ng-click="compose()" md-ink-ripple></button>
+		<div class="row">
+			<div class="col-md-3">
+				<nav class="email-nav clearfix">
+					<!-- compose mail btn -->
+					<form class="form-horizontal" action="javascript:;">
+						<div class="input-group mb20">
+						<input class="form-control" type="text" placeholder="Search mail...">
+							<div class="input-group-btn">
+								<button type="submit" class="btn btn-default ion ion-search"></button>
+							</div>
+						</div>
+					</form>
+					<div class="xsmall nav-text-lead text-uppercase text-muted mb10">Navigation</div>
+					<ul class="list-unstyled navigation mb15">
+						<li class="active"><a href="javascript:;"><span class="ion ion-filing"></span>Inbox (12)</a></li>
+						<li><a href="javascript:;"><span class="ion ion-paper-airplane"></span>Sent</a></li>
+						<li><a href="javascript:;"><span class="ion ion-magnet"></span>Spam</a></li>
+						<li><a href="javascript:;"><span class="ion ion-document"></span>Drafts (2)</a></li>
+						<li><a href="javascript:;"><span class="ion ion-chatbubble"></span>Chat</a></li>
+						<li><a href="javascript:;"><span class="ion ion-trash-a"></span>Trash</a></li>
+					</ul>
+
+					<div class="xsmall nav-text-lead text-uppercase text-muted mb10">Tags</div>
+					<ul class="list-unstyled labels mb15">
+						<li ng-repeat="label in labels">
+							<a href="javascript:;"><span class="ion ion-record" ng-style="{color: label.color}"></span>{{label.type}}</a>
+						</li>
+					</ul>
+
+					<div class="input-group input-group-sm mt15">
+						<input type="text" class="form-control" placeholder="Add Label" ng-model="newlabel">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default fa fa-plus" ng-click="addLabel()"></button>
+						</div>
+					</div>
+
+				</nav>
+			</div>
+
+			<div class="col-md-9">
+				<div class="email-content">
+					<!-- email summary lists -->
+					<ul class="email-lists list-unstyled clearfix mb20">
+						<li ng-repeat="email in emailLists" ng-class="{'read': email.read, 'active': email.active}">
+							<a href="javascript:;">
+								<div class="group clearfix small">
+									<span class="sender-name left text-bold">{{email.sender}}</span>
+									<span class="email-date right xsmall mt1 text-pink">{{email.date}}</span>
+								</div>
+								<p class="subject">{{email.subject}}</p>
+								<p class="summary small text-muted">{{email.content}}</p>
+								
+								<div class="group clearfix">
+									<span class="ion ion-trash-a left remove-email"></span>
+									<span class="ion right" ng-class="{'ion-paperclip': email.attachment}"></span>
+								</div>
+							</a>
+						</li>
+						
+					</ul> <!-- #end email summary lists -->
+
+					<!-- email view (in real app, it must be loaded via xhr/json-->
+					<div class="email-view mb15">
+
+						<div class="group clearfix head mb15">
+							<div class="left">
+								<h3 class="text-light mt5">Meetup at C.P., New Delhi</h3>
+								<p><strong>Organizer.com</strong></p>
+							</div>
+							<div class="right">
+								<div class="btn-group mb10 btn-group-sm">
+									<button class="btn btn-default ion ion-trash-a" type="button" ></button>
+									<button class="btn btn-default ion ion-arrow-left-c" type="button"></button>
+									<button class="btn btn-default fa ion-arrow-right-c" type="button"></button>
+								</div>
+								<div class="date small text-pink text-bold">12th Feb</div>
+							</div>
+						</div>
+
+						<div class="email-description">
+							<p>
+								Proin nonummy, lacus eget pulvinar lacinia, pede felis dignissim leo, vitae tristique magna lacus sit amet eros. Nullam ornare. Praesent odio ligula, dapibus sed, tincidunt eget, dictum ac, nibh. Nam quis lacus. Nunc eleifend molestie velit. Morbi lobortis quam eu velit. Donec euismod vestibulum massa. Donec non lectus. Aliquam commodo lacus sit amet nulla.</p> 
+							<p>	
+								Cras dignissim elit et augue. Nullam non diam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst. Aenean vestibulum. Sed lobortis elit quis lectus. Nunc sed lacus at augue bibendum dapibus.
+							</p>
+							<div class="image-1 attachment">
+								<img src="images/gallery/sample-1.jpg" alt="image-1">
+								<div class="text"><i class="ion ion-paperclip"></i>&nbsp; image1.jpg</div>
+							</div>
+							<div class="image-2 attachment">
+								<img src="images/gallery/sample-2.jpg" alt="image-2">
+								<div class="text"><i class="ion ion-paperclip"></i>&nbsp; image2.jpg</div>
+							</div>
+							<blockquote class="mt15">
+								<p>Ea nam error audiam, oratio nostrud pro id vulputate.</p>
+								<footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+							</blockquote>
+						</div>
+						
+
+						<!-- reply box -->
+						<form class="form-horizontal clearfix" action="javascript:;">
+							<div text-angular ng-model="replyBox" ta-toolbar="[['h1', 'h2', 'h3', 'h4'], ['bold', 'italics', 'underline'], ['insertImage', 'insertLink', 'insertVideo'], ['justifyLeft', 'justifyCenter', 'justifyRight']]"></div>		
+						
+							<button class="btn btn-success btn-sm mt15 right" type="submit" md-ink-ripple><i class="fa fa-paper-plane"></i>Reply</button>
+						</form>
+				</div>
+			</div>
+
+		</div> <!-- #end row -->
+	</div> <!-- #end page-wrap -->
+</div>

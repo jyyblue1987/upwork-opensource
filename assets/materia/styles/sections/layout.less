@@ -1,0 +1,124 @@
+// ==== site-head (fixed)
+// ======================
+.site-head {
+	position: relative;
+	width: calc(~'100% - @{site-nav-min-width}');
+	height: @site-head-height;
+	margin-left: @site-nav-min-width;
+}
+.site-head.fixedHeader {
+	position: fixed;
+	left: 0; right: 0;
+}
+
+
+// for mobile view (always fixed)
+.site-head, .site-head.fixedHeader {
+	@media(max-width: @screen-xs-max) {
+		position: fixed;
+	}
+}
+
+
+.main-container {
+	width: 100%;
+	overflow: hidden;
+	// min-height: 99.92%;
+	position:relative;
+	background: #efefef;
+}
+
+.main-container .content-container.fixedHeader {
+	.page {margin-top: @site-head-height}
+}
+
+
+// ==== site-nav
+// ======================
+.main-container .nav-wrap {
+	width: @site-nav-min-width;
+	position: fixed; 
+	overflow-y: auto;
+	top: 0; bottom: 0;
+	@media (min-width: @screen-sm-min) {
+		overflow: hidden;	// it's must for custom scrollbar
+	}
+	&:hover {
+		width: @site-nav-width;
+		.nav-head {
+			width: @site-nav-width;
+		}
+	}
+}
+.site-head.nav-expand {
+	width: calc(~'100% - @{site-nav-width}');
+	margin-left: @site-nav-width;
+	
+}
+.main-container .nav-wrap.nav-expand {
+	width: @site-nav-width;
+	.nav-head {width: @site-nav-width}
+}
+
+
+// ==== main content
+// ===============================
+.main-container .content-container {
+	margin-left: @site-nav-min-width;
+	// border: 1px solid red;
+	width: calc(~'100% - @{site-nav-min-width}'); 
+	// .transition(.25s ease-in);	// don't do this, otherwise something wrong happen.
+	&.nav-expand {
+		width: calc(~'100% - @{site-nav-width}');
+		margin-left: @site-nav-width;
+	}
+}
+
+
+.app.nav-expand {
+	.site-head {width: calc(~'100% - @{site-nav-width}');
+	margin-left: @site-nav-width;}
+	.main-container .nav-wrap {
+		width: @site-nav-width;
+	}
+	.main-container .content-container {
+		width: calc(~'100% - @{site-nav-width}');
+		margin-left: @site-nav-width;
+	}
+}
+
+
+
+// ==== body-full (for custom pages)
+// =================================
+.app.body-full {
+	// hide header, navbar
+	#site-head,
+	#site-nav,
+	.site-settings {
+		display: none;
+	}
+	.main-container {
+		.vertical-center2();
+	}
+	#content {
+		margin: 0;
+		@media(min-width: @screen-sm-min) {
+			width: 100%;
+			margin: 0;
+		}
+	}
+
+}
+
+
+
+/// ==== nav-horizontal mode
+.app .main-container.nav-horizontal .content-container {
+	@media only screen and (min-width: @screen-sm-min) {
+		.container-fixed(30px);
+		margin-top: @site-head-height + 100px;
+		.page {padding: 0}
+		.page-wrap .row {padding: 0;}
+	}
+}

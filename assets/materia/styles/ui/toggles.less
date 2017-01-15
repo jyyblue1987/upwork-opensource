@@ -1,0 +1,128 @@
+
+// ==== sizes
+.ui-toggle-size-variant(@track-width; @track-height; @thumb-width; @thumb-height) {
+    label > input {
+        + span, + i {
+            .size(@track-width; @track-height);
+            &:before {
+                .size(@track-width; @track-height);
+            }
+            &:after {
+                .size(@thumb-width; @thumb-height);
+
+            }
+        }
+        &:checked {
+            + span:after, + i:after {
+                 .translate3d(@track-width - @thumb-width, 0, 0);
+            }
+        }
+    }
+}
+
+
+// === colors
+.ui-toggle-color-variant(@track-on-bg-color) {
+     label > input {
+        + span, + i {
+            background-color: @track-on-bg-color;
+        }
+    }
+}
+
+
+
+.ui-toggle {
+    label.ui-toggle-inline {
+        margin-right: 8px;
+    }
+
+    label {
+        font-weight: normal;
+        cursor: pointer;
+        margin-bottom: 0;
+        .user-select(none);
+        position: static;
+    }
+
+    label > input {
+        display: none;
+        &[disabled], &[readonly] {
+            + span, + i {
+                opacity: .6;
+                cursor: not-allowed;
+            }
+        }
+
+        + span, + i {
+            // track on state
+            display: inline-block;
+            position: relative;
+            .size(@track-width; @track-height);
+            background-color: @track-on-color;
+            border-radius: @track-height;
+            pointer-events: none;
+
+            &:after, &:before {
+                content: "";
+                position: absolute;
+                display: block;
+            }
+            // thumb
+            &:after {
+                left:((@track-width/2) - @thumb-width)/2;
+                top:(@track-height - @thumb-height)/2;
+                .size(@thumb-width; @thumb-height);
+                background:@thumb-color;
+                border-radius:@thumb-height;
+                box-shadow: 1px 1px 2px rgba(0, 0, 0, .2), 0 0 0 1px rgba(0, 0, 0, .1);
+                transition:transform @thumb-slide-speed @thumb-slide-easing;
+            }
+
+            // track off state
+            &:before {
+                left: 0; top: 0;
+                .size(@track-width; @track-height);
+                background:@track-off-color;
+                border-radius:@track-height;
+                box-shadow: 0 0 0 1px darken(#eee, 15%);
+                transform:scale3d(1,1,1);
+               .transition(transform @track-fill-speed @track-fill-easing);
+            }
+        }
+
+        &:checked {
+
+            + span:before, + i:before {
+                transform:scale3d(0,0,0);
+            }
+            + span:after, + i:after {
+                box-shadow:1px 1px 2px rgba(0, 0, 0, .2);
+                .translate3d(@track-width - @thumb-width, 0, 0);
+            }
+        }
+    }
+
+
+}
+
+
+.ui-toggle-xs {
+    .ui-toggle-size-variant(@track-xs-width; @track-xs-height; @thumb-xs-width; @thumb-xs-height);
+}
+
+.ui-toggle-sm {
+    .ui-toggle-size-variant(@track-sm-width; @track-sm-height; @thumb-sm-width; @thumb-sm-height);
+}
+
+.ui-toggle-lg {
+    .ui-toggle-size-variant(@track-lg-width; @track-lg-height; @thumb-lg-width; @thumb-lg-height);
+}
+
+
+.ui-toggle-primary { .ui-toggle-color-variant(@track-on-primary-color) }
+.ui-toggle-success { .ui-toggle-color-variant(@track-on-success-color) }
+.ui-toggle-warning { .ui-toggle-color-variant(@track-on-warning-color) }
+.ui-toggle-info { .ui-toggle-color-variant(@track-on-info-color) }
+.ui-toggle-danger { .ui-toggle-color-variant(@track-on-danger-color) }
+.ui-toggle-pink { .ui-toggle-color-variant(@track-on-pink-color) }

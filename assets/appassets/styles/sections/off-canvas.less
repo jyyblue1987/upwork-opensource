@@ -1,0 +1,28 @@
+
+@media (max-width: @screen-xs-max) {
+	#app.off-canvas {
+
+		.site-head {
+			width: 100%;
+			margin-left: 0;
+			z-index: @zindex-navbar-fixed + 10;
+		}
+
+		.main-container .nav-wrap {
+			width: @site-nav-width;
+			&.nav-offcanvas{
+				.translate(0; 0);
+			}
+			.translate(-100%; 0);
+			
+			.nav-foot {
+				display: none;
+			}
+		}
+
+		.main-container .content-container {
+			width: 100%;
+			margin-left: 0;
+		}
+	}
+}

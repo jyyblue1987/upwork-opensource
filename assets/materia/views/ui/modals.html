@@ -1,0 +1,41 @@
+<div class="page page-ui-grids" ng-controller="ModalDemoCtrl">
+
+	<ol class="breadcrumb breadcrumb-small">
+		<li>UI Kit</li>
+		<li class="active"><a href="#/ui/modals">Modals</a></li>
+	</ol>
+
+	<div class="page-wrap">
+
+		<!-- row -->
+		<div class="row text-center">
+
+			<div class="col-sm-6 col-sm-offset-3 mb20">
+				<p class="mb20">Here are the some of the modern ways to show dialog effects using css transitions/animations. Inspiration from <a href="http://tympanus.net/codrops">codrops</a> tuts.</p>
+				<button class="btn btn-lg btn-pink" ng-click="modalOpen()">Open Modal</button>
+			</div>			
+		</div>
+		<!-- #end row -->
+
+
+		<div class="row text-center">
+			<div class="col-sm-8 col-sm-offset-2 mb20">
+				<div class="panel panel-default panel-hovered">
+					<div class="panel-heading">Simple Transition Effect</div>
+					<div class="panel-body">
+						<button class="btn btn-default mr5 mb15" ng-model="modalAnim" btn-radio=" 'default' ">Default</button>
+						<button class="btn btn-default mr5 mb15" ng-model="modalAnim" btn-radio=" 'modalFadeInScale' ">Fade In &amp; Scale</button>
+						<button class="btn btn-default mr5 mb15" ng-model="modalAnim" btn-radio=" 'modalSlideIn' ">Slide In</button>
+						<button class="btn btn-default mr5 mb15" ng-model="modalAnim" btn-radio=" 'modal3DFlipVertical' ">3D Flip (Vertical)</button>
+						<button class="btn btn-default mr5 mb15" ng-model="modalAnim" btn-radio=" 'modal3DFlipHorizontal' ">3D Flip (Horizontal)</button>
+						<button class="btn btn-default mr5 mb15" ng-model="modalAnim" btn-radio=" 'modalFall' ">Fall</button>
+						<button class="btn btn-default mr5 mb15" ng-model="modalAnim" btn-radio=" 'modalRapid' ">Rapid</button>
+
+					</div>
+				</div>
+			</div>
+
+
+	</div>
+	<!-- #end page-wrap -->
+</div>

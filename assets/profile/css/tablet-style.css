@@ -1,0 +1,101 @@
+.header-topleft{
+	text-align:center;
+}
+.header-topleft ul li{
+	display:block;
+}
+.header-topleft ul li a{
+	padding:5px 0px 20px 0px;
+}
+.header-topmid{
+	text-align:center;
+}
+.header-topmid ul li{
+	display:block;
+}
+.header-topmid ul li a{
+	padding:5px 0px 20px 0px;
+}
+.header-topright ul li{
+	display:block;
+}
+.header-topright{
+	float:none;
+	padding-bottom:10px;
+	text-align:center;
+}
+
+.header-topright ul li{
+	padding:5px 0px 0px 5px;
+}
+.bottom-list ul li{
+	display:block;
+}
+.bottom-list{
+	text-align:center;
+}
+.bottom-list ul li a{
+	padding:5px 0px 15px 0px;
+}
+#buttonfirst{
+	
+}
+.topmiddle{
+	padding-left:15px;
+}
+.topmiddle h2{
+	padding-top:15px;
+}
+.topriht{
+	float:none;
+	padding-top:30px;
+	padding-bottom:10px;
+	padding-left:15px;
+}
+#buttonsecond{
+	background:#18a7dc;
+	color:#fff;
+	border-radius:3px;
+	border:none;
+	padding:5px 10px 5px 25px;
+	font-size:22.05px;
+}
+.buttonsidethreeright{
+	float:none;
+}
+.buttonsidethreeright{
+	padding-top:50px;
+	padding-bottom:120px;
+}
+.buttonsidethreeright{
+	padding-top:25px;
+	padding-bottom:30px;
+}
+.protfilhead h1{
+		padding-bottom:20px;
+}
+.proftilbutt{
+	float:none;
+	padding-bottom:15px;
+}
+.protilo-right{
+	float:none;
+
+}
+.proftilbutttwo{
+	float:none;
+	padding-bottom:15px;
+}
+.footfist{
+	text-align:center;
+}
+.footfist{
+	padding:45px 0px 10px 20px;
+}
+.foterleft{
+	text-align:center;
+}
+.foterright{
+	float:none;
+	text-align:center;
+}

@@ -1,0 +1,31 @@
+<div class="page page-ui-icons" ng-controller="IconDemoCtrl">
+
+	<ol class="breadcrumb breadcrumb-small">
+		<li>Icons</li>
+		<li class="active"><a href="#/icons/ionicons">Ionicons</a></li>
+	</ol>
+
+	<!-- page wrap-->
+	<div class="page-wrap">
+		<!-- row -->
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-3 mb20">
+				<form class="icons-search" name="icons-search">
+					<input class="form-control" type="search" placeholder="Type keywords: android, ios" ng-model="iconKeywords" ng-keyup="iconSearch()">
+				</form>
+			</div>
+			<div class="col-sm-12">
+				<ul class="icons-list list-unstyled clearfix">
+					<li ng-repeat="icon in filteredIcons" class="col-sm-4 col-xs-6">
+						<div class="group">
+							<i class="{{icon}}"></i>
+							<span class="text">{{icon}}</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+	<!-- #end page-wrap -->
+</div>

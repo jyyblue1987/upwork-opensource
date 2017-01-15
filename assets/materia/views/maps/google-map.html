@@ -1,0 +1,97 @@
+<div class="page page-maps-google" map-lazy-load="https://maps.google.com/maps/api/js"> <!-- lazyload map here -->  
+<!-- if google map not cached see this: https://github.com/allenhwkim/angularjs-google-maps/issues/165 -->
+
+	<ol class="breadcrumb breadcrumb-small">
+		<li>Maps</li>
+		<li class="active"><a href="#/maps/google-map">Google Map</a></li>
+	</ol>
+
+
+	<div class="page-wrap">
+
+		<!-- row -->
+		<div class="row">
+			<!-- Basic -->
+			<div class="col-md-6">
+				<div class="panel panel-default panel-stacked panel-hovered mb20">
+					<div class="panel-heading">Basic</div>
+					<div class="panel-body">
+						<map zoom="3" center="[40.74, -74.18]"></map>
+					</div>
+				</div>
+			</div>
+
+			<!-- With Icon -->
+			<div class="col-md-6">
+				<div class="panel panel-default panel-stacked panel-hovered mb20">
+					<div class="panel-heading">With Marker</div>
+					<div class="panel-body">
+						<map zoom="4" center="-33, 151">
+						<marker position="-33.890542, 151.274856" icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png" animation="Animation.DROP" centered="true" title="You are here"></marker>
+						</map>
+					</div>
+				</div>
+			</div>
+
+			<!-- Street View -->
+			<div class="col-md-6">
+				<div class="panel panel-default panel-stacked panel-hovered mb20">
+					<div class="panel-heading">Street View</div>
+					<div class="panel-body" id="street-view">
+						<map zoom="3" center="-33, 151" street-view="StreetViewPanorama(document.querySelector('#street-view'), {position:new google.maps.LatLng(40.688738,-74.043871)})">
+							<marker position="-33.890542, 151.274856" icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png" animation="Animation.DROP"></marker>
+						</map>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Shape -->
+			<div class="col-md-6">
+				<div class="panel panel-default panel-stacked panel-hovered mb20">
+					<div class="panel-heading">With Shape</div>
+					<div class="panel-body">
+						<map zoom="11" center="[40.74, -74.18]">
+							<shape id="polyline" name="polyline" geodesic="true" stroke-color="#FF0000" stroke-opacity="1.0" stroke-weight="2"
+							path="[[40.74,-74.18],[40.64,-74.10],[40.54,-74.05],[40.44,-74]]" ></shape>
+							<shape id="polygon" name="polygon" stroke-color="#FF0000" stroke-opacity="1.0" stroke-weight="2"
+							paths="[[40.74,-74.18],[40.64,-74.18],[40.84,-74.08],[40.74,-74.18]]" ></shape>
+							<shape id="rectangle" name="rectangle" stroke-color='#FF0000' stroke-opacity="0.8" stroke-weight="2"
+							bounds="[[40.74,-74.18], [40.78,-74.14]]" editable="true" ></shape>
+							<shape id="circle" name="circle" stroke-color='#FF0000' stroke-opacity="0.8"stroke-weight="2" 
+							center="[40.70,-74.14]" radius="4000" editable="true" ></shape>
+							<shape id="image" name="image" url="https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg"
+							bounds="[[40.71,-74.22],[40.77,-74.12]]" opacity="0.7" clickable="true" ></shape>
+						</map>
+					</div>
+				</div>
+			</div>
+
+			<!-- With external data -->
+			<div class="col-md-6">
+				<div class="panel panel-default panel-stacked panel-hovered mb20">
+					<div class="panel-heading">External Layer</div>
+					<div class="panel-body">
+						<map zoom="4" center="49.496675,-102.65625">
+							<kml-layer 
+							url="http://api.flickr.com/services/feeds/geo/?g=322338@N20&lang=en-us&format=feed-georss">
+						</kml-layer>
+					</map>
+					</div>
+				</div>
+			</div>
+			
+		</div> <!-- #end row -->
+
+
+		<div class="row">
+			<div class="col-sm-12">
+				<alert type="info">
+				<p>For more examples. See the doc <a href="https://github.com/allenhwkim/angularjs-google-maps" target="_blank">here</a> and <a href="https://developers.google.com/maps/documentation/javascript/reference" target="_blank">here</a> </p>
+				</alert>
+			</div>
+		</div>
+
+
+	</div> <!-- #end page wrap -->
+</div>

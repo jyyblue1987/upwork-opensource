@@ -1,0 +1,178 @@
+.transform-style(@style) {
+    -webkit-transform-style: @style;
+        -moz-transform-style: @style;
+            transform-style: @style;
+}
+
+.transform(@property) {
+    -webkit-transform: @property;
+        -moz-transform: @property;
+        -ms-transform: @property;
+            transform: @property;
+}
+
+.vertical-center() {
+  	display: table-cell;
+  	vertical-align: middle;
+}
+
+
+.vertical-center2() {
+   -webkit-transform: translate(0, -50%);
+   -ms-transform: translate(0, -50%); // IE9+
+  	transform: translate(0, -50%);
+    top: 50%;
+    position: relative;
+    
+}
+
+
+.btn-tag-variant(@color; @background) {
+    color: @color;
+    background: @background;
+    &:before {
+        border-left-color: @background;
+    }
+    &:hover, &:focus, &:active, &.active {
+        color: #fff;
+        background: darken(@background, 10%);
+        &:before {
+            border-left-color: darken(@background, 10%);
+        }
+    }
+}
+
+
+.button-line-variant(@color; @background; @border) {
+    color: @text-color;
+    background-color: transparent;
+    border-color: @border;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.active,
+    .open > .dropdown-toggle& {
+        color: @color;
+        background-color: @background;
+    }
+}
+
+
+.button-social-variant(@color; @background; @border) {
+    .button-variant(@color; @background; @border);
+    .ion {
+        font-size: @font-size-base - 1;
+    }
+    &.icon {
+       .square(42px);
+        padding: 0; // reset padding when only icon
+        &.btn-xs {
+            .square(28px);
+            font-size: @font-size-small;
+        }
+        &.btn-sm {
+            .square(34px);
+            font-size: @font-size-base - 1;
+        }
+        &.btn-lg {
+            .square(48px);
+        }
+    }
+ 
+}
+
+
+
+// icon inlined button
+// =======================
+.btn-icon-inline() {
+    position: relative;
+    padding-left: @padding-base-horizontal*2.9;
+    > i, > span {
+        position: absolute;
+        height: 100%; 
+        left: 0; top: 0;
+        &:before {margin: 0}
+        padding: (@padding-base-vertical - 1) (@padding-base-horizontal/2 + 2);
+    }
+    &.btn-rounded {
+        overflow: hidden;
+    }
+
+    // icon paddings
+    &.btn-xs {
+        padding-left: @padding-xs-horizontal*4;
+        > i, > span {
+            padding: @padding-xs-vertical (@padding-xs-horizontal/2 + 2);
+            font-size: @font-size-small;
+        }
+    }
+
+    &.btn-sm {
+        padding-left: @padding-small-horizontal*3.4;
+        > i, > span {
+            padding: (@padding-small-vertical) (@padding-small-horizontal/2 + 2);
+            font-size: @font-size-base - 1;
+        }
+    }
+
+    &.btn-lg {
+        padding-left: @padding-large-horizontal*2.8;
+        > i, > span {
+            padding: (@padding-large-vertical - 1) (@padding-large-horizontal/2 + 4);
+
+        }
+    }
+
+    // background and colors
+    &.btn-line-default, &.btn-default {
+        > i , > span {
+            background: darken(@btn-default-bg, 6%);
+            color: @btn-default-color;
+        }
+    }
+    &.btn-line-primary, &.btn-primary {
+        > i , > span {
+            background: darken(@btn-primary-bg, 6%);
+            color: @btn-primary-color;
+        }
+    }
+    &.btn-line-success, &.btn-success {
+        > i , > span {
+            background: darken(@btn-success-bg, 6%);
+            color: @btn-success-color;
+        }
+    }
+    &.btn-line-info, &.btn-info {
+        > i , > span {
+            background: darken(@btn-info-bg, 6%);
+            color: @btn-info-color;
+        }
+    }
+    &.btn-line-warning, &.btn-warning {
+        > i , > span {
+            background: darken(@btn-warning-bg, 6%);
+            color: @btn-warning-color;
+        }
+    }
+    &.btn-line-danger, &.btn-danger {
+        > i , > span {
+            background: darken(@btn-danger-bg, 6%);
+            color: @btn-danger-color;
+        }
+    }
+    &.btn-line-pink, &.btn-pink {
+        > i , > span {
+            background: darken(@btn-pink-bg, 6%);
+            color: @btn-pink-color;
+        }
+    }
+    &.btn-line-purple, &.btn-purple {
+        > i , > span {
+            background: darken(@btn-purple-bg, 6%);
+            color: @btn-purple-color;
+        }
+    }
+
+}

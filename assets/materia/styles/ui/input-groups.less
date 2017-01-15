@@ -1,0 +1,42 @@
+
+// rewrite because in bootstrap input-* class is empty
+.input-group-lg > .form-control,
+.input-group-lg > .input-group-addon,
+.input-group-lg > .input-group-btn > .btn ,
+.input-group-lg > .input-group-btn > .dropdown > .btn  {
+  .input-lg();
+}
+.input-group-sm > .form-control,
+.input-group-sm > .input-group-addon,
+.input-group-sm > .input-group-btn > .btn,
+.input-group-sm > .input-group-btn > .dropdown > .btn  {
+  .input-sm();
+}
+
+
+.input-group-btn {
+    // border-left: 1px solid transparent;
+   > .btn {
+        margin-right: 1px!important;
+        margin-left: 1px!important;
+        // border-top: 0;
+        // border-right: 0;
+        // border-left: 0;
+        height: @input-height-base;    // default, match it with input-height
+   		&:not(:focus), &:not(:active) {
+   			box-shadow: none;
+   		}
+   }
+
+   > .dropdown {
+   		> .btn {
+   			margin-right: -2px;
+          height: @input-height-base;
+   			&:not(:focus), &:not(:active) {
+	   			box-shadow: none;
+	   		}
+   		}
+   }
+
+
+}

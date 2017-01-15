@@ -1,0 +1,235 @@
+.page-dashboard {
+	// ==== dashboard header
+	.dash-head {
+		background: #fff;
+		border: 1px solid @gray-lightest;
+		padding: 10px 20px;
+		border-color: lighten(#dadada, 5%);
+	}
+
+
+	.mini-box {
+		.icon {
+			margin-top: -15px;
+			font-size: @font-size-h1*1.2;
+		}
+		border: 0;
+	}
+
+	// === analytics
+	.analytics {}
+	.analytics .inline-charts {
+		// border: 4px solid @gray-lightest;
+		ul li {
+			text-align: center;
+			margin-top: 14px;
+			padding: 5px;
+		}
+	}
+
+	// ==== activities 
+	.activities {
+		ul li {position: relative; padding: 3px 0 3px 30px;}
+		ul li:before {
+			position: absolute;
+			content: "";
+			height: 100%;
+			width: 1px;
+			left: 4px;
+		}
+		ul li .point {
+			.square(9px);
+			display: inline-block;
+			position: absolute;
+			left: 0;
+			top: 9px;
+			border-radius: 100%;
+			border: 1px solid transparent;
+		}
+		ul li {
+			&.primary:before {background: @brand-primary}
+			&.primary .point {background: @brand-primary; border-color: @brand-primary}
+
+			&.success:before {background: @brand-success}
+			&.success .point {background: @brand-success; border-color: @brand-success}
+
+			&.warning:before {background: @brand-warning}
+			&.warning .point {background: @brand-warning; border-color: @brand-warning}
+
+			&.info:before {background: @brand-info}
+			&.info .point {background: @brand-info; border-color: @brand-info}
+
+			&.danger:before {background: @brand-danger}
+			&.danger .point {background: @brand-danger; border-color: @brand-danger}
+
+			&.pink:before {background: @brand-pink}
+			&.pink .point {background: @brand-pink; border-color: @brand-pink}
+		}
+	}
+
+
+
+	/// ==== profile widget
+	.profile-widget {
+		.top-info {
+			border-bottom: 1px solid @gray-lighter;
+			padding-bottom: 15px;
+		}
+		.left-side, .right-side {
+			float: left;
+			display: inline-block;
+		}
+
+		.left-side {
+			width: 75%;
+			padding-right: 15px;
+		}
+		.right-side {
+			width: 25%;
+			text-align: center;
+			> img {
+				.square(52px);
+				border-radius: 100%;
+			}
+			> .rating {
+				text-align: center;
+				margin-top: 15px;
+			}
+		}
+		.user-badges {
+			> li {
+				float: left;
+				text-align: center;
+				border-right: 1px solid @state-success-bg;
+				> i {
+					font-size: @font-size-base + 2;
+				}
+				> strong {
+					display: block;
+					font-size: @font-size-h4;
+				}
+				&:last-child {
+					border-color: transparent;
+				}
+			}
+		}
+
+	}
+
+
+	/// === list-widget
+	.list-widget {
+		background: #fff;
+		ul {
+			> li {
+				padding: 13px @padding-large-horizontal;
+				border-bottom: 1px solid @gray-lighter;
+				cursor:pointer;
+				&:hover {
+					background: @gray-lightest;
+				}
+			}
+			> li > i {display: inline-block; width: 20px;}
+		}
+	}
+
+
+
+	/// todo widget
+	.todo {
+		> .panel-heading > button {
+			margin-top: -2px;
+		}
+
+		> .panel-body {
+			padding-bottom: 0;
+		}
+
+		.todo-list {
+			> li {
+				position: relative;
+				&:hover > .destroy {opacity: 1}
+				&.completed > .todo-title {
+					text-decoration: line-through;
+					color: lighten(@text-color, 50%);
+				}
+			}
+
+			> li > .ui-checkbox {
+				display: inline-block;
+			}
+
+			> li > .todo-title {
+				margin-left: 2px;
+				position: relative;
+				.user-select(none);
+				display: inline-block;	
+			}
+			// destroy btn
+			> li > .destroy {
+				cursor: pointer;
+				margin-top: 2px;
+				font-size: 12px;
+				opacity: 0;
+				.transition(opacity .3s);
+				color: @gray;
+			}
+			> li:hover > .destroy {
+				opacity: 1;
+			}
+
+			> li > .todo-title > .todo-edit {
+				position: absolute;
+				width: 100%;
+				top: -1px; left: 0px;
+				visibility: hidden;
+				> input {
+					border: 1px solid transparent;
+					width: inherit;
+					display: inline-block;
+					border-bottom: 1px solid @gray-lighter;
+					color: lighten(@text-color, 10%);
+				}
+			}
+			> li.editing > .todo-title > .todo-edit {
+				visibility: visible;
+			}		
+		}
+
+		/// --- add todo 
+		.input-todo {
+			margin: 0 -21px;
+			input {
+				width: 100%;
+				padding: @padding-large-vertical @padding-base-horizontal;
+				border: 1px solid @gray-lighter;
+				border-left: 0; border-right: 0;
+				box-shadow: inset 0 2px rgba(30, 30, 30, .02);
+				&:focus {
+					background: @gray-lightest;
+				}
+			}
+		}
+
+		.todo-foot {
+			font-size: 10px;
+			background: @gray-lighter;
+			// margin: 0 -22px;
+			> .right > .remaining {
+				border: 1px solid transparent;
+				background: @gray-light;
+				color: #fff;
+				cursor: default;
+				&:hover {
+					color: @text-color;
+				}
+				&:active {
+					box-shadow: none;
+				}
+			}
+		}
+	}
+	// == #end todo widget 
+}
+
+

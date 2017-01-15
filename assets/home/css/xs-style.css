@@ -1,0 +1,164 @@
+
+.row {
+    margin-right:0px;
+    margin-left:0px;
+}
+/****************/
+.navbar-nav > li > a {
+    padding:10px 0px 0px 0px;
+    color: #ffffff;
+    float: none;
+    font-family: 'Arial';
+    font-weight: 400;
+    font-size: 16px;
+    color: #ffffff !important;
+}
+
+.top_header .navbar-right{
+    margin:21px 0px 21px 0px;
+}
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    border-color:#ffffff;
+}
+.navbar-default .navbar-toggle {
+    border-color:#ffffff;
+}
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    background-color:#2aaad9;
+}
+
+.navbar-toggle {
+    padding: 9px 10px;
+    margin-top: 37px;
+    margin-right: 26px;
+    margin-bottom:8px;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #ffffff;
+}
+.navbar-collapse.in {
+    overflow-y:hidden;
+}
+/*********************/
+
+#butcancel{
+	padding:20px 20px 20px 15px;
+		font-size:20px;
+}
+#how_work{
+	padding-top:0px;
+}
+#ouBlog header {
+    font-size: 21.5px;
+
+}
+#simpleApproacHeaderTextone p {
+    font-size:25px;
+}
+#simpleApproacHeaderText p {
+    font-size: 21.50px;
+}
+#simpleApproacHeaderTexttwo p{
+	 font-size: 21.50px;
+}
+#simpleApproacHeaderTexttwo p span {
+    font-size: 21.50px;
+}
+.top_header h2 {
+    text-align: center;
+	margin:0px 0px;
+}
+.top_header_button{
+	width:100px;
+	margin:35px auto;
+}
+
+.top_header_button button {
+    float: none;
+	margin:16px 0px 0px 0px;
+	padding:6px 12px;
+    font-size:11px;
+}
+
+.top_header ul {
+    float: none;
+	text-align:center;
+	margin:-3px 10px 0px 10px;
+}
+.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+    margin: 35px 0px 35px 19px;
+}
+header h2 {
+    text-align: center;
+}
+header button {
+    float: none;
+	margin: 16px 0px 0px 0px;
+}
+header ul {
+    float: none;
+	text-align:center;
+}
+
+header ul li {
+    float: none;
+	margin:20px 0px 0px 0px;
+}
+#big_header h1 {
+    font-size: 23px;
+    padding:0px 0px 10px 0px;
+}
+
+#big_header h3 {
+    font-size: 14px;
+}
+#big_header {
+    height: 100%;
+}
+#sliderButton {
+    width: 248px;
+    margin:-14px auto;
+}
+#sliderButton button{
+    font-size: 16px;
+    margin:39px 0px 100px 5px;
+    padding: 7px 6px;
+    float: none;
+}
+
+#big_footer{
+	
+}
+.footer1 {
+    width: 100%;
+    text-align: center;
+    margin: 10px 10px -45px 0px;
+}
+
+.footer1 ul {
+    list-style-type: none;
+    padding-top:0px;
+}
+.footer2 {
+    width:186px;
+    margin:-133px auto;
+    text-align: center;
+}
+.footer2 input {
+    padding:6px 50px 6px 8px;
+}
+footer h1 {
+    text-align: center;
+}
+footer p {
+    text-align: center;
+}
+.footer2 button {
+    margin: 0px 0px 118px -3px;
+}
+.footer2 input {
+    margin: 0px 0px 0px 0px;
+}
+.big_footer {
+    margin-bottom: -96px;
+}

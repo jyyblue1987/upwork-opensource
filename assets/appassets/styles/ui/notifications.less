@@ -1,0 +1,215 @@
+// demo style 
+.page-ui-notifications {
+
+	.toast-positioning {
+		@height: 250px;
+		border: 1px dashed lighten(@gray-light, 20%);
+		height: @height;
+		position: relative;
+		span {
+			width: 25%; 
+			height: @height/3;
+			display: block;
+			position: absolute;
+			background: @gray-lighter;
+			&:hover, &.active {
+				background: darken(@gray-lighter, 10%);
+			}
+		}
+		.top-left {left: 0; top: 0;}
+		.bottom-left {left: 0; bottom: 0}
+		.top-right {right: 0; top: 0}
+		.bottom-right {right: 0; bottom: 0}
+	}
+}
+
+
+
+
+.toast {
+	position: fixed;
+	z-index: @zindex-modal;
+	//=== Position
+	&.toast-topLeft { 
+		top: 10px;
+		left: 10px;
+	}
+	&.toast-topRight {
+		top: 10px; 
+		right: 10px;
+	 }
+	&.toast-bottomLeft { 
+		bottom: 10px;
+		left: 10px;
+	}
+	&.toast-bottomRight { 
+		bottom: 10px;
+		right: 10px;
+	}
+
+	.toast-msg, .alert {
+		max-width: 450px;
+		padding: 15px 20px;
+		padding-right: 45px;
+		// box-shadow: 0 2px 4px rgba(0,0,0,.5);
+		position: relative;
+		.close {
+			position: absolute;
+			top: 13px;
+			right: 20px;
+		}
+	}
+
+
+	//== fade transition
+	// ====================
+	.toast-fade {
+		.transition(.25s ease-in opacity);
+		// === enter
+		&.ng-enter {
+			opacity: 0;
+		}
+		&.ng-enter-active {
+			opacity: 1;
+		}
+		// === leave
+		&.ng-leave {
+			opacity: 1;
+		}
+		&.ng-leave-active {
+			opacity: 0;
+		}
+	}
+
+	// === scale animation
+	// ======================
+	.toast-scale {
+	
+		&.ng-enter, &.ng-leave {
+			.animation(toastScale 0.25s);
+		}
+		&.ng-leave {
+			.animation-direction(reverse);
+		}
+
+	}
+	@-webkit-keyframes toastScale {
+		0% { opacity: 0; -webkit-transform: translate3d(0,40px,0) scale3d(0.1,0.6,1); }
+		100% { opacity: 1; -webkit-transform: translate3d(0,0,0) scale3d(1,1,1); }
+	}
+
+	@keyframes toastScale {
+		0% { opacity: 0; -webkit-transform: translate3d(0,40px,0) scale3d(0.1,0.6,1); transform: translate3d(0,40px,0) scale3d(0.1,0.6,1); }
+		100% { opacity: 1; -webkit-transform: translate3d(0,0,0) scale3d(1,1,1); transform: translate3d(0,0,0) scale3d(1,1,1); }
+	}
+
+
+	// === flash animation
+	// ===================
+	.toast-flash {
+		&.ng-enter {
+			.animation(toastFlash 1s);
+		}
+		&.ng-leave {
+			opacity: 0;
+		}
+	}
+
+	@-webkit-keyframes toastFlash {
+		0%, 50%, 100% { opacity: 1;}
+		25%, 75% { opacity: 0; }
+	}
+
+	@keyframes toastFlash {
+		0%, 50%, 100% { opacity: 1;}
+		25%, 75% { opacity: 0;}
+	}
+
+
+	// === Toast bouncy flip
+	// ======================
+	.toast-bouncyflip {
+		-webkit-transform-origin: 50% 0%;
+    	transform-origin: 50% 0%;
+    	&.ng-enter, &.ng-leave {
+    		.animation(toastBouncyFlip 0.8s);
+    	}
+    	&.ng-leave {
+    		.animation-direction(reverse);
+    	}
+	}
+
+	@-webkit-keyframes toastBouncyFlip {
+	    0% {-webkit-transform: perspective(400px) rotate3d(1,0,0,-90deg); -webkit-transition-timing-function: ease-in}
+
+	    40% {-webkit-transform: perspective(400px) rotate3d(1,0,0,20deg); -webkit-transition-timing-function: ease-out;}
+
+	    60% {-webkit-transform: perspective(400px) rotate3d(1,0,0,-10deg); -webkit-transition-timing-function: ease-in; opacity: 1; }
+
+	    80% { -webkit-transform: perspective(400px) rotate3d(1,0,0,5deg); -webkit-transition-timing-function: ease-out;}
+
+	    100% {-webkit-transform: perspective(400px); }
+	}
+
+	@keyframes toastBouncyFlip {
+	    0% { transform: perspective(400px) rotate3d(1,0,0,-90deg); transition-timing-function: ease-in;}
+
+	    40% {transform: perspective(400px) rotate3d(1,0,0,20deg);transition-timing-function: ease-out;}
+
+	    60% { transform: perspective(400px) rotate3d(1,0,0,-10deg); transition-timing-function: ease-in; opacity: 1;}
+
+	    80% {transform: perspective(400px) rotate3d(1,0,0,5deg);transition-timing-function: ease-out;}
+
+	    100% { transform: perspective(400px);}
+	}
+
+
+	// ==== toast genie
+	// =====================
+	.toast-genie {
+		&.ng-enter, &.ng-leave{
+			.animation(toastGenie .4s);
+		}
+		&.ng-leave {
+			.animation-direction(reverse);
+		}
+		
+	}
+
+	@-webkit-keyframes toastGenie {
+		0% { opacity:0; -webkit-transform: translate3d(0,calc(200% + 30px),0) scale3d(0,1,1); -webkit-animation-timing-function: ease-in; }
+		40% { opacity:0.5; -webkit-transform: translate3d(0,0,0) scale3d(0.02,1.1,1); -webkit-animation-timing-function: ease-out; }
+		70% { opacity:0.6; -webkit-transform: translate3d(0,-40px,0) scale3d(0.8,1.1,1); }
+		100% { opacity:1; -webkit-transform: translate3d(0,0,0) scale3d(1,1,1); }
+	}
+
+	@keyframes toastGenie {
+		0% { opacity:0; -webkit-transform: translate3d(0,calc(200% + 30px),0) scale3d(0,1,1); -webkit-animation-timing-function: ease-in; transform: translate3d(0,calc(200% + 30px),0) scale3d(0,1,1); animation-timing-function: ease-in; }
+		40% { opacity:0.5; -webkit-transform: translate3d(0,0,0) scale3d(0.02,1.1,1); -webkit-animation-timing-function: ease-out; transform: translate3d(0,0,0) scale3d(0.02,1.1,1); animation-timing-function: ease-out; }
+		70% { opacity:0.6; -webkit-transform: translate3d(0,-40px,0) scale3d(0.8,1.1,1); transform: translate3d(0,-40px,0) scale3d(0.8,1.1,1); }
+		100% { opacity:1; -webkit-transform: translate3d(0,0,0) scale3d(1,1,1); transform: translate3d(0,0,0) scale3d(1,1,1); }
+	}
+
+}
+
+
+// ==== when nav in mini mode
+.app.nav-min .toast {
+	&.toast-topLeft, &.toast-bottomLeft {
+		@media (min-width: @screen-sm-min) {
+			left: @site-nav-min-width + 5px;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+

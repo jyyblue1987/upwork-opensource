@@ -1,0 +1,66 @@
+// ==== Horizontal Nav
+
+
+.app .main-container.nav-horizontal .nav-wrap {
+	@media only screen and (min-width: @screen-sm-min){
+		position: fixed;
+		top: 0; bottom: auto;
+		.transition(0s);
+		z-index: @zindex-navbar;
+		width: 100%;
+		overflow: visible;
+		.nav-head { width: @site-nav-width!important;}
+		.nav-foot, .site-nav .profile {
+			display: none;
+		}
+		.site-nav {}
+		.site-nav .nav-list {
+			margin-bottom: 0;
+			> li {float: left;}
+			> li a {
+
+				padding: @padding-large-vertical @padding-large-horizontal + 5;
+			}
+			> li a {
+				text-align: center;
+				
+				.text {
+					margin-left: 0;
+					display: block;
+					margin-top: 4px;
+					position: relative;
+				}
+				
+				.arrow {
+					display: block;
+					margin-left: 18px;
+					margin-top: -2px;
+					.rotate(-90deg);
+					font-size: 8px;
+				}
+				.badge {
+					top: 3px;
+					margin-left: auto;
+					right: 18px;
+				}
+			}
+
+		// ==== inner-drop
+		li .inner-drop {
+			display: none;
+			position: absolute;
+			left: 0;
+			margin-top: 1px;
+			box-shadow: 0 2px 8px rgba(0,0,0,.1);
+		}
+		li:hover > a {
+			background: darken(@site-nav-bg, 3%);
+		}
+		li:hover {
+			.inner-drop {display: block;}
+		}
+	}
+}
+
+
+}

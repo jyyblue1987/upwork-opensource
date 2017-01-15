@@ -1,0 +1,133 @@
+/** Only for presentation, buttons **/
+.page-ui-buttons {
+	button {
+		&:extend(.btn-gap-h);
+		&:extend(.btn-gap-v);
+	}
+	.btn-group button {
+		margin-right: 0;
+	}
+	.btn-group {
+		&:extend(.btn-gap-h);
+	}
+	.btn-group-vertical button {
+		margin-bottom: 0;
+	}
+}
+
+// Gap classes
+.no-mr {margin-right: 0!important}
+.btn-gap {margin: 6px;}
+.btn-gap-v {margin: 0 0 12px;}
+.btn-gap-h {margin-right: 6px}
+.no-btn-gap-v {margin: 0!important;}
+.no-btn-gap-h {magin-right: 0!important;}
+
+
+
+// ============ icons
+.page-ui-icons {
+	.icons-list li {
+		display: inline-block;
+		// border: 1px solid;
+		.transition(.2s);
+		cursor: pointer;
+		span.text {
+			margin-left: 10px;
+			display: inline-block;
+			.translate(0; -1px);
+		}
+		&:hover > .group {
+			background: @brand-primary;
+			color: #fff;
+			.scale(1.1);
+		}
+		.group {
+			margin-bottom: 5px;
+			display: inline-block;
+			padding: 8px 15px;
+			.transition(.2s);
+		}
+		
+	}
+}
+
+.page-icons {
+	.fontawesome-icon-list {
+		margin: 15px 5px;
+		> div  {
+			
+			.transition(.25s);
+			padding: 10px 15px;
+			&:hover {
+				background: @brand-success;
+				color: #fff;
+			}
+		}
+		
+	}
+	.icon-name {
+		margin-left: 35px;
+	}
+}
+
+
+// =========== angular tree view
+.page-ui-treeview {
+	.tree-api {
+		background: @gray-lightest;
+		padding: 30px;	
+		border:1px solid @gray-lighter;
+	}
+	.tree-view {
+		border:1px solid @gray-lighter;
+		padding: 15px;
+		background: #fff;
+	}
+}
+
+
+
+// =========== page forms uploader
+.page-forms-uploader {
+	.dropzone {
+		border: 2px dashed darken(@gray-lighter, 5%);
+		background: #fff;
+		height: 350px;
+		cursor: pointer;
+		padding: 20px;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+		.drop-info {
+			text-align: center;
+			margin-top: -20px;
+			.vertical-center2();
+		}
+		.drop-info i.ion {
+			font-size: @font-size-h1*2;
+			line-height: 1;
+		}
+	}
+}
+
+// =========== page imagecrop
+.page-forms-imagecrop {
+	.cropArea {
+		background: @gray-lighter;
+		overflow: hidden;
+		float: left;
+		height:350px;
+		border: 8px solid #fff;
+		box-shadow: 0 1px 1px rgba(0,0,0, .05);
+	}
+	.croppedImage {
+		border: 8px solid #fff;
+		background: @gray-lighter;
+		height: 200px;
+		width: 200px;
+		float: left;
+		overflow: hidden;
+		@media(min-width: @screen-sm-min) {
+			margin-left: 15px;
+		}
+	}
+}

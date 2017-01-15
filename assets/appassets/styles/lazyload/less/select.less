@@ -1,0 +1,194 @@
+@import "variables.less";    // common `variables.less` file for both bootstrap and other ui styles.
+@import "bootstrap/mixins.less";
+/*!
+ * ui-select
+ * http://github.com/angular-ui/ui-select
+ * Version: 0.9.5 - 2014-12-12T16:07:20.859Z
+ * License: MIT
+ */
+
+
+/* Style when highlighting a search. */
+.ui-select-highlight {
+  font-weight: bold;
+}
+
+.ui-select-offscreen {
+  clip: rect(0 0 0 0) !important;
+  width: 1px !important;
+  height: 1px !important;
+  border: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  outline: 0 !important;
+  left: 0px !important;
+  top: 0px !important;
+}
+
+/* Select2 theme */
+
+
+.select2-result-single {
+  padding-left: 0;
+}
+
+.select2-locked > .select2-search-choice-close{
+  display:none;
+}
+
+.select-locked > .ui-select-match-close{
+    display:none;
+}
+/* Bootstrap theme */
+
+.btn-default-focus {
+    color: #333;
+    background-color: #EBEBEB;
+    text-decoration: none;
+}
+
+
+
+// /* Fix Bootstrap dropdown position when inside a input-group */
+.input-group > .ui-select-bootstrap.dropdown {
+    /* Instead of relative */
+    position: static;
+}
+
+.input-group > .ui-select-boostrap > input.ui-select-search.form-control {
+    border-radius: @border-radius-base;
+}
+
+.ui-select-bootstrap .ui-select-toggle {
+  position: relative;
+}
+
+.ui-select-bootstrap {
+    .ui-select-toggle, > .ui-select-match { 
+        > .caret {
+            position: absolute;
+            top: 46%;
+            right: 15px;
+        }
+    }
+
+    > .ui-select-match {
+        text-align: left;
+        background: #fff;
+        box-shdow: 0 1px rgba(0, 0, 0, .04);
+        >  button.btn {
+            box-shadow: none;
+            &:hover {
+                background: inherit;
+                box-shadow: none;
+                border: 1px solid darken(@gray-lighter, 2%);
+            }
+            &:focus, &:hover{
+                box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+            }
+        }
+    }
+
+    > .ui-select-search {
+        &:focus {
+            border: 1px solid @gray-lighter;
+        }
+    }
+
+//     /* See Scrollable Menu with Bootstrap 3 http://stackoverflow.com/questions/19227496 */
+    .ui-select-choices {
+        width: 100%;
+        padding: 4px;
+        height: auto;
+        border-radius: 0 0 @border-radius-base @border-radius-base;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, .05);
+        max-height: 250px;
+        border-top: 0;
+        overflow-x: hidden;
+        
+    }
+
+
+
+    // for grouping
+    .ui-select-choices-group {
+        .divider {
+            display: none; // permanently disabled
+        }
+        .ui-select-choices-group-label {
+            font-weight: 800;
+            color: #333;
+            padding: @padding-base-vertical*1.2 @padding-small-horizontal;
+        }
+        .ui-select-choices-row > a {
+            padding-left: @padding-base-horizontal*1.2;
+        }
+    }
+    .ui-select-choices-row {
+        &.active > a {
+            outline: 0;
+            background-color: @brand-primary;
+            color: #fff;
+        }
+        &.disabled > a, &.active.disabled > a {
+            color: #888;
+            cursor: not-allowed;
+            background-color: #fff;
+        }
+    }
+
+    .ui-select-choices-row > a {
+        display: block;
+        padding: @padding-small-vertical @padding-base-horizontal;
+        clear: both;
+        font-weight: 400;
+        line-height: @line-height-base;
+        color: @text-color;
+        white-space: nowrap;
+        &:hover, &:focus {
+            text-decoration: none;
+            color: #fff;
+            background-color: @brand-primary;
+        }
+    }
+
+}
+
+
+
+// ====== Multiple select style 
+.ui-select-multiple.ui-select-bootstrap {
+    height: auto;
+    padding: .3em;
+    overflow: visible;
+    input.ui-select-search {
+        background-color: transparent !important; /* To prevent double background when disabled */
+        border: none;
+        outline: none;
+        height: 1.666666em;
+    }
+
+    .ui-select-match .close {
+        font-size: 16px;
+        line-height: 1.2;
+    }
+
+    .ui-select-match-item {
+        outline: 0;
+    }
+
+}
+
+
+/* fix hide/show angular animation */
+.ui-select-match.ng-hide-add,
+.ui-select-search.ng-hide-add {
+    display: none !important;
+}
+
+/* Mark invalid Bootstrap */
+.ui-select-bootstrap.ng-dirty.ng-invalid > button.btn.ui-select-match {
+    border-color: #D44950;
+}

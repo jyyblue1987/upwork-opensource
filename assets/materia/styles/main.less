@@ -1,0 +1,41 @@
+// Don't edit bootstrap folder, instead override it in `ui` folder.
+/// Import UI Style, import first (override bootstrap)
+@import "ui/ui.less";	 // include overrided variables, colors etc...
+
+
+
+/// Import sections styles
+@import "sections/layout.less";
+@import "sections/header.less";
+@import "sections/nav.less";
+@import "sections/nav-horizontal.less";
+@import "sections/off-canvas.less";
+@import "sections/page.less";
+@import "sections/settings.less";
+@import "sections/themes.less";
+@import "sections/material-override.less";
+
+
+/// Import email style
+@import "email/inbox.less";
+
+
+/// Import extra form styles
+@import "forms/wizard.less";
+
+
+
+/// @import pages styles
+@import "pages/auth.less";
+@import "pages/err.less";
+@import "pages/invoice.less";
+@import "pages/timeline.less";
+@import "pages/dashboard.less";
+@import "pages/widgets.less";
+
+/// Import Plugins styles (common plugins)
+/// Other plugins styles are load via lazyload
+@import "plugins/loading-bar.less";
+@import "plugins/perfect-scrollbar.less";
+
+

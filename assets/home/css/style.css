@@ -1,0 +1,337 @@
+
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,300italic,500,400italic,600,500italic,700italic,700,600italic);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800);
+html {
+    color: #222;
+    font-size: 1em;
+    line-height: 1.4;
+}
+*{
+	margin:0px;
+	padding:0px;
+}
+.h4, .h5, .h6, h4, h5, h6 {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+.container-fluid {
+    padding-right:0px;
+    padding-left:0px;
+    margin-right:auto;
+    margin-left:auto;
+}
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+    vertical-align: middle;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    resize: vertical;
+}
+.browserupgrade {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+*{
+	margin:0px;
+	padding:0px;
+}
+
+.clear{
+	clear:both;
+}
+.active{
+  background-color:#fffa6a!important;
+  color:#343434;
+}
+.activeTxt{
+  color:#fffa6a;
+}
+
+#big_header{
+	 width:100%;
+	 background-image:url(../assets/homedeshilancer.png);
+	 background-repeat:no-repeat;
+	-webkit-background-size:cover;
+	-moz-background-size:cover;
+	-o-background-size:cover;
+	background-size:cover;
+	background-position:center top;
+	text-align:center;
+    height:100vh;
+	
+}
+
+#big_header h1{
+	color:#ffffff;
+	font-family: 'Raleway';
+	font-weight:700;
+	font-size:40px;
+	padding:108px 0 0px;
+}
+
+#big_header h3{
+	color:#ffffff;
+	font-family: 'Raleway';
+	font-weight:700;
+	font-size:20px;
+        padding-bottom: 74px;
+}
+
+#sliderButton{
+	width:400px;
+	margin:0px auto;
+}
+
+#sliderButton button{
+	background:transparent;
+	border:2px solid white;
+	border-radius:3px;
+	color:#ffffff;
+	font-family: 'Raleway';
+	font-weight:400;
+	font-size:20px;
+	margin:51px 0 14px 34px;
+	padding:3px 12px;
+	float:left;
+}
+
+#sliderButton button:hover{
+	cursor:pointer;
+	background-color:#e84c3d;	
+}
+/****end **/
+#how_work{
+/*	padding-top:50px;*/
+}
+#simpleApproacHeaderTextone p{
+	 font-family: 'Open Sans';
+	
+	font-weight: 600;
+   font-size: 35px;
+   padding-top:30px;
+   padding-bottom:23px;
+   text-align:center;
+   color:#20a7d9;  
+}
+
+#simpleApproacBoxone{
+	
+}
+#simpleApproacBoxone article{ 
+	 width:100%;
+	 height:269px;
+	 background-image:url(../img/divison.png);
+	 background-repeat:no-repeat;
+	-webkit-background-size:cover;
+	-moz-background-size:cover;
+	-o-background-size:cover;
+	background-size:cover;
+	background-position:center top;
+
+}
+#simpleApproacBoxone div  div:nth-child(1){
+	font-family: 'Open Sans';
+	font-weight: 600;
+	color:#1f1f1f;
+	padding-top:40px;
+	padding-bottom:30px;
+	text-align:center;
+}
+#simpleApproacBoxone div  div:nth-child(2){
+	text-align:center;
+	margin:0 auto;
+	color:#fff;
+	border:1px solid #5e235c;
+	border-radius:10px;
+	font-size:35px;
+	max-width:60px;
+	min-height:60px;
+	background:#5e235c;
+}
+#simpleApproacBoxone div  div:nth-child(3){
+	padding-top:30px;
+	text-align:center;
+	padding-bottom:80px;
+	font-family: 'Open Sans';
+	font-weight: 400;
+	font-size:16px;
+}
+#hr-border{
+	padding-top:20px;
+	border-bottom:3px solid #20a7d9;
+}
+.buttonone{
+	float:right;
+}
+#butcancel i{
+	color:#93123e;
+}
+#butcancel span{
+	color:#db5247;
+}
+#butcancel{
+	    padding: 20px 95px 20px 15px;
+    color: #fff;
+    font-family: 'Open Sans';
+    font-weight: 600;
+    font-size: 21px;
+    border: #20a7d9;
+    background: #20a7d9;
+}
+#simpleapproach{
+position:relative;
+width:100%;	
+}
+	
+#simpleApproacHeaderText p{
+	      font-family: 'Open Sans';
+    font-weight: 600;
+    font-size: 31.50px;
+    text-align: center;
+    margin-top: 35px;
+    margin-bottom: 14px;
+    color: #5e235c;
+}
+#simpleApproacBox article{
+	  margin:20px auto;
+	  background-color:white;
+	  border:1px solid #5e235c;;
+	  border-radius:5px;
+	  cursor:pointer;
+}
+#simpleApproacBox div  div:nth-child(1){
+	padding-top:10px;
+	padding-bottom:10px;
+	background:#f2f2f2;
+	border-radius: 5px 5px 0px 0px;
+	border-bottom:1px solid #5e235c;;
+	text-align:center;	
+}
+#simpleApproacBox div  div:nth-child(2){
+   font-family: 'Myriad Pro';
+   font-size:15.75px;
+   color:#20a7d9; 
+	text-align:center;
+	    padding-top: 10px;
+    padding-bottom: 0px;	
+}
+
+#simpleApproacHeaderTexttwo p{
+	  font-family: 'Open Sans';
+  font-weight: 600;
+	font-size:31.50px;
+	text-align:center;
+	margin-top: 29px;
+    margin-bottom: 50px;
+	color:#323030;
+}
+#simpleApproacHeaderTexttwo p span{
+	font-family: 'Raleway';
+  font-weight: 600;
+	font-size:31.50px;
+	text-align:center;
+	margin-top:60px;
+	margin-bottom:60px;
+	color:#20a7d9;
+}
+#simpleApproacBoxtwo article{ 
+		height:250px;	
+	  margin:30px auto;
+	  background-color:white;
+	  border:1px solid #5e235c;
+	  border-radius:10px;
+	  cursor:pointer;
+	
+}
+#simpleApproacBoxtwo div  div:nth-child(1) i{
+	font-size:50px;
+	color:#5e235c;
+}
+#simpleApproacBoxtwo div  div:nth-child(1){
+	position:absolute;
+	height:120px;
+	width:120px;
+	padding-top:35px;
+	border-radius:50%;
+	border:1px solid #5e235c;
+	margin-top:-40px;
+	margin-left:-25px;
+	text-align:center;
+	background:#fff;	
+}
+#simpleApproacBoxtwo div  div:nth-child(2){
+   	  font-family: 'Open Sans';
+  font-weight: 600;
+   font-size:19.25px;
+   color:#20a7d9; 
+	padding-top:20px;
+	padding-left:100px;
+}
+#simpleApproacBoxtwo div  div:nth-child(3){
+  	  font-family: 'Open Sans';
+  font-weight: 400;
+   font-size:14px;
+   color:#8d8d8d;
+	padding-right:25px;
+	padding-top:25px;
+	padding-left:50px;	
+}
+#ouBlog{
+width:100%;	
+background-color:#457dbe;
+}
+#ouBlog header{
+	text-align:center;
+	width:100%;
+	 font-family: 'Open Sans';
+	font-weight: 600;
+	font-size:31.5px;
+	padding-top:35px;
+	padding-bottom:35px;
+	color:#fff;
+}
+
+.category-img img{
+    height:80px;
+}
+.category-img p{
+    font-size:14px;
+    font-family: calibri;
+        color: #5e235c;
+}
+#simpleApproacBoxtwo p{
+    color: #5e235c;
+}

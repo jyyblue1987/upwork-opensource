@@ -1,0 +1,114 @@
+.panel {
+	margin-bottom: 0;
+	box-shadow: none;
+}
+
+.panel-body {}
+
+.panel-heading {
+	border-radius: 0;
+	font-size: @font-size-small;
+	text-transform: uppercase;
+	font-weight: 600;
+	i {
+		color: #fff;
+	}
+}
+
+
+.panel-title {
+	font-size: @font-size-small;
+	text-transform: none;
+	> a {
+		display: block;
+	}
+}
+
+
+
+// === panel-default (override)
+.panel-default {
+	.panel-heading {
+		margin: 0 @panel-body-padding;
+		padding: 14px 0;
+	}
+}
+
+// === for accordion panel (.accordion-panel class set in html for angular bootstrap)
+.accordion-panel {
+	.panel-heading {
+		margin: 0;
+		padding: 14px @panel-body-padding;
+	}
+}
+
+
+// == panel-lined
+.panel-lined {
+	// border: 1px solid #dadada;
+	.panel-heading {
+		color: @panel-default-text;
+		padding-bottom: 0;
+	}
+}
+
+
+.panel-lined, .panel-default, .panel-primary, .panel-success, .panel-info, .panel-warning, .panel-danger {
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+	.transition(box-shadow .2s ease-in);
+}
+
+// === class for hovered
+.panel-hovered {
+	&:hover {
+		box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.15);
+	}
+}
+
+.panel-stacked {
+	position: relative;
+	&:before {
+		position: absolute;
+		content: "";
+		height: 4px;
+		border: 1px solid @gray-lighter;
+		background: @panel-bg;
+		z-index: -1;
+		width: calc(~'100% - 2px');
+		left: 1px;
+		box-shadow: 0 0 4px rgba(0,0,0,.04);
+		bottom: -3px;
+	}
+}
+
+
+// === panel-footer variations
+.panel-footer-sm {
+	font-size: @font-size-small;
+
+}
+
+.panel-footer-xs {
+	font-size: @font-size-xsmall;
+}
+
+
+.panel-footer-primary,
+.panel-footer-success,
+.panel-footer-warning,
+.panel-footer-danger,
+.panel-footer-info,
+.panel-footer-pink {
+	color: #fff;
+}
+
+.panel-footer-primary {background: @brand-primary;}
+.panel-footer-success {background: @brand-success;}
+.panel-footer-warning {background: @brand-warning;}
+.panel-footer-danger {background: @brand-danger;}
+.panel-footer-info {background: @brand-info;}
+.panel-footer-pink {background: @brand-pink;}
+
+.panel-pink {
+  .panel-variant(@panel-pink-border; @panel-pink-text; @panel-pink-heading-bg; @panel-pink-border);
+}

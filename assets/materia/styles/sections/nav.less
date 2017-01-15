@@ -1,0 +1,203 @@
+// ==== vertical-nav (main-menu)
+// =============================
+.main-container .nav-wrap {
+	background: @site-nav-bg;
+	z-index: @zindex-navbar-fixed;
+	.transition(.25s ease-in);
+	box-shadow: 2px 0 10px rgba(0,0,0,.1);
+	overflow: hidden;	// for mobile view
+	// width: @site-nav-width;
+	
+	// handle nav-expand here
+	// =====================
+	&.nav-expand, &:hover  {
+		.nav-foot {
+			visibility: visible;
+			.transition-delay(.25s);
+		}
+		
+		.site-nav .nav-list > li.open .inner-drop {
+			display: block; 
+			opacity: 1;
+			a {.animation(slideSiteMenuX .3s ease-in);}
+		}
+	}
+	@-webkit-keyframes slideSiteMenuX {
+		0% {opacity: 0; transform: translate(-20px, 0)}
+		100% {opacity: 1; transform: translate(0px, 0)}
+	}
+	@keyframes slideSiteMenuX {
+		0% {opacity: 0; transform: translate(-20px, 0)}
+		100% {opacity: 1; transform: translate(0px, 0)}
+	}
+
+	// === nav-head 
+	// ============
+	.nav-head {
+		height: @site-head-height;
+		display: table;
+		overflow: hidden;
+		width: @site-nav-min-width;
+		position: fixed;
+		.transition(.25s ease-in);
+		padding-left: 22px;
+		z-index: @zindex-navbar;
+		background: @site-nav-head;
+		box-shadow: 0 2px 8px rgba(0,0,0,.25);
+		.site-logo {
+			color: #fff;
+			font-weight: bolder;
+			.vertical-center();
+			font-size: @font-size-h3 - 2;
+			position: relative;	// it's a must.
+			> i {
+				font-size: @font-size-h3 + 1;
+				display: inline-block;
+			}
+			> span.text {
+				position: absolute;
+				top: @site-head-height/3 - 6;
+				margin-left: 22px;
+			}
+		}
+	}
+	.nav-foot {
+		background: darken(@site-nav-bg, 6%);
+		position: fixed;
+		bottom: 0;
+		width: @site-nav-width;
+		opacity: .95;
+		font-size: @font-size-small;
+		text-align: center;
+		display:table;
+		box-shadow: 0 -2px 6px rgba(0, 0, 0, .1);
+		padding: 6px;
+		visibility: hidden;
+		text-transform: uppercase;
+		white-space: nowrap;
+		p { .vertical-center(); margin-bottom: 0;}
+		p > span {color: @m-blue-gray}
+	}
+	
+
+	// === mini-profile
+	// ================
+	
+	.site-nav {margin-top: @site-head-height;}
+	.site-nav {
+		.profile { 
+			padding: 10px 0px 10px 7px; 
+			box-shadow: 0 1px 2px rgba(0,0,0,.05);
+		}
+		.profile > img {
+			border-radius: 100%;
+			border: 2px solid @gray-lighter;
+			.square(50px);
+			float: left;
+		}
+		.profile > .group {
+			margin-left: 65px;
+			color:@site-nav-color;
+			.name, .desig {
+				white-space: nowrap;
+			}
+			.name {
+				margin-bottom: 0;
+			}
+		}
+	}
+	// main vertical nav
+	// =================
+	.site-nav .nav-list {
+		> li {position: relative;}
+		
+		> li.open a > .arrow {
+			.rotate(-90deg);
+		}
+		> li a {
+			color: @site-nav-color;
+			padding: (@padding-base-vertical + 1) @padding-base-horizontal;
+			padding-left: 12px;
+			display: table;
+			width: 100%;
+			white-space: nowrap;
+			&:hover {
+				color: @m-blue-gray-dark;
+				background: darken(@site-nav-bg, 3%);
+			}
+		}
+		> li a {
+			.text, .arrow, .badge {
+				display: inline-block;
+				position: absolute;
+			}
+			.arrow, .badge {
+				// .transition(.25s);
+				margin-top: 12px;
+			}
+		}
+		> li a  i.ion {
+			display: inline-block;
+			font-size: @font-size-base + 2;
+			padding: 5px 0;
+			width: 40px;
+			text-align: center;
+			.transition(.2s ease-in);
+		}
+		> li > a > .text {
+			margin-left: 15px;
+			margin-top: 9px;
+			font-weight: bold;
+			text-transform: uppercase;
+			font-size: @font-size-small;
+		}
+
+		> li a .arrow {
+			margin-left: @site-nav-width - 70;
+			font-size: 9px;
+			color: @text-color;
+		}
+		> li a .badge {
+			margin-left: @site-nav-width - 95;
+		}
+		
+		li.active a, li.open > a {
+			background: darken(@site-nav-bg, 3%);
+			color: @m-gray-dark;
+			.text {color: @site-nav-active-color; }
+			&:hover {color: @site-nav-color}
+			i.ion {
+				color: #fff;
+				border-color: lighten(@site-nav-active-color, 15%);
+				background: @site-nav-active-color;
+			}
+		}
+	}
+
+	// === inner sub-nav
+	// =================
+	.site-nav .nav-list li .inner-drop {
+		display: none;
+		font-size: @font-size-base - 1;
+		background: #fff;
+		a {
+			padding: @padding-large-vertical 0;
+			padding-left: 55px;
+			position: relative;
+			.transition(.3s ease-in-out);
+			&:hover {
+				background: darken(@site-nav-bg, 5%);
+				color: @m-gray-dark;
+			}
+		}
+		
+	}
+	.site-nav .nav-list > li.open .inner-drop{
+		display: none; 
+		opacity: 0;
+	}
+
+	// ##END
+}
+
+

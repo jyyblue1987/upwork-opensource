@@ -1,0 +1,45 @@
+.page-invoice {
+	.invoice-wrap {
+		border: 1px solid @gray-lighter;
+		padding: 20px 30px;
+		background: #fff;
+		box-shadow: 0 1px 4px rgba(0,0,0,.05);
+
+		.invoice-head{
+			border-bottom: 2px solid @gray-lighter;
+			margin-bottom: 20px;
+		}
+
+		.invoice-head .brand-logo {
+			> i {
+				.translate(0; -2px);
+			}
+		}
+
+		.address-wrap {
+			border: 1px solid @gray-lighter;
+
+		}
+		.address-wrap .address-title {
+			border-bottom: 1px solid @gray-lighter;
+			padding: 20px;
+		}
+		.address-wrap address {
+			padding: 20px;
+			margin-bottom: 0;
+		}
+
+		.invoice-table {
+			thead tr {
+				background: darken(@gray-lighter, 30%);
+				color: #fff;
+			}
+		}
+
+		.total-sum {
+			border-bottom: 2px solid @gray-lighter;
+		}
+
+
+	}
+}

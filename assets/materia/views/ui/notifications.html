@@ -1,0 +1,113 @@
+<div class="page page-ui-notifications">
+
+	<ol class="breadcrumb breadcrumb-small">
+		<li>UI Kit</li>
+		<li class="active"><a href="#/ui/notifications">Notifications</a></li>
+	</ol>
+
+
+	<div class="page-wrap">
+		<!-- row -->
+		<div class="row">
+			<!-- toasts -->
+			<div class="col-sm-12">
+				<div class="panel panel-default panel-stacked panel-hovered mb20" ng-controller="ToastDemoCtrl">
+					<div class="panel-heading">Notifications</div>
+					<div class="panel-body">
+						<!-- inner row -->
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<p class="small text-muted text-uppercase text-bold mb15">Positioning</p>
+								<!-- toast positioning -->
+								<div class="toast-positioning mb15">
+									<span class="top-left" ng-model="positionModel" btn-radio=" 'topLeft' "></span>
+									<span class="top-right" ng-model="positionModel" btn-radio=" 'topRight' "></span>
+									<span class="bottom-left" ng-model="positionModel" btn-radio=" 'bottomLeft' "></span>
+									<span class="bottom-right" ng-model="positionModel" btn-radio=" 'bottomRight' "></span>
+								</div>
+							</div>
+
+							<div class="col-md-6 col-sm-12">
+								<div class="clearfix mb20">
+									<p class="small text-muted text-uppercase text-bold mb15">Animation Style</p>
+									<button type="button" class="btn btn-default mr5" ng-model="animModel" btn-radio=" 'fade' ">Fade</button>
+									<button type="button" class="btn btn-default mr5" ng-model="animModel" btn-radio=" 'scale' ">Scale</button>
+									<button type="button" class="btn btn-default mr5" ng-model="animModel" btn-radio=" 'flash' ">Flash</button>
+									<button type="button" class="btn btn-default mr5" ng-model="animModel" btn-radio=" 'bouncyflip' ">Bouncy Flip</button>
+									<button type="button" class="btn btn-default mr5" ng-model="animModel" btn-radio=" 'genie' ">Genie</button>
+								</div>
+								<div class="clearfix">
+									<ui-select ng-model="noti.selected" search-enabled="true" style="width: 35%" class="left mr15">
+										<ui-select-match>{{$select.selected}}</ui-select-match>
+										<ui-select-choices repeat="noti in notifications track by $index">
+											<div ng-bind-html="noti | highlight: $select.search"></div>
+										</ui-select-choices>
+									</ui-select> 
+									<button class="btn btn-primary" type="button" ng-click="createToast()">Create</button>
+								</div>
+								<!-- toast demo -->
+								<div class="toast toast-{{positionModel}}">
+									<alert ng-repeat="toast in toasts" type="{{toast.type}}" close="closeAlert($index)" class="toast-{{toast.anim}}">
+										<div ng-bind-html="toast.msg"></div>
+									</alert>
+								</div>
+							</div>
+						</div> <!-- #end inner row -->
+
+					</div>
+				</div>
+			</div>
+			<!-- #end toasts -->
+		</div>
+		<!-- #end row -->
+
+
+		<!-- row -->
+		<div class="row">
+			<!-- alerts -->
+			<div class="col-md-6 col-sm-12">
+				<div class="panel panel-default panel-hovered panel-stacked mb20" ng-controller="AlertDemoCtrl">
+					<div class="panel-heading">Alerts</div>
+					<div class="panel-body">
+						<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+							<div ng-bind-html="alert.msg"></div>
+						</alert>
+  						<button class='btn btn-primary' ng-click="addAlert()">Add Alert</button>
+					</div>
+				</div>
+			</div>
+			<!-- #end alerts -->
+
+			<div class="col-md-6 col-sm-12">
+				<div class="panel panel-default panel-hovered panel-stacked mb20">
+					<div class="panel-heading">Labels</div>
+					<div class="panel-body">
+						<div class="clearfix mb15">
+							<p>Add the <code>.label</code> class with optional color class to create a label.</p>
+							<label class="label label-default">Default</label>
+							<label class="label label-primary">Primary</label>
+							<label class="label label-success">Success</label>
+							<label class="label label-info">Info</label>
+							<label class="label label-warning">Warning</label>
+							<label class="label label-danger">Danger</label>
+							<label class="label label-pink">Pink</label>
+							<label class="label label-purple">Purple</label>
+						</div>
+						<div class="clearfix">
+							<p>Add the <code>.badge</code> class on inline element with optional color class to create a badge.</p>
+							<span class="badge badge-primary badge-xs">new</span>
+							<span class="badge badge-danger badge-xs circle">3</span>
+							<span class="badge badge-info badge-xs flat">flat</span>
+							<span class="badge badge-warning badge-xs">5</span>
+							<span class="badge badge-success badge-xs">10</span>
+							<span class="badge badge-pink">size</span>
+							<span class="badge badge-purple badge-xs">20</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- #end row -->
+
+	</div> <!-- #end page-wrap -->
+</div>

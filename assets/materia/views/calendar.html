@@ -1,0 +1,55 @@
+   <div class="page page-app-calendar" ng-controller="CalendarDemoCtrl">
+
+	<ol class="breadcrumb breadcrumb-small">
+		<li>Apps</li>
+		<li class="active"><a href="#/apps/calendar">Calendar</a></li>
+	</ol>
+
+
+	<div class="page-wrap">
+	
+		<!-- row -->
+		<div class="row">
+			<div class="col-sm-9">
+				<!-- calendar toolbar, this will replaced default toolbar -->
+				<div class="calendar-toolbar mb20 text-center">
+					<div class="btn-group btn-group-sm left">
+	                    <button type="button" class="btn btn-default ion ion-arrow-left-c" ng-click="prev('mycalendar')"></button>
+	                    <button type="button" class="btn btn-default ion ion-arrow-right-c" ng-click="next('mycalendar')"></button>
+	                </div>
+	               	<button type="button" class="btn btn-default btn-sm ml15 left" ng-click="today('mycalendar')">today</button>
+	               	<strong class="text-uppercase">{{currentDate}}</strong>
+	               	<div class="btn-group btn-group-sm right">
+	                    <button type="button" class="btn btn-default" ng-click="changeView('month', 'mycalendar')">Month</button>
+	                    <button type="button" class="btn btn-default" ng-click="changeView('agendaWeek', 'mycalendar')">Week</button>
+	                    <button type="button" class="btn btn-default" ng-click="changeView('agendaDay', 'mycalendar')">Day</button>
+	                </div>
+				</div>
+				<!-- calendar -->
+				<div ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar="mycalendar"></div>
+			</div>
+
+			<div class="col-sm-3">
+				<button type="button" class="btn btn-pink btn-icon-inline btn-sm mb15" ng-click="addEvent()">
+				<i class="ion ion-plus"></i>
+					Add Event
+				</button>
+				<ul class="calevents list-unstyled">
+					<li ng-repeat="event in events">
+						<input class="event-name" ng-model="event.title">
+						<div class="event-date">{{event.humanDate}}</div>
+						<div class="event-remove-icon ion ion-trash-a" ng-click="removeEvent($index)"></div>
+						<ul class="event-colors list-unstyled">
+							<li class="bg-primary" ng-click="changeEventColor($index, 'bg-primary')"></li>
+							<li class="bg-info" ng-click="changeEventColor($index, 'bg-info')"></li>
+							<li class="bg-success" ng-click="changeEventColor($index, 'bg-success')"></li>
+							<li class="bg-warning" ng-click="changeEventColor($index, 'bg-warning')"></li>
+							<li class="bg-danger" ng-click="changeEventColor($index, 'bg-danger')"></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div> <!-- #end row -->
+
+	</div> <!-- #end page-wrap -->
+</div>

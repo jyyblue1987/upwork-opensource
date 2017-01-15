@@ -1,0 +1,84 @@
+[datepicker] {
+	border: none!important;
+}
+
+[datepicker], .datepicker{
+	border: 1px solid @gray-lighter;
+	display: inline-block;
+	padding: 15px 20px;
+	background: #fff;
+	table {}
+	// date-picker head 
+	table > thead {
+
+		> tr { font-weight: 500;}
+		> tr > th {
+			text-transform: uppercase;
+			font-size: @font-size-small;
+			padding: 4px 0;
+			// replace glyphicon icons with custom 
+			i {
+				font-style: normal;
+				font-size: 18px;
+				line-height: .5;
+			}
+
+			// style week name
+			small[aria-label] {
+				color: @brand-pink;
+			}
+			.glyphicon-chevron-left:before {
+				content: "«"
+			}
+			.glyphicon-chevron-right:before {
+				content: "»"
+			}
+
+			> .btn {
+				border: none;
+				box-shadow: none;
+				background: transparent;
+				&:hover {
+					background: @gray-lightest;
+				}
+			}
+		}
+	}
+
+	// date-picker body
+	table > tbody > tr{
+		td:first-child {
+			// show-weeks styles
+			color: @brand-pink;
+			em {
+				font-style: normal;
+			}
+		}
+
+		td > button {
+			border-radius: @border-radius-base;
+			background: transparent;
+			border: none;
+			box-shadow: none;
+			&.active {
+				box-shadow: none;
+				.transition(0s);
+				color: #fff;
+			}
+			> span {
+				background: transparent;
+			}
+			&:not(.active):hover {
+				background: @gray-lightest;
+			}
+		}
+	}	
+}
+
+
+// display in a popup 
+.datepicker.datepicker-popup {
+	position: absolute;
+	top: 0;
+	z-index: @zindex-navbar;
+}

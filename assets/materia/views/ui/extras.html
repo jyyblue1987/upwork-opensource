@@ -1,0 +1,254 @@
+   <div class="page page-ui-extras">
+
+	<ol class="breadcrumb breadcrumb-small">
+		<li>UI Kit</li>
+		<li class="active"><a href="#/ui/tooltips">Extras</a></li>
+	</ol>
+
+
+	<div class="page-wrap">
+	
+		<!-- row -->
+		<div class="row">
+
+			<!-- tooltips -->
+			<div class="col-md-6 col-sm-12" ng-controller="TooltipDemoCtrl">
+				<div class="panel panel-default panel-hovered panel-stacked mb20">
+					<div class="panel-heading">Tooltips</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label>Dynamic Tooltip Popup Text</label>
+							<input type="text" ng-model="dynamicTooltip" class="form-control">
+						</div>	
+						<p>Tincidunt lobortis feugiat vivamus at 
+						<a href="#" tooltip-placement="top" tooltip="{{dynamicTooltip}}"><strong>dynamic</strong></a> 
+						eget arcu dictum varius duis at consectetur 
+						<a href="#" tooltip-placement="top" tooltip="on the top"><strong>top</strong></a> stet doming platonem ex, at causae aliquam his, ne docendi luptatum voluptatum eam.
+						Vitae elementum curabitur <a href="#" tooltip-placement="bottom" tooltip="on the bottom"><strong>bottom</strong></a> 
+						nunc sed velit dignissim sodales ut eu sem integer 
+						<a href="#" tooltip-placement="left" tooltip="on the left"><strong>left</strong></a> 
+						sed velit dignissim sodales ut eu sem integer vitae arcu 
+						<a href="#" tooltip-placement="right" tooltip="on the right"><strong>right</strong></a> 
+						varius duis at consectetur 
+						<a href="#" tooltip-popup-delay='1000' tooltip='appears with delay'><strong>delayed</strong></a> 
+						turpis massa tincidunt dui ut. Tincidunt lobortis feugiat vivamus at left eget arcu dictum varius duis at consectetur lorem.</p>
+						<p>I can even contain HTML. <a href="#" tooltip-placement="top" tooltip-html-unsafe="{{tooltipHtml}}"><strong>Check me out!</strong></a></p>
+						<form role="form">
+							<div class="form-group">
+								<label>Or use custom triggers, like focus: </label>
+								<input type="text" value="Click me!" tooltip="See? Now click away..."  tooltip-trigger="focus" tooltip-placement="right" class="form-control" style="width:50%">
+							</div>
+						</form>
+					</div>
+				</div> <!-- #end panel -->
+			</div>
+
+
+			<!-- Pagination -->
+			<div class="col-md-6 col-sm-12" ng-controller="PaginationDemoCtrl">
+				<div class="panel panel-default panel-hovered panel-stacked mb20">
+					<div class="panel-heading">Pagination</div>
+					<div class="panel-body">
+						<pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+						<pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm"></pagination>
+	    				<pre>The selected page no: {{currentPage}}</pre>
+	    				<button class="btn btn-info btn-sm" ng-click="setPage(3)">Set current page to: 3</button>
+	    				<hr/>
+	    				<pager total-items="totalItems" ng-model="currentPage"></pager>
+	    				<hr/>
+	    				<p class="small">Limit the maximum visible buttons</p>
+					    <pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></pagination>
+					</div>
+				</div>
+			</div>
+
+		</div> <!-- #end row -->
+
+
+		<!-- row -->
+		<div class="row">
+
+			<!-- Ratings -->
+			<div class="col-md-6 col-sm-12" ng-controller="RatingsDemoCtrl">
+				<div class="panel panel-default panel-hovered panel-stacked mb20">
+					<div class="panel-heading">Ratings</div>
+					<div class="panel-body">
+						<rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"
+						state-on="'ion ion-star'" state-off="'ion ion-ios-star-outline'"></rating>
+					    <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar &amp;&amp; !isReadonly">{{percent}}%</span>
+					    <pre style="margin:15px 0;">Rate: <b>{{rate}}</b> - Readonly is: <i>{{isReadonly}}</i> - Hovering over: <b>{{overStar || "none"}}</b></pre>
+
+					   	<p class="small text-uppercase text-bold">Custom Icons</p>
+					   	<div ng-init="x = 5">
+					   	 	<rating ng-model="x" max="10" state-on="'ion ion-ios-cloud'" state-off="'ion ion-ios-cloud-outline'" class="text-warning"></rating>
+					   	 	<strong>(Rate: {{x}})</strong>
+					   	</div>
+
+					   	<div ng-init="y = 8">
+					   	 	<rating ng-model="y" max="15" state-on="'ion ion-ios-heart'" state-off="'ion ion-ios-heart-outline'" class="text-danger"></rating>
+					   	 	<strong>(Rate: {{y}})</strong>
+					   	</div>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Typehead -->
+			<div class="col-md-6 col-sm-12" ng-controller="TypeaheadDemoCtrl">
+				<div class="panel panel-default panel-hovered panel-stacked mb20">
+					<div class="panel-heading">Typeahead</div>
+					<div class="panel-body">
+						<pre>Model: {{selected | json}}</pre>
+    					<input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">
+					</div>
+				</div>
+			</div>
+
+		</div> <!-- #end row -->
+
+
+
+		<!-- row -->
+		<div class="row">
+
+			<!-- List Groups -->
+			<div class="col-sm-12">
+				<div class="panel panel-default panel-hovered panel-stacked mb20">
+					<div class="panel-heading">List Groups</div>
+					<div class="panel-body">
+						<!-- inner row -->
+						<div class="row">
+							<div class="col-md-3 col-sm-6">
+								<p class="small text-muted text-uppercase text-bold mb15">Simple List Group</p>
+								<ul class="list-group">
+									<li class="list-group-item">Cras justo odio</li>
+									<li class="list-group-item">Dapibus ac facilisis in</li>
+									<li class="list-group-item">Morbi leo risus</li>
+									<li class="list-group-item">Porta ac consectetur ac</li>
+									<li class="list-group-item">Vestibulum at eros</li>
+								</ul>
+							</div>  <!-- #end col -->
+
+							<div class="col-md-4 col-sm-6">
+								<p class="small text-muted text-uppercase text-bold mb15">With Labels and Links</p>
+								<div class="list-group">
+									<a href="javascript:;" class="list-group-item active">
+										Cras justo odio
+										<span class="badge right badge-sm">24</span>
+									</a>
+									<a href="javascript:;" class="list-group-item">
+										Dapibus ac facilisis in
+										<span class="badge right badge-sm badge-success">14</span>
+									</a>
+									<a href="javascript:;" class="list-group-item">
+										Morbi leo risus
+										<span class="badge badge-sm right badge-danger">11</span>
+									</a>
+									<a href="javascript:;" class="list-group-item">
+										Porta ac consectetur ac
+										<span class="badge badge-sm right circle badge-info">8</span>
+									</a>
+									<a href="javascript:;" class="list-group-item">
+										Vestibulum at eros
+										<span class="badge badge-sm right badge-pink">22%</span>
+									</a>
+								</div>
+							</div> <!-- #end col -->
+
+							<div class="col-md-5 col-sm-12">
+								<p class="small text-muted text-uppercase text-bold mb15">With Description</p>
+								<div class="list-group">
+									<a href="javascript:;" class="list-group-item">
+										<h4 class="list-group-item-heading">Readymade banjo wayfarers</h4>
+										<p class="list-group-item-text">Vel nunc at metus nunc ornare nisl, nostra dictum, et sed mauris, in vulputate urna a nec in.</p>
+									</a>
+									<a href="javascript:;" class="list-group-item list-group-item-success">
+										<h4 class="list-group-item-heading">Organic literally readymade</h4>
+										<p class="list-group-item-text">Tumblr DIY leggings fanny pack. Heirloom occupy messenger bag typewriter DIY try-hard.</p>
+									</a>
+									<a href="javascript:;" class="list-group-item">
+										<h4 class="list-group-item-heading">American Apparel</h4>
+										<p class="list-group-item-text">Vel nunc at metus nunc ornare nisl.</p>
+									</a>
+								</div>
+							</div> <!-- #end col -->
+
+
+						</div> <!-- #end inner row -->
+					</div> <!-- #end panel-body -->
+				</div> <!-- #end panel -->
+			</div> <!-- #end col -->
+
+		</div> <!-- #end row -->
+
+
+		<!-- row -->
+		<div class="row">
+			<!-- media object -->
+			<div class="col-md-6 col-sm-12">
+				<div class="panel panel-hovered panel-default panel-stacked mb20">
+					<div class="panel-heading">Default Media</div>
+					<div class="panel-body">
+						<div class="media">
+							<div class="media-left">
+								<a href="#">
+									<img src="images/sample/1.jpg" class="media-object" alt="media">
+								</a>
+							</div>
+							<div class="media-body">
+								<h4 class="media-heading">Media heading</h4>
+								<p>Pede elit auctor lorem est, praesent elementum praesent, cum donec eget suspendisse pellentesque.</p>
+								<div class="media">
+									<div class="media-left">
+										<a href="#">
+											<img src="images/sample/3.jpg" class="media-object" alt="media">
+										</a>
+									</div>
+									<div class="media-body">
+										<h4 class="media-heading">Nested Media heading</h4>
+										<p>Pede elit auctor lorem est, praesent elementum praesent, cum donec eget suspendisse pellentesque.</p>
+									</div>
+								</div> <!-- #end media -->
+							</div>
+						</div> <!-- #end media -->
+						<div class="media">
+							<div class="media-body">
+								<h4 class="media-heading">Media heading</h4>
+								Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio.
+							</div>
+							<div class="media-right">
+								<a href="#">
+									<img src="images/sample/2.jpg" class="media-object" alt="media">
+								</a>
+							</div>
+						</div> <!-- #end media -->
+
+					</div> <!-- #end panel-body -->
+				</div> <!-- #end panel -->
+			</div> <!-- #end col -->
+
+
+			<!-- Wells -->
+			<div class="col-md-6 col-sm-12">
+				<div class="panel panel-hovered panel-default panel-stacked mb20">
+					<div class="panel-heading">Wells</div>
+					<div class="panel-body">
+						<div class="well">
+							Default well can be created by only <code>.well</code> class.
+						</div>
+
+						<div class="well well-lg">
+							This is large well with large padding. Simply add <code>.well-lg</code> class.
+						</div>
+
+						<div class="well well-sm">
+							Similarly this small well can be created with <code>.well-sm</code> class.
+						</div>					
+					</div> <!-- #end panel-body -->
+				</div> <!-- #end panel -->
+			</div> <!-- #end col -->
+
+		</div> <!-- #end row -->
+
+	</div> <!-- #end page-wrap -->
+</div>

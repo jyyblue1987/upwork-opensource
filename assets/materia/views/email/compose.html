@@ -1,0 +1,31 @@
+<!-- modal, modal-dialog and modal-content divs are automatically wrapped by modal plugin -->
+<div class="email-compose">	<!-- wrapper for specific style -->
+	<div class="modal-header clearfix bg-dark">
+		<div class="small text-uppercase left title">New Message</div>
+		<button class="close right" ng-click="composeClose()">&times;</button>
+	</div>
+
+	<div class="modal-body">
+		<form name="email-compose" id="mail-compose" action="javascript:;" class="form-horizontal">
+			
+			<div class="input-group mb15">
+				<span class="input-group-addon">To:</span>
+				<input type="text" class="form-control">
+			</div>
+			
+			<div class="input-group mb15">
+				<span class="input-group-addon">Subject:</span>
+				<input type="text" class="form-control">
+			</div>
+			
+
+			<div class="input-group mb15"  style="width: 100%">
+				<div text-angular ng-model="composeModel" class="text-angular-editor"
+					 ta-toolbar="[['h1', 'h2', 'h3', 'h4'], ['bold', 'italics', 'underline'], ['insertImage', 'insertLink', 'insertVideo'], ['justifyLeft', 'justifyCenter', 'justifyRight'], ['pre', 'indent', 'outdent']]"></div>
+			</div>
+
+
+			<button type="submit" class="btn btn-success">Send Message</button>
+		</form>
+	</div>
+</div>

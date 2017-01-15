@@ -1,0 +1,222 @@
+.site-head {
+	z-index: @zindex-navbar-fixed;
+	box-shadow: 0 2px 8px rgba(0, 0,  0, .25);
+	background: @site-head-bg;
+	.transition(.25s ease-in);
+	
+	ul.left-elems, 
+	ul.right-elems {
+		display: table; height: 100%;
+		> li {.vertical-center()}
+	}
+
+	ul.left-elems {
+		float: left;
+		// === nav-trigger 
+		> li > .nav-trigger {
+			margin-left: 20px;
+			cursor:pointer;
+			// border: 1px solid;
+			padding: 5px 15px;
+			font-size: @font-size-large + 2;
+			color: #fff;
+		}
+		// === site logo for mobile nav
+		// ============================
+		> li > .site-logo {
+			@media (max-width: @screen-xs-max) {
+				position: absolute;
+				.translate(-50%; -50%);
+				left: 50%; top: 50%;
+				> a {font-weight: 900; color: #fff;}
+			}
+		}
+		// === site search 
+		// ====================
+		> li > .form-search {
+			position: relative;
+			width: @site-search-width;
+			margin-left: 20px;
+			input {
+				border: 1px solid @gray-lightest;
+				color: lighten(@text-color, 5%);
+				&:focus {
+					content: " ";	// remove cross mark in ie10
+					background: @gray-lightest;
+					box-shadow: none;
+				}
+			}
+			button {
+				border:none;
+				position: absolute;
+				top: 7px; right: 8px;
+				background: transparent;
+			}
+		}
+		// === full-screen
+		// ====================
+		> li.fullscreen > a,
+		> li.notify-drop > a {
+			margin-left: 30px; 	
+			display: inline-block;
+			margin-top: 1px;
+			color: #fff;
+		}
+		> li > a {
+			position: relative;
+			.badge {
+				// badge positioning for all
+				position: absolute;
+				top: -2px; left: 8px;
+			}
+		}
+
+		// === notification dropdown 
+		// =========================
+		 > li.notify-drop {
+
+			.dropdown-menu {
+				min-width: 320px;
+				.translate(0; -2px);
+				box-shadow: 0 2px 8px rgba(0,0,0,.06);
+				.panel-heading {text-transform: none; font-weight: 500;}
+				.panel-body {
+					padding-bottom: 10px;
+				}
+				ul li {
+					
+					margin-bottom: 20px;
+					&:last-child {margin-bottom: 0;}
+				}
+				ul li a {
+					color: @text-color;
+					.ion {
+						padding: 6px 12px;
+						color: #fff;
+						margin-right: 15px;
+					}
+				}
+			}
+			
+		}
+	}	// #end left-elems
+
+
+	ul.right-elems {
+		float: right;
+		// === profile-dropdown 
+		// =====================
+		> li.profile-drop {
+			> a {margin-right: 30px}
+			> a > img {
+				.square(32px);
+				border-radius: 100%;
+				border: 2px solid @gray-lighter;
+			}
+
+			.dropdown-menu {
+				.translate(0; -2px);
+				box-shadow: 0 2px 8px rgba(0,0,0,.06);
+			}
+		}
+
+
+
+		/// ==== floating sidebar
+		/// =====================
+		> li.floating-sidebar {
+
+			> a {
+				color: #fff;
+				margin-right: 30px; 
+				margin-top: 2px;
+				> i {font-size: @font-size-large + 2}
+				display: inline-block;
+			}
+		}
+		> li.floating-sidebar {
+			.sidebar-wrap {
+				overflow: hidden;
+				background: #fff;
+				position: fixed;
+				box-shadow: 4px 0 12px rgba(0,0,0,.4);
+				top: @site-head-height - .5; bottom: 0;
+				right: 0;
+				width: 250px;
+				.translate(100%; 0);
+				border-left: 1px solid @gray-lighter;
+				.transition(.25s ease-in);
+			}
+
+			.sidebar-wrap {
+				.tab-content {
+					border: none;
+					box-shadow: none;
+				}
+				.nav-tabs {
+					background: @gray-dark;
+					> li.active a {
+						color: @text-color;
+					}
+					> li a {
+						border: none; 
+						box-shadow: none; 
+						border-radius: 0; 
+						color: #fff;
+					}
+				}
+			}
+
+			.sidebar-wrap {
+				.chat-tab, .info-tab {
+					.title {
+						border-bottom: 1px solid @gray-lighter;
+						text-transform: uppercase;
+						font-weight: bold;
+						padding: 10px 0px;
+					}
+				}
+				// ==== chat tab
+				.chat-tab {
+					.user-container {
+						img {
+							border-radius: 100%;
+							.square(38px);
+							border: 2px solid @gray-lighter;
+							float: left;
+							margin-right: 10px;
+						}
+						.desc {display: inline-block;}
+						.desc .ion {
+							font-size: 11px;
+						}
+						// ==== availability colors
+						.avail {
+							display: inline-block;
+							font-size: 10px;
+							margin-top: 2px;
+						}
+						.on {color: @brand-success}
+						.off {color: @brand-danger}
+						.away {color: @brand-warning}
+					}
+					
+				}
+
+				// ==== info tab
+				.info-tab {
+				
+				}
+			}
+		}
+		// ==== open on click
+		> li.floating-sidebar.open .sidebar-wrap {
+			.translate(0;0);
+		}
+	}
+
+
+
+
+	// ##end
+}

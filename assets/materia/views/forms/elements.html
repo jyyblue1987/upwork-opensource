@@ -1,0 +1,679 @@
+<div class="page page-forms-elements">
+
+	<ol class="breadcrumb breadcrumb-small">
+		<li>Forms</li>
+		<li class="active"><a href="#/forms/elements">Elements</a></li>
+	</ol>
+
+
+	<div class="page-wrap">
+		
+		<!-- row -->
+		<div class="row">
+	
+			<!-- col-left -->
+			<div class="col-sm-12 col-md-6">
+				<div class="panel panel-default panel-hovered panel-stacked mb20">
+					<div class="panel-heading">Native Controls</div>
+					<div class="panel-body">
+						<form role="form" class="form-horizontal"> <!-- form horizontal acts as a row -->
+							<!-- normal control -->
+							<div class="form-group">
+								<label class="col-md-3 control-label">Normal Control</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+
+							<!-- with hint -->
+							<div class="form-group">
+								<label class="col-md-3 control-label">With Hint</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control" placeholder="Hint Text">
+									<p class="text-danger text-right xsmall">hint description</p>
+								</div>
+							</div>
+							
+							<!-- passowrd control -->
+							<div class="form-group">
+								<label class="col-md-3 control-label">Password</label>
+								<div class="col-md-9">
+									<input type="password" class="form-control" placeholder="Password Text">
+								</div>
+							</div>
+
+							<!-- Disabled control -->
+							<div class="form-group">
+								<label class="col-md-3 control-label">Disabled</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control" placeholder="Input is disabled" disabled>
+								</div>
+							</div>
+							
+							<!-- textarea control -->
+							<div class="form-group">
+								<label class="col-md-3 control-label">Textarea</label>
+								<div class="col-md-9">
+									<textarea rows="5" class="form-control resize-v" placeholder="Message here"></textarea>
+								</div>
+							</div>
+							
+							<!-- native select -->
+							<div class="form-group">
+								<label class="col-md-3 control-label">Native Select</label>
+								<div class="col-md-9">
+									<select class="form-control">
+										<option value="0" selected disabled>Select a fruit</option>
+										<option value="1">Apple</option>
+										<option value="2">Orange</option>
+										<option value="3">Grapes</option>
+										<option value="4">Pineapple</option>
+										<option value="5">Cherry</option>
+									</select>
+								</div>
+							</div>
+							
+							<!-- success control -->
+							<div class="form-group">
+								<label class="col-md-3 control-label">Success Control</label>
+								<div class="col-md-9">
+									<div class="has-success">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+							</div>
+
+							<!-- warning control -->
+							<div class="form-group">
+								<label class="col-md-3 control-label">Warning Control</label>
+								<div class="col-md-9">
+									<div class="has-warning">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+							</div>
+							
+							<!-- error control -->
+							<div class="form-group">
+								<label class="col-md-3 control-label">Error Control</label>
+								<div class="col-md-9">
+									<div class="has-error">
+										<input type="text" class="form-control">
+									</div>
+								</div>
+							</div>
+
+							<!-- prepend control -->
+							<div class="form-group">
+								<label class="col-md-3 control-label">Prepend</label>
+								<div class="col-md-9">
+									<div class="input-group">
+										<span class="input-group-addon ion ion-person"></span>
+										<input type="text" class="form-control" placeholder="Full Name">
+									</div>
+								</div>
+							</div>
+
+							<!-- append control -->
+							<div class="form-group">
+								<label class="col-md-3 control-label">Append</label>
+								<div class="col-md-9">
+									<div class="input-group">
+										<input type="email" class="form-control" placeholder="Email Address">
+										<span class="input-group-addon ion ion-email-unread"></span>
+									</div>
+								</div>
+							</div>
+
+							<!-- both control -->
+							<div class="form-group">
+								<label class="col-md-3 control-label">Both Addon</label>
+								<div class="col-md-9">
+									<div class="input-group">
+										<span class="input-group-addon">$</span>
+										<input type="email" class="form-control" placeholder="Both Addon">
+										<span class="input-group-addon">0.0</span>
+									</div>
+								</div>
+							</div>
+
+							<!-- dropdown control -->
+							<div class="form-group">
+								<label class="col-md-3 control-label">Dropdown</label>
+								<div class="col-md-9">
+									<div class="input-group">
+										<div class="input-group-btn">
+											<div class="dropdown" dropdown>
+												<button class="btn btn-pink dropdown-toggle" dropdown-toggle 
+												type="button">Click Me<span class="caret"></span></button>
+												<ul class="dropdown-menu">
+													<li><a href="javascript:;">Action</a></li>
+													<li><a href="javascript:;">Another action</a></li>
+													<li><a href="javascript:;">Something else here</a></li>
+													<li class="divider"></li>
+													<li><a href="javascript:;">Separated link</a></li>
+												</ul>
+											</div>
+										</div>
+										<input type="text" class="form-control" placeholder="Dropdown button addon">
+									</div>
+								</div>
+							</div>
+
+							<!-- button addon -->
+							<div class="form-group">
+								<label class="col-md-3 control-label">Button Addon</label>
+								<div class="col-md-9">
+									<div class="input-group">
+										<div class="input-group-btn">
+											<button class="btn btn-default ion ion-paper-airplane"></button>
+										</div>
+										<input type="text" class="form-control" placeholder="Button Addon">
+									</div>
+								</div>	
+							</div>
+							
+							<div class="clearfix right">
+								<button class="btn btn-primary mr5" type="submit">Submit</button>
+								<button class="btn btn-default">Cancel</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div> <!-- #end col-left -->
+
+
+			<!-- col-right -->
+			<div class="col-sm-12 col-md-6">
+				<div class="panel panel-default panel-hovered panel-stacked mb20">
+					<div class="panel-heading">Sizes</div>
+					<div class="panel-body">
+						<form role="form">
+							<div class="form-group form-group-sm">
+								<label class="control-label small">Small - Using <code>.form-group-sm</code> class.</label>
+								<input type="text" class="form-control" placeholder="or .input-sm">
+							</div>
+
+							<div class="form-group">
+								<label class="control-label small">Medium - Default</label>
+								<input type="text" class="form-control" placeholder="No extra class">
+							</div>
+
+							<div class="form-group form-group-lg">
+								<label class="control-label small">Large - Using <code>.form-group-lg</code> class.</label>
+								<input type="text" class="form-control" placeholder="or .input-lg">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Selects -->
+			<div class="col-sm-12 col-md-6">
+				<div class="panel panel-default panel-hovered panel-stacked mb20">
+					<div class="panel-heading">Selects</div>
+					<div class="panel-body">
+						<form role="form">
+							<div ng-controller="SelectDemoCtrl">
+								<!-- Single Select -->
+								<div class="form-group">
+									<label class="control-label small">Single Select - default</label>
+									<ui-select ng-model="person.selected" search-enabled="true">
+										<ui-select-match placeholder="Select a person">{{$select.selected.name}}</ui-select-match>
+										<ui-select-choices repeat="person in people">
+											<div ng-bind-html="person.name | highlight: $select.search"></div>
+											<small>email: {{person.email}}</small>
+										</ui-select-choices>
+									</ui-select> 
+								</div>
+
+								<!-- single select - with optgroup -->
+								<div class="form-group">
+									<label class="control-label small">Single Select - with optgroup</label>
+									<ui-select ng-model="state.selected" search-enabled="true">
+										<ui-select-match placeholder="Select a state (optgroup)">{{$select.selected.name}}</ui-select-match>
+										<ui-select-choices repeat="state in timezone" group-by="timezoneFn">
+											<div ng-bind-html="state.name | highlight: $select.search"></div>
+										</ui-select-choices>
+									</ui-select>
+								</div>
+
+								<!-- Multi Select -->
+								<div class="form-group">
+									<label class="control-label small">Multi Select</label>
+									<ui-select multiple ng-model="multipleDemo.colors" ng-disabled="disabled">
+										<ui-select-match placeholder="Select colors...">{{$item}}</ui-select-match>
+										<ui-select-choices repeat="color in availableColors | filter:$select.search">
+											{{color}}
+										</ui-select-choices>
+									</ui-select>
+								</div>	
+
+								<!-- Multi Select - with optgroup -->
+								<div class="form-group">
+									<label class="control-label small">Multi Select - with optgroup</label>
+									<ui-select multiple ng-model="multipleDemo.selectedPeopleWithGroupBy">
+										<ui-select-match placeholder="Select person...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match>
+										<ui-select-choices group-by="someGroupFn" repeat="person in people | filter: {name: $select.search}">
+											<div ng-bind-html="person.name | highlight: $select.search"></div>
+											<small>email: {{person.email}}</small>
+										</ui-select-choices>
+									</ui-select>
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- #end col-right -->
+
+			<!-- Color Picker -->
+			<div class="col-sm-12 col-md-6">
+				<div class="panel panel-default panel-hovered panel-stacked mb20">
+					<div class="panel-heading">Color Picker</div>
+					<div class="panel-body">
+						<form role="form">
+							<div class="form-group" ng-init="color_hex='#E91E63'">
+								<input colorpicker="hex" type="text" ng-model="color_hex" class="form-control"  ng-style="{'background': color_hex}" style="color: #fff; border-color: #eee;"/>
+							</div>
+							<div class="form-group" ng-init="color_rgba='rgba(37, 30, 130, 1)'">
+								<input colorpicker="rgba" type="text" ng-model="color_rgba" class="form-control"  ng-style="{'background': color_rgba}" style="color: #fff; border-color: #eee;"/>
+							</div>
+						</form>
+						
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- #end row -->
+
+
+		<!-- row -->
+		<!-- checkboxes -->
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="panel panel-default panel-hovered panel-stacked mb20">
+					<div class="panel-heading">Checkboxes (No Plugin)</div>
+					<div class="panel-body">
+						<div class="row">
+							
+							<div class="col-md-4">
+								<p class="small text-warning text-uppercase text-normal">Colors</p>
+								<p class="small mb15">Wrap label inside <code>ui-checkbox</code> class to create custom checkbox. Support standard colors via <code>ui-checkbox-primary</code> etc.</p>
+								<div class="clearfix">
+									<div class="ui-checkbox">
+										<label>
+											<input type="checkbox" checked> 
+											<span>Default</span>
+										</label>
+									</div>
+
+									<div class="ui-checkbox ui-checkbox-primary">
+										<label>
+											<input type="checkbox" checked> 
+											<span>Primary</span>
+										</label>
+									</div>
+
+									<div class="ui-checkbox ui-checkbox-pink">
+										<label>
+											<input type="checkbox" checked> 
+											<span>Pink</span>
+										</label>
+									</div>
+
+									<div class="ui-checkbox ui-checkbox-success">
+										<label>
+											<input type="checkbox"> 
+											<span>Success</span>
+										</label>
+									</div>
+
+									<div class="ui-checkbox ui-checkbox-info">
+										<label>
+											<input type="checkbox" checked> 
+											<span>Info</span>
+										</label>
+									</div>
+
+									<div class="ui-checkbox ui-checkbox-warning">
+										<label>
+											<input type="checkbox"> 
+											<span>Warning</span>
+										</label>
+									</div>
+
+									<div class="ui-checkbox ui-checkbox-danger">
+										<label>
+											<input type="checkbox" checked> 
+											<span>Danger</span>
+										</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<p class="small text-warning text-uppercase text-normal">Variations</p>
+								<p class="small mb15">Circle and Inline variation of checkbox attained with <code>ui-checkbox-circle</code> and <code>ui-checkbox-inline</code> respectively. Note that <code>ui-checkbox-inline</code> must be added to &lt;label&gt; element.</p>
+
+								<div class="ui-checkbox ui-checkbox-primary">
+									<label class="ui-checkbox-inline">
+										<input type="checkbox" checked> 
+										<span>One</span>
+									</label>
+									<label class="ui-checkbox-inline">
+										<input type="checkbox"> 
+										<span>Two</span>
+									</label>
+									<label class="ui-checkbox-inline">
+										<input type="checkbox" checked> 
+										<span>Three</span>
+									</label>
+								</div>
+
+								<div class="ui-checkbox ui-checkbox-success ui-checkbox-circle">
+									<label>
+										<input type="checkbox" checked> 
+										<span>Circle</span>
+									</label>
+								</div>
+
+
+								<div class="ui-checkbox ui-checkbox-warning ui-checkbox-circle">
+									<label>
+										<input type="checkbox" checked> 
+										<span>Another One</span>
+									</label>
+								</div>
+
+							</div>
+
+							<div class="col-md-4">
+								<p class="small text-warning text-uppercase text-normal">Disabled</p>
+								<p class="small mb15">Disabled states in different colors. Just add <code>disabled</code> attribute to input element.</p>
+								<div class="ui-checkbox ui-checkbox-danger">
+									<label>
+										<input type="checkbox" disabled> 
+										<span>No, don't check me</span>
+									</label>
+								</div>
+
+								<div class="ui-checkbox ui-checkbox-danger">
+									<label>
+										<input type="checkbox" checked disabled> 
+										<span>Already checked</span>
+									</label>
+								</div>
+
+								<div class="ui-checkbox ui-checkbox-info ui-checkbox-circle">
+									<label>
+										<input type="checkbox" checked disabled> 
+										<span>Circle One</span>
+									</label>
+								</div>
+							</div>
+
+						</div><!-- #end inner row -->
+					</div> <!-- #end panel body -->
+				</div> <!-- #end panel -->
+			</div>
+			
+		</div>
+		<!-- #end row -->
+
+
+		<!-- row -->
+		<!-- radio and toggles -->
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="panel panel-default panel-hovered panel-stacked mb20">
+					<div class="panel-heading">Radios and Toggles</div>
+					<div class="panel-body">
+						<div class="row">
+
+							<div class="col-md-4">
+								<p class="small text-warning text-uppercase text-normal">Colors</p>
+								<p class="small mb15">Similar to checkbox, radio can be customized by <code>ui-radio</code> class with respective color classes (<code>ui-radio-primary</code> etc.) </p>
+								
+								<div class="ui-radio ui-radio-pink">
+									<label class="ui-radio-inline">
+										<input type="radio" checked name="radioEg"> 
+										<span>Option One</span>
+									</label>
+									<label class="ui-radio-inline">
+										<input type="radio" name="radioEg"> 
+										<span>Option Two</span>
+									</label>
+
+									<label class="ui-radio-inline">
+										<input type="radio" name="radioEg"> 
+										<span>Option Three</span>
+									</label>
+								</div>
+
+								<div class="ui-radio ui-radio-danger">
+									<label>
+										<input type="radio"> 
+										<span>Don't click me</span>
+									</label>
+								</div>
+
+								<div class="ui-radio ui-radio-primary">
+									<label>
+										<input type="radio" checked> 
+										<span>Primary</span>
+									</label>
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<p class="small text-warning text-uppercase text-normal">Disabled</p>
+								<p class="small mb15">Disabled states in different colors. Just add <code>disabled</code> attribute to input element.</p>
+
+								<div class="ui-radio">
+									<label>
+										<input type="radio" disabled> 
+										<span>Untoggled</span>
+									</label>
+								</div>
+
+								<div class="ui-radio ui-radio-success">
+									<label>
+										<input type="radio" checked disabled> 
+										<span>Toggled</span>
+									</label>
+								</div>
+							</div>
+
+
+							<div class="col-md-4">
+								<p class="small text-warning text-uppercase text-normal">Switches</p>
+								<p class="small mb15">Custom iOS like switches made with no external plugin. Replacement for radios. Just add class
+								<code>ui-toggle</code> to the wrapped element.</p>
+								
+								<!-- small toggle -->
+								<div class="ui-toggle ui-toggle-sm ui-toggle-pink mb10">
+									<label class="ui-toggle-inline">
+										<input type="checkbox"> 
+										<span></span>
+									</label>
+									<label class="ui-toggle-inline">
+										<input type="checkbox" checked> 
+										<span></span>
+									</label>
+								</div>
+
+								<!-- default toggle -->
+								<div class="ui-toggle ui-toggle-primary">
+									<label class="ui-toggle-inline">
+										<input type="radio" name="toggleEg"> 
+										<span></span>
+									</label>
+
+									<label class="ui-toggle-inline">
+										<input type="radio" checked name="toggleEg"> 
+										<span></span>
+									</label>
+
+									<label class="ui-toggle-inline">
+										<input type="checkbox" checked disabled> 
+										<span></span>
+									</label>
+								</div>
+
+							</div>
+
+						</div><!-- #end inner row -->
+					</div> <!-- #end panel body -->
+				</div> <!-- #end panel -->
+			</div>
+
+		</div>
+		<!-- #end row -->
+
+
+		<!-- row -->
+		<!-- inline form -->
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="panel panel-default panel-hovered panel-stacked mb20">
+					<div class="panel-heading">Inline Form</div>
+					<div class="panel-body">
+						<form class="form-inline" role="form">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon ion ion-email"></span>
+									<input type="email" class="form-control" placeholder="Enter email here...">
+								</div>
+								<div class="input-group">
+									<span class="input-group-addon ion ion-locked"></span>
+									<input type="password" class="form-control" placeholder="Enter password here...">
+								</div>
+								<button type="submit" class="btn btn-primary">Login</button>
+								<button type="button" class="btn btn-default">Register Now</button>
+							</div>
+						</form>
+					</div> <!-- #end panel body -->
+				</div> <!-- #end panel -->
+			</div>
+
+		</div>
+		<!-- row -->
+
+
+		<!-- row -->
+		<div class="row">
+
+			<div class="col-sm-12 col-md-6">
+				<!-- Tags Input -->
+				<div class="panel panel-default panel-hovered panel-stacked mb20">
+					<div class="panel-heading">Tags Input</div>
+					<div class="panel-body" ng-controller="TagsInputDemoCtrl">
+						<tags-input ng-model="tags"></tags-input>
+					</div>
+				</div>
+				
+				<!-- date picker -->
+				<div class="panel panel-default panel-hovered panel-stacked mb20">
+					<div class="panel-heading">Datepicker</div>
+					<div class="panel-body" ng-controller="DatepickerDemoCtrl">
+						<div class="form-group">
+							<label class="control-label small">Popup Picker</label>
+							<div class="input-group">
+								<input type="text" class="form-control datepicker" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2025-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" 
+								show-button-bar="false"/>
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-default ion ion-calendar" ng-click="open($event)"></i></button>
+								</span>
+							</div>
+						</div>
+
+						<!-- Inline Date picker-->
+						<div class="form-group">
+							<label class="control-label small">Inline Picker</label>
+							<div class="clearfix">
+								<datepicker ng-model="dt2" min-date="minDate" show-weeks="true" class="datepicker"></datepicker>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+			
+
+			<!-- Range Slider -->
+			<div class="col-sm-12 col-md-6">
+				<div class="panel panel-default panel-hovered panel-stacked mb20">
+					<div class="panel-heading">Sliders</div>
+					<div class="panel-body">
+						<p class="text-bold small mb20">Horizontal</p>
+						<div class="form-group">
+							<div class="left xsmall">0</div>
+							<div class="right xsmall">200</div>
+							<input id="ex1" ui-range-slider type="text" data-slider-min="0" data-slider-max="200" data-slider-step="1" data-slider-value="20">
+						</div>
+
+						<div class="form-group">
+							<div class="left xsmall">0</div>
+							<div class="right xsmall">20</div>
+							<input id="ex2" ui-range-slider type="text" data-slider-enabled="false"
+							data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="10">
+						</div>
+
+						<div class="form-group">
+							<div class="left xsmall">0</div>
+							<div class="right xsmall">20</div>
+							<input id="ex2" ui-range-slider type="text" data-slider-handle="square"
+							data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="5">
+						</div>
+
+						<div class="form-group">
+							<div class="left xsmall">0</div>
+							<div class="right xsmall">1000</div>
+							<input id="ex3" ui-range-slider type="text" data-slider-min="10" data-slider-max="1000" data-slider-step="3"  data-slider-value="[250,650]">
+						</div>
+						<br>
+
+						<!-- vertical slider -->
+						<p class="text-bold small mb20">Vertical</p>
+						<div class="col-xs-2">
+							<input  type="text" ui-range-slider data-slider-reversed="true" data-slider-min="-5" 
+							data-slider-max="20" data-slider-step="1" data-slider-value="4" data-slider-orientation="vertical">
+						</div>
+						<div class="col-xs-2">
+							<input  type="text" ui-range-slider data-slider-min="0" data-slider-max="20" 
+							data-slider-step="1" data-slider-value="4" data-slider-orientation="vertical">
+						</div>
+
+						<div class="col-xs-2">
+							<input  type="text" ui-range-slider data-slider-min="0" data-slider-max="40" 
+							data-slider-step="2" data-slider-value="[5, 20]" data-slider-orientation="vertical">
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- #end row -->
+
+
+		<!-- row -->
+		<div class="row">
+			<!-- text editor -->
+			<div class="col-md-12">
+				<div class="panel panel-default panel-hovered panel-stacked mb20">
+					<div class="panel-heading">Text Editor</div>
+					<div class="panel-body">
+						<div text-angular ng-model="htmlVariable"></div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- #end row -->
+
+	</div> <!-- #end page-wrap -->
+</div>

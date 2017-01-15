@@ -1,0 +1,33 @@
+.clear1{
+	clear:both;
+}
+.navbar-nav > li {
+    margin:3px 0px 0px px;
+}
+.top_header ul {
+
+   margin:0px 0px 0px 0px;
+}
+.bottom-list ul li{
+	
+}
+.bottom-list{
+	text-align:center;
+}
+.bottom-list ul li a{
+	
+	padding:15px 60px 15px 0px;
+}
+.bottom-list{
+	padding-bottom:10px;
+}
+#inputbro{
+	margin-left:20px;
+}
+
+.big_footer {
+    margin-top:35px;
+}
+.footer1 ul {
+    padding: 0px 0px 0px 0px;
+}
