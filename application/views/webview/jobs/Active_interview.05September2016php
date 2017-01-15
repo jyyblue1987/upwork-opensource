@@ -1,0 +1,151 @@
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/css/rating.css" />
+
+<section id="big_header"
+         style="margin-top: 50px; margin-bottom: 50px; height: auto;">
+
+    <div class="container">
+        <?php if ($this->session->flashdata('msg'))
+        { ?>
+            <div class="row alert alert-success"><?php echo $this->session->flashdata('msg'); ?></div>
+<?php } ?>
+        <div class="row">
+            <div class="col-md-9 bottom-blue-border margin-left-6 padding-2">
+                <span>My Offers</span>
+            </div>
+            <div class="col-md-9 text-center margin-left-6 bordered margin-top">
+                No Offers Available
+            </div>
+        </div>
+        <div class="row margin-top-3">
+            <div class="col-md-2 margin-left-6">
+                <label>Applied Date</label>
+            </div>
+
+            <div class="col-md-8">
+                <label>Job Title</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-9 margin-left-6 margin-top">
+                <div class="row">
+                    <div class="col-md-12 bordered">
+                        <div class="row">
+                            <div class="col-md-2">Aug 17, 2016</div>
+                            <div class="col-md-10 blue-text">
+                                Looking to hire an SEO specialist that can work on multiple projects and apply backlinking strategies and
+                                WHITE HAT
+                            </div>
+                        </div>
+
+                        <div class="row margin-top-1">
+                            <div class="col-md-2">6 days ago</div>
+                            <div class="col-md-10 ">
+                                AP INDUSTRIES LLC
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 bordered remove-border-top">
+
+                        <div class="row">
+                            <div class="col-md-2">July 30, 2016</div>
+                            <div class="col-md-10 blue-text">
+                                Need SEO reports + keywords rankings tracking for multiple websites
+                            </div>
+                        </div>
+
+                        <div class="row margin-top-1">
+                            <div class="col-md-2">24 days ago</div>
+                            <div class="col-md-10 ">
+                                Medical Management
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+        <div class="row"  style="margin-top: 80px;">
+            <div class="col-md-9 bottom-blue-border margin-left-6 padding-2">
+                <span>Active Interview</span>
+            </div>
+            <div class="col-md-9 text-center margin-left-6 bordered margin-top">
+                No Interview Available
+            </div>
+        </div>
+        <div class="row margin-top-3">
+            <div class="col-md-2 margin-left-6">
+                <label>Applied Date</label>
+            </div>
+
+            <div class="col-md-8">
+                <label>Job Title</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-9 margin-left-6 margin-top">
+                <div class="row">
+                    <div class="col-md-12 bordered">
+                        <div class="row">
+                            <div class="col-md-2">Aug 17, 2016</div>
+                            <div class="col-md-10 blue-text">
+                                Looking to hire an SEO specialist that can work on multiple projects and apply backlinking strategies and
+                                WHITE HAT
+                            </div>
+                        </div>
+
+                        <div class="row margin-top-1">
+                            <div class="col-md-2">6 days ago</div>
+                            <div class="col-md-10 ">
+                                AP INDUSTRIES LLC
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 bordered remove-border-top">
+
+                        <div class="row">
+                            <div class="col-md-2">July 30, 2016</div>
+                            <div class="col-md-10 blue-text">
+                                Need SEO reports + keywords rankings tracking for multiple websites
+                            </div>
+                        </div>
+
+                        <div class="row margin-top-1">
+                            <div class="col-md-2">24 days ago</div>
+                            <div class="col-md-10 ">
+                                Medical Management
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+
+</section>
+<!-- big_header-->
+
+<!-- <hr> -->
+
+</div>
+
+</section>
+
+<script src="<?php echo base_url() ?>assets/js/dropzone.js"></script>
+<script>
+
+</script>
