@@ -1,19 +1,20 @@
-<section id="big_header"
-         style="margin-top: 50px; margin-bottom: 50px; height: auto;">
+<link rel="stylesheet" href="<?php echo site_url("assets/css/chosen.css"); ?>">
+<script src="<?php echo site_url("assets/js/chosen.jquery.js"); ?>"></script>
+<section id="big_header" style="margin-top: 50px; margin-bottom: 50px; height: auto;">
     <div class="container white-box-feed">
         <div class="row">
             <div class="col-md-7 col-md-offset-0 page-title">
-                <h1>Update your job</h1> <br/>
+                <h1 style="color:black">Update your job</h1> <br/>
                 <h5 class="page-sub-title">Post a project for free and start getting receiving proposals within minutes</h5>
             </div>
         </div>
         <div class="row">
             <div class='form-msg'></div>
             <form id="jobEdit" method="post" action="" enctype="multipart/form-data">
-                <div class="col-md-7 form-group">
+                <div class="col-md-9 form-group">
                     <div class="row">
                         <div class="col-md-3">
-                            <label>Title</label>
+                            <label class="main_title">Title</label>
                         </div>
                         <div class="col-md-9">
                             <input type="text"  name="title" class="form-control" id="title" value='<?php echo $value->title;?>'>
@@ -21,67 +22,85 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-7 form-group">
+                <div class="col-md-9 form-group">
                     <div class="row">
                         <div class="col-md-3">
-                            <label>Select Category</label>
+                            <label class="main_title">Select Category</label>
                         </div>
-                        <div class="col-md-9">
-                            <select id="category" name="category" class="form-control">
-                                <?php
-                                $resultset = $this->db->get('job_categories');
-                                $categories = $resultset->result();
+                        <div class="col-md-5">
+                            <div class="edit_title">
+                                <select id="category" name="category" class="form-control">
+                                    <?php
+                                    $resultset = $this->db->get('job_categories');
+                                    $categories = $resultset->result();
 
-                                if ($categories)
-                                {
-                                    foreach ($categories as $category)
+                                    if ($categories)
                                     {
-                                        ?>
-                                        <optgroup label="<?php echo $category->category_name; ?>" >
-                                            <?php
-                                            $subcat_resultset = $this->db->get_where('job_subcategories', ['cat_id' => $category->cat_id]);
-                                            $subcategory_data = $subcat_resultset->result();
-
-                                            if ($subcategory_data)
-                                            {
-                                                foreach ($subcategory_data as $subcat)
-                                                {
-                                                    ?>
-                                                    <option value="<?php echo $subcat->subcat_id ?>" <?php if($value->category==$subcat->subcat_id) echo 'selected="selected"'?>><?php echo $subcat->subcategory_name ?></option>
+                                        foreach ($categories as $category)
+                                        {
+                                            ?>
+                                            <optgroup label="<?php echo $category->category_name; ?>" >
                                                 <?php
-                                            }
-                                        }
-                                        ?>
+                                                $subcat_resultset = $this->db->get_where('job_subcategories', ['cat_id' => $category->cat_id]);
+                                                $subcategory_data = $subcat_resultset->result();
 
-                                        </optgroup >
-        <?php
-    }
-}
-?>
-                            </select>
+                                                if ($subcategory_data)
+                                                {
+                                                    foreach ($subcategory_data as $subcat)
+                                                    {
+                                                        ?>
+                                                        <option value="<?php echo $subcat->subcat_id ?>" <?php if($value->category==$subcat->subcat_id) echo 'selected="selected"'?>><?php echo $subcat->subcategory_name ?></option>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
+
+                                            </optgroup >
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-7 form-group">
+                <div class="col-md-9 form-group">
                     <div class="row">
                         <div class="col-md-3">
                             <label>Required Skills</label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text"  name="skills" class="form-control" value='<?php echo $value->skills;?>'>
+                            <div class="edit_title">
+                                <div class="input_skills">
+                                    <select class="choose-skills" name="skills[]"  data-placeholder="Skills" style="width:515px;" multiple>
+                                        <?php foreach($job_skills as $item){
+                                          ?>
+                                        <option value="<?php echo $item['skill_name']; ?>" selected><?php echo $item["skill_name"]; ?></option> 
+                                        <?php 
+                                        }?>
+                                        <?php foreach($skillList as $key => $skill){
+                                          ?>
+                                        <option value="<?php echo $skill->skill_name; ?>" <?php echo (in_array($skill->skill_name, $repeated)) ?  'disabled' : '' ;?>><?php echo $skill->skill_name; ?></option> 
+                                        <?php 
+                                        }?>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- <input type="text"  name="skills" class="form-control" value='<?php echo $value->skills;?>'> -->
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-7 form-group">
+                <div class="col-md-9 form-group">
                     <div class="row">
                         <div class="col-md-3">
                             <label>Job Description</label>
                         </div>
                         <div class="col-md-9">
-                            <textarea name="job_description" id="job_description"
-                                      class="form-control" rows="5"><?php echo $value->job_description;?></textarea>
+                            <textarea name="job_description" id="job_description" class="form-control" rows="5"><?php echo $value->job_description;?></textarea>
                         </div>
                     </div>
                 </div>
@@ -89,21 +108,24 @@
                 <div class="col-md-7 form-group">
                     <div class="row">
                         <div class="col-md-3">
-                            <label>Change File</label>
+                            <label class="main_title">Change File</label>
                         </div>
                         <div class="col-md-9">
-                            <input type="file" value="" name="userfile" class="">
-                            <input type="hidden" value="<?php echo $value->userfile;?>" name="oldUserFile" >
+                            <div class="edit_title">
+                                <input type="file" value="" name="userfile" class="">
+                                <input type="hidden" value="<?php echo $value->userfile;?>" name="oldUserFile" >
+                            </div>
                         </div>
                     </div>
                 </div>
+                <!-- </div> -->
 
-                <div class="col-md-7 form-group">
+                <div class="col-md-9 form-group">
                     <div class="row">
                         <div class="col-md-3 margin-top">
-                            <label>Job Type</label>
+                            <label class="main_title">Job Type</label>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-9" style="margin-top: 16px;">
                             <div class="row">
                                 <div class="col-md-12 radio">
                                     <input type="radio" value="hourly" name="job_type"   <?php if($value->job_type=='hourly') echo 'checked="checked"' ?> ><label>Hourly - Pay by the hour verify with the work diary</label>
@@ -121,7 +143,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-7 form-group" >
+                <div class="col-md-9 form-group" >
                     <div class="row">
                         <div class="col-md-3">
                             <label>Experience Level</label>
@@ -140,7 +162,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-7 form-group <?php if($value->job_type!='fixed') echo 'hidden' ?>" id="fixed-control">
+                <div class="col-md-9 form-group <?php if($value->job_type!='fixed') echo 'hidden' ?>" id="fixed-control">
                     <div class="row">
                         <div class="col-md-3">
                             <label>Budget</label>
@@ -151,7 +173,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-7 form-group <?php if($value->job_type=='fixed') echo 'hidden' ?>" id="hourly-control">
+                <div class="col-md-9 form-group <?php if($value->job_type=='fixed') echo 'hidden' ?>" id="hourly-control">
                     <div class="row">
                         <div class="col-md-3">
                             <label>Hours Per week</label>
@@ -169,7 +191,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-7 form-group">
+                <div class="col-md-9 form-group">
                     <div class="row">
                         <div class="col-md-3">
                             <label>Job Duration</label>
@@ -206,7 +228,18 @@
 
 </section>
 <!-- big_header-->
+<style>
+    .search-field {
+        border: none;
+        height: auto;
+    }
+</style>
 <script>
+    $(".choose-skills").chosen(); 
+    $('.chosen-drop').hide();
+    $(".chosen-container").bind('keyup',function(e) {
+        $('.chosen-drop').show();
+    });
     $('input[name="job_type"]').on('click', function () {
         console.info($(this));
         $('#hourly-control').addClass('hidden');

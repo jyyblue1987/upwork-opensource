@@ -39,7 +39,7 @@
                                 if ($categories) {
                                     foreach ($categories as $category) {
                                         ?>
-                                        <optgroup label="<?php echo $category->category_name; ?>" >
+                                        <optgroup label="<?php echo $category->category_name; ?>" data-id = "<?php echo $category->cat_id;?>">
                                             <?php
                                             $subcat_resultset = $this->db->get_where('job_subcategories', ['cat_id' => $category->cat_id]);
                                             $subcategory_data = $subcat_resultset->result();
@@ -76,7 +76,7 @@
                              <select class="choose-skills" name="skills[]"  data-placeholder="Skills" style="width:515px;" multiple>
                                 <?php foreach($skillList as $skill){
                                   ?>
-                                <option value="<?php echo $skill; ?>"><?php echo $skill; ?></option> 
+                                <option value="<?php echo $skill->skill_name; ?>"><?php echo $skill->skill_name; ?></option> 
                                 <?php 
                                 }?>
                                 
@@ -246,7 +246,11 @@
 </section>
 <!-- big_header-->
 <script>
-     $(".choose-skills").chosen(); 
+    $(".choose-skills").chosen(); 
+    $('.chosen-drop').hide();
+    $(".chosen-container").bind('keyup',function(e) {
+        $('.chosen-drop').show();
+    });
     $('input[name="job_type"]').on('click', function () {
         console.info($(this));
         $('#hourly-control').addClass('hidden');
@@ -264,7 +268,7 @@
         console.info('this', $(this), $(this).find(":selected").parents('optgroup').attr('label'));
         var _parent_cat = $(this).find(":selected").parents('optgroup').attr('label');
        // $(this).val().prepend(_parent_cat);
-                $(this).prepend(_parent_cat);
+        $(this).prepend(_parent_cat);
     });
 </script>
 <style>

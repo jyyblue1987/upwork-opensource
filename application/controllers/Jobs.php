@@ -74,11 +74,15 @@ class Jobs extends CI_Controller {
             }
             
             /* check if account is suspend then redirect to payment end */
-
+            // Added by Armen
+            // Get all skills
+            $this->db->select("skill_name");
+            $this->db->from("skills");
+            $query_files = $this->db->get();
+            $skillList = $query_files->result();
+            // Added by Armen end
             $data = array('js' => array('vendor/jquery.form.js', 'internal/job_create.js'),
-                'skillList' => array(
-                    "Java", "PHP", "HTML", "CSS", "Javascript", "Jquery"
-            ));
+                'skillList' => $skillList);
             $this->Admintheme->webview("jobs/create_job", $data);
         }
         if ($this->input->post('title')) {
@@ -114,20 +118,24 @@ class Jobs extends CI_Controller {
                 $skills = $this->input->post('skills');
 
                 $skillNames = '';
-                foreach ($skills as $skill) {
-                    $skillNames .= $skill . ' ';
-                }
-                $skillNames = rtrim($skillNames, " ");
                 if (isset($dbPath))
                     $data['userfile'] = $dbPath;
                 $data['user_id'] = $this->session->userdata('id');
                 $data['skills'] = $skillNames;
                 $data['job_created'] = $data['created'];
 
-                //  die($skillNames);
                 unset($data['submitbtn']);
                 if ($this->db->insert('jobs', $data)) {
                     $insert_id = $this->db->insert_id();
+                    // Added by Armen start
+                    foreach ($skills as $key => $value) {
+                        $this->db->insert('job_skills',array(
+                            'job_id' => $insert_id,
+                            'skill_name' => $value
+                        ));
+                        $ticketMessageID = $this->db->insert_id();
+                    }
+                    // Added by Armen End
                     $rs = array('code' => '0', 'id' => base64_encode($insert_id), 'type' => $data['job_type']);
                     echo json_encode($rs);
                 } else {
@@ -891,7 +899,6 @@ class Jobs extends CI_Controller {
     public function edit($postId = null) {
         if ($this->Adminlogincheck->checkx() && $this->session->userdata('type') == '1') {
             if ($this->input->post('title')) {
-
                 if (isset($_FILES['userfile']['name']) && ($_FILES['userfile']['name'] != '')) {
                     $ext = pathinfo($_FILES['userfile']['name'], PATHINFO_EXTENSION);
                     $newFileName = time() . rand(0000, 9999) . $this->session->userdata('id') . '.' . $ext;
@@ -902,12 +909,13 @@ class Jobs extends CI_Controller {
                         @unlink('/uploads/' . $this->input->post('oldUserFile'));
                     } else {
                         $rs = array('code' => '0', 'msg' => '<div class="alert alert-danger">
-  <strong>Error!</strong> Error in uploading file.
-</div>');
+                              <strong>Error!</strong> Error in uploading file.
+                            </div>');
                         echo json_encode($rs);
                         die;
                     }
                 }
+
                 //save
                 $data = $this->input->post();
                 unset($data['userfile']);
@@ -920,6 +928,19 @@ class Jobs extends CI_Controller {
                 } else {
                     unset($data['hours_per_week']);
                 }
+                // Added by Armen start
+                // update skills
+                $this->db->where('job_id', $this->input->post('id'));
+                $this->db->delete('job_skills');
+                $skills = array();
+                $skills['job_id'] = $this->input->post('id');
+                foreach ($data['skills'] as $key => $value) {
+                    $skills['skill_name'] = $value;
+                    $this->db->insert('job_skills', $skills);
+                }
+
+                // Added by Armen end
+                $data['skills'] = "";
                 $this->db->where('id', $this->input->post('id'));
                 if ($this->db->update('jobs', $data)) {
                     $rs = array('code' => '1', 'type' => $data['job_type']);
@@ -927,8 +948,8 @@ class Jobs extends CI_Controller {
                     echo json_encode($rs);
                 } else {
                     $rs = array('code' => '0', 'msg' => '<div class="alert alert-danger">
-  <strong>Error!</strong> Error occured.Try again.
-</div>');
+                      <strong>Error!</strong> Error occured.Try again.
+                    </div>');
                     echo json_encode($rs);
                 }
                 die;
@@ -939,7 +960,30 @@ class Jobs extends CI_Controller {
             $this->db->order_by("jobs.id", "desc");
             $query = $this->db->get_where('jobs', array('user_id' => $id, 'id' => $postId));
             $record = $query->row();
-            $data = array('value' => $record, 'js' => array('vendor/jquery.form.js', 'internal/job_edit.js'),);
+           
+            // Added by Armen start
+            // Get job skills
+            $this->db->select("skill_name");
+            $this->db->from("job_skills");
+            $this->db->where("job_id = ", $record->id);
+            $query = $this->db->get();
+            $job_skills = $query->result_array();
+
+            // Get all skills
+            $this->db->select("skill_name");
+            $this->db->from("skills");
+            $query_files = $this->db->get();
+            $skillList = $query_files->result();
+            $repeated = array();
+            foreach ($skillList as $key => $value) {
+                foreach ($job_skills as $index => $skill) {
+                    if($value->skill_name == $skill['skill_name']){
+                        array_push($repeated,$value->skill_name);
+                    }
+                }
+            }
+            // Added by Armen end
+            $data = array('repeated' => $repeated,'job_skills' => $job_skills,'value' => $record, 'js' => array('vendor/jquery.form.js', 'internal/job_edit.js'),'skillList' => $skillList,);
             $this->Admintheme->webview("jobs/edit", $data);
         }
     }
@@ -1972,6 +2016,27 @@ class Jobs extends CI_Controller {
                 }else{
                     $response['success'] = true;
                     $response['message'] = 'Successfull';
+					
+					/* adding data at report start */
+					
+					$data_payment['job_id'] = (int) $job_id;
+                    $data_payment['user_id'] = (int) $applier_id;
+                    $data_payment['buser_id'] = (int) $user_id ;
+;
+
+
+                    if ($budget_type == 1) {
+                        $data_payment['des'] = 'Full Paid';
+                    } elseif ($budget_type == 2) {
+                        $data_payment['des'] = 'Milestone';
+                    }
+                    $data_payment['payment_gross'] = $budget;
+
+                    $this->db->insert('payments', $data_payment);
+					
+					/* adding data at report end */
+					
+					
                 }
                 //updates by haseeburrehman.com ends     
             }
