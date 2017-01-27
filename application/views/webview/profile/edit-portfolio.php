@@ -4,6 +4,8 @@
     $attributes = array('class' => 'form-horizontal portfolio-form','name'=>'portfolio-form','target'=>'updatePorfolio','id'=>'updatePorfolio');
     echo form_open_multipart('profile/update-portfolio', $attributes);
 ?>
+<link rel="stylesheet" href="<?php echo site_url("assets/css/chosen.css"); ?>">
+<script src="<?php echo site_url("assets/js/chosen.jquery.js"); ?>"></script>
 <input name="id" value="<?php if(isset($id) && $id > 0) echo base64_encode($id); ?>" type="hidden"/>
 <input name="img" value="<?php if(isset($thumnail_image) && strlen($thumnail_image) > 0) echo base64_encode($thumnail_image); ?>" type="hidden"/>
     <div class="col-md-1 col-sm-1"></div>
@@ -69,7 +71,21 @@
         </div>
         <div class="clearfix"></div>
         <div class="col-md-9 col-xs-12">
-            <input required="" type="text" name="projectSkillsUsed" value="<?php if(isset($skills) && strlen($skills) > 0) echo $skills ?>" class="form-control autocomplete inpt" />
+            <select class="choose-skills" name="projectSkillsUsed[]"  data-placeholder="Skills" style="width:515px;" multiple>
+                <?php foreach($port_skills as $item){
+                  ?>
+                <option value="<?php echo $item['skill_name']; ?>" selected><?php echo $item["skill_name"]; ?></option> 
+                <?php 
+                }?>
+                
+                <?php foreach($skillList as $key => $skill){
+                  ?>
+                <option value="<?php echo $skill->skill_name; ?>" <?php echo (in_array($skill->skill_name, $repeated)) ?  'disabled' : '' ;?>><?php echo $skill->skill_name; ?></option> 
+                <?php 
+                }?>
+                
+            </select>
+            <!-- <input required="" type="text" name="projectSkillsUsed" value="<?php if(isset($skills) && strlen($skills) > 0) echo $skills ?>" class="form-control autocomplete inpt" /> -->
         </div>
     </div>    
      <div class="form-group">
@@ -109,7 +125,20 @@
     <?php
     $this->load->view("webview/includes/autocomplete-skills");
     ?>
+<style>
+    .search-field {
+        border: none;
+        height: auto;
+    }
+</style>
 <script type="text/javascript">
+    // Added by Armen start
+    $(".choose-skills").chosen(); 
+    $('.chosen-drop').hide();
+    $(".chosen-container").bind('keyup',function(e) {
+        $('.chosen-drop').show();
+    });
+    // added by Armen end
    $(function() {
         $(".datepicker").click(function() {
             $(this).datepicker().datepicker( "show" )

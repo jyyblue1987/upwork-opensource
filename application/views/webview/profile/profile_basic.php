@@ -3,6 +3,8 @@ $this->load->view("webview/includes/autocomplete-skills");
 $formData = $this->session->userdata(ACTION_DATA);
 $this->session->unset_userdata(ACTION_DATA);
 ?> 
+<link rel="stylesheet" href="<?php echo site_url("assets/css/chosen.css"); ?>">
+<script src="<?php echo site_url("assets/js/chosen.jquery.js"); ?>"></script>
 <section id="big_header" style="margin-top: 50px; margin-bottom: 50px; height: auto;">
     <div class="container white-box"> 
         <div class="row">
@@ -136,7 +138,22 @@ $this->session->unset_userdata(ACTION_DATA);
                             <h4>List your skills and expertise you have to offer to clients (<small>use comma separated value</small>)</h4>
                         </div>
                         <div class="col-md-12">
-                            <input type="text" name="skills" id="" value="<?php echo set_value("skills", isset($formData['skills']) ? $formData['skills'] : '') ?>" class="form-control autocomplete" />
+                            <!-- Added by Armen start -->
+                            <select class="choose-skills" name="skills[]"  data-placeholder="Skills" style="width:515px;" multiple>
+                                <?php foreach($formData['user_skills'] as $item){
+                                  ?>
+                                <option value="<?php echo $item['skill_name']; ?>" selected><?php echo $item["skill_name"]; ?></option> 
+                                <?php 
+                                }?>
+                                <?php foreach($formData['skillList'] as $key => $skill){
+                                  ?>
+                                <option value="<?php echo $skill->skill_name; ?>" <?php echo (in_array($skill->skill_name, $formData['repeated'])) ?  'disabled' : '' ;?>><?php echo $skill->skill_name; ?></option> 
+                                <?php 
+                                }?>
+                                
+                            </select>
+                            <!-- Added by Armen end -->
+                            <!-- <input type="text" name="skills" id="" value="<?php echo set_value("skills", isset($formData['skills']) ? $formData['skills'] : '') ?>" class="form-control autocomplete" /> -->
                         </div>
                     </div>
                     <div class="margin-top"></div>
@@ -167,8 +184,20 @@ $this->session->unset_userdata(ACTION_DATA);
 </section>
 <!-- big_header-->
 
-
+<style>
+    .search-field {
+        border: none;
+        height: auto;
+    }
+</style>
 <script type="text/javascript">
+    // Added by Armen start
+    $(".choose-skills").chosen(); 
+    $('.chosen-drop').hide();
+    $(".chosen-container").bind('keyup',function(e) {
+        $('.chosen-drop').show();
+    });
+    // added by Armen end
     $("#submit-basic-info").click(function (e) {
         e.preventDefault();
         $(this).val("Wait...").attr("disabled", true);
@@ -246,10 +275,6 @@ $this->session->unset_userdata(ACTION_DATA);
     function updatename() {
         var fname = $("#infname").val();
         var lname = $("#inlname").val();
-
-
-
-
         jQuery.ajax({
             type: "POST",
             url: siteurl + "json/api/type/regapi/page/updatename",

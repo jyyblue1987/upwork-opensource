@@ -74,20 +74,15 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
             <div class="row margin-top-4">
                 <div class="">
                     <div class="row">
-                            <div class="col-md-9">
-                            <div class="header_border">
+                        <div class="col-md-9">
+                            <div style="border-bottom: 0;" class="header_border">
                                 <div class="col-md-2 col-sm-4"style="width: 140px">
-                        <div class="topleftside">
-                            <div class="user_view_img">
+                        <div style="padding-top: 13px;" class="topleftside">
+                            <div style="margin-left: 10px;" class="user_view_img">
                                 <img class=""  src="<?php echo base_url().$webUserInfo['webuser_picture']; ?>"/>
                             <div style="clear:both"></div>
-                            <button id="buttonfirst"><?php if($total_feedbackScore !=0 && $total_budget!=0){
-                                               
-                                                $totalscore = ($total_feedbackScore / $total_budget); 
-                                               echo round($totalscore, 2);
-                                               }
-                                               ?></button>
-                             <p><div class="review_ratting">
+                            
+                             <p><div style="margin-top:1px;" class="review_ratting review_ratting_left">
                                                <?php
                         if ($total_budget != 0) {
                             $totalscore = ($total_feedbackScore / $total_budget);
@@ -97,9 +92,9 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
                             $rating_feedback = null;
                         }
                         ?>
-                        <span class="rating-badge"><?=number_format((float)$totalscore,1,'.','');?></span>
-                        <div title="Rated <?= $totalscore; ?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left: 39%;margin-top: 3%;position: absolute;">
-                            <span style="width:<?= $rating_feedback; ?>%">
+                        <span style="margin-left: 5px;font-size: 10px;" class="rating-badge"><?=number_format((float)$totalscore,1,'.','');?></span>
+                        <div title="Rated <?= $totalscore; ?> out of 5" class="star-rating rating_value" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left: 21%;margin-top: -4%;position: absolute;">
+                            <span style="width:<?= $rating_feedback; ?>%;font-size: 19px !important;left: 10px;">
                                 <strong itemprop="ratingValue"><?= $totalscore; ?></strong> out of 5
                             </span>
                         </div>
@@ -107,20 +102,25 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-4">
-                    <div class="topmiddle" style="padding-left: 5px">
+                    <div class="col-md-9 col-sm-4">
+                    <div class="topmiddle" style="padding-left: 5px;margin-right: -40px;">
                       <!--  <h2><?php echo $this->session->userdata("username") ?></h2>-->
-					  <h4 style="text-transform: uppercase;" "font-size:18px"> <?php echo $webUserInfo['webuser_fname'] .'&nbsp'. $webUserInfo['webuser_lname'];?></h4>
+					  <div style="overflow: hidden;">
+						<h4 class="pull-left" style="text-transform: uppercase;" "font-size:18px"> <?php echo $webUserInfo['webuser_fname'] .'&nbsp'. $webUserInfo['webuser_lname'];?></h4>
+						
+						<h4 class="pull-right" style="padding-top:">$<?php if(($job_info[0]->job_type) == 'fixed'){ echo $job_info[0]->bid_amount; } else {echo $job_info[0]->bid_amount."/hr";} ?></h4>
+					  </div>
+					  
                         <p><i class="fa fa-map-marker" aria-hidden="true"></i>
 &nbsp;<?php echo $webUserInfo['webuser_country_name'] ?> </p>
-                        <h3 style="color:#494949;"><?php echo $basicDetails["tagline"] ?></h3>
+                        <h3 style="color:#494949;padding-top: 10px;"><?php echo $basicDetails["tagline"] ?></h3>
                         <div class="col-md-12 col-sm-12">
-                        <div class="buttonside">
+                        <div style="padding-bottom: 55px;" class="buttonside">
                                 <?php
                                 $skills = $basicDetails['skills'];
                                 if(strlen($skills) > 0){
                                     ?>
-                                <ul>
+                                <ul style="margin-top: -27px;">
                                     <br/>
                                     <?php
                                     $skillSplit = explode(",", $skills);
@@ -140,13 +140,6 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
                                 <div style="clear:both"></div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    <div class="topmiddle pull-right">
-											
-						<h4 style="padding-top:">$<?php if(($job_info[0]->job_type) == 'fixed'){ echo $job_info[0]->bid_amount; } else {echo $job_info[0]->bid_amount."/hr";} ?></h4>
-						
                     </div>
                 </div>
                 <div style="clear:both"></div>
@@ -174,7 +167,7 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
 						<a href="<?php echo base_url() ?>profile/profile_freelancer?user=<?php echo base64_encode($webUserInfo['webuser_id']);?>&name=<?=$slag;?>" ><button class="btn" id="view-profile-btn">View Profile</button></a>
 						
                         <br/>
-                        <div class="col-md-12 col-sm-12 decline-line">
+                        <div style="margin-bottom: 11px;" class="col-md-12 col-sm-12 decline-line">
                             <i class="fa fa-times-circle" aria-hidden="true"></i> 
                             <small><a href="javascript:void(0)" onclick="Confirmdecline(<?php echo $job_info[0]->id;?>);">Decline Candidate </a></small>
                         </div>
@@ -189,6 +182,7 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
                         <div class="row">
                             <div class="col-md-9 col-sm-9" style=""> 
 								<div class="col-lg-12 col-md-12 col-sm-12 chat-screen">
+								<div style="height: 430px;background: #fff;" class="mass_box">
 									<div class="chat-details-topbar">
 										<h3><?=$webUserInfo['webuser_fname']?>  <?=$webUserInfo['webuser_lname']?></h3>
 										<h5><?=$job_info[0]->title?></h5>
@@ -250,13 +244,13 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
 									</div>
 									
 								</div>
-								<div class="col-md-12 col-sm-12 white-box bordered_cl" style="margin-top:20px;margin-bottom:20px;" >
-                                    <div class="cover_box">
+								</div>
+								<div class="col-md-12 col-sm-12 white-box bordered_cl" style="margin-top:20px;margin-bottom:40px;border: 1px solid #ddd;" >
+                                    <div style="padding: 0 15px;" class="cover_box">
                                         <p class="cover-letter">Cover Letter<br/></p>
                                     <p class="cover-letter-text" style="margin-left: 14px !important;">
                                         <?=$job_info[0]->cover_latter?>
                                     </p>
-									<br/>
 									<br/>
                                     </div>
                                 </div>
@@ -265,78 +259,89 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
                                 
                             </div>
                             <div class="col-md-3 col-sm-3">
-                                <div class="buttonsidefoure">
+                                <div style="margin-top: -35px !important;" class="buttonsidefoure">
                               
 
-                                    <h2><b>Work History</b></h2>
-                                    <ul class="main_side_nav_bar">
-                                        <?php
-                                        
-                                        
-                                        ?>
-                                       <li>&nbsp;
-                                               <?php if($total_feedbackScore !=0 && $total_budget!=0){
-                                               
-                                                $totalscore = ($total_feedbackScore / $total_budget); 
-                                               echo round($totalscore, 2);
-                                               }
-                                               ?>
-                                               <p> <div class="review_ratting">
-                                              <?php if($total_feedbackScore !=0 && $total_budget!=0){
-                                                $totalscore = ($total_feedbackScore / $total_budget);
-                                                $rating_feedback = ($totalscore/5)*100;
-                                               ?>
-                                               <span class="rating-badge"><?=number_format((float)$totalscore,1,'.','');?></span>
-                                              <div title="Rated <?=$totalscore;?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em;margin-top:-5px;width:105px; color:#DEDEDE;">
-                                               <span style="width:<?=$rating_feedback;?>% ;margin-top:-5px;">
-                                                   <strong itemprop="ratingValue"><?=$totalscore;?></strong> out of 5
-                                               </span>
-                                               </div>
-                                           <?php  }else{ ?>
-                                             <span class="rating-badge">0.0</span>
-                                               <div title="Rated 0 out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em; margin-top:-5px;">
-                                               <span style="width:0% ;margin-top:0px;">
-                                                   <strong itemprop="ratingValue">0</strong> out of 5
-                                               </span>
-                                               </div>
-                                          <?php   } ?>
-                                         </div></p></a></li><br><br><br>
-                                       <li class="main_hourly_rate"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> <a href="">
-&nbsp;$<?php echo $basicDetails["hourly_rate"] + $basicDetails["hourly_rate"]*WINJOB_FEE ?> <span>/hour</span></a></li>
-                                       <li><a href=""><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;
-                                               <?php
-                                           $this->db->select('*');
-                                           $this->db->from('job_workdairy');
-                                           $this->db->where('fuser_id',$webUserInfo['webuser_id']);
-                                           $query_done = $this->db->get();
-                                           $job_done = $query_done->result();
-                                             $total_work = 0;
-                                               if(!empty($job_done)){
-                                                   foreach($job_done as $work){
-                                                       $total_work +=$work->total_hour;
-                                                   }
-                                                   echo $total_work;
-                                                       $hourstatus =    "  Hours Worked ";
-                                               }else{
-                                                   $hourstatus =  "0.00  Hours Worked";
-                                               }
-                                        ?>
-                                               <span>
-                                                   <?php echo $hourstatus; ?>
-                                                   </span></a></li>
-                                       <li><a href=""><i class="fa fa-suitcase" aria-hidden="true"></i>&nbsp;
-                                               <?php
-                                            $this->db->select('*');
-                                           $this->db->from('job_bids');
-                                           $this->db->where('user_id',$webUserInfo['webuser_id']);
-                                           $this->db->where('jobstatus',1);
-                                           $querydone = $this->db->get();
-                                         $jobends = $querydone->num_rows();
-                                          echo $jobends." ";   
-                                        ?>  <span>  Jobs Completed </span></a></li>
-                                       <li><a href=""><i class="fa fa-tree" aria-hidden="true"></i>&nbsp;<?php echo $basicDetails["work_experience_year"] ?> <span> Years Experience</span></a></li>
-                                       <li><a href=""><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;<?php echo $webUserInfo['webuser_country_name'] ?>
-                                       <span></span></a></li>
+                                    <h2 style="margin: 0;padding: 0;margin-left: 12px;padding-bottom: 20px;"><b>Work History</b></h2>
+									
+                                    <ul class="main_side_nav_bar custom_li">
+										<li>
+											<div class="review_ratting review_ratting_right">
+												<?php if($total_feedbackScore !=0 && $total_budget!=0){
+												$totalscore = ($total_feedbackScore / $total_budget);
+												$rating_feedback = ($totalscore/5)*100;
+												?>
+												
+												<span style="font-size: 10px;margin-left: 4px;margin-right: 3px;" class="rating-badge"><?=number_format((float)$totalscore,1,'.','');?></span>
+												
+												<div title="Rated <?=$totalscore;?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em;margin-top:-5px;width:105px; color:#DEDEDE;">
+													<span style="width:<?=$rating_feedback;?>% ;margin-top:-3px;">
+													   <strong itemprop="ratingValue"><?=$totalscore;?></strong> out of 5
+													</span>
+												</div>
+												<?php  }else{ ?>
+												<span class="rating-badge">0.0</span>
+												<div title="Rated 0 out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em; margin-top:-5px;">
+												<span style="width:0% ;margin-top:0px;">
+												   <strong itemprop="ratingValue">0</strong> out of 5
+												</span>
+												</div>
+												<?php   } ?>
+											</div>
+										</li>
+
+										<li style="margin-top: -30px;margin-left: 8px;" class="main_hourly_rate">
+											<div>
+												<a href="">
+													<i style="font-size: 17px;" class="fa fa-credit-card-alt" aria-hidden="true"></i>
+													&nbsp;$<?php echo $basicDetails["hourly_rate"] + $basicDetails["hourly_rate"]*WINJOB_FEE ?> <span>/hr</span>
+												</a>
+											</div>
+										</li>
+
+										<li>
+											<a href=""><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;
+											<?php
+											$this->db->select('*');
+											$this->db->from('job_workdairy');
+											$this->db->where('fuser_id',$webUserInfo['webuser_id']);
+											$query_done = $this->db->get();
+											$job_done = $query_done->result();
+											$total_work = 0;
+											if(!empty($job_done)){
+											   foreach($job_done as $work){
+												   $total_work +=$work->total_hour;
+											   }
+											   echo $total_work;
+												   $hourstatus =    "  Hours Worked ";
+											}else{
+											   $hourstatus =  "0.00  Hours Worked";
+											}
+											?>
+											<span>
+											   <?php echo $hourstatus; ?>
+											   </span></a>
+										</li>
+										
+										<li>
+											<a href=""><i class="fa fa-suitcase" aria-hidden="true"></i>&nbsp;
+											<?php
+											$this->db->select('*');
+											$this->db->from('job_bids');
+											$this->db->where('user_id',$webUserInfo['webuser_id']);
+											$this->db->where('jobstatus',1);
+											$querydone = $this->db->get();
+											$jobends = $querydone->num_rows();
+											echo $jobends." ";   
+											?>  <span>  Jobs Completed </span></a>
+										</li>
+										<li>
+											<a href=""><i style="margin-right: 5px;" class="fa fa-tree" aria-hidden="true"></i>&nbsp;<?php echo $basicDetails["work_experience_year"] ?> <span> Years Experience</span></a>
+										</li>
+										<li style="margin-bottom: -10px;">
+											<a style="font-size: 18px;" href=""><i style="margin-right: 4px;" class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;<?php echo $webUserInfo['webuser_country_name'] ?>
+											<span></span></a>
+										</li>
                                      </ul>
                                 </div>	
                             </div>
@@ -530,6 +535,38 @@ span.rating-badge {
 	color: #fff;
 	padding: 2px 4px 2px 5px;
 	font-size: 12px;
+}
+.review_ratting_left .star-rating::before {
+	font-size: 19px !important;
+	left: 10px;
+}
+.review_ratting_right .star-rating::before {
+	top: -2px;
+}
+
+.mass_box .chat-details-topbar {
+	width: 690px;
+	margin: 0 30px;
+	border-top:3px solid #DDD;
+	border-left:3px solid #ddd;
+	border-right:3px solid #ddd;
+	margin-top: 25px;
+}
+.mass_box .chat-details {
+	width: 690px;
+	margin: 0 30px;
+	border-left:3px solid #ddd;
+	border-right:3px solid #ddd;
+}
+.mass_box .chat-bar{width: 690px;margin: 0 30px;
+	border-left:3px solid #ddd;
+	border-bottom:3px solid #DDD;
+	border-right:3px solid #ddd;}
+.mass_box textarea#chat-input{width: 520px;}
+
+.buttonsidefoure ul.custom_li li {
+	overflow: hidden;
+	margin: -24px 11px;
 }
     
     

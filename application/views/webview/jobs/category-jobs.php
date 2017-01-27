@@ -4,7 +4,7 @@
             <div class="col-md-10 col-md-offset-0">
                 <div class="row">
                     <div class="col-md-12 no-padding margin-top-search">
-                        <input type="text" name="jobsearchbykeywords" id="jobsearch" value="<?php if (isset($searchKeyword)) echo $searchKeyword; ?>" autocomplete="on" class="form-control search-field" /> 
+                        <input style="width: 737px;" type="text" name="jobsearchbykeywords" id="jobsearch" value="<?php if (isset($searchKeyword)) echo $searchKeyword; ?>" autocomplete="on" class="form-control search-field" /> 
                         <i class="fa fa-search search-btn search-btn-cat" aria-hidden="true"></i>
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                     <div class="row">
                         <div class="col-md-12">  
                             <div class="row">
-                                <div class="col-md-12 bordered white-box">
+                                <div style="border: 1px solid #ccc;border-radius: 3px;" class="col-md-12 white-box">
                                     <div class="row">
                                         <div class="col-md-12"><span class="" style="color:#686361">Categories</span></div>
                                         <div class="col-md-12 blue-text">
@@ -58,7 +58,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-12 bordered white-box margin-top-space">
+                                <div style="border: 1px solid rgb(204, 204, 204); border-radius: 3px; padding-bottom: 0px;" class="col-md-12 white-box margin-top-space">
                                     <div class="row">
                                         <div class="nav-side-menu">
                                             <div class="menu-list">
@@ -110,7 +110,7 @@
                             <div class="col-md-8 col-sm-8 no-padding">
                                 <label class="col-md-4 no-padding">Sort by:</label>
                                 <div class="col-md-7 no-padding">
-                                    <select class="select form-control" name="postTime">
+                                    <select style="margin-bottom: 7px;margin-top: -9px;" class="select form-control" name="postTime">
                                         <option value="1">Newest</option>
                                         <option value="0">Oldest</option>
                                     </select>
@@ -123,13 +123,13 @@
                             </div>
                             <div class="clearfix"></div>
                             <div class="clearfix"></div>
-                            <div class="line"></div>
+                            <div class="line custon_line"></div>
                             <br/>
                             <div class="row white-box" id="all-jobs">  
 <?php include 'content.php'; ?>
                             </div>
                         </div>
-                        <div class='load-more'>Load more <img src='<?php echo base_url() ?>assets/img/version1/loader.gif' class="form-loader" style="display:none"></div>
+                        <div style="margin-top: -30px;" class='load-more'>Load more <img src='<?php echo base_url() ?>assets/img/version1/loader.gif' class="form-loader" style="display:none"></div>
                     </section>
 
                 </div>  
@@ -151,7 +151,7 @@
                         </div>
 
                     </div>
-                    <div class="row white-box text-center">
+                    <div style="border-bottom: 1px solid #ccc;border-right: 1px solid #ccc;border-left: 1px solid #ccc;border-radius: 0px 0px 4px 4px;padding: ;" class="row white-box text-center">
 
                         <div class="col-md-12">
                             <label class="blue-text"><?php echo $this->session->userdata("fname") . " " . $this->session->userdata("lname"); ?></label><br> 
@@ -162,18 +162,18 @@
 
                     <div class="row">
                         <div class="col-md-12 margin-top-space proposal-box">
-                            <div class='row white-box'>
+                            <div style="border: 1px solid #ccc;border-radius: 3px;" class='row white-box'>
                                 <div class="row ">
                                     <div class="col-md-7 no-padding">
-                                        <a href="<?php echo base_url() ?>Active_interview"><label class="blue-text">Active Interview</label></a>
+                                        <a style="font-size: 13px;" href="<?php echo base_url() ?>Active_interview"><label class="blue-text">Active Interview</label></a>
                                     </div>
-                                    <div class="col-md-2 text-center gray-text proposal-digit">
+                                    <div style="font-size: 14px;" class="col-md-2 text-center gray-text proposal-digit">
                                         <label class="blue-text"><?= $no_of_interview ?></label>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-7 gray-text no-padding">
+                                    <div style="font-size: 14px;" class="col-md-7 gray-text no-padding">
                                         <a href="<?php echo base_url() ?>jobs/bids_list" style="color:#686361">
                                             <label class="blue-text">Proposal Sent</label>
                                         </a>
@@ -184,7 +184,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-7 gray-text no-padding">
+                                    <div style="font-size: 14px;" class="col-md-7 gray-text no-padding">
                                         <label class="blue-text">Proposal Limit (Monthly)</label>
                                     </div>
                                     <div class="col-md-2 text-center gray-text proposal-digit">
@@ -198,12 +198,11 @@
                     </div>
 
                     <div class="row account-progress">
-                        <div class="col-md-12 white-box margin-top-space">
+                        <div style="border: 1px solid #ccc;border-radius: 3px;" class="col-md-12 white-box margin-top-space">
                             <div class='row'>
                                 <div class="col-md-12 text-center gray-text">
-                                    <span class="gray-text">Profile completeness</span>
-                                    cat
-                                    <div class="progress">
+                                    <span style="font-size: 14px; margin: 0px 0px 0px -13px;" class="gray-text">Profile completeness</span>
+                                    <div style="margin-top: 10px;" class="progress">
                                         <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:<?= $profilecompleteness['profileprogress']; ?>%">
 <?= $profilecompleteness['profileprogress']; ?>%
                                         </div>

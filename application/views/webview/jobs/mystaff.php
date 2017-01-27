@@ -1,12 +1,12 @@
-<section id="big_header"
-	style="margin-top: 50px; margin-bottom: 50px; height: auto;">
+<section id="big_header" class="my_staff"
+	style="margin-top: 32px; margin-bottom: 50px; height: auto;">
 
 	<div class="container">
 		<div class="row ">
 			<div class="col-md-3">
 
 
-				<div class="row">
+				<!--<div class="row">
 
 					<div class="col-md-10 borderedx nopadding white-box"
 						style="padding: 3px 15px !important">
@@ -20,15 +20,15 @@
 						</div>
 					</div>
 
-				</div>
+				</div>-->
 
 				<div class="row">
 					<div class="col-md-10 nopadding">
-						<nav class="staff-navbar">
+						<nav class="staff-navbar freelancer-navbar">
 							<ul>
-								<li><a class="active" href="mystaff"><b><i class="fa fa-calendar-check-o fa-2x"></i>My Hired</b></a></li>
-								<li><a href="pasthire"><b>Past Hires</b></a></li>
-								<li><a href="offersent"><b>Offers Sent</b></a></li>
+								<li><a class="active" href="mystaff"><i class="fa fa-calendar" aria-hidden="true"></i> <b>My Hired</b></a></li>
+								<li><a href="pasthire"><i class="fa fa-undo" aria-hidden="true"></i> <b>Past Hires</b></a></li>
+								<li><a href="offersent"><i class="fa fa-gift" aria-hidden="true"></i> <b>Offers Sent</b></a></li>
 							</ul>
 						</nav>
 					</div>
@@ -39,7 +39,8 @@
 			<div class="col-md-9">
 				<div class="row">
 					
-					    <div class="col-md-12 bordered-alert text-center ack-box">
+					    <!--<div class="col-md-12 bordered-alert text-center ack-box hirefeebar">-->
+                                            <div class="col-md-12 bordered-alert text-center hirefeebar">
 				
 						<?php if(!empty($all_data)) { ?>
 							<h4>! You have hired <?=count($all_data)?> freelancers in this team</h4>
@@ -50,7 +51,7 @@
 					
 						<div class="row">
 						    <div class="col-md-12">
-						        <div class="border-box">
+						        <div class="border-box empty_freelancer_box">
 						    
 						</div>
 						    </div>
@@ -65,19 +66,21 @@
 				if($data->job_type == "hourly"){
 				?>
 
-				<div class="row margin-top-2">
-					<div class="col-md-12 bordered white-box" style="padding: 20px">
+				<!--<div class="row margin-top-2">-->
+                                <div class="row margintop-2">
+					<!--<div class="col-md-12 bordered white-box" style="padding: 20px">-->
+                                        <div class="col-md-12 freelancer-job white-box" style="padding: 20px">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="row">
 									<div class="col-md-5" style="padding-left:-20px">
-										<div class="st_img">
+										<div class="st_img freelancer_img">
 										    <img src="<?php echo base_url()?><?=$data->webuser_picture?>" width="85" height="68" />
 										</div>
 									</div>
 									<div class="col-md-7 nopadding" style="padding-left: -15px !important">
-										<div class="user_name">
-								       <h5><?=$data->webuser_fname?> <?=$data->webuser_lname?><br/></h5>
+										<div class="user_name" style="padding-left:2px">
+								       <h5 style="margin-bottom:0"><?=$data->webuser_fname?> <?=$data->webuser_lname?><br/></h5>
 										<span><?=$data->country_name?></span>
 										</div>
 									</div>
@@ -90,7 +93,7 @@
 
 								<hr>
 							</div>-->
-							<div class="col-md-4 text-center">
+							<div class="col-md-4 text-center hour_info">
 				
 								<?php
                                                            date_default_timezone_set("UTC"); 
@@ -133,6 +136,8 @@
 								@ <b><?php if($data->offer_bid_amount) {
 									echo $amount = $data->offer_bid_amount;
                                 } else {echo $amount =  $data->bid_amount;} ?></b>/hr =<b> $<?php echo $amount * $total_work;?></b>
+                                <br />
+                                <p style="margin:0 !important;">The conduct has been hold</p>
                            	<hr>
                             
 							</div>
@@ -140,7 +145,7 @@
 							<div class="col-md-4">
 								<div class="row">
 									<div class="col-md-3 col-md-offset-2">
-									<div class="mystaff_msg_btnx hour_btn">
+									<div class="mystaff_msg_btnx hour_btn message_btn">
 									    <input type="button" class="btn btn-primary form-btn"  onclick="loadmessage(<?=$data->bid_id?>,<?=$data->user_id?>,<?=$data->fuser_id?>,'<?=$username?>','<?=$title?>')" value="Message">
 										<!--<a href="<?php echo base_url() ?>interview?user_id=<?=base64_encode($data->fuser_id)?>&job_id=<?=base64_encode($data->job_id)?>&bid_id=<?=base64_encode($data->bid_id)?>">
 											<input type="button" class="btn btn-primary transparent-btn" value="Message" />
@@ -151,14 +156,14 @@
                                
                                    
 									<div class="col-md-5 text-right">
-                                  <div class="mystaff_work_diary hour_btn">
+                                  <div class="mystaff_work_diary hour_btn work_diary_btn">
                                    <a href="<?php echo base_url() ?>jobs/workdairy_client?fmJob=<?php echo base64_encode($data->job_id);?>&fuser=<?php echo base64_encode($data->fuser_id);?>">
 								<input type="button" class="btn btn-primary form-btn" value="Work Diary" /></a>
 									</div>
 									    
 									</div>
 										<div class="col-md-2">
-										    <div class="dropdown hour_btnx">
+										    <div class="dropdown hour_btnx dropdown_btn">
 											<button class="btn btn-default dropdown-toggle" type="button"
 												data-toggle="dropdown">
 												<span class="caret"></span>
@@ -175,11 +180,13 @@
 								</div>
 								
 							</div>
+
 						</div>
 
+
 						<div class="row">
-							<div class="col-md-6">
-							<div class="job_detais">
+							<div class="col-md-12">
+							<div class="job_detais" style="margin-top: -10px;">
 							   <a href="<?php echo base_url() ?>jobs/hourly_client_view?fmJob=<?php echo base64_encode($data->job_id);?>&fuser=<?php echo base64_encode($data->fuser_id);?>"> Job Details</a>  -
                                 <span><b><?=$data->hire_title?></b></span>
 							</div>
@@ -194,19 +201,21 @@
 				
 				<?php } else { ?>
 				
-				<div class="row margin-top-2">
-					<div class="col-md-12 borderedx white-box" style="padding: 20px">
+				<!--<div class="row margin-top-2">-->
+                                <div class="row margintop-2">
+					<!--<div class="col-md-12 borderedx white-box" style="padding: 20px">-->
+                                        <div class="col-md-12 freelancer-job white-box" style="padding: 20px">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="row">
 									<div class="col-md-5" style="padding-left: -20px">
-										<div class="st_img">
+										<div class="st_img freelancer_img">
 										    <img src="<?php echo base_url()?><?=$data->webuser_picture?>" width="85" height="68" />
 										</div>
 									</div>
 									<div class="col-md-7 nopadding" style="padding-left: -15px !important">
-										<div class="user_name">
-										<h5><?=$data->webuser_fname?> <?=$data->webuser_lname?><br /> </h5>
+										<div class="user_name" style="padding-left:2px">
+										<h5 style="margin-bottom:0"><?=$data->webuser_fname?> <?=$data->webuser_lname?><br /> </h5>
 									<span><?=$data->country_name?></span>
 										</div>
 									</div>
@@ -216,7 +225,11 @@
 
 				       <div class="pay_btn">
 				          <div class="col-md-4 text-center">
-	                       <span><b>$<?=$data->fixedpay_amount?></b> Paid of $<?=$data->hired_on?></span>
+	                       <span><b>$<?=$data->fixedpay_amount?></b> Paid of $<?=$data->hired_on?>
+                                <br />
+                                <p style="margin:0 !important;">The conduct has been hold</p>
+                               </span>
+                               
 	                            
 							</div>
 							</div>
@@ -224,7 +237,7 @@
 							<div class="col-md-4">
 								<div class="row">
 									<div class="col-md-3 col-md-offset-2 text-right">
-										<div class="mystaff_msg_btn hour_btn">
+										<div class="mystaff_msg_btn hour_btn fixed_message_btn">
 										    <input type="button" class="btn btn-primary form-btn"  onclick="loadmessage(<?=$data->bid_id?>,<?=$data->fuser_id?>,<?=$data->job_id?>,'<?=$username?>','<?=$title?>')" value="Message">
 										<!--<a href="<?php echo base_url() ?>interview?user_id=<?=base64_encode($data->fuser_id)?>&job_id=<?=base64_encode($data->job_id)?>&bid_id=<?=base64_encode($data->bid_id)?>">
 											<input type="button" class="btn btn-primary transparent-btn" value="Message" />
@@ -233,14 +246,14 @@
 											
 									</div>
 									<div class="col-md-5 text-right">
-									    <div class="mystaff_pay_btnx">
+									    <div class="mystaff_pay_btnx payment_btn">
 									        <input type="button" class="btn btn-primary form-btn my-btn"
 											value="Payment" id ="2" onclick="editClickedPayment(this.id)" />
 									    </div>
 									</div>
 
 									<div class="col-md-2">
-										<div class="dropdown hour_btnx">
+										<div class="dropdown hour_btnx dropdown_btn">
 											<button class="btn btn-default dropdown-toggle" type="button"
 												data-toggle="dropdown">
 												<span class="caret"></span>
@@ -270,8 +283,8 @@
 						</div>
 
 						<div class="row">
-							<div class="col-md-6">
-							    <div class="job_detais">
+							<div class="col-md-12">
+							    <div class="job_detais" style="margin-top: -10px;">
 							   <a href="<?php echo base_url() ?>jobs/fixed_client_view?fmJob=<?php echo base64_encode($data->job_id);?>&fuser=<?php echo base64_encode($data->fuser_id);?>"> Job Details</a>  -  <span><b><?=$data->hire_title?></b></span>
 							</div>
 							</div>

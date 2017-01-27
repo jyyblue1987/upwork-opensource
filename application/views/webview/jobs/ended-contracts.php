@@ -26,8 +26,9 @@
 					<div class="col-md-10 nopadding">
 						<nav class="staff-navbar">
 							<ul>
-								<li><a  href="<?php echo site_url("jobs/activecontracts") ?>"><b>Active Contracts</b></a></li>
-								<li><a class="active" href="<?php echo site_url("jobs/endedcontracts") ?>"><b>Ended Contracts</b></a></li> 
+								<li><a href="mystaff"><b>My Hired</b></a></li>
+								<li><a class ="active" href="pasthire"><b>Past Hires</b></a></li>
+								<li><a href="offersent"><b>Offers Sent</b></a></li>
 							</ul>
 						</nav>
 					</div>
@@ -47,6 +48,7 @@
 
 				</div>
 	<?php foreach($messages as $message){
+	
 		$username =$message->webuser_fname . '&nbsp;'.$message->webuser_lname;
 		$title = $message->hire_title;
 		
@@ -58,15 +60,18 @@
 								<div class="row">
 									<div class="col-md-5">
 										<?php if($message->webuser_picture !=""){ ?>
-										<img src="<?php echo base_url().$message->webuser_picture; ?>" width="90" height="68">
+										<div class="st_img">
+										    <img src="<?php echo base_url().$message->webuser_picture; ?>" width="90" height="68">
+										</div>
 										<?php }else{?>
-											
+											<img src="<?php echo base_url()?>assets/img/profile_img.jpg"
+											width="90" height="68" />
 										<?php } ?>
 									</div>
 									<div class="col-md-7 nopadding" style="padding-left: 25px !important">
 										<div class="user_name">
-										    <h5><?=$message->webuser_fname?> <?=$message->webuser_lname?> <br></h5>
-							<span><?=$message->country_name?></span>
+										   <h5> <?=$message->webuser_fname?> <?=$message->webuser_lname?> <br></h5>
+								<span><?=$message->country_name?></span>
 										</div>
 									</div>
 								</div>
@@ -74,22 +79,75 @@
 							</div>
 
 							<div class="col-md-4 text-center">
+							<?php 
+							if($message->job_type == "hourly")
+							{
+							
+					    $this->db->select('*');
+                                            $this->db->from('job_workdairy');
+                                            $this->db->where('fuser_id', $message->fuser_id);                                                                                     
+                                            $this->db->where('jobid', $message->job_id);
+                                            $query_done = $this->db->get();
+                                            $job_done = $query_done->result();
+                                            $total_work = 0;
+                                            
+
+                                            
+                                            if (!empty($job_done)) {
+                                                foreach ($job_done as $work) {
+                                                    $total_work += $work->total_hour;
+                                                }
+                                                echo $total_work . " hrs worked";
+                                            } else {
+                                                echo "<b>0.00</b> hrs worked";
+                                            }
+                                            ?>
+                                             <?php //echo $data->weekly_limit;?>
+                                            <br />
+                                            @ <b><?php
+                                if ($message->offer_bid_amount) {
+                                    echo $amount = $message->offer_bid_amount;
+                                } else {
+                                    echo $amount = $message->bid_amount;
+                                }
+                                ?></b>/hr = <b>$<?php echo $amount * $total_work; ?></b>
+
+                                            <hr>
+						<?php 	
+							}
+							else 
+							{
+							?>
+							      <b> $<?= $message->fixedpay_amount ?></b> Paid of $<?= $message->hired_on ?> 
+                                            <br />
+
+                                            <hr>
+							
+							<?php 
+							}
+							?>
+								
+							
+							
+							  
 							</div>
 
 							<div class="col-md-4">
 								<div class="row">
-								<div class="col-md-3 col-md-offset-2">
-								   <div class="">
-								       <input type="button" class="btn btn-primary form-btn"  onclick="loadmessage(<?=$message->bid_id?>,<?=$message->fuser_id?>,<?=$message->job_id?>,'<?=$username?>','<?=$title?>')" value="Message">
+								   <div class="col-md-3 col-md-offset-2">
+								       <div class="pastsms">
+								           <input type="button" class="btn btn-primary form-btn"  onclick="loadmessage(<?=$message->bid_id?>,<?=$message->fuser_id?>,<?=$message->job_id?>,'<?=$username?>','<?=$title?>')" value="Message">
 									<!--<a href="<?php echo base_url() ?>interview?user_id=<?=base64_encode($message->fuser_id)?>&job_id=<?=base64_encode($message->job_id)?>&bid_id=<?=base64_encode($message->bid_id)?>">
 											<input type="button" class="btn btn-primary transparent-btn" value="Message" />
-									</a>--> 
+									</a>-->
+								       </div>
 								   </div>
-								</div>
 									<div class="col-md-5 text-right">
-                                        <div class="msg_btnx">
-										    <input type="button" class="btn btn-primary form-btn" value="Rehire" />
-										</div>
+
+                                       <div class="rehire-btn">
+                                     <input type="button" class="btn btn-primary form-btn" value="Rehire" />
+                                       </div>
+										
 									</div>
 
 									<div class="col-md-2">
@@ -100,10 +158,10 @@
 											</button>
 											<ul class="dropdown-menu">
 <!--												<li><a href="#">Message</a></li>-->
-<!--												<li><a href="#">Milestone</a></li>-->
+<!--												<li><a href="#">Give bonus</a></li>-->
 <!--												<li><a href="#">View Profile</a></li>-->
-<!--												<li><a href="#">View contact</a></li>-->
-												<li><a href="#">View Ended contract</a></li>
+												<li><a href="#">View Ended contact</a></li>
+<!--												<li><a href="#">Ended contract</a></li>-->
 
 											</ul>
 										</div>
@@ -122,11 +180,11 @@
 						<div class="row">
 							<div class="col-md-2">
 							    <div class="pro_view">
-							        <span>View Profile</span>
+							    <span>View Profile</span>
 							    </div>
 							</div>
-							<div class="col-md-8">
-								<div class="col-md-8">
+							<div class="col-md-10">
+								
 								<div class="job_detaisx">
 								    <?php if($message->hire_title !=""){
 									$job_title = $message->hire_title;
@@ -137,11 +195,9 @@
 								<a href="<?php echo base_url() ?>feedback/hourly_client?fmJob=<?php echo base64_encode($message->job_id);?>&fuser=<?php echo base64_encode($message->fuser_id);?>">
 								<?php }else { ?>
 								<a href="<?php echo base_url() ?>feedback/fixed_client?fmJob=<?php echo base64_encode($message->job_id);?>&fuser=<?php echo base64_encode($message->fuser_id);?>">	
-								<?php }  ?>
-								
-								Job Details- </a><b><?=$job_title;?></b>
+								<?php } ?>Job Details-</a><b><?=$job_title;?></b> 
 								</div>
-							</div>
+							
 							</div>
 						</div>
 					</div>

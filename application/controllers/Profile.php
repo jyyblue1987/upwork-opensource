@@ -59,7 +59,18 @@ class Profile extends CI_Controller {
                         $title .= " | " . $data2['rows'][0]["tagline"];
                     }
                     $params['title'] = $title;
+                    // added by Armen start 
+
+                    $this->db->select("skill_name");
+                    $this->db->from("webuser_skills");
+                    $this->db->where("webuser_id = ", $this->session->userdata(USER_ID));
+                    $query = $this->db->get();
+                    $user_skills = $query->result_array();
+
+                    // added by Armen end
                     $params['basicDetails'] = $data2['rows'][0];
+                    $params['basicDetails']['user_skills'] = $user_skills;
+           
                     //get protfolio details//
                     $portfolioDetails = $this->common_mod->get(WEB_USER_PORTFOLIO_TABLE, null, $condition . " AND visibility_status='yes'");
                     if (!empty($portfolioDetails['rows'][0])) {
@@ -182,6 +193,7 @@ class Profile extends CI_Controller {
     }
 
     public function basic() {
+
         if ($this->Adminlogincheck->checkx()) {
             $condition = " AND webuser_id=" . $this->session->userdata(USER_ID) . " ";
             $data = $this->common_mod->get(WEB_USER_BASIC_PROFILE_TABLE, null, $condition);
@@ -190,6 +202,31 @@ class Profile extends CI_Controller {
                 $data['openSub'] = "profile-basic";
                 $this->session->set_userdata("experienceYear", $data['rows'][0]['work_experience_year']);
                 $this->session->set_userdata("experienceMonth", $data['rows'][0]['work_experience_month']);
+                // Added by Armen start
+                // Get job skills
+                $this->db->select("skill_name");
+                $this->db->from("webuser_skills");
+                $this->db->where("webuser_id = ", $this->session->userdata(USER_ID));
+                $query = $this->db->get();
+                $user_skills = $query->result_array();
+
+                // Get all skills
+                $this->db->select("skill_name");
+                $this->db->from("skills");
+                $query_files = $this->db->get();
+                $skillList = $query_files->result();
+                $repeated = array();
+                foreach ($skillList as $key => $value) {
+                    foreach ($user_skills as $index => $skill) {
+                        if($value->skill_name == $skill['skill_name']){
+                            array_push($repeated,$value->skill_name);
+                        }
+                    }
+                }
+                $data['rows'][0]['repeated'] = $repeated;
+                $data['rows'][0]['user_skills'] = $user_skills;
+                $data['rows'][0]['skillList'] = $skillList;
+                // added by Armen end
                 $this->session->set_userdata(ACTION_DATA, $data['rows'][0]);
             } else {
                 $this->session->set_flashdata(WARNING_MESSAGE, "Your basic information is not updated. Please complete your profile to get job");
@@ -221,9 +258,6 @@ class Profile extends CI_Controller {
             ),
             'open' => 'profile',
             'openSub' => 'profile-basic',
-            'skillList' => array(
-                "Java", "PHP", "HTML", "CSS", "Javascript", "Jquery"
-            ),
         );
         $this->Admintheme->webview("profile/profile_basic", $data);
     }
@@ -483,11 +517,11 @@ class Profile extends CI_Controller {
                         'label' => 'Complettion Date',
                         'rules' => 'trim|xss_clean|min_length[1]|max_length[10]'
                     ),
-                    array(
-                        'field' => 'projectSkillsUsed',
-                        'label' => 'Project Skills',
-                        'rules' => 'trim|xss_clean|min_length[1]|max_length[255]'
-                    ),
+                    // array(
+                    //     'field' => 'projectSkillsUsed',
+                    //     'label' => 'Project Skills',
+                    //     'rules' => 'trim|xss_clean|min_length[1]|max_length[255]'
+                    // ),
                     array(
                         'field' => 'projectURL',
                         'label' => 'Project URL',
@@ -505,17 +539,19 @@ class Profile extends CI_Controller {
                     $formVal['project_category'] = $this->input->post("projectCategory");
                     $formVal['project_url'] = $this->input->post("projectURL");
                     $formVal['completion_date'] = $this->input->post("projectCompletionDate");
-                    $formVal['skills'] = $this->input->post("projectSkillsUsed");
+                    $formSkills = $this->input->post("projectSkillsUsed");
                     $formVal['creation_time'] = date('Y-m-d');
                     //check skill//
-                    $last = substr($formVal['skills'], strlen($formVal['skills']) - 1, strlen($formVal['skills']));
-                    if (strcmp($last, ",") == 0) {
-                        $formVal['skills'] = substr($formVal['skills'], 0, strlen($formVal['skills']) - 1);
-                        if (sizeof(explode(",", $formVal['skills'])) > 10) {
+                    // $last = substr($formVal['skills'], strlen($formVal['skills']) - 1, strlen($formVal['skills']));
+                    // if (strcmp($last, ",") == 0) {
+                    //     $formVal['skills'] = substr($formVal['skills'], 0, strlen($formVal['skills']) - 1);
+                    //     if (sizeof(explode(",", $formVal['skills'])) > 10) {
+                        if(count($formSkills) > 10){
                             $response['msg'] = "Maximum 10 skills are allowed to insert. Please check";
                             $insert = false;
+                        // }
                         }
-                    }
+                    // }
                     if (substr($formVal['project_url'], 0, 5) != "https") {
                         if (substr($formVal['project_url'], 0, 4) != "http") {
                             $formVal['project_url'] = "http://" . $formVal['project_url'];
@@ -540,6 +576,18 @@ class Profile extends CI_Controller {
                         $id = base64_decode($id);
                         $condition = " AND id=" . $id . " AND webuser_id=" . $this->session->userdata(USER_ID);
                         $formVal['last_updated_time'] = date('Y-m-d');
+
+                        // added by Armen start
+                        $this->db->where('portfolio_id', $id);
+                        $this->db->delete('webuser_portfolio_skills');
+                        $skills = array();
+                        $skills['portfolio_id'] = $id;
+                        foreach ($formSkills as $key => $value) {
+                          $skills['skill_name'] = $value;
+                          $this->db->insert('webuser_portfolio_skills', $skills);
+                        }
+
+                        // added by Armen end
                         $hasUpdated = $this->common_mod->updateVal(WEB_USER_PORTFOLIO_TABLE, $formVal, null, $condition);
                         if ($hasUpdated) {
                             $response['status'] = "success";
@@ -552,6 +600,17 @@ class Profile extends CI_Controller {
                     }
                     if ($insert) {
                         $insertedID = $this->common_mod->insert(WEB_USER_PORTFOLIO_TABLE, $formVal);
+
+                        // added by Armen start
+                        $skills = array();
+                        $skills['portfolio_id'] = $insertedID;
+                        foreach ($formSkills as $key => $value) {
+                            $skills['skill_name'] = $value;
+                            $insertedID = $this->common_mod->insert(webuser_portfolio_skills, $skills);
+                        }
+
+                        // added by Armen end
+
                         if ($insertedID > 0) {
                             $response['status'] = "success";
                             $response['msg'] = "success";
@@ -571,7 +630,7 @@ class Profile extends CI_Controller {
     }
 
     public function editPortfolio() {
-        $params['skillList'] = array("Java", "PHP", "HTML", "CSS", "Javascript", "Jquery");
+        
         if ($this->Adminlogincheck->checkx() && $this->input->is_ajax_request()) {
             if (!empty($_POST)) {
                 $key = $this->input->post("key");
@@ -586,6 +645,33 @@ class Profile extends CI_Controller {
                                 $params[$key] = $value;
                             }
                             $params['projectCateList'] = $this->Category->get_categories();
+                            // added by Armen start
+                            
+                            $this->db->select("skill_name");
+                            $this->db->from("webuser_portfolio_skills");
+                            $this->db->where("portfolio_id = ", $id);
+                            $query = $this->db->get();
+                            $port_skills = $query->result_array();
+
+                            // Get all skills
+                            $this->db->select("skill_name");
+                            $this->db->from("skills");
+                            $query_files = $this->db->get();
+                            $skillList = $query_files->result();
+                            $repeated = array();
+                            foreach ($skillList as $key => $value) {
+                                foreach ($port_skills as $index => $skill) {
+                                    if($value->skill_name == $skill['skill_name']){
+                                        array_push($repeated,$value->skill_name);
+                                    }
+                                }
+                            }
+
+                            $params['skillList'] = $skillList;
+                            $params['port_skills'] = $port_skills;
+                            $params['repeated'] = $repeated;
+
+                            // Added by Armen end
                         }
                     } else {
                         $params['id'] = 0;
@@ -735,11 +821,11 @@ class Profile extends CI_Controller {
                         'label' => 'Experience',
                         'rules' => 'required|numeric|greater_than[0]|less_than[12]'
                     ),
-                    array(
-                        'field' => 'skills',
-                        'label' => 'Skills',
-                        'rules' => 'trim|required|xss_clean|min_length[0]|max_length[255]'
-                    ),
+                    // array(
+                    //     'field' => 'skills',
+                    //     'label' => 'Skills',
+                    //     'rules' => 'trim|required|xss_clean|min_length[0]|max_length[255]'
+                    // ),
                     array(
                         'field' => 'overview',
                         'label' => 'overview',
@@ -759,15 +845,38 @@ class Profile extends CI_Controller {
                     $formVal['overview'] = $this->input->post("overview");
                     $formVal['last_updated_time'] = round(microtime(true) * 1000);
                     //check skill//
-                    $last = substr($formVal['skills'], strlen($formVal['skills']) - 1, strlen($formVal['skills']));
-                    if (strcmp($last, ",") == 0) {
-                        $formVal['skills'] = substr($formVal['skills'], 0, strlen($formVal['skills']) - 1);
-                        if (sizeof(explode(",", $formVal['skills'])) > 5) {
-                            $this->session->set_flashdata(ERROR_MESSAGE, "Maximum 5 skills allowed to insert. Please check");
-                            redirect("profile/basic#basic-profile-area");
-                        }
+                    // $last = substr($formVal['skills'], strlen($formVal['skills']) - 1, strlen($formVal['skills']));
+                    // if (strcmp($last, ",") == 0) {
+                    //     $formVal['skills'] = substr($formVal['skills'], 0, strlen($formVal['skills']) - 1);
+                    //     if (sizeof(explode(",", $formVal['skills'])) > 5) {
+                    if(count($formVal['skills']) > 5){
+                        $this->session->set_flashdata(ERROR_MESSAGE, "Maximum 5 skills allowed to insert. Please check");
+                        redirect("profile/basic#basic-profile-area");
+                        // }
+                    // }
                     }
                     $condition = " AND webuser_id=" . $this->session->userdata(USER_ID) . " ";
+                    // added by Armen start
+
+                    if ($this->common_mod->getCount(webuser_skills, null, $condition) > 0) {
+                        $this->db->where('webuser_id', $this->session->userdata(USER_ID));
+                        $this->db->delete('webuser_skills');
+                        $skills = array();
+                        $skills['webuser_id'] = $this->session->userdata(USER_ID);
+                        foreach ($formVal['skills'] as $key => $value) {
+                          $skills['skill_name'] = $value;
+                          $this->db->insert('webuser_skills', $skills);
+                        }
+                    }else{
+                        $skills = array();
+                        $skills['webuser_id'] = $this->session->userdata(USER_ID);
+                        foreach ($formVal['skills'] as $key => $value) {
+                            $skills['skill_name'] = $value;
+                            $insertedID = $this->common_mod->insert(webuser_skills, $skills);
+                        }
+                    }
+                    $formVal['skills'] = '';
+                    // added by Armen end
                     if ($this->common_mod->getCount(WEB_USER_BASIC_PROFILE_TABLE, null, $condition) > 0) {
                         //if exits do update//
                         $hasUpdated = $this->common_mod->updateVal(WEB_USER_BASIC_PROFILE_TABLE, $formVal, null, $condition);

@@ -48,6 +48,7 @@
 
 				</div>
 	<?php foreach($messages as $message){
+	
 		$username =$message->webuser_fname . '&nbsp;'.$message->webuser_lname;
 		$title = $message->hire_title;
 		
@@ -78,8 +79,57 @@
 							</div>
 
 							<div class="col-md-4 text-center">
+							<?php 
+							if($message->job_type == "hourly")
+							{
+							
+					    $this->db->select('*');
+                                            $this->db->from('job_workdairy');
+                                            $this->db->where('fuser_id', $message->fuser_id);                                                                                     
+                                            $this->db->where('jobid', $message->job_id);
+                                            $query_done = $this->db->get();
+                                            $job_done = $query_done->result();
+                                            $total_work = 0;
+                                            
+
+                                            
+                                            if (!empty($job_done)) {
+                                                foreach ($job_done as $work) {
+                                                    $total_work += $work->total_hour;
+                                                }
+                                                echo $total_work . " hrs worked";
+                                            } else {
+                                                echo "<b>0.00</b> hrs worked";
+                                            }
+                                            ?>
+                                             <?php //echo $data->weekly_limit;?>
+                                            <br />
+                                            @ <b><?php
+                                if ($message->offer_bid_amount) {
+                                    echo $amount = $message->offer_bid_amount;
+                                } else {
+                                    echo $amount = $message->bid_amount;
+                                }
+                                ?></b>/hr = <b>$<?php echo $amount * $total_work; ?></b>
+
+                                            <hr>
+						<?php 	
+							}
+							else 
+							{
+							?>
+							      <b> $<?= $message->fixedpay_amount ?></b> Paid of $<?= $message->hired_on ?> 
+                                            <br />
+
+                                            <hr>
+							
+							<?php 
+							}
+							?>
 								
-								
+							
+							
+							  
 							</div>
 
 							<div class="col-md-4">
@@ -134,7 +184,7 @@
 							    </div>
 							</div>
 							<div class="col-md-10">
-								<div class="col-md-8">
+								
 								<div class="job_detaisx">
 								    <?php if($message->hire_title !=""){
 									$job_title = $message->hire_title;
@@ -147,7 +197,7 @@
 								<a href="<?php echo base_url() ?>feedback/fixed_client?fmJob=<?php echo base64_encode($message->job_id);?>&fuser=<?php echo base64_encode($message->fuser_id);?>">	
 								<?php } ?>Job Details-</a><b><?=$job_title;?></b> 
 								</div>
-							</div>
+							
 							</div>
 						</div>
 					</div>

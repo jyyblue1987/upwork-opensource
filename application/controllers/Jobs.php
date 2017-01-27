@@ -189,6 +189,7 @@ class Jobs extends CI_Controller {
             //get users job category//
 
             $user_categories = $this->Category->get_user_subcategories($this->session->userdata('id'));
+            
             if (sizeof($user_categories) > 0) {
                 $sql = "";
                 foreach ($user_categories as $sub) {
@@ -201,6 +202,7 @@ class Jobs extends CI_Controller {
 
             $limit = 10;
             $records = array();
+         
             $this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
             $this->db->order_by("jobs.id", "desc");
 
@@ -327,10 +329,26 @@ class Jobs extends CI_Controller {
                 }
 
 
-
-                if ($query->num_rows() > 0 && is_object($query)) {
+                if ($query->num_rows() > 0 && is_object($query)){
 
                     $records = $query->result();
+                    $s=array();
+                    foreach ($records as $record) {
+                        $q="SELECT job_skills.skill_name from job_skills where job_skills.job_id ='";
+                        $q.=$record->id."'";
+                        $skills = $this->db->query($q)->result();
+                        if(!empty($skills)){
+                            foreach($skills as $skill){
+                                array_push($s,$skill->skill_name);
+                            }
+                        }
+                        else{
+                            continue;
+                        }
+                        $record->skills=$s;
+                        $s=[];
+                        }
+                
                 }
 
                 $data = array('records' => $records, 'limit' => $limit);
@@ -388,6 +406,22 @@ class Jobs extends CI_Controller {
                 }
                 if (is_object($query) && $query->num_rows() > 0) {
                     $records = $query->result();
+                    $s=array();
+                    foreach ($records as $record) {
+                        $q="SELECT job_skills.skill_name from job_skills where job_skills.job_id ='";
+                        $q.=$record->id."'";
+                        $skills = $this->db->query($q)->result();
+                        if(!empty($skills)){
+                            foreach($skills as $skill){
+                                array_push($s,$skill->skill_name);
+                            }
+                        }
+                        else{
+                            continue;
+                        }
+                        $record->skills=$s;
+			$s=[];
+                    }
                 } else {
                     $records = null;
                 }
@@ -643,8 +677,14 @@ class Jobs extends CI_Controller {
             $this->db->order_by('j.id', 'asc');
             $query = $this->db->get();
             $record = $query->row();
+            
+            $this->db->select("skill_name");
+            $this->db->from("job_skills");
+            $this->db->where("job_id = ", $postId);
+            $query = $this->db->get();
+            $job_skills = $query->result_array();
+            $record->job_skills = $job_skills;
 
-            // var_dump($record);die();
             $query = $this->db->get_where('job_bids', array('job_id' => $postId, 'user_id' => $id, 'status!=1' => null));
             $bids_details = $query->row();
             $is_applied = $query->num_rows();

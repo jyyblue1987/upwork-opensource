@@ -14,7 +14,7 @@ $clientend = $Conversation->clientend();
 
 <?php if ($job_alert_count) { ?>
             <div class="row margin-top-1">
-                <div class="col-md-10 bordered-alert text-center ack-box" style="max-width:781px;">
+                <div class="bordered-alert text-center ack-box" style="max-width: 969px; height: 40px; margin-bottom: 0px;">
                     <h4>! You have  <a href="<?php echo site_url("Active_interview"); ?>" class="show_notification" style="color: #28da28 !important;"><?= $job_alert_count ?> pending offer- Accept to start working</a>
 
                     </h4>
@@ -25,7 +25,7 @@ $clientend = $Conversation->clientend();
         if ($this->session->userdata('type') == '1') { ?>
 			<?php if(!empty($clientend)) { ?>			
 			<div class="row margin-top-1">
-				<div class="col-md-10 bordered-alert text-center ack-box" style="max-width:781px;">
+				<div class="bordered-alert text-center ack-box" style="max-width: 969px; height: 40px; margin-bottom: 0px;">
 					<h4>! You have  <a href="<?php echo base_url() ?>jobs/client_endjobnotification" class="show_notification" style="color: #28da28 !important;"> <?=count($clientend)?> ended contract - waiting for feedback</a>			
 					</h4>
 				</div>
@@ -33,7 +33,7 @@ $clientend = $Conversation->clientend();
 			<?php } ?>
 			<?php if($ststus->isactive==0){ ?>
 				<div class="row ">
-					<div class="col-md-10 bordered-alert text-center ack-box" style="max-width:781px;">
+					<div class="bordered-alert text-center ack-box" style="max-width: 969px; height: 40px; margin-bottom: 0px; margin-top: 20px;">
 						<h4>! Your financial Account has been Suspended.</h4>
 					</div>
 				</div>
@@ -41,7 +41,7 @@ $clientend = $Conversation->clientend();
 		<?php  } else if ($this->session->userdata('type') == '2'){  ?>
 			<?php  if(!empty($freelancerend)) { ?>
 			<div class="row margin-top-1">
-				<div class="col-md-10 bordered-alert text-center ack-box" style="max-width:781px;">
+				<div class="bordered-alert text-center ack-box" style="max-width: 969px; height: 40px; margin-bottom: 0px;">
 					<h4>! You have  <a href="<?php echo base_url() ?>jobs/freelancer_endjobnotification" class="show_notification" style="color: #28da28 !important;"> <?=count($freelancerend)?> ended contract - waiting for feedback</a>		
 					</h4>
 				</div>
@@ -49,7 +49,7 @@ $clientend = $Conversation->clientend();
 			<?php } ?>
 			<?php if($ststus->isactive==0){ ?>
 				<div class="row ">
-					<div class="col-md-10 bordered-alert text-center ack-box" style="max-width:781px;">
+					<div class="bordered-alert text-center ack-box" style="max-width: 969px; height: 40px; margin-bottom: 0px; margin-top: 20px;">
 						<h4>! Your financial Account has been Suspended.</h4>
 					</div>
 				</div>
@@ -60,10 +60,10 @@ $clientend = $Conversation->clientend();
         
         <div class="row">
             <div class="col-md-10 col-md-offset-0">
-                <div class="row">
+                <div style="margin-top: -23px;" class="row">
                     <div class="col-md-12 no-padding margin-top-search">
                         <form action="find-jobs" method="post" id="job-search-form">
-                            <input type="text" placeholder="Find job" name="jobsearchbykeywords" id="jobsearch" value=""  class="form-control search-field" /> 
+                            <input style="width: 735px;" type="text" placeholder="Find job" name="jobsearchbykeywords" id="jobsearch" value=""  class="form-control search-field" /> 
                             <i class="fa fa-search search-btn search-btn-home" aria-hidden="true"></i>
                         </form>
                     </div>
@@ -77,7 +77,7 @@ $clientend = $Conversation->clientend();
                 <div class="row">
                     <div class="col-md-2"> 
                         <div class="row">
-                            <div class="col-md-12 bordered white-box">
+                            <div style="border: 1px solid #ccc;border-radius: 3px;" class="col-md-12 borderedx white-box">
                                 <div class="row">
                                     <div class="col-md-12"><span class="text-center" style="color:#686361">CATEGORIES</span></div>
                                     <?php
@@ -108,7 +108,7 @@ $clientend = $Conversation->clientend();
                         </div>
 
                        <div class="row">
-                            <div class="col-md-12 bordered white-box margin-top-space">
+                            <div style="border: 1px solid #ccc;border-radius: 3px;padding-bottom: 0;padding-top: 0;" class="col-md-12 borderedx white-box margin-top-space">
                                 <div class="row">
                                     <div class="nav-side-menu">
                                          <div class="menu-list">
@@ -154,10 +154,10 @@ $clientend = $Conversation->clientend();
                         <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/rating.css">
                         <style>.page-sub-title {margin-top: 10px;}.page-jobs input {margin-top: 5px;}.load-more{ background-color: #23a8d9;color: #fff;padding: 10px;text-align: center;cursor: pointer;}.page-jobs h5{padding-right:5px}</style>
                         <section id="big_header" style="margin-bottom: 50px; height: auto;">
-                            <div class="job-data white-box-feed">
+                            <div style="border: 1px solid #ccc;" class="job-data white-box-feed">
                                 <div class="job-searching col-md-3 col-sm-3 no-padding">My Job Feed</div>
                                 <div class="clearfix"></div>
-                                <div class="line"></div>
+                                <div class="line custon_line"></div>
                                 <br/>
                                 <div class="row white-box" id="all-jobs">
 
@@ -170,7 +170,7 @@ $clientend = $Conversation->clientend();
 
                     </div>   
                     <div class="col-md-2">
-                        <div class="row">
+                        <div style="border: 1px solid #F0F0F0;" class="row">
                             <div class="col-md-12 no-padding">
                                 <?php
                                 if (strlen($this->session->userdata("webuser_picture")) > 0) {
@@ -186,7 +186,7 @@ $clientend = $Conversation->clientend();
                             </div>
 
                         </div>
-                        <div class="row white-box text-center">
+                        <div style="border-bottom: 1px solid #ccc;border-right: 1px solid #ccc;border-left: 1px solid #ccc;border-radius: 0px 0px 4px 4px;padding: ;" class="row white-box text-center">
                             <?php
                             $user_id = $this->session->userdata('id');
                             // var_dump($user_id);die();
@@ -205,32 +205,32 @@ $clientend = $Conversation->clientend();
 
                         <div class="row">
                             <div class="col-md-12 margin-top-space proposal-box">
-                                <div class='row white-box'>
+                                <div style="border: 1px solid #ccc;border-radius: 3px;" class='row white-box'>
                                     <div class="row ">
                                         <div class="col-md-7 no-padding">
-                                            <a href="<?php echo base_url() ?>Active_interview"><label class="blue-text">Active Interview</label></a>
+                                            <a href="<?php echo base_url() ?>Active_interview"><label style="font-size: 13px;" class="blue-text">Active Interview</label></a>
                                         </div>
-                                        <div class="col-md-2 text-center gray-text proposal-digit">
+                                        <div style="font-size: 14px;" class="col-md-2 text-center gray-text proposal-digit">
                                             <label class="blue-text"><?= $no_of_interview ?></label>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-7 gray-text no-padding">
+                                        <div style="font-size: 14px;" class="col-md-7 gray-text no-padding">
                                             <a href="<?php echo base_url() ?>jobs/bids_list" style="color:#686361">
                                                 <label class="blue-text">Proposal Sent</label>
                                             </a>
                                         </div>
-                                        <div class="col-md-2 text-center gray-text proposal-digit">
+                                        <div style="font-size: 14px;" class="col-md-2 text-center gray-text proposal-digit">
                                             <label class="blue-text"><?= $proposals; ?></label>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-7 gray-text no-padding">
+                                        <div style="font-size: 14px;" class="col-md-7 gray-text no-padding">
                                             <label class="blue-text">Proposal Limit (Monthly)</label>
                                         </div>
-                                        <div class="col-md-2 text-center gray-text proposal-digit">
+                                        <div style="font-size: 14px;" class="col-md-2 text-center gray-text proposal-digit">
                                             <label class="blue-text"><?= 30 - $proposals?></label>
                                         </div>
                                     </div>
@@ -241,12 +241,12 @@ $clientend = $Conversation->clientend();
                         </div>
 
                         <div class="row account-progress">
-                            <div class="col-md-12 white-box margin-top-space">
+                            <div style="border: 1px solid #ccc;border-radius: 3px;" class="col-md-12 white-box margin-top-space">
                                 <div class='row'>
                                     <div class="col-md-12 text-center gray-text">
-                                        <span class="gray-text">Profile completeness</span>
+                                        <span style="font-size: 14px; margin: 0px 0px 0px -13px;" class="gray-text">Profile completeness</span>
 										
-                                        <div class="progress">
+                                        <div style="margin-top: 10px;" class="progress">
                                             <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:<?=$profilecompleteness['profileprogress'];?>%">
                                                 <?=$profilecompleteness['profileprogress'];?>%
                                             </div>

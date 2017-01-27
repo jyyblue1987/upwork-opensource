@@ -216,6 +216,7 @@
                 <tbody>
                    <?php
                   $grossstotal = 0;
+                 
                   if(!empty($list_payments)){
                     foreach ($list_payments as $payment){ ?>
                       
@@ -307,6 +308,38 @@
                  
                  }
                   }
+                  
+                  
+                  /* showing hourly data start */
+				  $f_user_id = $this->session->userdata('id');
+				  $hourly_qry="SELECT DATE(dt.date) as tran_date,ja.contact_id as con_id ,dt.des as des,u.webuser_fname as fname,u.webuser_lname as lname,dt.amount as amount
+				  FROM daily_hourly_transaction dt
+				  LEFT JOIN job_accepted ja ON ja.contact_id=dt.contract_id
+				  LEFT JOIN  webuser u ON u.webuser_id=dt.cuser_id
+				  WHERE dt.fuser_id=$f_user_id";
+				  
+				  $qry_exe=$this->db->query($hourly_qry);
+				  $hourly_data=$qry_exe->result_array();
+				  
+				  foreach ($hourly_data as $each_hdata)
+				  {
+					  ?>
+					  </tr>
+					 <td class="nowrap"><?=date('l, F j, Y',strtotime($each_hdata['tran_date']));?></td> 
+					  <td>Hourly Price</td>
+					  <td>Invoice for Contract ID: <?php echo $each_hdata['con_id']." - ".$each_hdata['des']."/hr"; ?></td>
+					  <td><?php echo $each_hdata['fname']."  ". $each_hdata['lname'];?> </td>
+					  <td class="txtRight"><?php echo $each_hdata['amount'];?></td>
+					  <td class="txtRight">
+                            <?="";?>
+                        </td>
+                        </tr>
+					<?php 
+                  $grossstotal +=$each_hdata['amount'];					
+				  }
+				  /* showing hourly data end */
+                  
+                  
                 ?></tbody>
             </table>
             <div class="cols">
