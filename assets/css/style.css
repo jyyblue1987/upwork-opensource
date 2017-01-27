@@ -457,7 +457,7 @@ border-radius:5px;
 }
 span{
 	color:#000000;
-	font-size:18px;
+	font-size:14px;
 	font-family:'Roboto';
 	
 }
@@ -990,7 +990,7 @@ border-radius:5px;
 
 .job_btn {
 	color: #fff;
-	padding: 10px 30px 10px 30px;
+	padding: 14px 30px 10px 30px;
 	font-size: 17px;
 }
 .candidate-list {
@@ -1269,7 +1269,7 @@ h1.job-title{
 }
 
 .search-btn {
-    background: #3bafdb none repeat scroll 0 0;
+    background: #0077B5  none repeat scroll 0 0;
     color: #fff;
     display: table-cell;
     padding: 11px 16px 10px;
@@ -1414,7 +1414,7 @@ h1.job-title{
 }
 .pay_btn,.my-btn {
     color: #fff;
-    background: #1CA7DB;
+    background: #028FFC;
 }
 .pay_btn span {
     color: #000;
@@ -1535,6 +1535,16 @@ h1.job-title{
     padding: 8px;
     font-size: 12px;
 }
+
+.my_staff .freelancer-navbar{padding-left: 13px !important;}
+.my_staff .freelancer-navbar ul{margin-top:6px !important;}
+.my_staff .freelancer-navbar ul li{width:190px;}
+.my_staff .freelancer-navbar ul li a{height:38px;}
+.my_staff .message_btn{margin-left: 0 !important;}
+.my_staff .work_diary_btn{margin-right: -13px;}
+.my_staff .dropdown_btn{margin-right: -24px !important;}
+.my_staff .payment_btn{margin-right: -13px;}
+.my_staff .fixed_message_btn{margin-right: -36px;}
 
 .staff-navbar li a:hover,.staff-navbar li a.active {
     background: #e4e4e4 none repeat scroll 0 0;
@@ -1857,22 +1867,46 @@ a {
 .main_border,.ack-box {
     margin-right: 20px;
 }
+.my_staff .hirefeebar{
+   width: 742px !important;
+   margin-left: -17px;
+   height:40px !important;
+   padding: 8px;
+   margin-bottom: 15px;
+}
+.my_staff .freelancer-job{
+    border: 1px solid #dedede;
+    padding: 10px;
+    width: 745px;
+    height: 155px;
+    margin-left: -4px;
+}
+.my_staff .empty_freelancer_box{
+    width: 745px;
+    height: 385px;
+    border-radius: none;
+    margin-top:0 !important;
+    margin-left:-18px;
+    border: 1px solid #E0E0E0;
+}
+.my_staff .margintop-2{margin-top:15px}
 .job_detais a,.job_detaisx a{
-    font-size: 16px;
+    font-size: 14px;
     color: #37A000;
     font-weight: 800;
     margin-top: 10px;
 }
 .job_detais,.job_detaisx span {
     color: #4D4D55;
-    font-size: 16px;
+    font-size: 14px;
 }
 .job_detais span {
     color: #494949;
 }
 #\32  {
-	border-radius: 4px;
+	border-radius: 2px;
 }
+.my_staff .freelancer_img img{margin-left: 0 !important;}
 .st_img {
     margin-bottom: 20px;
     margin-right: 15px;
@@ -1891,7 +1925,7 @@ a {
 .msg_btnx {
     margin-left: 20px;
     color:#fff;
-    border-radius:4px;
+    border-radius:2px;
 }
 .rehire-btn {
 	margin-left: 23px;
@@ -2816,14 +2850,15 @@ p, blockquote, form, table, pre {
     border-radius: 2px;
 }
 .oField, [type="text"], .oInvisibleInput:hover, .oInvisibleInput:focus, [type="password"], [type="search"], textarea, .oTagsField {
-    border: 2px solid #e0e0e0;
+    border: 1px solid #e0e0e0;
     padding: 6px 12px 6px 10px;
     background: #fff no-repeat center center;
     -webkit-appearance: none;
-    border-radius: 2px;
+    border-radius: 1px;
     color: #494949;
     outline: 0;
     height: 35px; 
+    width:758px
 }
 .oSelectTag, .oFilterPanel > .oFormField > select, #main select {
     -webkit-appearance: none;
@@ -3004,7 +3039,7 @@ ul > li {
     font-size: 18px;
 }
 .gray-text {
-	font-size: 13px;
+	font-size: 11px;
 }
 .hours_text {
     font-size: 14px;
@@ -3031,7 +3066,7 @@ ul > li {
     color: #757474;
 }
 .bordered-client{
-        border: 3px solid #e0e0e0;
+        border: 1px solid #e0e0e0;
     border-radius: 5px;
     padding: 20px;
 }
@@ -3134,3 +3169,66 @@ p-btn,.pause-btn {
         border-left: 6px solid green;
 	
 }
+
+
+.review_ratting_left .star-rating::before {
+	font-size: 19px !important;
+	left: 10px;
+}
+.review_ratting_right .star-rating::before {
+	top: -2px;
+}
+
+.mass_box .chat-details-topbar {
+	width: 690px;
+	margin: 0 30px;
+	border-top:3px solid #DDD;
+	border-left:3px solid #ddd;
+	border-right:3px solid #ddd;
+	margin-top: 25px;
+}
+.mass_box .chat-details {
+	width: 690px;
+	margin: 0 30px;
+	border-left:3px solid #ddd;
+	border-right:3px solid #ddd;
+}
+.mass_box .chat-bar{width: 690px;margin: 0 30px;
+	border-left:3px solid #ddd;
+	border-bottom:3px solid #DDD;
+	border-right:3px solid #ddd;}
+.mass_box textarea#chat-input{width: 520px;}
+
+.buttonsidefoure ul.custom_li li {
+	overflow: hidden;
+	margin: -24px 11px;
+}
+
+.cos_job-title{font-size: 24px;
+margin-bottom: 8px;
+margin-top: -7px;}
+
+.custom_user_skills{}
+.custom_user_skills span{background-color: #e6e7e7;
+border-radius: 4px;
+color: #535353;
+font-family: "Calibri";
+font-size: 10.5px;
+padding: 2px 6px;}
+
+.custom_user_skills span:hover{background: #008329 none repeat scroll 0 0;
+    color: #fff;}
+.custom_btn{background:#028FCC !important;}
+.custom_btn:hover{background:#286090 !important;}
+.buttonsidethree {
+    border-bottom: 1px solid #ddd;
+}
+.custon_line{border-top: 1px solid #e6e7e7 !important;}
+
+.custom_user_skills_find span {
+	background: #ccc !important;
+	border-radius: 3px;
+	font-size: 12px;
+	margin: 5px 5px;
+}
+.custom_user_skills_find span:hover {background:#008329 !important;}

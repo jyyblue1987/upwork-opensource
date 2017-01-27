@@ -57,8 +57,9 @@ $(document).ready(function () {
             var data = JSON.parse(rs);
                 if (data.code == '0')
                 {
+
                     $('.form-loader').hide();
-                    $('.form-msg').html(rs);
+                    $('.form-msg').html(data.msg);
                     $('.form-msg').show();
                     $('.form-msg').fadeOut(10000);
                     $('input:submit').removeAttr('disabled');
