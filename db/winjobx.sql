@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Jan 17, 2017 at 10:48 AM
+-- Generation Time: Jan 20, 2017 at 07:13 AM
 -- Server version: 5.5.52-cll-lve
 -- PHP Version: 5.6.20
 
@@ -333,7 +333,7 @@ CREATE TABLE IF NOT EXISTS `daily_hourly_transaction` (
   `amount` decimal(10,3) NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`id_daily_hourly_transaction`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=104 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=106 ;
 
 --
 -- Dumping data for table `daily_hourly_transaction`
@@ -341,7 +341,9 @@ CREATE TABLE IF NOT EXISTS `daily_hourly_transaction` (
 
 INSERT INTO `daily_hourly_transaction` (`id_daily_hourly_transaction`, `contract_id`, `des`, `fuser_id`, `cuser_id`, `trans_through`, `transaction_id`, `status`, `currency`, `amount`, `date`) VALUES
 (102, '13_J7M1OTDWO5', '2hrs*$5.00', 13, 18, 'stripe', 'ch_19bNM1C3aXjEIlyVJlhIB4y5', 'Processed', '', '10.000', '2017-01-12 11:59:59'),
-(103, '13_SKLXYCCNF7', '5hrs*$5.00', 13, 18, 'stripe', 'ch_19d0bKC3aXjEIlyVfikX3RXa', 'Processed', '', '25.000', '2017-01-16 11:59:59');
+(103, '13_SKLXYCCNF7', '5hrs*$5.00', 13, 18, 'stripe', 'ch_19d0bKC3aXjEIlyVfikX3RXa', 'Processed', '', '25.000', '2017-01-16 11:59:59'),
+(104, '13_SKLXYCCNF7', '3hrs*$5.00', 13, 18, 'stripe', 'ch_19dNH5C3aXjEIlyV6bi7RTbh', 'Processed', '', '15.000', '2017-01-17 11:59:59'),
+(105, '13_SKLXYCCNF7', '5hrs*$5.00', 13, 18, 'stripe', 'ch_19dwIDC3aXjEIlyVEHlAYTiD', 'Processed', '', '25.000', '2017-01-19 11:59:59');
 
 -- --------------------------------------------------------
 
@@ -429,7 +431,7 @@ CREATE TABLE IF NOT EXISTS `jobs` (
   `job_created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=146 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=147 ;
 
 --
 -- Dumping data for table `jobs`
@@ -446,10 +448,11 @@ INSERT INTO `jobs` (`id`, `user_id`, `title`, `category`, `job_description`, `jo
 (75, 29, 'category 4', 84, 'gdfhgfdhj', 'fixed', 'Jquery', '3_6_months', 'Entry level', 100.00, 'not_sure', '', 0, '2016-11-24 15:12:00', '0000-00-00 00:00:00'),
 (82, 29, 'Archive testing', 80, 'dfhggtfdh', 'fixed', 'PHP', '3_6_months', 'Entry level', 500.00, 'not_sure', '', 0, '2016-12-03 17:04:50', '0000-00-00 00:00:00'),
 (90, 41, 'seo for 20 websites ', 29, 'i need seo ', 'fixed', 'HTML', 'less_than_1_week', 'Entry level', 450.00, 'not_sure', '', 1, '2016-12-04 19:56:20', '0000-00-00 00:00:00'),
-(102, 29, 'html', 4, 'We need few html expert', 'hourly', 'Java', 'less_than_1_week', 'Entry level', 0.00, '1-9', '', 1, '2016-12-09 17:52:31', '2016-12-09 17:52:31'),
-(103, 29, 'html', 8, 'we are testing ', 'fixed', 'PHP', 'less_than_1_week', 'Entry level', 1000.00, 'not_sure', '', 1, '2016-12-09 17:53:34', '2016-12-09 17:53:34'),
+(102, 29, 'html', 4, 'We need few html expert', 'hourly', 'Java', 'less_than_1_week', 'Entry level', 0.00, '1-9', '', 0, '2016-12-09 17:52:31', '2016-12-09 17:52:31'),
+(103, 29, 'html', 8, 'we are testing ', 'fixed', 'PHP', 'less_than_1_week', 'Entry level', 1000.00, 'not_sure', '', 0, '2016-12-09 17:53:34', '2016-12-09 17:53:34'),
 (104, 29, 'html 2', 9, 'etfew', 'fixed', 'CSS', 'less_than_1_months', 'Entry level', 45.00, 'not_sure', '', 1, '2016-12-09 17:54:26', '2016-12-09 17:54:26'),
 (106, 29, 'fixed job test', 4, 'sryer', 'fixed', 'PHP', '3_6_months', 'Entry level', 30.00, 'not_sure', '', 1, '2016-12-11 15:34:36', '2016-12-11 15:34:36'),
+(146, 18, 'wordpress', 1, 'sdf', 'fixed', '', 'more_than_6_months', 'Entry level', 20.00, 'not_sure', '', 1, '2017-01-18 07:53:20', '2017-01-18 07:53:20'),
 (145, 18, 'dddd', 1, 'dddd', 'hourly', '', 'not_sure', 'Entry level', 0.00, 'not_sure', '', 0, '2017-01-17 10:48:14', '2017-01-17 10:48:14'),
 (144, 18, 'New job 31', 8, 'Testing skills', 'hourly', '', '3_6_months', 'Entry level', 0.00, '40_plus', '/uploads/1484650767708318.jpg', 1, '2017-01-17 06:26:03', '2017-01-17 06:26:03'),
 (143, 18, 'New job', 3, 'ssssss ssssss', 'hourly', '', 'less_than_1_months', 'Entry level', 0.00, '20-29', '', 0, '2017-01-16 12:07:11', '2017-01-16 12:07:11'),
@@ -540,7 +543,7 @@ CREATE TABLE IF NOT EXISTS `job_bids` (
   `withdrawn_by` int(11) DEFAULT NULL,
   `job_progres_status` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=197 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=198 ;
 
 --
 -- Dumping data for table `job_bids`
@@ -593,6 +596,7 @@ INSERT INTO `job_bids` (`id`, `user_id`, `job_id`, `bid_amount`, `bid_fee`, `bid
 (68, 15, 51, 500.00, 50.00, 450.00, '1-3 months', 'fdsghfdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd', 0, '0', 'Fixed job test', 'sdefed', 0, NULL, NULL, NULL, '0', '1', 0.00, 710.00, '2016/10/28 03:11', '2016-10-20 22:49:40', 1, '2016-11-27 20:11:03', 0, '0.00', 0, NULL, NULL, 0),
 (70, 15, 52, 200.00, 20.00, 180.00, 'Less than 1 month', 'dgfgf', 0, '0', 'Testing', 'dfghfghj', 0, NULL, NULL, NULL, '0', '1', 0.00, 200.00, '2016/10/23 05:44', '2016-10-22 20:06:38', 1, '2016-10-22 23:10:46', 0, '0.00', 0, NULL, NULL, 0),
 (72, 15, 53, 300.00, 30.00, 270.00, 'Less than 1 month', 'sfdsf', 0, '0', 'testing 2', '', 0, NULL, NULL, NULL, '0', '2', 0.00, 682.00, '2016/10/26 03:37', '2016-10-25 21:36:29', 1, '2016-11-29 22:11:08', 0, '0.00', 0, NULL, NULL, 0),
+(197, 13, 146, 1.00, 0.10, 0.90, 'Less than 1 week', 'rfgt', 0, '1', 'wordpress', 'ok', 0, NULL, NULL, NULL, '0', '1', 0.00, 1.00, '2017/01/18 13:54', '2017-01-18 07:54:02', 0, NULL, 0, '1.00', 0, NULL, NULL, 2),
 (75, 15, 56, 12313.00, 1231.30, 11081.70, '3-6 months', 'fgfhgfdhdf', 1, '0', 'fdhggdfh', 'dsgsfd', 0, NULL, NULL, NULL, '0', '1', 0.00, 1115863.00, '2016/10/27 03:47', '2016-10-26 20:14:18', 1, '2016-11-30 13:11:28', 0, '0.00', 0, NULL, NULL, 0),
 (76, 33, 57, 5.00, 0.50, 4.50, NULL, 'dfgsfdgfgh', 0, '1', 'date checking', 'rtyhtyh', 10, NULL, NULL, NULL, '0', NULL, 50.00, 0.00, '2016/10/28 03:49', '2016-10-26 21:43:26', 0, NULL, 0, '0.00', 0, NULL, NULL, 0),
 (77, 15, 57, 5.00, 0.50, 4.50, NULL, 'fsgfg', 0, '0', 'date checking', 'etgregy', 10, NULL, NULL, NULL, '0', NULL, 50.00, 0.00, '2016/09/27 03:44', '2016-10-26 21:43:41', 0, NULL, 0, '0.00', 0, NULL, NULL, 0),
@@ -976,7 +980,7 @@ CREATE TABLE IF NOT EXISTS `job_skills` (
   `job_id` int(11) NOT NULL,
   `skill_name` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34 ;
 
 --
 -- Dumping data for table `job_skills`
@@ -985,9 +989,12 @@ CREATE TABLE IF NOT EXISTS `job_skills` (
 INSERT INTO `job_skills` (`id`, `job_id`, `skill_name`) VALUES
 (1, 143, 'Java'),
 (2, 143, 'HTML'),
-(20, 144, 'mysql'),
-(19, 144, 'Apache Jakarta POI'),
-(21, 144, 'PHP');
+(27, 144, 'mysql'),
+(26, 144, 'PHP'),
+(25, 144, 'Apache Jakarta POI'),
+(31, 146, 'Product Sourcing'),
+(32, 146, 'Adobe InDesign'),
+(33, 146, 'PHP');
 
 -- --------------------------------------------------------
 
@@ -1116,13 +1123,14 @@ CREATE TABLE IF NOT EXISTS `job_workdairy` (
   `working_date` date DEFAULT NULL,
   `end_work` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`workdairy_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=58 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=59 ;
 
 --
 -- Dumping data for table `job_workdairy`
 --
 
 INSERT INTO `job_workdairy` (`workdairy_id`, `jobid`, `bid_id`, `cuser_id`, `fuser_id`, `starting_hour`, `ending_hour`, `total_hour`, `working_date`, `end_work`) VALUES
+(58, 143, 196, 18, 13, '2017-01-19 01:00:03', '2017-01-19 06:00:04', '5', '2017-01-19', '2017-01-19 13:00:04'),
 (57, 143, 196, 18, 13, '2017-01-17 18:00:49', '2017-01-17 21:00:51', '3', '2017-01-17', '2017-01-18 04:00:51'),
 (56, 143, 196, 18, 13, '2017-01-16 00:00:38', '2017-01-16 05:00:40', '5', '2017-01-16', '2017-01-16 12:00:40');
 
@@ -1197,7 +1205,7 @@ CREATE TABLE IF NOT EXISTS `payments` (
   `payer_email` varchar(255) NOT NULL,
   `payment_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`payment_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=222 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=223 ;
 
 --
 -- Dumping data for table `payments`
@@ -1205,6 +1213,7 @@ CREATE TABLE IF NOT EXISTS `payments` (
 
 INSERT INTO `payments` (`payment_id`, `user_id`, `buser_id`, `job_id`, `bid_id`, `hire_end_id`, `txn_id`, `payment_condition`, `processfees`, `payment_gross`, `des`, `currency_code`, `payer_email`, `payment_create`) VALUES
 (218, 9, 18, 134, 0, 0, '', '1', 0, 2.00, 'Milestone', '', '', '2017-01-15 18:22:58'),
+(222, 13, 18, 146, 0, 0, '', '1', 0, 1.00, 'Full Paid', '', '', '2017-01-18 07:54:44'),
 (217, 9, 18, 134, 0, 0, '', '1', 0, 12.00, 'Payment', '', '', '2017-01-15 18:21:16'),
 (215, 15, 18, 132, 0, 0, '', '1', 0, 700.00, '', '', '', '2017-01-14 18:24:50'),
 (216, 13, 18, 134, 0, 0, '', '1', 0, 13.00, '', '', '', '2017-01-15 18:09:33'),
@@ -4233,7 +4242,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `username`, `email`, `password`, `type`, `status`, `lastlogin`, `position`, `country`, `phone`) VALUES
-(1, 'Administrator', 'admin', 'getupwork@gmail.com', 'bac1a377c236d995f382e338fd56a349', '1', '1', '1484673503.0052', '', '', ''),
+(1, 'Administrator', 'admin', 'getupwork@gmail.com', 'bac1a377c236d995f382e338fd56a349', '1', '1', '1484905197.0835', '', '', ''),
 (8, 'sagar', 'sagar', 'sagar@sagar.me', '41ed44e3038dbeee7d2ffaa7f51d8a4b', '1', '1', '', '', 'all', ''),
 (9, 'Arif Hossain', 'arif', 'arif@arif.com', '0ff6c3ace16359e41e37d40b8301d67f', '2', '2', '1459555964.1421', '', '4', ''),
 (10, 'jahangir alam', 'jahangir', 'canvasdevelopers@gmail.com', '5fce16e0de0d807a14654c67a7b90405', '2', '2', '', '', 'all', ''),
@@ -4549,7 +4558,7 @@ CREATE TABLE IF NOT EXISTS `webuser` (
   `isdelete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=not del,1=deleted',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`webuser_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
 
 --
 -- Dumping data for table `webuser`
@@ -4588,7 +4597,8 @@ INSERT INTO `webuser` (`webuser_id`, `webuser_company`, `webuser_fname`, `webuse
 (40, '', 'sdfgfdgh', 'dgfhgfh', 'aaaaa', '', 'FWm9eNWWm3LxEjJtHbSMfhIBYErdcZ', 'aaaaa@gmail.com', '594f803b380a41396ed63dca39503542', 'aaaaa', '2', '1', '', '', '29', '', '', '', '', '', 1, 0, 0, '2016-11-21 17:46:03'),
 (41, '', 'aviram', 'adi', 'organicleads', '', '3HTIQ18n6e0iDIvY4h3SLA35Bnz8BV', 'organicleadsllc@gmail.com', 'd79ff9023292795de2e37f2c24a660f8', 'Avi180384', '1', '2', '', '', '9', '', '', '', '', '', 1, 0, 0, '2016-12-04 19:50:06'),
 (42, '', 'Willie', 'Craft', 'WillieCraft', '', 'qIWXBwogaGPit9jUleuLO20qeG5nvI', 'Worldwide601@gmail.com', '3325696835193a03e39f34f59036180b', 'Fordrasta601', '1', '2', '', '', '9', '', '', '', '', '', 1, 0, 0, '2016-12-16 17:36:17'),
-(43, '', 'jahid', 'hasan', 'jahid', '', 'B3hwxu7sBjmlLzvXIUZORIJRZbigez', 'jahid0604015@gmail.com', '5aa5aa07e7699ba95b69bd72960abf5f', 'jahid', '2', '2', '', '', '5', '', '', '', '', '', 1, 0, 0, '2016-12-24 08:45:18');
+(43, '', 'jahid', 'hasan', 'jahid', '', 'B3hwxu7sBjmlLzvXIUZORIJRZbigez', 'jahid0604015@gmail.com', '5aa5aa07e7699ba95b69bd72960abf5f', 'jahid', '2', '2', '', '', '5', '', '', '', '', '', 1, 0, 0, '2016-12-24 08:45:18'),
+(44, '', 'Kenneth', 'Mix', 'Mix', '', 'doQYD1r4u8t7j4o2fNI1aT7aZvB1n4', 'mixken9@gmail.com', '77755e605e7fdf0ca539bab5aa1c245c', '06070607', '2', '2', '', '', '9', '', '', '', '', '', 1, 0, 0, '2017-01-19 21:48:45');
 
 -- --------------------------------------------------------
 
@@ -4652,7 +4662,7 @@ CREATE TABLE IF NOT EXISTS `webuser_basic_profile` (
 INSERT INTO `webuser_basic_profile` (`id`, `webuser_id`, `tagline`, `hourly_rate`, `work_experience_year`, `work_experience_month`, `skills`, `overview`, `last_updated_time`) VALUES
 (2, 22, 'Web developer', 15, 4, 6, 'Java, PHP, HTML, CSS', 'Testing overview', '1472202235770'),
 (3, 9, 'Graphics designer,HTML,SEO', 4, 3, 1, 'PHP, HTML, AJAX', 'We are looking a developer for our project', '1475353115570'),
-(4, 13, 'Web Designer,PHP,WORDPRESS', 10, 1, 1, 'PHP, Javascript, HTML,word', 'I am working as a web developer for PHP/Mysql,Magento, Wordpress,html5  since last 5 years.', '1479841491590'),
+(4, 13, 'Web Designer,PHP,WORDPRESS', 10, 1, 1, '', 'I am working as a web developer for PHP/Mysql,Magento, Wordpress,html5  since last 5 years.', '1484836750470'),
 (5, 21, 'Web developer', 10, 5, 1, 'HTML', 'tst', '1472746678600'),
 (6, 25, 'Tagline (mandatory)', 12, 18, 1, 'PHP, HTML, AJAX', 'O', '1472765256950'),
 (8, 15, 'sdgdfgh', 5, 1, 1, 'PHP', 'Article Submission, Article Submission directories eg.', '1476111665200'),
@@ -4722,7 +4732,7 @@ CREATE TABLE IF NOT EXISTS `webuser_portfolio` (
   `visibility_status` enum('yes','no') NOT NULL DEFAULT 'yes',
   `last_updated_time` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
 
 --
 -- Dumping data for table `webuser_portfolio`
@@ -4736,7 +4746,52 @@ INSERT INTO `webuser_portfolio` (`id`, `webuser_id`, `project_title`, `project_o
 (11, 22, 'jkjk', 'asd', 10, 0, 'http://www.pksoftsoltion.com', '1472930791.jpg', '2016-12-01', 'java', '2016-09-03', 'yes', '0000-00-00'),
 (19, 9, 'Testing', 'we are testing', 12, 0, 'http://www.winjob.com', '1480092307.jpg', '0000-00-00', 'php', '2016-11-25', 'yes', '0000-00-00'),
 (18, 26, 'test project', 'aadd', 1, 0, 'http://www.winjob.com', '1476692359.jpg', '0000-00-00', 'web delloping', '2016-10-17', 'yes', '0000-00-00'),
-(15, 22, 'test', 'asda', 1, 0, 'http://www.pksoftsoltion.com', '1474048000.jpg', '0000-00-00', 'Java', '2016-09-16', 'yes', '0000-00-00');
+(31, 13, 'aaaa', 'aaaa aaa', 2, 0, 'http://', '1484751067.jpg', '0000-00-00', '', '2017-01-18', 'yes', '2017-01-18');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `webuser_portfolio_skills`
+--
+
+CREATE TABLE IF NOT EXISTS `webuser_portfolio_skills` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `portfolio_id` int(11) NOT NULL,
+  `skill_name` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `webuser_portfolio_skills`
+--
+
+INSERT INTO `webuser_portfolio_skills` (`id`, `portfolio_id`, `skill_name`) VALUES
+(7, 31, 'Apache Solr'),
+(8, 31, 'PHP');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `webuser_skills`
+--
+
+CREATE TABLE IF NOT EXISTS `webuser_skills` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `webuser_id` int(11) NOT NULL,
+  `skill_name` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+
+--
+-- Dumping data for table `webuser_skills`
+--
+
+INSERT INTO `webuser_skills` (`id`, `webuser_id`, `skill_name`) VALUES
+(22, 13, 'Java'),
+(21, 13, 'mysql'),
+(20, 13, 'PHP'),
+(19, 13, 'phonegap'),
+(23, 13, 'HTML');
 
 -- --------------------------------------------------------
 
@@ -5009,13 +5064,63 @@ CREATE TABLE IF NOT EXISTS `workdairy_tracker` (
   `capture_time` text NOT NULL,
   `working_date` date DEFAULT NULL,
   PRIMARY KEY (`worktracker_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2131 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2181 ;
 
 --
 -- Dumping data for table `workdairy_tracker`
 --
 
 INSERT INTO `workdairy_tracker` (`worktracker_id`, `jobid`, `bid_id`, `cuser_id`, `fuser_id`, `cpture_image`, `capture_time`, `working_date`) VALUES
+(2180, 143, 196, 18, 13, NULL, '2017-01-19 06:00:03', '2017-01-19'),
+(2179, 143, 196, 18, 13, NULL, '2017-01-19 05:54:03', '2017-01-19'),
+(2178, 143, 196, 18, 13, NULL, '2017-01-19 05:48:03', '2017-01-19'),
+(2177, 143, 196, 18, 13, NULL, '2017-01-19 05:42:03', '2017-01-19'),
+(2176, 143, 196, 18, 13, NULL, '2017-01-19 05:36:03', '2017-01-19'),
+(2175, 143, 196, 18, 13, NULL, '2017-01-19 05:30:03', '2017-01-19'),
+(2174, 143, 196, 18, 13, NULL, '2017-01-19 05:24:03', '2017-01-19'),
+(2173, 143, 196, 18, 13, NULL, '2017-01-19 05:18:03', '2017-01-19'),
+(2172, 143, 196, 18, 13, NULL, '2017-01-19 05:12:03', '2017-01-19'),
+(2171, 143, 196, 18, 13, NULL, '2017-01-19 05:06:03', '2017-01-19'),
+(2170, 143, 196, 18, 13, NULL, '2017-01-19 05:00:03', '2017-01-19'),
+(2169, 143, 196, 18, 13, NULL, '2017-01-19 04:54:03', '2017-01-19'),
+(2168, 143, 196, 18, 13, NULL, '2017-01-19 04:48:03', '2017-01-19'),
+(2167, 143, 196, 18, 13, NULL, '2017-01-19 04:42:03', '2017-01-19'),
+(2166, 143, 196, 18, 13, NULL, '2017-01-19 04:36:03', '2017-01-19'),
+(2165, 143, 196, 18, 13, NULL, '2017-01-19 04:30:03', '2017-01-19'),
+(2164, 143, 196, 18, 13, NULL, '2017-01-19 04:24:03', '2017-01-19'),
+(2163, 143, 196, 18, 13, NULL, '2017-01-19 04:18:03', '2017-01-19'),
+(2162, 143, 196, 18, 13, NULL, '2017-01-19 04:12:03', '2017-01-19'),
+(2161, 143, 196, 18, 13, NULL, '2017-01-19 04:06:03', '2017-01-19'),
+(2160, 143, 196, 18, 13, NULL, '2017-01-19 04:00:03', '2017-01-19'),
+(2159, 143, 196, 18, 13, NULL, '2017-01-19 03:54:03', '2017-01-19'),
+(2158, 143, 196, 18, 13, NULL, '2017-01-19 03:48:03', '2017-01-19'),
+(2157, 143, 196, 18, 13, NULL, '2017-01-19 03:42:03', '2017-01-19'),
+(2156, 143, 196, 18, 13, NULL, '2017-01-19 03:36:03', '2017-01-19'),
+(2155, 143, 196, 18, 13, NULL, '2017-01-19 03:30:03', '2017-01-19'),
+(2154, 143, 196, 18, 13, NULL, '2017-01-19 03:24:03', '2017-01-19'),
+(2153, 143, 196, 18, 13, NULL, '2017-01-19 03:18:03', '2017-01-19'),
+(2152, 143, 196, 18, 13, NULL, '2017-01-19 03:12:03', '2017-01-19'),
+(2151, 143, 196, 18, 13, NULL, '2017-01-19 03:06:03', '2017-01-19'),
+(2150, 143, 196, 18, 13, NULL, '2017-01-19 03:00:03', '2017-01-19'),
+(2149, 143, 196, 18, 13, NULL, '2017-01-19 02:54:03', '2017-01-19'),
+(2148, 143, 196, 18, 13, NULL, '2017-01-19 02:48:03', '2017-01-19'),
+(2147, 143, 196, 18, 13, NULL, '2017-01-19 02:42:03', '2017-01-19'),
+(2146, 143, 196, 18, 13, NULL, '2017-01-19 02:36:03', '2017-01-19'),
+(2145, 143, 196, 18, 13, NULL, '2017-01-19 02:30:03', '2017-01-19'),
+(2144, 143, 196, 18, 13, NULL, '2017-01-19 02:24:03', '2017-01-19'),
+(2143, 143, 196, 18, 13, NULL, '2017-01-19 02:18:03', '2017-01-19'),
+(2142, 143, 196, 18, 13, NULL, '2017-01-19 02:12:03', '2017-01-19'),
+(2141, 143, 196, 18, 13, NULL, '2017-01-19 02:06:03', '2017-01-19'),
+(2140, 143, 196, 18, 13, NULL, '2017-01-19 02:00:03', '2017-01-19'),
+(2139, 143, 196, 18, 13, NULL, '2017-01-19 01:54:03', '2017-01-19'),
+(2138, 143, 196, 18, 13, NULL, '2017-01-19 01:48:03', '2017-01-19'),
+(2137, 143, 196, 18, 13, NULL, '2017-01-19 01:42:03', '2017-01-19'),
+(2136, 143, 196, 18, 13, NULL, '2017-01-19 01:36:03', '2017-01-19'),
+(2135, 143, 196, 18, 13, NULL, '2017-01-19 01:30:03', '2017-01-19'),
+(2134, 143, 196, 18, 13, NULL, '2017-01-19 01:24:03', '2017-01-19'),
+(2133, 143, 196, 18, 13, NULL, '2017-01-19 01:18:03', '2017-01-19'),
+(2132, 143, 196, 18, 13, NULL, '2017-01-19 01:12:03', '2017-01-19'),
+(2131, 143, 196, 18, 13, NULL, '2017-01-19 01:06:03', '2017-01-19'),
 (2130, 143, 196, 18, 13, NULL, '2017-01-17 21:00:49', '2017-01-17'),
 (2129, 143, 196, 18, 13, NULL, '2017-01-17 20:54:49', '2017-01-17'),
 (2128, 143, 196, 18, 13, NULL, '2017-01-17 20:48:49', '2017-01-17'),
