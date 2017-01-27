@@ -1,34 +1,15 @@
-<section id="big_header"
-	style="margin-top: 50px; margin-bottom: 50px; height: auto;">
+<section id="big_header" style="margin-top: 32px; margin-bottom: 50px; height: auto;">
 
 	<div class="container">
 		<div class="row ">
 			<div class="col-md-3">
 
-
-				<div class="row">
-
-					<div class="col-md-10 borderedx white-box nopadding "
-						style="padding: 3px 15px !important">
-						<div class="search-icon blue-text">
-							<i class="fa fa-search" aria-hidden="true"></i>
-						</div>
-
-						<div class="search-txt-field">
-							<input type="text" class="" value=""
-								placeholder="Search for freelancers..." />
-						</div>
-					</div>
-
-				</div>
-
 				<div class="row">
 					<div class="col-md-10 nopadding">
-						<nav class="staff-navbar">
-							<ul>
-								<li><a href="mystaff"><b>My Hired</b></a></li>
-								<li><a class ="active" href="pasthire"><b>Past Hires</b></a></li>
-								<li><a href="offersent"><b>Offers Sent</b></a></li>
+						<nav class="staff-navbar ec_navbar">
+							<ul style="margin-top: 6px;">
+								<li><a href="activecontracts"><i style="margin-right: 5px;" class="fa fa-briefcase"></i><b>Active Contracts</b></a></li>
+								<li><a class ="active" href="endedcontracts"><i style="margin-right: 5px;" class="fa fa-undo"></i><b>Ended Contracts</b></a></li>
 							</ul>
 						</nav>
 					</div>
@@ -36,31 +17,31 @@
 			</div>
 
 			<div class="col-md-9">
+			<div class="ec_custom_body">
 				<div class="row">
-					<div class="col-md-12 bordered-alert text-center ack-box">
+					<div style="margin-left: -2px ! important; margin-bottom: 0px; padding-top: 5px; padding-bottom: 0px;width: 742px;" class="col-md-12 bordered-alert text-center ack-box">
 						<?php if($past_hire){ ?>
 					<h4>! You have ended <?=$past_hire;?> contract</h4>
 					<?php } else{?>
 						<h4>! You have no ended contact</h4>
 					<?php } ?>
 					</div>
-
-
 				</div>
-	<?php foreach($messages as $message){
-	
-		$username =$message->webuser_fname . '&nbsp;'.$message->webuser_lname;
-		$title = $message->hire_title;
-		
-		?>
+				
+				<?php foreach($messages as $message){
+				
+					$username =$message->webuser_fname . '&nbsp;'.$message->webuser_lname;
+					$title = $message->hire_title;
+					
+					?>
 				<div class="row margin-top-2">
-					<div class="col-md-12 bordered white-box" style="padding: 20px">
+					<div class="col-md-12 white-box ec_white_box" style="padding: 20px">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="row">
 									<div class="col-md-5">
 										<?php if($message->webuser_picture !=""){ ?>
-										<div class="st_img">
+										<div  style="margin-left: -10px;margin-top: -1px;margin-bottom: 10px;" class="st_img">
 										    <img src="<?php echo base_url().$message->webuser_picture; ?>" width="90" height="68">
 										</div>
 										<?php }else{?>
@@ -68,9 +49,9 @@
 											width="90" height="68" />
 										<?php } ?>
 									</div>
-									<div class="col-md-7 nopadding" style="padding-left: 25px !important">
+									<div class="col-md-7 nopadding" style="padding-left: 0px !important">
 										<div class="user_name">
-										   <h5> <?=$message->webuser_fname?> <?=$message->webuser_lname?> <br></h5>
+										   <h5  style="margin-bottom: 0;"> <?=$message->webuser_fname?> <?=$message->webuser_lname?> <br></h5>
 								<span><?=$message->country_name?></span>
 										</div>
 									</div>
@@ -134,7 +115,7 @@
 
 							<div class="col-md-4">
 								<div class="row">
-								   <div class="col-md-3 col-md-offset-2">
+								   <div class="ec_massage_butt">
 								       <div class="pastsms">
 								           <input type="button" class="btn btn-primary form-btn"  onclick="loadmessage(<?=$message->bid_id?>,<?=$message->fuser_id?>,<?=$message->job_id?>,'<?=$username?>','<?=$title?>')" value="Message">
 									<!--<a href="<?php echo base_url() ?>interview?user_id=<?=base64_encode($message->fuser_id)?>&job_id=<?=base64_encode($message->job_id)?>&bid_id=<?=base64_encode($message->bid_id)?>">
@@ -142,7 +123,7 @@
 									</a>-->
 								       </div>
 								   </div>
-									<div class="col-md-5 text-right">
+									<div class="ec_rehire_butt">
 
                                        <div class="rehire-btn">
                                      <input type="button" class="btn btn-primary form-btn" value="Rehire" />
@@ -150,7 +131,7 @@
 										
 									</div>
 
-									<div class="col-md-2">
+									<div class="ec_drop_butt">
 										<div class="dropdown">
 											<button class="btn btn-default dropdown-toggle" type="button"
 												data-toggle="dropdown">
@@ -171,16 +152,10 @@
 
 							</div>
 						</div>
-
-						<div class="row">
-							<div class="col-md-10 margin-left-10">
-								<hr>
-							</div>
-						</div>
 						<div class="row">
 							<div class="col-md-2">
 							    <div class="pro_view">
-							    <span>View Profile</span>
+							    <span style="font-size: 14px;color: #3DB0DD;">View Profile</span>
 							    </div>
 							</div>
 							<div class="col-md-10">
@@ -206,6 +181,7 @@
 				</div>
 			<?php } ?>
 			
+			</div>
 			</div>
 		</div>
 	</div>

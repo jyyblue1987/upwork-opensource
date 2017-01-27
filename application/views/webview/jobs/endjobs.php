@@ -1,5 +1,5 @@
 <section id="big_header"
-	style="margin-top: 50px; margin-bottom: 50px; height: auto;">
+	style="margin-top: 30px; margin-bottom: 50px; height: auto;">
 
 	<div class="container">
 		<div class="row ">
@@ -9,23 +9,24 @@
 			<div class="col-md-3 nopadding">
                             <div class="row">
                                 <div class="col-md-10 ">
-				<nav class="staff-navbar">
-					<ul>
-						<li><a  href="winsjob"><b>Winjobs</b></a></li>
-						<li><a class="active" href="endjobs"><b>End Jobs</b> </a></li>
+				<nav class="staff-navbar ej-navbar">
+					<ul style="margin-top: 6px;">
+						<li><a  href="winsjob"><i style="margin-right: 5px;" class="fa fa-briefcase"></i><b>Winjobs</b></a></li>
+						<li><a class="active" href="endjobs"><i style="margin-right: 5px;" class="fa fa-undo"></i><b>End Jobs</b> </a></li>
 					</ul>
 				</nav>
                             </div>
                                 </div>
 			</div>
 			<div class="col-md-9">
+			<div class="ej_custom_body">
 				<div class="row">
 					
-					<div class="col-md-12 bordered-alert text-center ack-box">
+					<div style="margin-bottom: 15px;height: 40px;" class="col-md-12 bordered-alert text-center ack-box">
 						<?php if(!empty($acccept_jobList)) { ?>
-							<h4>! You have ended <?=count($acccept_jobList)?> jobs</h4>
+							<h4 style="margin: 0;padding: 0;margin-top: -5px;">! You have ended <?=count($acccept_jobList)?> jobs</h4>
 						<?php } else{?>
-							<h4>! You have no ended jobs</h4>
+							<h4 style="margin: 0;padding: 0;margin-top: -5px;">! You have no ended jobs</h4>
 						<?php } ?>
 					</div>
 					
@@ -39,19 +40,19 @@
 				if($data->job_type == "hourly"){
 				?>
 
-				<div class="row margin-top-2">
-					<div class="col-md-12 bordered white-box" style="padding: 20px">
+				<div class="row margin-top-2 ej_white_box">
+					<div class="col-md-12 white-box" style="padding: 20px;margin-bottom: 15px;">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="row">
 									<div class="col-md-5">
-										<div class="st_img">
+										<div style="margin-bottom: 10px;" class="st_img">
                                           <img src="<?php echo base_url()?><?=$data->webuser_picture?>" width="90" height="68" />
                                         </div>
 									</div>
-									<div class="col-md-7 nopadding" style="padding-left: 25px !important">
+									<div class="col-md-7 nopadding" style="padding-left: 0px !important">
 										<div class="user_name">
-								       <h5><?=$data->webuser_fname?> <?=$data->webuser_lname?><br/></h5>
+								       <h5 style="margin-bottom: 0;"><?=$data->webuser_fname?> <?=$data->webuser_lname?><br/></h5>
 										<span><?=$data->country_name?></span>
 										</div>
 									</div>
@@ -90,13 +91,13 @@
 
 							<div class="col-md-4">
 								<div class="row">
-									<div class="col-md-4 col-md-offset-6">
+									<div class="ej_massage_butt">
 										<div class="msg_btn">
 										    <input type="button" class="btn btn-primary form-btn" value="Message" onclick="loadmessage(<?=$data->bid_id?>,<?=$data->buser_id?>,<?=$data->job_id?>,'<?=$username?>','<?=$title?>')" />
 										</div>
 									</div>
 
-									<div class="col-md-2">
+									<div class="ej_drop_butt">
 										<div class="dropdown">
 											<button class="btn btn-default dropdown-toggle" type="button"
 												data-toggle="dropdown">
@@ -139,19 +140,19 @@
 				
 				<?php } else { ?>
 				
-				<div class="row margin-top-2">
-					<div class="col-md-12 bordered white-box" style="padding: 20px">
+				<div class="row margin-top-2 ej_white_box">
+					<div class="col-md-12 white-box" style="padding: 20px;margin-bottom: 15px;">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="row">
 									<div class="col-md-5">
-								       <div class="msg_btn">
-                                        <img src="<?php echo base_url()?><?=$data->webuser_picture?>" width="90" height="68" />
+										<div style="margin-bottom: 10px;" class="st_img">
+                                          <img src="<?php echo base_url()?><?=$data->webuser_picture?>" width="90" height="68" />
                                         </div>
 									</div>
-									<div class="col-md-7 nopadding" style="padding-left: 25px !important">
+									<div class="col-md-7 nopadding" style="padding-left: 0px !important">
 										<div class="user_name">
-								       <h5><?=$data->webuser_fname?> <?=$data->webuser_lname?><br/></h5>
+								       <h5 style="margin-bottom: 0;"><?=$data->webuser_fname?> <?=$data->webuser_lname?><br/></h5>
 										<span><?=$data->country_name?></span>
 										</div>
 									</div>
@@ -169,13 +170,13 @@
 
 							<div class="col-md-4">
 								<div class="row">
-									<div class="col-md-4 col-md-offset-6">
+									<div class="ej_massage_butt">
 										<div class="msg_btn">
 										    <input type="button" class="btn btn-primary form-btn" value="Message" onclick="loadmessage(<?=$data->bid_id?>,<?=$data->buser_id?>,<?=$data->job_id?>,'<?=$username?>','<?=$title?>')" />
 										</div>
 									</div>
 
-									<div class="col-md-2">
+									<div class="ej_drop_butt">
 										<div class="dropdown">
 											<button class="btn btn-default dropdown-toggle" type="button"
 												data-toggle="dropdown">
@@ -215,6 +216,7 @@
 				
 		
 				
+			</div>
 			</div>
 		</div>
 	</div>

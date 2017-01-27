@@ -1,35 +1,18 @@
 <?php if($offer_count){	$totalOffer = $offer_count;} else {	$totalOffer = 0;}?>
 <section id="big_header"
-	style="margin-top: 50px; margin-bottom: 50px; height: auto;">
+	style="margin-top: 30px; margin-bottom: 50px; height: auto;">
 
 	<div class="container">
 		<div class="row ">
 			<div class="col-md-3">
 
-
-				<div class="row">
-
-					<div class="col-md-10 borderedx white-box nopadding "
-						style="padding: 3px 15px !important">
-						<div class="search-icon blue-text">
-							<i class="fa fa-search" aria-hidden="true"></i>
-						</div>
-
-						<div class="search-txt-field">
-							<input type="text" class="" value=""
-								placeholder="Search for freelancers..." />
-						</div>
-					</div>
-
-				</div>
-
 				<div class="row">
 					<div class="col-md-10 nopadding">
-						<nav class="staff-navbar">
-							<ul>
-								<li><a href="mystaff"><b>My Hired</b> </a></li>
-								<li><a href="pasthire"><b>Past Hires</b></a></li>
-								<li><a class="active" href="offersent"><b>Offers Sent</b> </a></li>
+						<nav class="staff-navbar os_navbar">
+							<ul style="margin-top: 6px;">
+								<li><a href="mystaff"><i style="margin-right: 5px;" class="fa fa-briefcase"></i><b>My Hired</b> </a></li>
+								<li><a href="pasthire"><i style="margin-right: 5px;" class="fa fa-undo"></i><b>Past Hires</b></a></li>
+								<li><a class="active" href="offersent"><i style="margin-right: 5px;" class="fa fa-gift"></i><b>Offers Sent</b> </a></li>
 							</ul>
 						</nav>
 					</div>
@@ -37,8 +20,9 @@
 			</div>
 
 			<div class="col-md-9">
+			<div class="os_custom_body">
 				<div class="row">
-					<div class="col-md-12 bordered-alert text-center ack-box">
+					<div style="margin-left: -2px ! important; margin-bottom: 0px; padding-top: 5px; padding-bottom: 0px;" class="col-md-12 bordered-alert text-center ack-box" class="col-md-12 bordered-alert text-center ack-box">
 					<?php if($offer_count){ ?>
 					<h4>! You have sent <?=$offer_count;?> offers</h4>
 					<?php } else{?>
@@ -56,7 +40,7 @@
 					?>
 				
 				<div class="row margin-top-2">
-					<div class="col-md-12 white-box bordered" style="padding: 20px">
+					<div class="col-md-12 white-box os_white_box" style="padding: 20px">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="row">
@@ -71,9 +55,9 @@
 										<?php } ?>
 										
 									</div>
-									<div class="col-md-7 nopadding" style="padding-left: 25px !important">
+									<div class="col-md-7 nopadding" style="padding-left: 7px !important">
 										<div class="user_name">
-										  <h5><?=$message->webuser_fname?> <?=$message->webuser_lname?><br></h5>
+										  <h5 style="margin-bottom: 0;"><?=$message->webuser_fname?> <?=$message->webuser_lname?><br></h5>
                                             <span><?=$message->country_name?></span>
 										</div>
 									</div>
@@ -87,19 +71,19 @@
 
 							<div class="col-md-4">
 								<div class="row">
-									<div class="col-md-3 col-md-offset-2">
+									<div class="os_massage_butt">
                                    <div class="msg_btnx hour_btn">
                                       <!--	<input type="button" class="btn btn-primary transparent-btn"  onclick="loadmessage(<?=$message->bid_id?>,<?=$message->user_id?>,<?=$message->job_id?>)" value="Message">-->
 								<input type="button" class="btn btn-primary form-btn"  onclick="loadmessage(<?=$message->bid_id?>,<?=$message->webuser_id?>,<?=$message->job_id?>,'<?=$username?>','<?=$title?>')" value="Message"> 
                                    </div>
 								      </div>
-							          <div class="col-md-5 text-right">
+							          <div class="os_cancel_butt">
 							            <div class="cancel_btn">
 								    <a href="<?php echo base_url();?>canceloffer?bid_id=<?=base64_encode($message->bid_id)?>&job_id=<?=base64_encode($message->job_id)?>" class="btn btn-primary form-btn">Cancel Offer</a>
 								      </div> 
 							          </div>
 
-									<div class="col-md-2">
+									<div class="os_drop_butt">
 										<div class="dropdown">
 											<button class="btn btn-default dropdown-toggle" type="button"
 												data-toggle="dropdown">
@@ -122,19 +106,13 @@
 						</div>
 
 						<div class="row">
-							<div class="col-md-10 margin-left-10">
-								<hr>
-							</div>
-						</div>
-
-						<div class="row">
 							<div class="col-md-2">
-								<div class="pro_view">
+								<div style="margin-top: -10px;" class="pro_view">
 								    <a href="<?php echo base_url()."interview?user_id=".base64_encode($message->webuser_id)."&job_id=".base64_encode($message->job_id)."&bid_id=".base64_encode($message->bid_id);?>">View Profile</a>
 								</div>
 							</div>
 						
-							<div class="col-md-8">
+							<div style="margin-top: -10px;" class="col-md-10">
 								<div class="job_detais">
 								    <?php if($message->hire_title !=""){
 									$job_title = $message->hire_title;
@@ -152,6 +130,7 @@
 				</div>
 					<?php } ?>
 
+			</div>
 			</div>
 		</div>
 	</div>

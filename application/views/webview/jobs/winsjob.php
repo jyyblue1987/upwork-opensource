@@ -1,29 +1,14 @@
  
-<section id="big_header" style="margin-top: 50px; margin-bottom: 50px; height: auto;">
+<section id="big_header" style="margin-top: 30px; margin-bottom: 50px; height: auto;">
     <div class="container">
         <div class="row">
             <div class="col-md-3 nopadding">
                 <div class="row">
-
-					<div class="col-md-10 borderedx white-box nopadding "
-						style="padding: 3px 15px !important">
-						<div class="search-icon blue-text">
-							<i class="fa fa-search" aria-hidden="true"></i>
-						</div>
-
-						<div class="search-txt-field">
-							<input type="text" class="" value=""
-								placeholder="Search for freelancers..." />
-						</div>
-					</div>
-
-				</div>
-                <div class="row">
                     <div class="col-md-10 ">
                         <nav class="staff-navbar">
-                            <ul>
-                                <li><a class="active" href="winsjob"><b>Win Jobs</b></a></li>
-                                <li><a href="endjobs"><b>Ended Jobs</b></a></li>
+                            <ul style="margin-top: 6px;">
+                                <li><a class="active" href="winsjob"><i style="margin-right: 5px;" class="fa fa-trophy"></i><b>Win Jobs</b></a></li>
+                                <li><a href="endjobs"><i style="margin-right: 5px;" class="fa fa-briefcase"></i><b>Ended Jobs</b></a></li>
                             </ul>
                         </nav>
                     </div>
@@ -32,13 +17,14 @@
             </div>
 
             <div class="col-md-9">
+            <div class="wj_custom_body">
                 <div class="row">
 
-                    <div class="col-md-12 bordered-alert text-center ack-box">
+                    <div style="margin-bottom: 0;height: 40px;" class="col-md-12 bordered-alert text-center ack-box">
                         <?php if (!empty($acccept_jobList)) { ?>
-                            <h4>! You have hired <?= count($acccept_jobList) ?> jobs</h4>
+                            <h4 style="margin: 0;padding: 0;margin-top: -5px;">! You have hired <?= count($acccept_jobList) ?> jobs</h4>
                         <?php } else { ?>
-                            <h4>! You have no hired jobs</h4>
+                            <h4 style="margin: 0;padding: 0;margin-top: -5px;">! You have no hired jobs</h4>
                         <?php } ?>
                     </div>
 
@@ -53,7 +39,7 @@
                             ?>
 
                             <div class="row margin-top-2">
-                                <div class="col-md-12 bordered white-box" style="padding: 20px">
+                                <div class="col-md-12 wj_white_box white-box" style="padding: 20px">
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="row">
@@ -64,7 +50,7 @@
                                                 </div>
                                                 <div class="col-md-7 nopadding" style="padding-left: 25px !important">
                                                    <div class="user_name">
-										<h5><?=$data->webuser_fname?> <?=$data->webuser_lname?><br /> </h5>
+										<h5 style="margin-bottom: 0;"><?=$data->webuser_fname?> <?=$data->webuser_lname?><br /> </h5>
 									<span><?=$data->country_name?></span>
 										</div>
                                                 </div>
@@ -142,20 +128,20 @@
 
                                         <div class="col-md-4">
                                             <div class="row">
-                                                <div class="col-md-3 col-md-offset-2">
+                                                <div class="wj_massage_butt">
                                                     <div class="msg_btnxxx">
                                                         <input type="button" class="btn btn-primary form-btn" value="Message" onclick="loadmessage(<?= $data->bid_id ?>,<?= $data->buser_id ?>,<?= $data->job_id ?>, '<?= $username ?>', '<?= $title ?>')" />
                                                    </div>
 
                                                 </div>
-                                             <div class="col-md-5 text-right">
+                                             <div class="wj_work_diary_butt">
                                                  <div class="work_diary-active hour_btn">
                                                      <a href="<?php echo base_url() ?>jobs/workdairy_client?fmJob=<?php echo base64_encode($data->job_id);?>&fuser=<?php echo base64_encode($data->fuser_id);?>">
 										<input type="button" class="btn btn-primary form-btn" value="Work Diary" />
 										</a>
                                                  </div>
                                              </div>
-                                                <div class="col-md-2">
+                                                <div class="wj_drop_butt">
                                                     <div class="dropdown">
                                                         <button class="btn btn-default dropdown-toggle" type="button"
                                                                 data-toggle="dropdown">
@@ -203,7 +189,7 @@
         <?php } else { ?>
 
                             <div class="row margin-top-2">
-                                <div class="col-md-12 bordered white-box" style="padding: 20px">
+                                <div class="col-md-12 wj_white_box white-box" style="padding: 20px">
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="row">
@@ -214,7 +200,7 @@
                                                 </div>
                                                 <div class="col-md-7 nopadding" style="padding-left: 25px !important">
                                                        <div class="user_name">
-										<h5><?=$data->webuser_fname?> <?=$data->webuser_lname?><br /> </h5>
+										<h5 style="margin-bottom: 0;"><?=$data->webuser_fname?> <?=$data->webuser_lname?><br /> </h5>
 									<span><?=$data->country_name?></span>
 										</div>
                                                 </div>
@@ -231,13 +217,13 @@
 
                                         <div class="col-md-4">
                                             <div class="row">
-                                                <div class="col-md-4 col-md-offset-6">
+                                                <div class="wj_massage_butt2">
                                                     <div class="f_msg">
                                                         <input type="button" class="btn btn-primary form-btn" value="Message" onclick="loadmessage(<?= $data->bid_id ?>,<?= $data->buser_id ?>,<?= $data->job_id ?>, '<?= $username ?>', '<?= $title ?>')" />
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-2">
+                                                <div class="wj_drop_butt">
                                                     <div class="dropdown">
                                                         <button class="btn btn-default dropdown-toggle" type="button"
                                                                 data-toggle="dropdown">
@@ -287,6 +273,7 @@
     <?php }
 } ?>	
 
+            </div>
             </div>
 
         </div>

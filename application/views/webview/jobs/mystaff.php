@@ -24,9 +24,9 @@
 
 				<div class="row">
 					<div class="col-md-10 nopadding">
-						<nav class="staff-navbar freelancer-navbar">
+						<nav class="staff-navbar freelancer-navbar ms_navbar ">
 							<ul>
-								<li><a class="active" href="mystaff"><i class="fa fa-calendar" aria-hidden="true"></i> <b>My Hired</b></a></li>
+								<li><a class="active" href="mystaff"><i class="fa fa-briefcase" aria-hidden="true"></i> <b>My Hired</b></a></li>
 								<li><a href="pasthire"><i class="fa fa-undo" aria-hidden="true"></i> <b>Past Hires</b></a></li>
 								<li><a href="offersent"><i class="fa fa-gift" aria-hidden="true"></i> <b>Offers Sent</b></a></li>
 							</ul>
@@ -67,7 +67,7 @@
 				?>
 
 				<!--<div class="row margin-top-2">-->
-                                <div class="row margintop-2">
+                                <div class="row margintop-2 ms_white_box">
 					<!--<div class="col-md-12 bordered white-box" style="padding: 20px">-->
                                         <div class="col-md-12 freelancer-job white-box" style="padding: 20px">
 						<div class="row">
@@ -144,9 +144,10 @@
                             
 							<div class="col-md-4">
 								<div class="row">
-									<div class="col-md-3 col-md-offset-2">
+									<div class="ms_hr_massage_butt">
 									<div class="mystaff_msg_btnx hour_btn message_btn">
 									    <input type="button" class="btn btn-primary form-btn"  onclick="loadmessage(<?=$data->bid_id?>,<?=$data->user_id?>,<?=$data->fuser_id?>,'<?=$username?>','<?=$title?>')" value="Message">
+										
 										<!--<a href="<?php echo base_url() ?>interview?user_id=<?=base64_encode($data->fuser_id)?>&job_id=<?=base64_encode($data->job_id)?>&bid_id=<?=base64_encode($data->bid_id)?>">
 											<input type="button" class="btn btn-primary transparent-btn" value="Message" />
 										</a>-->
@@ -155,14 +156,14 @@
 									</div>
                                
                                    
-									<div class="col-md-5 text-right">
+									<div class="ms_hr_work_diary">
                                   <div class="mystaff_work_diary hour_btn work_diary_btn">
                                    <a href="<?php echo base_url() ?>jobs/workdairy_client?fmJob=<?php echo base64_encode($data->job_id);?>&fuser=<?php echo base64_encode($data->fuser_id);?>">
-								<input type="button" class="btn btn-primary form-btn" value="Work Diary" /></a>
+								<input style="margin-right: -1px;" type="button" class="btn btn-primary form-btn" value="Work Diary" /></a>
 									</div>
 									    
 									</div>
-										<div class="col-md-2">
+										<div class="ms_hr_drop_butt">
 										    <div class="dropdown hour_btnx dropdown_btn">
 											<button class="btn btn-default dropdown-toggle" type="button"
 												data-toggle="dropdown">
@@ -191,8 +192,6 @@
                                 <span><b><?=$data->hire_title?></b></span>
 							</div>
 							</div>
-							<div class="col-md-6">
-				          </div>
 						</div>
 					</div>
 
@@ -202,7 +201,7 @@
 				<?php } else { ?>
 				
 				<!--<div class="row margin-top-2">-->
-                                <div class="row margintop-2">
+                                <div class="row margintop-2 ms_white_box2">
 					<!--<div class="col-md-12 borderedx white-box" style="padding: 20px">-->
                                         <div class="col-md-12 freelancer-job white-box" style="padding: 20px">
 						<div class="row">
@@ -236,23 +235,24 @@
 
 							<div class="col-md-4">
 								<div class="row">
-									<div class="col-md-3 col-md-offset-2 text-right">
+									<div class="ms_massage_butt">
 										<div class="mystaff_msg_btn hour_btn fixed_message_btn">
 										    <input type="button" class="btn btn-primary form-btn"  onclick="loadmessage(<?=$data->bid_id?>,<?=$data->fuser_id?>,<?=$data->job_id?>,'<?=$username?>','<?=$title?>')" value="Message">
+											
 										<!--<a href="<?php echo base_url() ?>interview?user_id=<?=base64_encode($data->fuser_id)?>&job_id=<?=base64_encode($data->job_id)?>&bid_id=<?=base64_encode($data->bid_id)?>">
 											<input type="button" class="btn btn-primary transparent-btn" value="Message" />
 											</a>-->
 										</div>
 											
 									</div>
-									<div class="col-md-5 text-right">
+									<div class="ms_pay_butt">
 									    <div class="mystaff_pay_btnx payment_btn">
 									        <input type="button" class="btn btn-primary form-btn my-btn"
 											value="Payment" id ="2" onclick="editClickedPayment(this.id)" />
 									    </div>
 									</div>
 
-									<div class="col-md-2">
+									<div class="ms_drop_butt">
 										<div class="dropdown hour_btnx dropdown_btn">
 											<button class="btn btn-default dropdown-toggle" type="button"
 												data-toggle="dropdown">

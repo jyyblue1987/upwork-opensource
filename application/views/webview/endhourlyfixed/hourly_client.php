@@ -8,35 +8,35 @@
 .rating-container .filled-stars {  top: 2px;}
 </style>
 <div class="container">
-<section class="information_area">
+<section class="information_area end_contact custom-end_contact">
 		<!--
 		<a href="<?php echo base_url() ?>feedback/hourly_client?fmJob=<?php echo base64_encode($job->job_id);?>&fuser=<?php echo base64_encode($job->fuser_id);?>">
 		<input type="button" class="btn btn-primary form-btn" value="See Feeedback" style="float: right;" />
 	</a>-->
- <form class="form-horizontal" method="post" id="end_contact_from">
+ <form class="form-horizontal custom_end_contact_from" method="post" id="end_contact_from">
 	<div class="form-group">   
-	  <label for="" class="col-sm-4 control-label"><span>Confirm your End Contact</span></label>
+	  <label for="" class="col-sm-4 control-label"><h4 class="confirm_title">Confirm your End Contact</h4></label>
 	</div>
 	<div class="form-group">   
-		<label for="" class="col-sm-3 control-label"></label>
-	   <div class="col-sm-1">
+		<label  for="" class="col-sm-2 control-label"></label>
+	   <div style="margin-left: 44px;" class="col-sm-1">
 						<?php  if($job->webuser_picture !=""){ ?>
-									<img src="<?php echo base_url().$job->webuser_picture ?>" width="64" height="64" />
+									<img style="border-radius: 50px;" src="<?php echo base_url().$job->webuser_picture ?>" width="64" height="64" />
 								<?php }else{ ?>
-								<img src="<?php echo base_url()?>assets/img/Untitled-1.png">
+								<img style="border-radius: 50px;" src="<?php echo base_url()?>assets/img/Untitled-1.png">
 								<?php  } ?>
 		</div>
-		<div class="col-sm-3" id="name">
-			<h3><a href="<?php echo base_url()."interview?user_id=".base64_encode($job->webuser_id)."&job_id=".base64_encode($job->job_id)."&bid_id=".base64_encode($job->bid_id);?>">
+		<div class="col-sm-3" id="name" class="end_contact_name">
+			<h3 style="margin: 0px;margin-top: -10px;margin-left: -11px;"><a href="<?php echo base_url()."interview?user_id=".base64_encode($job->webuser_id)."&job_id=".base64_encode($job->job_id)."&bid_id=".base64_encode($job->bid_id);?>">
 								<label class="blue-text"><?=$job->webuser_fname ?> <?=$job->webuser_lname ?></label>
 								</a></h3>
 		<h4> <?=$job->webuser_company ?>		</h4>
 		</div>
 	</div>
-  <div class="form-group">   
-	  <label for="" class="col-sm-3 control-label" id="leftname">Job Title  </label>
+  <div style="margin-bottom: 15px;" class="form-group">   
+	  <h4 for="" class="col-sm-3 control-label" id="leftname">Job Title  </h4>
 	   <div class="col-sm-5" id="righttext">
-		<h3><span><?php if($job->hire_title !=""){
+		<h3 style="margin-top:0;"><span><?php if($job->hire_title !=""){
 							$job_title = $job->hire_title;
 						}else{
 							$job_title = $job->title;
@@ -47,14 +47,14 @@
 	</div>
   
   <div class="form-group">
-    <label for="" class="col-sm-3 control-label" id="leftname">Contact id</label>
+    <h4 for="" class="col-sm-3 control-label" id="leftname">Contact id</h4>
     <div class="col-sm-4" id="righttext">
       <h3><?=$job->contact_id ?></h3>
     </div>
   </div> 
   
   <div class="form-group">
-    <label for="" class="col-sm-3 control-label" id="leftname">Hourly rate</label>
+    <h4 for="" class="col-sm-3 control-label" id="leftname">Hourly rate</h4>
     <div class="col-sm-2" id="righttext">
 					<?php if($job->offer_bid_amount !=""){
 							$job_price = $job->offer_bid_amount;
@@ -63,39 +63,41 @@
 						}?>
 		
 					
-      <h3>$<?=$job_price;?>/hr</h3>
+      <h3><span>$<?=$job_price;?></span>/hr</h3>
     </div>
   </div>
   
   <div class="form-group">
-    <label for="" class="col-sm-3 control-label" id="leftname">Since Start</label>
-    <div class="col-sm-5" id="righttextone">
+    <h4 for="" class="col-sm-3 control-label" id="leftname">Since Start</h4>
+    <div class="col-sm-5" id="righttext">
         <?php
 			 
 			
-									$this->db->select('*');
-								   $this->db->from('job_workdairy');
-								   $this->db->where('fuser_id',$job->fuser_id);
-								   $this->db->where('jobid',$job->job_id); 
-								   $query_done = $this->db->get();
-								   $job_done = $query_done->result();
-									 $total_work_cweek = 0;
-									   if(!empty($job_done)){
-										   foreach($job_done as $work){
-											   $total_work_cweek +=$work->total_hour;
-										   }
-										    $total_work_cweek." hrs this week";
-									   }
-								?>
-		<h3><?php echo $total_work_cweek; ?> hrs  ,<?php echo $total_work_cweek*$job->bid_amount;?>$ &nbsp; &nbsp;<span>View work diary</span></h3>
+			$this->db->select('*');
+			$this->db->from('job_workdairy');
+			$this->db->where('fuser_id',$job->fuser_id);
+			$this->db->where('jobid',$job->job_id); 
+			$query_done = $this->db->get();
+			$job_done = $query_done->result();
+			$total_work_cweek = 0;
+			if(!empty($job_done)){
+			   foreach($job_done as $work){
+				   $total_work_cweek +=$work->total_hour;
+			   }
+				$total_work_cweek." hrs this week";
+			}
+			?>
+		<h3><span><?php echo $total_work_cweek; ?></span> hrs, <span><?php echo $total_work_cweek*$job->bid_amount;?>$</span></h3>
     </div>
   </div> 
-  <div class="form-group">
-    <label for="" class="col-sm-3 control-label" id="leftname">Start Date</label>
+  <div style="margin-bottom: 0px;" class="form-group">
+    <h4 for="" class="col-sm-3 control-label" id="leftname">Start Date</h4>
     <div class="col-sm-4" id="righttext">
   <h3><?php  echo date(' F j, Y ', strtotime($job->start_date)); ?></h3>
     </div>
-  </div>  
+  </div>
+  
+  <div class="feed_border"></div>
   
   <!--<div class="form-group">
     <label for="" class="col-sm-3 control-label" id="leftname">End Date</label>
@@ -104,8 +106,8 @@
     </div>
   </div> -->
   
-   <div class="form-group">
-    <label for="" class="col-sm-3 control-label" ><span>Feedback to contactor</span></label>
+   <div style="margin-top: 15px;" class="form-group">
+    <h4 style="margin-bottom: 8px;" class="col-sm-3 control-label" ><span>Feedback to contactor</span></h4>
   </div> 
   
    <div class="form-group">
@@ -138,23 +140,23 @@
        <input id="communication" value="0" type="number" class="rating" name="communication" min=0 max=5 step=0.5 data-size="xs" >
     </div>
   </div>
-  <div class="form-group">
+  <div style="margin-bottom: 25px;" class="form-group">
     <label for="" class="col-sm-3 control-label" id="leftname">Score</label>
     <div class="col-sm-4" id="righttextstar">
        <input id="score" value="0.00" type="text" name="score" readonly >
     </div>
   </div>
     <div class="form-group">
-      <label class="control-label col-sm-3" for="Comm" id="leftname">Feedback Comment
+      <label class="control-label col-sm-3" for="Comm" id="leftname">Comment
         </label>
-      <div class="col-sm-4">
-        <textarea  class="form-control" id="Comment" placeholder="" name="Comment"></textarea>
+      <div class="col-sm-7">
+        <textarea style="margin-bottom: 25px;" class="form-control" id="Comment" placeholder="" name="Comment"></textarea>
 								<div class="error"></div>
       </div>
     </div>
   
   <div class="form-group btn_center">
-    <div class="col-sm-offset-3 col-xs-12 col-sm-2">
+    <div style="margin-left: 228px;margin-right: -43px;" class="col-sm-offset-3 col-xs-12 col-sm-2">
 						<input name="job_id" type="hidden" id="job_id"  value="<?=$job->job_id ?>"  />
 							<input name="user_id" type="hidden" id="user_id"  value="<?=$job->fuser_id ?>"  />
 						<input name="clientid" type="hidden" id="clientid"  value="<?=$job->buser_id ?>"  />
@@ -173,7 +175,7 @@
 						<img src='/assets/img/version1/loader.gif' class="form-loader" style="display:none">
     </div>
 	<div class="col-xs-12 col-sm-1">
-      <button type="button" class="btn btn-default btn_background">Cancel</button>
+      <button type="button" class="btn btn-default">Cancel</button>
     </div>
 	<p class="result-msg" style="text-align: center;color: green;font-size: 20px;display: none;"></p>
   </div>

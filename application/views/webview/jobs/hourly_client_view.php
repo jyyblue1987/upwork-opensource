@@ -1,5 +1,5 @@
 <section id="big_header"
-	style="margin-top: 50px; margin-bottom: 50px; height: auto;">
+	style="margin-top: 36px; margin-bottom: 40px; height: auto;">
 
 	<div class="container">
 		<div class="row">
@@ -7,17 +7,15 @@
 				<div class="row">
 					<div class="date_head">
 					    <div class="col-md-6">Since <?php  echo date(' M j, Y ', strtotime($job_status->start_date)); ?></div>
-					<div class="col-md-4 col-md-offset-2"><span>ID <?=$job_status->contact_id ?></span></div>
+					<div class="col-md-6"><span>ID <?=$job_status->contact_id ?></span></div>
 					</div>
-				</div>
-
-				
+				</div>				
 
 				<div class="row">
 					<div class="col-md-4">
 						<div class="row">
 							<div class="col-md-4 col-md-offset-1 text-left">
-								<div class="st_img">
+								<div class="st_img hourly_client_view_st_img">
 								    <?php  if($job_status->webuser_picture !=""){ ?>
 									<img src="<?php echo base_url().$job_status->webuser_picture ?>" width="64" height="64" />
 								<?php }else{ ?>
@@ -26,7 +24,7 @@
 								</div>
 							</div>
 							<div class="col-md-7 text-left ">
-								<h5 class="free_name"><?=$job_status->webuser_fname ?> <?=$job_status->webuser_lname ?></h5>
+								<h5 style="margin-top: -4px;" class="free_name"><?=$job_status->webuser_fname ?> <?=$job_status->webuser_lname ?></h5>
 							
 								<p class="free_name"> <?=$job_status->webuser_company ?></p>
 							</div>
@@ -37,24 +35,23 @@
 						<div class="status_bar">
 						    	
 						<?php if($ststus->isactive==0){ ?>
-							<label class="gray-text">Status : <span style="color:#ff0000;" >Hold</span></label>
+							<label style="margin-top: -8px;" class="gray-text">Status : <span style="color:#ff0000;" >Hold</span></label>
 						<?php }else if($job_status->jobstatus ==1){?>
-							<label class="gray-text">Status : Ended</label>
+							<label style="margin-top: -8px;" class="gray-text">Status : Ended</label>
 						<?php }else{ ?>
-							<label class="gray-text">Status : Active</label>
+							<label style="margin-top: -8px;" class="gray-text">Status : Active</label>
 						<?php	} ?>
 						</div>
 					</div>
 					<div class="col-md-3 col-md-offset-1 ">
 						<div class="msg_btnx hour_btn">
-						    <input type="button" class="transparent-btn" value="Message" onclick="loadmessage(<?=$job_status->bid_id?>,<?=$job_status->fuser_id?>,<?=$job_status->job_id?>)" />
+						    <input type="button" class="btn-primary form-btn transparent-btn big_mass_button" value="Message" onclick="loadmessage(<?=$job_status->bid_id?>,<?=$job_status->fuser_id?>,<?=$job_status->job_id?>)" />
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-12 col-md-offset-1">
-						<div class="job_title">
-						   <span> <?php if($job_status->hire_title !=""){
+					<div class="col-md-12">
+						<div class="job_title client_job_title">
+						   <span class="clint_view_j-title"> <?php if($job_status->hire_title !=""){
 							$job_title = $job_status->hire_title;
 						}else{
 							$job_title = $job_status->title;
@@ -63,12 +60,11 @@
 						<a href="<?php echo base_url() ?>jobs/view/<?php echo url_title($job_status->title) ?>/<?php echo base64_encode($job_status->job_id);?>">View original job post</a>
 						</div>
 					</div>
-				</div>
 			</div>
 		</div>
 		<div class="bg-change"></div>
 		<div class="row">
-			<div class="col-md-9 white-box remove-border-top ">
+			<div style="padding: 3px 10px 10px;" class="col-md-9 white-box remove-border-top ">
 
 				<div class="row">
 					
@@ -167,7 +163,7 @@
 									   }
                                                                           // var_dump($job_done);die();
 								?>         
-								<label class="gray-text">Total</label> <br /> <label
+								<label style="margin-top: 9px;font-size: 12px;" class="gray-text">Total</label> <br /> <label
 									class="gray-text bold_text"><?=$total_work ;?> Hrs</label> <br /> <label
 									class="gray-text hours_text">$<?=$total_work*$amount;?></label>
 							</div>
@@ -177,7 +173,7 @@
 				</div>
 
 
-				<div class="row margin-top">
+				<div class="row margin-top margin_top25">
 					<div class="col-md-10 col-md-offset-1">
 						<div class="row">
 
@@ -192,28 +188,20 @@
 					</div>
 				</div>
 
-				<div class="row margin-top-1">
-					<div class="col-md-10 col-md-offset-1">
-						<div class="row">
-							<hr>
-						</div>
-					</div>
-				</div>
-
-				<div class="row margin-top-1 margin-bottom-2">
+				<div class="row margin-top-1 margin-bottom-2 margin-top29px">
 					<div class="col-md-10 col-md-offset-1 text-left">
 						<div class="row">
 							<div class="col-md-8 text-centered text-left">
 								<div class="row">
 								    <div class="col-md-4">
 								        <div class="week_font">
-								   <span> Hourly Rate <br /><br/> Weekly Limit </span>
+								   <span><p class="ma-gin_bottom_20px">Hourly Rate</p><p>Weekly Limit </p></span>
 								</div>
 								    </div>
 								    <div class="col-md-8">
 								        <div class="p-btn">
 								             <span>
-								       <b> $<?php if($job_status->offer_bid_amount) {echo $job_status->offer_bid_amount;} else {echo $job_status->bid_amount;} ?></b> /hr <br /> <br/><b><?=$job_status->weekly_limit ?></b> Hrs/Week  
+								       <p class="ma-gin_bottom_20px"><b> $<?php if($job_status->offer_bid_amount) {echo $job_status->offer_bid_amount;} else {echo $job_status->bid_amount;} ?></b> /hr</p> <p><b><?=$job_status->weekly_limit ?></b> Hrs/Week</p>
 								   </span>     
                                     <div class="hour_pause_btn">
                                         <input type="button" class="btn btn-primary form-btn pause-btn"
@@ -239,10 +227,15 @@
 
 				<div class="row margin-top-1">
 					<div class="col-md-12">
-						<div class="row margin-top-3"> 
+						<div class="row margin-top-3 cus_cancel_button"> 
 							<div class="col-md-6 text-centered text-center"></div>
 							<div class="col-md-6 text-right">
-							    <div class="hour_end_btn">
+							
+								<div style="float: left; margin-top: 10px; margin-left: 68px;" class="cancel_content_btn" style="margin-left: -65px">
+								   <input value="Cancel" class="btn my_btn" type="button"> 
+								</div>
+								
+								<div class="hour_end_btn">
 								    <?php if($job_status->jobstatus ==1){?>
 									<a href="<?php echo base_url() ?>feedback/hourly_client?fmJob=<?php echo base64_encode($job_status->job_id);?>&fuser=<?php echo base64_encode($job_status->fuser_id);?>">
 									<input type="button" class="btn my_btn" value="End Contract" />
@@ -394,6 +387,7 @@
   float: right;
   font-size: 21px;
   height: 50px;
+  margin-top: 4%;
   margin-top: 4%;
   vertical-align: middle;
   width: 19%;

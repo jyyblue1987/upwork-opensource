@@ -1,5 +1,5 @@
 <section id="big_header"
-         style="margin-top: 50px; margin-bottom: 50px; height: auto;">
+         style="margin-top: 36px; margin-bottom: 40px; height: auto;">
 
     <div class="container">
         <div class="row ">
@@ -8,7 +8,7 @@
                 <div class="row">
                    <div class="date_head">
                         <div class="col-md-6">Since <?php echo date(' M j, Y ', strtotime($job_status->start_date)); ?></div>
-                    <div class="col-md-4 col-md-offset-2">
+                    <div class="col-md-6">
                       <div class="main_id">
                           <span>ID <?= $job_status->contact_id ?>
                     </span>
@@ -21,7 +21,7 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col-md-4 col-md-offset-1 text-left">
-                                <div class="st_img">
+                                <div class="st_img hourly_client_view_st_img">
                                     <?php if ($job_status->webuser_picture != "") { ?>
                                     <img src="<?php echo base_url() . $job_status->webuser_picture ?>" width="64" height="64" />
                                 <?php } else { ?>
@@ -31,7 +31,7 @@
                             </div>
                             <div class="col-md-7 text-left">
                                
-                                    <h5 class="free_name"><?= $job_status->webuser_fname ?> <?= $job_status->webuser_lname ?></label>
+                                    <h5 style="margin-top: -4px;" class="free_name"><?= $job_status->webuser_fname ?> <?= $job_status->webuser_lname ?></label>
                             
                                 <br> <p class="free_name"><?= $job_status->webuser_company ?></p>
                             </div>
@@ -39,63 +39,66 @@
                     </div>
 
                     <div class="col-md-4 text-center gray-text">
-                        <?php if ($job_status->jobstatus == 1) { ?>
-                            <label class="gray-text">Status : Ended</label>
-                        <?php } else { ?>
-                            <label class="gray-text">Status : Active</label>
-                        <?php } ?>
+						<div style="margin-top: -8px;" class="status_bar">
+							<?php if ($job_status->jobstatus == 1) { ?>
+								<label class="gray-text">Status : Ended</label>
+							<?php } else { ?>
+								<label class="gray-text">Status : Active</label>
+							<?php } ?>
+						</div>
                     </div>
 
                     <div class="col-md-3 col-md-offset-1">
                        <div class="msg_btnx hour_btn">
-                           <input type="button" class="transparent-btn" value="Message" onclick="loadmessage(<?= $job_status->bid_id ?>,<?= $job_status->fuser_id ?>,<?= $job_status->job_id ?>)" />
+                           <input type="button" class="btn-primary transparent-btn big_mass_button" value="Message" onclick="loadmessage(<?= $job_status->bid_id ?>,<?= $job_status->fuser_id ?>,<?= $job_status->job_id ?>)" />
                        </div>
                         
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-11 col-md-offset-1">
-                    <div class="job_title">
-                            <?php
+                    <div class="col-md-12">
+                    <div class="job_title client_job_title">
+                           <span class="clint_view_j-title"> <?php
                         if ($job_status->hire_title != "") {
                             $job_title = $job_status->hire_title;
                         } else {
                             $job_title = $job_status->title;
                         }
                         ?>
-<?= $job_title; ?>  <br />
+<?= $job_title; ?></span><br />
                         <a href="<?php echo base_url() ?>jobs/view/<?php echo url_title($job_status->title) ?>/<?php echo base64_encode($job_status->job_id); ?>">View original job post</a>
                        </div>
                 </div>
-                </div>
             </div>
         </div>
+        <div class="bg-change"></div>
         <div class="row ">
-            <div class="col-md-9 white-box remove-border-top">
+            <div style="padding: 3px 10px 5px;" class="col-md-9 white-box remove-border-top ">
+            
 
                 <div class="row">
-                <div class="row margin-top-2 bordered_week">
+                 </div>
+                <div style="margin-left: 28px;" class="row margin-top-2 bordered_week">
                     <div class="col-md-10 col-md-offset-1">
                         <div class="row">
-                            <div class="col-md-4 text-centered text-center"><b>Amount</b></div>
-                            <div class="col-md-4 text-centered text-center"><b>Paid</b></div>
-                            <div class="col-md-4 text-centered text-center"><b>Remaining</b></div>
+                            <div style="padding-top: 5px; margin-right: -6px;" class="col-md-4 paid_table_title text-centered text-center"><b>Amount</b></div>
+                            <div style="padding-top: 5px; border-left: 2px solid #ededed; margin-right: 10px;" class="col-md-4 text-centered text-center"><b>Paid</b></div>
+                            <div style="width: 76px; padding-top: 5px; margin-left: 0px; padding-left: 83px; border-left: 2px solid rgb(237, 237, 237);" class="col-md-4 text-centered text-center"><b>Remaining</b></div>
                         </div>
                     </div>
                     <div class="row margin-top-1">
                     <div class="col-md-10  col-md-offset-1">
                         <div class="row nav-bar">
-                            <div class="col-md-4 text-center nav-bar-item">
+                            <div style="padding-bottom: 5px;" class="col-md-4 text-center nav-bar-item">
                                 <span class="bold_text">
                                     $<?= $job_status->hired_on; ?>
                                 </span>
                             </div>
-                            <div class="col-md-4 text-center nav-bar-item">
+                            <div style="padding-bottom: 5px;" class="col-md-4 text-center nav-bar-item">
                                 <span class="bold_text">
                                     $<?= $job_status->fixedpay_amount; ?>
                                 </span>
                             </div>
-                            <div class="col-md-4  text-center nav-bar-item">
+                            <div style="padding-bottom: 5px;" class="col-md-4  text-center nav-bar-item">
                             <span class="bold_text">
                                   $<?php
                                 $remain_budget = $job_status->bid_amount - $job_status->fixedpay_amount;
@@ -105,7 +108,7 @@
                                     echo $remain_budget;
 ?>
                             </span>
-                       </div>
+						</div>
                         </div>
                     </div>
 
@@ -117,7 +120,7 @@
                 </div>
 
 
-                <div class="row margin-top margin-top-5">
+                <div class="row margin-top margin-top-3">
                     <div class="col-md-10 col-md-offset-1">
                         <div class="row">
                          
@@ -159,28 +162,34 @@
                 <div class="row margin-top-5 margin-bottom-2">
                     <div class="col-md-10 col-md-offset-1">
                         <div class="row">
-                            <div class="col-md-4 text-left">
+                            <div class="col-md-6">
                             
-                               <div class="client_milestone">
-                                     <input type="button" class="btn my_btn" value="Add Milestone" id ="2" onclick="editClickedMilestone(this.id)" />
+                               <div class="">
+                                     <input style="float: left;margin-left: 0;" type="button" class="btn my_btn" value="Add Milestone" id ="2" onclick="editClickedMilestone(this.id)" />
                                </div>
+							   
+								<input style="margin-left: 15px;" type="button" class="btn my_btn" value="Payment"  id ="2" onclick="editClickedPayment(this.id)" />
                             
                             </div>
-                            <div class="col-md-4 text-centered text-center"><input type="button" class="btn my_btn" value="Payment"  id ="2" onclick="editClickedPayment(this.id)" /></div>
-                            <div class="col-md-4 text-centered text-right">
+							
+                            <div class="col-md-6">
+							
+								<div style="float: left; position: absolute;right: 143px;" class="cancel_content_btn">
+								   <input value="Cancel" class="btn my_btn" type="button"> 
+								</div>
 
-                            <div class="client_end_btn">
-                                <?php if ($job_status->jobstatus == 1) { ?>
-                                    <a href="<?php echo base_url() ?>feedback/fixed_client?fmJob=<?php echo base64_encode($job_status->job_id); ?>&fuser=<?php echo base64_encode($job_status->fuser_id); ?>">
-                             <input type="button" class="btn my_btn" value="End Contract" />
+								<div class="">
+									<?php if ($job_status->jobstatus == 1) { ?>
+										<a href="<?php echo base_url() ?>feedback/fixed_client?fmJob=<?php echo base64_encode($job_status->job_id); ?>&fuser=<?php echo base64_encode($job_status->fuser_id); ?>">
+									<input style="float: right;margin-right: 0px;" type="button" class="btn my_btn" value="End Contract" />
                                     </a>
 <?php } else { ?>
                                     <a href="<?php echo base_url() ?>endhourlyfixed/fixed_client?fmJob=<?php echo base64_encode($job_status->job_id); ?>&fuser=<?php echo base64_encode($job_status->fuser_id); ?>">
-                                        <input type="button" class="btn my_btn" value="End Contract" />
+                                        <input style="float: right;margin-right: 0px;" type="button" class="btn my_btn" value="End Contract" />
                                     </a>
 <?php } ?>
-                            </div>
-                     </div>
+								</div>
+							</div>
                         </div>
                     </div>
                 </div>
