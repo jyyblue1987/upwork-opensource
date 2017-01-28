@@ -3539,7 +3539,6 @@ padding-left: 15px;
 .big_mass_button:hover{background:#286090;color:#fff;}
 .bordered_week label:first-child{padding-top: 8px;}
 .margin_top25{margin-top: 25px;}
-.paid_table_title:before{content: '';}
 .end_contact{background: #fff none repeat scroll 0 0;
 margin: 25px 0;}
 .confirm_title{font-family: 'Calibri';margin-top: 15px;
@@ -3607,3 +3606,192 @@ background: #ccc;}
 }
 .filled-stars{width: 0%;
 margin-left: -10px}
+
+#mid_content #wrapper {
+  margin-bottom: 40px;
+}
+
+/*feedback fixed client start*/
+.custom_fff .feedback_title h4 {
+  font-size: 14px;
+  font-weight: 800;
+}
+.custom_fff{}
+.custom_fff .gray-text {
+    font-size: 14px;
+    font-weight: 800;
+}
+.custom_fff .job_posting {
+    font-family: "calibri";
+    font-size: 19px;
+    margin-left: 28px;
+}
+.custom_fff .main_feedback h4 {
+    font-size: 11px;
+    font-weight: 800;
+}
+.custom_fff .feedback_title {
+    margin-left: 19px;
+}
+.ffc_job_title {
+    color: #494949;
+    font-size: 20px;
+}
+.custom_fff .big_mass_button {
+    margin-right: -30px;
+    margin-top: 0;
+}
+.custom_fff .wdwarfheadone h3 {
+    padding-bottom: 20px;
+}
+/*feedback fixed client end*/
+
+/*feedback hourly freelancer start*/
+.custom_fhf .feedback_title h4 {
+  font-size: 14px;
+  font-weight: 800;
+}
+.custom_fhf .gray-text {
+    font-size: 14px;
+    font-weight: 800;
+}
+.custom_fhf .job_posting {
+    font-family: "calibri";
+    font-size: 19px;
+    margin-left: 28px;
+}
+.custom_fhf .main_feedback h4 {
+    font-size: 11px;
+    font-weight: 800;
+}
+.custom_fhf .feedback_title {
+    margin-left: 19px;
+}
+.ffc_job_title {
+    color: #494949;
+    font-size: 20px;
+}
+.custom_fhf .big_mass_button {
+    margin-right: -30px;
+    margin-top: 0;
+}
+.custom_fhf .wdwarfheadone h3 {
+    padding-bottom: 20px;
+}
+.custom_fhf #feedbackbutton {
+    margin-bottom: 10px;margin-left: 16px;
+}
+.custom_fhf .free_name {
+    margin-top: 2px;
+}
+/*feedback hourly freelancer end*/
+
+/*feedback fixed freelancer start*/
+.custom_fff2 .feedback_title h4 {
+  font-size: 14px;
+  font-weight: 800;
+}
+.custom_fff2 .gray-text {
+    font-size: 14px;
+    font-weight: 800;
+}
+.custom_fff2 .job_posting {
+    font-family: "calibri";
+    font-size: 19px;
+    margin-left: 28px;
+}
+.custom_fff2 .main_feedback h4 {
+    font-size: 11px;
+    font-weight: 800;
+}
+.custom_fff2 .feedback_title {
+    margin-left: 19px;
+}
+.ffc_job_title {
+    color: #494949;
+    font-size: 20px;
+}
+.custom_fff2 .big_mass_button {
+    margin-right: -30px;
+    margin-top: 0;
+}
+.custom_fff2 .wdwarfheadone h3 {
+    padding-bottom: 20px;
+}
+.custom_fff2 #feedbackbutton {
+    margin-bottom: 10px;margin-left: 1px;
+}
+.custom_fff2 .free_name {
+    margin-top: 2px;
+}
+/*feedback fixed freelancer end*/
+
+/*cancel offer start*/
+.custom_give_feed{margin-top: 14px;
+margin-left: -51px;}
+.margin_bottom12{margin-top: -8px;
+margin-bottom: 12px !important;}
+
+
+.offer_win_details {
+  overflow: hidden;
+}
+.offer_win_side {
+    margin-left: 15px !important;
+}
+.custom_canceloffer .st_img{margin-bottom: 15px !important;}
+.offer_bordered {
+    margin-bottom: -1px;padding-top: 0 !important;
+}
+.custom_offer_bordered{padding-top: 18px !important;}
+
+.custom_canceloffer .offer_date span {
+    color: red;
+    font-size: 17px;margin-left: 25px;
+}
+.custom_canceloffer .col-md-offset-1{margin-left: 27px !important;}
+.custom_canceloffer .offer_title{font-size: 18px !important;}
+.canceloffer_cus_right_txt{    font-size: 17px;
+    margin-left: -30px;}
+	
+.custom_canceloffer .my_btn {
+    margin-left: -51px !important;
+}
+.custom_canceloffer .dicline_btn {
+    margin-bottom: 20px !important;
+}
+/*cancel offer end*/
+
+/*jobs_accept statr*/
+.custom_jobs_accept .st_img{margin-bottom: 15px !important;}
+.custom_jobs_accept .offer_date span {
+    color: red;
+    font-size: 17px;margin-left: 28px;
+}
+.custom_jobs_accept .col-md-offset-1{margin-left: 27px !important;}
+.accept_cus_right_txt{font-size: 17px;
+    margin-left: -30px;}
+.custom_jobs_accept .dicline_btn {
+	margin-bottom: 20px !important;
+	margin-right: 90px;
+}
+/*jobs_accept end*/
+
+.job_accept_form {
+background: #fff none repeat scroll 0 0;
+border: 1px solid #ccc;
+margin-bottom: 0;
+margin-left: -10px;
+margin-right: 15px;
+padding: 30px 200px 50px;
+}
+.job_accept_2 .accept_title{font-family: "Calibri";
+font-size: 25px;
+font-weight: 800;}
+.job_accept_2 label{color: #000 !important;
+font-size: 18px;}
+.job_accept_2 .big_mass_button{float: left;
+margin-right: 30px;}
+.custom_blue_button{background: #028FCC;
+color: #fff;}
+.custom_blue_button:hover{background:#286090;}
