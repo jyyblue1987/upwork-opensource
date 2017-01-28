@@ -2,38 +2,38 @@
  $jobId = base64_decode($_GET['fmJob']);
  $Bid_id = base64_decode($_GET['fmBiD']);
 ?>
-<section id="big_header"
-	style="margin-top: 50px; margin-bottom: 50px; height: auto;">
+<section id="big_header" class="job_accept_2" style="margin-top: 40px; margin-bottom: 40px; height: auto;">
 
 	<div class="container">
-		<div class="row margin-left-4">
-			<div class="col-md-9 bordered">
+		<div class="row">
+			<div class="col-md-12">
 			<p class="result-msg" style="text-align: center;color: green;font-size: 20px;display: none;"></p>
 
-			    <div class="row">
-			         <div class="col-md-12"><span>View Offer</span></div>
-			    </div>
 				<div class="form-msg"></div>
-			    <form method="post" id='offerconfirmed'>
+			    <form class="job_accept_form" method="post" id='offerconfirmed'>
+				
+			    <div class="row">
+			         <div class="col-md-12"><span class="accept_title">Accept Offer</span></div>
+			    </div>
 			    <div class="row margin-top">
-			         <div class="col-md-3"><label class="gray-text">Send a Message</label></div>
-			         <div class="col-md-5">
+			         <div class="col-md-4"><label class="gray-text">Send a Message</label></div>
+			         <div class="col-md-8">
 			             <textarea rows="6" cols="" class="form-control" name="confo_notes" id="confo_notes"></textarea>
 			         </div>
 			    </div>
 			    
 			    
 			    <div class="row margin-top-1">
-			         <div class="col-md-3"><label class="gray-text">Agree to Terms</label></div>
-			         <div class="col-md-9">
-			             <input type="checkbox" id="tearms" /> I agree to the Winjob <a href=""> Terms and Conditions, Policies</a>
+			         <div class="col-md-4"><label class="gray-text">Agree to Terms</label></div>
+			         <div style="font-size: 17px;" class="col-md-8">
+			             <input style="margin-right: 10px;" type="checkbox" id="tearms" /> I agree to the Winjob <a href=""> Terms and Conditions, Policies</a>
 			         </div>
 			    </div>
 			    
 			    
 			    <div class="row margin-top-2">
-			         <div class="col-md-3"></div>
-			         <div class="col-md-9">
+			         <div class="col-md-4"></div>
+			         <div class="col-md-8">
 						<input name="client_name" type="hidden" id="client_name"  value="<?=$offerduser_details->webuser_fname ?> <?=$offerduser_details->webuser_lname ?>"  />
 						<input name="user_name" type="hidden" id="user_name"  value="<?=$user_details->webuser_fname ?> <?=$user_details->webuser_lname ?>"  />
 						<input name="client_email" type="hidden" id="client_email"  value="<?=$offerduser_details->webuser_email ?>"  />
@@ -46,8 +46,8 @@
 						<input name="job_id" type="hidden" id="job_id"  value="<?=$jobId?>"  />
 						
 						<input type="hidden" name='cnfirmed' value='0'/>
-			             <input type="button" class="btn btn-primary form-btn" id="accept_offer" value="Accept Offer" />
-			              <a href="<?php echo base_url() ?>jobs/accept_hourly?fmJob=<?php echo $_GET['fmJob'];?>"><input type="button" class="btn btn-primary form-btn" value="Cancel" /></a>
+			             <input type="button" class="btn-primary transparent-btn big_mass_button custom_blue_button" id="accept_offer" value="Accept Offer" />
+			              <a href="<?php echo base_url() ?>jobs/accept_hourly?fmJob=<?php echo $_GET['fmJob'];?>"><input type="button" class="btn-primary transparent-btn big_mass_button" value="Cancel" /></a>
 						   <img src='/assets/img/version1/loader.gif' class="form-loader" style="display:none">
 			         </div>
 			    </div>
@@ -102,8 +102,5 @@
 			
 		});
 	});
-	
-	
 
 </script>
-

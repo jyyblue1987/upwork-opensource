@@ -49,7 +49,7 @@
   <div class="form-group">
     <h4 for="" class="col-sm-3 control-label" id="leftname">Contact id</h4>
     <div class="col-sm-4" id="righttext">
-      <h3><?=$job->contact_id ?></h3>
+      <h3 class="normal_normal_font"><?=$job->contact_id ?></h3>
     </div>
   </div> 
   
@@ -93,7 +93,7 @@
   <div style="margin-bottom: 0px;" class="form-group">
     <h4 for="" class="col-sm-3 control-label" id="leftname">Start Date</h4>
     <div class="col-sm-4" id="righttext">
-  <h3><?php  echo date(' F j, Y ', strtotime($job->start_date)); ?></h3>
+  <h3 class="normal_normal_font"><?php  echo date(' F j, Y ', strtotime($job->start_date)); ?></h3>
     </div>
   </div>
   
@@ -111,38 +111,38 @@
   </div> 
   
    <div class="form-group">
-    <label for="" class="col-sm-3 control-label" id="leftname">Skills</label>
-    <div class="col-sm-9" id="righttextstar">
+    <label for="" class="col-sm-3 control-label custom_normal_font" id="leftname">Skills</label>
+    <div class="col-sm-4 margin-left-10" id="righttextstar">
      <input id="skills" value="0" type="number" class="rating" name="skills" min=0 max=5 step=0.5 data-size="xs" >
     </div>
   </div>
   <div class="form-group">
-    <label for="" class="col-sm-3 control-label" id="leftname">Quality</label>
-    <div class="col-sm-4" id="righttextstar">
+    <label for="" class="col-sm-3 control-label custom_normal_font" id="leftname">Quality</label>
+    <div class="col-sm-4 margin-left-10" id="righttextstar">
        <input id="quality" value="0" type="number" class="rating" name="quality" min=0 max=5 step=0.5 data-size="xs" >
     </div>
   </div>
     <div class="form-group">
-    <label for="" class="col-sm-3 control-label" id="leftname"> Ability </label>
-    <div class="col-sm-4" id="righttextstar">
+    <label for="" class="col-sm-3 control-label custom_normal_font" id="leftname"> Ability </label>
+    <div class="col-sm-4 margin-left-10" id="righttextstar">
       <input id="ability" value="0" type="number" class="rating" name="ability" min=0 max=5 step=0.5 data-size="xs" >
     </div>
   </div>
     <div class="form-group">
-    <label for="" class="col-sm-3 control-label" id="leftname">Deadline</label>
-    <div class="col-sm-4" id="righttextstar">
+    <label for="" class="col-sm-3 control-label custom_normal_font" id="leftname">Deadline</label>
+    <div class="col-sm-4 margin-left-10" id="righttextstar">
        <input id="deadline" value="0" type="number" class="rating" name="deadline" min=0 max=5 step=0.5 data-size="xs" >
     </div>
   </div>
     <div class="form-group">
-    <label for="" class="col-sm-3 control-label" id="leftname">communication </label>
-    <div class="col-sm-4" id="righttextstar">
+    <label for="" class="col-sm-3 control-label custom_normal_font" id="leftname">communication </label>
+    <div class="col-sm-4 margin-left-10" id="righttextstar">
        <input id="communication" value="0" type="number" class="rating" name="communication" min=0 max=5 step=0.5 data-size="xs" >
     </div>
   </div>
   <div style="margin-bottom: 25px;" class="form-group">
     <label for="" class="col-sm-3 control-label" id="leftname">Score</label>
-    <div class="col-sm-4" id="righttextstar">
+    <div class="col-sm-1" id="righttextstar">
        <input id="score" value="0.00" type="text" name="score" readonly >
     </div>
   </div>

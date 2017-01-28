@@ -1,66 +1,82 @@
-
-<section id="mid_content">
+<section id="mid_content" class="custom_fff">
 	<div class="container">
 		<div class="row">
-				<div class="col-md-9 col-sm-12 margin-top-3">
-					<div id="wrapper" class="white-box margin-bottom-3 ">
-						<div class="wrap-top">
+				<div class="col-md-9 col-sm-12 margin-top-4 ">
+					<div id="wrapper" class="margin-bottom-3 ">
+						<div class="row ">
+						    <div style="padding-bottom: 19px;" class="col-md-9 white-box black-box bordered_top">
+						        <div class="wrap-top">
 						<div class="row">
-							<div class="col-md-4 col-sm-4 tohead">
-								<h4>Ended <?php  echo date(' F j, Y ', strtotime($job->end_date)); ?> </h4>
-							</div>
-							<div class="col-md-4 col-sm-4 col-md-offset-4 toheadone">
-								<h4> Contract ID <?=$job->contact_id ?>  </h4>
+							<div class="date_head">
+								<div class="col-md-6 col-sm-6">
+									<h4>Ended <?php  echo date('  M, Y ', strtotime($job->end_date)); ?> </h4>
+								</div>
+								<div class="col-md-6 col-sm-6">
+									<div class="main_id"><span>Contract ID <?=$job->contact_id ?>  </span></div>									
+								</div>
 							</div>
 						</div>
 						<div style="clear:both"></div>
 						<div class="row">
-							<div class="col-md-1 col-sm-1 col-md-offset-1 firshired">
-								<h4>Hired</h4>
-							</div>
 							<div style="clear:both"></div>
-							<div class="col-md-5 col-sm-5 col-md-offset-1 imageheading">
-								<div class="image">
+							<div style="margin-left: 9px;" class="col-md-5 col-sm-5 imageheading">
+								<div class="image st_img">
 									<?php  if($job->webuser_picture !=""){ ?>
 										<img src="<?php echo base_url().$job->webuser_picture ?>" width="64" height="64" />
 									<?php }else{ ?>
-										<img src="<?php echo base_url()?>assets/img/man.png"/>
+										<img src="<?php echo base_url()?>assets/img/man.png" width="64" height="64"/>
 									<?php  } ?>
-									
 								</div>
-								<h4><?=$job->webuser_fname ?> <?=$job->webuser_lname ?> </h4>
+								<h5 class="free_name"><?=$job->webuser_fname ?> <?=$job->webuser_lname ?> </h5>
 								<h3><?=$job->webuser_company ?></h3>
 							</div>
-							<div class="col-md-4 col-sm-4 imglast">
-								<h3>Status: Ended </h3>
+							<div class="col-md-3 col-sm-4 imglast">
+                                <label class="gray-text">Status: Ended</label>
 							</div>
-							<div class="col-md-2 col-sm-2">
-								<h3>
-								<button type="button" id="massagebuton" class="btn btn-danger" onclick="loadmessage(<?=$job->bid_id?>,<?=$job->fuser_id?>,<?=$job->job_id?>)"> Message</button></h3>
+							<div class="col-md-3 col-sm-2">
+								<div class="msg_btnx hour_btn feedback_client_btn">
+								  <button type="button" class="btn-primary transparent-btn big_mass_button" onclick="loadmessage(<?=$job->bid_id?>,<?=$job->fuser_id?>,<?=$job->job_id?>)"> Message</button>  
+								</div>
 							</div>
 						</div>
 						
 						</div>
-						<div class="mid-wrop">
+							<div class="row">
+									<div class="col-md-12">
+									<div class="job_posting">
+									   <?php if($job->hire_title !=""){
+										$job_title = $job->hire_title;
+									}else{
+										$job_title = $job->title;
+									}?>
+									<span class="clint_view_j-title"><?=$job_title;?></span><br>
+									<a href="<?php echo base_url() ?>jobs/view/<?php echo url_title($job->title) ?>/<?php echo base64_encode($job->job_id);?>">View original job post</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						    
+						</div>
+						
+						
+						<div class="row">
+						    <div style="padding-left: 17px; padding-bottom: 13px; width: 100%;" class="col-md-9 white-box remove-border-top ">
+						        <div class="mid-wrop margin-left8px">
 						<div class="row">
 							<div class="col-md-10 col-sm-10 col-md-offset-1 seoranking">
-								<?php if($job->hire_title !=""){
-									$job_title = $job->hire_title;
-								}else{
-									$job_title = $job->title;
-								}?>
-								<h4><?=$job_title;?></h4>
-								<h3><a href="<?php echo base_url() ?>jobs/view/<?php echo url_title($job->title) ?>/<?php echo base64_encode($job->job_id);?>">View original job post</a></h3>
+								
 							</div>
 							<div style="clear:both"></div>
 							
 						</div>
 						<div class="row hourlcontact">
-							<div class="col-md-3 col-sm-3 col-md-offset-1">
-								<h4>Paid Since Start</h4>
+							<div style="margin-right: -63px;" class="col-md-3 col-sm-2 col-md-offset-">
+								<div class="feedback_title">
+								    <h4>Paid Since Start</h4>
+								</div>
 							</div>
-							<div class="col-md-2 col-sm-2 col-md-offset-1">
-								<h4> <?php
+							<div class="col-md-3 col-sm-3 col-md-offset-1">
+								<h4 style="font-size:16px"><b> <?php
 								$amount = 0.00;
 								if(!empty($job_end)){
 									foreach($job_end as $End){
@@ -74,34 +90,36 @@
 								
 								
 								?>
-								</h4>
+								</b></h4>
+							</div>
+							
+							<div style="clear:both"></div>
+							<div class="col-md-2 col-sm-2 col-md-offset-">
+                                <div class="feedback_title">
+                                    <h4>Amount</h4>
+                                </div>
 							</div>
 							<div class="col-md-2 col-sm-2 col-md-offset-1">
-								
+								<h4 style="font-size:16px"><b>$<?= $job->hired_on;?></b></h4>
 							</div>
-							<div style="clear:both"></div>
-							<div class="col-md-3 col-sm-3 col-md-offset-1">
-								<h4>Budget</h4>
-							</div>
-							<div class="col-md-2 col-sm-2 col-md-offset-1">
-								<h4>$<?= $job->hired_on;?></h4>
-							</div>
-							<div style="clear:both"></div>
 							</div>
 							</div>
 							<div class="row">
 							
 						</div>
 							<div class="row">
-								<div class="col-md-4 col-sm-4 feedback">
-									<h4>Feedback to Freelancer</h4>
+								<div style="margin-right: 16px;" class="col-md-3 col-sm-4 feedback">
+								  <div class="main_feedback">
+						        	<h4>Feedback to Freelancer</h4>
+								  </div>
+
 								</div>
 								<?php if(!empty($freelancerfeedback)) { ?>
-										<div class="col-md-4 col-sm-4" id="feedbackbutton">
-											<button type="button" id="butcancel" class="btn btn-danger"><?=$freelancerfeedback->feedback_score;?></button>
+										<div style="margin-top: -5px;margin-bottom: 10px;" class="col-md-3 col-sm-4" id="feedbackbutton">
+											<button type="button" id="butcancel" class="btn btn-danger rating-badge"><?=$freelancerfeedback->feedback_score;?></button>
 											<?php  $rating_result = ($freelancerfeedback->feedback_score/5)*100; ?>
 											<h4>
-												<div title="Rated <?=$freelancerfeedback->feedback_score;?> out of 5" class="star-rating pull-right" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+												<div title="Rated <?=$freelancerfeedback->feedback_score;?> out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
 											<span style="width:<?=$rating_result;?>%">
 												<strong itemprop="ratingValue">5</strong> out of 5
 											</span>
@@ -113,12 +131,12 @@
 											<h3><?=$freelancerfeedback->feedback_comment;?> </h3>
 										</div>
 								<?php }else{?>
-										<div class="col-md-4 col-sm-4" id="feedbackbutton">
+										<div style="margin-top: -5px;" class="col-md-4 col-sm-4" id="feedbackbutton">
 											<button type="button" id="butcancel" class="btn btn-danger">0.00</button>
 											<h4>
-												<div title="Rated 0 out of 5" class="star-rating pull-right" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+												<div title="Rated 0 out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
 											<span style="width:0%">
-												<strong itemprop="ratingValue">5</strong> out of 5
+												<strong itemprop="ratingValue">0</strong> out of 5
 											</span>
 											</div>
 											</h4>
@@ -132,31 +150,36 @@
 							</div>
 							
 							<div class="row">
-								<div class="col-md-4 col-sm-4 feedback">
-									<h4>Feedback to Client</h4>
+								<div style="margin-right: 16px;" class="col-md-3 col-sm-4 feedback">
+								  <div class="main_feedback">
+								      <h4>Feedback to Client</h4>
+								  </div>
+									
 								</div>
 								
 								<?php if(!empty($clientfeedback)) { ?>
-										<div class="col-md-4 col-sm-4" id="feedbackbutton">
-											<button type="button" id="butcancel" class="btn btn-danger"><?=$clientfeedback->feedback_score;?></button>
+										<div style="margin-top: -6px;margin-bottom: 10px;" class="col-md-5 col-sm-4" id="feedbackbutton">
+						
+											    <button type="button" id="butcancel" class="btn btn-danger"><?=$clientfeedback->feedback_score;?></button>
 											<?php  $rating_result = ($clientfeedback->feedback_score/5)*100; ?>
 											<h4>
-												<div title="Rated <?=$clientfeedback->feedback_score;?> out of 5" class="star-rating pull-right" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+												<div title="Rated <?=$clientfeedback->feedback_score;?> out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
 											<span style="width:<?=$rating_result;?>%">
 												<strong itemprop="ratingValue">5</strong> out of 5
 											</span>
 											</div>
 											</h4>
+										
 											
 										</div>
 										<div class="col-md-12 col-sm-12 wdwarfhead wdwarfheadone">
 											<h3><?=$clientfeedback->feedback_comment;?> </h3>
 										</div>
 								<?php }else{?>
-										<div class="col-md-4 col-sm-4" id="feedbackbutton">
+										<div  class="col-md-4 col-sm-4" id="feedbackbutton">
 											<div class="col-md-12 col-sm-12 wdwarfhead wdwarfheadone">
-												<a href="<?php echo base_url() ?>endhourlyfixed/fixed_client?fmJob=<?php echo base64_encode($job->job_id);?>&fuser=<?php echo base64_encode($job->fuser_id);?>">
-													<input type="button" class="btn btn-primary form-btn" value="Give feedback" />
+												<a href="<?php echo base_url() ?>endhourlyfixed/hourly_client?fmJob=<?php echo base64_encode($job->job_id);?>&fuser=<?php echo base64_encode($job->fuser_id);?>">
+													<input type="button" class="btn btn-primary form-btn custom_give_feed" value="Give feedback" />
 												</a>
 											</div>
 											
@@ -167,11 +190,15 @@
 								<?php } ?>
 								<div style="clear:both"></div>
 							</div>
+						    </div>
+						</div>
+							
 					</div>
 				</div>
 			</div>
 	</div>
 </section>
+
 
 <!-- Modal -->
 <div id="message_convertionModal" class="modal">
@@ -307,5 +334,11 @@
 }
 .modal-body {
   overflow: hidden;
+}
+.job_posting a {
+    color: #008200;
+}
+.job_posting {
+    font-size: 19px;
 }
 </style>

@@ -1,80 +1,84 @@
+<section id="big_header"class="custom_jobs_accept" style="margin-top: 40px; margin-bottom: 40px; height: auto;">
 
-<section id="big_header"
-	style="margin-top: 50px; margin-bottom: 50px; height: auto;">
-
-	<div class="container white-box">
-		<div class="row margin-left-1" style="margin-top:10px;">
-			<div class="col-md-9 bordered">
-<p class="result-msg" style="text-align: center;color: green;font-size: 20px;display: none;"></p>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9 white-box offer_bordered">
+			<p class="result-msg" style="text-align: center;color: green;font-size: 20px;display: none;"></p>
 
 				<div class="row">
-					<div class="col-md-5">
-						<div class="row">
+					<div class="col-md-10">
+						<div class="offer_made_side">
+							<div class="row">
 							<div class="row margin-top-2">
 								<div class="col-md-12 margin-left-3">
-									<label>Offer Made By</label>
+									<h4>Offer Made By</h4>
 								</div>
 							</div>
 						</div>
 
 						<div class="row">
-							<div class="col-md-2 margin-left-3">
+							<div class="col-md-2 margin-left-">
+								<div class="st_img">
 								<?php  if(is_object($offerduser_details) && $offerduser_details->webuser_picture !=""){ ?>
 									<img src="<?php echo base_url().$offerduser_details->webuser_picture ?>" width="64" height="64" />
 								<?php }else{ ?>
 									<img src="<?php echo base_url()?>assets/img/profile_img.jpg" width="64" height="64" />
 								<?php  } ?>
+								</div>
 								
 							</div>
-							<div class="col-md-7 text-left margin-left-3">
+							<div class="col-md-7 text-left margin-left">
 								<label class="blue-text"><?php if(is_object($offerduser_details)) echo $offerduser_details->webuser_fname; ?> <?php if(is_object($offerduser_details)) echo $offerduser_details->webuser_lname; ?></label> <br> <?php if(is_object($offerduser_details)) echo $offerduser_details->webuser_company; ?>
 							</div>
 						</div>
 					</div>
+					</div>
 
 					<div class="col-md-2 text-center gray-text margin-top-4">
-                                            <?php
-                                            if(is_object($job_details)){
-                                                ?>
-                                            <input type="button" class="transparent-btn" onclick="loadmessage(<?=$job_details[0]->id?>,<?=$job_details[0]->offerduser_id?>,<?=$job_details[0]->job_id?>)" value="Message" />
-					
-                                            <?php
-                                            }
-                                            ?>
-						
-                                        </div>
+					<div class="c_offer_msg hour_btn">
+                                            <input type="button" class="btn-primary transparent-btn big_mass_button" onclick="loadmessage(<?=$job_details[0]->id?>,<?=$job_details[0]->offerduser_id?>,<?=$job_details[0]->job_id?>)" value="Message" />
 
-					<div class="col-md-5">
+						</div>
+                      </div>
+
+					<!-- <div class="col-md-5">
+					<div class="offer_win_side">
 						<div class="row">
 							<div class="row margin-top-2">
 								<div class="col-md-12 margin-left-3">
-									<label>Offer Win to</label>
+									<h4>Offer Win to</h4>
 								</div>
 							</div>
 						</div>
 
 						<div class="row">
-							<div class="col-md-2 margin-left-3">
+							<div class="col-md-2 margin-left-">
+								<div class="st_img">
 								<?php  if($user_details->webuser_picture !=""){ ?>
 									<img src="<?php echo base_url().$user_details->webuser_picture ?>" width="64" height="64" />
 								<?php }else{ ?>
 									<img src="<?php echo base_url()?>assets/img/profile_img.jpg" width="64" height="64" />
 								<?php  } ?>
+								</div>
 							</div>
-							<div class="col-md-7 text-left margin-left-3">
+							<div class="col-md-7 text-left margin-left-5">
 								<label class="blue-text"><?=$user_details->webuser_fname ?> <?=$user_details->webuser_lname ?></label> <br><?=$user_details->tagline ?>
 							</div>
 						</div>
-					</div>
+						</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
-		<div class="row margin-left-1" style="margin-bottom:10px;">
-			<div class="col-md-9 bordered remove-border-top">
+		</div>
+		<div style="margin-left:0;" class="row">
+		<div class="col-md-9 white-box offer_bordered remove-border-top custom_offer_bordered">
 
-				<div class="row">
-					<div class="col-md-12 text-center blue-text">
-					    <span class="blue-text">Pending, Expire on <?php echo date(' F j, Y ',strtotime(' + 5 day', strtotime($job_details[0]->start_date)));?></span>
+			  <div class="row">
+					<div class="col-md-12 text-left blue-text">
+					    <div class="offer_date">
+						<span>Pending, Expire on <?php echo date(' F j, Y ',strtotime(' + 5 day', strtotime($job_details[0]->start_date)));?></span>
+						</div>
 					</div>
 					
 				</div>
@@ -93,14 +97,21 @@
 					
 				</div>
 				<div class="row">
-				    <div class="col-md-2 col-md-offset-1"><label class="gray-text">Job Title: </label></div>
-				    <div class="col-md-8">
+				    <div class="col-md-3 col-md-offset-1">
+					<div class="offer_title">
+					<label class=""><b>Job Title: </b></label>
+					</div>
+					</div>
+				    <div class="col-md-8 accept_cus_right_txt" style="font-size:17px;">
+					<b>
 						<?php if($job_details[0]->hire_title !=""){
 							$job_title = $job_details[0]->hire_title;
 						}else{
 							$job_title = $job_details[0]->title;
 						}?>
-						<?=$job_title;?> <br/>
+						<?=$job_title;?> 
+						</b>
+						<br/>
 						
 						<a href="<?php echo base_url() ?>jobs/view/<?php echo str_replace(' ', '-', $job_details[0]->title) ?>/<?php echo base64_encode($job_details[0]->job_id);?>">View Origial job post</a></div>
 				</div>
@@ -117,24 +128,40 @@
 						}?>
 				<?php if ($job_details[0]->job_type == 'hourly'){ ?>		
 				<div class="row margin-top-2">
-				    <div class="col-md-2 col-md-offset-1"><label class="gray-text">Hourly Rate: </label></div>
-				    <div class="col-md-8">$<?=$hourlyreate;?><?=$perHrs;?></div>
+				    <div class="col-md-3 col-md-offset-1">
+					<div class="offer_title">
+					<label class="">Hourly Rate: </label>
+					</div>
+					</div>
+				    <div class="col-md-8 accept_cus_right_txt" style="font-size:17px;"><b>$<?=$hourlyreate;?><?=$perHrs;?></b></div>
 				</div>
 				
 				<div class="row margin-top-2">
-				    <div class="col-md-2 col-md-offset-1"><label class="gray-text">Weekly Limit: </label></div>
-				    <div class="col-md-8"><?php echo $job_details[0]->weekly_limit;?> Hrs</div>
+				    <div class="col-md-3 col-md-offset-1">
+					<div class="offer_title">
+					<label class="">Weekly Limit: </label>
+					</div>
+					</div>
+				    <div class="col-md-8 accept_cus_right_txt"><?php echo $job_details[0]->weekly_limit;?> Hrs</div>
 				</div>
 				<?php }?>
 				<?php if ($job_details[0]->job_type == 'fixed'){	 ?>	
 				<div class="row margin-top-2">
-				    <div class="col-md-2 col-md-offset-1"><label class="gray-text">Budget Rate: </label></div>
-				    <div class="col-md-8">$<?php echo $job_details[0]->hired_on;?></div>
+				    <div class="col-md-3 col-md-offset-1">
+					<div class="offer_title">
+					<label class="">Budget Rate: </label>
+					</div>
+					</div>
+				    <div class="col-md-8 accept_cus_right_txt" style="font-size:17px;"><b>$<?php echo $job_details[0]->hired_on;?></b></div>
 				</div>
 				
 				<div class="row margin-top-2">
-				    <div class="col-md-2 col-md-offset-1"><label class="gray-text">Budget Type: </label></div>
-				    <div class="col-md-8"><?php $type = $job_details[0]->fixed_pay_status;
+				    <div class="col-md-3 col-md-offset-1">
+					<div class="offer_title">
+					<label class="">Budget Type: </label>
+					</div>
+					</div>
+				    <div class="col-md-8 accept_cus_right_txt"><?php $type = $job_details[0]->fixed_pay_status;
 							if($type == 1){ echo " Paid All";}
 							if($type == 0){ echo "Paid Nothing";}
 							if($type == 2){ echo " Milestone";}
@@ -143,29 +170,51 @@
 					</div>
 				</div>
 				<div class="row margin-top-2">
-				    <div class="col-md-2 col-md-offset-1"><label class="gray-text">Paid Amount: </label></div>
-				    <div class="col-md-8"><?php if($type == 1 ||$type == 2){ echo '$'.$job_details[0]->fixedpay_amount;   } else{ echo '$0.00';}?></div>
+				    <div class="col-md-3 col-md-offset-1">
+					<div class="offer_title">
+					<label class="">Paid Amount: </label>
+					</div>
+					</div>
+				    <div class="col-md-8 accept_cus_right_txt" style="font-size:17px;"><b><?php if($type == 1 ||$type == 2){ echo '$'.$job_details[0]->fixedpay_amount;   } else{ echo '$0.00';}?></b></div>
 				</div>
 				<?php } ?>
 				
 				<div class="row margin-top-2">
-				    <div class="col-md-2 col-md-offset-1"><label class="gray-text">Offer date: </label></div>
-				    <div class="col-md-8"><?php  echo date(' F j, Y ', strtotime($job_details[0]->start_date)); ?></div>
+				    <div class="col-md-3 col-md-offset-1">
+					<div class="offer_title">
+					<label class="">Offer date: </label>
+					</div>
+					</div>
+				    <div class="col-md-8 accept_cus_right_txt"><?php  echo date(' F j, Y ', strtotime($job_details[0]->start_date)); ?></div>
 				</div>
 				
 				<div class="row margin-top-2">
-				    <div class="col-md-2 col-md-offset-1"><label class="gray-text">Job Duration: </label></div>
-				    <div class="col-md-8"><?php echo str_replace('_', '-', $job_details[0]->jobduration) ?></div>
+				    <div class="col-md-3 col-md-offset-1">
+					<div class="offer_title">
+					<label class="">Job Duration: </label>
+					</div>
+					</div>
+				    <div class="col-md-8 accept_cus_right_txt"><?php echo str_replace('_', '-', $job_details[0]->jobduration) ?></div>
 				</div>
 				<div class="row margin-top-2">
-				    <div class="col-md-2 col-md-offset-1"><label class="gray-text">Message to Contractor: </label></div>
-				    <div class="col-md-8"><?php echo $job_details[0]->hire_message; ?></div>
+				    <div class="col-md-3 col-md-offset-1">
+					<div class="offer_title">
+					<label class="">Message to Client: </label>
+					</div>
+					</div>
+				    <div class="col-md-8 accept_cus_right_txt"><?php echo $job_details[0]->hire_message; ?></div>
 				</div>
 				<div class="row margin-top-2">
 				    <div class="col-md-6 text-right">
-				       <a href="<?php echo base_url() ?>jobs/accept?fmJob=<?php echo base64_encode($job_details[0]->job_id);?>&fmBiD=<?php echo base64_encode($job_details[0]->bid_id);?>"> <input type="button"class="btn btn-primary form-btn" value="Accept" /></a>
-				        <button class="transparent-btn btn-padding" onclick="decline(<?=$job_details[0]->bid_id?>)" >Decline Offer</button>
-						
+					<div class="dicline_btn">
+				       <a href="<?php echo base_url() ?>jobs/accept?fmJob=<?php echo base64_encode($job_details[0]->job_id);?>&fmBiD=<?php echo base64_encode($job_details[0]->bid_id);?>"> <input type="button"class="btn my_btn" value="Accept" /></a>
+					   </div>
+					   </div>
+					   <div class="col-md-6">
+					   <div class="dicline_btn">
+				        <button style="margin-left: -90px;" class="btn my_btn" onclick="decline(<?=$job_details[0]->bid_id?>)" >Decline Offer</button>
+						</div>
+						</div>
 				    </div>
 				</div>
 
@@ -291,10 +340,43 @@
   }
 </script>
 <style>
+    *{
+          font-family: "Calibri";
+    }
 .message_lists{
     max-height: 250px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
-
+.offer_win_side {
+	margin-left: 45px;
+	font-family: "Calibri";
+}
+    .offer_made_side {
+      font-family: "Calibri";   
+    }
+.offer_bordered {
+	border: 1px solid #ccc;
+	padding: 10px;
+	border-radius: 3px;
+	width: 780px;
+    
+}
+.c_offer_msg.hour_btn {
+	margin-left: -25px;
+}
+.dicline_btn {
+	margin-right: 55px;
+}
+.dicline_btn:hover {
+      background: #fff;
+    }
+.offer_title {
+    font-size: 16px; 
+    font-family: "Calibri";
+    }
+.offer_date span {
+	margin-left: 65px;
+    font-family: "Calibri";
+}
 </style>

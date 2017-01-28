@@ -1,18 +1,19 @@
-
 <section id="mid_content">
 	<div class="container">
 		<div class="row">
 				<div class="col-md-9 col-sm-12 margin-top-4 ">
 					<div id="wrapper" class="margin-bottom-3 ">
 						<div class="row ">
-						    <div class="col-md-9 white-box black-box bordered_top">
+						    <div style="padding-bottom: 19px;" class="col-md-9 white-box black-box bordered_top">
 						        <div class="wrap-top">
 						<div class="row">
-							<div class="col-md-4 col-sm-4 tohead">
-								<h4>Ended <?php  echo date('  M, Y ', strtotime($job->end_date)); ?> </h4>
-							</div>
-							<div class="col-md-4 col-sm-4 col-md-offset-4 toheadone">
-								<h4> ID <?=$job->contact_id ?>  </h4>
+							<div class="date_head">
+								<div class="col-md-6 col-sm-6">
+									<h4>Ended <?php  echo date('  M, Y ', strtotime($job->end_date)); ?> </h4>
+								</div>
+								<div class="col-md-6 col-sm-6">
+									<div class="main_id"><span> ID <?=$job->contact_id ?>  </span></div>									
+								</div>
 							</div>
 						</div>
 						<div style="clear:both"></div>
@@ -21,7 +22,7 @@
 						
 							</div>
 							<div style="clear:both"></div>
-							<div class="col-md-5 col-sm-5 imageheading">
+							<div style="margin-left: 9px;" class="col-md-5 col-sm-5 imageheading">
 								<div class="image st_img">
 									<?php  if($job->webuser_picture !=""){ ?>
 										<img src="<?php echo base_url().$job->webuser_picture ?>" width="64" height="64" />
@@ -29,15 +30,15 @@
 										<img src="<?php echo base_url()?>assets/img/man.png"/>
 									<?php  } ?>
 								</div>
-								<h4 class="free_name"><?=$job->webuser_fname ?> <?=$job->webuser_lname ?> </h4>
+								<h5 class="free_name"><?=$job->webuser_fname ?> <?=$job->webuser_lname ?> </h5>
 								<h3><?=$job->webuser_company ?></h3>
 							</div>
 							<div class="col-md-3 col-sm-4 imglast">
                                 <label class="gray-text">Status: Ended</label>
 							</div>
 							<div class="col-md-3 col-sm-2">
-						<div class="feedback_client_btn">
-						  <button type="button" id="massagebuton" class="transparent-btn" onclick="loadmessage(<?=$job->bid_id?>,<?=$job->fuser_id?>,<?=$job->job_id?>)"> Message</button>  
+						<div class="msg_btnx hour_btn feedback_client_btn">
+						  <button type="button" class="btn-primary transparent-btn big_mass_button" onclick="loadmessage(<?=$job->bid_id?>,<?=$job->fuser_id?>,<?=$job->job_id?>)"> Message</button>  
 						</div>
 									
 									
@@ -54,7 +55,7 @@
 								}else{
 									$job_title = $job->title;
 								}?>
-								<span><?=$job_title;?></span><br>
+								<span class="clint_view_j-title"><?=$job_title;?></span><br>
 								<a href="<?php echo base_url() ?>jobs/view/<?php echo url_title($job->title) ?>/<?php echo base64_encode($job->job_id);?>">View original job post</a>
 						        </div>
 						    </div>
@@ -63,8 +64,8 @@
 						    
 						</div>
 						<div class="row">
-						    <div class="col-md-9  white-box remove-border-top ">
-						        <div class="mid-wrop ">
+						    <div style="padding-left: 17px; padding-bottom: 13px;" class="col-md-9 white-box remove-border-top ">
+						        <div class="mid-wrop margin-left8px">
 						<div class="row">
 							<div class="col-md-10 col-sm-10 col-md-offset-1 seoranking">
 								
@@ -201,7 +202,7 @@
 										<div class="col-md-4 col-sm-4" id="feedbackbutton">
 											<div class="col-md-12 col-sm-12 wdwarfhead wdwarfheadone">
 												<a href="<?php echo base_url() ?>endhourlyfixed/hourly_client?fmJob=<?php echo base64_encode($job->job_id);?>&fuser=<?php echo base64_encode($job->fuser_id);?>">
-													<input type="button" class="btn btn-primary form-btn" value="Give feedback" />
+													<input type="button" class="btn btn-primary form-btn custom_give_feed" value="Give feedback" />
 												</a>
 											</div>
 											
@@ -365,7 +366,7 @@ span.rating-badge {
 	font-size: 19px;
 	font-family: "calibri";
 	src: url(../fonts/Calibri.ttf);
-	margin-left: 20px;
+	margin-left: 28px;
 }
 .job_posting a {
 	color: #008200;
@@ -404,5 +405,14 @@ span.rating-badge {
 }
 .feedback_client_btn {
 	margin-left: 90px;
+}
+.bordered_top {
+    width: 753px !important;
+}
+.big_mass_button {
+    margin-right: -28px;
+}
+.wdwarfheadone h3 {
+    padding-bottom: 16px;
 }
 </style>

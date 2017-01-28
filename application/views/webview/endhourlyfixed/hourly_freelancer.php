@@ -10,29 +10,29 @@
 .rating-container .filled-stars {  top: 2px;}
 </style>
 <div class="container">
-<section class="information_area">
+<section class="information_area end_contact custom-end_contact">
 		
- <form class="form-horizontal" method="post" id="end_contact_from">
+ <form class="form-horizontal custom_end_contact_from" method="post" id="end_contact_from">
 	<div class="form-group">   
-	  <label for="" class="col-sm-4 control-label"><span>Confirm your End Contact</span></label>
+	  <label for="" class="col-sm-4 control-label"><h4 class="confirm_title">Confirm your End Contact</h4></label>
 	</div>
 	<div class="form-group">   
-		<label for="" class="col-sm-3 control-label"></label>
-	   <div class="col-sm-1">
+		<label for="" class="col-sm-2 control-label"></label>
+	   <div style="margin-left: 44px;" class="col-sm-1">
 						<?php  if($job->webuser_picture !=""){ ?>
-									<img src="<?php echo base_url().$job->webuser_picture ?>" width="64" height="64" />
+									<img style="border-radius: 50px;" src="<?php echo base_url().$job->webuser_picture ?>" width="64" height="64" />
 								<?php }else{ ?>
-								<img src="<?php echo base_url()?>assets/img/Untitled-1.png">
+								<img style="border-radius: 50px;" src="<?php echo base_url()?>assets/img/Untitled-1.png" width="64" height="64">
 								<?php  } ?>
 		</div>
 		<div class="col-sm-3" id="name">
-			<h3><a href="<?php echo base_url()."interview?user_id=".base64_encode($job->webuser_id)."&job_id=".base64_encode($job->job_id)."&bid_id=".base64_encode($job->bid_id);?>">
+			<h3 style="margin: 0px;margin-top: -10px;margin-left: -11px;"><a href="<?php echo base_url()."interview?user_id=".base64_encode($job->webuser_id)."&job_id=".base64_encode($job->job_id)."&bid_id=".base64_encode($job->bid_id);?>">
 								<label class="blue-text"><?=$job->webuser_fname ?> <?=$job->webuser_lname ?></label>
 								</a></h3>
-		<h4> <?=$job->webuser_company ?>		</h4>
+		<h4 style="margin: 0px;margin-top: -10px;margin-left: -11px;"> <?=$job->webuser_company ?>		</h4>
 		</div>
 	</div>
-  <div class="form-group">   
+  <div style="margin-bottom: 15px;" class="form-group">   
 	  <label for="" class="col-sm-3 control-label" id="leftname">Job Title  </label>
 	   <div class="col-sm-5" id="righttext">
 		<h3><span><?php if($job->hire_title !=""){
@@ -48,7 +48,7 @@
   <div class="form-group">
     <label for="" class="col-sm-3 control-label" id="leftname">Contact id</label>
     <div class="col-sm-4" id="righttext">
-      <h3><?=$job->contact_id ?></h3>
+      <h3 class="normal_normal_font"><?=$job->contact_id ?></h3>
     </div>
   </div> 
   
@@ -62,7 +62,7 @@
 						}?>
 		
 					
-      <h3>$<?=$job_price;?>/hr</h3>
+      <h3><span>$<?=$job_price;?></span>/hr</h3>
     </div>
   </div>
   
@@ -86,16 +86,18 @@
 										    $total_work_cweek." hrs this week";
 									   }
 								?>
-				<h3><?php echo $total_work_cweek; ?> hrs  ,<?php echo $total_work_cweek*$job->bid_amount;?>$ &nbsp; &nbsp;<span>View work diary</span></h3>
+				<h3><span><?php echo $total_work_cweek; ?></span> hrs  ,<span><?php echo $total_work_cweek*$job->bid_amount;?>$</span></h3>
 
     </div>
   </div> 
-  <div class="form-group">
+  <div style="margin-bottom: 0px;" class="form-group">
     <label for="" class="col-sm-3 control-label" id="leftname">Start Date</label>
     <div class="col-sm-4" id="righttext">
   <h3><?php  echo date(' F j, Y ', strtotime($job->start_date)); ?></h3>
     </div>
   </div>  
+  
+  <div class="feed_border"></div>
   
 <!--  <div class="form-group">
     <label for="" class="col-sm-3 control-label" id="leftname">End Date</label>
@@ -104,57 +106,57 @@
     </div>
   </div> -->
   
-   <div class="form-group">
-    <label for="" class="col-sm-3 control-label" ><span>Feedback to contactor</span></label>
+   <div style="margin-top: 15px;" class="form-group">
+    <h3 style="margin-bottom: 8px;" class="col-sm-3 control-label" ><span>Feedback to contactor</span></h3>
   </div> 
   
    <div class="form-group">
-    <label for="" class="col-sm-3 control-label" id="leftname">Skills</label>
-    <div class="col-sm-9" id="righttextstar">
+    <label for="" class="col-sm-3 control-label custom_normal_font" id="leftname">Skills</label>
+    <div class="col-sm-4 margin-left-10" id="righttextstar">
      <input id="skills" value="0" type="number" class="rating" name="skills" min=0 max=5 step=0.5 data-size="xs" >
     </div>
   </div>
   <div class="form-group">
-    <label for="" class="col-sm-3 control-label" id="leftname">Quality</label>
-    <div class="col-sm-4" id="righttextstar">
+    <label for="" class="col-sm-3 control-label custom_normal_font" id="leftname">Quality</label>
+    <div class="col-sm-4 margin-left-10" id="righttextstar">
        <input id="quality" value="0" type="number" class="rating" name="quality" min=0 max=5 step=0.5 data-size="xs" >
     </div>
   </div>
     <div class="form-group">
-    <label for="" class="col-sm-3 control-label" id="leftname"> Ability </label>
-    <div class="col-sm-4" id="righttextstar">
+    <label for="" class="col-sm-3 control-label custom_normal_font" id="leftname"> Ability </label>
+    <div class="col-sm-4 margin-left-10" id="righttextstar">
       <input id="ability" value="0" type="number" class="rating" name="ability" min=0 max=5 step=0.5 data-size="xs" >
     </div>
   </div>
     <div class="form-group">
-    <label for="" class="col-sm-3 control-label" id="leftname">Deadline</label>
-    <div class="col-sm-4" id="righttextstar">
+    <label for="" class="col-sm-3 control-label custom_normal_font" id="leftname">Deadline</label>
+    <div class="col-sm-4 margin-left-10" id="righttextstar">
        <input id="deadline" value="0" type="number" class="rating" name="deadline" min=0 max=5 step=0.5 data-size="xs" >
     </div>
   </div>
     <div class="form-group">
-    <label for="" class="col-sm-3 control-label" id="leftname">communication </label>
-    <div class="col-sm-4" id="righttextstar">
+    <label for="" class="col-sm-3 control-label custom_normal_font" id="leftname">communication </label>
+    <div class="col-sm-4 margin-left-10" id="righttextstar">
        <input id="communication" value="0" type="number" class="rating" name="communication" min=0 max=5 step=0.5 data-size="xs" >
     </div>
   </div>
-  <div class="form-group">
+  <div style="margin-bottom: 25px;" class="form-group">
     <label for="" class="col-sm-3 control-label" id="leftname">Score</label>
-    <div class="col-sm-4" id="righttextstar">
+    <div class="col-sm-1" id="righttextstar">
        <input id="score" value="0.00" type="text" name="score" readonly >
     </div>
   </div>
     <div class="form-group">
       <label class="control-label col-sm-3" for="Comm" id="leftname">Feedback Comment
         </label>
-      <div class="col-sm-4">
-        <textarea  class="form-control" id="Comment" placeholder="" name="Comment"></textarea>
+      <div class="col-sm-7">
+        <textarea  style="margin-bottom: 25px;" class="form-control" id="Comment" placeholder="" name="Comment"></textarea>
 								<div class="error"></div>
       </div>
     </div>
   
   <div class="form-group btn_center">
-    <div class="col-sm-offset-3 col-xs-12 col-sm-2">
+    <div style="margin-left: 228px;margin-right: -43px;" class="col-sm-offset-3 col-xs-12 col-sm-2">
 						<input name="job_id" type="hidden" id="job_id"  value="<?=$job->job_id ?>"  />
 						<input name="user_id" type="hidden" id="user_id"  value="<?=$job->fuser_id ?>"  />
 						<input name="clientid" type="hidden" id="clientid"  value="<?=$job->buser_id ?>"  />
@@ -168,7 +170,7 @@
 						<img src='/assets/img/version1/loader.gif' class="form-loader" style="display:none">
     </div>
 	<div class="col-xs-12 col-sm-1">
-      <button type="button" class="btn btn-default btn_background">Cancel</button>
+      <button type="button" class="btn btn-default">Cancel</button>
     </div>
 	<p class="result-msg" style="text-align: center;color: green;font-size: 20px;display: none;"></p>
   </div>
