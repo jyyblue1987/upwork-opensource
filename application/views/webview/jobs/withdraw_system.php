@@ -36,42 +36,24 @@ function time_elapsed_string($ptime)
 }
 ?>
 
-<section id="big_header" style="margin-top: 50px;height: auto;">
-    <div class="container white-box-feed">
+<section id="big_header" style="margin-top: 40px; margin-bottom: 40px; height: auto; border: 1px solid rgb(204, 204, 204); overflow: hidden; margin-left: 4px;">
+    <div style="padding-bottom: 10px;" class="container white-box-feed">
         <div class="row">
-            
-            <?php
-           // print_r($value);
-            
-            if($value->status=='1'){?>
-                <div class="alert alert-warning">
-                    <strong>Warning!</strong> You have withdraw with this job.
-                </div>
-                <?php }else{
-                    // added by jahid start 
-                 /*
-                ?>
-             <div class="alert alert-warning">
-                    <strong>Warning!</strong> The job does not exist.
-                </div>
-            <?php 
-                */
-                    // added by jahid end 
-                }
-                ?>
             <div class="col-md-9 col-md-offset-0 page-title">                
-                <div class="row">
-                    <div class="col-md-12 page-label">
-                        <div class="col-md-12 page-label">
-                            <h1><?php echo ucfirst($value->title) ?></h1>
-                            <br /> <span class="col-md-offset-10"><?php
+                <div class="row">					
+                    <div class="col-md-6 page-label">
+                        <h1 class="job-title cos_job-title"><?php echo ucfirst($value->title) ?></h1>
+                    </div>
+					
+					<div class="col-md-6 page-label">                        
+                        <span style="margin-top: -15px;" class="pull-right"><?php
                              $timeDate = strtotime($value->created);
                             $dateInLocal = date("Y-m-d H:i:s", $timeDate);
                             echo time_elapsed_string(strtotime($dateInLocal)); ?></span>
-                        </div>
                     </div>
                 </div>
-<div class="jobdes-bordered-wrapper">
+				
+			<div class="jobdes-bordered-wrapper">
                 <div class="row jobdes-bordered page-label">
                     <div class="col-md-3 text-center">
                         <label>Job Type</label> <br /> <span><?php echo ucfirst($value->job_type) ?></span>
@@ -108,12 +90,14 @@ function time_elapsed_string($ptime)
                     </div>
                 </div>
 </div>
+
                 <div class="row margin-top page-label">
-                    <div class="col-md-3">
-                        <label>Required Skills</label>
+                    <div class="col-md-2">
+                        <label>Skills</label>
                     </div>
 
-                    <div class="col-md-9 skills page-label">
+                    <div class="col-md-10 skills page-label">
+                    <div class="custom_user_skills">
                         <?php
                         if (isset($value->skills) && !empty($value->skills))
                         {
@@ -123,13 +107,14 @@ function time_elapsed_string($ptime)
                         }
                         ?>
                     </div>
+                    </div>
                 </div>
 
                 <div class="row margin-top page-label">
                     <div class="col-md-9">
                         <label>Detail</label>
                     </div>
-                    <div class="col-md-12 text-justify page-label"><?php echo ucfirst($value->job_description) ?></div>
+                    <div style="font-family: calibri; font-size: 16px; margin-bottom: 17px; margin-top: 8px;" class="col-md-12 text-justify page-label"><?php echo ucfirst($value->job_description) ?></div>
 
                 </div>
 <div class="jobdes-bordered-wrapper">
@@ -187,23 +172,37 @@ $hire_count = $query->num_rows();
 
     </div>
 
-</section>
-
-<!-- <hr> -->
-
-<section id="big_header" style="margin-bottom: 50px; height: auto;">
-
-    <div class="container white-box-feed">
-        <div class="row">
-            <div class="col-md-9">
+    <div class="container">
+        <div style="background: #fff;" class="row">
+            <div class="col-md-9" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; padding-left: 45px;">
                 <div class='form-msg'></div>            
                 <div class="row">
-                    <div class="col-md-7 page-label bordered col-centered">
+                    <div style="border: 1px solid rgb(204, 204, 204); width: 698px;" class="col-md-12">
                         <div class="row">
-                            <div class="col-md-6 col-centered">
-                                <div class="row">
+								<?php
+							   // print_r($value);
+								
+								if($value->status=='1'){?>
+									<div class="alert custom-alert-warning">
+										<strong>Warning!</strong> You have withdraw with this job.
+									</div>
+									<?php }else{
+										// added by jahid start 
+									 /*
+									?>
+								 <div class="alert alert-warning">
+										<strong>Warning!</strong> The job does not exist.
+									</div>
+								<?php 
+									*/
+										// added by jahid end 
+									}
+								?>
+                            <div style="text-align: center;" class="col-md-7 col-centered custom_sp">
+								
+								<div class="row">
                                     <div class="col-md-12">
-                                        <label>Submitted Proposal</label>
+                                        <label style="margin-bottom: -3px;">Submitted Proposal</label>
                                     </div>
                                 </div>
 
@@ -214,16 +213,16 @@ $hire_count = $query->num_rows();
                                 </div>
 
                                 <div class="row margin-top-2">
-                                    <div class="col-md-4">
+                                    <div class="col-md-12">
                                         <label>Rate : </label>
-                                    </div><?php
+									
+									<?php
                                     $perHrs = '';
                                     if ($value->job_type == 'hourly')
                                     {
                                         $perHrs = '/hr';
                                     }
                                     ?>
-                                    <div class="col-md-8">
                                         <label>$<amt id='bid_earning_read'><?php echo round($value->bid_earning, 2); ?></amt><?php echo $perHrs ?></label> ($<amt id='bid_amount_read'><?php echo round($value->bid_amount, 2); ?></amt><?php echo $perHrs ?> charge to client)
                                     </div>
 
@@ -232,13 +231,12 @@ $hire_count = $query->num_rows();
  {?>
                                 <div class="row margin-top-2">
                                     <div class="col-md-12">
-                                        <input type="button" class="btn btn-primary form-btn"
-                                               value="Propose Different Terms" data-toggle="modal" data-target="#myModal2"/>
+                                        <input style="margin-left: 15px;" type="button" class="btn btn-primary form-btn" value="Propose Different Terms" data-toggle="modal" data-target="#myModal2"/>
                                     </div>
                                 </div>
 
                                 <div class="row margin-top-2">
-                                    <div class="col-md-10 text-center">
+                                    <div class="col-md-12 text-center">
                                         <a href="#" data-toggle="modal" data-target="#myModal">Withdraw Proposal</a>
                                     </div>
                                 </div>
@@ -250,17 +248,17 @@ $hire_count = $query->num_rows();
 
 
 
-                <div class="row margin-top-5 margin-left-1">
-                    <div class="col-md-12 bordered">
+                <div class="row">
+                    <div class="col-md-11">
                         <div class="row">
                             <div class="col-md-11 margin-left-2 margin-top-2">
-                                <span>Cover Letter</span>
+                                <p class="custom_cover-letter">Cover Letter</p>
                             </div>
                         </div>
 
                         <div class="row margin-top-2">
                             <div class="col-md-11 margin-left-2">
-                                <?php echo ucfirst($value->cover_latter) ?>
+                                <p style="margin-bottom: 10px; color: rgb(73, 73, 73);" class="custom_cover-letter-text"><?php echo ucfirst($value->cover_latter) ?></p>
                             </div>
                         </div>
                     </div>
@@ -380,4 +378,3 @@ $hire_count = $query->num_rows();
         </div>
 
 </section>
-

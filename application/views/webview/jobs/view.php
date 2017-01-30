@@ -119,7 +119,7 @@ foreach($accepted_jobs as $job_data){
                 </div>
                 <?php }
                 ?>
-            <div class="col-md-9 col-md-offset-0 white-box" style="padding: 20px 30px;">
+            <div class="col-md-9 col-md-offset-0 white-box" style="padding: 20px 30px;border: 1px solid #ccc;">
                 <?php
                 $marginClass = '';
                 if ($this->session->userdata('type') == '1')
@@ -226,9 +226,8 @@ foreach($accepted_jobs as $job_data){
                 <div style="margin-top: 5px;" class="row margin-top page-label">
                     <div class="col-md-9">
                         <label style="font-family: calibri;font-size: 16px;margin-top: 9px;">Details</label>
-                        <label style="font-family: calibri;font-size: 16px;margin-top: 9px;">Details</label>
                     </div>
-                    <div style="font-family: calibri; font-size: 15px; margin-bottom: 17px; margin-top: 8px;" class="col-md-12 text-justify page-label"><?php echo ucfirst($value->job_description) ?></div>
+                    <div style="font-family: calibri; font-size: 16px; margin-bottom: 17px; margin-top: 8px;" class="col-md-12 text-justify page-label"><?php echo ucfirst($value->job_description) ?></div>
                 </div>
 <div class="jobdes-bordered-wrapper">
                 <div class="row jobdes-bordered page-label">
@@ -570,19 +569,6 @@ if ($value->isactive && $paymentSet) {
                                 
                             </div>
                         </div>
-                        <div class="row margin-top-2 border-bottom">
-                            <div style="font-family: Calibri;font-size: 18px;margin-left: 15px;margin-top: -15px;" class="">
-								
-								<i class="fa fa-map-marker"></i>
-								
-								<?php
-                                $this->db->where('country_id', $value->webuser_country);
-                                $q = $this->db->get('country');
-                                $record = $q->row();
-                                echo ucfirst($record->country_name);
-                                ?>
-                            </div>
-                        </div>
                         <div style="margin-top: 10px;" class="row margin-top-2 border-bottom">
                             <div class="col-md-8 ">
 								<?php if($total_feedbackScore !=0 && $total_budget!=0){
@@ -608,7 +594,7 @@ if ($value->isactive && $paymentSet) {
                         </div>
                         <div style="margin-top: 14px;" class="row margin-top-2 border-bottom">
                             <div class="col-md-12">
-                                <label style="font-family: Calibri;font-size: 14px;margin-top: -29px;">
+                                <label style="font-family: Calibri;font-size: 15px;margin-top: -29px;">
                                    <?php if(!empty($record_sidebar)){
                                         echo count($record_sidebar);
                                     }else{
@@ -620,7 +606,7 @@ if ($value->isactive && $paymentSet) {
                         </div>
                         <div style="margin-top: 4px;" class="row margin-top-2 border-bottom">
                             <div class="col-md-12">
-                                <label style="font-family: Calibri;font-size: 14px;margin-top: -29px;">
+                                <label style="font-family: Calibri;font-size: 15px;margin-top: -29px;">
 								<?=count($hire);?> 
 								Hired
 								</label>
@@ -628,7 +614,7 @@ if ($value->isactive && $paymentSet) {
                         </div>
                         <div style="margin-top: 2px;" class="row margin-top-2 border-bottom">
                             <div class="col-md-12">
-                                <label style="font-family: Calibri;font-size: 14px;margin-top: -29px;">
+                                <label style="font-family: Calibri;font-size: 15px;margin-top: -29px;">
 								<?php $total_work = 0;
                                     if(!empty($workedhours)){
                                         foreach($workedhours as $work){
@@ -645,10 +631,23 @@ if ($value->isactive && $paymentSet) {
 
                         <div style="margin-top: 4px;" class="row margin-top-2 border-bottom">
                             <div class="col-md-12">
-                                <label style="font-family: Calibri;font-size: 14px;margin-top: -29px;">
+                                <label style="font-family: Calibri;font-size: 15px;margin-top: -29px;">
 								$<?php echo round($total_spent,0);?>
 								Spent
 								</label>
+                            </div>
+                        </div>
+                        <div class="row margin-top-2 border-bottom">
+                            <div style="font-family: Calibri;font-size: 18px;margin-left: 14px;margin-top: -15px;" class="">
+								
+								<i class="fa fa-map-marker"></i>
+								
+								<?php
+                                $this->db->where('country_id', $value->webuser_country);
+                                $q = $this->db->get('country');
+                                $record = $q->row();
+                                echo ucfirst($record->country_name);
+                                ?>
                             </div>
                         </div>
 
@@ -893,5 +892,6 @@ input#submitmsg {  background: #2baad9 none repeat scroll 0 0;  border: medium n
 	.star-rating {  height: 1.2em;}
 .star-rating::before {  color: #b8b8ba; }
 .custon_send_pro:hover{background:#286090;}
+.custom_user_skills span{background:#ccc !important;}
+.custom_user_skills span:hover{background:#008329 !important;}
 		</style>
- 

@@ -31,13 +31,13 @@ function time_elapsed_string($ptime){
 
 
 
-<section id="big_header"	style="margin-top: 50px; margin-bottom: 50px; height: auto;">
-	<div class="container">
+<section id="big_header" class="custom_end_job" style="margin-top: 40px; margin-bottom: 40px; height: auto;">
+	<div class="container white-box-feed">
 		<div class="row">
-            <div class="col-md-9 bottom-blue-border margin-left-6 padding-2">
-                <span>End Jobs</span>
+            <div class="col-md-9 bottom-blue-border padding-2">
+                <span><b>Ended Jobs</b></span>
             </div>
-			 <div class="col-md-9 text-center margin-left-6 bordered margin-top">
+			 <div style="background: rgb(240, 240, 240) none repeat scroll 0% 0%; padding: 10px 0px; width: 779px;" class="col-md-9 text-center bordered-alert margin-top">
 				<?php
 				if(!empty($job_end_data)) {
 					echo count($job_end_data) ." Jobs Ended ";
@@ -47,12 +47,12 @@ function time_elapsed_string($ptime){
         </div>
 		
 		
-		<div class="row margin-top-3">
-            <div class="col-md-2 margin-left-6">
-                <label>Applied Date</label>
+		<div class="row margin-top-3 margin-top-15">
+            <div class="col-md-2">
+                <label>Ended Date</label>
             </div>
 
-            <div class="col-md-8">
+            <div style="margin-left: -38px;" class="col-md-8">
                 <label>Job Title</label>
             </div>
         </div>
@@ -65,7 +65,7 @@ function time_elapsed_string($ptime){
 <?php } else {?>
 
         <div class="row">
-            <div class="col-md-9 margin-left-6 margin-top">
+            <div class="col-md-9 margin-top-15">
                 <?php foreach($job_end_data as $value) {
 					if($value->hire_title !=""){
 						$job_title = $value->hire_title;
@@ -75,7 +75,7 @@ function time_elapsed_string($ptime){
 					?>
 				
                 <div class="row">
-                    <div class="col-md-12 bordered">
+                    <div class="col-md-12 custom_bids_list_border">
                         <div class="row">
                             <div class="col-md-2"><?php echo date('M d, Y',  strtotime($value->end_date));?></div>
                             <div class="col-md-10 blue-text">

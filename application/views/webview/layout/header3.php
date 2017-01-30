@@ -15,7 +15,7 @@
 		<link rel="stylesheet" href="<?php echo site_url("assets/css/fonts.css"); ?>">
 		<link rel="stylesheet" href="<?php echo site_url("assets/css/head3.css"); ?>">
 		<link rel="stylesheet" href="<?php echo site_url("assets/css/croppic.css"); ?>">
-		<link rel="stylesheet" href="<?php echo site_url("assets/css/footer3.css"); ?>">
+		<link rel="stylesheet" href="<?php echo site_url("assets/css/footer.css"); ?>">
 		<link rel="stylesheet" href="<?php echo site_url("assets/css/bootstrap-socil.css"); ?>">
         <link rel="stylesheet" href="<?php echo site_url("assets/css/normalize.css"); ?>">
         <link rel="stylesheet" href="<?php echo site_url("assets/css/style3.css"); ?>">

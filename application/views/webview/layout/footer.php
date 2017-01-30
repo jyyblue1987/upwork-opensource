@@ -5,7 +5,7 @@
 <!-- End main_Div-->
 <div class="clear"> </div>
 <section class="big_footer">
-<div class="container">
+<div id="find-jobs_container" class="container">
     <div class="row">
 	 <div class="col-sm-6 col-md-6 col-lg-3">
 	    <div class="footer1">  
@@ -57,21 +57,23 @@
 	 </div>
 	</div>
 </div>
-</section>
+
+
+
 
 
 
 <!-- End big_footer---->
-<footer>
-  <div class="container">
+<div class="footer">
+  <div id="find-jobs_container" class="container">
      <div class="row">
-	    <div class="col-sm-6 col-md-6"><h1>WINJOB</h1></div>
+	    <div class="col-sm-6 col-md-6"><h1><b>WINJOB</b></h1></div>
 	    <div class="col-sm-6 col-md-6"><p>© 2016 WINJOB</p></div>
 	 </div>
   </div>
-</footer>
+</div>
 <!-- End footer---->
-
+</section>
 
 		<!--<script src="<?php //echo site_url("assets/js/jquery.js"); ?>"></script>-->
 		<script src="<?php echo site_url("assets/js/bootstrap.min.js"); ?>"></script>

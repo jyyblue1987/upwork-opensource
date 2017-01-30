@@ -1,16 +1,16 @@
 <div class="clear"> </div>
-<section class="card_area">
+<section class="card_area custom_mpayment_card">
   <div class="container">
   <div class="card_area_div">
    <div class="row">
-	 <div class="col-xs-12 col-sm-4 col-md-4">
-	   <a href="<?php echo site_url("pay/methods_card"); ?>"> <img src="<?php echo site_url("assets/img/card3.png"); ?>" alt="" /></a>
+	 <div class="col-xs-12 col-sm-6 col-md-6">
+	   <a href="<?php echo site_url("pay/methods_card"); ?>">
+	   <i class="fa fa-credit-card"></i>
+	   <i class="fa fa-check active_icon"></i>
+	   </a>
 	 </div>
-	 <div class="col-xs-12 col-sm-4 col-md-4">
-	    <a href="<?php echo site_url("pay/methods_paypal"); ?>"><img src="<?php echo site_url("assets/img/card1.png"); ?>" alt="" /></a>
-	 </div>
-	 <div class="col-xs-12 col-sm-4 col-md-4">
-	   <a href="<?php echo site_url("jobs-home"); ?>"> <img src="<?php echo site_url("assets/img/card2.png"); ?>" alt="" /></a>
+	 <div class="col-xs-12 col-sm-6 col-md-6">
+	    <a class="pull-right" href="<?php echo site_url("pay/methods_paypal"); ?>"><i class="fa fa-cc-paypal "></i></a>
 	 </div>
 	</div><!-- row-->
 	<div class="card_area_div1"> </div>
@@ -21,8 +21,9 @@
 <div class="clear"> </div>
 
 <div class="container">
-  <h2><?php if(isset($_POST['edit']) && !empty($_POST['scid'])) echo "Edit Card"; else echo "Add New Card";?></h2>
-<section class="form_area">
+<div class="custom_content">
+  <h2 style="text-align: center; margin-bottom: 35px; margin-top: 2px;"><?php if(isset($_POST['edit']) && !empty($_POST['scid'])) echo "Edit Card"; else echo "Add a Credit or Debit Card";?> <i class="fa fa-credit-card-alt"></i> <i class="fa fa-cc-visa"></i> <i class="fa fa-cc-mastercard "></i></h2>
+<section class="form_area custom_mpayment_may">
   <form class="form-horizontal" id="addCC-form" action="addCC/<?php if(isset($_POST['edit']) && !empty($_POST['scid'])) echo "edit"; else echo "add";?>" method="POST">
     <?php
       if(isset($_POST['edit']) && !empty($_POST['scid'])){
@@ -41,10 +42,10 @@
    <div class="form-group">
 
     <label for="inputEmail3" class="col-sm-2 control-label">Name on Card</label>
-     <div class="col-sm-3 input_bottom">
+     <div class="col-sm-4 input_bottom">
         <input type="text" class="form-control" id="inputEmail3" placeholder="First Name" name="fname" required="" value="<?php echo @$fname; ?>">
        </div>
-    <div class="col-sm-3">
+    <div class="col-sm-4">
        <input type="text" class="form-control" id="inputEmail3" placeholder="Last Name" name="lname" required="" value="<?php echo @$lname; ?>">
        </div>
      </div>
@@ -59,17 +60,17 @@
    <div class="form-group">
      <label for="inputPassword3" class="col-sm-2 control-label">Security code</label>
      <div class="col-sm-2">
-       <input type="number" class="form-control" id="inputPassword3" placeholder="123" name="cvv" required value="">
+       <input type="text" class="form-control" id="inputPassword3" placeholder="123" name="cvv" required value="">
      </div>
    </div>
 
    <div class="form-group">
      <label for="inputPassword3" class="col-sm-2 control-label">Expire Date </label>
      <div class="col-sm-2 input_bottom">
-        <input type="number" class="form-control" id="inputPassword3" placeholder="02" name="month" required="" value="">
+        <input type="text" class="form-control" id="inputPassword3" placeholder="02" name="month" required="" value="">
      </div>
   <div class="col-sm-2">
-        <input type="number" class="form-control" id="inputPassword3" placeholder="2017" name="year" required="" value="">
+        <input type="text" class="form-control" id="inputPassword3" placeholder="2019" name="year" required="" value="">
      </div>
    </div>
    <div class="form-group">
@@ -92,14 +93,14 @@
 
    <div class="form-group">
      <label for="inputPassword3" class="col-sm-2 control-label">Address</label>
-     <div class="col-sm-4">
+     <div class="col-sm-8">
        <input type="text" class="form-control" id="inputPassword3" placeholder="Address Line 1" name="address" required="" value="<?php echo @$address; ?>">
      </div>
    </div>
 
     <div class="form-group">
      <label for="inputPassword3" class="col-sm-2 control-label"></label>
-     <div class="col-sm-4">
+     <div class="col-sm-8">
        <input type="text" class="form-control" id="inputPassword3" placeholder="Address Line 2" name="address2" required="" value="<?php echo @$address2; ?>">
      </div>
    </div>
@@ -118,17 +119,20 @@
      </div>
    </div>
    <div class="form-group">
-  <label class="col-xs-12 col-sm-8 control-label">
-  <p class="text-center">In order to verify your card we will make 2 temporary charges totaling $10 <br />
+   <div class="col-xs-2"></div>
+  <label class="col-xs-8 col-sm-8 control-label">
+  <p style="font-size: 17px; font-weight: normal; margin: 0 0 18px;">In order to verify your card we will make 2 temporary charges totaling $10 <br />
      These charge will be refunded to your card within 7 days</p>
 
    </div>
    <div class="form-group btn_center">
-     <div class="col-sm-offset-2 col-xs-12 col-sm-3">
-       <button type="submit" class="submit btn btn-default" name="addccstripe"><?php if(isset($_POST['edit']) && !empty($_POST['scid'])) echo "Update Card"; else echo "Add Credit Card";?></button>
+   
+     <div class="col-xs-2"></div>
+	 <div style="margin-left: -38px;" class="col-xs-3">
+       <button type="submit" class="btn-primary transparent-btn big_mass_button" name="addccstripe"><?php if(isset($_POST['edit']) && !empty($_POST['scid'])) echo "Update Card"; else echo "Add Credit Card";?></button>
      </div>
-  <div class="col-xs-12 col-sm-4">
-       <button type="submit" class="btn btn-default btn_background">Cancel</button>
+	<div style="margin-left: -66px;" class="col-xs-2">
+       <button type="submit" class="btn-primary transparent-btn big_mass_button">Cancel</button>
      </div>
    </div>
   </form>
@@ -236,6 +240,7 @@
   </div>
 </form> -->
 </section><!-- End form_area-->
+</div>
 </div>
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script type="text/javascript">

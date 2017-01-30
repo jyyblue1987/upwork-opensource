@@ -3,12 +3,12 @@
     <h3 class="text-center">Your ticketID is <strong><?php echo $ticketID?></strong></h3>
 <?php } ?>
 
-<div class="row">
+<div style="background: #fff;margin-top: 40px;margin-bottom: 40px;border: 1px solid #ccc;border-radius: 3px;padding: 0px 13px;" class="row">
     <div class="col-md-12 col-sm-12">
         <header>Contact</header>
     </div>
     <div style="clear:both"></div>
-    <div class="col-md-4 col-sm-12">
+    <div class="col-md-7 col-sm-12">
         <div class="leftside">
 <!--            <form>-->
 
@@ -44,19 +44,21 @@
                     </select>
 
                 </div>
-                <div class="form-group">
+                <div style="margin-bottom: 40px;" class="form-group">
                     <label for="Message">Message:</label>
                     <textarea class="form-control" id="Message" placeholder="Message" name="body"></textarea>
                 </div>
                 <div class="form-group" id="attachFile">
-                    <label for="Input">Attach File
+                    <label style="float: left;margin-right: 5px;" for="Input">Attach File
                         <div class="addplus">
                             <a href="" id="addUserFile">
                                 [Add File]
                             </a>
                         </div>
                     </label>
-                    <input type="file" class="file_upload" name="userfiles[]" id="" value="">  <div class="trst_icn"> </div>
+                    <div>
+					<input type="file" class="file_upload" name="userfiles[]" id="" value="">  <div class="trst_icn"> </div>
+					</div>
                 </div>
 
                 <div class="form-group">
@@ -65,16 +67,16 @@
                 </div>
                 <div class="form-group">
                     <label for="Security">Security Code:</label>
-                    <input type="Security" name="captcha" class="form-control" id="Security">
+                    <input style="width: 39%;" type="Security" name="captcha" class="form-control" id="Security">
                 </div>
-                <button type="submit" id="savbutton" class="btn btn-default">Save</button>
-                <button type="submit" id="contbutton" class="btn btn-default">Control</button>
+                <button type="submit" class="btn-primary big_mass_active transparent-btn big_mass_button">Save</button>
+                <button style="margin-bottom: 30px;" type="submit" class="btn-primary transparent-btn big_mass_button">Cancel</button>
             </form>
         </div>
     </div>
-    <div class="col-md-6 col-sm-12 col-md-offset-2">
+    <div style="margin-left: 67px;font-family: calibri;" class="col-md-4 col-sm-12">
         <div class="rightside">
-            <div class="col-md-5 col-sm-6 headingone">
+            <div class="col-md-8 col-sm-12 headingone">
                 <h1>Our addresses</h1>
             </div>
             <div style="clear:both"></div>

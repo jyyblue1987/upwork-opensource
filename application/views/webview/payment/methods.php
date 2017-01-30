@@ -27,7 +27,7 @@ if (isset($data) && is_array($data)) {
                 $this->load->view("webview/profile/freelancer-profile-left-sidebar",$data) ?>
         </div>
         <div class="col-md-9 nopadding">
-            <div class="row bordered" style="margin: 0px">
+            <div class="row custom_methods_menu_border" style="margin: 0px">
                     <div class="col-md-2"> Methods </div>
                     <div class="col-md-4"> Withdraw Fee </div>
                     <div class="col-md-2">
@@ -189,7 +189,7 @@ if (isset($data) && is_array($data)) {
 
 <div class="modal fade payment-method" tabindex="-1" role="dialog" aria-labelledby="paymentMethodMOdal">
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
+        <div class="payment_modal-content">
             <?php $this->load->view("webview/payment/paypal"); ?>
         </div>
     </div>
