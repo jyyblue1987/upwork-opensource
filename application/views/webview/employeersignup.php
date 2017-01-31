@@ -1,6 +1,6 @@
-   <div class="main_area_div">
+   <div class="custom_employeersignup main_area_div">
    <div class="row"> 
-	    <div class="col-md-5">
+	    <div class="col-md-12">
 		   <div class="main_area_div_sub_div1">
 		     <h1>Create a Free Employer Account </h1>
 			 		<p>Looking for work? <a href="<?php echo site_url("freelancersignup/") ?>">Sign up as a Freelancer</a> </p>
@@ -25,14 +25,13 @@
 			  echo $this->Adminforms->selectdbnewxgdcv("Country","country","Select Country","country","id","name","index","asc","",true,array("all","All Country"));
 			  
 ?>
-														
-                        <div class="col-md-10 col-xs-12 form-group">
-                                                            <input type="text" class="form-control" name="username" value="" id="username"  placeholder="Username">
-                                                        </div>
+
+                    <div class="col-md-10 col-xs-12 form-group">
+                        <input type="text" class="form-control" name="username" value="" id="username"  placeholder="Username">
+                    </div>
+					
                     <div class="col-md-10 col-xs-12  form-group">
-                        <div class="form-group">
-                                                            <input type="email" class="form-control" id="emaila" value="" placeholder="Email" name="email">
-                                                        </div>
+                        <input type="email" class="form-control" id="emaila" value="" placeholder="Email" name="email">
                     </div>
 
                     <div class="col-md-10 col-xs-12 form-group ">
@@ -50,7 +49,7 @@
 
 
                     <div class="col-md-10 col-xs-12 form-group ">
-                        <input type="password" value="" name="confirm_password" class="form-control" id="confirm_password"  placeholder="Password">
+                        <input type="password" value="" name="confirm_password" class="form-control" id="confirm_password"  placeholder="Confirm Password">
 						
 
 <div id="pswd_infob">
@@ -60,7 +59,7 @@
 </div>
                     </div>
                     <div class="col-md-10 col-xs-12 form-group ">
-						<div id="captchaContainer" data-sitekey="6Lf-tggUAAAAAOzXu2Ub57Ws-IxAVy_WxEkB6WZ5"></div>
+						<div style="margin-left: 46px;" id="captchaContainer" data-sitekey="6Lf-tggUAAAAAOzXu2Ub57Ws-IxAVy_WxEkB6WZ5"></div>
 
 						
 
@@ -68,49 +67,23 @@
 				
           
 	<br><br>
-                    <div class="col-md-10 col-xs-12"><input type="submit" value="Get Started" id="next" class="btn btn-success"></div>
+                    <div class="col-md-10 col-xs-12"><input style="margin-left: 46px;padding: 11px 100px;margin-top: 15px;" type="submit" value="Get Started" id="next" class="btn btn-success"></div>
                     <!--<button type="submit" class="btn btn-primary pull-right">Next</button>--> <div class="col-xs-12  col-sm-12  col-md-12">
 			   <h2>By creating an account, you agree to our</h2>
 			   <h3><a href="#">Winjob Marketplace User Agreement</a> <span>and</span> <a href="#">Privacy policy</a></h3>
 			 </div>
-
-			 <div class="clear" style="
-    margin-bottom: 70px;"></div>
                 </form>
 			
 		   </div> 
 		   
 		   
 		 </div>
-		   
-	    <div class="col-sm-12 col-md-2">
-		<div class="main_area_div_sub_div2_main">
-		    <div class="main_area_div_sub_div2">
-		      <div></div>  
-			  <div><p>OR</p></div>
-			  <div></div>
-		   </div>
-		   
-		</div>
-		 
-		</div>
-		 
-	    <div class="col-sm-12 col-md-5">
-		     <div class="main_area_div_sub_div3">
-		       <h1>Login with your social networks</h1>
-			 <a href="https://www.facebook.com/"  target="_blank"> <button class="btn btn-success  btn-social btn-facebook" >
-			  <i class="fa fa-facebook"></i>Login With Facebook</button></a>
-			  <div class="clear"></div>
-			 <a href="https://www.linkedin.com/"  target="_blank">  <button class="btn btn-success  btn-social btn-Linkedin" >
-			  <i class="fa fa-linkedin-square"></i>Login With Linkedin</button></a> 
-			  <div class="clear"></div>
-			  <a href="https://www.linkedin.com/"  target="_blank">  <button class="btn btn-success  btn-social btn-google" >
-			  <i class="fa fa-google-plus-square"></i>Login With  Google+</button></a>
-			
-		    </div> 
-		</div>
 	 </div><!-- row-->
    </div>
 
    
-   
+<style type="text/css">
+#mid_contant {
+margin-top: 0px;
+}
+</style>
