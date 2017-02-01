@@ -240,15 +240,15 @@ $clientend = $Conversation->clientend();
                     </div>
                     <div class="col-md-4 pull-right">
                         <div class="row"> 
-                            <div class="col-md-4 text-right nopadding"><label class="gray-text"><a href='<?php echo site_url('jobs/view/' . url_title($value->title) . '/' . base64_encode($value->id));?>'style="color: #37A000">View Job Posting <span class='glyphicon glyphicon-info-sign' style="color: #37A000"></span></a></label></div>
+                            <div class="col-md-4 text-right nopadding"><label class="gray-text"><a href='<?php echo site_url('jobs/view/' . url_title($value->title) . '/' . base64_encode($value->id));?>'style="color: #37A000">View Job Posting <span class='glyphicon custom_client_icon glyphicon-info-sign' style="color: #37A000"></span></a></label></div>
 							
-                            <div class="col-md-4 text-center nopadding"><label class="gray-text"><a href='<?php echo site_url('jobs/edit/' . base64_encode($value->id));?>'style="color: #37A000">Edit Posting <span class='glyphicon glyphicon-edit' style="color: #37A000"></span></a></label></div>
+                            <div class="col-md-4 text-center nopadding"><label class="gray-text"><a href='<?php echo site_url('jobs/edit/' . base64_encode($value->id));?>'style="color: #37A000">Edit Posting <span class='glyphicon custom_client_icon glyphicon-edit' style="color: #37A000"></span></a></label></div>
 							
                             <div class="col-md-4 text-left nopadding last-div">
 								<label class="gray-text"> 
                                     <a href="javascript:void(0)" id="endpost" onclick="Confirmremove(<?php echo $value->id; ?>);" style="color: #37A000">
                                         Remove Posting
-                                        <span class='glyphicon glyphicon-remove' style="color: #37A000"></span>
+                                        <span class='glyphicon custom_client_icon glyphicon-remove' style="color: #37A000"></span>
                                     </a>
                                 </label>
 							</div>                    

@@ -1,33 +1,31 @@
 <link rel="stylesheet" href="<?php echo site_url("assets/css/chosen.css"); ?>">
 <script src="<?php echo site_url("assets/js/chosen.jquery.js"); ?>"></script>
-<section id="big_header"
-         style="margin-top: 50px; margin-bottom: 50px; height: auto;">
-    <div class="container white-box-feed">
+<section id="big_header" style="margin-top: 40px; margin-bottom: 40px; height: auto;">
+    <div style="border:1px solid #ccc;" class="container white-box-feed">
         <div class="row">
-            <div class="col-md-7 col-md-offset-0 page-title">
+            <div style="margin-bottom: 15px;" class="col-md-7 col-md-offset-0 page-title">
                 <h1 style="color:black">Create your job</h1> <br/>
-                <h5 class="page-sub-title">Post a project for free and start getting receiving proposals within minutes</h5>
+                <h5 style="margin-top: -14px;" class="page-sub-title">Post a project for free and start getting receiving proposals within minutes</h5>
             </div>
         </div>
         <div class="row">
             <div class='form-msg'></div>
-            <form id="jobCreate" method="post" action="" enctype="multipart/form-data">
+            <form class="custom_job_post_form" id="jobCreate" method="post" action="" enctype="multipart/form-data">
                 <div class="col-md-9 form-group">
                     <div class="row">
-                        <div class="col-md-3">
-                            <label class="main_title">Title</label>
+                        <div class="col-md-12">
+                            <h4 class="main_title">Title</h4>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-12">
                            <div class="edit_title">
                                 <input type="text" value="" name="title" class="form-control" id="title">
                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-9 form-group">
+				
                     <div class="row">
-                        <div class="col-md-3">
-                            <label class="main_title">Select Category</label>
+                        <div class="col-md-12">
+                            <h4 class="main_title">Select Category</h4>
                         </div>
                         <div class="col-md-5">
                          <div class="edit_title">
@@ -62,18 +60,16 @@
                          </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-9 form-group">
                     <div class="row">
-                        <div class="col-md-3">
-                            <label class="main_title">Required Skills</label>
+                        <div class="col-md-12">
+                            <h4 class="main_title">Required Skills</h4>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-12">
                           <div class="edit_title">
                                <div class="input_skills">
                                  
-                             <select class="choose-skills" name="skills[]"  data-placeholder="Skills" style="width:515px;" multiple>
+                             <select class="choose-skills" name="skills[]"  data-placeholder="Skills" style="width:100%;" multiple>
                                 <?php foreach($skillList as $skill){
                                   ?>
                                 <option value="<?php echo $skill->skill_name; ?>"><?php echo $skill->skill_name; ?></option> 
@@ -85,99 +81,89 @@
                           </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-9 form-group">
                     <div class="row">
-                        <div class="col-md-3">
-                            <label class="main_title">Job Description</label>
+                        <div class="col-md-12">
+                            <h4 class="main_title">Job Description</h4>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-12">
                            <div class="edit_title">
                                <textarea name="job_description" id="job_description"
                                       class="form-control" rows="5"></textarea>
                            </div>
                         </div>
-                    </div>
-                </div>
+                     </div>
 
-                <div class="col-md-7 form-group">
                     <div class="row">
-                        <div class="col-md-3">
-                            <label class="main_title">Upload File</label>
+                        <div class="col-md-12">
+                            <h4 class="main_title">Attach File</h4>
                         </div>
-                        <div class="col-md-9">
-                          <div class="edit_title">
+                        <div class="col-md-12">
+                          <div style="margin-bottom: 20px;margin-top: -2px;margin-left: -8px;" class="edit_title">
                               <div class="upload_file">
                                 <input type="file" value="" name="userfile" class="upload"
-                                   id="user_file" style="margin-left: 39px;">
+                                   id="user_file">
                            </div>
                           </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-9 form-group">
                     <div class="row">
-                        <div class="col-md-3 margin-top">
-                            <label class="main_title">Job Type</label>
+                        <div class="col-md-12">
+                            <h4 style="margin-bottom: 0;" class="main_title">Job Type</h4>
                         </div>
-                        <div class="col-md-9" style="margin-top: 16px;">
+                        <div class="col-md-12" style="margin-top: 14px;">
                            <div class="edit_title">
                                <div class="row" style="margin-left: 3px;">
                                 <div class="col-md-12 radio">
                                     <input type="radio" value="hourly" name="job_type"
-                                           checked="checked"><label>Hourly - Pay by the hour verify with the work diary</label>
+                                           checked="checked"><h4>Hourly - Pay by the hour verify with the work diary</h4>
                                 </div> 
                             </div>
 
                             <div class="row" style="margin-left: 3px;">
                                 <div class="col-md-12 radio">
-                                    <input type="radio" value="fixed" name="job_type" ><label>Fixed - Pay by the project requires Detailed specifications</label>
+                                    <input type="radio" value="fixed" name="job_type" ><h4>Fixed - Pay by the project requires Detailed specifications</h4>
                                 </div> 
                             </div>
                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-9 form-group" >
                     <div class="row">
-                        <div class="col-md-3">
-                            <label class="main_title">Experience Level</label>
+                        <div class="col-md-12">
+                            <h4 class="main_title">Experience Level</h4>
                         </div>
-                        <div class="col-md-9">
+                        <div style="margin-left: 19px;" class="col-md-12 radio">
                            <div class="edit_title">
-                               <input type="radio" name="experience_level" id="experience_level" value="Entry level" checked/>
-                            <label>Entry Level</label> <span class="dollar-sign">$</span>
+                            <input type="radio" name="experience_level" id="experience_level" value="Entry level" checked/>
+                            <h4 style="margin-bottom: 0;">Entry Level $</h4>
+							<br />
 
                             <input type="radio" name="experience_level" id="experience_level" value="Entermediate" />
-                            <label>Intermediate</label> <span class="dollar-sign">$$</span>
+                            <h4 style="margin-bottom: 0;">Intermediate $$</h4>
+							<br />
 
                             <input type="radio" name="experience_level" id="experience_level" value="Experienced" />
-                            <label>Experienced</label> <span class="dollar-sign">$$$</span>
+                            <h4>Experienced $$$</h4>
                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-9 form-group hidden" id="fixed-control">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label class="main_title">Budget</label>
+                    <div id="fixed-control" class="row hidden">
+                        <div class="col-md-12">
+                            <h4 class="main_title">Budget $</h4>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-12">
                            <div class="edit_title">
-                                <span class="dollar-sign">$</span> <input type="text" name="budget" id="budget" value="" class="" />
+                                <input style="width: 80px;" type="text" name="budget" id="budget" value="" class="" />
                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-9 form-group" id="hourly-control">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label class="main_title">Hours Per week</label>
+                    <div  id="hourly-control" class="row">
+                        <div class="col-md-12">
+                            <h4 class="main_title">Hours Per week</h4>
                         </div>
                         <div class="col-md-5">
                            <div class="edit_title">
@@ -192,12 +178,10 @@
                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-9 form-group">
                     <div class="row">
-                        <div class="col-md-3">
-                            <label class="main_title">Job Duration</label>
+                        <div class="col-md-12">
+                            <h4 class="main_title">Job Duration</h4>
                         </div>
                         <div class="col-md-5">
                            <div class="edit_title">
@@ -212,14 +196,10 @@
                            </div>
                         </div>
                     </div>
-                </div>
 
 
-                <div class="col-md-9 form-group">
                     <div class="row">
-                        <div class="col-md-2 ">
-                        </div>   
-                        <div class="col-md-10 text-left">
+                        <div class="col-md-12 text-left">
                            <div class="create_job_btn">
                                 <input type="hidden" name="submitbtn" value="1" id='buttonVal'/>
                             <input type="submit" value="Publish" class="btn my_btn publish_btn" id='submitBtn'>
@@ -228,8 +208,66 @@
                            </div>
                         </div>  
 
-                    </div>
+                    </div>					
                 </div>
+				
+				
+				<div class="col-md-3">
+					<div class="custom_post_job_right_cont">
+						<div class="title">
+							<i class="fa fa-comments pull-left"></i>
+							<h4>Client Tips</h4>
+						</div>
+						<div class="content">
+							<ol>
+								<li>Post your Project for Free.</li>
+								<li>Receive Proposals from skilled and trusted Freelancers, by adding descriptions and skills required.</li>
+								<li>Receive Proposals from skilled and trusted Freelancers, by adding descriptions and skills required.</li>
+								<li>Award your project to Freelancers based on their proposal, proᶠle and feedback.</li>
+							</ol>
+						</div>
+					</div>
+					
+					<div class="custom_post_job_right_cont">
+						<div class="title">
+							<i class="fa fa-briefcase pull-left"></i>
+							<h4>Post Project</h4>
+						</div>
+						<div class="content">
+							<p>Quickly post your project and set your budget. The project will be available for biding on truelancer instantly.</p>
+						</div>
+					</div>
+					
+					<div class="custom_post_job_right_cont">
+						<div class="title">
+							<i class="fa fa-check-square-o pull-left"></i>
+							<h4>Shortlist and Compare Freelancers</h4>
+						</div>
+						<div class="content">
+							<p>First shortlist, compare and select bids on price, ratings and online presence. Each freelancer has there own proᶠle that shows what past users have said about there work.</p>
+						</div>
+					</div>
+					
+					<div class="custom_post_job_right_cont">
+						<div class="title">
+							<i class="fa fa-money pull-left"></i>
+							<h4>Release Payments</h4>
+						</div>
+						<div class="content">
+							<p>We only release payment when 100% satisᶠed with the work provided. Love the work or get your money back.</p>
+						</div>
+					</div>
+					
+					<div class="custom_post_job_right_cont">
+						<div class="title">
+							<i class="fa fa-question-circle pull-left"></i>
+							<h4>Does it cost to post a project?</h4>
+						</div>
+						<div class="content">
+							<p>No, it free of cost. You only pay to Freelancer the amount for the Work Done.</p>
+						</div>
+					</div>
+				</div>
 
                 <!--<button type="submit" class="btn btn-primary pull-right">Next</button>-->
 
@@ -291,13 +329,21 @@
 	width: 100%;
 }
 .create_job_btn, .publish_btn {
-	margin-right: 16px;
-	margin-left: -5px;
+margin-right: 16px;
+margin-left: 0px;
+margin-top: 5px;
 }
 .edit_title {
 	margin-left: -70px;
 }
 .main_title {
-	margin-left: -38px;
+	margin-left: 0;
 }
+.custom_job_post_form .edit_title {
+	margin-left: 0;
+}
+.row .form-group {
+    margin-left: 0;
+}
+.white-box-feed{padding-left:40px;}
 </style>
