@@ -1506,7 +1506,7 @@ h1.job-title{
     width: 750px;
     height: 326px;
     margin-top: 20px;
-    border-radius: 3px;
+    border-radius: 4px;
     background: #fff;
 }
 .bordered_week {
@@ -4002,7 +4002,7 @@ text-align: center;}
 	src: url(../fonts/Calibri.ttf);
 	color: #494949;margin-bottom: 5px;
 	font-weight: 800;}
-.big_mass_active{background:#028cc9;color:#fff;}
+.big_mass_active{background:#028cc9;color:#fff;border: 1px solid transparent;}
 .custom_methods_menu_border{	border: 1px solid #ccc;
 	border-radius: 4px;
 	margin-bottom: 15px;
@@ -4077,3 +4077,54 @@ margin-left: -9px;}
 	margin-right: 32px;
 	margin-bottom: 40px;
 }
+
+
+.custom_post_job_right_cont{margin-left: 22px;margin-bottom: 40px;}
+.custom_job_post_form .edit_title{margin-bottom: 25px;}
+.custom_job_post_form h4.main_title{font-size: 17px;
+font-weight: bold;
+color: #333;}
+.custom_job_post_form #job_description{height:180px}
+.custom_job_post_form #user_file{margin-left: 0;
+padding: 4px 8px;
+font-size: 14px;
+font-family: calibri;}
+.custom_job_post_form .radio h4{font-size: 17px;
+font-family: calibri;}
+.custom_job_post_form .radio{margin-bottom: -3px;}
+.custom_job_post_form #category optgroup{font-family: calibri;
+font-size: 17px;}
+.custom_post_job_right_cont .title i{margin-top: 4px;}
+
+.confirm_hire{}
+.confirm_hire_title{font-size: 17px;margin-top: 20px;margin-bottom: 8px;
+font-family: calibri;
+font-weight: bold;}
+.custom_confirm_hire_j_title {
+color: #028fcc !important;
+font-weight: 400 !important;
+margin-bottom: 20px;
+}
+.confirm_hire .hire_job_title p {
+color: #494949;
+font-size: 17px;
+font-family: calibri;
+margin-bottom: 29px;
+}
+.confirm_hire_title{margin-top: 10px;}
+.custom_amount_box{width: 80px;margin-top: 10px;}
+.custom_job_apply55 .modal-title{font-size: 25px;
+font-family: calibri;
+margin-bottom: 4px;}
+.custom_job_apply55 {width:750px;}
+.cus_confirm_hired_hourly_pop{border: 1px solid #ccc;
+margin: 50px 30px;
+border-radius: 4px;}
+.cus_confirm_hired_hourly_pop a i {
+	position: absolute;
+	right: 18px;
+	top: 2px;
+	font-size: 30px;
+}
+.custom_client_icon{top:3px;}
+.my-btn{border:1px solid transparent;}
