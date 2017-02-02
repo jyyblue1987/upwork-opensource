@@ -1,5 +1,4 @@
-<section id="big_header" class="my_staff"
-	style="margin-top: 32px; margin-bottom: 50px; height: auto;">
+<section id="big_header" class="my_staff" style="margin-top: 32px; margin-bottom: 40px; height: auto;">
 
 	<div class="container">
 		<div class="row ">
@@ -169,7 +168,7 @@
 												data-toggle="dropdown">
 												<span class="caret"></span>
 											</button>
-											<ul class="dropdown-menu">
+											<ul style="left: -156px;" class="dropdown-menu">
 												<li><a href="#">View contact</a></li>
 												<li><a href="#">View Profile</a></li>
 												<li><a href="#">End contract</a></li>
@@ -258,7 +257,7 @@
 												data-toggle="dropdown">
 												<span class="caret"></span>
 											</button>
-											<ul class="dropdown-menu">
+											<ul style="left: -156px;" class="dropdown-menu">
 
 												<li><a href="#">Give bonus</a></li>
 												<li><a href="#">View contact</a></li>

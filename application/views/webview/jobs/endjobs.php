@@ -1,5 +1,4 @@
-<section id="big_header"
-	style="margin-top: 30px; margin-bottom: 50px; height: auto;">
+<section id="big_header" style="margin-top: 30px; margin-bottom: 40px; height: auto;">
 
 	<div class="container">
 		<div class="row ">
@@ -22,13 +21,21 @@
 			<div class="ej_custom_body">
 				<div class="row">
 					
-					<div style="margin-bottom: 15px;height: 40px;" class="col-md-12 bordered-alert text-center ack-box">
+					<div style="margin-bottom: 0;height: 40px;width:737px;" class="col-md-12 bordered-alert text-center ack-box">
 						<?php if(!empty($acccept_jobList)) { ?>
 							<h4 style="margin: 0;padding: 0;margin-top: -5px;">! You have ended <?=count($acccept_jobList)?> jobs</h4>
+						</div>	
 						<?php } else{?>
 							<h4 style="margin: 0;padding: 0;margin-top: -5px;">! You have no ended jobs</h4>
-						<?php } ?>
+					</div>	
+							
+					<div style="margin-top: 10px;margin-left: -26px;" class="row">
+						<div class="col-md-12">
+							<div style="margin-left: 11px;" class="border-box custom_empty_freelancer_box">
+							</div>
+						</div>
 					</div>
+					<?php } ?>		
 					
 				</div>
 				<?php 
@@ -40,8 +47,8 @@
 				if($data->job_type == "hourly"){
 				?>
 
-				<div class="row margin-top-2 ej_white_box">
-					<div class="col-md-12 white-box" style="padding: 20px;margin-bottom: 15px;">
+				<div class="row margin-top-2">
+					<div class="col-md-12 ej_white_box white-box" style="padding: 20px;">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="row">
@@ -112,13 +119,9 @@
 									</div>
 
 								</div>
-
-								
-
 							</div>
 						</div>
-<!--  -->          
-<!--  -->                        
+						
 						<div class="row">
 							<div class="col-md-6">
 							    <div class="job_detais">
@@ -127,21 +130,16 @@
 							    </div>
 							</div>
 							    
-							<div class="col-md-6 margin-left-10">
-								
-								
+							<div class="col-md-6 margin-left-10">						
 							</div>
-							
 						</div>
 					</div>
-
-
 				</div>
 				
 				<?php } else { ?>
 				
-				<div class="row margin-top-2 ej_white_box">
-					<div class="col-md-12 white-box" style="padding: 20px;margin-bottom: 15px;">
+				<div class="row margin-top-2">
+					<div class="col-md-12 white-box ej_white_box" style="padding: 20px;">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="row">
@@ -366,4 +364,3 @@
   overflow: hidden;
 }
 </style>
-

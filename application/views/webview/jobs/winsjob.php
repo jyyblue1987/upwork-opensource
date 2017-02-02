@@ -1,5 +1,5 @@
  
-<section id="big_header" style="margin-top: 30px; margin-bottom: 50px; height: auto;">
+<section id="big_header" style="margin-top: 30px; margin-bottom: 40px; height: auto;">
     <div class="container">
         <div class="row">
             <div class="col-md-3 nopadding">
@@ -20,13 +20,21 @@
             <div class="wj_custom_body">
                 <div class="row">
 
-                    <div style="margin-bottom: 0;height: 40px;" class="col-md-12 bordered-alert text-center ack-box">
-                        <?php if (!empty($acccept_jobList)) { ?>
-                            <h4 style="margin: 0;padding: 0;margin-top: -5px;">! You have hired <?= count($acccept_jobList) ?> jobs</h4>
-                        <?php } else { ?>
-                            <h4 style="margin: 0;padding: 0;margin-top: -5px;">! You have no hired jobs</h4>
+						<div style="margin-bottom: 0;height: 40px;width:737px;" class="col-md-12 bordered-alert text-center ack-box">
+							<?php if (!empty($acccept_jobList)) { ?>
+								<h4 style="margin: 0;padding: 0;margin-top: -5px;">! You have hired <?= count($acccept_jobList) ?> jobs</h4>
+						</div>
+							<?php } else { ?>
+								<h4 style="margin: 0;padding: 0;margin-top: -5px;">! You have no hired jobs</h4>
+						</div>
+						
+						<div style="margin-top: 10px;margin-left: -26px;" class="row">
+							<div class="col-md-12">
+								<div style="margin-left: 11px;" class="border-box custom_empty_freelancer_box">
+								</div>
+							</div>
+						</div>
                         <?php } ?>
-                    </div>
 
                 </div>
                 <?php

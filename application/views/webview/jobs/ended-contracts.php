@@ -1,4 +1,4 @@
-<section id="big_header" style="margin-top: 32px; margin-bottom: 50px; height: auto;">
+<section id="big_header" style="margin-top: 32px; margin-bottom: 40px; height: auto;">
 
 	<div class="container">
 		<div class="row ">
@@ -22,10 +22,18 @@
 					<div style="margin-left: -2px ! important; margin-bottom: 0px; padding-top: 5px; padding-bottom: 0px;width: 742px;" class="col-md-12 bordered-alert text-center ack-box">
 						<?php if($past_hire){ ?>
 					<h4>! You have ended <?=$past_hire;?> contract</h4>
+					</div>
 					<?php } else{?>
 						<h4>! You have no ended contact</h4>
-					<?php } ?>
 					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="border-box custom_empty_freelancer_box">
+							</div>
+						</div>
+					</div>
+					<?php } ?>
+					
 				</div>
 				
 				<?php foreach($messages as $message){
@@ -332,4 +340,3 @@
   overflow: hidden;
 }
 </style>
-

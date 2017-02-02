@@ -1,5 +1,5 @@
 <section id="big_header"
-	style="margin-top: 30px; margin-bottom: 50px; height: auto;">
+	style="margin-top: 30px; margin-bottom: 40px; height: auto;">
 
 	<div class="container">
 		<div class="row ">
@@ -22,13 +22,21 @@
 			<div class="col-md-9">
 			<div class="ph_custom_body">
 				<div class="row">
-					<div style="margin-left: -2px ! important; margin-bottom: 0px; padding-top: 5px; padding-bottom: 0px;" class="col-md-12 bordered-alert text-center ack-box">
+					<div style="margin-left: -2px ! important; margin-bottom: 0px; padding-top: 5px; padding-bottom: 0px;width: 737px;" class="col-md-12 bordered-alert text-center ack-box">
 						<?php if($past_hire){ ?>
-					<h4>! You have ended <?=$past_hire;?> contract</h4>
-					<?php } else{?>
-						<h4>! You have no ended contact</h4>
-					<?php } ?>
+							<h4>! You have ended <?=$past_hire;?> contract</h4>
 					</div>
+						<?php } else{?>
+							<h4>! You have no ended contact</h4>
+					</div>
+						
+					<div class="row">
+						<div class="col-md-12">
+							<div class="border-box custom_empty_freelancer_box">
+							</div>
+						</div>
+					</div>
+						<?php } ?>
 				</div>
 				
 				<?php foreach($messages as $message){
@@ -126,7 +134,7 @@
 									</a>-->
 								       </div>
 								   </div>
-									<div class="ph_pay_butt">
+									<div class="ph_rehire_butt">
 
                                        <div class="rehire-btn">
                                      <input type="button" class="btn btn-primary form-btn" value="Rehire" />
@@ -335,4 +343,3 @@
   overflow: hidden;
 }
 </style>
-

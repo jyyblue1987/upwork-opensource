@@ -2,13 +2,68 @@
 
 <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/jquery.rateyo.css"/>
 
+<style>
+.client-job-activity-current li, .last-element {
+	padding-top: 20px;
+	padding-bottom: 21px;
+}
+.drop_btn {
+	padding: 15px 60px 65px 40px;
+	background: white;
+	border: 2px solid #e0e0e0;
+	font-weight: 900;
+	font-size: 18px;
+}
+.drop_btn ul li a {
+	padding: 10px;
+	margin: 0px;
+	font-size: 15px;
+}
+.drop_btn ul li {
+	padding: 2px;
+	margin: 0px;
+} 
+.drop_btn ul li a{
+    border: none; 
+    border-right: none;
+    list-style: none;
+    }
+.hire_work_btn {
+	margin-left: 20px;
+}
+.hire_page_sms_btn {
+	margin-left: 50px;
+}
+.aplicant_name {
+	font-size: 16px;
+	font-family: "Calibri";
+	color: #1CA7DB;
+}
+.aplicant_country {
+color: #494949;
+font-size: 15px;
+font-family: "Calibri";
+margin-top: -15px;
+}
+.ratting_title {
+    font-family: "Calibri";   
+    }
+.hire_job_details a {
+	font-size: 17px;
+	color: #37A000;
+	font-weight: 800;
+	margin-top: 10px;
+	margin-left: 30px;
+}
+body{font-family: "calibri" !important;}
+</style>
 <section id="big_header"
-	style="margin-top: 50px; margin-bottom: 50px; height: auto;">
+	style="margin-top: 40px; margin-bottom: 65px; height: auto;">
 
 	<div class="container"> 
 	<div class="row">
                
-     <div class="main_job_titie">
+     <div style="margin-top: -6px;margin-bottom: -30px;" class="main_job_titie">
          <b><?php echo ucfirst($job_details[0]->job_type)." - ".ucfirst($job_details[0]->title); ?><br/><br/></b>
      </div>
                </div>
@@ -54,22 +109,22 @@
                     <li><a href='<?php echo $offerLink; ?>'>Offers (<?= $totalOffer; ?>) </a>  </li>
                     <li><a class="active-link" href='<?php echo $hireLink; ?>'>Hires (<?= $hire; ?>)</a> </li>
                     <li><a href='<?php echo $rejectLink; ?>'>Rejected (<?= $totalrejact; ?>)</a></li>
-                  <li class="drop_btn"><div class="dropdown hour_btnx">
-											<button class="btn btn-default dropdown-toggle" type="button"
-												data-toggle="dropdown">
-											job action	<span class="caret"></span>
-											</button>
-											<ul class="dropdown-menu">
-												<li><a href="#">View Job Posting</a></li>
-												<li><a href="#">Edit Job Posting</a></li>
-												<li><a href="#">Remove Job Posting</a></li>
+                  <li class="drop_btn">
+				  <div class="dropdown hour_btnx custom-application_drop_down">
+					<button  style="margin-left: -14px;" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+					job action	<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a href="#">View Job Posting</a></li>
+						<li><a href="#">Edit Job Posting</a></li>
+						<li><a href="#">Remove Job Posting</a></li>
 
-											</ul>
-										</div>
-                        &nbsp; </li>
+					</ul>
+					</div>
+					</li>
                 </ul>
             </div>
-                    <div style="padding:35px;"></div>
+            <div style="padding:35px;"></div>
 			<div class="col-md-12">
 				<?php 
 				if(!empty($acccept_jobList)) {
@@ -83,7 +138,7 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="row">
-									<div class="col-md-5" style="padding-left: 30px !important">
+									<div class="col-md-5" style="padding-left: 25px !important">
 									<div class="st_img">
 									  <img src="<?php echo base_url()?><?=$data->webuser_picture?>" width="90" height="68" />  
 									</div>
@@ -93,9 +148,9 @@
 									    	<?=$data->webuser_fname?> <?=$data->webuser_lname?>
 									</div> <br />
                                         <div class="aplicant_country">
-                                            <img
-											src="<?php echo base_url()?>assets/pin_marker.png" width="15" />
-										<?=$data->country_name?>
+                                            <i style="font-size: 15px;" class="fa fa-map-marker"></i> 
+											
+											<?=$data->country_name?>
                                         </div> 
 									</div>
 								</div>
@@ -103,8 +158,9 @@
 							</div>
 
 							<div class="col-md-4 text-center">
-								<div class="ratting_title">
-								 <b>   <?php echo $data->weekly_limit;?></b> hrs this week <br /> @ <b> <?php if($data->offer_bid_amount) {echo $data->offer_bid_amount;} else {echo $data->bid_amount;} ?></b>/hr = <b>$300</b>
+								<div class="custom_hire_job-title">
+								 <b><?php echo $data->weekly_limit;?></b> hrs this week <br /> @ <b> <?php if($data->offer_bid_amount) {echo $data->offer_bid_amount;} else {echo $data->bid_amount;} ?></b>/hr = <b>$300</b>
+								 <p style="margin:0 !important;">The conduct has been hold</p>
 								</div>
 
 								<hr>
@@ -141,32 +197,32 @@
 											</ul>
 										</div>
 									</div>
-									
-
 								</div>
-
-								<div class="row margin-top-2">
 									
-									</div>
-
-								</div>
 
 							</div>
-							<div class="row">
+
+							<div class="row margin-top-2"> </div>
+
+						</div>
+					
+						<div class="row">
 							<div class="col-md-4"></div>
-							<div class="col-md-8 margin-left-10">
+							<div style="margin-top: -10px;" class="col-md-8 margin-left-10">
 							 <div class="hire_job_details">
-							    <a href="<?php echo base_url() ?>jobs/hourly_client_view?fmJob=<?php echo base64_encode($data->job_id);?>&fuser=<?php echo base64_encode($data->fuser_id);?>"> Job Details</a>- <b><?=$data->hire_title?></b>
+							    <a href="<?php echo base_url() ?>jobs/hourly_client_view?fmJob=<?php echo base64_encode($data->job_id);?>&fuser=<?php echo base64_encode($data->fuser_id);?>"> Job Details </a> - <b> <?=$data->hire_title?></b>
 							 </div>
 				           </div>
 						</div>
-						</div>
+
+					</div>
+				</div>
 
 						
-					</div>
-
-
 				</div>
+
+
+			</div>
 				
 				<?php } else { ?>
 				
@@ -175,7 +231,7 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="row">
-									<div class="col-md-5" style="padding-left: 10px !important">
+									<div class="col-md-5" style="padding-left: 25px !important">
 										<div class="st_img">
 										    <img src="<?php echo base_url()?><?=$data->webuser_picture?>" width="90" height="68" />
 										</div>
@@ -185,9 +241,9 @@
 										    <?=$data->webuser_fname?> <?=$data->webuser_lname?> 
 										</div><br />
 										 <div class="aplicant_country">
-										     <img
-											src="<?php echo base_url()?>assets/pin_marker.png" width="15" />
-										<?=$data->country_name?>
+										    <i style="font-size: 15px;" class="fa fa-map-marker"></i>
+											
+											<?=$data->country_name?>
 										 </div>
 									</div>
 								</div>
@@ -195,9 +251,9 @@
 							</div>
 
 							<div class="col-md-4 text-center">
-								<div class="ratting_title">
-								    Paid <b> $<?=$data->fixedpay_amount?></b> of budget <b>$<?=$data->bid_amount?></b> <br />
-								<br />
+								<div class="custom_hire_job-title">
+								    Paid <b> $<?=$data->fixedpay_amount?></b> of budget <b>$<?=$data->bid_amount?></b>
+									<p style="margin:0 !important;">The conduct has been hold</p>
 
 								<hr>
 								</div>
@@ -250,9 +306,9 @@
 
 						<div class="row">
 							<div class="col-md-4"></div>
-							<div class="col-md-8 margin-left-10">
+							<div style="margin-top: -2px;" class="col-md-8 margin-left-10">
 							<div class="hire_job_details">
-							    <a href="<?php echo base_url() ?>jobs/fixed_client_view?fmJob=<?php echo base64_encode($data->job_id);?>&fuser=<?php echo base64_encode($data->fuser_id);?>">Job Details</a>-<b><?=$data->hire_title?></b>
+							    <a href="<?php echo base_url() ?>jobs/fixed_client_view?fmJob=<?php echo base64_encode($data->job_id);?>&fuser=<?php echo base64_encode($data->fuser_id);?>">Job Details </a> - <b> <?=$data->hire_title?></b>
 							</div>
 							</div>
 						</div>
@@ -368,64 +424,3 @@
 </div>
 </section> */ ?>
 
-
-<style>
-.candidate-list {
-	background: white;
-	margin-bottom: 20px;
-	margin-top: 40px;
-	border: 2px solid #ccc;
-    height: 172px;
-}
-.client-job-activity-current li, .last-element {
-	padding-top: 20px;
-	padding-bottom: 21px;
-}
-.drop_btn {
-	padding: 15px 60px 65px 40px;
-	background: white;
-	border: 2px solid #e0e0e0;
-	font-weight: 900;
-	font-size: 18px;
-}
-.drop_btn ul li a {
-	padding: 10px;
-	margin: 0px;
-	font-size: 15px;
-}
-.drop_btn ul li {
-	padding: 2px;
-	margin: 0px;
-} 
-.drop_btn ul li a{
-    border: none; 
-    border-right: none;
-    list-style: none;
-    }
-.hire_work_btn {
-	margin-left: 20px;
-}
-.hire_page_sms_btn {
-	margin-left: 50px;
-}
-.aplicant_name {
-	font-size: 16px;
-	font-family: "Calibri";
-	color: #1CA7DB;
-}
-.aplicant_country {
-	color: #494949;
-	font-size: 15px;
-	font-family: "Calibri";
-}
-.ratting_title {
-    font-family: "Calibri";   
-    }
-.hire_job_details a {
-	font-size: 16px;
-	color: #37A000;
-	font-weight: 800;
-	margin-top: 10px;
-	margin-left: 30px;
-}
-</style>

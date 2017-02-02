@@ -1,14 +1,78 @@
-
 <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/rating.css" />
 
 <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/jquery.rateyo.css"/>
 
-<section id="big_header"
-         style="margin-top: 40px; margin-bottom: 50px; height: auto;">
+<style>
+.message_lists{
+    max-height: 250px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.user_skills span {
+	background: #ccc none repeat scroll 0 0;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	color: #494949;
+	display: inline-block;
+	font-size: 12px;
+	margin-bottom: 4px;
+	padding: 1px 5px 1px 5px;
+	margin-right: 2px;
+}
+.hire_cover_letter span {
+	font-size: 15px;
+	font-weight: normal;
+}
+span.rating-badge {
+	background: #F77D0E  none repeat scroll 0 0;
+	border-radius: 2px;
+	color: #fff;
+	padding: 2px 4px 2px 5px;
+	font-size: 12px;
+}
+.hire_decline {
+	position: absolute;
+	top: -52px;
+	right: -55px;
+}
+.review_ratting {
+	margin-left: 49px;
+}
+.client-job-activity-current li, .last-element {
+	padding-top: 20px;
+	padding-bottom: 21px;
+}
+.drop_btn {
+	padding: 15px 60px 65px 40px;
+	background: white;
+	border: 2px solid #e0e0e0;
+	font-weight: 900;
+	font-size: 18px;
+}
+.drop_btn ul li a {
+	padding: 10px;
+	margin: 0px;
+	font-size: 15px;
+}
+.drop_btn ul li {
+	padding: 2px;
+	margin: 0px;
+} 
+.drop_btn ul li a{
+    border: none; 
+    border-right: none;
+    list-style: none;
+    }
+	
+body {
+    font-family: "calibri" !important;
+}
+</style>
+<section id="big_header" style="margin-top: 40px; margin-bottom: 65px; height: auto;">
 
     <div class="container">
      <div class="row"> 
-       <div class="main_job_titie">
+       <div style="margin-top: -8px;margin-bottom: -5px;" class="main_job_titie">
            <b><?php   echo ucfirst($jobDetails->job_type)." - ".ucfirst($jobDetails->title); ?><br/><br/></b>
        </div>
      </div>
@@ -36,18 +100,21 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
                      <li><a href='<?php echo $offerLink; ?>'>Offers (<?=$totalOffer;?>) </a>  </li>
                      <li><a href='<?php echo $hireLink; ?>'>Hires (<?=$hire;?>)</a> </li>
                      <li><a class="active-link" href='<?php echo $rejectLink; ?>'>Rejected (<?=$totalrejact;?>)</a></li>
-                     <li class="drop_btn"><div class="dropdown hour_btnx">
-											<button class="btn btn-default dropdown-toggle" type="button"
-												data-toggle="dropdown">
-											job action	<span class="caret"></span>
-											</button>
-											<ul class="dropdown-menu">
-												<li><a href="#">View Job Posting</a></li>
-												<li><a href="#">Edit Job Posting</a></li>
-												<li><a href="#">Remove Job Posting</a></li>
+                    
+					<li class="drop_btn">
+					 
+						<div class="dropdown hour_btnx custom-application_drop_down">
+							<button style="margin-left: -14px;" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+							job action	<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="#">View Job Posting</a></li>
+								<li><a href="#">Edit Job Posting</a></li>
+								<li><a href="#">Remove Job Posting</a></li>
 
-											</ul>
-										</div></li>
+							</ul>
+						</div>
+					</li>
                  </ul>
             </div>
             <div style="padding:40px;"></div>
@@ -109,7 +176,7 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
                     <div class="row">
                         <div class="col-md-12">
                            <div class="row margin-top-1">
-                                <div class="col-md-1 margin-left-1">
+                                <div style="margin-left: 5px;margin-right: 13px;" class="col-md-1">
                                    <div class="st_img">
                                         <?php
                                    
@@ -209,8 +276,9 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
                                         </div>
 
                                         <div class="col-md-3 text-right">
-                                            <img src="<?php echo base_url() ?>assets/pin_marker.png"
-                                                 width="16" /><b> <?php
+												<i style="font-size: 15px;" class="fa fa-map-marker"></i> 
+												 
+												 <b> <?php
                                                  $this->db->where('country_id', $value->webuser_country);
                                                  $q = $this->db->get('country');
                                                  if ($q->num_rows() > 0)
@@ -372,69 +440,3 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
     }
   autoloading();
 </script>
-<style>
-.message_lists{
-    max-height: 250px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-.user_skills span {
-	background: #ccc none repeat scroll 0 0;
-	border: 1px solid #ccc;
-	border-radius: 3px;
-	color: #494949;
-	display: inline-block;
-	font-size: 12px;
-	margin-bottom: 4px;
-	padding: 1px 5px 1px 5px;
-	margin-right: 2px;
-}
-.hire_cover_letter span {
-	font-size: 15px;
-	font-weight: normal;
-}
-span.rating-badge {
-	background: #F77D0E  none repeat scroll 0 0;
-	border-radius: 2px;
-	color: #fff;
-	padding: 2px 4px 2px 5px;
-	font-size: 12px;
-}
-.hire_decline {
-	position: absolute;
-	top: -52px;
-	right: -55px;
-}
-.review_ratting {
-	margin-left: 49px;
-}
-.client-job-activity-current li, .last-element {
-	padding-top: 20px;
-	padding-bottom: 21px;
-}
-.drop_btn {
-	padding: 15px 60px 65px 40px;
-	background: white;
-	border: 2px solid #e0e0e0;
-	font-weight: 900;
-	font-size: 18px;
-}
-.drop_btn ul li a {
-	padding: 10px;
-	margin: 0px;
-	font-size: 15px;
-}
-.drop_btn ul li {
-	padding: 2px;
-	margin: 0px;
-} 
-.drop_btn ul li a{
-    border: none; 
-    border-right: none;
-    list-style: none;
-    } 
-</style>
-
-
-
- 

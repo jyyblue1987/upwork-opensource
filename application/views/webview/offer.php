@@ -1,14 +1,85 @@
-
 <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/rating.css" />
 
 <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/jquery.rateyo.css"/>
 
-<section id="big_header"
-         style="margin-top: 40px; margin-bottom: 50px; height: auto;">
+<style>
+.message_lists{
+    max-height: 250px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.client-job-activity-current li, .last-element {
+	padding-top: 21px;
+	padding-bottom: 20px;
+}
+.drop_btn {
+	padding: 15px 60px 65px 40px;
+	background: white;
+	border: 2px solid #e0e0e0;
+	font-weight: 900;
+	font-size: 18px;
+}
+.drop_btn ul li a {
+	padding: 10px;
+	margin: 0px;
+	font-size: 15px;
+}
+.drop_btn ul li {
+	padding: 2px;
+	margin: 0px;
+} 
+.drop_btn ul li a{
+    border: none; 
+    border-right: none;
+    list-style: none;
+    }
+.offer_job_details a {
+font-size: 17px;
+color: #37A000;
+font-weight: 800;
+margin-top: 10px;
+margin-left: -24px;
+}
+.offer_st_img img {
+    border-radius:50%;
+    height: 75px;
+    width: 75px;
+    margin-left: 20px;
+    }
+.cancel_offer_btn {
+	margin-left: 9px;
+}
+.offer_sms_btn {
+	margin-left: 40px;
+}
+.view_pro_btn a{
+    margin-left: 20px;
+    font-weight: 700;
+    font-size: 17px;
+    }
+.aplicant_name {
+        font-size: 16px;
+        font-family: "Calibri";
+        color: #1CA7DB
+}
+.aplicant_country {
+    color: #494949;
+    font-size: 15px;
+    font-family: "Calibri";
+    }
+	.custom-application_drop_down ul {
+	left: -95px;
+}
+body {
+        font-family: "Calibri" !important;
+        src: url(./fonts/Calibri.ttf);
+    }
+</style>
+<section id="big_header" style="margin-top: 40px; margin-bottom: 65px; height: auto;">
 
     <div class="container">
     <div class="row"> 
-      <div class="main_job_titie">
+      <div style="margin-top: -6px;margin-bottom: -30px;" class="main_job_titie">
        <?php echo ucfirst($jobDetails->job_type)." - ".ucfirst($jobDetails->title); ?><br/><br/><br/>   
       </div>
       </div>
@@ -37,19 +108,18 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
                      <li><a class="active-link" href='<?php echo $offerLink; ?>'>Offers (<?=$totalOffer;?>) </a>  </li>
                      <li><a href='<?php echo $hireLink; ?>'>Hires (<?=$hire;?>)</a> </li>
                      <li><a href='<?php echo $rejectLink; ?>'>Rejected (<?=$totalrejact;?>)</a></li>
-                   <li class="drop_btn"><div class="dropdown hour_btnx">
-											<button class="btn btn-default dropdown-toggle" type="button"
-												data-toggle="dropdown">
-											job action	<span class="caret"></span>
-											</button>
-											<ul class="dropdown-menu">
-												<li><a href="#">View Job Posting</a></li>
-												<li><a href="#">Edit Job Posting</a></li>
-												<li><a href="#">Remove Job Posting</a></li>
-
-											</ul>
-										</div>
-                        &nbsp; </li>
+                   <li class="drop_btn">
+				   <div class="dropdown hour_btnx custom-application_drop_down">
+						<button style="margin-left: -14px;" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+						job action	<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a href="#">View Job Posting</a></li>
+							<li><a href="#">Edit Job Posting</a></li>
+							<li><a href="#">Remove Job Posting</a></li>
+						</ul>
+						</div>
+						</li>
                                                                                         
                  </ul>
             </div>
@@ -63,16 +133,17 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
 					<div class="col-md-4">
 						<div class="row">
 							<div class="col-md-5">
-								<div class="offer_st_img">
+								<div style="margin-bottom: 17px;" class="offer_st_img">
 								    <img src="<?php echo base_url().$message->webuser_picture; ?>" width="90" height="68">
 								</div>
 							</div>
 							<div class="col-md-7 nopadding" style="padding-left: 20px !important">
-								<div class="aplicant_name">
+								<div style="margin-bottom: 10px;" class="aplicant_name">
 								    <?=$message->webuser_fname?> <?=$message->webuser_lname?>
-								</div> <br> 
-								<div class="aplicant_country">
-								<img src="<?php echo base_url();?>assets/pin_marker.png" width="15">    <?=$message->country_name?>
+								</div>
+								<div>
+								<i style="font-size: 15px;" class="fa fa-map-marker"></i> 
+								<b><?=$message->country_name?></b>
 								</div>
 							</div>
 						</div>
@@ -118,12 +189,6 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
 				</div>
 
 				<div class="row">
-					<div class="col-md-10 margin-left-10">
-						<hr>
-					</div>
-				</div>
-
-				<div class="row">
 					<div class="col-md-2">
 					  <div class="view_pro_btn">
 					      <a href="<?php echo base_url()."interview?user_id=".base64_encode($message->webuser_id)."&job_id=".base64_encode($message->job_id)."&bid_id=".base64_encode($message->bid_id);?>">View Profile</a>
@@ -139,7 +204,7 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
 						}else{
 							$job_title = $message->title;
 						}?>
-						<a href="<?php echo base_url();?>canceloffer?bid_id=<?=base64_encode($message->bid_id)?>&job_id=<?=base64_encode($message->job_id)?>">Job Details</a>-<b><span><?=$job_title;?></span></b>
+						<a href="<?php echo base_url();?>canceloffer?bid_id=<?=base64_encode($message->bid_id)?>&job_id=<?=base64_encode($message->job_id)?>">Job Details </a>- <b><span style="font-family:'calibri';font-size:17px;"><?=$job_title;?></span></b>
 						</div>
 					</div>
 				</div>
@@ -249,83 +314,3 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
     }
   autoloading();
 </script>
-<style>
-body {
-        font-family: "Calibri";
-        src: url(./fonts/Calibri.ttf);
-    }
-.message_lists{
-    max-height: 250px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-.client-job-activity-current li, .last-element {
-	padding-top: 20px;
-	padding-bottom: 21px;
-}
-.drop_btn {
-	padding: 15px 60px 65px 40px;
-	background: white;
-	border: 2px solid #e0e0e0;
-	font-weight: 900;
-	font-size: 18px;
-}
-.drop_btn ul li a {
-	padding: 10px;
-	margin: 0px;
-	font-size: 15px;
-}
-.drop_btn ul li {
-	padding: 2px;
-	margin: 0px;
-} 
-.drop_btn ul li a{
-    border: none; 
-    border-right: none;
-    list-style: none;
-    }
-.candidate-list {
-	background: white;
-	margin-bottom: 20px;
-	margin-top: 40px;
-	border: 2px solid #ccc;
-}
-.offer_job_details a {
-	font-size: 16px;
-	color: #37A000;
-	font-weight: 800;
-	margin-top: 10px;
-    margin-left: -24px;
-}
-.offer_st_img img {
-    border-radius:50%;
-    height: 75px;
-    width: 75px;
-    margin-left: 20px;
-    }
-.cancel_offer_btn {
-	margin-left: 9px;
-}
-.offer_sms_btn {
-	margin-left: 40px;
-}
-.view_pro_btn a{
-    margin-left: 20px;
-    font-weight: 700;
-    font-size: 17px;
-    }
-.aplicant_name {
-        font-size: 16px;
-        font-family: "Calibri";
-        color: #1CA7DB
-}
-.aplicant_country {
-    color: #494949;
-    font-size: 15px;
-    font-family: "Calibri";
-    }
-</style>
-
-
-
- 
