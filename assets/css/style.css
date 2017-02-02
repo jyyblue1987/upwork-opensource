@@ -995,8 +995,10 @@ border-radius:5px;
 	font-size: 17px;
 }
 .candidate-list {
-    background: white;
-    margin-top: 40px;
+background: white;
+border: 1px solid #ccc;
+margin-top: 40px;
+margin-bottom: -25px;
 }
 .candidate-list:hover {
     background:  #f4f7f8;
@@ -1202,9 +1204,11 @@ border-radius:5px;
     width: 151px;
 }
 .main_job_titie {
-        font-size: 16px;
-        font-weight: bold;
-        color: #1CA7DB;
+font-size: 18px;
+font-weight: bold;
+color: #1CA7DB;
+margin-bottom: -19px;
+margin-left: 2px;
     }
 .progress-bar {
     background-color: #1CA7DB !important;
@@ -1869,7 +1873,7 @@ a {
     margin-right: 20px;
 }
 .my_staff .hirefeebar{
-   width: 742px !important;
+   width: 737px !important;
    margin-left: -17px;
    height:40px !important;
    padding: 8px;
@@ -1878,12 +1882,12 @@ a {
 .my_staff .freelancer-job{
     border: 1px solid #dedede;
     padding: 10px;
-    width: 745px;
+    width: 739px;
     height: 155px;
     margin-left: -4px;
 }
 .my_staff .empty_freelancer_box{
-    width: 745px;
+    width: 739px;
     height: 385px;
     border-radius: none;
     margin-top:0 !important;
@@ -3084,7 +3088,7 @@ margin-bottom: -3px;
 }
 .client-job-activity-current li a {
 	text-decoration: none;
-	padding: 21px 27px 20px 40px;
+	padding: 21px 35.1px 20px 35.1px;
 	background: white;
 	border: 2px solid #e0e0e0;
 	border-right: none;
@@ -3247,7 +3251,7 @@ height: 40px !important;
 padding: 8px;
 margin-bottom: 15px;}
 .active_contracts .white-box{background-color: white;
-border-radius: 4px;
+border-radius: 4px;width: 739px;
 padding: 10px;}
 .active_contracts .ac_staff-navbar{}
 .active_contracts .ac_freelancer-navbar{padding-left: 13px !important;}
@@ -3273,6 +3277,8 @@ top: 0;}
 
 
 .ac_white_box .hr_massage_butt .msg_btnxxx{margin-left: -7px;}
+.ac_white_box .hr_massage_butt .msg_btnxxx input:hover{border:1px solid transparent;}
+.ac_white_box .hr_work_diary input:hover{border:1px solid transparent;}
 .ac_white_box .hr_massage_butt .msg_btnxxx .form-btn{
 border: 1px solid #ced0d4;
 border-radius: 2px;
@@ -3288,13 +3294,16 @@ min-width: 70px;}
 .hr_drop_butt .dropdown{width: 25px;position: relative;}
 .hr_drop_butt .dropdown .btn{margin-left: -17px;}
 .hr_drop_butt .dropdown .btn .caret{margin-left: 0;}
+.hr_drop_butt ul.dropdown-menu {
+	left: -156px;
+}
 /* active contract end*/
 
 
 /* ended contract start*/
 .ec_white_box{border: 1px solid #dedede;
 padding: 10px;
-width: 745px;
+width: 739px;
 height: 155px;
 margin-left: -4px;}
 .ec_navbar{padding-left: 13px !important;}
@@ -3333,6 +3342,11 @@ min-width: 70px;}
 .ec_drop_butt .dropdown{width: 25px;position: relative;}
 .ec_drop_butt .dropdown .btn{margin-left: -17px;}
 .ec_drop_butt .dropdown .btn .caret{margin-left: 0;}
+.ec_massage_butt .pastsms input.form-btn:hover{border:1px solid transparent;}
+.ec_rehire_butt input:hover{border:1px solid transparent;}
+.ec_drop_butt ul.dropdown-menu {
+	left: -156px;
+}
 /*ended contract end*/
 
 
@@ -3351,7 +3365,7 @@ top: 0;}
 .ms_white_box2{margin-top: 13px !important;}
 .my_staff .hirefeebar{margin-bottom: 14px !important;}
 .ms_massage_butt{position: absolute;
-right: 155px;
+right: 157px;
 top: 0;}
 .ms_pay_butt{position: absolute;
 right: 55px;
@@ -3360,8 +3374,9 @@ top: 0;}
 right: 15px;
 top: 0;}
 .ms_hr_massage_butt{position: absolute;
-right: 131px;
+right: 133px;
 top: 0;}
+.ms_hr_massage_butt input:hover{border:1px solid transparent;}
 .ms_hr_work_diary{position: absolute;
 right: 55px;
 top: 0;}
@@ -3387,6 +3402,7 @@ border-radius: 2px;
 font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 font-size: 12px;
 min-width: 70px;}
+.ms_hr_work_diary .form-btn:hover{border:1px solid transparent;}
 .ms_hr_drop_butt .dropdown{width: 25px;position: relative;}
 .ms_hr_drop_butt .dropdown .btn{margin-left: -17px;}
 .ms_hr_drop_butt .dropdown .btn .caret{margin-left: 0;}
@@ -3395,13 +3411,17 @@ min-width: 70px;}
 /* past haires start*/
 .ph_navbar{padding-left: 13px !important;}
 .ph_navbar ul li{width:190px;}
-.ph_white_box{margin-top: -6px;}
+.ph_white_box{margin-top: -6px;
+border: 1px solid #ccc;
+width: 739px;}
 .ph_massage_butt{position: absolute;
 right: 120px;
 top: 0;}
-.ph_pay_butt{position: absolute;
+.ph_rehire_butt{position: absolute;
 right: 42px;
 top: 0;}
+.ph_massage_butt input:hover{border:1px solid transparent;}
+.ph_rehire_butt input:hover{border:1px solid transparent;}
 .ph_drop_butt{position: absolute;
 right: -8px;
 top: 0;}
@@ -3428,16 +3448,20 @@ min-width: 70px;}
 .ph_drop_butt .dropdown{width: 25px;position: relative;}
 .ph_drop_butt .dropdown .btn{margin-left: -17px;}
 .ph_drop_butt .dropdown .btn .caret{margin-left: 0;}
+.ph_drop_butt ul.dropdown-menu{left: -156px;}
 /*past haires end*/
 
 
 /* offer send tart*/
 .os_navbar{padding-left: 13px !important;}
 .os_navbar ul li{width:190px;}
-.os_white_box{margin-top: -6px;}
+.os_white_box{margin-top: -6px;
+border: 1px solid #ccc;
+width: 739px;}
 .os_massage_butt{position: absolute;
 right: 145px;
 top: 0;}
+.os_massage_butt input:hover{border:1px solid transparent;}
 .os_cancel_butt{position: absolute;
 right: 42px;
 top: 0;}
@@ -3467,13 +3491,16 @@ min-width: 70px;}
 .os_drop_butt .dropdown{width: 25px;position: relative;}
 .os_drop_butt .dropdown .btn{margin-left: -17px;}
 .os_drop_butt .dropdown .btn .caret{margin-left: 0;}
+.os_drop_butt ul.dropdown-menu{left: -156px;}
 /*offer send end*/
 
 
 /* win job send start*/
 .wj_navbar{padding-left: 13px !important;}
 .wj_navbar ul li{width:190px;}
-.wj_white_box{margin-top: -6px;}
+.wj_white_box{margin-top: -6px;
+border: 1px solid #ccc;
+width: 739px;}
 .wj_massage_butt{position: absolute;
 right: 133px;
 top: 0;}
@@ -3487,6 +3514,7 @@ top: 0;}
 right: -8px;
 top: 0;}
 .wj_custom_body{margin-left: -15px;}
+.wj_drop_butt ul.dropdown-menu{left: -156px;}
 /*win job send end*/
 
 
@@ -3494,7 +3522,9 @@ top: 0;}
 /* end job start*/
 .ej_navbar{padding-left: 13px !important;}
 .ej_navbar ul li{width:190px;}
-.ej_white_box{margin-top: -6px;}
+.ej_white_box{margin-top: -6px;
+border: 1px solid #ccc;
+width: 739px;}
 .ej_massage_butt{position: absolute;
 right: 42px;
 top: 0;}
@@ -3502,6 +3532,7 @@ top: 0;}
 right: -8px;
 top: 0;}
 .ej_custom_body{margin-left: -15px;}
+.ej_drop_butt ul.dropdown-menu{left: -156px;}
 /*end job end*/
 
 .date_head span {
@@ -4128,3 +4159,15 @@ border-radius: 4px;}
 }
 .custom_client_icon{top:3px;}
 .my-btn{border:1px solid transparent;}
+.custom_empty_freelancer_box{width: 739px;
+height: 385px;
+margin-left: -3px;
+border: 1px solid #E0E0E0;
+margin-top: 15px !important;}
+
+.custom-application_drop_down{}
+.custom-application_drop_down ul{left: -101px;}
+.custom-application_drop_down ul li{width:100%;}
+.custom-application_drop_down ul li a{}
+.custom-application_drop_down ul li a:hover{background:#E4E4E4;color:#333;}
+.custom_hire_job-title{font-family:calibri;font-size:17px;}
