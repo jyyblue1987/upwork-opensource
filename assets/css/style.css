@@ -2490,15 +2490,16 @@ header {
 }
 
 #top-bottom{
-	float:right;
-	background:#1fa7da;
-	border:#1fa7da;
-	color:#fff;
-	font-family: 'Open Sans';
-	padding:8px 8px;
-	border-radius:3px;
-	font-size:14px;
-	font-weight: 600;
+float: right;
+background: #1fa7da;
+border: #1fa7da;
+color: #fff;
+font-family: 'calibri';
+padding: 7px 8px;
+border-radius: 3px;
+font-size: 14px;
+font-weight: bold;
+margin-left: 29px;
 }
 .imgaes img{
 	width:100%;
@@ -2521,14 +2522,16 @@ header {
 	background:#f0f0f0;
 }
 .imgaes p{
-	padding-top:5px;
-	font-family: 'Open Sans';
-	color:#ff9100;
-	font-size:11px;
+padding-top: 5px;
+font-family: 'Open Sans';
+color: #ff9100;
+font-size: 11px;
+margin-bottom: 3px;
 }
 .imgdivison{
-	border:2px solid #e6e7e7;
-	padding:3px;
+border: 1px solid #ccc;
+padding: 3px;
+margin-bottom: 15px;
 }
 .imgaes h4 span{
 		font-family: 'Open Sans';
@@ -2573,9 +2576,17 @@ header {
 	padding-left:7px;
 }
 .work_dairy #wrapper{
-	border-bottom:1px solid #e6e7e7;
-	border-left:1px solid #e6e7e7;
-	border-right:1px solid #e6e7e7;
+border-bottom: 1px solid #e6e7e7;
+border-left: 1px solid #e6e7e7;
+border-right: 1px solid #e6e7e7;
+background: #fff;
+border: 1px solid #ccc;
+margin: 40px 15px;
+border-radius: 4px;
+overflow: hidden;
+}
+.work_dairy .mian-head{
+border-bottom: 1px solid #ccc;
 }
 
 #manual_time header{
@@ -2987,12 +2998,13 @@ ul > li {
 	
 }
 .oBigDataNavBarContainer > li.oDataNavBarTab > a, .oBigDataNavBarContainer > li.oDataNavBarTab > .oBtnTertiary, .oBigDataNavBarContainer > li.oDataNavBarTab > .oBtnCancel, .oBigDataNavBarContainer > li.oDataNavBarTab > .oBtnPopup, .oThumbList .oBigDataNavBarContainer > li.oDataNavBarTab > figcaption, .oBigDataNavBarContainer > li.oDataNavBarTab > .oMoreSmall {
-    color: #494949;
-    display: inline-block;
-    vertical-align: top;
-    width: 184px;
-    height: 110px;
-    padding: 1.6em 1em 0;
+color: #494949;
+display: inline-block;
+vertical-align: top;
+width: 184px;
+height: 55px;
+padding: 0;
+padding-top: 5px;
 }
 
 .oBigDataNavBarContainer > li.oDataNavBarTab {
@@ -4171,3 +4183,51 @@ margin-top: 15px !important;}
 .custom-application_drop_down ul li a{}
 .custom-application_drop_down ul li a:hover{background:#E4E4E4;color:#333;}
 .custom_hire_job-title{font-family:calibri;font-size:17px;}
+
+ul.custom_freelancer_balance_tebel{border: 2px solid #ccc;
+margin: 0px 180px;
+text-align: center;
+border-radius: 4px;}
+ul.custom_freelancer_balance_tebel> li> a{top:0 !important;border:0 !important;}
+
+.custom_filter_bar{margin-bottom: -4px;}
+.custom_filter_bar form{}
+.custom_filter_bar form .cal{float: left;}
+.custom_filter_bar form input{width: 238px;
+height: 25px;
+border: 1px solid #ccc;
+border-radius: 2px;
+margin-left: 0px;}
+.custom_filter_bar form select{
+height: 25px;
+margin-top: 24px;
+border: 1px solid #ccc;
+border-radius: 2px;}
+.custom_filter_bar form button{border:1px solid #ccc;border-radius: 2px;}
+
+.remove-a{color: #494949;
+display: inline-block;
+vertical-align: top;
+width: 184px;
+padding: 0;
+padding-top: 5px;
+margin-bottom: 3px;}
+.custom_table_head thead tr th{padding-bottom: 7px;padding-left:9px;}
+.custom_table_head{margin-bottom: 25px;}
+
+.custom_workdairy_freelancer select, .custom_workdairy_freelancer input{width: 238px;
+font-family: calibri;}
+
+.work_dairy .imgaes .workdairy_freelancer_last_border:last-child{border: 0 !important;
+margin: 0 !important;}
+.work_diary_header{padding-left: 16px;
+font-family: 'calibri';
+padding-right: 30px;
+margin-bottom: -3px;}
+
+.custom_time{margin-top: 0 !important;
+padding-bottom: 40px !important;
+padding-right: 29px;
+font-family: calibri !important;
+margin-left: 1px;
+padding-left: 14px !important;}
