@@ -270,9 +270,9 @@ $totalApplication = $this->db->count_all_results();
                                                    foreach($job_done as $work){
                                                        $total_work +=$work->total_hour;
                                                    }
-                                                   echo $total_work."  ";
+                                                   echo $total_work."  hrs";
                                                }else{
-                                                   echo "0.00 Hrs";
+                                                   echo "0.00 hrs";
                                                }
                                         ?></b> 
                                         

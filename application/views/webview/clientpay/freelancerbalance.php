@@ -1,16 +1,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css">
 
+<style type="text/css">
+.bold_text {
+    color: #000;
+}
+</style>
 
-<section id="speciliser-section" class="speciliser-area">
-    <div class="container">
+<section style="background: #fff;border-radius: 4px;margin: 40px 0px;padding: 30px;border: 1px solid #ccc;padding-top: 25px;" id="speciliser-section" class="speciliser-area">
+    <div class="">
         <div class="row">
-            <ul class="oBigDataNavBarContainer">
-                <li class="oDataNavBarTab current">
-                    <a href="#">
-                        <span class="oDataNavTitle">
+            <ul class="oBigDataNavBarContainer custom_freelancer_balance_tebel">
+                <li class="oDataNavBarTab">
+                    <p class="remove-a">
+                        <b class="oDataNavTitle">
                           Work In Progress
-                        </span>
+                        </b> 
+						<br />
                         <?php
                         $progressAmount = 0.00;
                         foreach($job_progress as $job){
@@ -33,10 +39,10 @@
                         }
                        ?>
                         
-                        <span class="oDataNavData "> $<?=$progressAmount;?> </span>
-                    </a>
+                        <span class="bold_text "> $<?=$progressAmount;?> </span>
+                    </p>
                 </li>
-                <li class="oDataNavBarTab ">
+                <li style="border-left: 2px solid #ccc;border-right: 2px solid #ccc;" class="oDataNavBarTab">
                     <?php
                         $pendingAmount_hourly = 0.00;
                         foreach($job_pending as $job){
@@ -76,11 +82,11 @@
                         
                         
                        ?>
-                    <a href="#">
+                    <p class="remove-a">
                         
-                        <span class="oDataNavTitle"> Pending </span><br>
-                        <span class="oDataNavDat">$<?=$progressAmount;?> </span>
-                    </a>
+                        <b class="oDataNavTitle"> Pending </b><br>
+                        <span class="bold_text">$<?=$progressAmount;?> </span>
+                    </p>
                 </li>
                 <li class="oDataNavBarTab ">
                     <?php
@@ -126,9 +132,9 @@
                         }
                         $available = $available -$withdraw;
                        ?>
-                    <a href="#">
-                        <span class="oDataNavTitle">Available </span><br>
-                        <span class="oDataNavData "> <?php echo "$".$available; ?> </span>
+                    <a href="http://www.winjob.com/withdraw">
+                        <b class="oDataNavTitle">Available </b><br>
+                        <span class="bold_text "> <?php echo "$".$available; ?> </span>
                     </a>
                 </li>
 
@@ -137,42 +143,42 @@
 
             <div class="cols">
                 <div class="col col2of3">
-                    <h1 id="pageTitle" class="oHInline">Transaction History</h1>
+                    <h1 style="font-size: 22px;font-family: calibri;margin-top: 25px;color: #494949;margin-bottom: 9px;" id="pageTitle" class="oHInline">Transaction History</h1>
                 </div>
             </div>
             <!--end transection history -->
 
-           <div id="accountingHistoryFilter" class="oFilterBar" data-url="https://www.upwork.com/earnings-history/7128977">
+           <div id="accountingHistoryFilter" class="oFilterBar custom_filter_bar" data-url="https://www.upwork.com/earnings-history/7128977">
                 <form action="" method="get" id="searchpaymentfilter">
-                    
-                <div class="oRight nowrap">
-                    <a id="zipLink" class="oDownloadPDFLink" href="">Get PDF</a>
-                    <a id="csvLink" class="oDownloadCSVLink" href="">Get CSV</a>
-                </div>
                 
-                <div class="jsRange ib inlineBlock">
-                    <label class="oLabelInline oLabelDatePicker" for="from1">
-                        From
-                         <?php
-                        if(isset($_GET['startDate']) && $_GET['startDate']!=""){
-                           $startDate = date('F j, Y',strtotime($_GET['startDate']));?>
-                            <input type="text" id="datepicker" class="form-control datepicker"  name="startDate" value="<?=$startDate;?>"  > 
-                      <?php  }else{ ?>
-                         <input type="text" id="datepicker" class="form-control datepicker"  name="startDate" placeholder="<?=date('F j, Y');?>" >
-                         <?php } ?> 
-                    </label>
-                    <label class="oLabelInline oLabelDatePicker" for="to1">To
-                   <?php
-                        if(isset($_GET['endDate']) && $_GET['endDate']!=""){
-                           $endDate = date('F j, Y',strtotime($_GET['endDate']));?>
-                              <input id="datepickerend" class="form-control datepicker"  name="endDate" value="<?=$endDate;?>"  > 
-                      <?php  }else{ ?>
-                         <input type="text" id="datepickerend" class="form-control datepicker"  name="endDate" placeholder="<?=date('F j, Y');?>" >
-                         <?php } ?> 
-                    </label>
+                <div style="float: left;" class="jsRange ib inlineBlock">
+                    <div class="cal">
+						<label class="oLabelInline oLabelDatePicker" for="from1">From</label>
+						
+						<?php
+						if(isset($_GET['startDate']) && $_GET['startDate']!=""){
+						   $startDate = date('F j, Y',strtotime($_GET['startDate']));?>
+							<input type="text" id="datepicker" class="form-control datepicker"  name="startDate" value="<?=$startDate;?>"  > 
+						<?php  }else{ ?>
+						 <input style="margin-right: 18px;" type="text" id="datepicker" class="form-control datepicker"  name="startDate" placeholder="<?=date('F j, Y');?>" >
+						<?php } ?>
+					</div>
+						 
+					<div class="cal">
+                    <label class="oLabelInline oLabelDatePicker" for="to1">To </label>
+					<?php
+					if(isset($_GET['endDate']) && $_GET['endDate']!=""){
+					   $endDate = date('F j, Y',strtotime($_GET['endDate']));?>
+						  <input id="datepickerend" class="form-control datepicker"  name="endDate" value="<?=$endDate;?>"  > 
+					<?php  }else{ ?>
+					 <input style="margin-right: 15px;" type="text" id="datepickerend" class="form-control datepicker"  name="endDate" placeholder="<?=date('F j, Y');?>" >
+					<?php } ?>
+					</div>
+					
                 </div>
+				
+				
                 <div class="ib" id="jsFilterSelectArea">
-
                     <select name="trxTypes" id="trxTypes">
                         <option value="ALL" label="All Transactions" selected="selected">All Transactions</option>
                         <option value="DEBIT" label="Debits">Debits</option>
@@ -181,7 +187,7 @@
                         <option value="FIXED" label="Fixed-price">Fixed Price</option>
                         <option value="WITHDRAW" label="Withdrawals">Withdrawals</option>
                     </select>
-                    <select name="employers" id="employers">
+                    <select style="margin-right: 15px;" name="employers" id="employers">
                         <option value="">All Clients</option>
                         <?php if(!empty($list_users)){
                             foreach ($list_users as $user){
@@ -202,15 +208,14 @@
                 </form>
             </div>
 
-            <table class="oTable" id="trxTable">
+            <table class="oTable custom_table_head" id="trxTable">
                 <thead>
                     <tr>
                         <th>Date</th>
                         <th>Type</th>
                         <th>Description</th>
                         <th>Client</th>
-                        <th class="txtRight nowrap">Amount</th>
-                        <th class="txtRight">Ref ID</th>
+                        <th style="padding-right: 9px;" class="txtRight nowrap">Amount</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -222,7 +227,7 @@
                       
                     
                     <tr class="">
-                        <td class="nowrap"><?=date('l, F j, Y',strtotime($payment->payment_create));?></td>
+                        <td class="nowrap"><?=date('D, M j, Y',strtotime($payment->payment_create));?></td>
                         <?php  if($payment->job_type  =="fixed"){?>
                             <td>Fixed Price</td>
                              <?php if($payment->hire_end_id  !=0){
@@ -325,7 +330,7 @@
 				  {
 					  ?>
 					  </tr>
-					 <td class="nowrap"><?=date('l, F j, Y',strtotime($each_hdata['tran_date']));?></td> 
+					 <td class="nowrap"><?=date('D, M j, Y',strtotime($each_hdata['tran_date']));?></td> 
 					  <td>Hourly Price</td>
 					  <td>Invoice for Contract ID: <?php echo $each_hdata['con_id']." - ".$each_hdata['des']."/hr"; ?></td>
 					  <td><?php echo $each_hdata['fname']."  ". $each_hdata['lname'];?> </td>
@@ -343,19 +348,17 @@
                 ?></tbody>
             </table>
             <div class="cols">
-                <table class="col1of3 oTableLite oRight txtRight">
+                <table style="width: 266px;height: 201px;" class="col1of3 oTableLite oRight txtRight">
                     <caption>
-                        <strong>Statement Period</strong>
-                        <p> <?php
+                        <strong style="padding-left: 153px;">Statement Period</strong>
+                        <p style="margin-bottom: 10px;float: right;"> <?php
                           if(!empty($list_payments)){
                             $myfirst_elementt = reset($list_payments);?>
                           <?php  $myLastElement = end($list_payments); ?> 
-                              <?=date('F j, Y',strtotime($myfirst_elementt->payment_create));?>- <?=date('F j, Y',strtotime($myLastElement->payment_create));?>
-                              
-                        
+                              <?=date('M j, Y',strtotime($myfirst_elementt->payment_create));?>- <?=date('M j, Y',strtotime($myLastElement->payment_create));?>
                         <?php } ?></p>
                     </caption>
-                    <tbody>
+                    <tbody style="float: right;position: absolute;right: 205px;">
                         <tr>
                             <td><strong>Beginning Balance</strong>
                             </td>

@@ -60,8 +60,8 @@
 					</div>
 					
 					<div style="margin-left: 20px;margin-bottom: 30px;" class="col-md-5">
-                                            <input style="float: left;" type="button" class="btn-primary big_mass_active transparent-btn big_mass_button" value="Add Account" />
-                                            <input style="float: left;" type="button" class="btn-primary transparent-btn big_mass_button" value="Cancel"  data-dismiss="modal"/>
+						<input style="float: left;" type="button" class="btn-primary big_mass_active transparent-btn big_mass_button add-account" value="Add Account" />
+						<input style="float: left;" type="button" class="btn-primary transparent-btn big_mass_button" value="Cancel"  data-dismiss="modal"/>
 					</div>
 
 				</div>
