@@ -13,13 +13,13 @@ $ujob_id = $_GET['fmJob'];
 		<div class="row work_dairy">
 			<div id="wrapper">
 				<div class="mian-head">
-					<header style="text-transform: capitalize;">Work diary: <?=$job_details->title;?>
+					<header class="work_diary_header" style="text-transform: capitalize;">Work diary: <?=$job_details->title;?>
 					</header>
 					<div class="row">
 						<div class="col-md-12 col-sm-12">
 							<div class="main-headtwo">
-								<form action="" method="get" id="searchfilter">
-									<div class="col-md-2 col-sm-2">
+								<form class="custom_workdairy_freelancer" style="margin-bottom: 12px;" action="" method="get" id="searchfilter">
+									<div style="margin-bottom: 15px;width: 238px;margin-right: 20px;" class="col-md-3 col-sm-3">
 										<input type="hidden" id="buser" class="form-control"  name="buser" value="<?=base64_encode($job_details->offerduser_id);?>" >
 										<select class="form-control" id="jobchanges" name="fmJob">
 											<?php foreach($job_list as $list){
@@ -44,8 +44,8 @@ $ujob_id = $_GET['fmJob'];
 								<!--<div class="col-md-3 col-sm-3">
 									<h3><?php  echo date('l, F j, Y '); ?></h3>
 								</div>-->
-								<div class="col-md-3 col-sm-3">
-									<h3>
+								<div style="margin-left: -73px;" class="col-md-3 col-sm-3">
+									<h3 style="float: right;font-family: calobri;font-weight: bold;margin-top: 2px;">
 										<span>Total active time:</span>
 										
 										<?php $total_work = 0;
@@ -59,7 +59,7 @@ $ujob_id = $_GET['fmJob'];
 										<span class="show_totlaworktime"><?=$total_work;?></span>
 									</h3>
 								</div>
-								<div class="col-md-3 col-sm-3">
+								<div style="margin-left: 46px;" class="col-md-3 col-sm-3">
 									<?php if($ststus->isactive==0){ ?>
 										<button data-toggle="modal"  id="top-bottom">Request Manual Hour Hold</button>
 									<?php }else{ ?>
@@ -73,7 +73,7 @@ $ujob_id = $_GET['fmJob'];
 					
 				</div>
 				<div style="clear:both"></div>
-				<div class="imgaes">
+				<div style="min-height: 281px;" class="imgaes">
 					<div class="container">
 						<div class="row">
 							<?php
@@ -93,9 +93,9 @@ $ujob_id = $_GET['fmJob'];
 								
 							
 								<div class="col-md-1 col-sm-1">
-											<h4><?=$currentHour;?></h4>
+											<h4 class="custom_time"><?=$currentHour;?></h4>
 									   </div>
-								<div class="col-md-11 col-sm-11">
+								<div style="margin-left: -24px;" class="col-md-11 col-sm-11">
 								<?php
 									$this->db->select('*');
 									$this->db->from('workdairy_tracker');
@@ -123,7 +123,7 @@ $ujob_id = $_GET['fmJob'];
 									<?php } ?>
 									
 										</div>
-										<div style="border-top: 2px solid #ddd;  clear: both;  margin-bottom: 21px;"></div>
+										<div class="workdairy_freelancer_last_border" style="border-top: 10px solid transparent;  clear: both;  margin-bottom: 25px;border-bottom: 1px solid #ccc;"></div>
 								
 								<?php								
 								}
@@ -338,4 +338,3 @@ function toSeconds(time_str) {
 		display:none !important;
 	}
 </style>
-
