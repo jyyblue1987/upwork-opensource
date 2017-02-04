@@ -1,6 +1,41 @@
    
-<section id="big_header"
-	style="margin-top: 36px; margin-bottom: 40px; height: auto;">
+<style>
+.message_lists{
+    max-height: 250px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.m_list.scroll-ul > li {
+  display: block;
+  margin: 10px 0 21px 5px;
+  overflow: hidden;
+  width: 100%;
+  border-bottom: 1px solid #dddddf;
+  padding-bottom: 4px;
+}
+.chat-identity .img-circle {
+  float: left;
+  margin-right: 14px;
+}
+#conversion_message > input {
+  background: rgb(28, 167, 219) none repeat scroll 0 0;
+  float: right;
+  font-size: 21px;
+  height: 50px;
+  margin-top: 4%;
+  vertical-align: middle;
+  width: 19%;
+}
+#conversion_message textarea {
+  float: left;
+  height: 100px;
+  width: 80%;
+}
+.modal-body {
+  overflow: hidden;
+}
+</style>
+<section id="big_header" style="margin-top: 36px; margin-bottom: 40px; height: auto;">
 
 	<div class="container">
 		<div class="row ">
@@ -163,8 +198,8 @@
 									   }
                                                                           // var_dump($job_done);die();
 								?>  
-								<label class="gray-text">Total</label> <br /> <label
-									class="gray-text"><?=$total_work ;?> Hrs</label> <br /> <label
+								<label class="gray-text">Total</label> <br /> <label style="color: #7C7B7B;margin-bottom: 3px;"
+									class="bold_text"><?=$total_work ;?> Hrs</label> <br /> <label
 									class="gray-text">$<?=$total_work*$amount;?></label>
 							</div>
 						</div>
@@ -351,40 +386,3 @@
     }
   autoloading();
 </script>
-<style>
-.message_lists{
-    max-height: 250px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-.m_list.scroll-ul > li {
-  display: block;
-  margin: 10px 0 21px 5px;
-  overflow: hidden;
-  width: 100%;
-  border-bottom: 1px solid #dddddf;
-  padding-bottom: 4px;
-}
-.chat-identity .img-circle {
-  float: left;
-  margin-right: 14px;
-}
-#conversion_message > input {
-  background: rgb(28, 167, 219) none repeat scroll 0 0;
-  float: right;
-  font-size: 21px;
-  height: 50px;
-  margin-top: 4%;
-  vertical-align: middle;
-  width: 19%;
-}
-#conversion_message textarea {
-  float: left;
-  height: 100px;
-  width: 80%;
-}
-.modal-body {
-  overflow: hidden;
-}
-</style>
-
