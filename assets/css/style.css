@@ -4231,3 +4231,11 @@ padding-right: 29px;
 font-family: calibri !important;
 margin-left: 1px;
 padding-left: 14px !important;}
+
+span.cc_normal_txt{font-weight: normal;}
+
+.custom_invite .hire_sms_btn{padding: 0px 0px 10px 5px;}
+.custom_invite .hire_me_btn{padding: 0px 0px 10px 23px;}
+
+.custom_home .bordered-alert{width: 970px;}
+.custom_home .bordered-client{width: 97.1%;}
