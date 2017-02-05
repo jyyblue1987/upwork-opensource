@@ -1,16 +1,53 @@
 <link rel="stylesheet" href="<?php echo base_url()?>assets/css/rating.css" />
 <link rel="stylesheet" href="<?php echo base_url()?>assets/css/jquery.rateyo.css"/>
-	
-<section id="big_header" style="margin-top: 44px; margin-bottom: 50px; height: auto;">
+
+<style type="text/css">
+.user_skills span {
+    background: #ccc none repeat scroll 0 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: #494949;
+    display: inline-block;
+    font-size: 12px;
+    margin-bottom: 4px;
+    padding: 1px 5px 1px 5px;
+    margin-right: 2px;
+}
+.user_skills span:hover {
+background: #008329;
+color: #fff;
+}
+span.rating-badge {
+    background: #F77D0E none repeat scroll 0 0;
+    border-radius: 2px;
+    color: #fff;
+    padding: 2px 4px 2px 5px;
+    font-size: 12px;
+}
+.hire_cover_letter span {
+    font-size: 15px;
+    font-weight: normal;
+}
+.candidate-list {
+    margin-top: -5px;
+    margin-bottom: 20px;
+}
+</style>
+
+<section id="big_header" style="margin-top: 40px; margin-bottom: 20px; height: auto;">
     <div class="container">
         <div class="row ">
             <div class="row">
-                <div class="col-md-10 padding-left-off margin-bottom-3">
+                <div style="width: 101%;" class="col-md-12 padding-left-off margin-bottom-3">
                     <form id="freelacer-search" action="<?php echo site_url('profile/find-freelancer')?>" method="post">
-                        <div class="col-md-12">
-                            <input type="text" name="keywords" class="form-control search-field" value="<?php echo $searchWord ?>"/> 
-                            <i aria-hidden="true" class="fa fa-search search-btn search-freelancer"></i>
+                        <div class="col-md-10">
+                            <input style="width: 91.5%;" type="text" name="keywords" class="form-control search-field" value="<?php echo $searchWord ?>"/> 
+                            <i aria-hidden="true" class="fa custom_btn fa-search search-btn search-freelancer"></i>
                         </div>
+						
+                        <div class="col-md-2">
+							<a style="margin-left: -27px; background-color: rgb(2, 143, 204); width: 143px; height: 35px; padding-top: 12px;" class="btn btn-primary job_btn custom_btn" href="<?php echo site_url('post-job'); ?>">Post a job</a>
+						</div>
                     </form>
                 </div>
             </div>
@@ -70,19 +107,19 @@
                
                 ?>
                 <div class="row ">
-                    <div class="col-md-12 bordered white-box candidate-list">
+                    <div style="width: 97.1%;" class="col-md-12 white-box candidate-list">
                         <div class="row margin-top-1">
-                            <div class="col-md-1 margin-left-3">
+                            <div style="margin-left: 5px;" class="col-md-1 st_img">
                                 <img src="<?php echo base_url().$fp->webuser_picture?>" width="64" height="64" />
                             </div>
-                            <div class="col-md-8 text-left margin-left-1" style="margin-top:-4px;">
+                            <div class="col-md-8 text-left margin-left-1 aplicant_name" style="margin-top:-4px;">
                                 <label class="blue-text"><?php echo $fp->webuser_fname." ".$fp->webuser_lname ?></label> <br/> 
-                                <?php echo $fp->tagline ?>
+                                <span style="color: #494949;"><b><?php echo $fp->tagline ?></b></span>
                                 <div class="row margin-top-2">
                                     
-                                    <div class="col-md-1">$<?php echo $fp->hourly_rate; 
-                                    ?>/hr</div>
-                                    <div class="col-md-4 rating">
+                                    <div class="col-md-1"><b>$<?php echo $fp->hourly_rate; 
+                                    ?></b>/hr</div>
+                                    <div class="col-md-4 review_ratting">
                                         <?php if($total_feedbackScore !=0 && $total_budget!=0){
                                                
                                                 $totalscore = ($total_feedbackScore / $total_budget);
@@ -115,38 +152,42 @@
                                                    foreach($job_done as $work){
                                                        $total_work +=$work->total_hour;
                                                    }
-                                                   echo $total_work." Hrs ";
+                                                   echo $total_work." <span class='cc_normal_txt'>Hrs</span>";
                                                }else{
-                                                   echo "0.00 Hrs";
+                                                   echo "<b>0.00 <span class='cc_normal_txt'>Hrs</span></b>";
                                                }
                                         ?>
                                     </div>
                                     <div class="col-md-2">
-                                    <?php
+                                    
+									<b><?php
                                             $this->db->select('*');
                                            $this->db->from('job_bids');
                                            $this->db->where('user_id',$fp->webuser_id);
                                            $this->db->where('jobstatus',1);
                                            $querydone = $this->db->get();
                                          $jobends = $querydone->num_rows();
-                                          echo $jobends." jobs";   
+                                          echo $jobends."</b> jobs";   
                                         ?>
                                     </div>
                                     <div class="col-md-3">
-                                            <img src="<?php echo base_url()?>assets/pin_marker.png" width="16" /> <?php echo $fp->country_name ?>
+                                        <i style="font-size: 15px;" class="fa fa-map-marker"></i> 
+											
+										<b><?php echo $fp->country_name ?></b>
                                     </div>
                                 </div>
                                 <div class="row margin-top-1">
                                     <div class="col-md-12 text-justify">
-                                        <?php
-                                         echo substr($fp->overview, 0, 200); 
-                                         ?>
+                                        <div class="hire_cover_letter">
+											<span><?php echo substr($fp->overview, 0, 200); ?></span>
+										 </div>
                                     </div>
                                 </div>
                                 <div class="row margin-top-1">
-                                    <div class="col-md-3"><span class="gray-text">Tag & Skills</span></div>
+                                    <div class="col-md-3"><span style="font-size:14px;" class="gray-text">Skills</span></div>
                                     <div class="col-md-9 skills">
-                                       <?php
+                                       <div class="user_skills">
+									   <?php
                                        if(strlen($fp->skills) > 0){
                                            $temp = explode(",", $fp->skills);
                                            foreach ($temp as $t) {
@@ -158,15 +199,19 @@
                                        ?>
                                         <?php 
                                        }
-                                       ?> 
+                                       ?>
+									   </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2 margin-top-5 text-right msg-buttons">
-                                <div><a class ="btn btn-primary" href="<?php echo site_url('jobs/send_invitation/'.$fp->webuser_id); ?>">Invite to job</a> </div> 
-                                <div><a class ="btn btn-primary" href="">Hire Me</a></div>
-                                  
-                                 
+                            <div class="col-md-2 margin-top-5 custom_invite text-right msg-buttons">
+                                <div class="hire_sms_btn">
+									<a class ="btn btn-primary form-btn" href="<?php echo site_url('jobs/send_invitation/'.$fp->webuser_id); ?>">Invite to job</a>
+								</div>
+								
+                                <div class="hire_me_btn">
+									<a class ="btn btn-primary form-btn" href="">Hire Me</a>
+								</div>                                 
                             </div>
                         </div>
                     </div>

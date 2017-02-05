@@ -50,6 +50,9 @@ span.rating-badge {
 	padding: 2px;
 	margin: 0px;
 } 
+.review_ratting {
+	margin-left: 49px;
+}
 .drop_btn ul li a{
     border: none; 
     border-right: none;
@@ -199,13 +202,13 @@ $totalApplication = $this->db->count_all_results();
 
                                   </div>
                                     <div class="row margin-top-2">
-                                        <div class="col-md-2" style="font-size:16px;">$
-                                           <b><?php
+                                        <div class="col-md-1" style="font-size:16px;">
+                                           <b>$<?php
                                             echo round($value->bid_amount, 2);
                                             if ($jobDetails->job_type == 'hourly')
-                                              echo '/hr';
+                                              echo '<span class="cc_normal_txt">/hr</span>';
                                             ?></b></div> 
-                                        <div class="col-md-3 ">
+                                        <div class="col-md-4">
                                            <div class="review_ratting">
                                               <?php if($total_feedbackScore !=0 && $total_budget!=0){
                                                 $totalscore = ($total_feedbackScore / $total_budget);
@@ -213,7 +216,7 @@ $totalApplication = $this->db->count_all_results();
                                                ?>
                                                <span class="rating-badge"><?=number_format((float)$totalscore,1,'.','');?></span>
                                               <div title="Rated <?=$totalscore;?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em;margin-top:-5px;width:105px; color:#DEDEDE;">
-                                               <span style="width:<?=$rating_feedback;?>% ;margin-top:-5px;">
+                                               <span style="width:<?=$rating_feedback;?>% ;margin-top:0;">
                                                    <strong itemprop="ratingValue"><?=$totalscore;?></strong> out of 5
                                                </span>
                                                </div>
@@ -240,9 +243,9 @@ $totalApplication = $this->db->count_all_results();
                                                    foreach($job_done as $work){
                                                        $total_work +=$work->total_hour;
                                                    }
-                                                   echo $total_work."  hrs";
+                                                   echo $total_work."  <span class='cc_normal_txt'>hrs</sapn>";
                                                }else{
-                                                   echo "0.00 hrs";
+                                                   echo "0.00 <span class='cc_normal_txt'>hrs</sapn>";
                                                }
                                         ?></b>
                                         

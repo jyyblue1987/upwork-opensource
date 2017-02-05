@@ -45,12 +45,12 @@ $clientend = $Conversation->clientend();
 ?>
 <style>.gray-text span{color:#337ab7}</style>
 <p class="result-msg" style="text-align: center;color: green;font-size: 20px;display: none;"></p>
-<section id="big_header"  style="margin-top: 37px; margin-bottom: 50px; height: auto;">
+<section id="big_header" class="custom_home"  style="margin-top: 37px; margin-bottom: 40px; height: auto;">
     <div class="container"> 
         <?php   if ($this->session->userdata('type') == '1') { ?>
 				<?php if(!empty($clientend)) { ?>				
 					<div class="row ">
-						<div style="width: 975px;height: 40px;margin-left: -1px;margin-top: -20px;margin-bottom: 35px;" class="col-md-10 bordered-alert text-center ack-box">
+						<div style="height: 40px;margin-left: -1px;margin-top: -20px;margin-bottom: 35px;" class="col-md-10 bordered-alert text-center ack-box">
 							<h4 style="margin-top: -5px;">! You have  <a href="<?php echo base_url() ?>jobs/client_endjobnotification" class="show_notification" style="color: #28da28 !important;"> <?=count($clientend)?> ended contract - waiting for feedback</a>
 										 
 							</h4>
@@ -59,7 +59,7 @@ $clientend = $Conversation->clientend();
 					<?php } ?>
 					<?php if($ststus->isactive==0){ ?>
 						<div class="row ">
-						<div style="width: 975px;height: 40px;margin-left: -1px;margin-top: -20px;" class="col-md-10 bordered-alert text-center ack-box">
+						<div style="height: 40px;margin-left: -1px;margin-top: -20px;" class="col-md-10 bordered-alert text-center ack-box">
 							<h4 style="margin-top: -5px;">! Your Account has been Suspended</h4>
 						</div>
 					</div>
@@ -90,11 +90,11 @@ $clientend = $Conversation->clientend();
                 <div class="row">
                     <form id="freelacer-search" action="profile/find-freelancer" method="post">
                         <div class="col-md-10">
-                            <input type="text" name="keywords" class="form-control search-field" placeholder="Find freelancers" value="" style="758px !important;" /> 
+                            <input type="text" name="keywords" class="form-control search-field" placeholder="Find freelancers" value="" style="width: 91%;" /> 
                             <i aria-hidden="true" class="fa fa-search search-btn search-freelancer custom_btn"></i>
                         </div>
                         <div class="col-md-2">
-                        <a style="margin-left: -27px; background-color: rgb(2, 143, 204); width: 143px; height: 35px; padding-top: 12px;" class="btn btn-primary job_btn custom_btn" href="<?php echo site_url('post-job'); ?>">Post a job</a>
+                        <a style="margin-left: -32px; background-color: rgb(2, 143, 204); width: 143px; height: 35px; padding-top: 12px;" class="btn btn-primary job_btn custom_btn" href="<?php echo site_url('post-job'); ?>">Post a job</a>
                     </div>
                     </form>
                     

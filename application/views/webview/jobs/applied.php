@@ -230,7 +230,7 @@ $totalApplication = $this->db->count_all_results();
                                            <b>$<?php
                                             echo round($value->bid_amount, 2);
                                             if ($jobDetails->job_type == 'hourly')
-                                              echo '/hr';
+                                              echo '<span class="cc_normal_txt">/hr</span>';
                                             ?></b>
                                         </div>
 
@@ -270,9 +270,9 @@ $totalApplication = $this->db->count_all_results();
                                                    foreach($job_done as $work){
                                                        $total_work +=$work->total_hour;
                                                    }
-                                                   echo $total_work."  hrs";
+                                                   echo $total_work."<span class='cc_normal_txt'>hrs</span>";
                                                }else{
-                                                   echo "0.00 hrs";
+                                                   echo "0.00 <span class='cc_normal_txt'>hrs</span>";
                                                }
                                         ?></b> 
                                         

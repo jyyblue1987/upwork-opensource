@@ -217,7 +217,7 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
                                            <b>$<?php
                                             echo round($value->bid_amount, 2);
                                             if ($jobDetails->job_type == 'hourly')
-                                              echo '/hr';
+                                              echo '<span class="cc_normal_txt">/hr</span>';
                                             ?></b></div>
 
                                         <div class="col-md-4 ">
@@ -255,9 +255,9 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
                                                    foreach($job_done as $work){
                                                        $total_work +=$work->total_hour;
                                                    }
-                                                   echo $total_work."  hrs";
+                                                   echo $total_work."  <span class='cc_normal_txt'>hrs</span>";
                                                }else{
-                                                   echo "0.00 hrs";
+                                                   echo "0.00 <span class='cc_normal_txt'>hrs</span>";
                                                }
                                         ?></b>
                                         
