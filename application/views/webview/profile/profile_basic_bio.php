@@ -84,7 +84,7 @@
                         <h3>Experience</h3>
                     </div>
                     <div class="abd"> 
-                        <a href="<?php //echo site_url("changepic");   ?>" class="btn btn-default edit-exp"> + Add Experience </a>
+                        <a href="" class="btn btn-default edit-exp"> + Add Experience </a>
 
                     </div>
                 </div>   
@@ -100,7 +100,7 @@
                                             <a class="pull-right" style="color:grey;"href="#" id ="<?php echo $val->id; ?>" onclick="editClickedExp(this.id)" ><i class="fa fa-pencil" aria-hidden="true"></i></a> </div>
                                         <div><h4 style="color:grey;font-size: 21px;"><?php echo $val->title; ?> </h4></div> 
                                         <div><h4 style="color:grey;"><?php echo $val->company; ?></h4></div>
-                                        <div style="color:grey;"><?php echo $val->month1; ?>-<?php echo $val->year1; ?> To <?php echo $val->month2; ?>-<?php echo $val->year2; ?><!--2010Â â€“ Present (6 years 7 months)--> | <?php echo $val->location; ?></div>
+                                        <div style="color:grey;"><?php echo $val->month1; ?>-<?php echo $val->year1; ?> To <?php echo $val->month2; ?>-<?php echo $val->year2; ?><!--2010Â â€“ Present (6 years 7 months)--> | <?php echo $val->location; ?></div>
 
                                     </div>
                                 </div>
@@ -137,7 +137,7 @@
                         <h3>Education</h3>
                     </div>
                     <div class="abd"> 
-                        <a href="<?php //echo site_url("changepic");   ?>" class="btn btn-default edit-edu"> + Add Education </a>
+                        <a href="" class="btn btn-default edit-edu"> + Add Education </a>
 
                     </div>
                 </div>  
@@ -146,10 +146,10 @@
                     ?> 
                     <div class="protfilheadtwo"> 
                         <div style="padding-right: 10px;">
-                            <a class="pull-right" style="color:grey;"href="#" id ="<?php echo $education->id_freelancer_education; ?>" onclick="editClickedEdu(this.id)" ><i class="fa fa-pencil" aria-hidden="true"></i></a> </div>
+                            <a class="pull-right" style="color:grey;"href="#" id ="<?php echo $education->id; ?>" onclick="editClickedEdu(this.id)" ><i class="fa fa-pencil" aria-hidden="true"></i></a> </div>
                         <p><?= $education->school ?></p>
                         <h2><?= $education->degree ?></h2>
-                        <h3><?= $education->dates_attend_from ?> – <?= $education->dates_attend_to ?></h3>
+                        <h3><?= $education->dates_attend_from ?> – <?= $education->dates_attend_to ?></h3>
                         <h4><?= $education->field_of_study ?></h4>
                         <h5><?= $education->activities ?></h5>
                         <h6><?= $education->description ?></h6>
@@ -226,11 +226,10 @@ $this->load->view("webview/includes/footer-common-script");
         $('#edit-portfolio').modal('show');
     });
     $('.edit-exp').click(function (e) {
-
         e.preventDefault();
         var key = $(this).attr('accesskey');
         $.ajax({
-            url: "<?php echo base_url() ?>profile/addexp",
+            url: "<?php echo base_url() ?>profile/add-exp",
             data: ({key: key}),
             dataType: "html",
             type: "post",
@@ -267,7 +266,7 @@ $this->load->view("webview/includes/footer-common-script");
         e.preventDefault();
         var key = $(this).attr('accesskey');
         $.ajax({
-            url: "<?php echo base_url() ?>profile/addedu",
+            url: "<?php echo base_url() ?>profile/addedu/",
             data: ({key: key}),
             dataType: "html",
             type: "post",

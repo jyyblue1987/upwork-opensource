@@ -10,7 +10,8 @@
             <div class="col-xs-12 col-sm-3 col-md-3 align-left">
                 <?php 
                 $data = array(
-                    'current_active' => 'profile-settings'
+                    'current_active' => 'profile-settings',
+                    'username' => $username,
                     ); 
                 $this->load->view("webview/profile/freelancer-profile-left-sidebar",$data) ?>
             </div>

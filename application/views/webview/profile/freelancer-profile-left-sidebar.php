@@ -21,7 +21,7 @@
             }
             ?>
         </div>
-        <?php 
+        <?php
         if ($this->session->userdata('type') == "2") {
             ?>
             <div class="heeed" id="faq2" onclick="faqselect(2);">My Profile  <i class="fa <?php echo (strcmp($open, "profile") == 0) ? 'fa-angle-down' : 'fa-angle-right' ?>" id="faqicon2" aria-hidden="true" style="float:right;"></i></div>
@@ -36,7 +36,7 @@
                     <a href="<?php echo site_url("categories/choose"); ?>">Manage Category</a>
                 </div>
                 <div class="grey ">
-                    <a href="<?php echo site_url("/profile/my-freelancer-profile"); ?>">View My Profile</a>
+                    <a href="<?php echo site_url("/profile/{$username}"); ?>">View My Profile</a>
 					
                 </div>
             </div>

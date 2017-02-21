@@ -29,24 +29,47 @@ class ProfileModel extends CI_Model{
         //die();
         return $rows;
     }
-    function save_data_experience($data){
-		if($data->id=='' || $data->id == 0){// for insert
-			//print_r($data);
-			$this->db->insert("user_experience", $data);
-		}
-		else{// for update
-			//print_r($data);
-			$this->db->where("id",$data->id);
-			$this->db->update("user_experience", $data);
-		}
-	}
-	
-	function getExp($user_id){
-		$sql = "SELECT * FROM user_experience WHERE user_id=$user_id";
-		$query =$this->db->query($sql);
-		$result = $query->result_object();
-		return $result;
-	}
+    function save_data_experience($data) {
+        // for insert
+        if ($data->id=='' || $data->id == 0){
+            //print_r($data);
+            $this->db->insert("user_experience", $data);
+        }
+        else{// for update
+            //print_r($data);
+            $this->db->where("id",$data->id);
+            $this->db->update("user_experience", $data);
+        }
+    }
+    
+    function getExp($user_id){
+        $sql = "SELECT * FROM user_experience WHERE user_id=$user_id";
+        $query =$this->db->query($sql);
+        $result = $query->result_object();
+        return $result;
+    }
+
+    /**
+     * 2017-02-21 Kalskov Vladimir (spirit@taganlife.ru)
+     * @input $id int - Experience ID
+     **/
+    public function remove_data_experience($id) {
+        $this->db->where("id", $id);
+        $this->db->delete("user_experience");
+
+        return true;
+    }
+
+    /**
+     * 2017-02-21 Kalskov Vladimir (spirit@taganlife.ru)
+     * @input $id int - Education ID
+     **/
+    public function remove_data_education($id) {
+        $this->db->where("id", $id);
+        $this->db->delete("freelancer_education");
+
+        return true;
+    }
 }
 
 ?>

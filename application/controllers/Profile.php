@@ -725,7 +725,7 @@ class Profile extends CI_Controller {
             $this->db->from('freelancer_education');
             $this->db->where('id', $edu_id);
             $query = $this->db->get();
-            $edu = $query->result();
+            $edu = $query->result_array();
             $params['education'] = $edu[0];
             $params['edu_id'] = $edu_id;
             $params['page_rom'] = "settings";
@@ -1088,4 +1088,21 @@ class Profile extends CI_Controller {
         }
     }
 
+    /**
+     * 2017-02-21 Kalskov Vladimir (spirit@taganlife.ru)
+     * @input $id int - Education ID
+     **/
+    public function removeEdu($id) {
+        $this->ProfileModel->remove_data_education($id);
+        redirect(site_url("profile/basic_bio"));
+    }
+
+    /**
+     * 2017-02-21 Kalskov Vladimir (spirit@taganlife.ru)
+     * @input $id int - Experience ID
+     **/
+    public function removeExp($id) {
+        $this->ProfileModel->remove_data_experience($id);
+        redirect(site_url("profile/basic_bio"));
+    }
 }

@@ -38,10 +38,25 @@ $route['homepage'] = "home/homepage";
 $route['json/(:any)'] = 'json/(:any)';
 $route['endjobs'] = 'Winsjob/endjobs';
 
-
 $route['profile/manageaccount'] = "profile/manageaccount";
 $route['profile/basic'] = "profile/basic";
+$route['profile/addedu'] = "profile/addedu";
+$route['profile/add_education'] = "profile/add_education";
 $route['profile/basic_bio'] = "profile/basic_bio";
+$route['profile/add-exp'] = "profile/addExp";
+$route['profile/search-freelancer'] = 'profile/searchFreelancer';
+$route['profile/basic-profile-page'] = 'profile/basicProfilePage';
+$route['profile/add_experience'] = 'profile/add_experience';
+$route['profile/edit-portfolio'] = 'profile/editPortfolio';
+$route['profile/edit-exp-profile'] = 'profile/editExpProfile';
+$route['profile/remove-portfolio'] = 'profile/removePortfolio';
+$route['profile/do-upload'] = 'profile/doUpload';
+$route['profile/freelancer-profile'] = 'profile/freelancerProfile';
+$route['profile/profile_freelancer'] = 'profile/profile_freelancer';
+
+$route['profile/remove-edu/(:num)'] = 'profile/removeEdu/$1';
+$route['profile/remove-exp/(:num)'] = 'profile/removeExp/$1';
+
 $route['profile/(:any)'] = 'profile/index/($1)';
 
 
