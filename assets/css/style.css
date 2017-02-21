@@ -384,24 +384,22 @@ font-size: 35px;
 
 
 .heeed{
-	cursor:pointer;
-	width:214px;
-	background-color:white;
-	padding:16px 20px;
-	font-size:18px;
-	color:#000000;
-	border-bottom:1px solid #e1dcdc;
+cursor: pointer;
+width: 210px;
+background-color: white;
+padding: 11px 0px;
+font-size: 18px;
+color: #000000;
+border-bottom: 1px solid #e1dcdc;
 	
 }
 .grey{
-	width:214px;
-	background-color:#f3f3f3;
-	padding:9px 20px;
-	font-size:18px;
-	color:#4a4a4a; 
-        margin-bottom: 3px;
-
-	
+width: 210px;
+background-color: #f3f3f3;
+padding: 7px 10px;
+font-size: 18px;
+color: #4a4a4a;
+margin-bottom: 3px;
 }
 .margin{
 	height:1200px;
@@ -632,22 +630,23 @@ border-radius:5px;
    font-weight: normal;
 }
 .page-jobs h5{
-   font-family: Roboto;
-    color: rgb(98, 98, 98);
-    padding-right: 15px;
-    float: left;
-    font-size: 16px;
-    font-weight: normal;
+font-family: calibri;
+color: rgb(98, 98, 98);
+padding-right: 15px;
+float: left;
+font-size: 18px;
+font-weight: normal;
 }
 
 .page-jobs h6{
-   font-family: Roboto;
-   color: rgb(126, 126, 126);
-    padding-right: 15px;
-    float: left;
-    font-size: 16px;
-    line-height: 1.2;
-    font-weight: normal;
+font-family: calibri;
+color: rgb(126, 126, 126);
+padding-right: 15px;
+float: left;
+font-size: 16px;
+line-height: 1.2;
+font-weight: normal;
+font-size: 17 px;
 }
 
 .page-jobs input{
@@ -997,8 +996,8 @@ border-radius:5px;
 .candidate-list {
 background: white;
 border: 1px solid #ccc;
-margin-top: 40px;
-margin-bottom: -25px;
+margin-top: 35px;border-radius: 4px;
+margin-bottom: -20px;
 }
 .candidate-list:hover {
     background:  #f4f7f8;
@@ -1496,8 +1495,10 @@ h1.job-title{
 	margin-left: -35px;
 }
 .hourly_name p {
-	font-size: 9px;
-	margin-top: 8px;
+margin-top: 8px;
+font-size: 11px;
+font-family: roboto;
+color: #7d7d7d;
 }
 .main_id {
 	margin-left: 8px;
@@ -1537,7 +1538,7 @@ h1.job-title{
     color: #339f22;
     display: block;
     padding-left: 10px;
-    padding: 8px;
+    padding: 8px;height: 38px;
     font-size: 12px;
 }
 
@@ -1880,10 +1881,10 @@ a {
    margin-bottom: 15px;
 }
 .my_staff .freelancer-job{
-    border: 1px solid #dedede;
+    border: 1px solid #ccc;
     padding: 10px;
     width: 739px;
-    height: 155px;
+    height: 145px;
     margin-left: -4px;
 }
 .my_staff .empty_freelancer_box{
@@ -2060,10 +2061,11 @@ a {
 }
 .nav-side-menu ul .sub-menu li,
 .nav-side-menu li .sub-menu li {
-  border: none;
-  line-height: 30px;
-  margin-left: 0px;
-  font-size: 14px;
+border: none;
+line-height: 30px;
+margin-left: 0px;
+font-size: 14px;
+margin-top: 2px;
 }
 .nav-side-menu ul .sub-menu li:before,
 .nav-side-menu li .sub-menu li:before {
@@ -3158,7 +3160,7 @@ p-btn,.pause-btn {
 .title-line{
     border-bottom: 1px solid #ded6d6;
     margin-right: 5px;
-    margin-bottom: 13px;
+    margin-bottom: 25px;
 }
 .header-title{
     font-size: 18px;
@@ -3179,13 +3181,7 @@ p-btn,.pause-btn {
         border-left: 6px solid green;
 }
 .grey:hover {
-	width:214px;
 	background-color:#e4e4e4;
-	padding:9px 20px;
-	font-size:18px;
-	color:#4a4a4a; 
-        border-left: 6px solid green;
-	
 }
 
 
@@ -3252,10 +3248,10 @@ padding: 2px 6px;}
 .custom_user_skills_find span:hover {background:#008329 !important;}
 
 /* active contract start*/
-.active_contracts .ac_freelancer-job{border: 1px solid #dedede;
+.active_contracts .ac_freelancer-job{border: 1px solid #ccc;
 padding: 10px;
 width: 745px;
-height: 155px;
+height: 145px;
 margin-left: -4px;}
 .active_contracts .hirefeebar{width: 742px !important;
 margin-left: -17px;
@@ -3268,13 +3264,13 @@ padding: 10px;}
 .active_contracts .ac_staff-navbar{}
 .active_contracts .ac_freelancer-navbar{padding-left: 13px !important;}
 .ac_massage_butt{position: absolute;
-right: 120px;
+right: 121px;
 top: 0;}
 .ac_pay_butt{position: absolute;
 right: 42px;
 top: 0;}
 .ac_drop_butt{position: absolute;
-right: -8px;
+right: -9px;
 top: 0;}
 .ac_custom_body{margin-left: -15px;}
 .ac_white_box{margin-top: 13px;}
@@ -3313,22 +3309,21 @@ min-width: 70px;}
 
 
 /* ended contract start*/
-.ec_white_box{border: 1px solid #dedede;
+.ec_white_box{border: 1px solid #ccc;
 padding: 10px;
 width: 739px;
-height: 155px;
 margin-left: -4px;}
 .ec_navbar{padding-left: 13px !important;}
 .ec_navbar ul li{width:190px;}
 .ec_white_box{margin-top: -6px;}
 .ec_massage_butt{position: absolute;
-right: 120px;
+right: 121px;
 top: 0;}
 .ec_rehire_butt{position: absolute;
 right: 42px;
 top: 0;}
 .ec_drop_butt{position: absolute;
-right: -8px;
+right: -9px;
 top: 0;}
 .ec_custom_body{margin-left: -15px;}
 .ec_navbar ul li a i {
@@ -3366,10 +3361,10 @@ min-width: 70px;}
 right: 133px;
 top: 0;}
 .hr_work_diary{position: absolute;
-right: 42px;
+right: 41px;
 top: 0;}
 .hr_drop_butt{position: absolute;
-right: -8px;
+right: -9px;
 top: 0;}
 
 /* mystaff contract start*/
@@ -3427,7 +3422,7 @@ min-width: 70px;}
 border: 1px solid #ccc;
 width: 739px;}
 .ph_massage_butt{position: absolute;
-right: 120px;
+right: 121px;
 top: 0;}
 .ph_rehire_butt{position: absolute;
 right: 42px;
@@ -3435,7 +3430,7 @@ top: 0;}
 .ph_massage_butt input:hover{border:1px solid transparent;}
 .ph_rehire_butt input:hover{border:1px solid transparent;}
 .ph_drop_butt{position: absolute;
-right: -8px;
+right: -9px;
 top: 0;}
 .ph_custom_body{margin-left: -15px;}
 .ph_navbar ul li a i {
@@ -3478,7 +3473,7 @@ top: 0;}
 right: 42px;
 top: 0;}
 .os_drop_butt{position: absolute;
-right: -8px;
+right: -9px;
 top: 0;}
 .os_custom_body{margin-left: -15px;}
 .os_navbar ul li a i {
@@ -3523,7 +3518,7 @@ top: 0;}
 right: 42px;
 top: 0;}
 .wj_drop_butt{position: absolute;
-right: -8px;
+right: -9px;
 top: 0;}
 .wj_custom_body{margin-left: -15px;}
 .wj_drop_butt ul.dropdown-menu{left: -156px;}
@@ -3541,7 +3536,7 @@ width: 739px;}
 right: 42px;
 top: 0;}
 .ej_drop_butt{position: absolute;
-right: -8px;
+right: -9px;
 top: 0;}
 .ej_custom_body{margin-left: -15px;}
 .ej_drop_butt ul.dropdown-menu{left: -156px;}
@@ -3585,12 +3580,15 @@ padding-left: 15px;
 .margin_top25{margin-top: 25px;}
 .end_contact{background: #fff none repeat scroll 0 0;
 margin: 25px 0;}
-.confirm_title{font-family: 'Calibri';margin-top: 15px;
+.confirm_title{font-family: 'Calibri';
+margin-top: 15px;
 font-weight: 800;
 color: #565555;
-font-size: 24px;}
+font-size: 21px;
+float: left;
+margin-left: 48px;}
 .end_contact_name{margin-left: -15px;}
-.custom_end_contact_from #leftname{font-size: 18px;
+.custom_end_contact_from #leftname{font-size: 17px;
 font-family: 'Calibri';
 font-weight: 800;
 text-align: left;
@@ -3598,9 +3596,11 @@ margin-left: 50px;
 margin-right: -88px;}
 .custom_end_contact_from .form-group{margin-bottom: 5px;}
 .custom_end_contact_from #righttext{}
-.custom_end_contact_from #righttext h3{font-size: 17px;margin-top: 0;}
+.custom_end_contact_from #righttext h3{font-size: 16px;margin-top: 0;}
 .custom_end_contact_from #righttext h3 span{font-weight: 800;
-color: #494949;}
+color: #494949;
+font-family: calibri;
+font-size: 16px;}
 .custom-end_contact{border: 1px solid #ccc;border-radius: 5px;padding-bottom: 0;margin-bottom: 40px;}
 .custom_end_contact_from label{}
 .rating-container .star {
@@ -3657,7 +3657,7 @@ margin-left: -10px}
 
 /*feedback fixed client start*/
 .custom_fff .feedback_title h4 {
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 800;
 }
 .custom_fff{}
@@ -3692,12 +3692,13 @@ margin-left: -10px}
 
 /*feedback hourly freelancer start*/
 .custom_fhf .feedback_title h4 {
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 800;
 }
 .custom_fhf .gray-text {
-    font-size: 14px;
-    font-weight: 800;
+font-size: 18px;
+font-weight: 800;
+font-family: calibri;
 }
 .custom_fhf .job_posting {
     font-family: "calibri";
@@ -3732,7 +3733,7 @@ margin-left: -10px}
 
 /*feedback fixed freelancer start*/
 .custom_fff2 .feedback_title h4 {
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 800;
 }
 .custom_fff2 .gray-text {
@@ -3960,6 +3961,7 @@ padding-top: 30px;}
 	margin-top: 3px;
 	margin-bottom: 16px;
 }
+.custom_mpayment_card .card_area_div a i:hover{color: #286090;}
 .custom_mpayment_card .card_area_div a i.active_icon{color: #7dc363;
 font-size: 52px;
 left: 70px;
@@ -3968,7 +3970,7 @@ top: 30px;}
 .custom_mpayment_card .card_area_div a.pull-right i{margin-right: 40px;}
 .custom_mpayment_may .form-group label{font-family: "Calibri";
 font-size: 18px;
-margin-left: 37px;
+margin-left: 37px;margin-top: -11px;
 text-align: left;}
 .custom_mpayment_may .big_mass_button{    margin-left: 36px;
     margin-right: 14px}
@@ -3987,6 +3989,7 @@ font-size: 80px;
 margin-bottom: 16px;
 margin-left: 25px;
 margin-top: 3px;}
+.custom_mpayment_paypal  a i:hover{color: #286090;}
 .custom_mpayment_paypal  a i.active_icon{color: #7dc363;
 font-size: 52px;
 left: 90px;
@@ -4089,7 +4092,10 @@ border: 1px solid #ccc;
 margin-top: 40px;
 margin-bottom: 40px;
 background: #fff;}
-.custom_employeersignup .form-group .form-control{max-width: 400px;}
+.custom_employeersignup .form-group .form-control{max-width: 400px;
+border-radius: 4px;
+font-size: 16px;
+font-family: calibri;}
 .custom_employeersignup .form-group{margin-left:0;}
 .custom_employeersignup .main_area_div_sub_div1{padding: 15px 0px 0px 30px;}
 .custom_employeersignup .main_area_div_sub_div1 h1 {font-family: 'calibri';
@@ -4110,7 +4116,10 @@ margin: 13px 4px 31px 21px;
 margin-bottom: -16px;
 margin-left: -25px;
 }
-.main_area_div_signin .form-control{margin-bottom: 25px;}
+.main_area_div_signin .form-control{margin-bottom: 25px;
+border-radius: 4px;
+font-size: 16px;
+font-family: calibri;}
 .main_area_div_signin #next{
 width: 93.5%;
 margin-left: -9px;}
@@ -4239,3 +4248,150 @@ span.cc_normal_txt{font-weight: normal;}
 
 .custom_home .bordered-alert{width: 970px;}
 .custom_home .bordered-client{width: 97.1%;}
+
+.ccc_sms_send_btn a{border-radius:4px;}
+.ccc_sms_send_btn a:hover{background: #008ACB !important;}
+
+.modal-dialog{width:750px !important;}
+.modal .modal-header{border: 1px solid #ccc;
+padding-top: 0px;margin-top:20px;
+padding-bottom: 0;}
+.modal .modal-content{padding: 20px;}
+.modal .chat-details-topbar h3{padding: 0;
+font-weight: bold;
+padding-top: 0;
+margin-top: 7px;
+margin-bottom: 6px;}
+.modal .chat-details-topbar h5{font-size: 14px;
+padding: 0;}
+.modal .modal-body{padding:0;border-left:1px solid #ccc;border-right:1px solid #ccc;border-bottom:1px solid #ccc;padding-bottom: 40px;}
+.modal .modal-body textarea#usermsg{border: 2px solid #1ca7db;
+height: 40px;margin-left:15px;
+border-radius: 4px;}
+.modal .modal-body input#submitmsg{margin-top: 0;
+height: 40px;
+padding: 0 0;margin-right:15px;
+background: #1ca7db;
+color: #fff;
+font-size: 18px;
+font-family: calibri;
+border: 0;
+width: 106px;}
+.modal .modal-body input#submitmsg:hover{background:#008ACB;}
+.modal .modal-body .message_lists{border-bottom: 1px solid #ccc;
+margin-bottom: 20px;}
+.modal .modal-body #conversion_message{background:#008ACB;}
+.modal .modal-body .attach_icon{position: absolute;
+right: 132px;
+font-size: 26px;
+transform: rotate(90deg);}
+.modal .modal-body .m_list.scroll-ul > li {border:0;}
+.modal .modal-content h4.modal-title {margin-top: -23px;font-size: 25px;}
+.modal .modal-content button.close {margin-top: -33px;margin-right: -11px;font-size: 40px;}
+.modal-dialog h4{font-size: 25px;}
+.modal-dialog .modal-content button.close{margin-top: -33px;margin-right: -11px;font-size: 40px;}
+.modal-dialog .modal-content button.close span{font-size: 40px;}
+.modal-dialog #milestone-details-modal form .col-md-6 input.form-control{width:80px;}
+
+
+    .message_lists{
+        max-height: 250px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+    .m_list.scroll-ul > li {
+        display: block;
+        margin: 10px 0 21px 5px;
+        overflow: hidden;
+        width: 100%;
+        border-bottom: 1px solid #dddddf;
+        padding-bottom: 4px;
+    }
+    .chat-identity .img-circle {
+        float: left;
+        margin-right: 14px;
+    }
+    #conversion_message > input {
+        background: rgb(28, 167, 219) none repeat scroll 0 0;
+        float: right;
+        font-size: 21px;
+        height: 50px;
+        margin-top: 4%;
+        vertical-align: middle;
+        width: 19%;
+    }
+    #conversion_message textarea {
+        float: left;
+        height: 100px;
+        width: 80%;
+    }
+    .modal-body {
+        overflow: hidden;
+    }
+	
+	
+	
+.custom_profile_info{padding-left: 36px;}
+.custom_profile_info .col-xs-3 span, .custom_profile_info .col-xs-2 span{font-size: 17px;
+font-family: calibri;
+font-weight: bold;}
+
+#faqa1, #faqa2, #faqa3, #faqa4{margin-top:-1px;}
+.abc h3{margin-top: -13px;
+font-size: 21px;font-family: calibri;
+font-weight: bold;
+margin-bottom: 0;}
+.abd h3{cursor: pointer;
+margin-top: -13px;
+font-size: 21px;
+font-family: calibri;
+font-weight: bold;
+margin-bottom: -2px;}
+
+#editonabe .row label{font-size: 17px;
+font-family: calibri;
+font-weight: bold;
+color: #000;
+width: 190px;}
+
+#editon input{font-size: 16px;
+font-family: 'calibri';
+width: 335px;
+margin-left: 10px;
+border-radius: 4px;}
+#editon .row{margin-bottom: 10px;}
+
+#editonabe input.form-control{width: 335px;
+font-size: 16px;
+font-family: calibri;
+border-radius: 4px;}
+
+.cus_add_billing_method{background:#028FCC;color:#fff;}
+.cus_add_billing_method:hover{background:#286090;color:#fff;}
+.custom_personal_info_title{font-size: 17px;
+font-family: calibri;
+font-weight: bold;}
+
+.custom_cc_ss_btn{border: 1px solid #ccc;
+padding: 2px 7px !important;}
+.custom_cc_ss_btn:hover{background:#408ACA;color:#fff;}
+.custom_cc_ss_btn_active{background:#408ACA;color:#fff;}
+
+
+.cus_bottom_menu td{font-size: 17px;
+font-family: calibri;
+font-weight: bold;}
+
+.cccc_massage_box{}
+.cccc_massage_box .m_list{padding-left:20px;}
+.cccc_massage_box .m_list .chat-identity{}
+.cccc_massage_box .m_list .chat-identity h4{color: #000000;float:left;margin-top:15px;
+font-size: 14px;
+font-family: 'Roboto';}
+.cccc_massage_box .m_list .chat-identity b{font-size: 13px;font-weight:normal;margin-top:12px;float:left;
+padding: 0 0 0 15px;
+color: #949494;}
+.cccc_massage_box .m_list li div:last-child{margin-top:60px;margin-left: 67px;}
+.empty_freelancer_box{margin-left: -19px !important;}
+.custom_empty_freelancer_box{margin-left: -4px;
+margin-top: 14px !important;}
