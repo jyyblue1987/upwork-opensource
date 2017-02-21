@@ -1,9 +1,17 @@
-<section id="big_header" style="margin-top: 50px; margin-bottom: 50px; height: auto;">
+<style type="text/css">
+.form-group label{
+    font-size: 17px;
+    font-family: 'Calibri';
+    font-weight: 800;
+}
+.confirm_title{margin-left: 37px;}
+</style>
+
+<section id="big_header" style="margin-top: 40px; margin-bottom: 40px; height: auto;border: 1px solid #ccc;background: #fff;border-radius: 4px;margin-left: 14px;width: 957px;">
     <div class="container">
         <div class="row">
             <div class="col-md-7 col-md-offset-0 page-title">
-                <h1>Preview and Post</h1>
-                <br />
+                <h4 class="confirm_title">Preview and Post</h4>
             </div>
         </div>
         <div class="row">
@@ -15,7 +23,7 @@
                         <div class="col-md-3 page-label">
                             <label>Title</label>
                         </div>
-                        <div class="col-md-9"><?php echo ucfirst($data['title']); ?></div>
+                        <div style="font-size:16px;font-weight: bold;" class="col-md-9"><?php echo ucfirst($data['title']); ?></div>
                     </div>
 
 
@@ -24,9 +32,9 @@
                 <div class="col-md-9 form-group">
                     <div class="row">
                         <div class="col-md-3 page-label">
-                            <label>Select Category</label>
+                            <label>Job Category</label>
                         </div>
-                        <div class="col-md-9"><?php 
+                        <div style="font-size:16px;" class="col-md-9"><?php 
                         $this->db->where('subcat_id', $data['category']);
                         $q = $this->db->get('job_subcategories');
                         $record = $q->row();
@@ -57,7 +65,7 @@
                         <div class="col-md-3 page-label">
                             <label>Job Description</label>
                         </div>
-                        <div class="col-md-9">
+                        <div style="font-size:16px;" class="col-md-9">
                             <?php echo $data['job_description'];?>
                         </div>
                     </div>
@@ -66,9 +74,9 @@
                 <div class="col-md-9 form-group">
                     <div class="row">
                         <div class="col-md-3 page-label">
-                            <label>Upload File</label>
+                            <label>Attach File</label>
                         </div>
-                        <div class="col-md-9"><a href='<?php echo $data['path']; ?>' target="_blank">Click to view</a></div>
+                        <div style="font-size:16px;" class="col-md-9"><a href='<?php echo $data['path']; ?>' target="_blank">Click to view</a></div>
                     </div>
                 </div>
 
@@ -79,7 +87,7 @@
                         </div>
                         <div class="col-md-9">
                             <div class="row">
-                                <div class="col-md-3"><?php echo ucfirst($data['job_type'])?></div>
+                                <div style="font-size:16px;font-weight: bold;" class="col-md-3"><?php echo ucfirst($data['job_type'])?></div>
                             </div>
                         </div>
                     </div>
@@ -90,7 +98,7 @@
                         <div class="col-md-3 page-label">
                             <label>Experience Level</label>
                         </div>
-                        <div class="col-md-9"><?php echo ucfirst($data['experience_level'])?></div>
+                        <div style="font-size:16px;" class="col-md-9"><?php echo ucfirst($data['experience_level'])?></div>
                     </div>
                 </div>
 
@@ -99,7 +107,7 @@
                         <div class="col-md-3 page-label">
                             <label>Budget</label>
                         </div>
-                        <div class="col-md-9">$<?php echo $data['budget'];?></div>
+                        <div style="font-size:16px;" class="col-md-9">$<?php echo $data['budget'];?></div>
                     </div>
                 </div>
 
@@ -108,16 +116,16 @@
                         <div class="col-md-3 page-label">
                             <label>Job Duration</label>
                         </div>
-                        <div class="col-md-9"><?php echo str_replace('_',' ',$data['job_duration'])?></div>
+                        <div style="font-size:16px;line-height: 25px;" class="col-md-9"><?php echo str_replace('_',' ',$data['job_duration'])?></div>
                     </div>
                 </div>
 
                 <br> <br>
 
-                <div class="col-md-12 form-group">
+                <div style="margin-bottom: 30px;" class="col-md-12 form-group">
                     <input type="hidden" name="submitbtn" value="1" id='buttonVal'/>
-                    <input type="submit" value="Publish"   class="btn btn-primary form-btn"> 
-                    <input type="button" value="Cancel"  class="btn btn-primary form-btn" onclick="window.history.go(-1);">
+                    <input style="margin-left: 188px;" style="margin-left: 0px;" type="submit" value="Publish"   class="btn btn-primary form-btn big_mass_active"> 
+                    <input style="margin-left: 30px;" type="button" value="Cancel"  class="btn btn-primary form-btn" onclick="window.history.go(-1);">
                 </div>
 
                 <!--<button type="submit" class="btn btn-primary pull-right">Next</button>-->

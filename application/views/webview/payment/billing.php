@@ -1,6 +1,6 @@
 <div style="clear:both"></div><!--end--header bottm-->
 <section id="mid_content">
-    <div class="container white-box" style="margin-top: 50px;margin-bottom: 50px;padding:10px;">
+    <div class="container white-box" style="margin-top: 40px;margin-bottom: 40px;padding:10px; border:1px solid #ccc;width: 970px !important;min-height: 403px;">
 
         <div class="row  ">  
             <div class="col-xs-12 col-sm-3 col-md-3 ">
@@ -11,14 +11,14 @@
                 $this->load->view("webview/profile/freelancer-profile-left-sidebar",$data) ?>
                 <?php //$this->load->view("webview/includes/error_message"); ?>
             </div>
-            <div class="col-xs-12 col-sm-9 col-md-9 align-left ">
+            <div style="padding-left: 30px;" class="col-xs-12 col-sm-9 col-md-9 align-left ">
                  
-                <div class="row title-line">
+                <div style="margin-bottom: 32px;" class="row title-line">
                     <div class="abc" style="padding-bottom: 10px;">
-                        <h3>Billing &amp; Payment Processing</h3>
+                        <h3 style="margin-bottom: -1px;">Billing &amp; Payment Processing</h3>
                     </div> 
-                    <div class="abd" style="padding:7px;"> 
-                         <a class="btn btn-default" href="<?php echo site_url("pay/methods_card"); ?>">Add Billing Method </a> 
+                    <div class="abd" style="padding:7px;padding-right: 0;"> 
+                         <a style="border: 1px;" class="btn btn-default cus_add_billing_method" href="<?php echo site_url("pay/methods_card"); ?>">Add Billing Method </a> 
                     </div>
                 </div> 
                 <div class="row">
@@ -36,15 +36,15 @@
                             } elseif (isset($_GET['delete']) && $_GET['delete'] == "false") {
                                 echo '<div style="margin-top:10px;" class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Cannot delete primary payment method.</div>';
                             } elseif (isset($_GET['primary']) && $_GET['primary'] == "changed") {
-                                echo '<div style="margin-top:10px;" class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Primary payment method has been updated.</div>';
+                                echo '<div style="margin-top:-10px;margin-right: 19px;padding: 9px 10px;" class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Primary payment method has been updated.</div>';
                             }
                             ?>
-                            <table class="oTable">
+                            <table style="width: 97.5%;" class="oTable">
                                 <thead>
                                     <tr>
-                                        <th class="col1of5">Billing Method</th>
-                                        <th> AutoPay Status</th>
-                                        <th class="txtCenter">Actions</th>
+                                        <th style="font-size: 18px;font-family: calibri;padding-bottom: 10px;" class="col1of5">Billing Method</th>
+                                        <th style="font-size: 18px;font-family: calibri;padding-bottom: 10px;"> AutoPay Status</th>
+                                        <th style="font-size: 18px;font-family: calibri;padding-bottom: 10px;" class="txtCenter">Actions</th>
                                     </tr></thead>
                                 <tbody>
 
@@ -55,9 +55,9 @@
                                         ?>
                                         <tr>
                                             
-                                            <td class="col1of5"><strong>MasterCard</strong> ending in <?php echo $card->cardNumber; ?>
+                                            <td style="font-size: 17px;font-family: calibri;" class="col1of5"><strong style="font-size: 17px;font-family: calibri;font-weight: bold;">MasterCard</strong> ending in <?php echo $card->cardNumber; ?>
                                             </td>
-                                            <td class="nowrap">
+                                            <td style="font-size: 17px;font-family: calibri;" class="nowrap">
                                                 <?php
                                                 if ($card->isPrimary == '1') {
                                                     echo "Primary";
@@ -93,14 +93,14 @@
                                                     <input type="hidden" name="city" value="<?php echo $card->city ?>" />
                                                     <input type="hidden" name="country" value="<?php echo $card->country ?>" />
                                                     <input type="hidden" name="edit" value="yes">
-                                                    <button class="btn btn-link" type="submit">Edit</button>
+                                                    <button style="font-size: 17px;font-family: calibri;" class="btn btn-link" type="submit">Edit</button>
                                                 </form>
                                                 |
-                                                <form style="margin:0px;display:inline;" method="post" action="removePaymentMethod">
+                                                <form style="margin:0px;display:inline;margin-left: 14px;margin-right: -28px;" method="post" action="removePaymentMethod">
                                                     <input type="hidden" name="remove" value="yes">
                                                     <input type="hidden" name="type" value="card">
                                                     <input type="hidden" name="id" value="<?php echo $card->attachedTo; ?>" />
-                                                    <button class="btn btn-link" type="submit">Remove</button>
+                                                    <button style="font-size: 17px;font-family: calibri;" class="btn btn-link" type="submit">Remove</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -110,7 +110,7 @@
                                         ?>
                                         <tr>
                                            
-                                            <td><strong>Paypal</strong> - <?php echo $paypal->pp_email; ?></td>
+                                            <td style="font-size: 17px;font-family: calibri;"><strong style="font-size: 17px;font-family: calibri;font-weight: bold;">Paypal</strong> - <?php echo $paypal->pp_email; ?></td>
                                             <td class="nowrap">
                                                 <?php
                                                 if ($paypal->isPrimary == '1') {
@@ -140,7 +140,7 @@
                                                     <input type="hidden" name="remove" value="yes">
                                                     <input type="hidden" name="type" value="paypal">
                                                     <input type="hidden" name="id" value="<?php echo $paypal->attachedTo; ?>" />
-                                                    <button class="btn btn-link" type="submit">Remove</button>
+                                                    <button style="font-size: 17px;font-family: calibri;" class="btn btn-link" type="submit">Remove</button>
                                                 </form>
                                             </td>
                                         </tr>

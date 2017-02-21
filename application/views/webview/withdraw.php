@@ -15,10 +15,20 @@ if (isset($paymentData) && is_array($paymentData)) {
     }
 }
 ?>
+
+
+<style>
+.withdraw .abailone span {
+color: #858484;
+font-family: "calibri";
+font-size: 17px;
+font-weight: 700;
+}
+</style>
 <section id="mid_content" class="withdraw">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 col-sm-12 white-box-feed" style="margin-top:50px; margin-bottom:50px;">
+            <div class="col-md-12 col-sm-12 white-box-feed" style="margin-top:40px; margin-bottom:40px;border: 1px solid #ccc;width: 970px;">
                 <p class="result-msg" style="text-align: center;color: green;font-size: 20px;display: none;"></p>
                 <form id="withdraw_from">
                     <div class="wrapper-top">
@@ -27,7 +37,7 @@ if (isset($paymentData) && is_array($paymentData)) {
                         <div class="header-title"> Use the page to withdraw funds from your account.For withdrawal options and processing time <a href="#">click here</a>
                         </div>
                         <h5>Withdrawal Method</h5>
-                        <select class="custom-select selectoption form-control" id="payment_type" name="payment_type">
+                        <select style="font-size: 17px;font-family: calibri;" class="custom-select selectoption form-control" id="payment_type" name="payment_type">
                             <option value="">- Select -</option>
                             <?php
                             if (strlen($paypal) > 0) {
@@ -110,7 +120,7 @@ if (isset($paymentData) && is_array($paymentData)) {
                                 <td> Withdra Balance</td>
                                 <td>US $</td>
                                 <td style=" min-width: 382px;">
-                                    <input type="text" value="" name="bal_withdraw" id="bal_withdraw" placeholder="">
+                                    <input style="font-size: 17px;font-family: calibri;" type="text" value="" name="bal_withdraw" id="bal_withdraw" placeholder="">
                                     <span id="erreo"></span>
                                 </td>
                             </tr>
@@ -129,14 +139,14 @@ if (isset($paymentData) && is_array($paymentData)) {
                             </tr>
                         </tbody>
                     </table>
-                    <div class="row">
+                    <div style="margin-left: -40px;" class="row">
                         <div class="col-xs-12 col-sm-3">
                         </div>
                         <div class="col-xs-12 col-sm-2">
-                            <button type="submit" class="btn btn-primary" id="Withdrawbutton">Withdraw</button>
+                            <button type="submit" class="btn-primary big_mass_active transparent-btn big_mass_button" id="Withdrawbutton">Withdraw</button>
                         </div>
-                        <div class="col-xs-12 col-sm-2">
-                            <button type="submit" class="btn btn-default" id="cencelbutton">Cancel</button>
+                        <div style="margin-left: -60px;" class="col-xs-12 col-sm-2">
+                            <button type="submit" class="btn-primary transparent-btn big_mass_button" id="cencelbutton">Cancel</button>
                         </div>
                         <div class="clear:both"></div>
                     </div>
@@ -174,14 +184,6 @@ if (isset($paymentData) && is_array($paymentData)) {
     </div>
 </section>
 <div style="clear:both"></div>
-<style>
-    .withdraw .abailone span {
-        color: #858484;
-        font-family: "Open Sans";
-        font-size: 14px;
-        font-weight: 700;
-    }
-</style>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script>
     $("#payment_type").on('change', function (e) {

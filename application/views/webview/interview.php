@@ -13,6 +13,168 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel='stylesheet' media='screen and (min-width: 600px)' href='<?php echo base_url() ?>assets/profile/css/desktop-style.css' />
     <link rel='stylesheet' media='screen and (min-width: 601px) and (max-width: 900px)' href='<?php echo base_url() ?>assets/profile/css/tablet-style.css' />
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/header.css"/>
+	
+<style>
+    .user_view_img img {
+	border-radius: 50%;
+	height: 100px;
+	width: 100px;
+	margin-left: 10px;
+}  
+    .chat_border {
+        position: relative;
+        display: inline-block;
+        margin-top: -7px;
+    }
+    .attach_icon{
+        height: 20px;
+        width: 20px;
+    }
+.main_hourly_rate a {
+	margin-top: 15px;
+}
+span.rating-badge {
+	background: #F77D0E  none repeat scroll 0 0;
+	border-radius: 2px;
+	color: #fff;
+	padding: 2px 4px 2px 5px;
+	font-size: 12px;
+}
+.review_ratting_left .star-rating::before {
+	font-size: 19px !important;
+	left: 10px;
+}
+.review_ratting_right .star-rating::before {
+	top: -2px;
+}
+
+.mass_box .chat-details-topbar {
+	width: 690px;
+	margin: 0 30px;
+	border-top:1px solid #ccc;
+	border-left:1px solid #ccc;
+	border-right:1px solid #ccc;
+	margin-top: 25px;
+}
+.mass_box .chat-details {
+	width: 690px;
+	margin: 0 30px;
+	border-left:1px solid #ccc;
+	border-right:1px solid #ccc;
+}
+.mass_box .chat-bar{width: 690px;margin: 0 30px;
+	border-left:1px solid #ccc;
+	border-bottom:1px solid #ccc;
+	border-right:1px solid #ccc;}
+.mass_box textarea#chat-input{width: 520px;}
+
+.buttonsidefoure ul.custom_li li {
+	overflow: hidden;
+	margin: -24px 11px;
+}
+
+
+.attach_icon {
+position: absolute;
+right: 4%;
+font-size: 26px;
+top: 35%;
+color: #a2a2a2;
+transform: rotate(90deg);
+}
+</style>
+
+<style>
+
+.row.chat-box { min-height: 400px; border: 1px solid; padding: 16px;}
+.chat-screen {
+border: 1px solid #ccc; 
+padding: 0;
+min-height: 410px;
+width: 754px;
+}
+.chat-details-topbar { 
+min-height: 75px; position: absolute; top: 0; background: #fff; width: 675px; z-index: 99; border-bottom: 1px solid #ccc;
+padding: 4px 5px 0px 13px;
+width: 750px;
+
+}
+.white-box.bordered_cl {
+width: 754px;
+}
+.chat-details { width: 100%; z-index: 1; bottom: 0;
+	margin-top: -20px;
+/*                               min-height: 190px; height: 190px; */
+   position: absolute; background: #fff; overflow-x: hidden; overflow-y: scroll;top: 100px;
+max-height: 246px;
+}
+.chat-details ul li { list-style-type: none; padding: 10px 0;}
+.chat-details ul li span img { width: 50px; border-radius: 50%; margin: 0 15px 0 0;}
+.chat-details-topbar h3 { padding: 6px 10px; font-weight: bold;
+padding-top: 10px;
+}
+.chat-details-topbar h5 { padding: 0 10px;}
+.chat-details-topbar p { padding: 24px 0 0px 10px; margin: 0;  color: #757575;}
+.chat-details ul li span.details { display: block; margin-left: 67px;  font-size: 14px;  color: #757474;}
+textarea#chat-input { 
+width: 568px;
+height: 40px;
+margin: 0 0 0 15px;
+margin-top: 25px;
+border: 2px solid #1ca7db;
+}
+.active { border: 2px solid #1ca7db;  color: #1ca7db;}
+.chat-sidebar a { color: #000;}
+.chat-bar { 
+width: 100%;
+z-index: 1;
+bottom: 0;
+min-height: 80px;
+height: 80px;
+position: absolute;
+background: #fff;
+top: 325px;
+border-top: 1px solid #ccc;
+}
+
+form#chat_form a {
+display: inline-block;
+background: #1ca7db;
+color: #fff;
+text-align: center;
+font-size: 18px;
+padding: 5px 21px;
+margin: 18px 6px;
+text-decoration: none;
+width: 120px;
+height: 40px;
+}
+.cover_box p {
+/* margin-top: 65px; */
+padding-top: 0px;
+}
+.textarea {
+max-height: 300px;
+overflow-x: hidden;
+overflow-wrap: break-word;
+resize: horizontal;
+height: 645px;
+overflow-y: visible;
+}
+.textarea:focus{
+outline-style: solid;
+outline-width: 2px;
+}
+span.chat-date { font-size: 13px; padding: 0 0 0 15px; color: #949494;}
+span.group-date { display: block; text-align: center; font-size: 16px; color: #7d7b7b;}
+span.name { text-transform: capitalize;}
+span.text1 {text-transform: capitalize;}
+
+.buttonsidefoure ul li a {
+    font-size: 16px;
+}
+</style>
+
 </head>
 
 <?php  
@@ -167,10 +329,35 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
 						<a href="<?php echo base_url() ?>profile/profile_freelancer?user=<?php echo base64_encode($webUserInfo['webuser_id']);?>&name=<?=$slag;?>" ><button class="btn" id="view-profile-btn">View Profile</button></a>
 						
                         <br/>
+                         <?php                                         
+                         $job_progres_status=$conversation_msg_count[0]->job_progres_status;
+                         $withdrawn=$conversation_msg_count[0]->withdrawn;
+                         $bid_reject=$conversation_msg_count[0]->bid_reject;
+                         $withdrawn_by=$conversation_msg_count[0]->withdrawn_by;
+                       
+                                            if ($job_progres_status==0 && !($withdrawn==1 ||bid_reject==1) ) {
+                                            echo "<br>";
+                                            }
+                                            else if($withdrawn==1 ||bid_reject==1)
+                                            {
+                                            if($withdrawn_by==1)
+                                            {
+                                            echo "<small>Declined by Freelancer </small>";
+                                            }
+                                            else if($withdrawn_by==2)
+                                            {
+                                            echo "<small>Declined by You </small>";
+                                            }
+                                            
+                                            }
+                                            else 
+                                            {
+                                                ?>
                         <div style="margin-bottom: 11px;" class="col-md-12 col-sm-12 decline-line">
                             <i class="fa fa-times-circle" aria-hidden="true"></i> 
                             <small><a href="javascript:void(0)" onclick="Confirmdecline(<?php echo $job_info[0]->id;?>);">Decline Candidate </a></small>
                         </div>
+                        <?php }  ?>
                     </div>
                            </div>
                         </div>
@@ -234,10 +421,12 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
 										<input type="hidden" name="job_id" id="job_id" value="<?=$job_info[0]->job_id?>">
 										<input type="hidden" name="user_id" id="user_id" value="<?=$job_info[0]->user_id?>">
 										<div  class="chat_border"style="width:80%;float: left;height: 100px;">
-				<textarea name="chat-input" id="chat-input" rows="4"></textarea>
-                                    <div class="attach_icon"></div>
+										<textarea style="border-radius: 4px;" name="chat-input" id="chat-input" rows="4"></textarea>
+										<div class="attach_icon">
+										<i style="cursor: pointer;" class="fa fa-paperclip" aria-hidden="true"></i>
 										</div>
-										<div class="sms_send_btn" style="width:20%;float: left;height: 100px;"><a href="javascript:void(0);" id="submit">SEND</a></div>
+										</div>
+										<div class="sms_send_btn ccc_sms_send_btn" style="width:20%;float: left;height: 100px;"><a href="javascript:void(0);" id="submit">SEND</a></div>
 										</form>
 										<span id="error_span" style="color:red;padding: 0 0 0 15px;display:none;"></span>
 										<span id="success_span" style="color:green;padding: 0 0 0 15px;display:none;"></span>
@@ -259,7 +448,7 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
                                 
                             </div>
                             <div class="col-md-3 col-sm-3">
-                                <div style="margin-top: -35px !important;" class="buttonsidefoure">
+                                <div style="margin-top: -35px !important;border-radius: 4px;" class="buttonsidefoure">
                               
 
                                     <h2 style="margin: 0;padding: 0;margin-left: 12px;padding-bottom: 20px;"><b>Work History</b></h2>
@@ -313,14 +502,13 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
 												   $total_work +=$work->total_hour;
 											   }
 											   echo $total_work;
-												   $hourstatus =    "  Hours Worked ";
+												   $hourstatus =    "  <span>Hours Worked</span> ";
 											}else{
-											   $hourstatus =  "0.00  Hours Worked";
+											   $hourstatus =  "0.00  <span>Hours Worked</span>";
 											}
 											?>
-											<span>
-											   <?php echo $hourstatus; ?>
-											   </span></a>
+											<?php echo $hourstatus; ?>
+											</a>
 										</li>
 										
 										<li>
@@ -339,8 +527,8 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
 											<a href=""><i style="margin-right: 5px;" class="fa fa-tree" aria-hidden="true"></i>&nbsp;<?php echo $basicDetails["work_experience_year"] ?> <span> Years Experience</span></a>
 										</li>
 										<li style="margin-bottom: -10px;">
-											<a style="font-size: 18px;" href=""><i style="margin-right: 4px;" class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;<?php echo $webUserInfo['webuser_country_name'] ?>
-											<span></span></a>
+											<a style="font-size: 18px;" href=""><i style="margin-right: 4px;" class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;
+											<span><?php echo $webUserInfo['webuser_country_name'] ?></span></a>
 										</li>
                                      </ul>
                                 </div>	
@@ -358,92 +546,6 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
     ?>
 </body>
 </html>
-<style>
-    
-		.row.chat-box { min-height: 400px; border: 1px solid; padding: 16px;}
-		.chat-screen {
-            border: 1px solid #ccc; 
-            padding: 0;
-            min-height: 410px;
-            width: 754px;
-    }
-		.chat-details-topbar { 
-                    min-height: 75px; position: absolute; top: 0; background: #fff; width: 675px; z-index: 99; border-bottom: 1px solid #ccc;
-                    padding: 4px 5px 0px 13px;
-            width: 750px;
-                    
-                }
-    .white-box.bordered_cl {
-	width: 754px;
-}
-		.chat-details { width: 100%; z-index: 1; bottom: 0;
-                                margin-top: -20px;
-/*                               min-height: 190px; height: 190px; */
-                               position: absolute; background: #fff; overflow-x: hidden; overflow-y: scroll;top: 100px;
-                max-height: 246px;
-                }
-		.chat-details ul li { list-style-type: none; padding: 10px 0;}
-		.chat-details ul li span img { width: 50px; border-radius: 50%; margin: 0 15px 0 0;}
-		.chat-details-topbar h3 { padding: 6px 10px; font-weight: bold;
-                padding-top: 10px;
-                }
-		.chat-details-topbar h5 { padding: 0 10px;}
-		.chat-details-topbar p { padding: 24px 0 0px 10px; margin: 0;  color: #757575;}
-		.chat-details ul li span.details { display: block; margin-left: 67px;  font-size: 14px;  color: #757474;}
-		textarea#chat-input { 
-                        width: 568px;
-    height: 40px;
-    margin: 0 0 0 15px;
-    margin-top: 25px;
-    border: 2px solid #1ca7db;
-                }
-		.active { border: 2px solid #1ca7db;  color: #1ca7db;}
-		.chat-sidebar a { color: #000;}
-		.chat-bar { 
-                    width: 100%;
-    z-index: 1;
-    bottom: 0;
-    min-height: 80px;
-    height: 80px;
-    position: absolute;
-    background: #fff;
-    top: 325px;
-    border-top: 1px solid #1ca7db;
-                 }
-   
-		form#chat_form a {
-	display: inline-block;
-	background: #1ca7db;
-	color: #fff;
-	text-align: center;
-	font-size: 18px;
-	padding: 5px 21px;
-	margin: 18px 6px;
-	text-decoration: none;
-	width: 120px;
-	height: 40px;
-}
-    .cover_box p {
-	/* margin-top: 65px; */
-	padding-top: 0px;
-}
-.textarea {
-	max-height: 300px;
-	overflow-x: hidden;
-	overflow-wrap: break-word;
-	resize: horizontal;
-	height: 645px;
-	overflow-y: visible;
-}
-    .textarea:focus{
-        outline-style: solid;
-        outline-width: 2px;
-    }
-		span.chat-date { font-size: 13px; padding: 0 0 0 15px; color: #949494;}
-		span.group-date { display: block; text-align: center; font-size: 16px; color: #7d7b7b;}
-		span.name { text-transform: capitalize;}
-		span.text1 {text-transform: capitalize;}
-		</style>
 <script>
  function Confirmdecline(id) {
 
@@ -500,76 +602,3 @@ $('#submit').click(function(){
 });
 
 </script>
-<style>
-    .user_view_img img {
-	border-radius: 50%;
-	height: 100px;
-	width: 100px;
-	margin-left: 10px;
-}  
-    .chat_border {
-        position: relative;
-        display: inline-block;
-        margin-top: -7px;
-    }
-    .attach_icon{
-        height: 20px;
-        width: 20px;
-    }
-.main_hourly_rate a {
-	margin-top: 15px;
-}
-.attach_icon::before {
-	position: absolute;
-	content: "\f233";
-	top: 37px;
-	right: 35px;
-	font-size: 12px;
-	height: 20px;
-	width: 12px;
-	z-index: 9999;
-}
-span.rating-badge {
-	background: #F77D0E  none repeat scroll 0 0;
-	border-radius: 2px;
-	color: #fff;
-	padding: 2px 4px 2px 5px;
-	font-size: 12px;
-}
-.review_ratting_left .star-rating::before {
-	font-size: 19px !important;
-	left: 10px;
-}
-.review_ratting_right .star-rating::before {
-	top: -2px;
-}
-
-.mass_box .chat-details-topbar {
-	width: 690px;
-	margin: 0 30px;
-	border-top:3px solid #DDD;
-	border-left:3px solid #ddd;
-	border-right:3px solid #ddd;
-	margin-top: 25px;
-}
-.mass_box .chat-details {
-	width: 690px;
-	margin: 0 30px;
-	border-left:3px solid #ddd;
-	border-right:3px solid #ddd;
-}
-.mass_box .chat-bar{width: 690px;margin: 0 30px;
-	border-left:3px solid #ddd;
-	border-bottom:3px solid #DDD;
-	border-right:3px solid #ddd;}
-.mass_box textarea#chat-input{width: 520px;}
-
-.buttonsidefoure ul.custom_li li {
-	overflow: hidden;
-	margin: -24px 11px;
-}
-    
-    
-    
-    
-</style>

@@ -16,9 +16,13 @@ if (isset($data) && is_array($data)) {
     }
 }
 ?>
+<style type="text/css">
+.container{width: 1060px !important;}
+</style>
+
 <div style="clear:both"></div>
-<section id="big_header" style="margin-bottom:50px;height: auto;" >
-    <div class="row white-box" style="margin-top: 50px;margin-bottom: 50px;">
+<section id="big_header" style="margin-bottom:40px;height: auto;" >
+    <div class="row white-box" style="margin-top: 40px;margin-bottom: 40px;border: 1px solid #ccc;">
         <div class="col-md-3 nopadding">
             <?php 
                 $data = array(
@@ -26,16 +30,16 @@ if (isset($data) && is_array($data)) {
                 ); 
                 $this->load->view("webview/profile/freelancer-profile-left-sidebar",$data) ?>
         </div>
-        <div class="col-md-9 nopadding">
-            <div class="row custom_methods_menu_border" style="margin: 0px">
-                    <div class="col-md-2"> Methods </div>
-                    <div class="col-md-4"> Withdraw Fee </div>
+        <div style="margin-left: -10px !important;" class="col-md-9 nopadding">
+            <div class="row custom_methods_menu_border" style="margin: 0px;margin-top: 6px;">
+                    <div class="col-md-2"> <b style="position: absolute;left: 10px;">Methods </b></div>
+                    <div class="col-md-4"> <b style="margin-left: -16px;">Withdraw Fee</b> </div>
                     <div class="col-md-2">
-                        Actions
+                        <b style="margin-left: -19px;">Status</b>
                     </div>
 
-                    <div class="col-md-4">
-                        Active Account
+                    <div style="text-align: right;" class="col-md-4">
+                        <b style="position: absolute;right: 12px;">Actions</b>
                     </div>
                 </div>
             <div class=" payment-section">
@@ -43,14 +47,14 @@ if (isset($data) && is_array($data)) {
 
                 <div class="row margin-top-7">
                     <div class="col-md-2">
-                        <img class="paypal-img" src="<?php echo base_url() ?>assets/img/paypal_logo.png" width="110" />
+                        <img style="width: 100px;height: auto;" class="paypal-img" src="<?php echo base_url() ?>assets/img/paypal_logo.png" width="110" />
                     </div>
                     <div class="col-md-4">
-                        <div class="row">
+                        <div style="font-size: 16px;font-family: calibri;" class="row">
                             <div class="col-md-12 red">$1 USD Per withdrawal.</div>
-                            <div class="col-md-12">Additional activationa and maintenance fees charged by PayPal </div>
+                            <div class="col-md-12">Additional maintenance fees charged by PayPal </div>
                             <div class="col-md-12">
-                                <a href="#">Dont have a PayPal Account?</a>
+                                <a href="#">Don't have a PayPal Account?</a>
                             </div>
                         </div>
                     </div>
@@ -59,26 +63,24 @@ if (isset($data) && is_array($data)) {
                         <?php
                         if (strlen($paypal) > 0) {
                             ?>
-                        <button disabled type="button" class="btn btn-primary new-account" accesskey="paypal">
-                            Account Active
-                        </button>
+                            <span style="font-size: 16px;font-family: calibri;font-weight: bold;margin-left: -17px;">Active</span>
                         <?php
                         }else{
                         ?>
-                        <button type="button" class="btn btn-primary new-account" accesskey="paypal">
-                            Add New Paypal
+                        <button style="width: 97px;float: left;padding: 0;margin-left: -16px;" type="button" class="btn-primary big_mass_active transparent-btn big_mass_button" accesskey="paypal">
+                            Add Paypal
                         </button>
                             <?php
                         }
                         ?>
                     </div>
 
-                    <div class="col-md-4 margin-top-2 paypal-account align-right" accesskey="paypal">
+                    <div class="col-md-4 paypal-account align-right" accesskey="paypal">
                         <?php
                         if (strlen($paypal) > 0) {
                             ?>
                             <span class="paypal-email"><?php echo $paypal; ?></span> 
-                            <button class="form-btn btn-primary btn" onclick="removeAccount(this);" accesskey="paypal">Remove</button>
+                            <button style="position: absolute;right: 15px;top: 30px;" class="form-btn btn-primary btn" onclick="removeAccount(this);" accesskey="paypal">Remove</button>
                             <?php
                         }
                         ?>
@@ -89,15 +91,15 @@ if (isset($data) && is_array($data)) {
             <div class=" payment-section">
                 <div class="row margin-top">
                     <div class="col-md-2">
-                        <img class="skrill-img" src="<?php echo base_url() ?>assets/img/skrill_logo.gif" width="110" />
+                        <img style="width: 100px;height: auto;" class="skrill-img" src="<?php echo base_url() ?>assets/img/skrill_logo.gif" width="110" />
                     </div>
 
                     <div class="col-md-4">
-                        <div class="row">
+                        <div style="font-size: 16px;font-family: calibri;" class="row">
                             <div class="col-md-12 red">$1 USD Per withdrawal.</div>
-                            <div class="col-md-12">Additional activationa and maintenance fees charged by Skrill </div>
+                            <div class="col-md-12">Additional maintenance fees charged by Skrill </div>
                             <div class="col-md-12">
-                                <a href="#">Dont have a Skrill Account?</a>
+                                <a href="#">Don't have a Skrill Account?</a>
                             </div>
                         </div>
                     </div>
@@ -107,26 +109,24 @@ if (isset($data) && is_array($data)) {
                         <?php
                         if (strlen($skrill) > 0) {
                             ?>
-                        <button disabled type="button" class="btn btn-primary new-account" accesskey="skrill">
-                            Account Active
-                        </button>
+                        <span style="font-size: 16px;font-family: calibri;font-weight: bold;margin-left: -17px;">Active</span>
                         <?php
                         }else{
                         ?>
-                        <button type="button" class="btn btn-primary new-account" accesskey="skrill">
-                            Add New Skrill
+                        <button style="width: 97px;float: left;padding: 0;margin-left: -16px;" type="button" class="btn-primary big_mass_active transparent-btn big_mass_button" accesskey="skrill">
+                            Add Skrill
                         </button>
                             <?php
                         }
                         ?>
                     </div>
 
-                    <div class="col-md-4 margin-top-2 skrill-account align-right" accesskey="skrill">
+                    <div class="col-md-4 skrill-account align-right" accesskey="skrill">
                         <?php
                         if (strlen($skrill) > 0) {
                             ?>
                             <span class="skrill-email"><?php echo $skrill; ?></span> 
-                            <button class="form-btn btn-primary btn remove-btn" onclick="removeAccount(this);" accesskey="skrill">Remove</button>
+                            <button style="position: absolute;right: 15px;top: 30px;" class="form-btn btn-primary btn remove-btn" onclick="removeAccount(this);" accesskey="skrill">Remove</button>
                             <?php
                         }
                         ?>
@@ -137,15 +137,15 @@ if (isset($data) && is_array($data)) {
             <div class=" payment-section">
                 <div class="row margin-top">
                     <div class="col-md-2">
-                        <img class="payoneer-img" src="<?php echo base_url() ?>assets/img/payoneer-logo.png" width="110" />
+                        <img style="width: 100px;height: auto;" class="payoneer-img" src="<?php echo base_url() ?>assets/img/payoneer-logo.png" width="110" />
                     </div>
 
                     <div class="col-md-4">
-                        <div class="row">
+                        <div style="font-size: 16px;font-family: calibri;" class="row">
                             <div class="col-md-12 red">$2 USD Per withdrawal.</div>
-                            <div class="col-md-12">Additional activationa and maintenance fees charged by Payoneer </div>
+                            <div class="col-md-12">Additional maintenance fees charged by Payoneer </div>
                             <div class="col-md-12">
-                                <a href="#">Dont have a Payoneer Account?</a>
+                                <a href="#">Don't have a Payoneer Account?</a>
                             </div>
                         </div>
                     </div>
@@ -155,26 +155,24 @@ if (isset($data) && is_array($data)) {
                          <?php
                         if (strlen($payoneer) > 0) {
                             ?>
-                         <button disabled type="button" class="btn btn-primary new-account" accesskey="payoneer">
-                            Account Active
-                        </button>
+                         <span style="font-size: 16px;font-family: calibri;font-weight: bold;margin-left: -17px;">Active</span>
                         <?php
                         }else{
                         ?>
-                         <button type="button" class="btn btn-primary new-account" accesskey="payoneer">
-                            Add New Payoneer
+                         <button style="width: 97px;float: left;padding: 0;margin-left: -16px;" type="button" class="btn-primary big_mass_active transparent-btn big_mass_button" accesskey="payoneer">
+                            Add Payoneer
                         </button>
                             <?php
                         }
                         ?>
                     </div>
 
-                    <div class="col-md-4 margin-top-2 payoneer-account align-right" accesskey="payoneer">
+                    <div class="col-md-4 payoneer-account align-right" accesskey="payoneer">
                         <?php
                         if (strlen($payoneer) > 0) {
                             ?>
                             <span class="payoneer-email"><?php echo $payoneer; ?></span> 
-                            <button class="form-btn btn-primary btn remove-btn" onclick="removeAccount(this);" accesskey="payoneer">Remove</button>
+                            <button style="position: absolute;right: 15px;top: 30px;" class="form-btn btn-primary btn remove-btn" onclick="removeAccount(this);" accesskey="payoneer">Remove</button>
                             <?php
                         }
                         ?>

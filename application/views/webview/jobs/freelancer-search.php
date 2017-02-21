@@ -184,8 +184,8 @@ span.rating-badge {
                                     </div>
                                 </div>
                                 <div class="row margin-top-1">
-                                    <div class="col-md-3"><span style="font-size:14px;" class="gray-text">Skills</span></div>
-                                    <div class="col-md-9 skills">
+                                    <div class="col-md-1"><span style="font-size:14px;" class="gray-text">Skills</span></div>
+                                    <div class="col-md-11 skills">
                                        <div class="user_skills">
 									   <?php
                                        if(strlen($fp->skills) > 0){

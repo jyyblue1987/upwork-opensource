@@ -1,3 +1,70 @@
+ <style>span.rating-badge {
+  background: #eba705 none repeat scroll 0 0;
+  border-radius: 7px;
+  color: #fff;
+  padding: 4px;
+}
+.custom_find_job h5{}
+.custom_find_job_bottom li {
+border: 0;
+margin-bottom: 9px;
+width: auto !important;
+padding: 0;
+margin-right: 30px;
+font-size: 18px;
+font-family: calibri;
+color: rgb(98, 98, 98);
+}
+.custom_find_job_bottom li:last-child{margin-right: 0px;}
+.custom_find_job_bottom li i{margin-right: 5px;
+font-size: 19px;}
+.star-rating span, #feedbackbutton h4 span {
+
+	font-size: 19px !important;
+}
+.star-rating::before {
+    font-size: 19px;
+}
+</style>
+
+<?php
+//die();
+//date_default_timezone_set("UTC");
+function time_elapsed_string($ptime)
+{
+    $etime = time() - $ptime;
+
+    if ($etime < 1)
+    {
+        return '0 seconds';
+    }
+
+    $a = array(365 * 24 * 60 * 60 => 'year',
+        30 * 24 * 60 * 60 => 'month',
+        24 * 60 * 60 => 'day',
+        60 * 60 => 'hour',
+        60 => 'minute',
+        1 => 'second'
+    );
+    $a_plural = array('year' => 'years',
+        'month' => 'months',
+        'day' => 'days',
+        'hour' => 'hours',
+        'minute' => 'minutes',
+        'second' => 'seconds'
+    );
+
+    foreach ($a as $secs => $str)
+    {
+        $d = $etime / $secs;
+        if ($d >= 1)
+        {
+            $r = round($d);
+            return $r . ' ' . ($r > 1 ? $a_plural[$str] : $str) . ' ago';
+        }
+    }
+}
+?>
 <?php
 
 if (count($records) > 0)
@@ -21,6 +88,13 @@ if (count($records) > 0)
                 }
                 
             /* find client payment set status end */ 
+			/* find total spent by client start */
+$client_id=$value->webuser_id;
+$query_spent = $this->db->query("SELECT SUM(payment_gross) as total_spent FROM `payments` INNER JOIN `webuser` ON `webuser`.`webuser_id` = `payments`.`user_id` INNER JOIN `jobs` ON `jobs`.`id` = `payments`.`job_id` INNER JOIN `job_accepted` ON `job_accepted`.`job_id` = `payments`.`job_id` INNER JOIN `job_bids` ON `job_bids`.`job_id` = `payments`.`job_id` WHERE `job_accepted`.`fuser_id` = `payments`.`user_id` AND
+    `job_bids`.`user_id` = `payments`.`user_id` AND `payments`.`buser_id` = $client_id");
+$row_spent = $query_spent->row();
+$total_spent=$row_spent->total_spent;
+/* find total spent by client end */
 
 $this->db->select('*');
 $this->db->from('job_accepted');
@@ -77,14 +151,14 @@ $accepted_jobs = $query->result();
 ?>
         <div style="margin-top: -15px;" class="row" id="all-jobs">
             <div style="margin-bottom: 5px;" class="col-md-12 col-md-offset-0 page-jobs ">
-                <h1 style="margin-bottom: 12px;"><a style="font-family: 'Calibri';font-size: 22px;" href="<?php echo site_url("jobs/view/". url_title($value->title).'/'.  base64_encode($value->id)); ?>"><?php echo ucfirst($value->title) ?></a></h1>
+                <h1 style="margin-bottom: 12px;"><a style="font-family: 'Calibri';font-size: 22px;color: rgb(2, 143, 204);" href="<?php echo site_url("jobs/view/". url_title($value->title).'/'.  base64_encode($value->id)); ?>"><?php echo ucfirst($value->title) ?></a></h1>
 					<div class="custom_find_job">
 						<h5><b><?php echo ucfirst($value->job_type) ?></b></h5>
 						<h5><b>-</b></h5>
 						<h5 style="margin-right: 10px;"><b><?php
 						if ($value->job_type=='hourly')
 						{
-							echo $value->hours_per_week . " Hours/wk";
+							echo $value->hours_per_week . " hours/wk";
 						} else
 						{
 							echo '$' . round($value->budget, 2);
@@ -109,18 +183,16 @@ $accepted_jobs = $query->result();
 						$jobfeedback= $query->result();
 						?>
 						<h5 style="margin-right: 10px;">Posted: <?php
-
-
-						$timeDate = strtotime($value->job_created);
-								$dateInLocal = date("Y-m-d H:i:s", $timeDate);
-								
-
-						echo date('M d y', strtotime($dateInLocal)) ?></h5>
+                       // date_default_timezone_set("Asia/Bangkok");
+                        $timeDate = strtotime($value->job_created);
+                        $dateInLocal = date("Y-m-d H:i:s", $timeDate);
+                            
+                        echo time_elapsed_string(strtotime($dateInLocal)); ?></h5>
 						<h5><b><?php echo $Proposals_count; ?></b> quotes</h5>
 					</div>
             </div>
             <div style="margin-bottom: -3px;" class="col-md-12 col-md-offset-0 page-jobs ">
-                <h6 style="color: #494949;font-size: 15px;"><?php echo ucfirst($value->job_description) ?></h6>
+                <h6 style="color: #494949;"><?php echo ucfirst($value->job_description) ?></h6>
             </div>
             <div class="col-md-12 col-md-offset-0 page-jobs " style=" margin-bottom: 2px;">
 
@@ -151,29 +223,29 @@ $accepted_jobs = $query->result();
                         if($value->isactive && $paymentSet) 
                         {
                           ?>
-                        <li style="width: 25%; padding: 0px 0px 0px 35px;">
-						<i style="margin-right: 3px;margin-left: -4px; font-size: 25px; color: rgb(2, 143, 204); position: absolute; top: 8px; margin-top: 0px; left: 22px;" class="fa fa-check-circle"></i>Verified
+                        <li>
+						<i style="color: rgb(2, 143, 204);" class="fa fa-check-circle"></i>Verified
 						</li>
                         <?php   
                         }
                         else 
                         {
                             ?>
-                        <li style="width: 25%; padding: 0px 0px 0px 30px;">
-						<i style="margin-right: 3px;margin-left: -4px; font-size: 25px; color: rgb(187, 187, 187); position: absolute; top: 8px; margin-top: 0px; left: 22px;" class="fa fa-check-circle"></i>Unverified
+                        <li>
+						<i style="color: rgb(187, 187, 187);" class="fa fa-check-circle"></i>Unverified
 						</li>
                         <?php 
                             
                         }                                               
 ?>
                        
-                        <li style="width:25%;padding:0 12px">$600000 Spent</li>
-                        <li style="width:25%;padding:0px 12px">
+                        <li><b>$<?php echo round($total_spent,0);?></b> Spent</li>
+                        <li style="padding-top: 5px;margin-bottom: 4px;">
                             <?php if($total_feedbackScore !=0 && $total_budget!=0){
                                 $totalscore = ($total_feedbackScore / $total_budget);
                                 $rating_feedback = ($totalscore/5)*100;
                                ?>
-                               <span style="font-size: 10px;background: #F77D0E;padding: 2px 5px;border-radius: 2px;" class="rating-badge"><?=number_format((float)$totalscore,1,'.','');?></span>
+                               <span style="font-size: 10px;background: #F77D0E;padding: 2px 5px;border-radius: 2px;margin-right: 1px;" class="rating-badge"><?=number_format((float)$totalscore,1,'.','');?></span>
 							   
                               <div title="Rated <?=$totalscore;?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="top:-5px;height: 1.2em;">
                                <span style="width:<?=$rating_feedback;?>%">
@@ -182,7 +254,7 @@ $accepted_jobs = $query->result();
                                </div>
                            <?php  }else{ ?>
 						   
-                             <span style="font-size: 10px;background: #F77D0E;padding: 2px 5px;border-radius: 2px;" class="rating-badge">0.0</span>
+                             <span style="font-size: 10px;background: #F77D0E;padding: 2px 5px;border-radius: 2px;margin-right: 1px;" class="rating-badge">0.0</span>
                                <div title="Rated 0 out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="top:-5px;height: 1.2em;">
 							   
                                <span style="width:0%">
@@ -191,13 +263,15 @@ $accepted_jobs = $query->result();
                                </div>
                           <?php   } ?>
                         </li>
-                        <li style="width:25%;padding:0px 12px;overflow:hidden;">
+                        <li>
+							<i style="font-size: 16px;margin-right: 2px;" class="fa fa-map-marker"></i>
                             <?php
                             $this->db->where('country_id', $value->webuser_country);
                             $q = $this->db->get('country');
                             $record = $q->row();
                             echo ucfirst($record->country_name);
-                            ?></li>
+                            ?>
+						</li>
                     </ul>
                 </nav>
             </div>
@@ -212,18 +286,3 @@ else{
             <p>No data to load.</p>
     <?php
 }?>
-
- 
- 
- <style>span.rating-badge {
-  background: #eba705 none repeat scroll 0 0;
-  border-radius: 7px;
-  color: #fff;
-  padding: 4px;
-}
-.custom_find_job h5{}
-.custom_find_job_bottom li {
-	border: 0;
-	margin-bottom: 9px;
-}
-</style>

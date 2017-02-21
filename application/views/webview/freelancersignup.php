@@ -1,4 +1,8 @@
-   <div class="custom_employeersignup main_area_div">
+<style type="text/css">
+.help-block{font-size: 16px;font-family: calibri;}
+</style>
+
+<div class="custom_employeersignup main_area_div">
    <div class="row"> 
 	    <div class="col-md-12">
 		   <div class="main_area_div_sub_div1">

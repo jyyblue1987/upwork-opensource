@@ -29,10 +29,16 @@
     list-style: none;
     }
 .hire_work_btn {
-	margin-left: 20px;
+	margin-left: 18px;
+}
+.hire_pay_btn {
+	margin-left: 31px;
 }
 .hire_page_sms_btn {
-	margin-left: 50px;
+	margin-left: 48px;
+}
+.hire_paid_page_sms_btn {
+	margin-left: 62px;
 }
 .aplicant_name {
 	font-size: 16px;
@@ -57,14 +63,13 @@ margin-top: -15px;
 }
 body{font-family: "calibri" !important;}
 </style>
-<section id="big_header"
-	style="margin-top: 40px; margin-bottom: 65px; height: auto;">
+<section id="big_header" style="margin-top: 32px; margin-bottom: 60px; height: auto;">
 
 	<div class="container"> 
 	<div class="row">
                
-     <div style="margin-top: -6px;margin-bottom: -30px;" class="main_job_titie">
-         <b><?php echo ucfirst($job_details[0]->job_type)." - ".ucfirst($job_details[0]->title); ?><br/><br/></b>
+     <div style="margin-top: -6px;margin-bottom: -5px;" class="main_job_titie">
+         <b> <?php echo ucfirst($jobDetails->job_type)." - ".ucfirst($jobDetails->title); ?><br/><br/></b> 
      </div>
                </div>
                 <div class="row"> 
@@ -262,13 +267,13 @@ body{font-family: "calibri" !important;}
 							<div class="col-md-4">
 								<div class="row">
 									<div class="col-md-4 col-md-offset-2">
-									<div class="hire_page_sms_btn">
+									<div class="hire_paid_page_sms_btn">
 									    <input type="button" class="btn btn-primary form-btn"
 											value="Message" />
 									</div>
 									</div>
 									<div class="col-md-4">
-										<div class="hire_pay_btn hire_work_btn">
+										<div class="hire_pay_btn">
 										    <input type="button" class="btn btn-primary form-btn my-btn"
 											value="Payment" />
 										</div>

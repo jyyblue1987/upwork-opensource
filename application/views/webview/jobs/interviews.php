@@ -60,7 +60,7 @@ span.rating-badge {
     }
 body{font-family: "calibri" !important;}
 </style>
-<section id="big_header" style="margin-top: 40px; margin-bottom: 65px; height: auto;">
+<section id="big_header" style="margin-top: 32px; margin-bottom: 60px; height: auto;">
 
     <div class="container">
     <div class="row"> 

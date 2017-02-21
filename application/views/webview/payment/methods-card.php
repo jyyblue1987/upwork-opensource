@@ -1,16 +1,19 @@
+<style type="text/css">
+.form-control{font-size: 16px;font-family: calibri;border-radius: 4px;}
+</style>
 <div class="clear"> </div>
 <section class="card_area custom_mpayment_card">
   <div class="container">
   <div class="card_area_div">
    <div class="row">
 	 <div class="col-xs-12 col-sm-6 col-md-6">
-	   <a href="<?php echo site_url("pay/methods_card"); ?>">
+	   <a class="cc_card" href="<?php echo site_url("pay/methods_card"); ?>">
 	   <i class="fa fa-credit-card"></i>
 	   <i class="fa fa-check active_icon"></i>
 	   </a>
 	 </div>
 	 <div class="col-xs-12 col-sm-6 col-md-6">
-	    <a class="pull-right" href="<?php echo site_url("pay/methods_paypal"); ?>"><i class="fa fa-cc-paypal "></i></a>
+	    <a class="pull-right cc_card" href="<?php echo site_url("pay/methods_paypal"); ?>"><i class="fa fa-cc-paypal "></i></a>
 	 </div>
 	</div><!-- row-->
 	<div class="card_area_div1"> </div>
@@ -99,7 +102,7 @@
    </div>
 
     <div class="form-group">
-     <label for="inputPassword3" class="col-sm-2 control-label"></label>
+     <label style="height: 15px;" for="inputPassword3" class="col-sm-2 control-label"></label>
      <div class="col-sm-8">
        <input type="text" class="form-control" id="inputPassword3" placeholder="Address Line 2" name="address2" required="" value="<?php echo @$address2; ?>">
      </div>
@@ -129,10 +132,10 @@
    
      <div class="col-xs-2"></div>
 	 <div style="margin-left: -38px;" class="col-xs-3">
-       <button type="submit" class="btn-primary transparent-btn big_mass_button" name="addccstripe"><?php if(isset($_POST['edit']) && !empty($_POST['scid'])) echo "Update Card"; else echo "Add Credit Card";?></button>
+       <button style="border: 1px;" type="submit" class="btn-primary transparent-btn big_mass_button" name="addccstripe"><?php if(isset($_POST['edit']) && !empty($_POST['scid'])) echo "Update Card"; else echo "Add Credit Card";?></button>
      </div>
-	<div style="margin-left: -66px;" class="col-xs-2">
-       <button type="submit" class="btn-primary transparent-btn big_mass_button">Cancel</button>
+	<div style="margin-left: -20px;" class="col-xs-2">
+       <button style="float: left;margin-left: 5px;" type="submit" class="btn-primary transparent-btn big_mass_button">Cancel</button>
      </div>
    </div>
   </form>

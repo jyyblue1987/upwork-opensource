@@ -37,6 +37,7 @@
                 </div>
                 <div class="grey ">
                     <a href="<?php echo site_url("/profile/my-freelancer-profile"); ?>">View My Profile</a>
+					
                 </div>
             </div>
 <?php } ?>

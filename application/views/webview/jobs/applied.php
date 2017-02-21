@@ -74,7 +74,7 @@ span.rating-badge {
     list-style: none;
     }
 </style>
-<section id="big_header" style="margin-top: 40px; margin-bottom: 65px; height: auto;">
+<section id="big_header" style="margin-top: 32px; margin-bottom: 60px; height: auto;">
 
     <div class="container">
         <div class="row"> 
@@ -97,9 +97,24 @@ $hireLink=site_url('hires?job_id=' . base64_encode($jobId));
 $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
 
 // total number of job
-$this->db->where(array('job_id' => $jobId,'bid_reject'=>0, 'status!=1' => null));
-$this->db->from('job_bids');
-$totalApplication = $this->db->count_all_results();
+ // $totalApplication = $this->db->count_all_results();
+            
+            $this->db->select('*');
+            $this->db->from('job_bids');
+            $this->db->where(array('job_id' => $jobId, 'bid_reject' => 0, 'status!=1' => null));
+
+            // added by jahid start 
+            $this->db->where('job_progres_status', 0);
+            $this->db->where(array('withdrawn' => NULL));
+            // added by jahid end
+            
+            $query_totalApplication = $this->db->get();
+                    $Application_count = $query_totalApplication->num_rows();
+                    if ($Application_count) {
+                        $totalApplication = $Application_count;
+                    } else {
+                        $totalApplication = 0;
+                    }
 
             ?>
             
@@ -130,6 +145,7 @@ $totalApplication = $this->db->count_all_results();
             </div>
             <div style="padding:40px;"></div>
             <?php
+           // echo "<pre>"; print_r($records); exit;
             foreach ($records as $value) {
                 
                 $this->db->select('*');

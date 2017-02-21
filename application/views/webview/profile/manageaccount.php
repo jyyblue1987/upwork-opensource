@@ -1,4 +1,4 @@
-<div class="container white-box" style="margin-top: 50px;">
+<div class="container white-box" style="margin-top: 40px;margin-bottom: 40px;border: 1px solid #ccc;width: 970px !important;">
 
     <div class="col-md-3 nopadding">
            <?php 
@@ -7,13 +7,13 @@
                 ); 
                 $this->load->view("webview/profile/freelancer-profile-left-sidebar",$data) ?>
         </div>
-        <div class="col-md-9 nopadding">
-    <div class="row title-line">
+        <div style="padding-left: 27px !important;" class="col-md-9 nopadding">
+    <div style="margin-bottom: 20px;" class="row title-line">
                     <div class="abc" style="padding-bottom: 10px;">
                         <h3>Manage Account</h3> 
                     </div> 
                 </div>  
-<h4>To delete or deactivate your account, please contact <span style="color:green;"><a href="#">Customer Support</a></span></h4>
+<h4 style="margin-left: -13px;font-size: 17px;font-family: calibri;">To delete or deactivate your account, please contact <span style="color:green;"><a href="#">Customer Support</a></span></h4>
 
 </div>
 </div>

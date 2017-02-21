@@ -1,4 +1,4 @@
-<ul class="price">
+<ul style="margin-top: -5px;" class="price">
     <div class="heeed faqopen" id="faq1" onclick="faqselect(1);">My Account <i class="fa fa-angle-<?php echo ($open=='account')?'down':'right'?>" id="faqicon1" aria-hidden="true" style="float:right;"></i></div>
     <div class="faqa" id="faqa1" style="display: <?php echo ($open=='account')?'block':'none'?>">
         <div class="grey"><a href="<?php echo site_url("profilesetting"); ?>">Personal Info</a></div>

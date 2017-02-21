@@ -1,12 +1,49 @@
- 
+ <style>
+.message_lists{
+    max-height: 230px;
+    min-height: 230px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.m_list.scroll-ul > li {
+  display: block;
+  margin: 10px 0 36px 5px;
+  overflow: hidden;
+  width: 100%;
+  padding-bottom: 4px;
+}
+.chat-identity .img-circle {
+  float: left;
+  margin-right: 14px;
+}
+#conversion_message > input {
+  background: rgb(28, 167, 219) none repeat scroll 0 0;
+  float: right;
+  font-size: 21px;
+  height: 50px;
+  margin-top: 4%;
+  vertical-align: middle;
+  width: 19%;
+}
+#conversion_message textarea {
+  float: left;
+  height: 100px;
+  width: 76%;
+}
+.modal-body {
+  overflow: hidden;padding-bottom: 20px !important;
+}
+</style>
+
+
 <section id="big_header" style="margin-top: 30px; margin-bottom: 40px; height: auto;">
     <div class="container">
         <div class="row">
             <div class="col-md-3 nopadding">
                 <div class="row">
                     <div class="col-md-10 ">
-                        <nav class="staff-navbar">
-                            <ul style="margin-top: 6px;">
+                        <nav style="padding-left: 13px;" class="staff-navbar">
+                            <ul style="margin-top: 8px;">
                                 <li><a class="active" href="winsjob"><i style="margin-right: 5px;" class="fa fa-trophy"></i><b>Win Jobs</b></a></li>
                                 <li><a href="endjobs"><i style="margin-right: 5px;" class="fa fa-briefcase"></i><b>Ended Jobs</b></a></li>
                             </ul>
@@ -20,7 +57,7 @@
             <div class="wj_custom_body">
                 <div class="row">
 
-						<div style="margin-bottom: 0;height: 40px;width:737px;" class="col-md-12 bordered-alert text-center ack-box">
+						<div style="margin-bottom: 0;height: 40px;width:737px;margin-left: -2px;margin-top: 10px;" class="col-md-12 bordered-alert text-center ack-box">
 							<?php if (!empty($acccept_jobList)) { ?>
 								<h4 style="margin: 0;padding: 0;margin-top: -5px;">! You have hired <?= count($acccept_jobList) ?> jobs</h4>
 						</div>
@@ -30,7 +67,7 @@
 						
 						<div style="margin-top: 10px;margin-left: -26px;" class="row">
 							<div class="col-md-12">
-								<div style="margin-left: 11px;" class="border-box custom_empty_freelancer_box">
+								<div style="margin-left: 7px;" class="border-box custom_empty_freelancer_box">
 								</div>
 							</div>
 						</div>
@@ -46,17 +83,17 @@
                         if ($data->job_type == "hourly") {
                             ?>
 
-                            <div class="row margin-top-2">
-                                <div class="col-md-12 wj_white_box white-box" style="padding: 20px">
+                            <div style="margin-left: -19px;" class="row margin-top-2">
+                                <div class="col-md-12 wj_white_box white-box" style="padding: 20px;">
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="row">
                                                 <div class="col-md-5">
-                                                    <div class="st_img">
+                                                    <div style="margin-top: -2px;margin-left: -10px;margin-bottom: 10px;" class="st_img">
                                                      <img src="<?php echo base_url() ?><?= $data->webuser_picture ?>" width="90" height="68" />
                                                     </div>
                                                 </div>
-                                                <div class="col-md-7 nopadding" style="padding-left: 25px !important">
+                                                <div class="col-md-7 nopadding" style="padding-left: 0 !important">
                                                    <div class="user_name">
 										<h5 style="margin-bottom: 0;"><?=$data->webuser_fname?> <?=$data->webuser_lname?><br /> </h5>
 									<span><?=$data->country_name?></span>
@@ -129,6 +166,8 @@
                                     echo $amount = $data->bid_amount;
                                 }
                                 ?></b>/hr = <b>$<?php echo $amount * $total_work; ?></b>
+                                             <br />
+					     <p style="margin:0 !important;">This contract has been hold</p>
 
                                             <hr>
                                            
@@ -179,14 +218,11 @@
                                     </div>
                             
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="job_detais">
-                                                <a href="<?php echo base_url() ?>jobs/hourly_freelancer_view?fmJob=<?php echo base64_encode($data->job_id); ?>"> Job Details</a>-
+                                                <a href="<?php echo base_url() ?>jobs/hourly_freelancer_view?fmJob=<?php echo base64_encode($data->job_id); ?>"> Job Details </a> -
                                                 <span><b><?= $data->hire_title ?></b></span>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6 margin-left-10">
-                                        
                                         </div>
                                     </div>
                                 </div>
@@ -196,31 +232,29 @@
 
         <?php } else { ?>
 
-                            <div class="row margin-top-2">
-                                <div class="col-md-12 wj_white_box white-box" style="padding: 20px">
+                            <div  style="margin-left: -19px;" class="row margin-top-2">
+                                <div class="col-md-12 wj_white_box white-box" style="padding: 20px;">
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="row">
                                                 <div class="col-md-5">
-                                                    <div class="st_img">
+                                                    <div style="margin-top: -2px;margin-left: -10px;margin-bottom: 10px;" class="st_img">
                                                       <img src="<?php echo base_url() ?><?= $data->webuser_picture ?>" width="90" height="68" />
                                                     </div>
                                                 </div>
-                                                <div class="col-md-7 nopadding" style="padding-left: 25px !important">
-                                                       <div class="user_name">
-										<h5 style="margin-bottom: 0;"><?=$data->webuser_fname?> <?=$data->webuser_lname?><br /> </h5>
-									<span><?=$data->country_name?></span>
-										</div>
+                                                <div class="col-md-7 nopadding" style="padding-left: -2px !important;">
+												<div class="user_name">
+													<h5 style="margin-bottom: 0;"><?=$data->webuser_fname?> <?=$data->webuser_lname?><br /> </h5>
+													<span><?=$data->country_name?></span>
+												</div>
                                                 </div>
                                             </div>
 
                                         </div>
 
                                         <div class="col-md-4 text-center">
-                                          <b> $<?= $data->fixedpay_amount ?></b> Paid of $<?= $data->hired_on ?> <br />
-                                            <br />
-
-                                            <hr>
+                                          <b> $<?= $data->fixedpay_amount ?></b> Paid of $<?= $data->hired_on ?><br/> <p style="margin:0 !important;">This contract has been hold</p></span>
+                                            
                                         </div>
 
                                         <div class="col-md-4">
@@ -260,14 +294,11 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="job_detais">
-                                                <a href="<?php echo base_url() ?>jobs/fixed_freelancer_view?fmJob=<?php echo base64_encode($data->job_id); ?>"> Job Details</a>-
+                                                <a href="<?php echo base_url() ?>jobs/fixed_freelancer_view?fmJob=<?php echo base64_encode($data->job_id); ?>"> Job Details </a>- 
                                                 <span><b><?= $data->hire_title ?></b></span>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6 margin-left-10">
-                                            
                                         </div>
                                     </div>
                                 </div>
@@ -386,11 +417,11 @@
 
 <!-- Modal -->
 <div id="message_convertionModal" class="modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
+    <div class="modal-dialog cccc_massage_box">
+        <div style="padding: 30px;padding-bottom: 60px;" class="modal-content">
                 <button type="button" class="close" data-dismiss="modal" onclick="hidemessagepopup();">&times;</button>
                 <h4 class="modal-title">Message</h4>
+            <div class="modal-header">
                 <div class="col-lg-12 col-md-12 col-sm-12 chat-screen">
                     <div class="chat-details-topbar">
                         <h3 class="user_name"></h3>
@@ -401,8 +432,11 @@
             </div>
             <div class="modal-body">
                 <div class="message_lists chat-details form-group" ></div>
-                <form name="message" action="" method="post" id="conversion_message">
+                <form style="position:relative;" name="message" action="" method="post" id="conversion_message">
                     <textarea name="usermsg"  id="usermsg"></textarea>
+						<div style="position: absolute;right: 23%;font-size: 26px;top: 35%;color:#a2a2a2;transform: rotate(90deg);" class="attach_icon">
+						<i style="cursor: pointer;" class="fa fa-paperclip" aria-hidden="true"></i>
+						</div>
                     <input name="job_id" type="hidden" id="job_id"  value="" />
                     <input name="bid_id" type="hidden" id="bid_id"  value=""  />
                     <input name="sender_id" type="hidden" id="sender_id"  value="<?php echo $this->session->userdata('id'); ?>"  />
@@ -497,39 +531,3 @@
     }
     autoloading();
 </script>
-<style>
-    .message_lists{
-        max-height: 250px;
-        overflow-y: scroll;
-        overflow-x: hidden;
-    }
-    .m_list.scroll-ul > li {
-        display: block;
-        margin: 10px 0 21px 5px;
-        overflow: hidden;
-        width: 100%;
-        border-bottom: 1px solid #dddddf;
-        padding-bottom: 4px;
-    }
-    .chat-identity .img-circle {
-        float: left;
-        margin-right: 14px;
-    }
-    #conversion_message > input {
-        background: rgb(28, 167, 219) none repeat scroll 0 0;
-        float: right;
-        font-size: 21px;
-        height: 50px;
-        margin-top: 4%;
-        vertical-align: middle;
-        width: 19%;
-    }
-    #conversion_message textarea {
-        float: left;
-        height: 100px;
-        width: 80%;
-    }
-    .modal-body {
-        overflow: hidden;
-    }
-</style>

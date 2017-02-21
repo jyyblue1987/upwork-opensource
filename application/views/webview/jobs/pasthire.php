@@ -1,3 +1,39 @@
+<style>
+.message_lists{
+    max-height: 230px;
+    min-height: 230px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.m_list.scroll-ul > li {
+  display: block;
+  margin: 10px 0 36px 5px;
+  overflow: hidden;
+  width: 100%;
+  padding-bottom: 4px;
+}
+.chat-identity .img-circle {
+  float: left;
+  margin-right: 14px;
+}
+#conversion_message > input {
+  background: rgb(28, 167, 219) none repeat scroll 0 0;
+  float: right;
+  font-size: 21px;
+  height: 50px;
+  margin-top: 4%;
+  vertical-align: middle;
+  width: 19%;
+}
+#conversion_message textarea {
+  float: left;
+  height: 100px;
+  width: 76%;
+}
+.modal-body {
+  overflow: hidden;padding-bottom: 20px !important;
+}
+</style>
 <section id="big_header"
 	style="margin-top: 30px; margin-bottom: 40px; height: auto;">
 
@@ -22,7 +58,7 @@
 			<div class="col-md-9">
 			<div class="ph_custom_body">
 				<div class="row">
-					<div style="margin-left: -2px ! important; margin-bottom: 0px; padding-top: 5px; padding-bottom: 0px;width: 737px;" class="col-md-12 bordered-alert text-center ack-box">
+					<div style="margin-left: -2px ! important; margin-bottom: 0px; padding-top: 7px; padding-bottom: 0px;width: 737px;height: 40px;margin-top: 10px;" class="col-md-12 bordered-alert text-center ack-box">
 						<?php if($past_hire){ ?>
 							<h4>! You have ended <?=$past_hire;?> contract</h4>
 					</div>
@@ -45,14 +81,14 @@
 					$title = $message->hire_title;
 					
 					?>
-				<div class="row margin-top-2">
-					<div class="col-md-12 white-box ph_white_box" style="padding: 20px">
+				<div style="margin-left: -19px !important" class="row margin-top-2">
+					<div class="col-md-12 white-box ph_white_box" style="padding: 20px;">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="row">
 									<div class="col-md-5">
 										<?php if($message->webuser_picture !=""){ ?>
-										<div  style="margin-left: -10px;margin-top: -1px;margin-bottom: 10px;" class="st_img">
+										<div style="margin-left: -10px;margin-top: -2px;margin-bottom: 10px;" class="st_img">
 										    <img src="<?php echo base_url().$message->webuser_picture; ?>" width="90" height="68">
 										</div>
 										<?php }else{?>
@@ -60,7 +96,7 @@
 											width="90" height="68" />
 										<?php } ?>
 									</div>
-									<div class="col-md-7 nopadding" style="padding-left: 0px !important">
+									<div class="col-md-7 nopadding" style="padding-left: 2px !important;">
 										<div class="user_name">
 										   <h5  style="margin-bottom: 0;"> <?=$message->webuser_fname?> <?=$message->webuser_lname?> <br></h5>
 								<span><?=$message->country_name?></span>
@@ -166,10 +202,10 @@
 						<div class="row">
 							<div class="col-md-2">
 							    <div class="pro_view">
-							    <span style="font-size: 14px;color: #3DB0DD;">View Profile</span>
+							    <a href="<?php echo base_url()."interview?user_id=".base64_encode($message->webuser_id)."&job_id=".base64_encode($message->job_id)."&bid_id=".base64_encode($message->bid_id);?>" style="font-size: 14px;color: #3DB0DD;">View Profile</a>
 							    </div>
 							</div>
-							<div class="col-md-10">
+							<div style="margin-left: -6px;" class="col-md-10">
 								
 								<div class="job_detaisx">
 								    <?php if($message->hire_title !=""){
@@ -181,7 +217,7 @@
 								<a href="<?php echo base_url() ?>feedback/hourly_client?fmJob=<?php echo base64_encode($message->job_id);?>&fuser=<?php echo base64_encode($message->fuser_id);?>">
 								<?php }else { ?>
 								<a href="<?php echo base_url() ?>feedback/fixed_client?fmJob=<?php echo base64_encode($message->job_id);?>&fuser=<?php echo base64_encode($message->fuser_id);?>">	
-								<?php } ?>Job Details-</a><b><?=$job_title;?></b> 
+								<?php } ?>Job Details - </a><b><?=$job_title;?></b> 
 								</div>
 							
 							</div>
@@ -207,11 +243,11 @@
 
 <!-- Modal -->
 <div id="message_convertionModal" class="modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
+  <div class="modal-dialog cccc_massage_box">
+    <div style="padding: 30px;padding-bottom: 60px;" class="modal-content">
+	<button type="button" class="close" data-dismiss="modal" onclick="hidemessagepopup();">&times;</button>
+	<h4 class="modal-title">Message</h4>
       <div class="modal-header">
-			 <button type="button" class="close" data-dismiss="modal" onclick="hidemessagepopup();">&times;</button>
-			<h4 class="modal-title">Message</h4>
 			<div class="col-lg-12 col-md-12 col-sm-12 chat-screen">
 				<div class="chat-details-topbar">
 					<h3 class="user_name"></h3>
@@ -222,8 +258,11 @@
       </div>
       <div class="modal-body">
 		<div class="message_lists chat-details form-group" ></div>
-        <form name="message" action="" method="post" id="conversion_message">
+        <form style="position:relative;" name="message" action="" method="post" id="conversion_message">
              <textarea name="usermsg"  id="usermsg"></textarea>
+				<div style="position: absolute;right: 23%;font-size: 26px;top: 35%;color:#a2a2a2;transform: rotate(90deg);" class="attach_icon">
+				<i style="cursor: pointer;" class="fa fa-paperclip" aria-hidden="true"></i>
+				</div>
                <input name="job_id" type="hidden" id="job_id"  value="" />
                <input name="bid_id" type="hidden" id="bid_id"  value=""  />
                <input name="sender_id" type="hidden" id="sender_id"  value="<?php echo $this->session->userdata('id');?>"  />
@@ -307,39 +346,3 @@
     }
   autoloading();
 </script>
-<style>
-.message_lists{
-    max-height: 250px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-.m_list.scroll-ul > li {
-  display: block;
-  margin: 10px 0 21px 5px;
-  overflow: hidden;
-  width: 100%;
-  border-bottom: 1px solid #dddddf;
-  padding-bottom: 4px;
-}
-.chat-identity .img-circle {
-  float: left;
-  margin-right: 14px;
-}
-#conversion_message > input {
-  background: rgb(28, 167, 219) none repeat scroll 0 0;
-  float: right;
-  font-size: 21px;
-  height: 50px;
-  margin-top: 4%;
-  vertical-align: middle;
-  width: 19%;
-}
-#conversion_message textarea {
-  float: left;
-  height: 100px;
-  width: 80%;
-}
-.modal-body {
-  overflow: hidden;
-}
-</style>

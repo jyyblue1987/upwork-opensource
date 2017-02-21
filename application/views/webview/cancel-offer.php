@@ -1,6 +1,47 @@
+<style>
+    *{
+          font-family: "Calibri";
+    }
+.message_lists{
+    max-height: 250px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.offer_win_side {
+	margin-left: 45px;
+	font-family: "Calibri";
+}
+    .offer_made_side {
+      font-family: "Calibri";   
+    }
+.offer_bordered {
+	border: 1px solid #ccc;
+	padding: 10px;
+	border-radius: 3px;
+	width: 780px;
+    
+}
+.c_offer_msg.hour_btn {
+	margin-left: -25px;
+}
+.dicline_btn {
+	margin-right: 55px;
+}
+.dicline_btn:hover {
+      background: #fff;
+    }
+.offer_title {
+    font-size: 16px; 
+    font-family: "Calibri";
+    }
+.offer_date span {
+	margin-left: 65px;
+    font-family: "Calibri";
+}
+</style>
 <section id="big_header" class="custom_canceloffer"style="margin-top: 40px; margin-bottom: 40px; height: auto;">
 
-	<div class="container">
+	<div style="margin-left: 14px;" class="container">
 		<div class="row">
 			<div class="col-md-9 white-box offer_bordered">
 			<p class="result-msg" style="text-align: center;color: green;font-size: 20px;display: none;"></p>
@@ -72,7 +113,7 @@
 			</div>
 		</div>
 		<div class="row ">
-			<div class="col-md-9 white-box offer_bordered custom_offer_bordered remove-border-top">
+			<div style="padding-bottom: 30px;" class="col-md-9 white-box offer_bordered custom_offer_bordered remove-border-top">
 
 				<div class="row">
 					<div class="col-md-12 text-left blue-text">
@@ -208,12 +249,12 @@
 				<div class="row margin-top-2">
 				    <div class="col-md-6 text-right">
 				       <div class="dicline_btn">
-				            <button class="btn my_btn" onclick="decline(<?=$bid_details[0]->id?>)">Decline Offer</button>
+				            <button style="float: right;margin-right: 2px;" class="btn-primary big_mass_active transparent-btn big_mass_button" onclick="decline(<?=$bid_details[0]->id?>)">Decline Offer</button>
 				       </div>
 				    </div>
 				    <div class="col-md-6">
 				        <div class="dicline_btn">
-				            <button class="btn my_btn" onclick="">Cancel</button>
+				            <button style="float: left;margin-left: -60px;" class="btn-primary transparent-btn big_mass_button" onclick="">Cancel</button>
 				       </div>
 				    </div>
 				</div>
@@ -232,25 +273,34 @@
 
 <!-- Modal -->
 <div id="message_convertionModal" class="modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
+  <div class="modal-dialog cccc_massage_box">
+    <div style="padding: 30px;padding-bottom: 60px;" class="modal-content">
         <button type="button" class="close" data-dismiss="modal" onclick="hidemessagepopup()">&times;</button>
         <h4 class="modal-title">Message</h4>
+	  
+      <div class="modal-header">
+			<div class="col-lg-12 col-md-12 col-sm-12 chat-screen">
+				<div class="chat-details-topbar">
+					<h3><?=$job->webuser_fname ?> <?=$job->webuser_lname ?></h3>
+					<h5><?=$job_title;?> </h5>
+									
+				</div>
+			</div>
       </div>
-      <div class="modal-body">
-        <div class="message_lists" ></div>
-        
-       
-        <form name="message" action="" method="post" id="conversion_message">
-             <textarea name="usermsg"  id="usermsg"></textarea>
-               <input name="job_id" type="hidden" id="job_id"  value="" />
-               <input name="bid_id" type="hidden" id="bid_id"  value=""  />
-               <input name="sender_id" type="hidden" id="sender_id"  value="<?php echo $this->session->userdata('id');?>"  />
-               <input name="receiver_id" type="hidden" id="receiver_id"  value=""  />
-             <input name="submitmsg" type="submit"  id="submitmsg" value="Send" />
-         </form>
-        </div>
+		<div style="padding-bottom: 20px !important;" class="modal-body">
+			<div style="min-height: 250px;" class="message_lists chat-details form-group" ></div>
+			<form style="position:relative;" name="message" action="" method="post" id="conversion_message">
+				 <textarea style="width: 76%;" name="usermsg"  id="usermsg"></textarea>
+					<div style="position: absolute;right: 23%;font-size: 26px;top: 35%;color:#a2a2a2;transform: rotate(90deg);" class="attach_icon">
+					<i style="cursor: pointer;" class="fa fa-paperclip" aria-hidden="true"></i>
+					</div>
+				   <input name="job_id" type="hidden" id="job_id"  value="" />
+				   <input name="bid_id" type="hidden" id="bid_id"  value=""  />
+				   <input name="sender_id" type="hidden" id="sender_id"  value="<?php echo $this->session->userdata('id');?>"  />
+				   <input name="receiver_id" type="hidden" id="receiver_id"  value=""  />
+				 <input name="submitmsg" type="submit"  id="submitmsg" value="Send" />
+			</form>
+		</div>
     </div>
  </div>
 </div>
@@ -340,44 +390,3 @@
   }
   
 </script>
-<style>
-    *{
-          font-family: "Calibri";
-    }
-.message_lists{
-    max-height: 250px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-.offer_win_side {
-	margin-left: 45px;
-	font-family: "Calibri";
-}
-    .offer_made_side {
-      font-family: "Calibri";   
-    }
-.offer_bordered {
-	border: 1px solid #ccc;
-	padding: 10px;
-	border-radius: 3px;
-	width: 780px;
-    
-}
-.c_offer_msg.hour_btn {
-	margin-left: -25px;
-}
-.dicline_btn {
-	margin-right: 55px;
-}
-.dicline_btn:hover {
-      background: #fff;
-    }
-.offer_title {
-    font-size: 16px; 
-    font-family: "Calibri";
-    }
-.offer_date span {
-	margin-left: 65px;
-    font-family: "Calibri";
-}
-</style>

@@ -14,7 +14,7 @@ $messages = array_values($_data);
 /* Added by Armen Start*/
 .textarea_wrapper{position: relative;}
 .attach_icon{position: absolute;
-right: 3%;
+right: 3%;transform: rotate(90deg);
 font-size: 26px;
 top: 2%;
 color: #a2a2a2;}
@@ -47,7 +47,7 @@ span.text3 { font-size: 13px; color: #717171;margin-top: 3px;}
 span.text4 { position: absolute; top: 8px; right: 0px; font-size: 9px; color: #717171;}
 .row.chat-box { min-height: 400px; border: 1px solid #ccc; padding: 20px;background:#fff;}
 div.chat-box .chat-screen { border: 1px solid #ccc; padding: 0; min-height: 600px;}
-.chat-details-topbar { min-height: 79px; position: absolute; top: 0; background: #fff; width: 100%; z-index: 99; border-bottom: 1px solid #ccc;}
+.chat-details-topbar { min-height: 74px; position: absolute; top: 0; background: #fff; width: 100%; z-index: 99; border-bottom: 1px solid #ccc;}
 span.text2{margin-top: 5px;}
 
 
@@ -132,7 +132,7 @@ from#chat_form
 			<div class="col-lg-9 col-md-9 col-sm-9 chat-screen">
 				<div class="chat-details-topbar custom_chat-details-topbar">
 					<h3><?=$chat_details[0]->fname?>  <?=$chat_details[0]->lname?></h3>
-					<h5><?=$chat_details[0]->title?></h5>
+					<h5 style="margin-bottom: 0;"><?=$chat_details[0]->title?></h5>
 				</div>
 				<div class="chat-details">
 					<ul id="scroll-ul">
@@ -200,7 +200,7 @@ from#chat_form
 						<!-- Added by Armen End -->
 						<textarea name="chat-input" class="form-control" required id="chat-input"></textarea>
 					</div>
-					<div class="ccc_send" style="float: left;margin-left: 20px;"><a href="" id="chat-btn" role="button" type="submit">SEND</a></div>
+					<div class="ccc_send ccc_sms_send_btn" style="float: left;margin-left: 20px;"><a href="" id="chat-btn" role="button" type="submit">SEND</a></div>
 					</form>
 				</div>
 			</div>

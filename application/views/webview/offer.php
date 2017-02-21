@@ -9,8 +9,8 @@
     overflow-x: hidden;
 }
 .client-job-activity-current li, .last-element {
-	padding-top: 21px;
-	padding-bottom: 20px;
+	padding-top: 20px;
+	padding-bottom: 21px;
 }
 .drop_btn {
 	padding: 15px 60px 65px 40px;
@@ -68,19 +68,19 @@ margin-left: -24px;
     font-family: "Calibri";
     }
 	.custom-application_drop_down ul {
-	left: -95px;
+	left: -101px;
 }
 body {
         font-family: "Calibri" !important;
         src: url(./fonts/Calibri.ttf);
     }
 </style>
-<section id="big_header" style="margin-top: 40px; margin-bottom: 65px; height: auto;">
+<section id="big_header" style="margin-top: 32px; margin-bottom: 60px; height: auto;">
 
     <div class="container">
     <div class="row"> 
-      <div style="margin-top: -6px;margin-bottom: -30px;" class="main_job_titie">
-       <?php echo ucfirst($jobDetails->job_type)." - ".ucfirst($jobDetails->title); ?><br/><br/><br/>   
+      <div style="margin-top: -6px;margin-bottom: -5px;" class="main_job_titie">
+           <b> <?php echo ucfirst($jobDetails->job_type)." - ".ucfirst($jobDetails->title); ?><br/><br/></b> 
       </div>
       </div>
         <div class="row "> 
@@ -128,7 +128,7 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
 		
 		
 		<div class="row" style="margin:0px;"> 
-			<div class="col-md-12  white-box candidate-list" style="padding: 20px;">
+			<div class="col-md-12  white-box candidate-list" style="padding: 20px;height:155px">
 				<div class="row">
 					<div class="col-md-4">
 						<div class="row">

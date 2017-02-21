@@ -1,3 +1,52 @@
+ 
+  <style>
+/* #chatbox {  background: #fff none repeat scroll 0 0;  border: 1px solid #acd8f0;  height: 300px;  overflow: auto;  padding: 10px;  text-align: left;  width: 100%;}
+#usermsg {  border: 1px solid #acd8f0;  width: 79%;}
+input#submitmsg {  background: #2baad9 none repeat scroll 0 0;  border: medium none !important;  font-size: 21px;  padding: 8px 2px;  text-align: center;  width: 20%;}
+.chat_details li {  display: block;  margin-bottom: 10px;}
+.chat-identity {  display: block;  float: left;  width: 100%;}
+.chat-identity img {  float: left;  margin-right: 20px;}
+.chat-identity h4 {  display: block;  font-size: 17px !important;  margin-top: 7px;  vertical-align: middle;}
+#mylist {    width: 100%;     height: 275px;    padding: 20px;    background-color: #eeeeee;    overflow-y: auto;}
+.modal {    display: none;position: fixed;z-index: 1;left: 0;top: 0;width: 100%;height: 100%;overflow: auto;    background-color: rgb(0,0,0);background-color: rgba(0,0,0,0.4);}
+.modal-content {    background-color: #fefefe;    margin: 5% auto;    padding: 20px;    border: 1px solid #888;    width: 100%; }
+.close {    color: #000;    float: right;    font-size: 28px;    font-weight: bold;}
+.close:hover,.close:focus {    color: black;    text-decoration: none;    cursor: pointer;}*/
+.message_lists{
+    max-height: 250px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+</style> 
+<style>
+	.row.chat-box { min-height: 400px; border: 1px solid; padding: 16px;}
+	.chat-screen { border: 2px solid #2cabda; padding: 0; min-height: 430px; margin-top: 25px;}
+	.chat-details-topbar { min-height: 100px; position: absolute; top: 0; background: #fff; width: 100%; z-index: 99; border-bottom: 2px solid #1ca7db;}
+	.chat-details { width: 100%; z-index: 1; bottom: 0; min-height: 190px; height: 190px; position: absolute; background: #fff; overflow-x: hidden; overflow-y: scroll;top: 100px;}
+	.chat-details ul li { list-style-type: none; padding: 10px 0;}
+	.chat-details ul li span img { width: 50px; border-radius: 50%; margin: 0 15px 0 0;}
+	.chat-details-topbar h3 { padding: 6px 10px; font-weight: bold;}
+	.chat-details-topbar h5 { padding: 0 10px;}
+	.chat-details-topbar p { padding: 24px 0 0px 10px; margin: 0;  color: #757575;}
+	.chat-details ul li span.details { display: block; margin-left: 53px;  font-size: 14px;  color: #757474;}
+	textarea#chat-input { width: 95%; height: 100px; margin: 0 0 0 15px;  border: 2px solid #1ca7db;}
+	.active { border: 2px solid #1ca7db;  color: #1ca7db;}
+	.chat-sidebar a { color: #000;}
+	.chat-bar { width: 100%; z-index: 1; bottom: 0; min-height: 100px; height: 100px; position: absolute; background: #fff; top: 300px; }
+	form#chat_form a {  display: inline-block; background: #1ca7db; color: #fff; text-align: center;  font-size: 25px;  padding: 11px 25px;  margin: 20px 0;    text-decoration: none;}
+	span.chat-date { font-size: 13px; padding: 0 0 0 15px; color: #949494;}
+	span.group-date { display: block; text-align: center; font-size: 16px; color: #7d7b7b;}
+	span.name { text-transform: capitalize;}
+	span.text1 {text-transform: capitalize;}
+	.buttonsidethreeright.pull-left {  margin-left: 45%;}
+	#buttonfirst {  background: #eba705 none repeat scroll 0 0;  border: medium none;  border-radius: 5px;  color: #fff;  float: left;  font-family: "Arial";  font-size: 17.5px;  margin-top: 2px;  padding: 5px 7px;}
+	.star-rating {  height: 1.2em;}
+.star-rating::before {  color: #b8b8ba; }
+.custon_send_pro:hover{background:#286090;}
+.custom_user_skills span{background:#ccc !important;}
+.custom_user_skills span:hover{background:#008329 !important;}
+		</style>
+
 <?php
 //die();
 //date_default_timezone_set("UTC");
@@ -107,7 +156,7 @@ foreach($accepted_jobs as $job_data){
 ?>
 
 <p class="result-msg" style="text-align: center;color: green;font-size: 20px;display: none;"></p>
-<section id="big_header" style="margin-top: 50px; margin-bottom: 50px; height: auto;">
+<section id="big_header" style="margin-top: 40px; margin-bottom: 40px; height: auto;">
     <div class="container">
         <div class="row">
              <?php
@@ -130,10 +179,10 @@ foreach($accepted_jobs as $job_data){
                 }
                 ?>
                 <div class="row <?php echo $marginClass; ?>">
-                    <div class="col-md-6 page-label">
+                    <div class="col-md-10 page-label">
                         <h1 class="job-title cos_job-title"><?php echo ucfirst($value->title) ?></h1>
                     </div>
-                    <div class="col-md-6 page-label">
+                    <div class="col-md-2 page-label">
                         
                         <span style="margin-top: -15px;" class="pull-right"><?php
                        // date_default_timezone_set("Asia/Bangkok");
@@ -147,11 +196,11 @@ foreach($accepted_jobs as $job_data){
                 <div class="row jobdes-bordered page-label">
                      
                     <div class="col-md-3 text-center">
-                        <label>Job Type</label> <br /> <span><?php echo ucfirst($value->job_type) ?></span>
+                        <label style="font-family: calibri;font-size: 17px;">Job Type</label> <br /> <span><?php echo ucfirst($value->job_type) ?></span>
                     </div>
 
                     <div class="col-md-3 text-center page-label">
-                        <label>
+                        <label style="font-family: calibri;font-size: 17px;">
                             <?php
                             if ($value->job_type == 'hourly')
                             {
@@ -173,11 +222,11 @@ foreach($accepted_jobs as $job_data){
                     </div>
 
                     <div class="col-md-3 text-center page-label">
-                        <label>Job Duration</label><br /> <span><?php echo str_replace('_', '-', $value->job_duration) ?></span>
+                        <label style="font-family: calibri;font-size: 17px;">Job Duration</label><br /> <span><?php echo str_replace('_', '-', $value->job_duration) ?></span>
                     </div>
 
                     <div class="col-md-3 last-div text-center page-label">
-                        <label>Experience Level</label><br /> <span><?php echo ucfirst($value->experience_level); ?></span>
+                        <label style="font-family: calibri;font-size: 17px;">Experience Level</label><br /> <span><?php echo ucfirst($value->experience_level); ?></span>
                     </div>
                    
                 </div>
@@ -241,7 +290,7 @@ $Proposals_count = $query->num_rows();
 $jobfeedback= $query->result();
 //var_dump($value->id);var_dump($Proposals_count);die();
 ?>
-                        <label>Proposals</label> <br /> <span>
+                        <label style="font-family: calibri;font-size: 17px;">Proposals</label> <br /> <span>
                        <?=$Proposals_count;?>
                         </span>
                     </div>
@@ -258,7 +307,7 @@ $this->db->group_by('bid_id');
 $query=$this->db->get();
 $interview_count = $query->num_rows();
 ?>
-                        <label>Interviewing</label><br /> <span><?=$interview_count;?> </span>
+                        <label style="font-family: calibri;font-size: 17px;">Interviewing</label><br /> <span><?=$interview_count;?> </span>
                     </div>
 
                     <div class=" last-div col-md-4 text-center page-label">
@@ -273,7 +322,7 @@ $this->db->where('job_bids.jobstatus', '0' );
 $query=$this->db->get();
 $hire_count = $query->num_rows();
 ?>
-                        <label>Hired</label><br /> <span>
+                        <label style="font-family: calibri;font-size: 17px;">Hired</label><br /> <span>
                             <?php echo $hire_count;?>
                         </span>
                     </div>
@@ -549,7 +598,7 @@ $jobfeedback= $query->row();
                 }
                 ?>
                 <div class="row client-activity">
-                    <div style="padding: 0 30px 9px;" class="col-md-10 col-md-offset-2 right-section ">
+                    <div style="padding: 0 30px 9px;border-radius: 4px;" class="col-md-10 col-md-offset-2 right-section ">
                         <div class="row margin-top-2">
                             <div class="col-md-12">
                                 
@@ -569,21 +618,21 @@ if ($value->isactive && $paymentSet) {
                                 
                             </div>
                         </div>
-                        <div style="margin-top: 10px;" class="row margin-top-2 border-bottom">
+                        <div style="margin-top: 10px;margin-left: -19px;" class="row margin-top-2 border-bottom">
                             <div class="col-md-8 ">
 								<?php if($total_feedbackScore !=0 && $total_budget!=0){
                                 $totalscore = ($total_feedbackScore / $total_budget);
                                 $rating_feedback = ($totalscore/5)*100;
                                ?>
                                 <button style="font-size: 10px;background:#F77D0E;padding: 2px 4px;border-radius: 2px;" id="buttonfirst"><?=number_format((float)$totalscore,1,'.','');?></button>
-								<div title="Rated <?=$totalscore;?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="right: -12%;margin-top: -4%;position: absolute;">
+								<div title="Rated <?=$totalscore;?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="right: -8%;margin-top: -3%;position: absolute;">
 								<span style="width:<?=$rating_feedback;?>%">
 									<strong itemprop="ratingValue"><?=$totalscore;?></strong> out of 5
 								</span>
 								</div>
 							<?php  }else{ ?>
                              <button style="font-size: 10px;background:#F77D0E;padding: 2px 4px;border-radius: 2px;"  id="buttonfirst">0.0</button>
-								<div style="right: -12%;margin-top: -4%;position: absolute;" title="Rated 0 out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="right: -45%;margin-top: 2%;position: absolute;">
+								<div style="right: -8%;margin-top: -3%;position: absolute;" title="Rated 0 out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="right: -45%;margin-top: 2%;position: absolute;">
 								<span style="width:0%">
 									<strong itemprop="ratingValue">0</strong> out of 5
 								</span>
@@ -592,62 +641,63 @@ if ($value->isactive && $paymentSet) {
                                
                             </div>
                         </div>
-                        <div style="margin-top: 14px;" class="row margin-top-2 border-bottom">
+                        <div style="margin-top: 14px;margin-left: -19px;" class="row margin-top-2 border-bottom">
                             <div class="col-md-12">
-                                <label style="font-family: Calibri;font-size: 15px;margin-top: -29px;">
+                                <label style="font-family: Calibri;font-size: 20.26px;color: #494949;margin-top: -29px;">
                                    <?php if(!empty($record_sidebar)){
                                         echo count($record_sidebar);
                                     }else{
                                         echo "0";
                                     } ?>
-								Jobs Posted
+								<span style="font-size: 14px;color: #494949;font-family: calibri;">Jobs Posted</span>
 								</label>
                             </div>
                         </div>
-                        <div style="margin-top: 4px;" class="row margin-top-2 border-bottom">
+                        <div style="margin-top: 4px;margin-left: -19px;" class="row margin-top-2 border-bottom">
                             <div class="col-md-12">
-                                <label style="font-family: Calibri;font-size: 15px;margin-top: -29px;">
+                                <label style="font-family: Calibri;font-size: 20.26px;color: #494949;margin-top: -29px;">
 								<?=count($hire);?> 
-								Hired
+								<span style="font-size: 14px;color: #494949;font-family: calibri;">Hired</span>
 								</label>
                             </div>
                         </div>
-                        <div style="margin-top: 2px;" class="row margin-top-2 border-bottom">
+                        <div style="margin-top: 2px;margin-left: -19px;" class="row margin-top-2 border-bottom">
                             <div class="col-md-12">
-                                <label style="font-family: Calibri;font-size: 15px;margin-top: -29px;">
+                                <label style="font-family: Calibri;font-size: 20.26px;color: #494949;margin-top: -29px;">
 								<?php $total_work = 0;
                                     if(!empty($workedhours)){
                                         foreach($workedhours as $work){
                                             $total_work +=$work->total_hour;
                                         }
-                                        echo $total_work." Hours";
+                                        echo $total_work." <span style='font-size: 14px;color: #494949;font-family: calibri;'>Hours</span>";
                                     }else{
-                                        echo " 0 Hours Worked";
-                                    }?> 
-								Worked
+                                        echo " 0 <span style='font-size: 14px;color: #494949;font-family: calibri;'>Hours Worked</span>";
+                                    }?>
 								</label>
                             </div>
                         </div>
 
-                        <div style="margin-top: 4px;" class="row margin-top-2 border-bottom">
+                        <div style="margin-top: 4px;margin-left: -19px;" class="row margin-top-2 border-bottom">
                             <div class="col-md-12">
-                                <label style="font-family: Calibri;font-size: 15px;margin-top: -29px;">
+                                <label style="font-family: Calibri;font-size: 20.26px;color: #494949;margin-top: -29px;">
 								$<?php echo round($total_spent,0);?>
-								Spent
+								<span style="font-size: 14px;color: #494949;font-family: calibri;">Spent</span>
 								</label>
                             </div>
                         </div>
                         <div class="row margin-top-2 border-bottom">
-                            <div style="font-family: Calibri;font-size: 18px;margin-left: 14px;margin-top: -15px;" class="">
+                            <div style="font-family: Calibri;font-size: 18px;margin-left: 12px;margin-top: -15px;margin-bottom: 5px;">
 								
 								<i class="fa fa-map-marker"></i>
 								
-								<?php
+								<label style="font-family: Calibri;font-size: 20.26px;color: #494949;margin-top: -29px;">
+								<span style="font-size: 14px;color: #494949;font-family: calibri;"><?php
                                 $this->db->where('country_id', $value->webuser_country);
                                 $q = $this->db->get('country');
                                 $record = $q->row();
                                 echo ucfirst($record->country_name);
-                                ?>
+                                ?></span>
+								</label>
                             </div>
                         </div>
 
@@ -847,51 +897,3 @@ function Confirmremove(id) {
     
     
   </script>
- 
-  <style>
-/* #chatbox {  background: #fff none repeat scroll 0 0;  border: 1px solid #acd8f0;  height: 300px;  overflow: auto;  padding: 10px;  text-align: left;  width: 100%;}
-#usermsg {  border: 1px solid #acd8f0;  width: 79%;}
-input#submitmsg {  background: #2baad9 none repeat scroll 0 0;  border: medium none !important;  font-size: 21px;  padding: 8px 2px;  text-align: center;  width: 20%;}
-.chat_details li {  display: block;  margin-bottom: 10px;}
-.chat-identity {  display: block;  float: left;  width: 100%;}
-.chat-identity img {  float: left;  margin-right: 20px;}
-.chat-identity h4 {  display: block;  font-size: 17px !important;  margin-top: 7px;  vertical-align: middle;}
-#mylist {    width: 100%;     height: 275px;    padding: 20px;    background-color: #eeeeee;    overflow-y: auto;}
-.modal {    display: none;position: fixed;z-index: 1;left: 0;top: 0;width: 100%;height: 100%;overflow: auto;    background-color: rgb(0,0,0);background-color: rgba(0,0,0,0.4);}
-.modal-content {    background-color: #fefefe;    margin: 5% auto;    padding: 20px;    border: 1px solid #888;    width: 100%; }
-.close {    color: #000;    float: right;    font-size: 28px;    font-weight: bold;}
-.close:hover,.close:focus {    color: black;    text-decoration: none;    cursor: pointer;}*/
-.message_lists{
-    max-height: 250px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-</style> 
-<style>
-	.row.chat-box { min-height: 400px; border: 1px solid; padding: 16px;}
-	.chat-screen { border: 2px solid #2cabda; padding: 0; min-height: 430px; margin-top: 25px;}
-	.chat-details-topbar { min-height: 100px; position: absolute; top: 0; background: #fff; width: 100%; z-index: 99; border-bottom: 2px solid #1ca7db;}
-	.chat-details { width: 100%; z-index: 1; bottom: 0; min-height: 190px; height: 190px; position: absolute; background: #fff; overflow-x: hidden; overflow-y: scroll;top: 100px;}
-	.chat-details ul li { list-style-type: none; padding: 10px 0;}
-	.chat-details ul li span img { width: 50px; border-radius: 50%; margin: 0 15px 0 0;}
-	.chat-details-topbar h3 { padding: 6px 10px; font-weight: bold;}
-	.chat-details-topbar h5 { padding: 0 10px;}
-	.chat-details-topbar p { padding: 24px 0 0px 10px; margin: 0;  color: #757575;}
-	.chat-details ul li span.details { display: block; margin-left: 53px;  font-size: 14px;  color: #757474;}
-	textarea#chat-input { width: 95%; height: 100px; margin: 0 0 0 15px;  border: 2px solid #1ca7db;}
-	.active { border: 2px solid #1ca7db;  color: #1ca7db;}
-	.chat-sidebar a { color: #000;}
-	.chat-bar { width: 100%; z-index: 1; bottom: 0; min-height: 100px; height: 100px; position: absolute; background: #fff; top: 300px; }
-	form#chat_form a {  display: inline-block; background: #1ca7db; color: #fff; text-align: center;  font-size: 25px;  padding: 11px 25px;  margin: 20px 0;    text-decoration: none;}
-	span.chat-date { font-size: 13px; padding: 0 0 0 15px; color: #949494;}
-	span.group-date { display: block; text-align: center; font-size: 16px; color: #7d7b7b;}
-	span.name { text-transform: capitalize;}
-	span.text1 {text-transform: capitalize;}
-	.buttonsidethreeright.pull-left {  margin-left: 45%;}
-	#buttonfirst {  background: #eba705 none repeat scroll 0 0;  border: medium none;  border-radius: 5px;  color: #fff;  float: left;  font-family: "Arial";  font-size: 17.5px;  margin-top: 2px;  padding: 5px 7px;}
-	.star-rating {  height: 1.2em;}
-.star-rating::before {  color: #b8b8ba; }
-.custon_send_pro:hover{background:#286090;}
-.custom_user_skills span{background:#ccc !important;}
-.custom_user_skills span:hover{background:#008329 !important;}
-		</style>

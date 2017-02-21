@@ -1,9 +1,9 @@
-
 <style>
 .message_lists{
     max-height: 250px;
     overflow-y: scroll;
     overflow-x: hidden;
+		min-height: 250px;
 }
 .m_list.scroll-ul > li {
   display: block;
@@ -35,13 +35,20 @@
 .modal-body {
   overflow: hidden;
 }
+input.btn-default_activv{background:#028FFC;color:#fff;}
+input.btn-default_activv:hover{background:#286090;color:#fff;}
+input.btn-cancel{border:1px solid #CED0D4;color:#1CA7DB;background:#fff;}
+input.btn-cancel:hover{border:1px solid transparent;color:#fff;background:#286090;}
+.bordered_week {
+    height:80px;
+}
 </style>
 
-<section id="big_header" style="margin-top: 36px; margin-bottom: 40px; height: auto;">
+<section id="big_header" style="margin-top: 36px; margin-bottom: 40px; height: auto;margin-left: 14px;">
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-9 white-box black-box bordered_top">
+			<div style="border: 1px solid #ccc;border-radius: 4px 4px 0 0px;margin: 0;" class="col-md-9 white-box black-box">
 				<div class="row">
 					<div class="date_head">
 					    <div class="col-md-6">Since <?php  echo date(' M j, Y ', strtotime($job_status->start_date)); ?></div>
@@ -102,7 +109,7 @@
 		</div>
 		<div class="bg-change"></div>
 		<div class="row">
-			<div style="padding: 3px 10px 10px;" class="col-md-9 white-box remove-border-top ">
+			<div style="padding: 3px 10px 10px;border: 1px solid #ccc;border-radius: 0 0 4px 4px;border-top: 0;" class="col-md-9 white-box remove-border-top ">
 
 				<div class="row">
 					
@@ -111,8 +118,8 @@
 				<div class="row margin-top-2">
 					<div class="col-md-12 bordered_week">
 						<div class="row nav-bar">
-							<div class="col-md-4 blue-text text-center nav-bar-item">
-								<label class="gray-text"><b>This Week</b></label>
+							<div style="height: 78px;" class="col-md-4 blue-text text-center nav-bar-item">
+								<label style="font-size: 14px;color: #333 !important;position: absolute;top: -3px;left: 83px;" class="gray-text"><b>This Week</b></label>
 								<?php
                                                                 date_default_timezone_set("UTC"); 
                                             $today = strtotime('today'); 
@@ -146,8 +153,8 @@
 										    $total_work_cweek." hrs this week";
 									   }
 								?>
-							<span class="bold_text"><br/><?=$total_work_cweek;?> Hrs <br /></span>
-								<label class="gray-text hours_text">
+							<span style="position: absolute;top: -6px;left: 94px;" class="bold_text"><br/><?=$total_work_cweek;?> Hrs <br /></span>
+								<label style="font-size:14px;color: #333 !important;position: absolute;top: 50px;left: 110px;" class="gray-text hours_text">
 									<?php if($job_status->offer_bid_amount) {
 									$amount = $job_status->offer_bid_amount;
 									} else {$amount =  $job_status->bid_amount;} ?>
@@ -157,8 +164,8 @@
 								
 								
 							</div>
-							<div class="col-md-4 blue-text text-center nav-bar-item">
-								<label class="gray-text">Last Week</label>
+							<div  style="height: 78px;" class="col-md-4 blue-text text-center nav-bar-item">
+								<label style="font-size: 14px;color: #333 !important;position: absolute;top: -3px;left: 87px;" class="gray-text">Last Week</label>
 							<?php	$this->db->select('*');
 								   $this->db->from('job_workdairy');
 								   $this->db->where('fuser_id',$job_status->fuser_id);
@@ -175,8 +182,9 @@
 										    $total_work_prevweek." hrs this week";
 									   }
 								?>
-                             <span class="bold_text"><br/><?=$total_work_prevweek;?> Hrs <br/></span>
-								<label class="gray-text hours_text">
+								<span style="position: absolute;top: -7px;left: 95px;" class="bold_text"><br/><?=$total_work_prevweek;?> Hrs <br/></span>
+								
+								<label style="color: #333 !important;position: absolute;top: 50px;left: 113px;" class="gray-text hours_text">
 									<?php if($job_status->offer_bid_amount) {
 									$amount = $job_status->offer_bid_amount;
 									} else {$amount =  $job_status->bid_amount;} ?>
@@ -184,9 +192,9 @@
 								</label>
 								
 							</div>
-							<div style="height: 79px;" class="col-md-4 blue-text text-center nav-bar-item">
+							<div style="height: 78px;" class="col-md-4 blue-text text-center nav-bar-item">
                                                             
-                                                   <?php	$this->db->select('*');
+                                <?php	$this->db->select('*');
 								   $this->db->from('job_workdairy');
 								   $this->db->where('fuser_id',$job_status->fuser_id);
 								   $this->db->where('jobid',$job_status->job_id); 
@@ -199,11 +207,13 @@
 										   }
 										   
 									   }
-                                                                          // var_dump($job_done);die();
+                                       // var_dump($job_done);die();
 								?>         
-								<label style="margin-top: 2px;font-size: 12px;" class="gray-text">Total</label> <br /> <label
-									class="gray-text bold_text"><?=$total_work ;?> Hrs</label> <br /> <label
-									class="gray-text hours_text">$<?=$total_work*$amount;?></label>
+								<label style="font-size: 14px;color: #333 !important;position: absolute;top: -3px;left: 102px;" style="margin-top: 2px;font-size: 12px;" class="gray-text">Total</label>
+								<br />
+								<span style="position: absolute;top: 21px;left: 94px;" class="bold_text"><?=$total_work ;?> Hrs</span>
+								<br />
+								<label style="color: #333 !important;position: absolute;top: 50px;left: 113px;" class="gray-text hours_text">$<?=$total_work*$amount;?></label>
 							</div>
 						</div>
 					</div>
@@ -269,18 +279,18 @@
 							<div class="col-md-6 text-centered text-center"></div>
 							<div class="col-md-6 text-right">
 							
-								<div style="float: left; margin-top: 10px; margin-left: 68px;" class="cancel_content_btn" style="margin-left: -65px">
-								   <input value="Cancel" class="btn my_btn" type="button"> 
+								<div style="float: left; margin-top: 10px; margin-left: 67px;" class="cancel_content_btn" style="margin-left: -65px">
+								   <input value="Cancel" class="btn my_btn btn-cancel" type="button"> 
 								</div>
 								
 								<div class="hour_end_btn">
 								    <?php if($job_status->jobstatus ==1){?>
 									<a href="<?php echo base_url() ?>feedback/hourly_client?fmJob=<?php echo base64_encode($job_status->job_id);?>&fuser=<?php echo base64_encode($job_status->fuser_id);?>">
-									<input type="button" class="btn my_btn" value="End Contract" />
+									<input type="button" class="btn my_btn btn-default_activv" value="End Contract" />
 								</a>
 								<?php }else{ ?>
 									<a href="<?php echo base_url() ?>endhourlyfixed/hourly_client?fmJob=<?php echo base64_encode($job_status->job_id);?>&fuser=<?php echo base64_encode($job_status->fuser_id);?>">
-									<input type="button" class="btn  my_btn" value="End Contract" />
+									<input type="button" class="btn  my_btn btn-default_activv" value="End Contract" />
 								</a>
 								<?php	} ?>
 								
@@ -304,11 +314,11 @@
 
 <!-- Modal -->
 <div id="message_convertionModal" class="modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-			 <button type="button" class="close" data-dismiss="modal" onclick="hidemessagepopup();">&times;</button>
+  <div class="modal-dialog cccc_massage_box">
+    <div style="padding: 30px;padding-bottom: 60px;" class="modal-content">
+			<button type="button" class="close" data-dismiss="modal" onclick="hidemessagepopup();">&times;</button>
 			<h4 class="modal-title">Message</h4>
+      <div class="modal-header">
 			<div class="col-lg-12 col-md-12 col-sm-12 chat-screen">
 				<div class="chat-details-topbar">
 					<h3><?=$job_status->webuser_fname ?> <?=$job_status->webuser_lname ?></h3>
@@ -317,17 +327,20 @@
 				</div>
 			</div>
       </div>
-      <div class="modal-body">
-		<div class="message_lists chat-details form-group" ></div>
-        <form name="message" action="" method="post" id="conversion_message">
-             <textarea name="usermsg"  id="usermsg"></textarea>
-               <input name="job_id" type="hidden" id="job_id"  value="" />
-               <input name="bid_id" type="hidden" id="bid_id"  value=""  />
-               <input name="sender_id" type="hidden" id="sender_id"  value="<?php echo $this->session->userdata('id');?>"  />
-               <input name="receiver_id" type="hidden" id="receiver_id"  value=""  />
-             <input name="submitmsg" type="submit"  id="submitmsg" value="Send" />
-         </form>
-        </div>
+		<div style="padding-bottom: 20px !important;" class="modal-body">
+			<div class="message_lists chat-details form-group" ></div>
+			<form style="position:relative;" name="message" action="" method="post" id="conversion_message">
+				 <textarea style="width: 76%;" name="usermsg"  id="usermsg"></textarea>
+					<div style="position: absolute;right: 23%;font-size: 26px;top: 35%;color:#a2a2a2;transform: rotate(90deg);" class="attach_icon">
+					<i style="cursor: pointer;" class="fa fa-paperclip" aria-hidden="true"></i>
+					</div>
+				   <input name="job_id" type="hidden" id="job_id"  value="" />
+				   <input name="bid_id" type="hidden" id="bid_id"  value=""  />
+				   <input name="sender_id" type="hidden" id="sender_id"  value="<?php echo $this->session->userdata('id');?>"  />
+				   <input name="receiver_id" type="hidden" id="receiver_id"  value=""  />
+				 <input name="submitmsg" type="submit"  id="submitmsg" value="Send" />
+			</form>
+		</div>
     </div>
  </div>
 </div>

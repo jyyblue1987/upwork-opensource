@@ -1,9 +1,52 @@
-<section id="big_header"
-	style="margin-top: 36px; margin-bottom: 40px; height: auto;">
+<style>
+.message_lists{
+    max-height: 250px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.m_list.scroll-ul > li {
+  display: block;
+  margin: 10px 0 21px 5px;
+  overflow: hidden;
+  width: 100%;
+  border-bottom: 1px solid #dddddf;
+  padding-bottom: 4px;
+}
+.chat-identity .img-circle {
+  float: left;
+  margin-right: 14px;
+}
+#conversion_message > input {
+  background: rgb(28, 167, 219) none repeat scroll 0 0;
+  float: right;
+  font-size: 21px;
+  height: 50px;
+  margin-top: 4%;
+  vertical-align: middle;
+  width: 19%;
+}
+#conversion_message textarea {
+  float: left;
+  height: 100px;
+  width: 80%;
+}
+.modal-body {
+  overflow: hidden;
+}
+
+input.btn-default_activv{background:#028FFC;color:#fff;}
+input.btn-default_activv:hover{background:#286090;color:#fff;}
+input.btn-cancel{border:1px solid #CED0D4;color:#1CA7DB;background:#fff;}
+input.btn-cancel:hover{border:1px solid transparent;color:#fff;background:#286090;}
+.nav-bar-item {
+    padding: 2px 15px 5px 30px;
+}
+</style>
+<section id="big_header" style="margin-left: 5px;margin-top: 36px; margin-bottom: 40px; height: auto;">
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-9 white-box black-box bordered_top">
+			<div style="border: 1px solid #ccc;border-radius: 4px 4px 0 0px;margin: 0;" class="col-md-9 white-box black-box">
 				<div class="row">
 				  <div class="date_head">
 				      	<div class="col-md-6">Since <?php  echo date(' M j, Y ', strtotime($job_status->start_date)); ?></div>
@@ -16,9 +59,9 @@
 				</div>
 
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-5">
 						<div class="row">
-							<div class="col-md-4 col-md-offset-1 text-left">
+							<div style="margin-left: 20px;" class="col-md-4 col-md-offset-1 text-left">
 								<div class="st_img hourly_client_view_st_img">
 								    <?php  if($job_status->webuser_picture !=""){ ?>
 									<img src="<?php echo base_url().$job_status->webuser_picture ?>" width="64" height="64" />
@@ -27,7 +70,7 @@
 								<?php  } ?>
 								</div>
 							</div>
-							<div class="col-md-7 text-left">
+							<div style="margin-left: -24px;" class="col-md-7 text-left">
 								<div class="hourly_name">
 								    <h5 class="free_name"><?=$job_status->webuser_fname ?> <?=$job_status->webuser_lname ?></h5> <p class="free_name"><?=$job_status->webuser_company ?></p>
 								</div>
@@ -36,7 +79,7 @@
 						</div>
 					</div>
 
-					<div class="col-md-4 text-center gray-text">
+					<div class="col-md-3 text-center gray-text">
 						<div class="status_bar">
 							
 							<?php if($ststus->isactive==0){ ?>
@@ -71,8 +114,8 @@
 			</div>
 		</div>
 		<div class="row">
-			<div style="padding-bottom: 5px;" class="col-md-9 white-box remove-border-top">
-				<div style="width: 675px;margin-left: 27px;" class="sec_border">
+			<div style="padding-bottom: 5px;border: 1px solid #ccc;border-radius: 0 0 4px 4px;border-top: 0;" class="col-md-9 white-box remove-border-top">
+				<div style="width: 675px;margin-left: 27px;margin-top: 15px;" class="sec_border">
 				    <div class="row">
 					<div class="col-md-10 col-md-offset-1">
 						   
@@ -116,9 +159,9 @@
 					<div class="col-md-10 col-md-offset-1">
 						<div class="row">
 							 <div class="fix_view">
-							 <div class="col-md-8 text-centered text-left">Description</div>
-							<div class="col-md-2 text-centered text-right">Amount</div>
-							<div class="col-md-2 text-centered text-left">Date</div>
+							 <div style="font-size: 14px;" class="col-md-8 text-centered text-left">Description</div>
+							<div style="font-size: 14px;" class="col-md-2 text-centered text-right">Amount</div>
+							<div style="font-size: 14px;" class="col-md-2 text-centered text-left">Date</div>
 							
 							 </div>
 						</div>
@@ -132,9 +175,9 @@
 					<div class="col-md-10 col-md-offset-1">
 						<div class="row">
 							
-							<div class="col-md-8 text-centered text-left gray-text"><?php if($job_status->fixedpay_amount == $job_status->bid_amount){ echo "Paid All";} elseif($job_status->fixedpay_amount < $job_status->bid_amount){echo "Milestone";} elseif($job_status->fixedpay_amount == 0 ) {echo "Paid Nothing";} ?></div>
-							<div class="col-md-2 text-centered text-right gray-text">$<?= $job_status->fixedpay_amount;?></div>
-							<div class="col-md-2 text-centered text-center gray-text"><?php  echo date(' M j, Y ', strtotime($job_status->start_date)); ?></div>
+							<div style="font-size: 14px;" class="col-md-8 text-centered text-left gray-text">dfdf<?php if($job_status->fixedpay_amount == $job_status->bid_amount){ echo "Paid All";} elseif($job_status->fixedpay_amount < $job_status->bid_amount){echo "Milestone";} elseif($job_status->fixedpay_amount == 0 ) {echo "Paid Nothing";} ?></div>
+							<div style="font-size: 14px;" class="col-md-2 text-centered text-right gray-text">$<?= $job_status->fixedpay_amount;?></div>
+							<div style="font-size: 14px;" class="col-md-2 text-centered text-center gray-text"><?php  echo date(' M j, Y ', strtotime($job_status->start_date)); ?></div>
 						</div>
 					</div>
 				</div>
@@ -142,22 +185,22 @@
 				
 				<div class="sec-padding">
 				    <div class="row margin-top-5 margin-bottom-2 ">
-					<div class="col-md-10 col-md-offset-1">
+					<div style="margin-left: 51px;" class="col-md-10 col-md-offset-1">
 						<div class="row">
 							<div class="col-md-6 text-centered text-center"></div>
 							
 							<div style="position: absolute; right: 93px;" class="cancel_content_btn">
-							   <input value="Cancel" class="btn my_btn" type="button"> 
+							   <input value="Cancel" class="btn my_btn btn-cancel" type="button"> 
 							</div>
 							<div class="pull-right">
 								<div class="fix_end_btn">
 								    <?php if($job_status->jobstatus ==1){?>
 									<a href="<?php echo base_url() ?>feedback/fixed_freelancer?fmJob=<?php echo base64_encode($job_status->job_id);?>&buser=<?php echo base64_encode($job_status->buser_id);?>">
-									<input type="button" class="btn my_btn" value="End Contract" />
+									<input type="button" class="btn my_btn btn-default_activv" value="End Contract" />
 								</a>
 								<?php }else{ ?>
 									<a href="<?php echo base_url() ?>endhourlyfixed/fixed_freelancer?fmJob=<?php echo base64_encode($job_status->job_id);?>&buser=<?php echo base64_encode($job_status->buser_id);?>">
-									<input type="button" class="btn my_btn" value="End Contract" />
+									<input type="button" class="btn my_btn btn-default_activv" value="End Contract" />
 								</a>
 								<?php	} ?>
 								</div>
@@ -179,11 +222,11 @@
 
 <!-- Modal -->
 <div id="message_convertionModal" class="modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
+  <div class="modal-dialog cccc_massage_box">
+    <div style="padding: 30px;padding-bottom: 60px;" class="modal-content">
 			 <button type="button" class="close" data-dismiss="modal" onclick="hidemessagepopup();">&times;</button>
 			<h4 class="modal-title">Message</h4>
+      <div class="modal-header">
 			<div class="col-lg-12 col-md-12 col-sm-12 chat-screen">
 				<div class="chat-details-topbar">
 					<h3><?=$job_status->webuser_fname ?> <?=$job_status->webuser_lname ?></h3>
@@ -192,17 +235,20 @@
 				</div>
 			</div>
       </div>
-      <div class="modal-body">
-		<div class="message_lists chat-details form-group" ></div>
-        <form name="message" action="" method="post" id="conversion_message">
-             <textarea name="usermsg"  id="usermsg"></textarea>
-               <input name="job_id" type="hidden" id="job_id"  value="" />
-               <input name="bid_id" type="hidden" id="bid_id"  value=""  />
-               <input name="sender_id" type="hidden" id="sender_id"  value="<?php echo $this->session->userdata('id');?>"  />
-               <input name="receiver_id" type="hidden" id="receiver_id"  value=""  />
-             <input name="submitmsg" type="submit"  id="submitmsg" value="Send" />
-         </form>
-        </div>
+		<div style="padding-bottom: 20px !important;" class="modal-body">
+			<div style="min-height: 250px;" class="message_lists chat-details form-group" ></div>
+			<form style="position:relative;" name="message" action="" method="post" id="conversion_message">
+				 <textarea style="width: 76%;" name="usermsg"  id="usermsg"></textarea>
+					<div style="position: absolute;right: 23%;font-size: 26px;top: 35%;color:#a2a2a2;transform: rotate(90deg);" class="attach_icon">
+					<i style="cursor: pointer;" class="fa fa-paperclip" aria-hidden="true"></i>
+					</div>
+				   <input name="job_id" type="hidden" id="job_id"  value="" />
+				   <input name="bid_id" type="hidden" id="bid_id"  value=""  />
+				   <input name="sender_id" type="hidden" id="sender_id"  value="<?php echo $this->session->userdata('id');?>"  />
+				   <input name="receiver_id" type="hidden" id="receiver_id"  value=""  />
+				 <input name="submitmsg" type="submit"  id="submitmsg" value="Send" />
+			</form>
+		</div>
     </div>
  </div>
 </div>
@@ -277,40 +323,3 @@
     }
   autoloading();
 </script>
-<style>
-.message_lists{
-    max-height: 250px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-.m_list.scroll-ul > li {
-  display: block;
-  margin: 10px 0 21px 5px;
-  overflow: hidden;
-  width: 100%;
-  border-bottom: 1px solid #dddddf;
-  padding-bottom: 4px;
-}
-.chat-identity .img-circle {
-  float: left;
-  margin-right: 14px;
-}
-#conversion_message > input {
-  background: rgb(28, 167, 219) none repeat scroll 0 0;
-  float: right;
-  font-size: 21px;
-  height: 50px;
-  margin-top: 4%;
-  vertical-align: middle;
-  width: 19%;
-}
-#conversion_message textarea {
-  float: left;
-  height: 100px;
-  width: 80%;
-}
-.modal-body {
-  overflow: hidden;
-}
-</style>
-

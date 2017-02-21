@@ -1,6 +1,16 @@
-<section id="big_header" style="margin:50px 0;height: auto;">
+<style type="text/css">
+form#tax-form label.col-form-label{font-size: 17px;
+font-family: calibri;
+margin-left: -15px;
+margin-right: 10px;}
+input.form-control{font-size: 16px;
+font-family: calibri;
+border-radius: 4px;}
+</style>
 
-    <div class="container white-box main-area">
+<section id="big_header" style="margin:40px 0;height: auto;">
+
+    <div style="width: 970px !important;border: 1px solid #ccc;" class="container white-box main-area">
         <div class="row">
             <div class="col-xs-12 col-sm-3 col-md-3 align-left">
                 <?php
@@ -97,10 +107,10 @@
                 }
                 ?>  
             </div>
-            <div class="col-md-9 <?php echo $class ?>" id="tax-area">
+            <div style="padding-left: 35px;" class="col-md-9 <?php echo $class ?>" id="tax-area">
                 <div class="row title-line">
                     <div class="abc">
-                        <h4 style="padding-bottom:17px;"> This information will be used in the Invoice generated for the Services. </h4> 
+                        <h3 style="padding-bottom:17px;"> This information will be used in the Invoice generated for the Services. </h3> 
                     </div>  
                 </div>   
                 <div id="editableform">
@@ -110,46 +120,16 @@
                         <div class=" row">
                             <label for="" id="olemail" class="col-xs-3 col-form-label">Legal Name</label>
                             <div class="col-xs-6">
-                                <input class="form-control" name="legalName" type="text" value="<?php if (isset($webUserTaxdetails['legal_name'])) echo $webUserTaxdetails['legal_name']; ?>" placeholder="Type your legel name" required=""/>
+                                <input style="margin-bottom: 5px;" class="form-control" name="legalName" type="text" value="<?php if (isset($webUserTaxdetails['legal_name'])) echo $webUserTaxdetails['legal_name']; ?>" placeholder="Type your legal name" required=""/>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-offset-6 col-sm-10">
+                            <div style="margin: 0;text-align: right;padding-right: 79px;" class="col-sm-offset-6 col-sm-10">
                                 <div class="Remember">
                                     <label>
-                                        <p>Personal/Business Legal Name</p>
+                                        <p style="margin-bottom: 20px;font-size: 17px;font-family: calibri;font-weight: 500;margin-top: -5px;">Personal/Business Legal Name</p>
                                     </label>
                                 </div>
-                            </div>
-                        </div>
-                        <div class=" row do-u-tax" style="margin-bottom:12px;">
-                            <label for="" id="olemail" class="col-xs-3 col-form-label">Do you have Tax/Pan</label>
-                            <?php
-                            //  var_dump($country_name);die();
-                            if (strcmp($country_name, "United States") != 0) {
-                                ?>
-                                <div class="col-xs-6">
-                                    <button type="button" id="butyes" class="btn btn-danger">Yes</button>
-                                    <button type="button" id="butno"class="btn btn-primary">No</button>
-                                </div>
-                                <?php
-                            }
-                            ?>
-
-                        </div>
-
-
-                        <div class="row tax-plan tax-no">
-                            <label for="" id="olemail" class="col-xs-3 col-form-label">Tax No</label>
-                            <div class="col-xs-6">
-                                <input name="taxno" id="taxno" required="" class="form-control" type="text" value="<?php if (isset($webUserTaxdetails['tax_no'])) echo $webUserTaxdetails['tax_no']; ?>" placeholder="Type your tAX number" />
-                            </div>
-                        </div>
-                        <div class="col-sm-offset-6 col-sm-10 tax-no">
-                            <div class="Remember">
-                                <label>
-                                    <p>Your tax id no,pan no,vat no</p>
-                                </label>
                             </div>
                         </div>
                         <div class="row">
@@ -158,7 +138,7 @@
                                 <?php
                                 if (isset($countryList) && is_array($countryList)) {
                                     ?>
-                                    <select name="country" class="select form-control select-country">
+                                    <select style="width: 250px;font-size: 16px;font-family: calibri;" name="country" class="select form-control select-country">
                                         <option value="">Select Country</option>
                                     <?php
                                     if (isset($countryList) && is_array($countryList) && !empty($countryList)) {
@@ -180,43 +160,73 @@
                                     ?>
                             </div>
                         </div>
+                        <div style="margin-bottom: 25px;margin-top: 18px;" class=" row do-u-tax" style="margin-bottom:12px;">
+                            <label style="margin-top: -5px;" for="" id="olemail" class="col-xs-3 col-form-label">Do you have Tax/Pan</label>
+                            <?php
+                            //  var_dump($country_name);die();
+                            if (strcmp($country_name, "United States") != 0) {
+                                ?>
+                                <div class="col-xs-6">
+                                    <button style="margin: 0;padding: 8px 10px;" type="button" id="butyes" class="custom_cc_ss_btn custom_cc_ss_btn_active">Yes</button>
+                                    <button style="margin: 0;padding: 8px 10px;" type="button" id="butno"class="custom_cc_ss_btn">No</button>
+                                </div>
+                                <?php
+                            }
+                            ?>
+
+                        </div>
+
+
+                        <div style="margin-top: 20px;" class="row tax-plan tax-no">
+                            <label for="" id="olemail" class="col-xs-3 col-form-label">Tax No</label>
+                            <div class="col-xs-6">
+                                <input style="margin-bottom: 5px;" name="taxno" id="taxno" required="" class="form-control" type="text" value="<?php if (isset($webUserTaxdetails['tax_no'])) echo $webUserTaxdetails['tax_no']; ?>" placeholder="Type your tax number" />
+                            </div>
+                        </div>
+                        <div style="margin: 0;text-align: right;padding-right: 69px;" class="col-sm-offset-6 col-sm-10 tax-no tax-plan">
+                            <div class="Remember">
+                                <label>
+                                    <p style="margin-bottom: 20px;font-size: 17px;font-family: calibri;font-weight: 500;margin-top: -5px;">Your tax id no,pan no,vat no</p>
+                                </label>
+                            </div>
+                        </div>
                         <div class=" row">
                             <label for="" id="olemail" class="col-xs-3 col-form-label">Address</label>
                             <div class="col-xs-6">
-                                <input class="form-control" type="text" value="<?php if (isset($webUserTaxdetails['address'])) echo $webUserTaxdetails['address']; ?>" name="taxAddress"/>
+                                <input placeholder="Type your address" style="width: 357px;" class="form-control" type="text" value="<?php if (isset($webUserTaxdetails['address'])) echo $webUserTaxdetails['address']; ?>" name="taxAddress"/>
                             </div>
                         </div>
                         <div class=" row">
                             <div class="col-xs-3"></div>
                             <div class="col-xs-6">
-                                <input class="form-control" type="text"  value="<?php if (isset($webUserTaxdetails['address_line1'])) echo $webUserTaxdetails['address_line1']; ?>" name="taxAddressLine2" />
+                                <input placeholder="Type your address" style="width: 357px;margin-left: -5px;" class="form-control" type="text"  value="<?php if (isset($webUserTaxdetails['address_line1'])) echo $webUserTaxdetails['address_line1']; ?>" name="taxAddressLine2" />
                             </div>
                         </div>
                         <div class=" row">
                             <label for="" id="olemail" class="col-xs-3 col-form-label">City / Town</label>
-                            <div class="col-xs-3">
-                                <input class="form-control" type="text"  value="<?php if (isset($webUserTaxdetails['city'])) echo $webUserTaxdetails['city']; ?>" name="city" required=""/>
+                            <div class="col-xs-6">
+                                <input placeholder="Type your city name" style="width: 357px;" class="form-control" type="text"  value="<?php if (isset($webUserTaxdetails['city'])) echo $webUserTaxdetails['city']; ?>" name="city" required=""/>
                             </div>
                         </div>
                         <div class=" row">
                             <label for="" id="olemail" class="col-xs-3 col-form-label">State / Province</label>
-                            <div class="col-xs-3">
-                                <input class="form-control" type="text"  value="<?php if (isset($webUserTaxdetails['state'])) echo $webUserTaxdetails['state']; ?>" name="state" required=""/>
+                            <div class="col-xs-6">
+                                <input placeholder="Type your state name" style="width: 357px;" class="form-control" type="text"  value="<?php if (isset($webUserTaxdetails['state'])) echo $webUserTaxdetails['state']; ?>" name="state" required=""/>
                             </div>
                         </div>
                         <div class=" row">
                             <label for="" id="olemail" class="col-xs-3 col-form-label">Zip / Postal Code</label>
                             <div class="col-xs-3">
-                                <input class="form-control" type="number" value="<?php if (isset($webUserTaxdetails['zip'])) echo $webUserTaxdetails['zip']; ?>" name="zipcode" required=""/>
+                                <input placeholder="Example: 10001" style="width: 130px;" class="form-control" type="" value="<?php if (isset($webUserTaxdetails['zip'])) echo $webUserTaxdetails['zip']; ?>" name="zipcode" required=""/>
                             </div>
                         </div>
 
                         <div class=" row">
                             <div class="col-xs-3"></div>
-                            <div class="col-xs-4">
-                                <button type="button" id="update-tax" onclick="saveTax();" class="btn btn-danger">Update</button>
+                            <div style="margin-top: 20px;margin-left: -5px;" class="col-xs-4">
+                                <button style="float: left;" type="button" id="update-tax" onclick="saveTax();" class="btn-primary big_mass_active transparent-btn big_mass_button">Update</button>
                                 <?php $tax_url = site_url('payment/tax-information');;?>
-                                <button type="button" class="btn btn-primary" onclick="location.href = '<?php echo $tax_url ?>'">Cancel</button>
+                                <button type="button" class="btn-primary transparent-btn big_mass_button" onclick="location.href = '<?php echo $tax_url ?>'">Cancel</button>
                             </div>
                             <div class="col-xs-5 sys-message"></div>
                         </div>
@@ -264,15 +274,18 @@ $this->load->view("webview/includes/footer-common-script");
         }
     });
     $('#butyes').click(function () {
-        $(this).css('background', '#21a7d9');
+        $(this).css('background', '#408BC8');
+        $(this).css('color', '#fff');
         $('#butno').css('background', '#fff');
+        $('#butno').css('color', '#000');
         $('.tax-plan').addClass('show').removeClass('hidden');
         $('input[name="taxno"]').attr("required", true);
     });
     $('#butno').click(function () {
         $('#taxno').val('');
-        $(this).css('background', '#21a7d9');
-        $('#butyes').css({'background': '#fff', 'color': '#b6b3b3'});
+        $(this).css('background', '#408BC8');
+        $(this).css('color', '#fff');
+        $('#butyes').css({'background': '#fff', 'color': '#000'});
         $('.tax-plan').addClass('hidden');
         $('input[name="taxno"]').removeAttr("required");
     });

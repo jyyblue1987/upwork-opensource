@@ -169,10 +169,10 @@
                             <select class="form-control" name="hours_per_week">
                                 <option value="not_sure" <?php if($value->hours_per_week=='not_sure') echo 'selected="selected"'?>>Not Sure</option>
                                 <option value="1-9" <?php if($value->hours_per_week=='1-9') echo 'selected="selected"'?>>1-9</option>
-                                <option value="10-19" <?php if($value->hours_per_week=='10-19') echo 'selected="selected"'?>>10-19</option>
-                                <option value="20-29" <?php if($value->hours_per_week=='20-29') echo 'selected="selected"'?>>20-29</option>
-                                <option value="30-39" <?php if($value->hours_per_week=='30-39') echo 'selected="selected"'?>>30-39</option>
-                                <option value="40_plus" <?php if($value->hours_per_week=='40_plus') echo 'selected="selected"'?>>More than 40</option>
+                                <option value="10-19" <?php if($value->hours_per_week=='10-19') echo 'selected="selected"'?>>10-19 hours</option>
+                                <option value="20-29" <?php if($value->hours_per_week=='20-29') echo 'selected="selected"'?>>20-29 hours</option>
+                                <option value="30-39" <?php if($value->hours_per_week=='30-39') echo 'selected="selected"'?>>30-39 hours</option>
+                                <option value="40_plus" <?php if($value->hours_per_week=='40_plus') echo 'selected="selected"'?>>More than 40 hours</option>
                             </select>
                         </div>
                     </div>
@@ -183,11 +183,11 @@
                         <div class="col-md-5">
                             <select class="form-control" name="job_duration">
                                 <option value="not_sure" <?php if($value->job_duration=='not_sure') echo 'selected="selected"'?>>Not Sure</option>
-                                <option value="more_than_6_months" <?php if($value->job_duration=='more_than_6_months') echo 'selected="selected"'?>>More than 6 Months</option>
-                                <option value="3_6_months" <?php if($value->job_duration=='3_6_months') echo 'selected="selected"'?>>3 - 6 Months</option>
-                                <option value="1_3_months" <?php if($value->job_duration=='1_3_months') echo 'selected="selected"'?>>1 - 3 Months</option>
-                                <option value="less_than_1_months" <?php if($value->job_duration=='less_than_1_months') echo 'selected="selected"'?>>Less than 1 Month</option>
-                                <option value="less_than_1_week" <?php if($value->job_duration=='less_than_1_week') echo 'selected="selected"'?>>Less than 1 Week</option>
+                                <option value="more_than_6_months" <?php if($value->job_duration=='more_than_6_months') echo 'selected="selected"'?>>More than 6 months</option>
+                                <option value="3_6_months" <?php if($value->job_duration=='3_6_months') echo 'selected="selected"'?>>3 - 6 months</option>
+                                <option value="1_3_months" <?php if($value->job_duration=='1_3_months') echo 'selected="selected"'?>>1 - 3 months</option>
+                                <option value="less_than_1_months" <?php if($value->job_duration=='less_than_1_months') echo 'selected="selected"'?>>Less than 1 month</option>
+                                <option value="less_than_1_week" <?php if($value->job_duration=='less_than_1_week') echo 'selected="selected"'?>>Less than 1 week</option>
                             </select>
                         </div>
                     </div>

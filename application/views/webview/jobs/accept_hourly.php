@@ -1,4 +1,47 @@
-<section id="big_header"class="custom_jobs_accept" style="margin-top: 40px; margin-bottom: 40px; height: auto;">
+
+<style>
+    *{
+          font-family: "Calibri";
+    }
+.message_lists{
+    max-height: 250px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.offer_win_side {
+	margin-left: 45px;
+	font-family: "Calibri";
+}
+    .offer_made_side {
+      font-family: "Calibri";   
+    }
+.offer_bordered {
+	border: 1px solid #ccc;
+	padding: 10px;
+	border-radius: 3px;
+	width: 780px;
+    
+}
+.c_offer_msg.hour_btn {
+	margin-left: -25px;
+}
+.dicline_btn {
+	margin-right: 55px;
+}
+.dicline_btn:hover {
+      background: #fff;
+    }
+.offer_title {
+    font-size: 16px; 
+    font-family: "Calibri";
+    }
+.offer_date span {
+	margin-left: 65px;
+    font-family: "Calibri";
+}
+</style>
+
+<section id="big_header"class="custom_jobs_accept" style="margin-top: 40px; margin-bottom: 40px; height: auto;margin-left: 5px;">
 
 	<div class="container">
 		<div class="row">
@@ -72,7 +115,7 @@
 		</div>
 		</div>
 		<div style="margin-left:0;" class="row">
-		<div class="col-md-9 white-box offer_bordered remove-border-top custom_offer_bordered">
+		<div style="padding-bottom: 30px;" class="col-md-9 white-box offer_bordered remove-border-top custom_offer_bordered">
 
 			  <div class="row">
 					<div class="col-md-12 text-left blue-text">
@@ -207,12 +250,12 @@
 				<div class="row margin-top-2">
 				    <div class="col-md-6 text-right">
 					<div class="dicline_btn">
-				       <a href="<?php echo base_url() ?>jobs/accept?fmJob=<?php echo base64_encode($job_details[0]->job_id);?>&fmBiD=<?php echo base64_encode($job_details[0]->bid_id);?>"> <input type="button"class="btn my_btn" value="Accept" /></a>
+				       <a href="<?php echo base_url() ?>jobs/accept?fmJob=<?php echo base64_encode($job_details[0]->job_id);?>&fmBiD=<?php echo base64_encode($job_details[0]->bid_id);?>"> <input type="button"class="btn-primary big_mass_active transparent-btn big_mass_button" style="margin-right: 4px;" value="Accept" /></a>
 					   </div>
 					   </div>
 					   <div class="col-md-6">
 					   <div class="dicline_btn">
-				        <button style="margin-left: -90px;" class="btn my_btn" onclick="decline(<?=$job_details[0]->bid_id?>)" >Decline Offer</button>
+				        <button style="margin-left: -95px;float: left;" class="btn-primary transparent-btn big_mass_button" onclick="decline(<?=$job_details[0]->bid_id?>)" >Decline Offer</button>
 						</div>
 						</div>
 				    </div>
@@ -339,44 +382,3 @@
 		}, 'json');
   }
 </script>
-<style>
-    *{
-          font-family: "Calibri";
-    }
-.message_lists{
-    max-height: 250px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-.offer_win_side {
-	margin-left: 45px;
-	font-family: "Calibri";
-}
-    .offer_made_side {
-      font-family: "Calibri";   
-    }
-.offer_bordered {
-	border: 1px solid #ccc;
-	padding: 10px;
-	border-radius: 3px;
-	width: 780px;
-    
-}
-.c_offer_msg.hour_btn {
-	margin-left: -25px;
-}
-.dicline_btn {
-	margin-right: 55px;
-}
-.dicline_btn:hover {
-      background: #fff;
-    }
-.offer_title {
-    font-size: 16px; 
-    font-family: "Calibri";
-    }
-.offer_date span {
-	margin-left: 65px;
-    font-family: "Calibri";
-}
-</style>

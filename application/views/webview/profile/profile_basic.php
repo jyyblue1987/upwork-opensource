@@ -4,9 +4,15 @@ $formData = $this->session->userdata(ACTION_DATA);
 $this->session->unset_userdata(ACTION_DATA);
 ?> 
 <link rel="stylesheet" href="<?php echo site_url("assets/css/chosen.css"); ?>">
+<style>
+    .search-field {
+        border: none;
+        height: auto;
+    }
+</style>
 <script src="<?php echo site_url("assets/js/chosen.jquery.js"); ?>"></script>
-<section id="big_header" style="margin-top: 50px; margin-bottom: 50px; height: auto;">
-    <div class="container white-box"> 
+<section id="big_header" style="margin-top: 40px; margin-bottom: 40px; height: auto;width: 970px !important;">
+    <div style="width: 970px !important;border: 1px solid #ccc;border-radius: 4px;padding-right: 15px;" class="container white-box"> 
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <?php $this->load->view("webview/includes/system-message"); ?>
@@ -18,7 +24,7 @@ $this->session->unset_userdata(ACTION_DATA);
                 ); 
                 $this->load->view("webview/profile/freelancer-profile-left-sidebar",$data) ?>
             </div>
-            <div class="col-xs-12 col-sm-9 col-md-9">
+            <div style="padding-left: 36px;" class="col-xs-12 col-sm-9 col-md-9">
                 <div class="row title-line">
                     <div class="abc">
                         <h3>Personal Info  </h3> 
@@ -30,13 +36,13 @@ $this->session->unset_userdata(ACTION_DATA);
 
                 <div class="row" >
                     <div class="col-xs-2">
-                        <span>Picture</span>
+                        <h4 class="custom_personal_info_title">Picture</h4>
                     </div>
                     <div class="col-xs-4">
                         <?php if ($this->Adminforms->getdatax("picture", "webuser", $id) == "") { ?>
-                            <img src="<?php echo site_url("assets/user.png"); ?>" width="100px">
+                            <img style="border-radius: 60%;" src="<?php echo site_url("assets/user.png"); ?>" width="100px">
                         <?php } else { ?>
-                            <img src="<?php echo site_url($this->Adminforms->getdatax("picture", "webuser", $id)); ?>" width="100px">
+                            <img style="border-radius: 60%;" src="<?php echo site_url($this->Adminforms->getdatax("picture", "webuser", $id)); ?>" width="100px">
                         <?php }
                         ?>                                        
                     </div>
@@ -54,45 +60,41 @@ $this->session->unset_userdata(ACTION_DATA);
                         <div id="editcancel">
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <span>Tagline (mandatory)</span>
+                                    <h4 class="custom_personal_info_title">Tagline</h4>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-xs-9">
-                                    <input type="text" required="" name="tagline" id="tagline" value="<?php echo set_value("tagline", isset($formData['tagline']) ? $formData['tagline'] : '' ) ?>" class="form-control" />
+                                <div class="col-xs-12">
+                                    <input style="margin-bottom: 20px;" type="text" required="" name="tagline" id="tagline" value="<?php echo set_value("tagline", isset($formData['tagline']) ? $formData['tagline'] : '' ) ?>" class="form-control" />
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-6">
-                                <span>Hourly Rate (mandatory)</span>
                             </div>
                         </div>
                         <br/>
-                        <div class="row">
-                            <div class="col-md-4">My Hourly Rate:</div>
-                            <div class="col-md-8">
-                                $ <input type="number" name="hourlyRate" id="hourly_rate" value="<?php echo set_value("hourlyRate", isset($formData['hourly_rate']) ? $formData['hourly_rate'] : '') ?>" required=""/> /hr
+                        <div style="font-size: 17px;font-family: calibri;margin-bottom: 15px;" class="row">
+                            <div class="col-md-5"><h4 class="custom_personal_info_title">My Hourly Rate:</h4></div>
+                            <div class="col-md-6">
+                                <span style="float: left;margin-right: 10px;font-size: 17px;font-family: calibri;">$</span> <input style="width: 80px;float: left;margin-right: 10px;font-size: 17px;font-family: calibri;" class="form-control" type="" name="hourlyRate" id="hourly_rate" value="<?php echo set_value("hourlyRate", isset($formData['hourly_rate']) ? $formData['hourly_rate'] : '') ?>" required=""/> /hr
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">&nbsp;</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">What winjob will charge clients: (After WinJob Fees 10%)</div>
-                            <div class="col-md-8">
-                                $ <input type="text" name="winjobFee" id="winjob_fee" value="<?php echo set_value("winjobFee", isset($formData['hourly_rate']) ? $formData['hourly_rate'] + $formData['hourly_rate'] * WINJOB_FEE : '') ?>" /> /hr
+                        <div style="font-size: 17px;font-family: calibri;" class="row">
+                            <div class="col-md-5">What winjob will charge clients: <br />(After WinJob Fees 10%)</div>
+                            <div class="col-md-6">
+                                <span style="float: left;margin-right: 10px;font-size: 17px;font-family: calibri;">$</span> <input style="width: 80px;float: left;margin-right: 10px;font-size: 17px;font-family: calibri;border-radius: 4px;" class="form-control" type="text" name="winjobFee" id="winjob_fee" value="<?php echo set_value("winjobFee", isset($formData['hourly_rate']) ? $formData['hourly_rate'] + $formData['hourly_rate'] * WINJOB_FEE : '') ?>" /> /hr
                             </div>
                         </div>
-                        <div class="margin-top"></div>
+                        <div style="margin-top: 45px;"></div>
                         <div class="row">
-                            <div class="col-md-4">
-                                <span>Work Experience</span>
+                            <div class="col-md-3">
+                                <h4 class="custom_personal_info_title">Work Experience</h4>
                             </div>
-                            <div class="col-md-4">
+                            <div style="margin-left: -45px;" class="col-md-4">
                                 <div class="col-md-8">
 
-                                    <select id="" name="experienceYear" class="form-control" required="">
+                                    <select style="width: 80px;font-size: 17px;font-family: calibri;" id="" name="experienceYear" class="form-control" required="">
                                         <?php
                                         for ($i = 1; $i <= 20; $i++) {
                                             if ($this->session->userdata("experienceYear") == $i) {
@@ -110,10 +112,10 @@ $this->session->unset_userdata(ACTION_DATA);
                                         ?>
                                     </select>
                                 </div>
-                                <label>Years</label>
+                                <label style="font-size: 17px;font-family: calibri;font-weight: normal;margin-left: -27px;">Years</label>
                             </div>
-                            <div class="col-md-2">
-                                <select id="" name="experienceMonth" class="form-control">
+                            <div style="margin-left: -85px;" class="col-md-2">
+                                <select style="width: 80px;font-size: 17px;font-family: calibri;" id="" name="experienceMonth" class="form-control">
                                     <?php
                                     for ($i = 1; $i < 12; $i++) {
                                         if ($this->session->userdata("experienceMonth") == $i) {
@@ -129,17 +131,16 @@ $this->session->unset_userdata(ACTION_DATA);
                                     ?>
                                 </select>
                             </div>
-                            <label>Months</label>
+                            <label style="font-size: 17px;font-family: calibri;font-weight: normal;margin-left: -15px;">Months</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <span>Skills</span><br />
-                            <h4>List your skills and expertise you have to offer to clients (<small>use comma separated value</small>)</h4>
+                            <h4 class="custom_personal_info_title">Skills</h4>
                         </div>
                         <div class="col-md-12">
                             <!-- Added by Armen start -->
-                            <select class="choose-skills" name="skills[]"  data-placeholder="Skills" style="width:515px;" multiple>
+                            <select class="choose-skills" name="skills[]"  data-placeholder="List your skills and expertise you have to offer to clients" style="width: 100%;height: 35px;font-size: 16px;" multiple>
                                 <?php foreach($formData['user_skills'] as $item){
                                   ?>
                                 <option value="<?php echo $item['skill_name']; ?>" selected><?php echo $item["skill_name"]; ?></option> 
@@ -159,20 +160,18 @@ $this->session->unset_userdata(ACTION_DATA);
                     <div class="margin-top"></div>
                     <div class="row">
                         <div class="col-md-12">
-                            <span>Overview</span><br />
-                            <h5>Add your few sentences about your background, what you offer,
-                                and why clients should hire you</h5>
+                            <h4 class="custom_personal_info_title">Overview</h4>
                         </div>
                         <div class="col-md-12">
-                            <textarea rows="6" cols="" name="overview" id="overview" class="form-control"><?php echo set_value("overview", isset($formData['overview']) ? $formData['overview'] : '') ?></textarea>
+                            <textarea style="font-size: 16px;" placeholder="Add your few sentences about your background, what you offer, and why clients should hire you" rows="6" cols="" name="overview" id="overview" class="form-control"><?php echo set_value("overview", isset($formData['overview']) ? $formData['overview'] : '') ?></textarea>
                         </div>
                     </div>
                     <div class="row" id="update-bp-bts">
                         <div class="col-md-7 sys-message">
                         </div>
-                        <div class="col-md-5 align-right">
-                            <input class="btn btn-primary form-btn" id="submit-basic-info" type="submit" value="Save"/>
-                            <input class="btn btn-primary form-btn" type="button" value="Cancel" onclick="location.href = '<?php echo site_url("/profile/basic"); ?>'"/>
+                        <div style="margin-top: 20px;" class="col-md-5 align-right">
+                            <input style="margin-right: 0;" class="btn-primary big_mass_active transparent-btn big_mass_button" id="submit-basic-info" type="submit" value="Save"/>
+                            <input class="btn-primary transparent-btn big_mass_button" type="button" value="Cancel" onclick="location.href = '<?php echo site_url("/profile/basic"); ?>'"/>
                         </div>
                     </div>
                 </form>
@@ -183,13 +182,6 @@ $this->session->unset_userdata(ACTION_DATA);
     </div>
 </section>
 <!-- big_header-->
-
-<style>
-    .search-field {
-        border: none;
-        height: auto;
-    }
-</style>
 <script type="text/javascript">
     // Added by Armen start
     $(".choose-skills").chosen(); 

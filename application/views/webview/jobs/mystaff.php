@@ -1,3 +1,40 @@
+<style>
+.message_lists{
+    max-height: 230px;
+    min-height: 230px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.m_list.scroll-ul > li {
+  display: block;
+  margin: 10px 0 36px 5px;
+  overflow: hidden;
+  width: 100%;
+  padding-bottom: 4px;
+}
+.chat-identity .img-circle {
+  float: left;
+  margin-right: 14px;
+}
+#conversion_message > input {
+  background: rgb(28, 167, 219) none repeat scroll 0 0;
+  float: right;
+  font-size: 21px;
+  height: 50px;
+  margin-top: 4%;
+  vertical-align: middle;
+  width: 19%;
+}
+#conversion_message textarea {
+  float: left;
+  height: 100px;
+  width: 76%;
+}
+.modal-body {
+  overflow: hidden;padding-bottom: 20px !important;
+}
+</style>
+
 <section id="big_header" class="my_staff" style="margin-top: 32px; margin-bottom: 40px; height: auto;">
 
 	<div class="container">
@@ -39,20 +76,18 @@
 				<div class="row">
 					
 					    <!--<div class="col-md-12 bordered-alert text-center ack-box hirefeebar">-->
-                                            <div class="col-md-12 bordered-alert text-center hirefeebar">
-				
-						<?php if(!empty($all_data)) { ?>
-							<h4>! You have hired <?=count($all_data)?> freelancers in this team</h4>
-						<?php } else{?>
-							<h4>! You have no hired freelancers in this team</h4>
-					
+                        <div class="col-md-12 bordered-alert text-center hirefeebar">
+							<?php if(!empty($all_data)) { ?>
+								<h4>! You have hired <?=count($all_data)?> freelancers in this team</h4>
+							<?php } else{?>
+								<h4>! You have no hired freelancers in this team</h4>
 						</div>
 					
 						<div class="row">
 						    <div class="col-md-12">
 						        <div class="border-box empty_freelancer_box">
 						    
-						</div>
+								</div>
 						    </div>
 						</div>
 					<?php } ?>
@@ -68,7 +103,7 @@
 				<!--<div class="row margin-top-2">-->
                                 <div class="row margintop-2 ms_white_box">
 					<!--<div class="col-md-12 bordered white-box" style="padding: 20px">-->
-                                        <div class="col-md-12 freelancer-job white-box" style="padding: 20px">
+                    <div class="col-md-12 freelancer-job white-box" style="padding: 20px">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="row">
@@ -136,7 +171,7 @@
 									echo $amount = $data->offer_bid_amount;
                                 } else {echo $amount =  $data->bid_amount;} ?></b>/hr =<b> $<?php echo $amount * $total_work;?></b>
                                 <br />
-                                <p style="margin:0 !important;">The conduct has been hold</p>
+                                <p style="margin:0 !important;">This contract has been hold</p>
                            	<hr>
                             
 							</div>
@@ -225,7 +260,7 @@
 				          <div class="col-md-4 text-center">
 	                       <span><b>$<?=$data->fixedpay_amount?></b> Paid of $<?=$data->hired_on?>
                                 <br />
-                                <p style="margin:0 !important;">The conduct has been hold</p>
+                                <p style="margin:0 !important;">This contract has been hold</p>
                                </span>
                                
 	                            
@@ -312,13 +347,14 @@
 </section>
 <!-- big_header-->
 <!-- Modal -->
-<div id="message_convertionModal" class="modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
+<div id="message_convertionModal" class="modal custom_modal">
+  <div class="modal-dialog cccc_massage_box">
+    <div style="padding: 30px;padding-bottom: 60px;" class="modal-content">
+	<button type="button" class="close" data-dismiss="modal" onclick="hidemessagepopup();">&times;</button>
+	<h4 class="modal-title">Message</h4>
       <div class="modal-header">
-			 <button type="button" class="close" data-dismiss="modal" onclick="hidemessagepopup();">&times;</button>
-			<h4 class="modal-title">Message</h4>
-			<div class="col-lg-12 col-md-12 col-sm-12 chat-screen">
+			
+			<div class="chat-screen">
 				<div class="chat-details-topbar">
 					<h3 class="user_name"></h3>
 					<h5 class="job_title"></h5>
@@ -328,8 +364,11 @@
       </div>
       <div class="modal-body">
 		<div class="message_lists chat-details form-group" ></div>
-        <form name="message" action="" method="post" id="conversion_message">
+        <form style="position:relative;" name="message" action="" method="post" id="conversion_message">
              <textarea name="usermsg"  id="usermsg"></textarea>
+				<div style="position: absolute;right: 23%;font-size: 26px;top: 35%;color:#a2a2a2;transform: rotate(90deg);" class="attach_icon">
+				<i style="cursor: pointer;" class="fa fa-paperclip" aria-hidden="true"></i>
+				</div>
                <input name="job_id" type="hidden" id="job_id"  value="" />
                <input name="bid_id" type="hidden" id="bid_id"  value=""  />
                <input name="sender_id" type="hidden" id="sender_id"  value="<?php echo $this->session->userdata('id');?>"  />
@@ -436,39 +475,3 @@
     }
   autoloading();
 </script>
-<style>
-.message_lists{
-    max-height: 250px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-.m_list.scroll-ul > li {
-  display: block;
-  margin: 10px 0 21px 5px;
-  overflow: hidden;
-  width: 100%;
-  border-bottom: 1px solid #dddddf;
-  padding-bottom: 4px;
-}
-.chat-identity .img-circle {
-  float: left;
-  margin-right: 14px;
-}
-#conversion_message > input {
-  background: rgb(28, 167, 219) none repeat scroll 0 0;
-  float: right;
-  font-size: 21px;
-  height: 50px;
-  margin-top: 4%;
-  vertical-align: middle;
-  width: 19%;
-}
-#conversion_message textarea {
-  float: left;
-  height: 100px;
-  width: 80%;
-}
-.modal-body {
-  overflow: hidden;
-}
-</style>

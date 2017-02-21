@@ -169,11 +169,11 @@
                            <div class="edit_title">
                                <select class="form-control" name="hours_per_week">
                                 <option value="not_sure">Not Sure</option>
-                                <option value="1-9">1-9</option>
-                                <option value="10-19">10-19</option>
-                                <option value="20-29">20-29</option>
-                                <option value="30-39">30-39</option>
-                                <option value="40_plus">More than 40</option>
+                                <option value="1-9">1-9 hours</option>
+                                <option value="10-19">10-19 hours</option>
+                                <option value="20-29">20-29 hours</option>
+                                <option value="30-39">30-39 hours</option>
+                                <option value="40_plus">More than 40 hours</option>
                             </select>
                            </div>
                         </div>
@@ -187,10 +187,10 @@
                            <div class="edit_title">
                                 <select class="form-control" name="job_duration">
                                 <option value="not_sure">Not Sure</option>
-                                <option value="more_than_6_months">More than 6 Months</option>
-                                <option value="3_6_months">3 - 6 Months</option>
-                                <option value="1_3_months">1 - 3 Months</option>
-                                <option value="less_than_1_months">Less than 1 Month</option>
+                                <option value="more_than_6_months">More than 6 months</option>
+                                <option value="3_6_months">3 - 6 months</option>
+                                <option value="1_3_months">1 - 3 months</option>
+                                <option value="less_than_1_months">Less than 1 month</option>
                                 <option value="less_than_1_week">Less than 1 Week</option>
                             </select>
                            </div>

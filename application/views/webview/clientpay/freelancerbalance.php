@@ -58,10 +58,11 @@
                             }else{
                                  $amount = $job_status->bid_amount;
                             }
-                            $progressAmount +=(  $working_hour *$amount);
+                            $pendingAmount_hourly +=(  $working_hour *$amount);
                        }
                        
                        
+                      /*
                       
                        $bidids= array();
                        foreach($job_pending_fixed as $job_fixed){
@@ -79,13 +80,16 @@
                             $progressAmount +=$jobend->fixedpay_amount;
                         }   
                         
-                        
+                      */
+                      $fixed_pending=$payment_fixed_pending[0]->payment_gross;
+                       $pendingAmout=$pendingAmount_hourly+$fixed_pending;
+                      
                         
                        ?>
                     <p class="remove-a">
                         
                         <b class="oDataNavTitle"> Pending </b><br>
-                        <span class="bold_text">$<?=$progressAmount;?> </span>
+                        <span class="bold_text">$<?=$pendingAmout;?> </span>
                     </p>
                 </li>
                 <li class="oDataNavBarTab ">
@@ -130,7 +134,12 @@
                         foreach($withdraws as $val){
                             $withdraw += ($val->amount + $val->processingfees);
                         }
+                        
                         $available = $available -$withdraw;
+                        $payment_fixed_avail_amount=$payment_fixed_avail[0]->payment_gross;
+                        $payment_hourly_avail_amount=$payment_hourly_avail[0]->payment_gross;
+                        $available=payment_fixed_avail_amount+$payment_fixed_avail_amount-$withdraw;
+                        
                        ?>
                     <a href="http://www.winjob.com/withdraw">
                         <b class="oDataNavTitle">Available </b><br>

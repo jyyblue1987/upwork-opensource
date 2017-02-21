@@ -29,7 +29,7 @@
 				<div style="margin-left: 62px; margin-bottom: 5px;" class="col-xs-12 col-md-12">
 					<form style="float: left;" action="addPP" method="POST">
 						<input type="hidden" name="paypal_agreement" value="yes" />
-						<button style="margin-left: -38px;" type="submit" class="btn-primary transparent-btn big_mass_button left_btn">Add PayPal</button>
+						<button style="margin-left: -38px;border:1px;" type="submit" class="btn-primary transparent-btn big_mass_button left_btn">Add PayPal</button>
 						<button type="button" class="btn-primary transparent-btn big_mass_button">Cancel</button>
 					</form>
 				  </div>

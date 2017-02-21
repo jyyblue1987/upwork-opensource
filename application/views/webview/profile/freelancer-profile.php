@@ -85,7 +85,7 @@ foreach ($accepted_jobs as $job_data) {
 								<div class="topmiddle">
 									<h4 style="margin-bottom:0px;"><?php echo $webUserInfo['webuser_fname'] . " " . $webUserInfo['webuser_lname'] ?></h4>
 									
-									<p><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;<?php echo $webUserInfo['webuser_country_name'] ?></p>
+									<p><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;<?php echo $webUserInfo['webuser_country_name'] ?> <?=$localtime?></p>
 									<h3 style="padding-top: 0;"><?php echo $basicDetails["tagline"] ?></h3>
 									<div style="margin-top: -15px;" class="buttonside">
 										<?php

@@ -777,6 +777,7 @@ class Jobs extends CI_Controller {
     public function apply($title = null, $postId = null) {
         if ($this->Adminlogincheck->checkx()) {
             $id = $this->session->userdata('id');
+            
 
             // Davit start
             $this->db->select('id');
@@ -1915,6 +1916,47 @@ class Jobs extends CI_Controller {
             if ($this->session->userdata('type') != 1) {
                 redirect(site_url("find-jobs"));
             }
+            
+            
+            
+            
+            /* check if account is suspend then redirect to payment */
+            
+            $user_id = $this->session->userdata('id');
+            $this->db->select('*');            
+            $this->db->from('webuser');
+            $this->db->where('isactive', 1);
+            $this->db->where('webuser_id',$user_id);      
+            $query = $this->db->get();   
+            $accActive=0;
+                if (is_object($query)) {
+                    $accActive = $query->num_rows();
+                }
+                
+            if(!$accActive)    
+            {                    
+                redirect(site_url("pay/methods_card"));                
+            }
+                        
+            
+           /* check payment method is set or not ? start */
+                        
+            $user_id = $this->session->userdata('id');
+            $this->db->select('*');            
+            $this->db->from('billingmethodlist');
+            $this->db->where('billingmethodlist.belongsTo', $user_id);            
+            $this->db->where('billingmethodlist.isDeleted', "0");
+            $query = $this->db->get();   
+            $paymentSet=0;
+                if (is_object($query)) {
+                    $paymentSet = $query->num_rows();
+                }
+                
+            if(!$paymentSet)    
+            {                
+                redirect(site_url("pay/methods_card"));                
+            }
+            /* check payment method is set or not ? end */
 
             if ($this->input->post('proposal')) {
                 $data = array();

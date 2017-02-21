@@ -1,4 +1,8 @@
-   <div class="custom_employeersignup main_area_div">
+<style type="text/css">
+.help-block{font-size: 16px;font-family: calibri;}
+</style>
+
+<div class="custom_employeersignup main_area_div">
    <div class="row"> 
 	    <div class="col-md-12">
 		   <div class="main_area_div_sub_div1">
@@ -15,11 +19,11 @@
 <input type="hidden" name="type" value="1">
 
                         <div class="col-md-10 col-xs-12 form-group">
-                                                            <input type="text" name="fname" value="" class="form-control" id="firstname" autocomplete="false" placeholder="First Name">
+                            <input type="text" name="fname" value="" class="form-control" id="firstname" autocomplete="false" placeholder="First Name">
                                                         </div>
                         <div class="col-md-10 col-xs-12 form-group">
-                                                            <input type="text" class="form-control" name="lname" value="" id="lastname" placeholder="Last Name">
-                                                        </div>
+                            <input type="text" class="form-control" name="lname" value="" id="lastname" placeholder="Last Name">
+                        </div>
 											<?php			
 														
 			  echo $this->Adminforms->selectdbnewxgdcv("Country","country","Select Country","country","id","name","index","asc","",true,array("all","All Country"));

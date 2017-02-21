@@ -105,6 +105,12 @@ $sender_id = $this->session->userdata(USER_ID);
              // added by jahid end 
             $query_totalreject = $this->db->get();
             $reject_count = $query_totalreject->num_rows();
+            
+                    $this->db->where('id', $jobId);
+               $q = $this->db->get('jobs');
+               $jobDetails = $q->row();
+               
+               
             $data = array('acccept_jobList' => $acccept_jobList, 
                 'interview_count' => $interview_count, 
                 'Application_count' => $Application_count,
@@ -112,6 +118,7 @@ $sender_id = $this->session->userdata(USER_ID);
                 'hire_count' => $hire_count,
                 'reject_count' => $reject_count,
                 'Offer_count' => $Offer_count,
+                'jobDetails' => $jobDetails
                     );
 
 

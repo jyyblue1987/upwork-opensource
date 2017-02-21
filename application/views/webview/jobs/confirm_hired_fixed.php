@@ -141,7 +141,7 @@ h2.success {  width: 100%; text-align: center;  color: green;  display: none;}
 					<div class="col-md-12 text-left" style="font-size:13px"><h4 class="confirm_hire_title">Start Date :</h4></div>
 					<div class="col-md-12">
 					<div class="srart_duration">
-					  <input style="width: 195px;" id="datetimepicker" name="start_date" type="text" class="form-control" >  
+					  <input style="width: 195px;" value="<?php echo date('d/m/Y');?>" id="datetimepicker" name="start_date" type="text" class="form-control" >  
 					</div>
 					
 					</div>
@@ -195,7 +195,13 @@ h2.success {  width: 100%; text-align: center;  color: green;  display: none;}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js"></script>
 
 <script>
-jQuery('#datetimepicker').datetimepicker();
+
+
+    jQuery('#datetimepicker').datetimepicker({
+        timepicker: false,
+        format: 'd/m/Y'
+    });
+
 
 
 

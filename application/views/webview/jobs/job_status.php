@@ -49,8 +49,8 @@ $clientend = $Conversation->clientend();
     <div class="container"> 
         <?php   if ($this->session->userdata('type') == '1') { ?>
 				<?php if(!empty($clientend)) { ?>				
-					<div class="row ">
-						<div style="height: 40px;margin-left: -1px;margin-top: -20px;margin-bottom: 35px;" class="col-md-10 bordered-alert text-center ack-box">
+					<div style="margin-top: -17px;margin-bottom: -17px;" class="row ">
+						<div style="height: 40px;margin-left: -1px;margin-top: 0;margin-bottom: 0;" class="col-md-10 bordered-alert text-center ack-box">
 							<h4 style="margin-top: -5px;">! You have  <a href="<?php echo base_url() ?>jobs/client_endjobnotification" class="show_notification" style="color: #28da28 !important;"> <?=count($clientend)?> ended contract - waiting for feedback</a>
 										 
 							</h4>
@@ -58,9 +58,9 @@ $clientend = $Conversation->clientend();
 					</div>                                                                         
 					<?php } ?>
 					<?php if($ststus->isactive==0){ ?>
-						<div class="row ">
-						<div style="height: 40px;margin-left: -1px;margin-top: -20px;" class="col-md-10 bordered-alert text-center ack-box">
-							<h4 style="margin-top: -5px;">! Your Account has been Suspended</h4>
+						<div style="margin-top: 37px;margin-bottom: -38px;" class="row">
+						<div style="height: 40px;margin-left: -1px;margin-top: 0;" class="col-md-10 bordered-alert text-center ack-box">
+							<h4 style="margin-top: -5px;color: red;">! Your Account has been Suspended</h4>
 						</div>
 					</div>
 					<?php } ?>

@@ -1,96 +1,39 @@
 	
-<section id="big_header" style="margin-bottom:50px;height: auto;"> 
-    <div class="container" style="border-left:2px solid #e6e7e7;border-right:2px solid #e6e7e7;border-bottom:2px solid #e6e7e7;">
-	<div class="row"> 
-    <div class="col-xs-12 col-sm-5 col-md-5">
-	
-   
-  
-   <div class="left">
-   <h1> Personal Setting   </h1>
-   </div>
-    <div class="line1">  </div>
-    <div class="margin">
-	
-	 </div>
-   
-   	<div class="columns" style="
-    margin: 50px;">
-  <ul class="price">
-    <div class="heeed faqopen" id="faq1" onclick="faqselect(1);">My Account <i class="fa fa-angle-down" id="faqicon1" aria-hidden="true" style="float:right;"></i></div>
-	<div class="faqa" id="faqa1" style="display: block;">
-    <div class="grey">Personal Info</div>
-	 <div class="grey">Contact Address</div>
-	  <div class="grey">Manage Account</div>
-	  </div>
-	  
-	  <div class="heeed" id="faq2" onclick="faqselect(2);">My Profile  <i class="fa fa-angle-right" id="faqicon2" aria-hidden="true" style="float:right;"></i></div>
-	  	<div class="faqa" id="faqa2" style="display: none;">
-    <div class="grey">Personal Info</div>
-	 <div class="grey">Contact Address</div>
-	  <div class="grey">Manage Account</div>
-	  </div>
-	  
-	  
-	  <div class="heeed" id="faq3" onclick="faqselect(3);">Financial Account  <i class="fa fa-angle-right" id="faqicon3" aria-hidden="true" style="float:right;"></i></div>
-	  	<div class="faqa" id="faqa3" style="display: none;">
-    <div class="grey">Personal Info</div>
-	 <div class="grey">Contact Address</div>
-	  <div class="grey">Manage Account</div>
-	  </div>
-	  
-	  <div class="heeed" id="faq4" onclick="faqselect(4);">Security Settings  <i class="fa fa-angle-right" id="faqicon4" aria-hidden="true" style="float:right;"></i></div>
-	  	<div class="faqa" id="faqa4" style="display: none;">
-    <div class="grey">Personal Info</div>
-	 <div class="grey">Contact Address</div>
-	  <div class="grey">Manage Account</div>
-	  </div>
-	  
-  
-  </ul>
-</div>
-
-   </div>
-   
-    <div class="col-xs-12 col-sm-7 col-md-7">
-	<div class="main">
-	<div class="left1">
-	<h2>Change Picture <i class="fa fa-angle-right" aria-hidden="true"></i>
-	 </h2>
-	</div>
-  
-  
-  
-   
-	</div>
-	<div class="margin2">
-	
-	</div>
-	
-	<div class="fffaa">
-
-	<form action="<?php echo site_url("savepic"); ?>" method="POST">
-		  <div class="form-group" style="margin:20px;">
-                  <label class="col-sm-3 control-label">Picture</label>
-                  <div class="col-sm-9"><input type="hidden" class="form-control" id="imgurl" name="picture" value="" placeholder="Img url" required="" data-fv-field="studentid">
-			<div class="col-lg-6 cropHeaderWrapper">
-					<div id="croppic"></div>
-					<span class="btn btn-warning" style="margin:20px;" id="cropContainerHeaderButton">select File</span>
-				</div><!-- /col-lg-6 -->
-                  </div>
-                </div>
-
-					<button class="btn btn-submit btn-primary" style="margin:20px;" id="cropContainerHeaderButton">Save</button>
+<section id="big_header" style="margin-bottom:40px;height: auto;margin-top: 40px;background: #fff;border: 1px solid #ccc;border-radius: 4px;padding-top: 15px;padding-bottom: 25px;padding-left: 50px;padding-right: 50px;"> 
+    <div class="container">
+		<div class="row">    
+			<div class="col-xs-12">
+				<div style="width: 870px;margin-bottom: 5px;" class="row title-line">
+					<div class="abc">
+						<h3>Change Picture <i class="fa fa-angle-right" aria-hidden="true"></i> </h3>
+					</div>
+				</div>
 				
-				</form>
-	</div>
-	
-	
-	
-	</div>
+				<div class="fffaa">
+
+					<form action="<?php echo site_url("savepic"); ?>" method="POST">
+						<div class="form-group" style="margin:20px;">
+							<label class="col-sm-3 control-label">Picture</label>
+							<div class="col-sm-9">
+							<input type="hidden" class="form-control" id="imgurl" name="picture" value="" placeholder="Img url" required="" data-fv-field="studentid">
+							<div class="col-lg-6 cropHeaderWrapper">
+								<div style="background: #F2F2F2;border: 0;box-shadow: none;height: 290px;width: 390px;" id="croppic"></div>
+								<span class="btn-primary big_mass_active transparent-btn big_mass_button" style="float: left;margin-top: 20px;" id="cropContainerHeaderButton">select File</span>
+							</div><!-- /col-lg-6 -->
+							</div>
+						</div>
+
+						<button class="btn-primary transparent-btn big_mass_button" style="position: absolute;bottom: 0;right: 386px;" id="cropContainerHeaderButton">Save</button>
+						
+						<button class="btn-primary transparent-btn big_mass_button" style="position: absolute;bottom: 0;right: 285px;" id="cropContainerHeaderButton">Cancel</button>
+								
+					</form>
+				</div>		
+			</div>
+		</div>
 
  </div>
-  </div>
+</div>
 	  
 		
 </section><!-- big_header-->

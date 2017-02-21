@@ -123,10 +123,16 @@ class Offer extends CI_Controller {
                 // added by Jahid end 
                 $query_totalreject = $this->db->get();
                 $reject_count = $query_totalreject->num_rows();
+                
+                
+               $this->db->where('id', $job_id);
+               $q = $this->db->get('jobs');
+               $jobDetails = $q->row();
+               
             }
 
 
-            $data = array('messages' => $result, 'hire_count' => $hire_count, 'interview_count' => $interview_count, 'Application_count' => $Application_count, 'Offer_count' => $Offer_count, 'reject_count' => $reject_count);
+            $data = array('jobDetails' => $jobDetails,'messages' => $result, 'hire_count' => $hire_count, 'interview_count' => $interview_count, 'Application_count' => $Application_count, 'Offer_count' => $Offer_count, 'reject_count' => $reject_count);
             $this->Admintheme->webview("offer", $data);
         }
     }

@@ -6,9 +6,21 @@
 .rating-container .empty-stars span.star {  color: #aaa !important;}
 .information_area #Comment {  padding-top: 0px !important;}
 .rating-container .filled-stars {  top: 2px;}
+.form-horizontal .control-label span {
+    font-family: 'calibri';
+    font-weight: 800;
+    font-size: 21px;
+    color: #4a4a4a;
+    margin-left: 49px;
+    float: left;
+}
+button.btn-default_activv{background:#028FFC;color:#fff;}
+button.btn-default_activv:hover{background:#286090;color:#fff;}
+button.btn-cancel{border:1px solid #CED0D4;color:#1CA7DB;background:#fff;}
+button.btn-cancel:hover{color:#fff;background:#286090;border: 1px solid transparent;}
 </style>
 <div class="container">
-<section class="information_area end_contact custom-end_contact">
+<section style="margin-top: 40px;width: 955px;" class="information_area end_contact custom-end_contact">
 		<!--
 		<a href="<?php echo base_url() ?>feedback/hourly_client?fmJob=<?php echo base64_encode($job->job_id);?>&fuser=<?php echo base64_encode($job->fuser_id);?>">
 		<input type="button" class="btn btn-primary form-btn" value="See Feeedback" style="float: right;" />
@@ -28,7 +40,7 @@
 		</div>
 		<div class="col-sm-3" id="name" class="end_contact_name">
 			<h3 style="margin: 0px;margin-top: -10px;margin-left: -11px;"><a href="<?php echo base_url()."interview?user_id=".base64_encode($job->webuser_id)."&job_id=".base64_encode($job->job_id)."&bid_id=".base64_encode($job->bid_id);?>">
-								<label class="blue-text"><?=$job->webuser_fname ?> <?=$job->webuser_lname ?></label>
+								<label style="font-size: 17px;font-family: calibri;" class="blue-text"><?=$job->webuser_fname ?> <?=$job->webuser_lname ?></label>
 								</a></h3>
 		<h4> <?=$job->webuser_company ?>		</h4>
 		</div>
@@ -107,36 +119,36 @@
   </div> -->
   
    <div style="margin-top: 15px;" class="form-group">
-    <h4 style="margin-bottom: 8px;" class="col-sm-3 control-label" ><span>Feedback to contactor</span></h4>
+    <h4 style="margin-bottom: 8px;" class="col-sm-4 control-label" ><span>Feedback to contactor</span></h4>
   </div> 
   
    <div class="form-group">
-    <label for="" class="col-sm-3 control-label custom_normal_font" id="leftname">Skills</label>
-    <div class="col-sm-4 margin-left-10" id="righttextstar">
+    <label style="font-size: 16px;font-weight: normal;" for="" class="col-sm-3 control-label custom_normal_font" id="leftname">Skills</label>
+    <div style="margin-left: -13px;" class="col-sm-4 margin-left-10" id="righttextstar">
      <input id="skills" value="0" type="number" class="rating" name="skills" min=0 max=5 step=0.5 data-size="xs" >
     </div>
   </div>
   <div class="form-group">
-    <label for="" class="col-sm-3 control-label custom_normal_font" id="leftname">Quality</label>
-    <div class="col-sm-4 margin-left-10" id="righttextstar">
+    <label style="font-size: 16px;font-weight: normal;" for="" class="col-sm-3 control-label custom_normal_font" id="leftname">Quality</label>
+    <div style="margin-left: -13px;" class="col-sm-4 margin-left-10" id="righttextstar">
        <input id="quality" value="0" type="number" class="rating" name="quality" min=0 max=5 step=0.5 data-size="xs" >
     </div>
   </div>
     <div class="form-group">
-    <label for="" class="col-sm-3 control-label custom_normal_font" id="leftname"> Ability </label>
-    <div class="col-sm-4 margin-left-10" id="righttextstar">
+    <label style="font-size: 16px;font-weight: normal;" for="" class="col-sm-3 control-label custom_normal_font" id="leftname"> Ability </label>
+    <div style="margin-left: -13px;" class="col-sm-4 margin-left-10" id="righttextstar">
       <input id="ability" value="0" type="number" class="rating" name="ability" min=0 max=5 step=0.5 data-size="xs" >
     </div>
   </div>
     <div class="form-group">
-    <label for="" class="col-sm-3 control-label custom_normal_font" id="leftname">Deadline</label>
-    <div class="col-sm-4 margin-left-10" id="righttextstar">
+    <label style="font-size: 16px;font-weight: normal;" for="" class="col-sm-3 control-label custom_normal_font" id="leftname">Deadline</label>
+    <div style="margin-left: -13px;" class="col-sm-4 margin-left-10" id="righttextstar">
        <input id="deadline" value="0" type="number" class="rating" name="deadline" min=0 max=5 step=0.5 data-size="xs" >
     </div>
   </div>
     <div class="form-group">
-    <label for="" class="col-sm-3 control-label custom_normal_font" id="leftname">communication </label>
-    <div class="col-sm-4 margin-left-10" id="righttextstar">
+    <label style="font-size: 16px;font-weight: normal;" for="" class="col-sm-3 control-label custom_normal_font" id="leftname">communication </label>
+    <div style="margin-left: -13px;" class="col-sm-4 margin-left-10" id="righttextstar">
        <input id="communication" value="0" type="number" class="rating" name="communication" min=0 max=5 step=0.5 data-size="xs" >
     </div>
   </div>
@@ -162,7 +174,7 @@
 						<input name="clientid" type="hidden" id="clientid"  value="<?=$job->buser_id ?>"  />
 						<input name="sender_id" type="hidden" id="sender_id"  value="<?=$job->buser_id ?>"  />
 						
-      <button type="button" class="btn btn-default" id="end_contact">
+      <button type="button" class="btn btn-default btn-default_activv" id="end_contact">
 		<?php if($job->jobstatus ==1){
 			echo "Give Feedback";
 		}else{
@@ -175,7 +187,7 @@
 						<img src='/assets/img/version1/loader.gif' class="form-loader" style="display:none">
     </div>
 	<div class="col-xs-12 col-sm-1">
-      <button type="button" class="btn btn-default">Cancel</button>
+      <button type="button" class="btn btn-default btn-cancel">Cancel</button>
     </div>
 	<p class="result-msg" style="text-align: center;color: green;font-size: 20px;display: none;"></p>
   </div>

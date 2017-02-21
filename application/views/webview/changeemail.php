@@ -1,5 +1,5 @@
 <section id="main-content">
-    <div class="container main-area white-box" style="margin-top:50px;margin-bottom:50px;height: auto;"> 
+    <div class="container main-area white-box" style="margin-top:40px;margin-bottom:40px;height: 403px;border: 1px solid #ccc;width: 970px !important;"> 
         <div class="row">
             <div class="midle-min">
                 <div class="col-md-3 col-sm-3">
@@ -11,42 +11,42 @@
                 $this->load->view("webview/profile/freelancer-profile-left-sidebar",$data) ?>
                     </div>
                 </div>
-                <div class="col-md-9 col-sm-9 ">
+                <div style="padding-left: 33px;" class="col-md-9 col-sm-9 ">
 				<div class="row title-line">
                     <div class="abc">
-                        <h3 style="padding-bottom:10px;">Change Email </h3> 
+                        <h3 style="padding-bottom:19px;">Change Email </h3> 
                     </div> 
                 </div> 
                     <div class='form-msg'></div>
                     <form id="emailchange" method="post" action="<?php echo site_url("changeemail/updateEmail"); ?>">
 
-                        <div class="row">
-                            <label for="example-text-input"  class="col-xs-2 col-form-label"  >Old Email</label>
+                        <div style="margin-left: -30px;" class="row">
+                            <label style="font-size: 17px;font-family: calibri;" for="example-text-input"  class="col-xs-3 col-form-label"  >Old Email</label>
                             <div class="col-xs-6">
-                                <input class="form-control"  type="email" value="" name="old_email">
+                                <input placeholder="Type your old email" class="form-control"  type="email" value="" name="old_email">
                             </div>
                         </div>
-                        <div class="row">
-                            <label for="example-email-input"  class="col-xs-2 col-form-label" >New Email</label>
+                        <div style="margin-left: -30px;" class="row">
+                            <label style="font-size: 17px;font-family: calibri;" for="example-email-input"  class="col-xs-3 col-form-label" >New Email</label>
                             <div class="col-xs-6">
-                                <input class="form-control"  type="email" value="" name="email" onblur="validate('email', this.value)">
+                                <input placeholder="Type a new email" class="form-control"  type="email" value="" name="email" onblur="validate('email', this.value)">
                                 <small id='email'></small>
                             </div>                             
                         </div>
-                        <div class="row">
-                            <label for="example-url-input"  class="col-xs-2 col-form-label">Confirm Password</label>
+                        <div style="margin-left: -30px;" class="row">
+                            <label style="font-size: 17px;font-family: calibri;" for="example-url-input"  class="col-xs-3 col-form-label">Confirm Password</label>
                             <div class="col-xs-6">
-                                <input class="form-control"  type="password"  value="" name="password">
+                                <input placeholder="Confirm your password" style="border-radius: 4px;" class="form-control"  type="password"  value="" name="password">
                             </div>
                         </div>
-                        <div class="totalbutton">
-                            <div class="row">
-                                <div class="col-xs-2">
+                        <div style="padding-top: 20px;" class="totalbutton">
+                            <div style="margin-left: -30px;" class="row">
+                                <div class="col-xs-3">
 
                                 </div>
                                 <div class="col-xs-6">
-								<button type="submit" id="butupdat"class="btn btn-primary">Update</button>
-                                    <button type="reset" id="butcancel" class="btn btn-danger">Cancel</button>
+								<button style="float: left;" type="submit" id=""class="btn-primary big_mass_active transparent-btn big_mass_button">Update</button>
+                                    <button style="float: left;" type="reset" id="" class="btn-primary transparent-btn big_mass_button">Cancel</button>
                                     
                                     <img src='/assets/img/version1/loader.gif' class="form-loader" style="display:none">
                                 </div>
