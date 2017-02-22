@@ -294,7 +294,7 @@
 											</button>
 											<ul style="left: -156px;" class="dropdown-menu">
 
-												<li><a href="#">Give bonus</a></li>
+												<li><a href="#">Give milestone</a></li>
 												<li><a href="#">View contact</a></li>
 												<li><a href="#">View Profile</a></li>
 												<li><a href="#">End contract</a></li>

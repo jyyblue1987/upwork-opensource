@@ -1,6 +1,6 @@
- 
+
 <?php
-//    $this->load->view("webview/includes/header"); 
+//    $this->load->view("webview/includes/header");
 $paypal = "";
 $skrill = "";
 $payoneer = "";
@@ -24,10 +24,10 @@ if (isset($data) && is_array($data)) {
 <section id="big_header" style="margin-bottom:40px;height: auto;" >
     <div class="row white-box" style="margin-top: 40px;margin-bottom: 40px;border: 1px solid #ccc;">
         <div class="col-md-3 nopadding">
-            <?php 
+            <?php
                 $data = array(
                     'current_active' => 'methods'
-                ); 
+                );
                 $this->load->view("webview/profile/freelancer-profile-left-sidebar",$data) ?>
         </div>
         <div style="margin-left: -10px !important;" class="col-md-9 nopadding">
@@ -43,7 +43,7 @@ if (isset($data) && is_array($data)) {
                     </div>
                 </div>
             <div class=" payment-section">
-                
+
 
                 <div class="row margin-top-7">
                     <div class="col-md-2">
@@ -54,7 +54,7 @@ if (isset($data) && is_array($data)) {
                             <div class="col-md-12 red">$1 USD Per withdrawal.</div>
                             <div class="col-md-12">Additional maintenance fees charged by PayPal </div>
                             <div class="col-md-12">
-                                <a href="#">Don't have a PayPal Account?</a>
+                                <a href="http://paypal.com" target="_blank">Don't have a PayPal Account?</a>
                             </div>
                         </div>
                     </div>
@@ -67,7 +67,7 @@ if (isset($data) && is_array($data)) {
                         <?php
                         }else{
                         ?>
-                        <button style="width: 97px;float: left;padding: 0;margin-left: -16px;" type="button" class="btn-primary big_mass_active transparent-btn big_mass_button" accesskey="paypal">
+                        <button style="width: 97px;float: left;padding: 0;margin-left: -16px;" type="button" class="btn-primary big_mass_active transparent-btn big_mass_button new-account" accesskey="paypal">
                             Add Paypal
                         </button>
                             <?php
@@ -79,7 +79,7 @@ if (isset($data) && is_array($data)) {
                         <?php
                         if (strlen($paypal) > 0) {
                             ?>
-                            <span class="paypal-email"><?php echo $paypal; ?></span> 
+                            <span class="paypal-email"><?php echo $paypal; ?></span>
                             <button style="position: absolute;right: 15px;top: 30px;" class="form-btn btn-primary btn" onclick="removeAccount(this);" accesskey="paypal">Remove</button>
                             <?php
                         }
@@ -99,13 +99,13 @@ if (isset($data) && is_array($data)) {
                             <div class="col-md-12 red">$1 USD Per withdrawal.</div>
                             <div class="col-md-12">Additional maintenance fees charged by Skrill </div>
                             <div class="col-md-12">
-                                <a href="#">Don't have a Skrill Account?</a>
+                                <a href="https://skrill.com" target="_blank">Don't have a Skrill Account?</a>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-2 action-bubble" style="margin-top: 20px">
-                        
+
                         <?php
                         if (strlen($skrill) > 0) {
                             ?>
@@ -113,7 +113,7 @@ if (isset($data) && is_array($data)) {
                         <?php
                         }else{
                         ?>
-                        <button style="width: 97px;float: left;padding: 0;margin-left: -16px;" type="button" class="btn-primary big_mass_active transparent-btn big_mass_button" accesskey="skrill">
+                        <button style="width: 97px;float: left;padding: 0;margin-left: -16px;" type="button" class="btn-primary big_mass_active transparent-btn big_mass_button new-account" accesskey="skrill">
                             Add Skrill
                         </button>
                             <?php
@@ -125,7 +125,7 @@ if (isset($data) && is_array($data)) {
                         <?php
                         if (strlen($skrill) > 0) {
                             ?>
-                            <span class="skrill-email"><?php echo $skrill; ?></span> 
+                            <span class="skrill-email"><?php echo $skrill; ?></span>
                             <button style="position: absolute;right: 15px;top: 30px;" class="form-btn btn-primary btn remove-btn" onclick="removeAccount(this);" accesskey="skrill">Remove</button>
                             <?php
                         }
@@ -145,13 +145,13 @@ if (isset($data) && is_array($data)) {
                             <div class="col-md-12 red">$2 USD Per withdrawal.</div>
                             <div class="col-md-12">Additional maintenance fees charged by Payoneer </div>
                             <div class="col-md-12">
-                                <a href="#">Don't have a Payoneer Account?</a>
+                                <a href="http://payoneer.com" target="_blank">Don't have a Payoneer Account?</a>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-2 action-bubble" style="margin-top: 20px">
-                       
+
                          <?php
                         if (strlen($payoneer) > 0) {
                             ?>
@@ -159,7 +159,7 @@ if (isset($data) && is_array($data)) {
                         <?php
                         }else{
                         ?>
-                         <button style="width: 97px;float: left;padding: 0;margin-left: -16px;" type="button" class="btn-primary big_mass_active transparent-btn big_mass_button" accesskey="payoneer">
+                         <button style="width: 97px;float: left;padding: 0;margin-left: -16px;" type="button" class="btn-primary big_mass_active transparent-btn big_mass_button new-account" accesskey="payoneer">
                             Add Payoneer
                         </button>
                             <?php
@@ -171,7 +171,7 @@ if (isset($data) && is_array($data)) {
                         <?php
                         if (strlen($payoneer) > 0) {
                             ?>
-                            <span class="payoneer-email"><?php echo $payoneer; ?></span> 
+                            <span class="payoneer-email"><?php echo $payoneer; ?></span>
                             <button style="position: absolute;right: 15px;top: 30px;" class="form-btn btn-primary btn remove-btn" onclick="removeAccount(this);" accesskey="payoneer">Remove</button>
                             <?php
                         }
@@ -193,7 +193,7 @@ if (isset($data) && is_array($data)) {
     </div>
 </div>
 <?php
-//  $this->load->view("webview/includes/footer"); 
+//  $this->load->view("webview/includes/footer");
 $this->load->view("webview/includes/footer-common-script");
 ?>
 
@@ -229,6 +229,7 @@ $this->load->view("webview/includes/footer-common-script");
                     var json = $.parseJSON(response);
                     if (json.status == "success") {
                         alert("Your account successfully removed");
+                        location.reload();
                         $('.' + key + '-account').html("");
                     } else {
                         alert(json.msg);
@@ -245,6 +246,20 @@ $this->load->view("webview/includes/footer-common-script");
     $('.new-account').click(function () {
         var key = $(this).attr('accesskey');
         var img = $('.' + key + '-img').attr('src');
+
+        $('[id*="modal_"]').hide();
+        switch (key) {
+            case 'payoneer':
+                $('#modal_payoneer').show();
+                break;
+            case 'paypal':
+                $('#modal_paypal').show();
+                break;
+            case 'skrill':
+                $('#modal_skrill').show();
+                break;
+        }
+
         $('.payemnt-method-name').html(key);
         $('.payment-method-logo').attr('src', img);
         $('.add-account').attr('accesskey', key);
@@ -265,6 +280,7 @@ $this->load->view("webview/includes/footer-common-script");
                 var json = $.parseJSON(response);
                 if (json.status == "success") {
                     alert("Your account successfully added");
+                    location.reload();
                     var html = '<span class="' + key + '-email">' + email + '</span>' +
                             '<button class="form-btn btn-primary btn remove-btn" onclick="removeAccount(this)" accesskey="' + key + '">Remove</button>';
                     $('.' + key + '-account').html(html);
