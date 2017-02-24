@@ -92,20 +92,27 @@
                 foreach ($experience as $val) {
                     ?>
                     <div class="mainprotfilio-mid-button">
-                        
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12">
-                                    <div class="exp-showcase">  
-                                        <div style="padding-right:10px;">
-                                            <a class="pull-right" style="color:grey;"href="#" id ="<?php echo $val->id; ?>" onclick="editClickedExp(this.id)" ><i class="fa fa-pencil" aria-hidden="true"></i></a> </div>
-                                        <div><h4 style="color:grey;font-size: 21px;"><?php echo $val->title; ?> </h4></div> 
-                                        <div><h4 style="color:grey;"><?php echo $val->company; ?></h4></div>
-                                        <div style="color:grey;"><?php echo $val->month1; ?>-<?php echo $val->year1; ?> To <?php echo $val->month2; ?>-<?php echo $val->year2; ?><!--2010Â â€“ Present (6 years 7 months)--> | <?php echo $val->location; ?></div>
-
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="exp-showcase">  
+                                    <div style="padding-right:10px;">
+                                        <a class="pull-right" style="color:grey;"href="#" id ="<?php echo $val->id; ?>" onclick="editClickedExp(this.id)" ><i class="fa fa-pencil" aria-hidden="true"></i></a> </div>
+                                    <div><h4 style="color:grey;font-size: 21px;"><?php echo $val->title; ?> </h4></div> 
+                                    <div><h4 style="color:grey;"><?php echo $val->company; ?></h4></div>
+                                    <div style="color:grey;">
+                                        <?php echo DatetimeHelper::getMonthByNum($val->month1); ?>-<?php echo $val->year1; ?>
+                                        <? if ((int)$val->year2 === 0) {
+                                            echo ' - Till present';
+                                        }
+                                        else {
+                                            echo 'To ' . DatetimeHelper::getMonthByNum($val->month2) . ' - ' . $val->year2;
+                                            ;
+                                        } ?>
+                                        | <?php echo $val->location; ?>
                                     </div>
                                 </div>
                             </div>
-                     
+                        </div>
                     </div>
                     <div class="mainprotfilio-mid-ph">
                         <div class="container">

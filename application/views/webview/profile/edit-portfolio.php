@@ -72,12 +72,10 @@
         <div class="clearfix"></div>
         <div class="col-md-9 col-xs-12">
             <select class="choose-skills" name="projectSkillsUsed[]"  data-placeholder="Skills" style="width:515px;" multiple>
-                <?php foreach($port_skills as $item){
-                  ?>
-                <option value="<?php echo $item['skill_name']; ?>" selected><?php echo $item["skill_name"]; ?></option> 
-                <?php 
-                }?>
-                
+                <?php foreach ($port_skills as $item) { ?>
+                    <option value="<?php echo $item['skill_name']; ?>" selected><?php echo $item["skill_name"]; ?></option> 
+                <?php } ?>
+
                 <?php foreach($skillList as $key => $skill){
                   ?>
                 <option value="<?php echo $skill->skill_name; ?>" <?php echo (in_array($skill->skill_name, $repeated)) ?  'disabled' : '' ;?>><?php echo $skill->skill_name; ?></option> 
@@ -114,7 +112,7 @@
     </div> 
     <div class="form-group">
         <div class="col-md-4">
-            <input id="submit-portfolio" type="button" onclick="submitPortfolio(this)" value="Save" class="btn btn-primary" />
+            <input id="submit-portfolio" type="button" onclick="submitPortfolio(event, this)" value="Save" class="btn btn-primary" />
             <input type="button" value="Cancel" class="btn btn-default" onclick="closeModal()"/>
         </div>
         <div class="col-md-8 sys-message"> </div>

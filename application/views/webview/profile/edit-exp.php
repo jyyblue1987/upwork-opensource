@@ -1,6 +1,6 @@
-<form id="form" action="<?=base_url()?>profile/add_experience/<?php if(isset($exp_id))echo $exp_id; ?>    <?php if(isset($page_from)) echo '/'.$page_from; ?>" method="post" name="experience">
+<form id="form" action="<?=base_url()?>profile/add_experience/<?php if(isset($exp_id))echo $exp_id;
+    if(isset($page_from)) echo '/'.$page_from; ?>" method="post" name="experience">
     <div class=""> 
-
         <div class="row">
             <div class="col-md-9">
                 <label>Company</label>
@@ -32,42 +32,31 @@
             <div class="col-md-2">
                 <select name="inputs[month1]" class="form-control">
                     <option value="">--Month--</option>
-                    <option <?php if(isset($experience->month1) && $experience->month1 == "1") echo 'selected'; ?> value="01">January</option>
-                    <option <?php if(isset($experience->month1) && $experience->month1 == "2") echo 'selected'; ?> value="02">February</option>
-                    <option <?php if(isset($experience->month1) && $experience->month1 == "3") echo 'selected'; ?> value="03">March</option>
-                    <option <?php if(isset($experience->month1) && $experience->month1 == "4") echo 'selected'; ?> value="04">April</option>
-                    <option <?php if(isset($experience->month1) && $experience->month1 == "5") echo 'selected'; ?> value="05">May</option>
-                    <option <?php if(isset($experience->month1) && $experience->month1 == "6") echo 'selected'; ?> value="06">June</option>
-                    <option <?php if(isset($experience->month1) && $experience->month1 == "7") echo 'selected'; ?> value="07">July</option>
-                    <option <?php if(isset($experience->month1) && $experience->month1 == "8") echo 'selected'; ?> value="08">August</option>
-                    <option <?php if(isset($experience->month1) && $experience->month1 == "9") echo 'selected'; ?> value="09">September</option>
-                    <option <?php if(isset($experience->month1) && $experience->month1 == "10") echo 'selected'; ?> value="10">October</option>
-                    <option <?php if(isset($experience->month1) && $experience->month1 == "11") echo 'selected'; ?> value="11">November</option>
-                    <option <?php if(isset($experience->month1) && $experience->month1 == "12") echo 'selected'; ?> value="12">December</option>
+                    <?php for ($i = 1; $i <= 12; $i++) { ?>
+                        <option <?php if(isset($experience->month1) && $experience->month1 == $i) echo 'selected'; ?> value="<?php echo $i; ?>">
+                            <?php echo DatetimeHelper::getMonthByNum($i); ?>
+                        </option>
+                    <?php } ?>
                 </select>
             </div>
             <div class="col-md-2">
                     <input type="text" class="form-control" name="inputs[year1]" value="<?php if(isset($experience->year1)) echo $experience->year1; ?>" placeholder="Year" />
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 experience-till">
                 <select name="inputs[month2]" class="form-control">
                     <option value="">--Month--</option>
-                    <option <?php if(isset($experience->month2) && $experience->month1 == "1") echo 'selected'; ?> value="01">January</option>
-                    <option <?php if(isset($experience->month2) && $experience->month1 == "2") echo 'selected'; ?>value="02">February</option>
-                    <option <?php if(isset($experience->month2) && $experience->month1 == "3") echo 'selected'; ?>value="03">March</option>
-                    <option <?php if(isset($experience->month2) && $experience->month1 == "4") echo 'selected'; ?>value="04">April</option>
-                    <option <?php if(isset($experience->month2) && $experience->month1 == "5") echo 'selected'; ?>value="05">May</option>
-                    <option <?php if(isset($experience->month2) && $experience->month1 == "6") echo 'selected'; ?>value="06">June</option>
-                    <option <?php if(isset($experience->month2) && $experience->month1 == "7") echo 'selected'; ?>value="07">July</option>
-                    <option <?php if(isset($experience->month2) && $experience->month1 == "8") echo 'selected'; ?>value="08">August</option>
-                    <option <?php if(isset($experience->month2) && $experience->month1 == "9") echo 'selected'; ?>value="09">September</option>
-                    <option <?php if(isset($experience->month2) && $experience->month1 == "10") echo 'selected'; ?>value="10">October</option>
-                    <option <?php if(isset($experience->month2) && $experience->month1 == "11") echo 'selected'; ?>value="11">November</option>
-                    <option <?php if(isset($experience->month2) && $experience->month1 == "12") echo 'selected'; ?>value="12">December</option>
+                    <?php for ($i = 1; $i <= 12; $i++) { ?>
+                        <option <?php if(isset($experience->month2) && $experience->month2 == $i) echo 'selected'; ?> value="<?php echo $i; ?>">
+                            <?php echo DatetimeHelper::getMonthByNum($i); ?>
+                        </option>
+                    <?php } ?>
                 </select>
             </div>
-            <div class="col-md-2">
-                <input type="text" class="form-control" name="inputs[year2]" value="<?php if(isset($experience->year2)) echo $experience->year2; ?>" placeholder="Year" />
+            <div class="col-md-2 experience-till">
+                <input type="text" class="form-control" name="inputs[year2]" value="<?php if(!empty($experience->year2)) echo $experience->year2; ?>" placeholder="Year" />
+            </div>
+            <div class="col-md-4 experience-till-present">
+                Till present
             </div>
         </div>
 
@@ -98,19 +87,45 @@
         <div class="row">
             <div class="col-md-9">
                 <span>
-                    <input type="submit" name="" id="" value="Save" class="form-btn" />
+                    <input type="submit" id="" value="Save" class="form-btn" />
                 </span>
                     
                 <span>
-                    <input type="submit" name="" id="" value="Cancel" class="form-btn" />
+                    <input type="submit" id="" value="Cancel" class="form-btn" onclick="document.location.reload(); return false;" />
                 </span>
 
-                <span>
-                    <a href="<?php echo site_url("profile/remove-exp/{$exp_id}")?>">
-                        Remove this experience
-                    </a>
-                </span>
+                <?php if (isset($exp_id)) { ?>
+                    <span>
+                        <a href="<?php echo site_url("profile/remove-exp/{$exp_id}" . (isset($page_from) ? '/' . $page_from : ''))?>">
+                            Remove this experience
+                        </a>
+                    </span>
+                <?php } ?>
             </div>
         </div>
     </div>
 </form>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var tillPresent = <?php echo (isset($experience->curr_working_place) && $experience->curr_working_place == 1) ? 'true' : 'false'; ?>
+
+        $('.experience-till-present').css('display', 'none');
+
+        if (tillPresent) {
+            $('.experience-till').css('display', 'none');
+            $('.experience-till-present').css('display', 'inherit');
+        }
+
+        $('input[name="inputs[curr_working_place]"]').on('change', function(e) {
+            if ($(this).prop('checked') === true) {
+                $('.experience-till').css('display', 'none');
+                $('.experience-till-present').css('display', 'inherit');
+            }
+            else {
+                $('.experience-till').css('display', 'inherit');
+                $('.experience-till-present').css('display', 'none');
+            }
+        });
+    })
+</script>

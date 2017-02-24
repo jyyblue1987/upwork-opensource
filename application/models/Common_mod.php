@@ -62,24 +62,29 @@ class Common_mod extends CI_Model{
         return array('rows'=>$rows,'totalRows'=>$totalRows);
     }    
     
-    public function getCount($table=null,$colValArray=null,$condition=null){
-        $count = 0;
-        if($table != "" && strlen($table) > 0){
-            $sql="SELECT COUNT(id) as total FROM ".$table." WHERE 1=1 ";
-            if(!empty($colValArray)){
-                  foreach($colValArray as $key=>$val){
-                      $sql.=" AND ".$key."=".$this->db->escape($val)." ";
-                  }
-              }
-              if($condition != null && strlen($condition) > 0){
-                      $sql .= " ".$condition." ";
-              }
-              $query = $this->db->query($sql);
-              $result = $query->result();
-              $count = $result[0]->total ;
-        }
-        return $count;
+    // added by jeison arenales start
+    public function getCount($table = null, $colValArray = null, $condition = null)
+    {
+      if($table != "")
+      {
+        $this->db->select("COUNT(id) AS total");
+        $this->db->from($table);
+
+        if(! empty($colValArray))
+          foreach($colValArray as $key => $val)
+            $this->db->where($key,$val);
+
+        if($condition != null)
+          $this->db->where($condition);
+
+        $query = $this->db->get()->row();
+
+        return $query->total;
+      }
+      else
+        return 0;
     }
+    // added by jeison arenales end
 
     public function getSpecificColVal($table=null,$colName=null,$condition=null){
         $sql="SELECT ";

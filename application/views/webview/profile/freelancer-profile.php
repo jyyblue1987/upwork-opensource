@@ -52,83 +52,83 @@ foreach ($accepted_jobs as $job_data) {
             <div class="mainwork">
              <div class="row">
                  <div class="col-md-9 margin-top-4">
-					<div class="header_border">
-							<div class="col-md-2 col-sm-4" style="width: 122px">
-								<div class="topleftside">
-									<div style="margin-left: 0;margin-bottom: -2px;" class="user_view_img">
-										<img class="" width="120" src="<?php echo base_url() . $webUserInfo['webuser_picture']; ?>"/>
-									</div>
-									<div style="clear:both"></div>
-									
-									<div class="review_ratting">
-										<?php
-										if ($total_budget != 0) {
-										$totalscore = ($total_feedbackScore / $total_budget);
-										$rating_feedback = ($totalscore / 5) * 100;
-										} else {
-										$totalscore = null;
-										$rating_feedback = null;
-										}
-										?>
-										
-										<span style="margin-left: 6px;margin-bottom: -2px;font-size:10px;margin-top: 2px;" class="rating-badge"><?=number_format((float)$totalscore,1,'.','');?></span>
-										
-										<div title="Rated <?= $totalscore; ?> out of 5" class="star-rating profile_star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left: 39%;margin-top: 3%;position: absolute;">
-											<span style="width:<?= $rating_feedback; ?>%;top: -8px;left: -2px;">
-												<strong itemprop="ratingValue"><?= $totalscore; ?></strong> out of 5
-											</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-9 col-sm-4 nopadding">
-								<div class="topmiddle">
-									<h4 style="margin-bottom:0px;"><?php echo $webUserInfo['webuser_fname'] . " " . $webUserInfo['webuser_lname'] ?></h4>
-									
-									<p><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;<?php echo $webUserInfo['webuser_country_name'] ?> <?=$localtime?></p>
-									<h3 style="padding-top: 0;"><?php echo $basicDetails["tagline"] ?></h3>
-									<div style="margin-top: -15px;" class="buttonside">
-										<?php
-										$skills = $basicDetails['user_skills'];
+                    <div class="header_border">
+                            <div class="col-md-2 col-sm-4" style="width: 122px">
+                                <div class="topleftside">
+                                    <div style="margin-left: 0;margin-bottom: -2px;" class="user_view_img">
+                                        <img class="" width="120" src="<?php echo base_url() . $webUserInfo['webuser_picture']; ?>"/>
+                                    </div>
+                                    <div style="clear:both"></div>
+                                    
+                                    <div class="review_ratting">
+                                        <?php
+                                        if ($total_budget != 0) {
+                                        $totalscore = ($total_feedbackScore / $total_budget);
+                                        $rating_feedback = ($totalscore / 5) * 100;
+                                        } else {
+                                        $totalscore = null;
+                                        $rating_feedback = null;
+                                        }
+                                        ?>
+                                        
+                                        <span style="margin-left: 6px;margin-bottom: -2px;font-size:10px;margin-top: 2px;" class="rating-badge"><?=number_format((float)$totalscore,1,'.','');?></span>
+                                        
+                                        <div title="Rated <?= $totalscore; ?> out of 5" class="star-rating profile_star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left: 39%;margin-top: 3%;position: absolute;">
+                                            <span style="width:<?= $rating_feedback; ?>%;top: -8px;left: -2px;">
+                                                <strong itemprop="ratingValue"><?= $totalscore; ?></strong> out of 5
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9 col-sm-4 nopadding">
+                                <div class="topmiddle">
+                                    <h4 style="margin-bottom:0px;"><?php echo $webUserInfo['webuser_fname'] . " " . $webUserInfo['webuser_lname'] ?></h4>
+                                    
+                                    <p><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;<?php echo $webUserInfo['webuser_country_name'] ?> <?=$localtime?></p>
+                                    <h3 style="padding-top: 0;"><?php echo $basicDetails["tagline"] ?></h3>
+                                    <div style="margin-top: -15px;" class="buttonside">
+                                        <?php
+                                        $skills = $basicDetails['user_skills'];
 
 
-										if (count($skills) > 0) {
-										?>
-										<ul>
-										<?php
-											foreach ($skills as $key => $value) {
-										?>
-											<li><a href=""><?php echo $value['skill_name']; ?></a></li>
-										<?php
-											}
-										?>
-										</ul>
-											<?php
-										}
-										?>
+                                        if (count($skills) > 0) {
+                                        ?>
+                                        <ul>
+                                        <?php
+                                            foreach ($skills as $key => $value) {
+                                        ?>
+                                            <li><a href=""><?php echo $value['skill_name']; ?></a></li>
+                                        <?php
+                                            }
+                                        ?>
+                                        </ul>
+                                            <?php
+                                        }
+                                        ?>
 
-										<div style="clear:both"></div>
-									</div>
-								</div>
-								
-								<div class="topriht">
-									<h4>$<?php echo $basicDetails["hourly_rate"] + $basicDetails["hourly_rate"] * WINJOB_FEE ?> USD/hr</h4> 
-									
-									<!-- <a href="<?php echo base_url() ?>Active_interview">
-									<button id="buttonsecond">Hire Me &nbsp;&nbsp;<i class="fa fa-caret-right" aria-hidden="true"></i></button>
-									</a> -->
-								</div>
-							</div>
-							
-							
-							<div style="clear:both"></div>
-							<div class="top_border"></div>
-							<div class="buttonsidetwo">
-								<h2>Overview</h2>
-								<p><?php echo $basicDetails['overview'] ?></p>
-							</div>
-					</div>
-				 
+                                        <div style="clear:both"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="topriht">
+                                    <h4>$<?php echo $basicDetails["hourly_rate"] + $basicDetails["hourly_rate"] * WINJOB_FEE ?> USD/hr</h4> 
+                                    
+                                    <!-- <a href="<?php echo base_url() ?>Active_interview">
+                                    <button id="buttonsecond">Hire Me &nbsp;&nbsp;<i class="fa fa-caret-right" aria-hidden="true"></i></button>
+                                    </a> -->
+                                </div>
+                            </div>
+                            
+                            
+                            <div style="clear:both"></div>
+                            <div class="top_border"></div>
+                            <div class="buttonsidetwo">
+                                <h2>Overview</h2>
+                                <p><?php echo $basicDetails['overview'] ?></p>
+                            </div>
+                    </div>
+                 
               </div>
               <div class="col-md-3">
                  
@@ -159,11 +159,11 @@ foreach ($accepted_jobs as $job_data) {
                                          </div>
                                                    
                                                 </li>
-												
+                                                
                                                 <li>
-													<i style="float: left;margin-top: 5px;" class="fa fa-credit-card-alt"></i>
-													<a href="">&nbsp;$<?php echo $basicDetails["hourly_rate"] + $basicDetails["hourly_rate"] * WINJOB_FEE ?> <span>/hour</span></a>
-												</li>
+                                                    <i style="float: left;margin-top: 5px;" class="fa fa-credit-card-alt"></i>
+                                                    <a href="">&nbsp;$<?php echo $basicDetails["hourly_rate"] + $basicDetails["hourly_rate"] * WINJOB_FEE ?> <span>/hour</span></a>
+                                                </li>
                                                 <li>
                                                     <a href="">
                                                         <i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;
@@ -212,11 +212,11 @@ foreach ($accepted_jobs as $job_data) {
                                                     </a>
                                                 </li>
                                                 <li><a href=""><i style="margin-right: 5px;" class="fa fa-tree" aria-hidden="true"></i>&nbsp;<?php echo $basicDetails["work_experience_year"] ?><span> Years Experience</span></a></li>
-												
+                                                
                                                 <li><a href=""><i style="margin-right: 10px;" class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;<?php echo $webUserInfo['webuser_country_name'] ?>
                                                         <span></span></a></li>
                                             </ul>
-                                        </div>	
+                                        </div>  
                                 
               </div>
              </div>
@@ -227,173 +227,173 @@ foreach ($accepted_jobs as $job_data) {
                         <div class="row">
                             <div style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; margin-top: 30px; border: 1px solid rgb(204, 204, 204);" class="col-md-9 col-sm-9">
                                 <div style="overflow: hidden;" class="divison">
-								
-									<div class="buttonsidethree">
-										<div class="row">
-											<div class="col-md-6 col-sm-6">
-												<div class="buttonsidethreeleft">
-													<h2>Job History</h2>
-												</div>
-											</div>
-										</div>
-									</div>
-								
+                                
+                                    <div class="buttonsidethree">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6">
+                                                <div class="buttonsidethreeleft">
+                                                    <h2>Job History</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
                                     
-								<?php
-								if (!empty($accepted_jobs)) {
-									foreach ($accepted_jobs as $job_data) {
-										$this->db->select('*');
-										$this->db->from('job_feedback');
-										$this->db->where('job_feedback.feedback_userid', $job_data->fuser_id);
-										$this->db->where('job_feedback.sender_id !=', $job_data->fuser_id);
-										$this->db->where('job_feedback.feedback_job_id', $job_data->job_id);
-										$query = $this->db->get();
-										$jobfeedback = $query->row();
-										?>
-										
-								<div style="border: 0;border-bottom: 1px solid #ccc;margin-top: 10px;" class="history_section">
-										<div class="row">
-											<div class="col-md-8 col-sm-6">
-												<div style="padding-left: 9px;" class="buttonsidethreeleft">
-													<p> <?= $job_data->hire_title ?></p>
-													<h3 style="margin-bottom: -8px;"><?php echo date(' M j, Y ', strtotime($job_data->start_date)); ?>
-													<?php if ($job_data->jobstatus == 1) {
-													echo " - " . date(' M j, Y ', strtotime($job_data->end_date));
-													} ?>
-													</h3>
-													<p style="color: rgb(73, 73, 73); font-style: italic; font-size: 17.5px; font-weight: 500;">
-													<?php
-													if ($job_data->jobstatus == 1) {
-													if (!empty($jobfeedback)) {
-														echo $jobfeedback->feedback_comment;
-														$rating_result = ($jobfeedback->feedback_score / 5) * 100;
-													}
-													} else {
-													echo "Job in progress";
-													}
-													?>
-													</p>
-												</div>
-											</div>
-											
-											<div class="col-md-4 col-sm-6">
-												<?php if ($job_data->job_type == "fixed") { ?>
-												<div class="buttonsidethreeright pull-right " style="padding:0;margin-right: -14px;">
-													<?php } else { if ($job_data->jobstatus == 1) {
-													?>
-													<div class="buttonsidethreeright " style="padding:0;"> <?php } else { ?>
-														<div class="buttonsidethreeright pull-right " style="padding:0;margin-right: -14px;">
-															<?php }
-														} ?>
+                                <?php
+                                if (!empty($accepted_jobs)) {
+                                    foreach ($accepted_jobs as $job_data) {
+                                        $this->db->select('*');
+                                        $this->db->from('job_feedback');
+                                        $this->db->where('job_feedback.feedback_userid', $job_data->fuser_id);
+                                        $this->db->where('job_feedback.sender_id !=', $job_data->fuser_id);
+                                        $this->db->where('job_feedback.feedback_job_id', $job_data->job_id);
+                                        $query = $this->db->get();
+                                        $jobfeedback = $query->row();
+                                        ?>
+                                        
+                                <div style="border: 0;border-bottom: 1px solid #ccc;margin-top: 10px;" class="history_section">
+                                        <div class="row">
+                                            <div class="col-md-8 col-sm-6">
+                                                <div style="padding-left: 9px;" class="buttonsidethreeleft">
+                                                    <p> <?= $job_data->hire_title ?></p>
+                                                    <h3 style="margin-bottom: -8px;"><?php echo date(' M j, Y ', strtotime($job_data->start_date)); ?>
+                                                    <?php if ($job_data->jobstatus == 1) {
+                                                    echo " - " . date(' M j, Y ', strtotime($job_data->end_date));
+                                                    } ?>
+                                                    </h3>
+                                                    <p style="color: rgb(73, 73, 73); font-style: italic; font-size: 17.5px; font-weight: 500;">
+                                                    <?php
+                                                    if ($job_data->jobstatus == 1) {
+                                                    if (!empty($jobfeedback)) {
+                                                        echo $jobfeedback->feedback_comment;
+                                                        $rating_result = ($jobfeedback->feedback_score / 5) * 100;
+                                                    }
+                                                    } else {
+                                                    echo "Job in progress";
+                                                    }
+                                                    ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-4 col-sm-6">
+                                                <?php if ($job_data->job_type == "fixed") { ?>
+                                                <div class="buttonsidethreeright pull-right " style="padding:0;margin-right: -14px;">
+                                                    <?php } else { if ($job_data->jobstatus == 1) {
+                                                    ?>
+                                                    <div class="buttonsidethreeright " style="padding:0;"> <?php } else { ?>
+                                                        <div class="buttonsidethreeright pull-right " style="padding:0;margin-right: -14px;">
+                                                            <?php }
+                                                        } ?>
 
 
-														<?php
-														if ($job_data->job_type == "fixed") {
-														if ($job_data->jobstatus == 1) {
-														if (!empty($jobfeedback)) {
-														?>
+                                                        <?php
+                                                        if ($job_data->job_type == "fixed") {
+                                                        if ($job_data->jobstatus == 1) {
+                                                        if (!empty($jobfeedback)) {
+                                                        ?>
 
-														<div title="Rated <?= $jobfeedback->feedback_score; ?> out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
-														
-														<span style="width:<?= $rating_result; ?>%">
-														
-														<strong itemprop="ratingValue"><?= $jobfeedback->feedback_score; ?></strong> out of 5</span>
-														
-														</div>
-														
-														<span class="rate"><?= $jobfeedback->feedback_score; ?></span>
-														
-														<?php } else { ?>
-															
-															<div title="Rated 0 out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
-																
-																<span style="width:0%">
-																	<strong itemprop="ratingValue">0</strong> out of 5
-																</span>
-																
-															</div>
-															
-															<span class="rate">0.00</span>
-																<?php }
-															} ?>
+                                                        <div title="Rated <?= $jobfeedback->feedback_score; ?> out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+                                                        
+                                                        <span style="width:<?= $rating_result; ?>%">
+                                                        
+                                                        <strong itemprop="ratingValue"><?= $jobfeedback->feedback_score; ?></strong> out of 5</span>
+                                                        
+                                                        </div>
+                                                        
+                                                        <span class="rate"><?= $jobfeedback->feedback_score; ?></span>
+                                                        
+                                                        <?php } else { ?>
+                                                            
+                                                            <div title="Rated 0 out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+                                                                
+                                                                <span style="width:0%">
+                                                                    <strong itemprop="ratingValue">0</strong> out of 5
+                                                                </span>
+                                                                
+                                                            </div>
+                                                            
+                                                            <span class="rate">0.00</span>
+                                                                <?php }
+                                                            } ?>
 
-															<!--<h6>$<?= $job_data->bid_amount ?></h6>-->
+                                                            <!--<h6>$<?= $job_data->bid_amount ?></h6>-->
 
-															<h3 style='position: absolute;right: 0;top: 18px;font-size: 20px;font-family: "Calibri";font-weight: 800;'>Paid $<?= $total_price_fixed = $job_data->fixedpay_amount ?></h3>
-														<?php
-														} else {
-														if ($job_data->jobstatus == 1) {
-														if (!empty($jobfeedback)) {
-														?>
-															<div title="Rated <?= $jobfeedback->feedback_score; ?> out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
-																<span style="width:<?= $rating_result; ?>%">
-																	<strong itemprop="ratingValue"><?= $jobfeedback->feedback_score; ?></strong> out of 5
-																</span>
-															</div>
-																	<span class="rate"><?= $jobfeedback->feedback_score; ?></span>
+                                                            <h3 style='position: absolute;right: 0;top: 18px;font-size: 20px;font-family: "Calibri";font-weight: 800;'>Paid $<?= $total_price_fixed = $job_data->fixedpay_amount ?></h3>
+                                                        <?php
+                                                        } else {
+                                                        if ($job_data->jobstatus == 1) {
+                                                        if (!empty($jobfeedback)) {
+                                                        ?>
+                                                            <div title="Rated <?= $jobfeedback->feedback_score; ?> out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+                                                                <span style="width:<?= $rating_result; ?>%">
+                                                                    <strong itemprop="ratingValue"><?= $jobfeedback->feedback_score; ?></strong> out of 5
+                                                                </span>
+                                                            </div>
+                                                                    <span class="rate"><?= $jobfeedback->feedback_score; ?></span>
 
-																	<?php } else { ?>
-																	<div title="Rated 0 out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
-																		<span style="width:0%">
-																			<strong itemprop="ratingValue">0</strong> out of 5
-																		</span>
-																	</div>
-																	<span class="rate">0.00</span>
-																	<?php }
-																} ?>
+                                                                    <?php } else { ?>
+                                                                    <div title="Rated 0 out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+                                                                        <span style="width:0%">
+                                                                            <strong itemprop="ratingValue">0</strong> out of 5
+                                                                        </span>
+                                                                    </div>
+                                                                    <span class="rate">0.00</span>
+                                                                    <?php }
+                                                                } ?>
 
-															<h6>
-																<?php
-																$this->db->select('*');
-																$this->db->from('job_workdairy');
-																$this->db->where('fuser_id', $job_data->fuser_id);
-																$this->db->where('jobid', $job_data->job_id);
-																$query_done = $this->db->get();
-																$job_done = $query_done->result();
-																$total_work = 0;
-																if (!empty($job_done)) {
-																	foreach ($job_done as $work) {
-																		$total_work += $work->total_hour;
-																	}
-																	echo $total_work . " hours";
-																} else {
-																	echo "0.00 hours";
-																}
-																?>
+                                                            <h6>
+                                                                <?php
+                                                                $this->db->select('*');
+                                                                $this->db->from('job_workdairy');
+                                                                $this->db->where('fuser_id', $job_data->fuser_id);
+                                                                $this->db->where('jobid', $job_data->job_id);
+                                                                $query_done = $this->db->get();
+                                                                $job_done = $query_done->result();
+                                                                $total_work = 0;
+                                                                if (!empty($job_done)) {
+                                                                    foreach ($job_done as $work) {
+                                                                        $total_work += $work->total_hour;
+                                                                    }
+                                                                    echo $total_work . " hours";
+                                                                } else {
+                                                                    echo "0.00 hours";
+                                                                }
+                                                                ?>
 
-															</h6>
-															<h3 style="position: absolute;top: 23px;right: 0;">
-														<?php
-														if ($job_data->offer_bid_amount) {
-														$amount = $job_data->offer_bid_amount;
-														} else {
-														$amount = $job_data->bid_amount;
-														}
-														?>
-														<?php $total_price = $total_work * $amount; ?>
-														$<?= $total_price; ?> 
-															</h3>
-														<?php } ?>
-														</div>
-													</div>
-												</div>
-											</div>
+                                                            </h6>
+                                                            <h3 style="position: absolute;top: 23px;right: 0;">
+                                                        <?php
+                                                        if ($job_data->offer_bid_amount) {
+                                                        $amount = $job_data->offer_bid_amount;
+                                                        } else {
+                                                        $amount = $job_data->bid_amount;
+                                                        }
+                                                        ?>
+                                                        <?php $total_price = $total_work * $amount; ?>
+                                                        $<?= $total_price; ?> 
+                                                            </h3>
+                                                        <?php } ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-											<?php }
-											} else { ?>
+                                            <?php }
+                                            } else { ?>
 
-											<div class="">
-											<div class="row">
-											<div class="col-md-6 col-sm-6">
-											<div class="buttonsidethreeleft">
-											Yet more Jobs to Go
-											</div>
-											</div>
-											</div>
-											</div>
-											<?php } ?>
+                                            <div class="">
+                                            <div class="row">
+                                            <div class="col-md-6 col-sm-6">
+                                            <div class="buttonsidethreeleft">
+                                            Yet more Jobs to Go
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            <?php } ?>
 
-										</div>
+                                        </div>
                                     <div class="col-md-4 col-sm-4">
                                         
                                     </div>
@@ -491,33 +491,53 @@ if (isset($portfolios) && is_array($portfolios) && sizeof($portfolios) > 0) {
                     </div>
 <?php $cntexp = count($experience);
 foreach ($experience as $val) { ?>
-                        <div class="mainprotfilio-mid-button">
-                            <div class="">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12">
-                                        <div class="exp-showcase">  
-                                            <div><b><a style="color:#grey; "href="#" id ="<?php echo $val->id; ?>" onclick="editClickedExp(this.id)" ><i class="fa fa-pencil" aria-hidden="true"></i></a> </b></div>
-                                            <div><h4><a style="color:#000;" href=""><?php echo $val->title; ?></a> </h4></div> 
-                                            <div class="company_name"><h4><a style="color:#494949;"href=""><span><?php echo $val->company; ?></span></a></h4></div>
-                                            <div class="address_bar"><a  style="color:grey;" href="" class=""><span><?php echo $val->month1; ?>-<?php echo $val->year1; ?> To <?php echo $val->month2; ?>-<?php echo $val->year2; ?><!--2010Â â€“ Present (6 years 7 months)-->| <?php echo $val->location; ?></span></a></div>
+    <div class="mainprotfilio-mid-button">
+        <div class="">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="exp-showcase">  
+                        <div><b><a style="color:#grey; "href="#" id ="<?php echo $val->id; ?>" onclick="editClickedExp(this.id)" ><i class="fa fa-pencil" aria-hidden="true"></i></a> </b></div>
+                        <div><h4><a style="color:#000;" href=""><?php echo $val->title; ?></a> </h4></div> 
+                        <div class="company_name">
+                            <h4>
+                                <a style="color:#494949;"href="">
+                                    <span><?php echo $val->company; ?></span>
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="address_bar">
+                            <a  style="color:grey;" href="" class="">
+                                <span>
+                                    <?php echo DatetimeHelper::getMonthByNum($val->month1); ?>-<?php echo $val->year1; ?>
+                                    <? if ((int)$val->year2 === 0) {
+                                        echo ' - Till present';
+                                    }
+                                    else {
+                                        echo 'To ' . DatetimeHelper::getMonthByNum($val->month2) . ' - ' . $val->year2;
+                                        ;
+                                    } ?>
+                                    | <?php echo $val->location; ?>
+                                </span>
+                            </a>
+                        </div>
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mainprotfilio-mid-ph">
-                            <div class="">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12">
-                                        <div class="feedback_comment">
-                                            <p><?php echo $val->description; ?> </p>
-                                        </div>	
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div><hr /></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mainprotfilio-mid-ph">
+        <div class="">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="feedback_comment">
+                        <p><?php echo $val->description; ?> </p>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+    <div><hr /></div>
 <?php } ?>
                 </div>
                 <div class="protfilio-bottom">
@@ -608,7 +628,10 @@ $this->load->view("webview/includes/footer-common-script");
                     $('#edit-portfolio').modal('show');
                 });
             });
-            function submitPortfolio(e) {
+            // 2017-02-24 - changed by Kalskov Vladimir - spirit@taganlife.ru
+            // @param e - event object
+            // @param t - this object from click event
+            function submitPortfolio(e, t) {
                 e.preventDefault();
                 $(this).val("Wait...").attr("disabled", true);
                 $("#updatePorfolio").submit();
@@ -678,67 +701,67 @@ $this->load->view("webview/includes/footer-common-script");
 <style>
 
 .buttonsidefoure {
-	margin-top:40px !important;
-	margin-bottom:  !important;
-	background: white;
-	max-width: 370px;
-	margin-right: -5px;
-	margin-left: 20px;
-	border: 1px solid #ccc;
-	padding: 10px;
-	height: 100%;
-	padding-bottom: 20px;
+    margin-top:40px !important;
+    margin-bottom:  !important;
+    background: white;
+    max-width: 370px;
+    margin-right: -5px;
+    margin-left: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    height: 100%;
+    padding-bottom: 20px;
 }
 .buttonsidefoure ul li {
-	padding: 13px 0px 0px 5px;
+    padding: 13px 0px 0px 5px;
 }
 .buttonsidefoure h2 {
-	font-size: 21.26px;
-	margin: -8px 30px 15px 7px;
-	color: #494949;
-	font-family:'Calibri';
-	src: url(../fonts/Calibri.ttf);
-	display: block;
-	padding: 15px 0 0 0;
+    font-size: 21.26px;
+    margin: -8px 30px 15px 7px;
+    color: #494949;
+    font-family:'Calibri';
+    src: url(../fonts/Calibri.ttf);
+    display: block;
+    padding: 15px 0 0 0;
     font-weight:800;
 }
 .buttonsidefoure ul li a {
-	text-decoration: none;
-	color: #494949;
-	font-family: 'Calibri';
-	src: url(../fonts/Calibri.ttf);
-	font-size: 16.26px;
-	display: block;
-	font-weight: bold;
+    text-decoration: none;
+    color: #494949;
+    font-family: 'Calibri';
+    src: url(../fonts/Calibri.ttf);
+    font-size: 16.26px;
+    display: block;
+    font-weight: bold;
 }
 span.rating-badge {
-	background: #F77D0E none repeat scroll 0 0;
-	border-radius: 2px;
-	color: #fff;
-	padding: 2px 4px 2px 5px;
-	font-size: 12px;
+    background: #F77D0E none repeat scroll 0 0;
+    border-radius: 2px;
+    color: #fff;
+    padding: 2px 4px 2px 5px;
+    font-size: 12px;
 }
 .review_ratting {
   margin-bottom: 20px;
 }
 .user_view_img {
-	margin-left: 15px;
+    margin-left: 15px;
 }
 .topmiddle {
-	margin-left: 30px;
+    margin-left: 30px;
 }
 .user_view_img img {
-	border-radius: 50%;
-	height: 100px;
-	width: 100px;
-	margin: 10px 0px 6px 10px;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    margin: 10px 0px 6px 10px;
     }
 span.rating-badge {
-	background: #F77D0E none repeat scroll 0 0;
-	border-radius: 2px;
-	color: #fff;
-	padding: 2px 4px 2px 5px;
-	font-size: 12px;
+    background: #F77D0E none repeat scroll 0 0;
+    border-radius: 2px;
+    color: #fff;
+    padding: 2px 4px 2px 5px;
+    font-size: 12px;
 }
 .profile_star-rating::before {top: -8px;left:-2px;}
 ul.cus_main_side_nav_bar li a i{}

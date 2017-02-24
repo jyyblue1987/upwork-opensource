@@ -6,7 +6,7 @@ if(sizeof($skillList) > 0){
     foreach($skillList as $skill){
      ?>
     <script>
-        data.push("<?php echo $skill; ?>");
+        data.push("<?php echo $skill->skill_name; ?>");
     </script>
     <?php
             }

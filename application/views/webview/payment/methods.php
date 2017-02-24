@@ -1,4 +1,3 @@
-
 <?php
 //    $this->load->view("webview/includes/header");
 $paypal = "";
@@ -243,6 +242,7 @@ $this->load->view("webview/includes/footer-common-script");
         }
     }
 
+	// added by jeison arenales end
     $('.new-account').click(function () {
         var key = $(this).attr('accesskey');
         var img = $('.' + key + '-img').attr('src');
@@ -259,12 +259,33 @@ $this->load->view("webview/includes/footer-common-script");
                 $('#modal_skrill').show();
                 break;
         }
+        var email = $('.account-email').html().trim();
+        var key = $(this).attr('accesskey');
+
+        $.ajax({
+            url: "<?php echo base_url('payment/exist_account') ?>",
+            type: "post",
+            dataType: "html",
+            data: ({accNo: email, type: key}),
+            success: function (response) {
+                var json = $.parseJSON(response);
+                if (json.status == "success") {
+                    $('#new_email_'+key).show();
+                } else {
+                    $('#same_email_'+key).show();
+                }
+            }, error: function (error, textStatus, error) {
+                alert(error);
+                $('.add-account').val("Add Account");
+            }
+        });
 
         $('.payemnt-method-name').html(key);
         $('.payment-method-logo').attr('src', img);
         $('.add-account').attr('accesskey', key);
         $('.payment-method').modal('show');
     });
+    // added by jeison arenales end
     $('.add-account').click(function () {
         var email = $('.account-email').html().trim();
         $(this).val("Processing...");

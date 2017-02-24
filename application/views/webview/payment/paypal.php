@@ -38,7 +38,8 @@
 
 						<div class="col-md-8">
 							<span style="font-size: 16px;" class="account-email"><?php echo $this->session->userdata('email'); ?></span><br />
-							<p style="color:red;font-size: 16px;">Not your Paypal Email address?</p>
+							<p id="new_email_paypal" style="color:red;font-size: 16px; display:none;">Not your Paypal Email address?</p>
+							<p id="same_email_paypal" style="color:red;font-size: 16px; display:none;">Already added this email</p>
 						</div>
 					</div>
 				</div>
@@ -65,7 +66,8 @@
 
 						<div class="col-md-8">
 							<span style="font-size: 16px;" class="account-email"><?php echo $this->session->userdata('email'); ?></span><br />
-							<p style="color:red;font-size: 16px;">Not your Skrill Email address?</p>
+							<p id="new_email_skrill" style="color:red;font-size: 16px; display:none;">Not your Skrill Email address?</p>
+							<p id="same_email_skrill" style="color:red;font-size: 16px; display:none;">Already added this email</p>
 						</div>
 					</div>
 				</div>
@@ -92,7 +94,8 @@
 
 						<div class="col-md-8">
 							<span style="font-size: 16px;" class="account-email"><?php echo $this->session->userdata('email'); ?></span><br />
-							<p style="color:red;font-size: 16px;">Not your Payoneer Email address?</p>
+							<p id="new_email_payoneer" style="color:red;font-size: 16px; display:none;">Not your Payoneer Email address?</p>
+							<p id="same_email_payoneer" style="color:red;font-size: 16px; display:none;">Already added this email</p>
 						</div>
 					</div>
 				</div>

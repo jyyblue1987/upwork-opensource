@@ -91,6 +91,29 @@ class Payment extends CI_Controller
         }
     }
     
+    // added by jeison arenales start
+    public function exist_account(){
+        if ($this->Adminlogincheck->checkx()) {
+            $type = $this->input->post("type", true);
+
+            $conditionArry = array(
+                'webuser_id' => $this->session->userdata(USER_ID),
+                'payment_method_name' => $type,
+                'account_id' => $this->session->userdata("email")
+            );
+            if($this->common_mod->getCount(WB_PAYMENT_METHODS,$conditionArry,null) == 0)
+                $response['status'] = "success";
+            else
+                $response['status'] = "error";
+
+            echo json_encode($response);
+        }
+        else {
+            redirect(site_url("signin"));
+        }
+    }
+    // added by jeison arenales end
+
     public function addPaymentMethodAcc(){
         if ($this->Adminlogincheck->checkx()) {
             $response['status'] = "error";
@@ -100,7 +123,7 @@ class Payment extends CI_Controller
                 if(strlen($type) > 0){
                     $conditionArry = array(
                         'webuser_id'=>$this->session->userdata(USER_ID),
-                        'current_status'=>'active',
+                        // 'current_status'=>'active',
                         'payment_method_name'=>$type,
                         'account_id'=>$this->session->userdata("email")
                     );
@@ -117,10 +140,10 @@ class Payment extends CI_Controller
                             $response['status'] = "success";
                             $response['msg'] = "success";
                         }else{
-                           $response['msg'] = "System error!Please try again"; 
+                           $response['msg'] = "System error!Please try again";
                         }
                     }else{
-                       $response['msg'] = "You have already account added for ".$type; 
+                       $response['msg'] = "You have already account added for ".$type;
                     }
                 }else{
                     $response['msg'] = "Incorrect parameters found!";
@@ -139,6 +162,7 @@ class Payment extends CI_Controller
             //tax details//
             $condition = " AND webuser_id=".$this->session->userdata(USER_ID);
             $webUserTaxdetails = $this->common_mod->get(WB_TAX_INFO,null,$condition);
+  
             if(empty($webUserTaxdetails['rows'])){
                 $webUserTaxdetails['rows'][0] = "";
             }
@@ -161,8 +185,7 @@ class Payment extends CI_Controller
             $params['webUserTaxdetails'] = $webUserTaxdetails['rows'][0];
             $params['title'] = "Tax Information";
             $params['webuserCountry'] = $webuserCountry;
-            
-            
+         
             $condition = " AND webuser_id=".$this->session->userdata(USER_ID);
             $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
             if(empty($webUserContactDetails['rows'])){
@@ -173,6 +196,8 @@ class Payment extends CI_Controller
            // $webuserCountry = $this->common_mod->getSpecificColVal(COUNTEY_TABLE,"country_name"," AND country_id  =".$this->session->userdata('webuser_country'));
           //  $countryList = $this->common_mod->get(COUNTEY_TABLE,null," AND country_status=1");
            // print_r($webUserTaxdetails);die();
+           
+         /***********Indsys Technologies 23/02/2017  country_dialingcode*********/
             $params = array(
                     'country_name' => $country,
                   //  'page' => "profilesetting",
@@ -186,6 +211,8 @@ class Payment extends CI_Controller
                     'openSub' =>'profile-basic',
                     'webuserContactDetails' =>$webUserContactDetails['rows'][0],
                 'webUserTaxdetails' =>$webUserTaxdetails['rows'][0],
+                'webUserTaxdetails' =>$webUserTaxdetails['rows'][0],
+                'webuserCountry'=>$webuserCountry,
                      
                 );
             $this->Admintheme->webview("payment/tax-information",$params);
@@ -256,7 +283,7 @@ class Payment extends CI_Controller
                     $formVal['zip'] = $this->input->post("zipcode");
                     $formVal['created_time'] = round(microtime(true)*1000);
                     $formVal['state'] = $this->input->post("state");
-                    
+               
                     $condition = " AND webuser_id=".$this->session->userdata(USER_ID)." ";
                     if($this->common_mod->getCount(WB_TAX_INFO,null,$condition) > 0){
                         $updated = $this->common_mod->updateVal(WB_TAX_INFO,$formVal,null,$condition);

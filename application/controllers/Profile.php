@@ -264,17 +264,24 @@ class Profile extends CI_Controller {
 
     public function add_experience($exp_id = null, $page_from = null) {
         if ($this->Adminlogincheck->checkx()) {
+            // print_r($this->input->post());
+            // die();
 
-            if (count($_POST)) { //save data echo "<pre>"; print_r($data); die;	
+            //save data echo "<pre>"; print_r($data); die;	
+            if (count($_POST)) {
                 try {
                     $data = (object) $this->input->post('inputs', TRUE);
+                    $data->curr_working_place = ($data->curr_working_place === 'on') ? 1 : 0;
+                    ($data->curr_working_place === 1) and $data->month2 = $data->year2 = 0;
                     //$this->input->post("skills");
-                    //echo "<pre>"; print_r($data); die;	
+                    //echo "<pre>"; print_r($data); die;    
                     $err = 0;
+
                     if ($data->company == '' || $data->title == '' || $data->location == '') {
                         $err = 1;
                         $_SESSION['global_error'] = 'Please enter valid data in all field.';
                     }
+
                     if ($err == 0) {
                         if ($exp_id != null) {
                             $data->user_id = $this->session->userdata(USER_ID);
@@ -290,14 +297,10 @@ class Profile extends CI_Controller {
                         //$this->acl_model->insertPageAccessLog('Edit');
                         $_SESSION['success_message'] = "Experience saved successfully";
 
-                        if ($page_from != null) {
-                            if ($page_from == "settings") {
-                                redirect(site_url('profile/basic_bio'));
-                            } else {
-                                redirect(site_url('profile/my-freelancer-profile'));
-                            }
-                        }
-                        redirect(site_url('profile/basic_bio'));
+                        $this->redirectByCondition($page_from);
+                    }
+                    else {
+                        $this->redirectByCondition($page_from);
                     }
                 } catch (Exception $ex) {
                     $_SESSION['global_error'] = $ex->getMessage();
@@ -366,8 +369,9 @@ class Profile extends CI_Controller {
                         'description' => $description
                     );
                     $this->db->insert('freelancer_education', $data);
-                } 
-                redirect(site_url("profile/basic_bio"));
+                }
+
+                $this->redirectByCondition($page_from);
             } else {
                 redirect(site_url("profile/basic_bio"));
             }
@@ -443,7 +447,9 @@ class Profile extends CI_Controller {
                 } else {
                     //update webuser table//
                     $country = $this->input->post("country");
-                    $phone = $this->input->post("countryCode") . $this->input->post("phone");
+                    //$phone = $this->input->post("countryCode") . $this->input->post("phone");
+                    //indsys technologies
+                    $phone = $this->input->post("phone");
                     $webuser['webuser_country'] = $country;
                     $webuser['webuser_phone'] = $phone;
                     $formVal['country'] = $country;
@@ -457,12 +463,12 @@ class Profile extends CI_Controller {
                     $condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
                     $hasUpdated = $this->common_mod->updateVal(WEB_USER_TABLE, $webuser, null, $condition);
                     if ($hasUpdated) {
-                        if ($this->common_mod->getCount(WEB_USER_ADDRESS, null, $condition) > 0) {
+                        if ($this->common_mod->getCountUserDetails(WEB_USER_ADDRESS, $this->session->userdata(USER_ID)) > 0) {
                             $hasUpdated = $this->common_mod->updateVal(WEB_USER_ADDRESS, $formVal, null, $condition);
                             if ($hasUpdated) {
                                 $this->session->set_userdata('webuser_country', $country);
                                 $response['status'] = "success";
-                                $response['msg'] = "Your contact details successfully updated";
+                                $response['msg'] = "Your contact details successfully updated!";
                             } else {
                                 $response['msg'] = "Sorry system error. Please refresh the page and try again";
                             }
@@ -636,6 +642,16 @@ class Profile extends CI_Controller {
                 $key = $this->input->post("key");
                 if (strlen($key) > 0) {
                     $id = base64_decode($key);
+                    // Get all skills
+                    $this->db->select("skill_name");
+                    $this->db->from("skills");
+                    $query_files = $this->db->get();
+                    $skillList = $query_files->result();
+
+                    $params['skillList'] = $skillList;
+                    $params['port_skills'] = array();
+                    $params['repeated'] = array();
+
                     if (intval($id) > 0) {
                         $condition = " AND id=" . $id . " AND webuser_id=" . $this->session->userdata(USER_ID);
                         $data = $this->common_mod->get(WEB_USER_PORTFOLIO_TABLE, null, $condition);
@@ -653,11 +669,6 @@ class Profile extends CI_Controller {
                             $query = $this->db->get();
                             $port_skills = $query->result_array();
 
-                            // Get all skills
-                            $this->db->select("skill_name");
-                            $this->db->from("skills");
-                            $query_files = $this->db->get();
-                            $skillList = $query_files->result();
                             $repeated = array();
                             foreach ($skillList as $key => $value) {
                                 foreach ($port_skills as $index => $skill) {
@@ -667,7 +678,6 @@ class Profile extends CI_Controller {
                                 }
                             }
 
-                            $params['skillList'] = $skillList;
                             $params['port_skills'] = $port_skills;
                             $params['repeated'] = $repeated;
 
@@ -710,7 +720,7 @@ class Profile extends CI_Controller {
             $exp = $query->result();
             $params['experience'] = $exp[0];
             $params['exp_id'] = $exp_id;
-            $params['page_rom'] = "settings";
+            $params['page_from'] = "settings";
         } else {
             $params = array();
         }
@@ -728,7 +738,7 @@ class Profile extends CI_Controller {
             $edu = $query->result_array();
             $params['education'] = $edu[0];
             $params['edu_id'] = $edu_id;
-            $params['page_rom'] = "settings";
+            $params['page_from'] = "settings";
         } else {
             $params = array();
         }
@@ -1092,17 +1102,34 @@ class Profile extends CI_Controller {
      * 2017-02-21 Kalskov Vladimir (spirit@taganlife.ru)
      * @input $id int - Education ID
      **/
-    public function removeEdu($id) {
+    public function removeEdu($id, $page_from = null) {
         $this->ProfileModel->remove_data_education($id);
-        redirect(site_url("profile/basic_bio"));
+        $this->redirectByCondition($page_from);
     }
 
     /**
      * 2017-02-21 Kalskov Vladimir (spirit@taganlife.ru)
      * @input $id int - Experience ID
      **/
-    public function removeExp($id) {
+    public function removeExp($id, $page_from = null) {
         $this->ProfileModel->remove_data_experience($id);
-        redirect(site_url("profile/basic_bio"));
+        $this->redirectByCondition($page_from);
+    }
+
+    /**
+     * 2017-02-24 Kalskov Vladimir (spirit@taganlife.ru)
+     * @input $pageFrom string - There is a page from where user is coming
+     **/
+     private function redirectByCondition($pageFrom = null) {
+        if ($pageFrom != null) {
+            if ($pageFrom === "settings") {
+                redirect(site_url('profile/basic_bio'));
+            }
+            elseif ($pageFrom === "profile") {
+                redirect(site_url('profile/' . $this->session->userdata('username')));
+            }
+        }
+
+        redirect(site_url('profile/basic_bio'));
     }
 }

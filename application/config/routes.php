@@ -56,6 +56,8 @@ $route['profile/profile_freelancer'] = 'profile/profile_freelancer';
 
 $route['profile/remove-edu/(:num)'] = 'profile/removeEdu/$1';
 $route['profile/remove-exp/(:num)'] = 'profile/removeExp/$1';
+$route['profile/remove-edu/(:num)/(:any)'] = 'profile/removeEdu/$1/$2';
+$route['profile/remove-exp/(:num)/(:any)'] = 'profile/removeExp/$1/$2';
 
 $route['profile/(:any)'] = 'profile/index/($1)';
 

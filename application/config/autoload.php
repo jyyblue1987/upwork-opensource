@@ -90,7 +90,9 @@ $autoload['drivers'] = array();
 |	$autoload['helper'] = array('url', 'file');
 */
 // "charge" added by HaseebUrRehman
-$autoload['helper'] = array('url','cookie','security','form','charge');
+// "datetime" added by Kalskov Vladimir (spirit@taganlife.ru)
+// $autoload['helper'] = array('url','cookie','security','form','charge');
+$autoload['helper'] = array('url','cookie','security','form','charge','datetime');
 
 /*
 | -------------------------------------------------------------------
