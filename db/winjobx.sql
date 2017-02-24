@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Feb 21, 2017 at 12:15 AM
+-- Generation Time: Feb 24, 2017 at 02:05 PM
 -- Server version: 5.5.52-cll-lve
 -- PHP Version: 5.6.20
 
@@ -167,130 +167,138 @@ CREATE TABLE IF NOT EXISTS `country` (
   `country_index` int(10) NOT NULL,
   `country_status` varchar(2) NOT NULL,
   PRIMARY KEY (`country_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=125 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=126 ;
 
 --
 -- Dumping data for table `country`
 --
 
 INSERT INTO `country` (`country_id`, `country_name`, `country_shortcode`, `country_dialingcode`, `country_currency`, `country_currencycode`, `country_sub`, `country_avaliable`, `country_index`, `country_status`) VALUES
-(5, 'Bangladesh', 'BD', '+880', 'TAKA', '&#2547;', '3', '2', 5, '1'),
-(9, 'United States', 'USA', '1', 'USD', '$', '1', '2', 10, '1'),
-(10, 'India', 'IN', '+991', 'RUPEE', '4217', '', '2', 5, '1'),
-(11, 'Australia', 'AU', '+61', 'AUD', '&#36;', '', '2', 5, '1'),
-(12, 'Afghanistan', 'AF', '+93', 'Afghani', '&#1547;', '', '2', 5, '1'),
-(13, 'United Kingdom', 'UK', '+44', 'EURO', '€', '', '2', 5, '1'),
-(14, ' Canada ', 'CA', '+1', 'CAD', '$', '', '2', 5, '1'),
-(15, 'Albania', 'AL', '+355', 'Lek', 'ALL', '', '1', 5, '1'),
-(16, 'Algeria', 'DZA', '+213', 'DZD', 'Dinar', '', '1', 5, '1'),
-(17, 'American Samoa', 'AS', '1-684', 'USD', '$', '', '1', 5, '1'),
-(18, 'Andorra', 'AD', '+376', 'EUR', '&#8364;', '', '2', 5, '1'),
-(19, 'Angola', 'AO', '+244', 'AOA', 'New Kwanza', '', '1', 5, '1'),
-(20, 'Antigua and Barbuda', 'AG', '+1-268', 'XCD', '&#36;', '', '2', 5, '1'),
-(21, 'Argentina', '	AR', '+54', 'ARS', '&#36;', '', '1', 5, '1'),
-(22, 'Armenia', 'AM', '+374', 'AMD', 'Dram', '', '2', 5, '1'),
-(23, 'Aruba', 'ABW', '+297', 'AWG', '	 Florin', '', '2', 5, '1'),
-(24, 'Austria', 'AT', '+43', 'Euro', '&euro;', '', '2', 5, '1'),
-(25, 'Azerbaijan', 'AZ', '+994', 'AZN', 'Manet', '', '2', 5, '1'),
-(26, 'Bahamas', 'BS', '+1-242', '	BSD', '&#36;', '', '2', 5, '1'),
-(27, 'Bahrain', 'BH', '+973', 'BHD', 'Dinar', '', '2', 5, '1'),
-(28, 'Barbados', 'BB', '+1-246', 'BBD', '&#36;', '', '2', 5, '1'),
-(29, 'Belarus', 'BY', '+375', 'BYR', 'Rouble', '', '2', 5, '1'),
-(30, 'Belgium', 'BE', '+32', '	EUR', '&#8364;', '', '2', 5, '1'),
-(31, 'Belize', 'BZ', '+501', 'BZD', 'Dollar', '', '2', 5, '1'),
-(32, 'Benin', 'BJ', '+229', 'XOF', 'CFA franc', '', '2', 5, '1'),
-(33, 'Bermuda', 'BM', '+1-441', 'BMD', '&#36;', '', '2', 5, '1'),
-(34, 'Bhutan', 'BT', '+975', 'BTN', 'Ind. Rupee', '', '2', 5, '1'),
-(35, 'Bolivia', 'BO', '+591', 'BOB', '	 Boliviano', '', '2', 5, '1'),
-(36, 'Bonaire', 'BQ', '+599', 'USD', '$', '', '2', 5, '1'),
-(37, 'Bosnia and Herzegovina', 'BA', '+387', 'BAM', 'BAM', '', '2', 5, '1'),
-(38, 'Botswana', 'BW', '+267', 'BWP', 'Pula', '', '2', 5, '1'),
-(39, 'Brazil', 'BR', '+55', 'BRL', '&#36;', '', '2', 5, '1'),
-(40, 'British Virgin Islands', '?', '?', '	USD', '	&#36;', '', '2', 5, '1'),
-(41, 'Brunei', '?', '?', '	BND', '	&#36;', '', '2', 5, '1'),
-(42, 'Bulgaria', '	BG', '+359', '	BGN', '	 Lev', '', '2', 5, '1'),
-(43, 'Burkina Faso', '	BF', '+226', '	XOF', 'C.F.A. Franc', '', '2', 5, '1'),
-(44, 'Burma', '?', '?', '	MMK', '?', '', '2', 5, '1'),
-(45, 'Burundi', '	BI', '+257', '	BIF', '	 Franc', '', '2', 5, '1'),
-(46, 'Cambodia', 'KH', '+116', 'KHR', '	&#6107;', '', '2', 5, '1'),
-(47, 'Cameroon', 'CM', '+237', '	XAF', '	XAF', '', '2', 5, '1'),
-(48, 'Canada', 'CA', '+1', '	CAD', '&#36;', '', '2', 5, '1'),
-(49, 'Cape Verde', 'CV', '+238', 'CVE', 'CVE', '', '2', 5, '1'),
-(50, 'Cayman Islands', 'KY', '+1-345', 'CYM', '&#36;', '', '2', 5, '1'),
-(51, 'Central African Republic', 'CF', '+236', 'CAF', 'CAF', '', '2', 5, '1'),
-(52, 'Chad', 'TD', '+235', 'TCD', 'TCD', '', '1', 5, '1'),
-(53, 'Chile', 'CL', '+56', 'CHL', '&#36;', '', '2', 5, '1'),
-(54, 'China', 'CN', '+86', 'CHN', '&#165;', '', '1', 5, '1'),
-(55, 'Cocos Islands', 'CC', '+61', 'AUD', '&#36;', '', '1', 5, '1'),
-(56, 'Colombia', 'CO', '+57', 'COL', '&#36;', '', '1', 5, '1'),
-(57, 'Comoros', 'KM', '+269', 'CF', 'CF', '', '1', 5, '1'),
-(58, 'Congo', 'CG', '+242', 'COG', 'COG', '', '1', 5, '1'),
-(59, 'Congo, Democratic Republic of', 'CD', '+243', 'COD', 'COD', '', '1', 5, '1'),
-(60, 'Cook Islands', 'CK', '+682', '	NZD', '	&#36;', '', '1', 5, '1'),
-(61, 'Costa Rica', 'CR', '+506', '	CRC', '	CRC', '', '1', 5, '1'),
-(62, 'Côte d’Iviore', '	CI', '+225', '	XOF', '	XOF', '', '1', 5, '1'),
-(63, 'Croatia', 'HR', '+385', 'HRV', 'HRV', '', '1', 5, '1'),
-(64, 'Cuba', '	CU', '+53', 'CUC', 'CUC', '', '1', 5, '1'),
-(65, 'Curaçao', 'CW', '+599', 'CUW', 'CUW', '', '1', 5, '1'),
-(66, 'Cyprus', 'CYP', '+357', 'CYP', '&#8364;', '', '1', 5, '1'),
-(67, 'Czech Republic', '	CZ', '+420', 'CZK', 'CZK', '', '1', 5, '1'),
-(68, 'Denmark', '	DK', '+	45', '	DNK', '	DNK', '', '1', 5, '1'),
-(69, 'Djibouti', '	DJ', '+253', 'DJI', 'DJI', '', '1', 5, '1'),
-(70, 'Dominica', '	DM', '+ 1-767', '	DMA', '	DMA', '', '1', 5, '1'),
-(71, 'Dominican Republic', 'DO', '+1-809', 'DOP', '	&#36;', '', '1', 5, '1'),
-(72, 'Ecuador', '	EC', '+593', 'USD', '&#36;', '', '1', 5, '1'),
-(73, 'Egypt', '	EG', '+20', '	EGP', '	&#163;', '', '1', 5, '1'),
-(74, 'El Salvador', 'SV', '+503', '	SVC', '&#8353;', '', '1', 5, '1'),
-(75, 'Equatorial Guinea', 'GQ', '+240', '	GNQ', 'XAF', '', '1', 5, '1'),
-(76, 'Eritrea', 'ER', '+291', 'ERI', 'ERI', '', '1', 5, '1'),
-(77, 'Estonia', 'EE', '+372', '	EUR', '&#8364;', '', '1', 5, '1'),
-(78, 'Ethiopia', '	ET', '+251', 'ETB', 'ETB', '', '1', 5, '1'),
-(79, 'Falkland Islands', 'FK', '+500', 'FKP', '&#163;', '', '1', 5, '1'),
-(80, 'Fiji', 'FJ', '+679', 'FJI', '	&#36;', '', '1', 5, '1'),
-(81, 'Finland', '	FI', '+358', '	EUR', '	&#8364;', '', '1', 5, '1'),
-(82, 'France', 'FR', '+33', '	Euro', '	&#8364;', '', '1', 5, '1'),
-(83, 'Gabon', 'GA', '+241', '	XAF', '	XAF', '', '1', 5, '1'),
-(84, 'Gambia', 'GM', '+220', 'GMD', 'GMD', '', '2', 5, '1'),
-(85, 'Georgia', 'GE', '+995', 'GEL', 'GEL', '', '2', 5, '1'),
-(86, 'Germany', 'DE', '+49', 'Euro', '&#8364;', '', '1', 5, '1'),
-(87, 'Ghana', '	GH', '+233', 'GHS', '&#8373;', '', '1', 5, '1'),
-(88, 'Gibraltar', 'GI', '+350', 'GIP', '	&#163;', '', '1', 5, '1'),
-(89, 'Greece', 'GR', '+30', 'Euro', '&#8364;', '', '1', 5, '1'),
-(90, 'Grenada', 'GD', '+1-473', '	XCD', '&#36;', '', '1', 5, '1'),
-(91, 'Greenland', 'GL', '+299', 'GRL', 'GRL', '', '1', 5, '1'),
-(92, 'Guadeloupe', 'GP', '+590', 'GLP', 'GLP', '', '1', 5, '1'),
-(93, 'Guatemala', 'GT', '+502', 'GTQ', 'GTQ', '', '1', 5, '1'),
-(94, 'Guam', 'GU', '+1-671', 'GUM', 'GUM', '', '1', 5, '1'),
-(95, 'Guernsey', 'GBP', '44', '	GBP', '&#163;', '', '1', 5, '1'),
-(96, 'Guinea', 'GN', '+224', 'GNF', 'GNF', '', '2', 5, '1'),
-(97, 'Guinea-Bissau', 'GW', '+245', 'XOF', 'XOF', '', '2', 5, '1'),
-(98, 'Guyana', 'GY', '+592', 'GYD', 'GYD', '', '2', 5, '1'),
-(99, 'Haiti', 'HT', '+509', 'HTG', 'HTG', '', '2', 5, '1'),
-(100, 'Heard Island and McDonald Mcdonald Islands', 'HM', '+672', 'HMD', 'HMD', '', '2', 5, '1'),
-(101, 'Holy See', 'VA', '+379', 'VAT', 'VAT', '', '2', 5, '1'),
-(102, 'Honduras', 'HN', '+504', 'HND', 'HND', '', '2', 5, '1'),
-(103, 'Hong Kong', 'HK', '+852', 'HKD', '	&#36;', '', '2', 5, '1'),
-(104, 'Hungary', 'HU', '+36', 'HUF', 'HUF', '', '2', 5, '1'),
-(105, 'Iceland', 'IS', '+354', 'ISL', 'ISL', '', '1', 5, '1'),
-(106, 'Indonesia', 'ID', '+62', 'IDR', 'IDR', '', '1', 5, '1'),
-(107, 'Iran', 'IR', '+98', 'IRR', '	&#65020;', '', '2', 5, '1'),
-(108, 'Iraq', '	IQ', '+964', 'IRQ', 'IRQ', '', '2', 5, '1'),
-(109, 'Ireland', 'IE', '+353', 'EUR', '&#8364;', '', '2', 5, '1'),
-(110, 'Isle of Man', 'IM', '+44', 'GBP', '&#163;', '', '2', 5, '1'),
-(111, 'Israel', 'IL', '+972', 'ISR', '&#8362;', '', '1', 5, '1'),
-(112, 'Italy', 'IT', '+39', 'EUR', '	&#8364;', '', '2', 5, '1'),
-(113, 'Jamaica', '	JM', '1-876', '	JMD', '	&#36;', '', '2', 5, '1'),
-(114, 'Japan', 'JP', '+81', 'JPY', '	&#165;', '', '2', 5, '1'),
-(115, 'Jersey', '	JE', '+44', 'GBP', '&#163;', '', '2', 5, '1'),
-(116, 'Jordan', 'JO', '+44', 'JOD', 'JOD', '', '2', 5, '1'),
-(117, 'Kazakhstan', 'KZ', '+7', 'KZT', '&#8376;', '', '1', 5, '1'),
-(118, 'Kenya', 'KE', '+254', 'KES', 'KES', '', '2', 5, '1'),
-(119, 'Kiribati', 'KI', '+686', 'KIR', 'KIR', '', '2', 5, '1'),
-(120, 'Korea, North', 'KP', '+850', 'KPW', '&#8361;', '', '2', 5, '1'),
-(121, 'Korea, South', '	KR', '+82', 'KPW', '	&#8361;', '', '2', 5, '1'),
-(122, 'Kosovo', '?', '?', 'EUR', '	&#8364;', '', '2', 5, '1'),
-(123, 'Kuwait', 'KW', '+965', 'DINAR', 'DINAR', '', '2', 5, '1'),
-(124, 'Kyrgyzstan', 'KG', '+996', 'KGZ', 'KGZ', '', '2', 5, '1');
+(1, 'UK', 'GB', '+44', '', '', '', '', 0, '1'),
+(2, 'USA', 'US', '+1', '', '', '', '', 0, '1'),
+(3, 'Algeria', 'DZ', '+213', '', '', '', '', 0, '1'),
+(4, 'Andorra', 'AD', '+376', '', '', '', '', 0, '1'),
+(5, 'Angola', 'AO', '+244', '', '', '', '', 0, '1'),
+(6, 'Anguilla', 'AI', '+1264', '', '', '', '', 0, ''),
+(7, 'Antigua & Barbuda', 'AG', '+1268', '', '', '', '', 0, '1'),
+(8, 'Argentina', 'AR', '+54', '', '', '', '', 0, '1'),
+(9, 'Armenia', 'AM', '+374', '', '', '', '', 0, '1'),
+(10, 'Aruba', 'AW', '+297', '', '', '', '', 0, '1'),
+(11, 'Australia', 'AU', '+61', '', '', '', '', 0, '1'),
+(12, 'Austria', 'AT', '+43', '', '', '', '', 0, '1'),
+(13, 'Azerbaijan', 'AZ', '+994', '', '', '', '', 0, '1'),
+(14, 'Bahamas', 'BS', '+1242', '', '', '', '', 0, '1'),
+(15, 'Bahrain', 'BH', '+973', '', '', '', '', 0, '1'),
+(16, 'Bangladesh', 'BD', '+880', '', '', '', '', 0, '1'),
+(17, 'Barbados', 'BB', '+1246', '', '', '', '', 0, '1'),
+(18, 'Belarus', 'BY', '+375', '', '', '', '', 0, '1'),
+(19, 'Belgium', 'BE', '+32', '', '', '', '', 0, '1'),
+(20, 'Belize', 'BZ', '+501', '', '', '', '', 0, '1'),
+(21, 'Benin', 'BJ', '+229', '', '', '', '', 0, '1'),
+(22, 'Bermuda', 'BM', '+1441', '', '', '', '', 0, '1'),
+(23, 'Bhutan', 'BT', '+975', '', '', '', '', 0, '1'),
+(24, 'Bolivia', 'BO', '+591', '', '', '', '', 0, '1'),
+(25, 'Bosnia Herzegovina', 'BA', '+387', '', '', '', '', 0, '1'),
+(26, 'Botswana', 'BW', '+267', '', '', '', '', 0, '1'),
+(27, 'Brazil', 'BR', '+55', '', '', '', '', 0, '1'),
+(28, 'Brunei', 'BN', '+673', '', '', '', '', 0, '1'),
+(29, 'Bulgaria', 'BG', '+359', '', '', '', '', 0, '1'),
+(30, 'Burkina Faso', 'BF', '+226', '', '', '', '', 0, '1'),
+(31, 'Burundi', 'BI', '+257', '', '', '', '', 0, '1'),
+(32, 'Cambodia', 'KH', '+855', '', '', '', '', 0, '1'),
+(33, 'Cameroon', 'CM', '+327', '', '', '', '', 0, '1'),
+(34, 'Canada', 'CA', '+1', '', '', '', '', 0, '1'),
+(35, 'Cape Verde Islands', 'CV', '+238', '', '', '', '', 0, '1'),
+(36, 'Cayman Islands', 'KY', '+1345', '', '', '', '', 0, '1'),
+(37, 'Central African Republic', 'CF', '+236', '', '', '', '', 0, '1'),
+(38, 'Chile', 'CL', '+56', '', '', '', '', 0, '1'),
+(39, 'China', 'CN', '+86', '', '', '', '', 0, '1'),
+(40, 'Colombia', 'CO', '+57', '', '', '', '', 0, '1'),
+(41, 'Comoros', 'KM', '+269', '', '', '', '', 0, '1'),
+(42, 'Congo', 'CG', '+242', '', '', '', '', 0, '1'),
+(43, 'Cook Islands', 'CK', '+682', '', '', '', '', 0, '1'),
+(44, 'Costa Rica', 'CR', '+506', '', '', '', '', 0, '1'),
+(45, 'Croatia', 'HR', '+385', '', '', '', '', 0, '1'),
+(46, 'Cuba', 'CU', '+53', '', '', '', '', 0, '1'),
+(47, 'Cyprus North', 'CY', '+90392', '', '', '', '', 0, '1'),
+(48, 'Cyprus South', 'CY', '+357', '', '', '', '', 0, '1'),
+(49, 'Czech Republic', 'CZ', '+42', '', '', '', '', 0, '1'),
+(50, 'Denmark', 'DK', '+45', '', '', '', '', 0, '1'),
+(51, 'Djibouti', 'DJ', '+253', '', '', '', '', 0, '1'),
+(52, 'Dominica', 'DM', '+1809', '', '', '', '', 0, '1'),
+(53, 'Dominican Republic', 'DO', '+1809', '', '', '', '', 0, '1'),
+(54, 'Ecuador', 'EC', '+593', '', '', '', '', 0, '1'),
+(55, 'Egypt', 'EG', '+20', '', '', '', '', 0, '1'),
+(56, 'El Salvador', 'SV', '+503', '', '', '', '', 0, '1'),
+(57, 'Equatorial Guinea', 'GQ', '+240', '', '', '', '', 0, '1'),
+(58, 'Eritrea', 'ER', '+291', '', '', '', '', 0, '1'),
+(59, 'Estonia', 'EE', '+372', '', '', '', '', 0, '1'),
+(60, 'Ethiopia', 'ET', '+251', '', '', '', '', 0, '1'),
+(61, 'Falkland Islands', 'FK', '+500', '', '', '', '', 0, '1'),
+(62, 'Faroe Islands', 'FO', '+298', '', '', '', '', 0, '1'),
+(63, 'Fiji', 'FJ', '+679', '', '', '', '', 0, '1'),
+(64, 'Finland', 'FI', '+358', '', '', '', '', 0, '1'),
+(65, 'France', 'FR', '+33', '', '', '', '', 0, '1'),
+(66, 'French Guiana', 'GF', '+594', '', '', '', '', 0, '1'),
+(67, 'French Polynesia', 'PF', '+689', '', '', '', '', 0, '1'),
+(68, 'Gabon', 'GA', '+241', '', '', '', '', 0, '1'),
+(69, 'Gambia', 'GM', '+220', '', '', '', '', 0, '1'),
+(70, 'Georgia', 'GE', '+7880', '', '', '', '', 0, '1'),
+(71, 'Germany', 'DE', '+49', '', '', '', '', 0, '1'),
+(72, 'Ghana', 'GH', '+233', '', '', '', '', 0, '1'),
+(73, 'Gibraltar', 'GI', '+350', '', '', '', '', 0, '1'),
+(74, 'Greece', 'GR', '+30', '', '', '', '', 0, '1'),
+(75, 'Greenland', 'GL', '+299', '', '', '', '', 0, '1'),
+(76, 'Grenada', 'GD', '+1473', '', '', '', '', 0, '1'),
+(77, 'Guadeloupe', 'GP', '+590', '', '', '', '', 0, '1'),
+(78, 'Guatemala', 'GT', '502', '', '', '', '', 0, '1'),
+(79, 'Guinea', 'GN', '+224', '', '', '', '', 0, '1'),
+(80, 'Guinea - Bissau', 'GW', '+245', '', '', '', '', 0, '1'),
+(81, 'Guyana', 'GY', '+592', '', '', '', '', 0, '1'),
+(82, 'Haiti', 'HT', '+509', '', '', '', '', 0, '1'),
+(83, 'Honduras', 'HN', '+504', '', '', '', '', 0, '1'),
+(84, 'Hong Kong', 'HK', '+852', '', '', '', '', 0, '1'),
+(85, 'Hungary', 'HU', '+36', '', '', '', '', 0, '1'),
+(86, 'Iceland', 'IS', '+354', '', '', '', '', 0, '1'),
+(87, 'India', 'IN', '+91', '', '', '', '', 0, '1'),
+(88, 'Indonesia', 'ID', '+62', '', '', '', '', 0, '1'),
+(89, 'Iran', 'IR', '+98', '', '', '', '', 0, '1'),
+(90, 'Iraq', 'IQ', '+964', '', '', '', '', 0, '1'),
+(91, 'Ireland', 'IE', '+353', '', '', '', '', 0, '1'),
+(92, 'Israel', 'IL', '+972', '', '', '', '', 0, '1'),
+(93, 'Italy', 'IT', '+39', '', '', '', '', 0, '1'),
+(94, 'Jamaica', 'JM', '+1876', '', '', '', '', 0, '1'),
+(95, 'Japan', 'JP', '+81', '', '', '', '', 0, '1'),
+(96, 'Jordan', 'JO', '+962', '', '', '', '', 0, '1'),
+(97, 'Kazakhstan', 'KZ', '+7', '', '', '', '', 0, '1'),
+(98, 'Kenya', 'KE', '+254', '', '', '', '', 0, '1'),
+(99, 'Kiribati', 'KI', '+686', '', '', '', '', 0, '1'),
+(100, 'Korea North', 'KP', '+850', '', '', '', '', 0, '1'),
+(101, 'Korea South', 'KR', '+82', '', '', '', '', 0, '1'),
+(102, 'Kuwait', 'KW', '+965', '', '', '', '', 0, '1'),
+(103, 'Kyrgyzstan', 'KG', '+996', '', '', '', '', 0, '1'),
+(104, 'Laos', 'LA', '+856', '', '', '', '', 0, '1'),
+(105, 'Latvia', 'LV', '+371', '', '', '', '', 0, '1'),
+(106, 'Lebanon', 'LB', '+961', '', '', '', '', 0, '1'),
+(107, 'Lesotho', 'LS', '+266', '', '', '', '', 0, '1'),
+(108, 'Liberia', 'LR', '+231', '', '', '', '', 0, '1'),
+(109, 'Libya', 'LY', '+218', '', '', '', '', 0, '1'),
+(110, 'Liechtenstein', 'LI', '+417', '', '', '', '', 0, '1'),
+(111, 'Lithuania', 'LT', '+370', '', '', '', '', 0, '1'),
+(112, 'Luxembourg', 'LU', '+352', '', '', '', '', 0, '1'),
+(113, 'Macao', 'MO', '+853', '', '', '', '', 0, '1'),
+(114, 'Macedonia', 'MK', '+389', '', '', '', '', 0, '1'),
+(115, 'Madagascar', 'MG', '+261', '', '', '', '', 0, '1'),
+(116, 'Malawi', 'MW', '+265', '', '', '', '', 0, '1'),
+(117, 'Malaysia', 'MY', '+60', '', '', '', '', 0, '1'),
+(118, 'Maldives', 'MV', '+960', '', '', '', '', 0, '1'),
+(119, 'Mali', 'ML', '+223', '', '', '', '', 0, '1'),
+(120, 'Malta', 'MT', '+356', '', '', '', '', 0, '1'),
+(121, 'Marshall Islands', 'MH', '+692', '', '', '', '', 0, '1'),
+(122, 'Martinique', 'MQ', '+596', '', '', '', '', 0, '1'),
+(123, 'Mauritania', 'MR', '+222', '', '', '', '', 0, '1'),
+(124, 'Mayotte', 'YT', '+269', '', '', '', '', 0, '1'),
+(125, 'Mexico', 'MX', '+52', '', '', '', '', 0, '1');
 
 -- --------------------------------------------------------
 
@@ -333,7 +341,16 @@ CREATE TABLE IF NOT EXISTS `daily_hourly_transaction` (
   `amount` decimal(10,3) NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`id_daily_hourly_transaction`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `daily_hourly_transaction`
+--
+
+INSERT INTO `daily_hourly_transaction` (`id_daily_hourly_transaction`, `contract_id`, `des`, `fuser_id`, `cuser_id`, `trans_through`, `transaction_id`, `status`, `currency`, `amount`, `date`) VALUES
+(1, '13_NYVK5HQ3QP', '1hrs*$5.00', 13, 18, 'paypal', '49B73233JS3005517', 'Processed', '', '5.000', '2017-02-05 11:59:59'),
+(2, '13_3Q6QGBXY20', '5hrs*$5.00', 13, 18, 'paypal', '4VV765549N6529153', 'Processed', '', '25.000', '2017-02-06 11:59:59'),
+(3, '13_NYVK5HQ3QP', '5hrs*$5.00', 13, 18, 'paypal', '2H871260K5306254F', 'Processed', '', '25.000', '2017-02-21 11:59:59');
 
 -- --------------------------------------------------------
 
@@ -353,21 +370,18 @@ CREATE TABLE IF NOT EXISTS `freelancer_education` (
   `activities` text NOT NULL,
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `freelancer_education`
 --
 
 INSERT INTO `freelancer_education` (`id`, `fuser_id`, `school`, `dates_attend_from`, `dates_attend_to`, `degree`, `field_of_study`, `grade`, `activities`, `description`) VALUES
-(1, 13, 'asdfasdf', '1997', '1995', 'asdfadf', 'asdf', '0.000', 'asdf', 'adsf'),
-(2, 13, 'school', '1988', '1985', 'degree', 'field of study', '0.000', 'Activities and Socities', 'Description'),
 (3, 26, 'rsv', '1982', '1981', 'btech', 'adadad', '0.000', 'adadad', 'adada adad'),
 (4, 9, 'dfdfg', '1995', '1993', 'fgfg', 'fgfg', '0.000', 'fgfg', 'fgfg'),
-(5, 13, 'fgh', '1982', '1982', 'ghgh', 'hghg', '0.000', 'dgfg', 'gdfh'),
-(6, 13, '1', '1982', '1989', '1', '1', '1.000', '1', '1'),
-(7, 13, 'fgg', '1982', '1981', 'rftr', 'gg', '0.000', 'gg', 'gg'),
-(8, 13, 'test', '1981', '1989', 'test', '1', '0.000', 't', '');
+(9, 13, 'S1', '1984', '1988', 'D1', 'FS1', '0.000', 'AaS1', 'Descr1'),
+(10, 13, 'S1', '1984', '1988', 'D1', 'FS1', '0.000', 'AaS1', 'Descr1'),
+(15, 13, 'S1', '1984', '1988', 'D1', 'FS1', '0.000', 'AaS1', 'Descr1');
 
 -- --------------------------------------------------------
 
@@ -424,7 +438,7 @@ CREATE TABLE IF NOT EXISTS `jobs` (
   `job_created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=157 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=158 ;
 
 --
 -- Dumping data for table `jobs`
@@ -441,6 +455,7 @@ INSERT INTO `jobs` (`id`, `user_id`, `title`, `category`, `job_description`, `jo
 (75, 29, 'category 4', 84, 'gdfhgfdhj', 'fixed', 'Jquery', '3_6_months', 'Entry level', 100.00, 'not_sure', '', 0, '2016-11-24 15:12:00', '0000-00-00 00:00:00'),
 (82, 29, 'Archive testing', 80, 'dfhggtfdh', 'fixed', 'PHP', '3_6_months', 'Entry level', 500.00, 'not_sure', '', 0, '2016-12-03 17:04:50', '0000-00-00 00:00:00'),
 (90, 41, 'seo for 20 websites ', 29, 'i need seo ', 'fixed', 'HTML', 'less_than_1_week', 'Entry level', 450.00, 'not_sure', '', 0, '2016-12-04 19:56:20', '0000-00-00 00:00:00'),
+(157, 18, 'job testing', 1, 'job testing', 'fixed', '', '1_3_months', 'Entry level', 100.00, '1-9', '', 1, '2017-02-22 11:25:33', '2017-02-22 11:25:33'),
 (156, 18, 'skills ', 1, 'wdefwf', 'hourly', '', '1_3_months', 'Entry level', 0.00, '10-19', '', 1, '2017-02-19 17:09:48', '2017-02-19 17:09:48'),
 (155, 18, 'Hourly-Applied count and hire page interview count issue', 1, 'Hourly-Applied count and hire page interview count issue', 'hourly', '', '1_3_months', 'Experienced', 0.00, '10-19', '', 1, '2017-02-18 10:22:29', '2017-02-18 10:22:29'),
 (154, 18, 'Fixed-Applied count and hire page interview count issue', 1, 'Fixed-Applied count and hire page interview count issue', 'fixed', '', '3_6_months', 'Entry level', 30.00, 'not_sure', '', 1, '2017-02-18 10:21:51', '2017-02-18 10:21:51'),
@@ -558,7 +573,7 @@ CREATE TABLE IF NOT EXISTS `job_bids` (
   `withdrawn_by` int(11) DEFAULT NULL,
   `job_progres_status` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=228 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=229 ;
 
 --
 -- Dumping data for table `job_bids`
@@ -619,8 +634,9 @@ INSERT INTO `job_bids` (`id`, `user_id`, `job_id`, `bid_amount`, `bid_fee`, `bid
 (223, 15, 153, 45.00, 4.50, 40.50, 'Less than 1 month', 'dgfhftghj', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-18 09:57:40', 0, NULL, 0, '0.00', 0, NULL, NULL, 0),
 (224, 9, 154, 12.00, 1.20, 10.80, 'Less than 1 month', 'Hourly-Applied count and hire page interview count issue', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-18 10:23:10', 0, NULL, 1, '0.00', 0, 1, 2, 1),
 (225, 13, 154, 4555.00, 455.50, 4099.50, 'Less than 1 week', 'gdfhytgh', 0, '1', 'Fixed-Applied count and hire page interview count issue', 'gh', 0, NULL, NULL, NULL, '0', '1', 0.00, 4555.00, '18/02/2017', '2017-02-18 10:29:21', 0, NULL, 1, '4555.00', 0, 1, 2, 2),
-(226, 13, 156, 5.00, 0.50, 4.50, NULL, 'sfefef', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-21 06:48:56', 0, NULL, 0, '0.00', 0, NULL, NULL, 0),
+(226, 13, 156, 5.00, 0.50, 4.50, NULL, 'sfefef', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-21 06:48:56', 0, NULL, 0, '0.00', 0, NULL, NULL, 1),
 (227, 13, 155, 5.00, 0.50, 4.50, NULL, 'wdef', 1, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-21 06:49:12', 0, NULL, 0, '0.00', 0, 1, 1, 0),
+(228, 13, 157, 90.00, 9.00, 81.00, '3-6 months', 'Hi\nI have 4 + Years Exp. My Skill''s are PHP, My Sql, \n\nRegards\n\nArun', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-22 11:27:55', 0, NULL, 0, '0.00', 0, NULL, NULL, 0),
 (48, 9, 41, 5.00, 0.50, 4.50, NULL, 'We are a virtual digital marketing firm focused on provided digital marketing solutions to businesses and organisations in USA and around the world. Currently the firm has around 10 virtual staff around the world with most based in Australia. Stuart is currently looking to add an experienced Web Developer to our team. The commitment required for this role will be between 35 – 40 hours per week. Tasks • Manage and develop existing and new client websites. Experience/Skills • Experience in CSS, HTML, Java Script, Joomla and Google Analytics. • Experience with SSL wildcards. • Ecommerce set up and management. • SEO set up and running experience. • Prior experience or exposure to Healcode would be advantageous. • Well versed in several WP templates. • Regularly communicate with the rest of the team on project status. • Attention to detail. • Fast turnaround on tasks. • Fluent in English, both conversational and written. Both individuals and small development firms are encouraged to apply. Please do not call, email or Skype OUTSIDE of Upwork. Those who do so will be immediately eliminated from the process', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2016-10-09 18:22:50', 0, NULL, 1, '0.00', 0, NULL, NULL, 0),
 (49, 9, 42, 5.00, 0.50, 4.50, NULL, 'We are a virtual digital marketing firm focused on provided digital marketing solutions to businesses and organisations in USA and around the world. Currently the firm has around 10 virtual staff around the world with most based in Australia. Stuart is currently looking to add an experienced Web Developer to our team. The commitment required for this role will be between 35 – 40 hours per week. Tasks • Manage and develop existing and new client websites. Experience/Skills • Experience in CSS, HTML, Java Script, Joomla and Google Analytics. • Experience with SSL wildcards. • Ecommerce set up and management. • SEO set up and running experience. • Prior experience or exposure to Healcode would be advantageous. • Well versed in several WP templates. • Regularly communicate with the rest of the team on project status. • Attention to detail. • Fast turnaround on tasks. • Fluent in English, both conversational and written. Both individuals and small development firms are encouraged to apply. Please do not call, email or Skype OUTSIDE of Upwork. Those who do so will be immediately eliminated from the process', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2016-10-09 19:03:07', 0, NULL, 1, '0.00', 0, NULL, NULL, 0),
 (204, 9, 147, 5.00, 0.50, 4.50, NULL, 'dfrgtdfgfg', 0, '0', 'web design', 'oyiiuyi', 4, NULL, NULL, NULL, '0', NULL, 20.00, 0.00, '2017/02/09 22:05', '2017-01-30 06:43:08', 0, NULL, 0, '0.00', 0, NULL, NULL, 3),
@@ -788,7 +804,7 @@ CREATE TABLE IF NOT EXISTS `job_conversation` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `have_seen` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1= unseen,0=seen',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=327 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=328 ;
 
 --
 -- Dumping data for table `job_conversation`
@@ -822,6 +838,7 @@ INSERT INTO `job_conversation` (`id`, `job_id`, `bid_id`, `message_conversation`
 (125, 32, 15, 'hi', 9, 18, '2016-09-28 11:34:40', 0),
 (94, 32, 23, 'test 1 confirme', 25, 18, '2016-09-07 12:38:46', 0),
 (95, 35, 32, 'hi', 13, 18, '2016-09-07 16:57:01', 0),
+(327, 156, 226, 'dfsd', 18, 13, '2017-02-21 15:18:57', 0),
 (326, 154, 224, 'gh', 18, 9, '2017-02-18 11:03:22', 1),
 (324, 153, 221, 'fghgh', 18, 13, '2017-02-17 11:58:00', 0),
 (325, 153, 221, 'hi\r\n', 13, 18, '2017-02-18 07:00:47', 0),
@@ -1103,7 +1120,7 @@ CREATE TABLE IF NOT EXISTS `job_skills` (
   `job_id` int(11) NOT NULL,
   `skill_name` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ;
 
 --
 -- Dumping data for table `job_skills`
@@ -1130,7 +1147,8 @@ INSERT INTO `job_skills` (`id`, `job_id`, `skill_name`) VALUES
 (44, 154, 'phonegap'),
 (45, 155, 'Photography'),
 (47, 156, 'Java'),
-(48, 156, 'Object Oriented PHP');
+(48, 156, 'Object Oriented PHP'),
+(49, 157, 'PHP');
 
 -- --------------------------------------------------------
 
@@ -1259,7 +1277,7 @@ CREATE TABLE IF NOT EXISTS `job_workdairy` (
   `working_date` date DEFAULT NULL,
   `end_work` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`workdairy_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=64 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=65 ;
 
 --
 -- Dumping data for table `job_workdairy`
@@ -1267,7 +1285,8 @@ CREATE TABLE IF NOT EXISTS `job_workdairy` (
 
 INSERT INTO `job_workdairy` (`workdairy_id`, `jobid`, `bid_id`, `cuser_id`, `fuser_id`, `starting_hour`, `ending_hour`, `total_hour`, `working_date`, `end_work`) VALUES
 (62, 149, 210, 18, 13, '2017-02-05 17:00:12', '2017-02-05 18:00:15', '1', '2017-02-05', '2017-02-06 01:00:15'),
-(63, 147, 207, 18, 13, '2017-02-06 13:00:03', '2017-02-06 18:00:10', '5', '2017-02-06', '2017-02-07 01:00:10');
+(63, 147, 207, 18, 13, '2017-02-06 13:00:03', '2017-02-06 18:00:10', '5', '2017-02-06', '2017-02-07 01:00:10'),
+(64, 149, 210, 18, 13, '2017-02-21 18:00:20', '2017-02-21 23:00:23', '5', '2017-02-21', '2017-02-22 06:00:23');
 
 -- --------------------------------------------------------
 
@@ -4376,7 +4395,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `username`, `email`, `password`, `type`, `status`, `lastlogin`, `position`, `country`, `phone`) VALUES
-(1, 'Administrator', 'admin', 'getupwork@gmail.com', 'bac1a377c236d995f382e338fd56a349', '1', '1', '1487587036.7751', '', '', ''),
+(1, 'Administrator', 'admin', 'getupwork@gmail.com', 'bac1a377c236d995f382e338fd56a349', '1', '1', '1487877085.3244', '', '', ''),
 (8, 'sagar', 'sagar', 'sagar@sagar.me', '41ed44e3038dbeee7d2ffaa7f51d8a4b', '1', '1', '', '', 'all', ''),
 (9, 'Arif Hossain', 'arif', 'arif@arif.com', '0ff6c3ace16359e41e37d40b8301d67f', '2', '2', '1459555964.1421', '', '4', ''),
 (10, 'jahangir alam', 'jahangir', 'canvasdevelopers@gmail.com', '5fce16e0de0d807a14654c67a7b90405', '2', '2', '', '', 'all', ''),
@@ -4650,17 +4669,12 @@ CREATE TABLE IF NOT EXISTS `user_experience` (
 --
 
 INSERT INTO `user_experience` (`id`, `user_id`, `company`, `title`, `location`, `month1`, `year1`, `month2`, `year2`, `curr_working_place`, `description`, `status`) VALUES
-(8, 13, 'Company Name', 'Company Title', 'usa', 1, 2018, 1, 2019, 0, 'fgdfhgdd', 1),
-(9, 13, 'ff', 'Web Design', 'usa', 1, 127, 1, 127, 0, 'Web Design', 1),
-(10, 13, 'Company', 'Title', 'Title', 3, 2016, 10, 2016, 0, 'Description', 1),
+(9, 13, 'ff', 'Web Design', 'usa', 1, 127, 0, 0, 1, '                                                                                                                                                                                                                                                                                                           Web Design                                                                                                                                                                                                                                                ', 1),
+(10, 13, 'Company', 'Title', 'Title', 3, 2016, 10, 2016, 0, '                    Description                ', 1),
 (11, 9, 'fgfgf', 'fgfg', 'fgfgf', 2, 2010, 0, 2014, 0, 'ghgthth', 1),
 (12, 9, 'Web Design', 'Web Design au', 'usa', 1, 2016, 1, 0, 0, 'Web Design fgfdgh', 1),
-(14, 13, 'sdfasdf', 'asdf', 'asdf', 3, 2323, 3, 2323, 0, 'asdfasdf', 1),
-(15, 13, 'fdgvfgb', 'fgbfd', 'usa', 10, 2014, 8, 2016, 0, 'sdfgfdg', 1),
-(16, 33, 'fsdg', 'fgfdg', 'dfhdfg', 1, 2014, 1, 2016, 0, 'sgfdfdgh', 1),
-(17, 13, 'sdfgdfh', 'hfgjhgfj', 'fhgjghj', 8, 1990, 0, 1980, 0, 'wtereytrtghy', 1),
-(18, 13, 'test', 'test', 'test', 2, 1999, 5, 1999, 0, 'test', 1),
-(19, 13, 'test', 't', 't', 0, 1999, 0, 1999, 0, 'wret', 1);
+(14, 13, 'sdfasdf', 'asdf', 'asdf', 3, 2323, 0, 0, 1, '                    asdfasdf                ', 1),
+(16, 33, 'fsdg', 'fgfdg', 'dfhdfg', 1, 2014, 1, 2016, 0, 'sgfdfdgh', 1);
 
 -- --------------------------------------------------------
 
@@ -4694,7 +4708,7 @@ CREATE TABLE IF NOT EXISTS `webuser` (
   `isdelete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=not del,1=deleted',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`webuser_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ;
 
 --
 -- Dumping data for table `webuser`
@@ -4707,11 +4721,11 @@ INSERT INTO `webuser` (`webuser_id`, `webuser_company`, `webuser_fname`, `webuse
 (9, '', 'Hasan', 'Rahman', 'hasan', 'temp/userimg_157100542218168084502024692625.jpeg', 'TYtW0TvXMGJB9K978oC6ph2j1L6RhX', 'hafijarrahman@gmail.com', '258b0812e0ac4d011cb9d9b7072b6c1c', 'Mykey2016', '2', '2', '', '', '9', '116576543564675', 'p3YEKaDeicgZ7ggKhyYZetnJW4Hc0B', '1471000246', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
 (11, '', 'Didar', 'Singh', 'didar084', '', 'rgA93XrEg9Y3NfyLi9mpe3T6Vqzs9R', 'didar084@gmail.com', '404a85dcecb080f5799dc3da3a812135', 'Shanna@5', '2', '2', '', '', '9', '', '', '', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
 (12, '', 'Arun', 'Nagyaan', 'arunk2711', '', '9WZRB8TIZC0e9HNARN2qUOomQ7F54C', 'arunk2711@gmail.com', '1359e1b2829b6ab3552f38d64da879f6', 'Arunk2711', '2', '1', '', '', '9', '', 'gYqKys5MiiUIi0L9ZxXmm0ZqC6hZHx', '1471001466', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
-(13, '', 'Arun', 'Kumar', 'arun', 'temp/userimg_1370889461136447689971720074.jpeg', 'QnM7yAptNNSiW1Yh0xUOa7EznHvLg3', 'getupwork@gmail.com', '5455c33e251ab225e5c61c67e1902769', 'Arun', '2', '2', '', '', '10', '111888811111120120333188011112', 'p93BCI65rhfmT6M2XEpf3Rd8S6JYIO', '1485869660', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
+(13, '', 'Arun', 'Kumar', 'arun', '', 'QnM7yAptNNSiW1Yh0xUOa7EznHvLg3', 'getupwork@gmail.com', '5455c33e251ab225e5c61c67e1902769', 'Arun', '2', '2', '', '', '87', '9999999999', 'p93BCI65rhfmT6M2XEpf3Rd8S6JYIO', '1485869660', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
 (14, '', 'Michael Jay', 'Catubay', 'cmichaeljay89', '', 'O2M5lh1u6sslFTDtvUnBpvf9OjwshO', 'catubaymichaeljay@yahoo.com', '4cfe81cbdfcbc660837525796de7483a', 'nv01vostro', '2', '2', '', '', '9', '', 'ZFPmruLee6wgAZDrD2CYWJbOqcoJhx', '1472482086', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
 (15, '', 'Sheraz', ' salem', 'msherax', 'temp/userimg_10551427119675669211090345819.jpeg', 'RU2zapVPfrYnJb92lEvMLcjy4Nkn3D', 'm.sherax@gmail.com', 'befbc55882a5a60e8260b78de5a0911e', 'msherax', '2', '2', '', '', '9', '1111154888', '', '', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
 (16, '', 'alexei', 'andropov', 'alexei.andropov', '', 'v7GgXa1V2T9jBopuYgFjtzJwm3DHaH', 'alexei.andropov210@gmail.com', 'b21d455dc9a79b5a082ab9b38b985ae8', 'kaifaquA3212', '2', '2', '', '', '9', '', '', 'undefined', 'undefined', 'undefined', 1, 0, 0, '0000-00-00 00:00:00'),
-(18, 'JOHN INDUSTRIES LLC', 'John', 'john', 'john', '', 'ZoyjUHzbyEQLnMhIf2dx3mVobyOq9I', 'deshilancerbd3@gmail.com', '527bd5b5d689e2c32ae974c6229ff785', 'john', '1', '2', '', '', '9', '+8801234567890', '', '5465', 'john and carlos industries llc', 'www.example.com', 1, 0, 0, '0000-00-00 00:00:00'),
+(18, 'JOHN INDUSTRIES LLC', 'John', 'john', 'john', '', 'ZoyjUHzbyEQLnMhIf2dx3mVobyOq9I', 'deshilancerbd3@gmail.com', '527bd5b5d689e2c32ae974c6229ff785', 'john', '1', '2', '', '', '2', '+8801234567890', '', '5465', 'john and carlos industries llc', 'www.example.com', 1, 0, 0, '0000-00-00 00:00:00'),
 (20, '', 'alexei', 'andropov', 'alexei.andropov_client', '', 'amJrPFxy12tygPzLMHuYCgkyl8Xd7O', 'alexei.andropov@gmail.com', 'b21d455dc9a79b5a082ab9b38b985ae8', 'kaifaquA3212', '1', '1', '', '', '9', '', '', '', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
 (21, '', 'Palash', 'Nath', 'palashit08', '', '4SR9QMIVLa3N6jIIBQf77x1fyFpiVr', 'palash.ict08@yahoo.com', '1f355696da5da5b7aebc67c0c58910f5', 'Palashict08', '2', '2', '', '', '5', '8801717457174', '', '', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
 (22, '', 'Palash', 'Nath', 'palash-worker', 'temp/userimg_7474835078450335551579775945.jpeg', 'gvV2RpnMpkskOYdzG2QVxenwGoIflP', 'palash.debnath5@gmail.com', '2b25da5627d6a47192f852d6f324b04d', 'Palash08', '2', '2', '', '', '5', '8801717457174', '', '', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
@@ -4738,7 +4752,8 @@ INSERT INTO `webuser` (`webuser_id`, `webuser_company`, `webuser_fname`, `webuse
 (45, '', 'chamo', 'gezahegn', 'chamogezahegn', '', '9XXQ1E1XG4XRZRKLUFBzeeXCF1t3Fx', 'chamogezahegn@yahoo.com', 'bb292225abcd9a6e58f04bc2482702b1', 'CHAMO@ABAY@2015', '2', '1', '', '', '78', '', '', '', '', '', 1, 0, 0, '2017-01-30 08:02:12'),
 (46, '', 'MD', 'Satu', 'md_satu', '', 'VHVDdKqKzdQ9vD0zPsfuxGUCUXBU78', 'mdsatu.pro@gmail.com', '27946274a201346f0322e3861909b5ff', 'satusatu', '2', '2', '', '', '5', '', '', '1487357809', '', '', 1, 0, 0, '2017-01-31 10:39:36'),
 (47, '', 'Ashish', 'Patil', 'Ashishi', '', 'Wk6mq1BHJtmE3KjVUdv8rs0sAv6V3o', 'iamashish_patil@Rediffmail.com', '7c8dd773ee4835d67029e21b64fb02fb', 'sbimanish', '2', '1', '', '', '10', '', '', '', '', '', 1, 0, 0, '2017-02-07 06:18:58'),
-(48, '', 'Zar', 'Htet', 'Zar Htet', '', 'EQ9rqxjOKPJsHgaggLhfP38Z0MEiH1', 'zarhtetoo@gmail.com', '0d261f802de0a78479d857697ccc33fc', 'zarhtetoo11', '2', '2', '', '', '44', '', '', '', '', '', 1, 0, 0, '2017-02-20 10:18:34');
+(48, '', 'Zar', 'Htet', 'Zar Htet', '', 'EQ9rqxjOKPJsHgaggLhfP38Z0MEiH1', 'zarhtetoo@gmail.com', '0d261f802de0a78479d857697ccc33fc', 'zarhtetoo11', '2', '2', '', '', '44', '', '', '', '', '', 1, 0, 0, '2017-02-20 10:18:34'),
+(49, '', 'shivani', 'patidar', 'shivani', '', 'aS3h3sEkWpgWLGj3Kk7KYFENSCEwrk', 'shivanidesignersveltosest005@gmail.com', '20f6ebca209ba3b5c07622689c97ef3c', '@Sh1van1', '1', '1', '', '', '10', '', '', '', '', '', 1, 0, 0, '2017-02-24 10:32:47');
 
 -- --------------------------------------------------------
 
@@ -4766,12 +4781,12 @@ CREATE TABLE IF NOT EXISTS `webuseraddresses` (
 
 INSERT INTO `webuseraddresses` (`id`, `webuser_id`, `address`, `address1`, `city`, `state`, `zipcode`, `country`, `phone_number`, `timezone`) VALUES
 (19, 15, 'thrtyuyrt', 'ryjtyjtr', 'yjtyjty', 'rjtryj', '5400', '9', '1111154888', ''),
-(15, 18, 'sgfg', 'fdgdfg', 'dfgdfg', 'dfgdfg', '5455', '9', '+8801234567890', '52'),
+(15, 18, 'sgfg', 'fdgdfg', 'dfgdfg', 'dfgdfg', '5455', '2', '+8801234567890', '52'),
 (18, 21, 'Shewrapara', 'Dhaka', 'Dhaka', 'Dhaka', '1212', '5', '8801717457174', 'UTC 06.00 Almaty, Dhaka'),
 (17, 22, 'Shewrapara', 'Dhaka', 'Dhaka', 'Dhaka', '1212', '5', '8801717457174', 'UTC 06.00 Almaty, Dhaka'),
 (16, 9, 'brisbane', 'brisbane', 'brisbane', 'brisbane', '3422', '9', '116576543564675', ''),
 (11, 16, 'ertert', 'dfgdfgd', 'Bogra', 'Bogra', '5881', 'Bangladesh', '  880 01711473899', 'UTC   06.00 Almaty, Dhaka'),
-(20, 13, 'street address 1', 'street address 2', 'City', 'State', '4500', '10', '111888811111120120333188011112', '5'),
+(20, 13, 'street address 1', 'street address 2', 'City', 'State', '4500', '87', '9999999999', '5'),
 (21, 29, 'fgdthted', 'rgetyh', 'etrhytrjr', 'rtjuhrtu', '1243', '14', '122323322', '15');
 
 -- --------------------------------------------------------
@@ -4824,7 +4839,7 @@ CREATE TABLE IF NOT EXISTS `webuser_payment_methods` (
   `last_update_time` bigint(20) NOT NULL,
   `current_status` enum('active','deactive') NOT NULL DEFAULT 'active',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=38 ;
 
 --
 -- Dumping data for table `webuser_payment_methods`
@@ -4853,7 +4868,7 @@ INSERT INTO `webuser_payment_methods` (`id`, `webuser_id`, `payment_method_name`
 (20, 13, 'skrill', 'getupwork@gmail.com', 1485794728299, 1485794771385, 'deactive'),
 (21, 13, 'payoneer', 'getupwork@gmail.com', 1485794747131, 1485795277484, 'deactive'),
 (22, 13, 'paypal', 'getupwork@gmail.com', 1486115569447, 1486115602626, 'deactive'),
-(23, 13, 'paypal', 'getupwork@gmail.com', 1486115662824, 0, 'active'),
+(23, 13, 'paypal', 'getupwork@gmail.com', 1486115662824, 1487739737223, 'deactive'),
 (24, 13, 'skrill', 'getupwork@gmail.com', 1486115668064, 1486874599859, 'deactive'),
 (25, 13, 'payoneer', 'getupwork@gmail.com', 1486115672554, 1486460938305, 'deactive'),
 (26, 13, 'skrill', 'getupwork@gmail.com', 1486874617389, 1487605436587, 'deactive'),
@@ -4862,7 +4877,12 @@ INSERT INTO `webuser_payment_methods` (`id`, `webuser_id`, `payment_method_name`
 (29, 9, 'payoneer', 'hafijarrahman@gmail.com', 1487608764433, 0, 'active'),
 (30, 13, 'skrill', 'getupwork@gmail.com', 1487611089851, 1487611179752, 'deactive'),
 (31, 13, 'skrill', 'getupwork@gmail.com', 1487611230719, 1487611299679, 'deactive'),
-(32, 13, 'skrill', 'getupwork@gmail.com', 1487623614839, 0, 'active');
+(32, 13, 'skrill', 'getupwork@gmail.com', 1487623614839, 1487723707242, 'deactive'),
+(33, 13, 'skrill', 'getupwork@gmail.com', 1487739528731, 1487739544417, 'deactive'),
+(34, 13, 'skrill', 'getupwork@gmail.com', 1487739553381, 1487739718613, 'deactive'),
+(35, 13, 'payoneer', 'getupwork@gmail.com', 1487739561338, 1487739724767, 'deactive'),
+(36, 13, 'skrill', 'getupwork@gmail.com', 1487739752915, 1487867463269, 'deactive'),
+(37, 13, 'payoneer', 'getupwork@gmail.com', 1487739769342, 0, 'active');
 
 -- --------------------------------------------------------
 
@@ -4885,7 +4905,7 @@ CREATE TABLE IF NOT EXISTS `webuser_portfolio` (
   `visibility_status` enum('yes','no') NOT NULL DEFAULT 'yes',
   `last_updated_time` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
 
 --
 -- Dumping data for table `webuser_portfolio`
@@ -4899,7 +4919,8 @@ INSERT INTO `webuser_portfolio` (`id`, `webuser_id`, `project_title`, `project_o
 (11, 22, 'jkjk', 'asd', 10, 0, 'http://www.pksoftsoltion.com', '1472930791.jpg', '2016-12-01', 'java', '2016-09-03', 'yes', '0000-00-00'),
 (19, 9, 'Testing', 'we are testing', 12, 0, 'http://www.winjob.com', '1480092307.jpg', '0000-00-00', 'php', '2016-11-25', 'yes', '0000-00-00'),
 (18, 26, 'test project', 'aadd', 1, 0, 'http://www.winjob.com', '1476692359.jpg', '0000-00-00', 'web delloping', '2016-10-17', 'yes', '0000-00-00'),
-(31, 13, 'aaaa', 'aaaa aaa', 2, 0, 'http://', '1484751067.jpg', '0000-00-00', '', '2017-02-01', 'yes', '2017-02-01');
+(31, 13, 'aaaa', 'aaaa aaa', 2, 0, 'http://', '1484751067.jpg', '0000-00-00', '', '2017-02-24', 'yes', '2017-02-24'),
+(32, 13, 'testing', 'safaf', 9, 0, 'http://www.winjob.com', '1487966753.jpg', '0000-00-00', '', '2017-02-24', 'yes', '2017-02-24');
 
 -- --------------------------------------------------------
 
@@ -4912,17 +4933,20 @@ CREATE TABLE IF NOT EXISTS `webuser_portfolio_skills` (
   `portfolio_id` int(11) NOT NULL,
   `skill_name` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=75 ;
 
 --
 -- Dumping data for table `webuser_portfolio_skills`
 --
 
 INSERT INTO `webuser_portfolio_skills` (`id`, `portfolio_id`, `skill_name`) VALUES
-(13, 31, 'PHP'),
-(14, 31, 'HTML'),
-(12, 31, 'Apache Solr'),
-(15, 31, 'Object Oriented PHP');
+(73, 32, 'Product Sourcing'),
+(71, 31, 'Product Sourcing'),
+(70, 31, 'Object Oriented PHP'),
+(69, 31, 'Apache Solr'),
+(68, 31, 'HTML'),
+(67, 31, 'PHP'),
+(74, 32, 'javascript');
 
 -- --------------------------------------------------------
 
@@ -4978,7 +5002,7 @@ INSERT INTO `webuser_tax_information` (`id`, `webuser_id`, `legal_name`, `tax_no
 (1, 9, 'Hafizar', '12345', '9', 'dhaka', 'dhaka', 'dhaka', 'dhaka', 2562, 1474568150790),
 (2, 15, 'fgdfg', '122', '10', 'ertrr', 'rgey', 'rgeh', 'sfgdfg', 1222, 1477000971020),
 (3, 22, 'Palash', '1312324', '5', 'Dhaka', 'Mirpur', 'Dhaka', 'Dhaka', 12012, 1474565660130),
-(6, 13, 'Arun', '', '10', 'Arun', 'Arun', 'Arun', 'Arun', 122, 1487435324534);
+(6, 13, 'Arun', '', '15', 'Arun', 'Arun', 'Arun', 'Arun', 122, 1487796437419);
 
 -- --------------------------------------------------------
 
@@ -5220,13 +5244,63 @@ CREATE TABLE IF NOT EXISTS `workdairy_tracker` (
   `capture_time` text NOT NULL,
   `working_date` date DEFAULT NULL,
   PRIMARY KEY (`worktracker_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2361 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2411 ;
 
 --
 -- Dumping data for table `workdairy_tracker`
 --
 
 INSERT INTO `workdairy_tracker` (`worktracker_id`, `jobid`, `bid_id`, `cuser_id`, `fuser_id`, `cpture_image`, `capture_time`, `working_date`) VALUES
+(2410, 149, 210, 18, 13, NULL, '2017-02-21 23:00:20', '2017-02-21'),
+(2409, 149, 210, 18, 13, NULL, '2017-02-21 22:54:20', '2017-02-21'),
+(2408, 149, 210, 18, 13, NULL, '2017-02-21 22:48:20', '2017-02-21'),
+(2407, 149, 210, 18, 13, NULL, '2017-02-21 22:42:20', '2017-02-21'),
+(2406, 149, 210, 18, 13, NULL, '2017-02-21 22:36:20', '2017-02-21'),
+(2405, 149, 210, 18, 13, NULL, '2017-02-21 22:30:20', '2017-02-21'),
+(2404, 149, 210, 18, 13, NULL, '2017-02-21 22:24:20', '2017-02-21'),
+(2403, 149, 210, 18, 13, NULL, '2017-02-21 22:18:20', '2017-02-21'),
+(2402, 149, 210, 18, 13, NULL, '2017-02-21 22:12:20', '2017-02-21'),
+(2401, 149, 210, 18, 13, NULL, '2017-02-21 22:06:20', '2017-02-21'),
+(2400, 149, 210, 18, 13, NULL, '2017-02-21 22:00:20', '2017-02-21'),
+(2399, 149, 210, 18, 13, NULL, '2017-02-21 21:54:20', '2017-02-21'),
+(2398, 149, 210, 18, 13, NULL, '2017-02-21 21:48:20', '2017-02-21'),
+(2397, 149, 210, 18, 13, NULL, '2017-02-21 21:42:20', '2017-02-21'),
+(2396, 149, 210, 18, 13, NULL, '2017-02-21 21:36:20', '2017-02-21'),
+(2395, 149, 210, 18, 13, NULL, '2017-02-21 21:30:20', '2017-02-21'),
+(2394, 149, 210, 18, 13, NULL, '2017-02-21 21:24:20', '2017-02-21'),
+(2393, 149, 210, 18, 13, NULL, '2017-02-21 21:18:20', '2017-02-21'),
+(2392, 149, 210, 18, 13, NULL, '2017-02-21 21:12:20', '2017-02-21'),
+(2391, 149, 210, 18, 13, NULL, '2017-02-21 21:06:20', '2017-02-21'),
+(2390, 149, 210, 18, 13, NULL, '2017-02-21 21:00:20', '2017-02-21'),
+(2389, 149, 210, 18, 13, NULL, '2017-02-21 20:54:20', '2017-02-21'),
+(2388, 149, 210, 18, 13, NULL, '2017-02-21 20:48:20', '2017-02-21'),
+(2387, 149, 210, 18, 13, NULL, '2017-02-21 20:42:20', '2017-02-21'),
+(2386, 149, 210, 18, 13, NULL, '2017-02-21 20:36:20', '2017-02-21'),
+(2385, 149, 210, 18, 13, NULL, '2017-02-21 20:30:20', '2017-02-21'),
+(2384, 149, 210, 18, 13, NULL, '2017-02-21 20:24:20', '2017-02-21'),
+(2383, 149, 210, 18, 13, NULL, '2017-02-21 20:18:20', '2017-02-21'),
+(2382, 149, 210, 18, 13, NULL, '2017-02-21 20:12:20', '2017-02-21'),
+(2381, 149, 210, 18, 13, NULL, '2017-02-21 20:06:20', '2017-02-21'),
+(2380, 149, 210, 18, 13, NULL, '2017-02-21 20:00:20', '2017-02-21'),
+(2379, 149, 210, 18, 13, NULL, '2017-02-21 19:54:20', '2017-02-21'),
+(2378, 149, 210, 18, 13, NULL, '2017-02-21 19:48:20', '2017-02-21'),
+(2377, 149, 210, 18, 13, NULL, '2017-02-21 19:42:20', '2017-02-21'),
+(2376, 149, 210, 18, 13, NULL, '2017-02-21 19:36:20', '2017-02-21'),
+(2375, 149, 210, 18, 13, NULL, '2017-02-21 19:30:20', '2017-02-21'),
+(2374, 149, 210, 18, 13, NULL, '2017-02-21 19:24:20', '2017-02-21'),
+(2373, 149, 210, 18, 13, NULL, '2017-02-21 19:18:20', '2017-02-21'),
+(2372, 149, 210, 18, 13, NULL, '2017-02-21 19:12:20', '2017-02-21'),
+(2371, 149, 210, 18, 13, NULL, '2017-02-21 19:06:20', '2017-02-21'),
+(2370, 149, 210, 18, 13, NULL, '2017-02-21 19:00:20', '2017-02-21'),
+(2369, 149, 210, 18, 13, NULL, '2017-02-21 18:54:20', '2017-02-21'),
+(2368, 149, 210, 18, 13, NULL, '2017-02-21 18:48:20', '2017-02-21'),
+(2367, 149, 210, 18, 13, NULL, '2017-02-21 18:42:20', '2017-02-21'),
+(2366, 149, 210, 18, 13, NULL, '2017-02-21 18:36:20', '2017-02-21'),
+(2365, 149, 210, 18, 13, NULL, '2017-02-21 18:30:20', '2017-02-21'),
+(2364, 149, 210, 18, 13, NULL, '2017-02-21 18:24:20', '2017-02-21'),
+(2363, 149, 210, 18, 13, NULL, '2017-02-21 18:18:20', '2017-02-21'),
+(2362, 149, 210, 18, 13, NULL, '2017-02-21 18:12:20', '2017-02-21'),
+(2361, 149, 210, 18, 13, NULL, '2017-02-21 18:06:20', '2017-02-21'),
 (2360, 147, 207, 18, 13, NULL, '2017-02-06 18:00:03', '2017-02-06'),
 (2359, 147, 207, 18, 13, NULL, '2017-02-06 17:54:03', '2017-02-06'),
 (2358, 147, 207, 18, 13, NULL, '2017-02-06 17:48:03', '2017-02-06'),
