@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Feb 24, 2017 at 02:05 PM
+-- Generation Time: Feb 25, 2017 at 10:20 AM
 -- Server version: 5.5.52-cll-lve
 -- PHP Version: 5.6.20
 
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `country` (
   `country_index` int(10) NOT NULL,
   `country_status` varchar(2) NOT NULL,
   PRIMARY KEY (`country_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=126 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=214 ;
 
 --
 -- Dumping data for table `country`
@@ -298,7 +298,95 @@ INSERT INTO `country` (`country_id`, `country_name`, `country_shortcode`, `count
 (122, 'Martinique', 'MQ', '+596', '', '', '', '', 0, '1'),
 (123, 'Mauritania', 'MR', '+222', '', '', '', '', 0, '1'),
 (124, 'Mayotte', 'YT', '+269', '', '', '', '', 0, '1'),
-(125, 'Mexico', 'MX', '+52', '', '', '', '', 0, '1');
+(125, 'Mexico', 'MX', '+52', '', '', '', '', 0, '1'),
+(126, 'Micronesia', 'FM', '+691', '', '', '', '', 0, '1'),
+(127, 'Moldova', 'MD', '+373', '', '', '', '', 0, '1'),
+(128, 'Monaco', 'MC', '+377', '', '', '', '', 0, '1'),
+(129, 'Mongolia', 'MN', '+976', '', '', '', '', 0, '1'),
+(130, 'Montserrat', 'MS', '+1664', '', '', '', '', 0, '1'),
+(131, 'Morocco', 'MA', '+212', '', '', '', '', 0, '1'),
+(132, 'Mozambique', 'MZ', '+258', '', '', '', '', 0, '1'),
+(133, 'Myanmar', 'MN', '+95', '', '', '', '', 0, '1'),
+(134, 'Namibia', 'NA', '+264', '', '', '', '', 0, '1'),
+(135, 'Nauru', 'NR', '+674', '', '', '', '', 0, '1'),
+(136, 'Nepal', 'NP', '+977', '', '', '', '', 0, '1'),
+(137, 'Netherlands', 'NL', '+31', '', '', '', '', 0, '1'),
+(138, 'New Caledonia', 'NC', '+687', '', '', '', '', 0, '1'),
+(139, 'Nicaragua', 'NI', '+505', '', '', '', '', 0, '1'),
+(140, 'New Zealand', 'NZ', '+64', '', '', '', '', 0, '1'),
+(141, 'Niger', 'NE', '+227', '', '', '', '', 0, '1'),
+(142, 'Nigeria', 'NG', '234', '', '', '', '', 0, '1'),
+(143, 'Niue', 'NU', '+683', '', '', '', '', 0, '1'),
+(144, 'Norfolk Islands', 'NF', '+672', '', '', '', '', 0, '1'),
+(145, 'Northern Marianas', 'NP', '+670', '', '', '', '', 0, '1'),
+(146, 'Norway', 'NO', '+47', '', '', '', '', 0, '1'),
+(147, 'Oman', 'OM', '+968', '', '', '', '', 0, '1'),
+(148, 'Palau', 'PW', '+680', '', '', '', '', 0, '1'),
+(149, 'Panama', 'PA', '+507', '', '', '', '', 0, '1'),
+(150, 'Papua New Guinea', 'PG', '+675', '', '', '', '', 0, '1'),
+(151, 'Paraguay', 'PY', '595', '', '', '', '', 0, '1'),
+(152, 'Peru', 'PE', '+51', '', '', '', '', 0, '1'),
+(153, 'Philippines', 'PH', '+63', '', '', '', '', 0, '1'),
+(154, 'Poland', 'PL', '+48', '', '', '', '', 0, '1'),
+(155, 'Portugal', 'PT', '+351', '', '', '', '', 0, '1'),
+(156, 'Puerto Rico', 'PR', '+1787', '', '', '', '', 0, '1'),
+(157, 'Qatar', 'QA', '+974', '', '', '', '', 0, '1'),
+(158, 'Reunion', 'RE', '+262', '', '', '', '', 0, '1'),
+(159, 'Romania', 'RO', '+40', '', '', '', '', 0, '1'),
+(160, 'Russia', 'RU', '+7', '', '', '', '', 0, '1'),
+(161, 'Rwanda', 'RW', '+250', '', '', '', '', 0, '1'),
+(162, 'San Marino', 'SM', '+378', '', '', '', '', 0, '1'),
+(163, 'Sao Tome & Principe', 'ST', '+239', '', '', '', '', 0, '1'),
+(164, 'Saudi Arabia', 'SA', '+966', '', '', '', '', 0, '1'),
+(165, 'Senegal', 'SN', '+221', '', '', '', '', 0, '1'),
+(166, 'Serbia', 'CS', '+381', '', '', '', '', 0, '1'),
+(167, 'Seychelles', 'SC', '+248', '', '', '', '', 0, '1'),
+(168, 'Sierra Leone', 'SL', '+232', '', '', '', '', 0, '1'),
+(169, 'Singapore', 'SG', '+65', '', '', '', '', 0, '1'),
+(170, 'Slovak Republic', 'SK', '+421', '', '', '', '', 0, '1'),
+(171, 'Slovenia', 'SI', '+386', '', '', '', '', 0, '1'),
+(172, 'Solomon Islands', 'SB', '+677', '', '', '', '', 0, '1'),
+(173, 'Somalia', 'SO', '+252', '', '', '', '', 0, '1'),
+(174, 'South Africa', 'ZA', '+27', '', '', '', '', 0, '1'),
+(175, 'Spain', 'ES', '+34', '', '', '', '', 0, '1'),
+(176, 'Sri Lanka', 'LK', '+94', '', '', '', '', 0, '1'),
+(177, 'St. Helena', 'SH', '+290', '', '', '', '', 0, '1'),
+(178, 'St. Kitts', 'KN', '+1869', '', '', '', '', 0, '1'),
+(179, 'St. Lucia', 'SC', '+1758', '', '', '', '', 0, '1'),
+(180, 'Sudan', 'SD', '+249', '', '', '', '', 0, '1'),
+(181, 'Suriname', 'SR', '+597', '', '', '', '', 0, '1'),
+(182, 'Swaziland', 'SZ', '+268', '', '', '', '', 0, '1'),
+(183, 'Sweden', 'SE', '+46', '', '', '', '', 0, '1'),
+(184, 'Switzerland', 'CH', '+41', '', '', '', '', 0, '1'),
+(185, 'Syria', 'SI', '+963', '', '', '', '', 0, '1'),
+(186, 'Taiwan', 'TW', '+886', '', '', '', '', 0, '1'),
+(187, 'Tajikstan', 'TJ', '+7', '', '', '', '', 0, '1'),
+(188, 'Thailand', 'TH', '+66', '', '', '', '', 0, '1'),
+(189, 'Togo', 'TG', '+228', '', '', '', '', 0, '1'),
+(190, 'Tonga', 'TO', '+676', '', '', '', '', 0, '1'),
+(191, 'Trinidad & Tobago', 'TT', '+1868', '', '', '', '', 0, '1'),
+(192, 'Tunisia', 'TN', '+216', '', '', '', '', 0, '1'),
+(193, 'Turkey', 'TR', '+90', '', '', '', '', 0, '1'),
+(194, 'Turkmenistan', 'TM', '+7', '', '', '', '', 0, '1'),
+(195, 'Turkmenistan', 'TM', '+993', '', '', '', '', 0, '1'),
+(196, 'Turks & Caicos Islands', 'TC', '+1649', '', '', '', '', 0, '1'),
+(197, 'Tuvalu', 'TV', '+688', '', '', '', '', 0, '1'),
+(198, 'Uganda', 'UG', '+256', '', '', '', '', 0, '1'),
+(199, 'Ukraine', 'UA', '+380', '', '', '', '', 0, '1'),
+(200, 'United Arab Emirates', 'AE', '+971', '', '', '', '', 0, '1'),
+(201, 'Uruguay', 'UY', '+598', '', '', '', '', 0, '1'),
+(202, 'Uzbekistan', 'UZ', '+7', '', '', '', '', 0, '1'),
+(203, 'Vanuatu', 'VU', '+678', '', '', '', '', 0, '1'),
+(204, 'Vatican City', 'VA', '+379', '', '', '', '', 0, '1'),
+(205, 'Venezuela', 'VE', '+58', '', '', '', '', 0, '1'),
+(206, 'Vietnam', 'VN', '+84', '', '', '', '', 0, '1'),
+(207, 'Virgin Islands - British', 'VG', '+1284', '', '', '', '', 0, '1'),
+(208, 'Virgin Islands - US', 'VI', '+1340', '', '', '', '', 0, '1'),
+(209, 'Wallis & Futuna', 'WF', '+681', '', '', '', '', 0, '1'),
+(210, 'Yemen (North)', 'YE', '+969', '', '', '', '', 0, '1'),
+(211, 'Yemen (South)', 'YE', '+967', '', '', '', '', 0, '1'),
+(212, 'Zambia', 'ZM', '+260', '', '', '', '', 0, '1'),
+(213, 'Zimbabwe', 'ZW', '+263', '', '', '', '', 0, '1');
 
 -- --------------------------------------------------------
 
@@ -4721,7 +4809,7 @@ INSERT INTO `webuser` (`webuser_id`, `webuser_company`, `webuser_fname`, `webuse
 (9, '', 'Hasan', 'Rahman', 'hasan', 'temp/userimg_157100542218168084502024692625.jpeg', 'TYtW0TvXMGJB9K978oC6ph2j1L6RhX', 'hafijarrahman@gmail.com', '258b0812e0ac4d011cb9d9b7072b6c1c', 'Mykey2016', '2', '2', '', '', '9', '116576543564675', 'p3YEKaDeicgZ7ggKhyYZetnJW4Hc0B', '1471000246', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
 (11, '', 'Didar', 'Singh', 'didar084', '', 'rgA93XrEg9Y3NfyLi9mpe3T6Vqzs9R', 'didar084@gmail.com', '404a85dcecb080f5799dc3da3a812135', 'Shanna@5', '2', '2', '', '', '9', '', '', '', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
 (12, '', 'Arun', 'Nagyaan', 'arunk2711', '', '9WZRB8TIZC0e9HNARN2qUOomQ7F54C', 'arunk2711@gmail.com', '1359e1b2829b6ab3552f38d64da879f6', 'Arunk2711', '2', '1', '', '', '9', '', 'gYqKys5MiiUIi0L9ZxXmm0ZqC6hZHx', '1471001466', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
-(13, '', 'Arun', 'Kumar', 'arun', '', 'QnM7yAptNNSiW1Yh0xUOa7EznHvLg3', 'getupwork@gmail.com', '5455c33e251ab225e5c61c67e1902769', 'Arun', '2', '2', '', '', '87', '9999999999', 'p93BCI65rhfmT6M2XEpf3Rd8S6JYIO', '1485869660', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
+(13, '', 'Arun', 'Kumar', 'arun', '', 'QnM7yAptNNSiW1Yh0xUOa7EznHvLg3', 'getupwork@gmail.com', '5455c33e251ab225e5c61c67e1902769', 'Arun', '2', '2', '', '', '82', '99999999999', 'p93BCI65rhfmT6M2XEpf3Rd8S6JYIO', '1485869660', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
 (14, '', 'Michael Jay', 'Catubay', 'cmichaeljay89', '', 'O2M5lh1u6sslFTDtvUnBpvf9OjwshO', 'catubaymichaeljay@yahoo.com', '4cfe81cbdfcbc660837525796de7483a', 'nv01vostro', '2', '2', '', '', '9', '', 'ZFPmruLee6wgAZDrD2CYWJbOqcoJhx', '1472482086', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
 (15, '', 'Sheraz', ' salem', 'msherax', 'temp/userimg_10551427119675669211090345819.jpeg', 'RU2zapVPfrYnJb92lEvMLcjy4Nkn3D', 'm.sherax@gmail.com', 'befbc55882a5a60e8260b78de5a0911e', 'msherax', '2', '2', '', '', '9', '1111154888', '', '', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
 (16, '', 'alexei', 'andropov', 'alexei.andropov', '', 'v7GgXa1V2T9jBopuYgFjtzJwm3DHaH', 'alexei.andropov210@gmail.com', 'b21d455dc9a79b5a082ab9b38b985ae8', 'kaifaquA3212', '2', '2', '', '', '9', '', '', 'undefined', 'undefined', 'undefined', 1, 0, 0, '0000-00-00 00:00:00'),
@@ -4753,7 +4841,7 @@ INSERT INTO `webuser` (`webuser_id`, `webuser_company`, `webuser_fname`, `webuse
 (46, '', 'MD', 'Satu', 'md_satu', '', 'VHVDdKqKzdQ9vD0zPsfuxGUCUXBU78', 'mdsatu.pro@gmail.com', '27946274a201346f0322e3861909b5ff', 'satusatu', '2', '2', '', '', '5', '', '', '1487357809', '', '', 1, 0, 0, '2017-01-31 10:39:36'),
 (47, '', 'Ashish', 'Patil', 'Ashishi', '', 'Wk6mq1BHJtmE3KjVUdv8rs0sAv6V3o', 'iamashish_patil@Rediffmail.com', '7c8dd773ee4835d67029e21b64fb02fb', 'sbimanish', '2', '1', '', '', '10', '', '', '', '', '', 1, 0, 0, '2017-02-07 06:18:58'),
 (48, '', 'Zar', 'Htet', 'Zar Htet', '', 'EQ9rqxjOKPJsHgaggLhfP38Z0MEiH1', 'zarhtetoo@gmail.com', '0d261f802de0a78479d857697ccc33fc', 'zarhtetoo11', '2', '2', '', '', '44', '', '', '', '', '', 1, 0, 0, '2017-02-20 10:18:34'),
-(49, '', 'shivani', 'patidar', 'shivani', '', 'aS3h3sEkWpgWLGj3Kk7KYFENSCEwrk', 'shivanidesignersveltosest005@gmail.com', '20f6ebca209ba3b5c07622689c97ef3c', '@Sh1van1', '1', '1', '', '', '10', '', '', '', '', '', 1, 0, 0, '2017-02-24 10:32:47');
+(49, '', 'shivani', 'patidar', 'shivani', '', 'aS3h3sEkWpgWLGj3Kk7KYFENSCEwrk', 'shivanidesignersveltosest005@gmail.com', '20f6ebca209ba3b5c07622689c97ef3c', '@Sh1van1', '1', '2', '', '', '10', '', '', '', '', '', 1, 0, 0, '2017-02-24 10:32:47');
 
 -- --------------------------------------------------------
 
@@ -4786,7 +4874,7 @@ INSERT INTO `webuseraddresses` (`id`, `webuser_id`, `address`, `address1`, `city
 (17, 22, 'Shewrapara', 'Dhaka', 'Dhaka', 'Dhaka', '1212', '5', '8801717457174', 'UTC 06.00 Almaty, Dhaka'),
 (16, 9, 'brisbane', 'brisbane', 'brisbane', 'brisbane', '3422', '9', '116576543564675', ''),
 (11, 16, 'ertert', 'dfgdfgd', 'Bogra', 'Bogra', '5881', 'Bangladesh', '  880 01711473899', 'UTC   06.00 Almaty, Dhaka'),
-(20, 13, 'street address 1', 'street address 2', 'City', 'State', '4500', '87', '9999999999', '5'),
+(20, 13, 'street address 1', 'street address 2', 'City', 'State', '4500', '82', '99999999999', '5'),
 (21, 29, 'fgdthted', 'rgetyh', 'etrhytrjr', 'rtjuhrtu', '1243', '14', '122323322', '15');
 
 -- --------------------------------------------------------
@@ -5002,7 +5090,7 @@ INSERT INTO `webuser_tax_information` (`id`, `webuser_id`, `legal_name`, `tax_no
 (1, 9, 'Hafizar', '12345', '9', 'dhaka', 'dhaka', 'dhaka', 'dhaka', 2562, 1474568150790),
 (2, 15, 'fgdfg', '122', '10', 'ertrr', 'rgey', 'rgeh', 'sfgdfg', 1222, 1477000971020),
 (3, 22, 'Palash', '1312324', '5', 'Dhaka', 'Mirpur', 'Dhaka', 'Dhaka', 12012, 1474565660130),
-(6, 13, 'Arun', '', '15', 'Arun', 'Arun', 'Arun', 'Arun', 122, 1487796437419);
+(6, 13, 'Arun', '111111', '212', 'Arunfg', 'Arungg', 'Arungg', 'Arungg', 122, 1488040594940);
 
 -- --------------------------------------------------------
 
