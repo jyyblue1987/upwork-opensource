@@ -447,9 +447,7 @@ class Profile extends CI_Controller {
                 } else {
                     //update webuser table//
                     $country = $this->input->post("country");
-                    //$phone = $this->input->post("countryCode") . $this->input->post("phone");
-                    //indsys technologies
-                    $phone = $this->input->post("phone");
+                    $phone = $this->input->post("countryCode") . $this->input->post("phone");
                     $webuser['webuser_country'] = $country;
                     $webuser['webuser_phone'] = $phone;
                     $formVal['country'] = $country;
@@ -463,12 +461,12 @@ class Profile extends CI_Controller {
                     $condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
                     $hasUpdated = $this->common_mod->updateVal(WEB_USER_TABLE, $webuser, null, $condition);
                     if ($hasUpdated) {
-                        if ($this->common_mod->getCountUserDetails(WEB_USER_ADDRESS, $this->session->userdata(USER_ID)) > 0) {
+                        if ($this->common_mod->getCount(WEB_USER_ADDRESS, null, $condition) > 0) {
                             $hasUpdated = $this->common_mod->updateVal(WEB_USER_ADDRESS, $formVal, null, $condition);
                             if ($hasUpdated) {
                                 $this->session->set_userdata('webuser_country', $country);
                                 $response['status'] = "success";
-                                $response['msg'] = "Your contact details successfully updated!";
+                                $response['msg'] = "Your contact details successfully updated";
                             } else {
                                 $response['msg'] = "Sorry system error. Please refresh the page and try again";
                             }
@@ -545,6 +543,7 @@ class Profile extends CI_Controller {
                     $formVal['project_category'] = $this->input->post("projectCategory");
                     $formVal['project_url'] = $this->input->post("projectURL");
                     $formVal['completion_date'] = $this->input->post("projectCompletionDate");
+                    $formVal['completion_date'] = date('Y-m-d', strtotime($formVal['completion_date']));
                     $formSkills = $this->input->post("projectSkillsUsed");
                     $formVal['creation_time'] = date('Y-m-d');
                     //check skill//
@@ -657,9 +656,12 @@ class Profile extends CI_Controller {
                         $data = $this->common_mod->get(WEB_USER_PORTFOLIO_TABLE, null, $condition);
                         if (!empty($data['rows']) && is_array($data['rows'])) {
                             $row = $data['rows'][0];
+
                             foreach ($row as $key => $value) {
                                 $params[$key] = $value;
                             }
+
+                            empty($params['completion_date']) or $params['completion_date'] = date('m/d/Y', strtotime($params['completion_date']));
                             $params['projectCateList'] = $this->Category->get_categories();
                             // added by Armen start
                             
@@ -690,6 +692,7 @@ class Profile extends CI_Controller {
                 }
             }
         }
+        // print_r($params);
         echo $this->load->view("webview/profile/edit-portfolio", $params, true);
     }
 
@@ -861,11 +864,11 @@ class Profile extends CI_Controller {
                     //     if (sizeof(explode(",", $formVal['skills'])) > 5) {
                     if(count($formVal['skills']) > 5){
                         $this->session->set_flashdata(ERROR_MESSAGE, "Maximum 5 skills allowed to insert. Please check");
-                        redirect("profile/basic#basic-profile-area");
+                        redirect(site_url("profile/basic#basic-profile-area"));
                         // }
                     // }
                     }
-                    $condition = " AND webuser_id=" . $this->session->userdata(USER_ID) . " ";
+                    $condition = " webuser_id=" . $this->session->userdata(USER_ID) . " ";
                     // added by Armen start
 
                     if ($this->common_mod->getCount(webuser_skills, null, $condition) > 0) {
@@ -889,7 +892,7 @@ class Profile extends CI_Controller {
                     // added by Armen end
                     if ($this->common_mod->getCount(WEB_USER_BASIC_PROFILE_TABLE, null, $condition) > 0) {
                         //if exits do update//
-                        $hasUpdated = $this->common_mod->updateVal(WEB_USER_BASIC_PROFILE_TABLE, $formVal, null, $condition);
+                        $hasUpdated = $this->common_mod->updateVal(WEB_USER_BASIC_PROFILE_TABLE, $formVal, null, ' AND ' . $condition);
                         if ($hasUpdated) {
                             //$this->session->set_flashdata(SUCCESS_MESSAGE,"Your profile basic information successfully updated.");
                             $response['status'] = "success";

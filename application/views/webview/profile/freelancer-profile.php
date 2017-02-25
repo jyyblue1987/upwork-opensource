@@ -414,7 +414,7 @@ foreach ($accepted_jobs as $job_data) {
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <div class="proftilbutt">
-                                    <button style="margin-right:28px" class="pull-right" id="buttontrei"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; &nbsp;Add Portfolio</button>
+                                    <button style="margin-right:28px" class="pull-right edit-portfolio" id="buttontrei"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; &nbsp;Add Portfolio</button>
                                 </div>
                             </div>
                         </div>
@@ -484,7 +484,7 @@ if (isset($portfolios) && is_array($portfolios) && sizeof($portfolios) > 0) {
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <div class="protilo-right">
-                                    <button style="margin-right:28px" class="pull-right" id="buttontrei"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; &nbsp;Add Experience</button>
+                                    <button style="margin-right:28px" class="pull-right edit-exp" id="buttontrei"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; &nbsp;Add Experience</button>
                                 </div>
                             </div>
                         </div>
@@ -566,7 +566,7 @@ foreach ($experience as $val) { ?>
 
                             <div class="col-md-6 col-sm-6">
                                 <div class="proftilbutttwo">
-                                    <button style="margin-right:28px" class="pull-right" id="buttontrei"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; &nbsp;Add Education</button>
+                                    <button style="margin-right:28px" class="pull-right edit-edu" id="buttontrei"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; &nbsp;Add Education</button>
                                 </div>
                             </div>
 
@@ -579,9 +579,14 @@ foreach ($experience as $val) { ?>
 <?php
 $this->load->view("webview/profile/portfolio-modal");
 $this->load->view("webview/profile/exp-modal");
+$this->load->view("webview/profile/edu-modal");
 // $this->load->view("webview/includes/footer"); 
 $this->load->view("webview/includes/footer-common-script");
 ?>
+        <script type="text/javascript">
+            var base_url = '<?php echo base_url() ?>';
+        </script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/internal/profile.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 $('.remove-portfolio').click(function (e) {
