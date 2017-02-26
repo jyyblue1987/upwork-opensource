@@ -175,7 +175,7 @@ input.btn-cancel:hover{border:1px solid transparent;color:#fff;background:#28609
 					<div class="col-md-10 col-md-offset-1">
 						<div class="row">
 							
-							<div style="font-size: 14px;" class="col-md-8 text-centered text-left gray-text">dfdf<?php if($job_status->fixedpay_amount == $job_status->bid_amount){ echo "Paid All";} elseif($job_status->fixedpay_amount < $job_status->bid_amount){echo "Milestone";} elseif($job_status->fixedpay_amount == 0 ) {echo "Paid Nothing";} ?></div>
+							<div style="font-size: 14px;" class="col-md-8 text-centered text-left gray-text"><?php if($job_status->fixedpay_amount == $job_status->bid_amount){ echo "Paid All";} elseif($job_status->fixedpay_amount < $job_status->bid_amount){echo "Milestone";} elseif($job_status->fixedpay_amount == 0 ) {echo "Paid Nothing";} ?></div>
 							<div style="font-size: 14px;" class="col-md-2 text-centered text-right gray-text">$<?= $job_status->fixedpay_amount;?></div>
 							<div style="font-size: 14px;" class="col-md-2 text-centered text-center gray-text"><?php  echo date(' M j, Y ', strtotime($job_status->start_date)); ?></div>
 						</div>

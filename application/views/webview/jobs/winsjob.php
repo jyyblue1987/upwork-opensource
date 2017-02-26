@@ -183,7 +183,7 @@
                                                 </div>
                                              <div class="wj_work_diary_butt">
                                                  <div class="work_diary-active hour_btn">
-                                                     <a href="<?php echo base_url() ?>jobs/workdairy_client?fmJob=<?php echo base64_encode($data->job_id);?>&fuser=<?php echo base64_encode($data->fuser_id);?>">
+                                                     <a href="<?php echo base_url() ?>jobs/workdairy_freelancer?fmJob=<?php echo base64_encode($data->job_id);?>&fuser=<?php echo base64_encode($data->fuser_id);?>">
 										<input type="button" class="btn btn-primary form-btn" value="Work Diary" />
 										</a>
                                                  </div>
@@ -296,7 +296,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="job_detais">
-                                                <a href="<?php echo base_url() ?>jobs/fixed_freelancer_view?fmJob=<?php echo base64_encode($data->job_id); ?>"> Job Details </a>- 
+                                                <a href="<?php echo base_url() ?>jobs/fixed_freelancer_view?fmJob=<?php echo base64_encode($data->job_id);?>"> Job Details </a>- 
                                                 <span><b><?= $data->hire_title ?></b></span>
                                             </div>
                                         </div>
