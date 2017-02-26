@@ -447,7 +447,7 @@ class Profile extends CI_Controller {
                 } else {
                     //update webuser table//
                     $country = $this->input->post("country");
-                    $phone = $this->input->post("countryCode") . $this->input->post("phone");
+                    $phone   = $this->input->post("phone");
                     $webuser['webuser_country'] = $country;
                     $webuser['webuser_phone'] = $phone;
                     $formVal['country'] = $country;
@@ -459,9 +459,11 @@ class Profile extends CI_Controller {
                     $formVal['zipcode'] = $this->input->post("zipcode");
                     $formVal['timezone'] = $this->input->post("timeZone");
                     $condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
+                    
+                    $condition_on = "webuser_id=" . $this->session->userdata(USER_ID);
                     $hasUpdated = $this->common_mod->updateVal(WEB_USER_TABLE, $webuser, null, $condition);
                     if ($hasUpdated) {
-                        if ($this->common_mod->getCount(WEB_USER_ADDRESS, null, $condition) > 0) {
+                        if ($this->common_mod->getCount(WEB_USER_ADDRESS, null, $condition_on) > 0) {
                             $hasUpdated = $this->common_mod->updateVal(WEB_USER_ADDRESS, $formVal, null, $condition);
                             if ($hasUpdated) {
                                 $this->session->set_userdata('webuser_country', $country);
@@ -847,6 +849,7 @@ class Profile extends CI_Controller {
                 );
                 $this->form_validation->set_rules($fieldCheck);
                 if ($this->form_validation->run() == FALSE) {
+                    // die('["ok"]');
                     //$this->basicProfilePage();
                     $response['msg'] = validation_errors();
                 } else {
@@ -864,7 +867,9 @@ class Profile extends CI_Controller {
                     //     if (sizeof(explode(",", $formVal['skills'])) > 5) {
                     if(count($formVal['skills']) > 5){
                         $this->session->set_flashdata(ERROR_MESSAGE, "Maximum 5 skills allowed to insert. Please check");
-                        redirect(site_url("profile/basic#basic-profile-area"));
+                        echo json_encode(['status' => 'error', 'url' => "basic"]);
+                        return;
+                        // redirect(site_url("profile/basic#basic-profile-area"));
                         // }
                     // }
                     }

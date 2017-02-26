@@ -199,6 +199,13 @@ $this->session->unset_userdata(ACTION_DATA);
             dataType: "json",
             type: "post",
             success: function (response) {
+                if (response.status == 'error') {
+                    if (document.location.href == response.url) {
+                        document.location.reload();
+                    }
+
+                    document.location.href = response.url;
+                }
                 if (response.status == "success") {
                     $('.sys-message').html(response.msg).css({'color': 'green'});
                 } else {
