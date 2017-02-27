@@ -2,6 +2,19 @@
 .change_btn-primary{background:#028cc9;color:#fff;}
 .change_btn-primary:hover{background:#286090;}
 </style>
+<style type="text/css">
+  .cropArea {
+  background: #E4E4E4;
+  overflow: hidden;
+  width:500px;
+  height:350px;
+}
+
+</style>
+ <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/ng-img-crop.css">
+<script type='text/javascript' src="<?php echo base_url(); ?>assets/js/ng-img-crop.js"></script>
 
 <section id="big_header" style="margin-top:40px;margin-bottom:40px;height: auto;"> 
     <div class="container" >
@@ -115,17 +128,19 @@
                                     <div class="row" >
                                         <div class="col-xs-2">
                                             <span>Picture</span>
+                                           
                                         </div>
                                         <div style="margin-left: 70px;" class="col-xs-4">
                                             <?php if ($this->Adminforms->getdatax("picture", "webuser", $id) == "") { ?>
                                                 <img style="border-radius: 86%;height: 100px;width: 100px;" src="<?php echo site_url("assets/user.png"); ?>" width="100px">
                                             <?php } else { ?>
-                                                <img style="border-radius: 86%;height: 100px;width: 100px;" src="<?php echo site_url($this->Adminforms->getdatax("picture", "webuser", $id)); ?>" width="100px">
+                                                <img style="border-radius: 86%;height: 100px;width: 100px;" src="<?php echo $croppedImage->cropped_image;?>" width="100px">
                                             <?php }
-                                            ?>                                        
+                                            ?>
                                         </div>
-                                        <div class="col-xs-4">
-                                           <a style=" width: 100px;margin-top: 10px;" href="<?php echo site_url("changepic"); ?>" class="btn change_btn-primary btn-primary pull-left"> Change Picture</a>
+                                        <div class="col-xs-4">                                        
+                                         <!--<a  href="<?php //echo site_url("changepic"); ?>" class="btn change_btn-primary btn-primary pull-left"> Change Picture111</a>-->
+                                         <a  data-toggle="modal" data-target="#myModal" href="#" class="btn change_btn-primary btn-primary pull-left"> Change Picture</a>
                                         </div>
                                     </div>
                                     <div class="row" style="margin-top: 10px;">
@@ -332,7 +347,8 @@
                             <div class="row">
                                 <label class="col-md-3 col-xs-12">Country</label>
                                 <div class="col-md-8 col-xs-12">
-                                    <select style="width: 250px;font-size: 16px;font-family: calibri;" style="width: 250px;" name="country" class="select form-control">
+									<!----------add id country_mob_code  indsys technology------>
+                                    <select style="width: 250px;font-size: 16px;font-family: calibri;" style="width: 250px;" name="country" id="country_mob_code" onchange="getCountryCode();" class="select form-control">
                                         <option value="">Select Country</option>
                                         <?php
                                         if (isset($countryList) && is_array($countryList) && !empty($countryList)) {
@@ -356,10 +372,12 @@
                                 <div class="col-md-8 col-xs-12">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <input style="width: 85px;" value="" name="countryCode" class="form-control"/>
+											<!----------add id Indsys Technologies---------------->
+                                            <input style="width: 85px;" id="country_dialingcode" value="" name="countryCode" class="form-control"/>
                                         </div>
+                                        <!----------add class numbersOnly  Indsys Technologies------>
                                         <div class="col-md-8 no-paging">
-                                            <input style="width: 229px;" value="<?php if (isset($webuserContactDetails) && is_array($webuserContactDetails) && !empty($webuserContactDetails)) echo $webuserContactDetails['phone_number'] ?>" name="phone" class="form-control"/>
+                                            <input style="width: 229px;" value="<?php if (isset($webuserContactDetails) && is_array($webuserContactDetails) && !empty($webuserContactDetails)) echo $webuserContactDetails['phone_number'] ?>" name="phone" class="form-control numbersOnly" id="phone" maxlength="15"/>
                                         </div>
                                     </div>
                                 </div>
@@ -388,10 +406,148 @@
     </div>
 
 
-</section><!-- big_header-->
+</section><!-- big_header--> 
 
 
+<!-- modal popup -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog" ng-app="app" ng-controller="Ctrl">
+    <div class="modal-dialog" style="width: 950px !important ">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+      <form action="<?php echo site_url("savepic"); ?>" method="POST">
+        <div class="modal-header" style="border: none;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body" style="border: none;">
+          <div class="row">
+        <div class="col-xs-12 col-sm-6 col-lg-8">
+            <div>Select an image file: <input type="file" name="picture" id="fileInput" /></div>
+                <div class="cropArea">
+                  <img-crop image="myImage" result-image="myCroppedImage"></img-crop>
+            </div>
+
+        </div>
+        <div class="col-xs-6 col-lg-4" style="margin-top: 53px;">
+             <div>Cropped Image:</div>
+              <div><img ng-src="{{myCroppedImage}}" /></div>
+              <textarea name="CroppedImage" class="result-datauri">{{myCroppedImage}}</textarea>
+              
+        </div>
+      </div>
+        </div>
+        <div class="modal-footer">
+        <button class="btn btn-primary" id="cropContainerHeaderButton">Save</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+
+
+
+
+ <!-- Modal -->
+  <div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog" style="width: 800px;">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="border: none;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body" style="border: none;">
+            <div class="row">
+                <div class="col-xs-12 col-md-8">
+                    <div>Select an image file: <input type="file" id="fileInput" /></div>
+                      <div class="cropArea">
+                        <img-crop image="myImage" result-image="myCroppedImage"></img-crop>
+                      </div>
+                </div>
+                <div class="col-xs-6 col-md-4" style="margin-top: 27px;">
+                    <div>Cropped Image:</div>
+                    <div><img ng-src="{{myCroppedImage}}" /></div>
+                </div>
+                <div class="modal-footer">
+                   <button class="btn-primary transparent-btn big_mass_button" id="cropContainerHeaderButton">Save</button>
+                        
+                  <button type="button" class="btn-danger transparent-btn big_mass_button" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>      
+        </div>
+       </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+  angular.module('app', ['ngImgCrop'])
+  .controller('Ctrl', function($scope) {
+    $scope.myImage='';
+    $scope.myCroppedImage='';
+
+    var handleFileSelect=function(evt) {
+      var file=evt.currentTarget.files[0];
+      var reader = new FileReader();
+      reader.onload = function (evt) {
+        $scope.$apply(function($scope){
+          $scope.myImage=evt.target.result;
+        });
+      };
+      reader.readAsDataURL(file);
+    };
+    angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
+  });
+
+
+</script>
+<!--******Indsys Technologies 23/02/2017  country_dialingcode******-->
 <script type="text/javascript">
+$('.numbersOnly').keyup(function () {
+    if (this.value != this.value.replace(/[^0-9\.]/g, '')) {
+       this.value = this.value.replace(/[^0-9\.]/g, '');
+    }
+});
+
+   function getCountryCode(){
+      getcountry_dialingcode();
+	}
+	
+	$(document).ready(function() {
+    getcountry_dialingcode();
+    });
+
+function getcountry_dialingcode(){
+		var country_code = $("#country_mob_code").val();
+	     $.ajax({
+            url: "<?php echo base_url() ?>profilesetting/getcountry_dialingcode",
+            data: 'country_dialingcode='+country_code,
+            dataType: "json",
+            type: "post",
+            success: function (response) {
+				if(response.key=='sucsses'){
+				$("#country_dialingcode").val(response.country_dialingcode);	  
+				$('#country_dialingcode').attr('readonly', true);	  
+				}else{
+				$("#country_dialingcode").val('');
+				$('#country_dialingcode').attr('readonly', false);		
+			   }
+            
+            },
+         
+        });
+	
+	
+	}
+<!-------------------------end--------------------------------------->
 
  <?php if($profile==1)
     {
