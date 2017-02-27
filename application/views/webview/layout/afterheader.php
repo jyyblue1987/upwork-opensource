@@ -8,7 +8,7 @@ $job_alert_count = $Conversation->job_alert();
 $freelancerend = $Conversation->freelancerend();
 $clientend = $Conversation->clientend();
 ?></head>
-<body> 
+<body  ng-app="app" ng-controller="Ctrl">
     <section class="container-fluid top_header "> 
         <nav class="navbar navbar-default">
             <div class="container">
