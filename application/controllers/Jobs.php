@@ -54,8 +54,8 @@ class Jobs extends CI_Controller {
             if ($this->session->userdata('type') != 1) {
                 redirect(site_url("find-jobs"));
             }
-			
-			/* check if account is suspend then redirect to payment start */
+            
+            /* check if account is suspend then redirect to payment start */
             
             $user_id = $this->session->userdata('id');
             $this->db->select('*');            
@@ -83,6 +83,7 @@ class Jobs extends CI_Controller {
             // Added by Armen end
             $data = array('js' => array('vendor/jquery.form.js', 'internal/job_create.js'),
                 'skillList' => $skillList);
+            $data2 = $this->input->post();
             $this->Admintheme->webview("jobs/create_job", $data);
         }
         if ($this->input->post('title')) {
@@ -117,6 +118,7 @@ class Jobs extends CI_Controller {
                 $data = $this->input->post();
                 $skills = $this->input->post('skills');
 
+
                 $skillNames = '';
                 if (isset($dbPath))
                     $data['userfile'] = $dbPath;
@@ -124,7 +126,12 @@ class Jobs extends CI_Controller {
                 $data['skills'] = $skillNames;
                 $data['job_created'] = $data['created'];
 
+                $date_utc = new \DateTime(null, new \DateTimeZone("UTC"));
+                $data['job_created'] = $date_utc->format('Y-m-d H:i:s');
+                $data['created'] = $data['job_created'];
+
                 unset($data['submitbtn']);
+
                 if ($this->db->insert('jobs', $data)) {
                     $insert_id = $this->db->insert_id();
                     // Added by Armen start
@@ -153,6 +160,7 @@ class Jobs extends CI_Controller {
 
         $data = $this->session->userdata('preview');
         unset($data['submitbtn']);
+        is_array($data['skills']) and $data['skills'] = implode(' ', $data['skills']);
         if ($this->input->post('submitbtn')) {
             if ($this->db->insert('jobs', $data)) {
                 $insert_id = $this->db->insert_id();

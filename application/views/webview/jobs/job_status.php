@@ -1,6 +1,7 @@
 <?php
- function time_elapsed_string($ptime)
+ function time_elapsed_string($_ptime)
 {
+    $ptime = strtotime($_ptime);
     $etime = time() - $ptime;
 
     if ($etime < 1)
@@ -258,7 +259,7 @@ $clientend = $Conversation->clientend();
                 <div class="row"> 
                     <div class="col-md-3">
                         <div style="margin-left: -4px;">
-							<?php echo time_elapsed_string(strtotime($value->job_created)); ?>
+							<?php echo time_elapsed_string($value->job_created); ?>
 						</div>
                     </div>
                     

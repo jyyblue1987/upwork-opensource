@@ -50,12 +50,12 @@
                         </div>
                         <div class="col-md-9 skills">
                             <?php
-                            if(isset($data['skills']) && !empty($data['skills']))
-                            {
-                            $skills=  explode(' ', $data['skills']);
-                            foreach ($skills as $skill)
-                                echo "<span>$skill</span> ";
-                            }
+                            if (isset($data['skills']) && !empty($data['skills'])) {
+                                $skills =  is_string($data['skills']) ? explode(' ', $data['skills']) : $data['skills'];
+
+                                foreach ($skills as $skill)
+                                    echo "<span>$skill</span> ";
+                                }
                             ?>
                         </div>
                     </div>
