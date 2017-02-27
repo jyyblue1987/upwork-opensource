@@ -455,39 +455,7 @@
 
 
 
- <!-- Modal -->
-  <div class="modal fade" id="myModal1" role="dialog">
-    <div class="modal-dialog" style="width: 800px;">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header" style="border: none;">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
-        </div>
-        <div class="modal-body" style="border: none;">
-            <div class="row">
-                <div class="col-xs-12 col-md-8">
-                    <div>Select an image file: <input type="file" id="fileInput" /></div>
-                      <div class="cropArea">
-                        <img-crop image="myImage" result-image="myCroppedImage"></img-crop>
-                      </div>
-                </div>
-                <div class="col-xs-6 col-md-4" style="margin-top: 27px;">
-                    <div>Cropped Image:</div>
-                    <div><img ng-src="{{myCroppedImage}}" /></div>
-                </div>
-                <div class="modal-footer">
-                   <button class="btn-primary transparent-btn big_mass_button" id="cropContainerHeaderButton">Save</button>
-                        
-                  <button type="button" class="btn-danger transparent-btn big_mass_button" data-dismiss="modal">Close</button>
 
-                </div>
-            </div>      
-        </div>
-       </div>
-    </div>
-  </div>
   <script type="text/javascript">
   angular.module('app', ['ngImgCrop'])
   .controller('Ctrl', function($scope) {
