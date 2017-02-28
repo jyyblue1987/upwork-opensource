@@ -67,6 +67,8 @@ class Common_mod extends CI_Model{
 			$this->db->from($tabl);
 			$this->db->where('country_id',$country_id);
 			return $this->db->get()->row();
+		
+		
 		}    
     
     // added by jeison arenales start
@@ -88,7 +90,7 @@ class Common_mod extends CI_Model{
 
         $query = $this->db->get()->row();
 
-        return $query->total;
+        return $query;
       }
       else
         return 0;
