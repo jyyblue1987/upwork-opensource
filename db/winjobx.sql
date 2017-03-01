@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Feb 28, 2017 at 10:32 AM
+-- Generation Time: Mar 01, 2017 at 03:47 PM
 -- Server version: 5.5.52-cll-lve
 -- PHP Version: 5.6.20
 
@@ -568,7 +568,7 @@ INSERT INTO `jobs` (`id`, `user_id`, `title`, `category`, `job_description`, `jo
 (155, 18, 'Hourly-Applied count and hire page interview count issue', 1, 'Hourly-Applied count and hire page interview count issue', 'hourly', '', '1_3_months', 'Experienced', 0.00, '10-19', '', 1, '2017-02-18 10:22:29', '2017-02-18 10:22:29'),
 (154, 18, 'Fixed-Applied count and hire page interview count issue', 1, 'Fixed-Applied count and hire page interview count issue', 'fixed', '', '3_6_months', 'Entry level', 30.00, 'not_sure', '', 1, '2017-02-18 10:21:51', '2017-02-18 10:21:51'),
 (153, 18, 'seo for 1 webiste', 1, 'seo for 1 webiste', 'fixed', '', 'more_than_6_months', 'Entry level', 500.00, 'not_sure', '', 1, '2017-02-17 10:34:36', '2017-02-17 10:34:36'),
-(152, 18, 'Designer', 1, 'Designer', 'hourly', '', '1_3_months', 'Entry level', 0.00, '20-29', '', 1, '2017-02-15 08:21:01', '2017-02-15 08:21:01'),
+(152, 18, 'Designer', 1, 'Designer', 'hourly', '', '1_3_months', 'Entry level', 0.00, '20-29', '', 0, '2017-02-15 08:21:01', '2017-02-15 08:21:01'),
 (151, 29, 'php', 1, 'saf safsaf ', 'hourly', '', 'not_sure', 'Entry level', 0.00, 'not_sure', '', 0, '2017-02-12 15:52:53', '2017-02-12 15:52:53'),
 (150, 18, 'fixed rate', 1, 'fixed rate', 'fixed', '', '3_6_months', 'Entry level', 300.00, 'not_sure', '', 0, '2017-02-03 18:53:10', '2017-02-03 18:53:10'),
 (102, 29, 'html', 4, 'We need few html expert', 'hourly', 'Java', 'less_than_1_week', 'Entry level', 0.00, '1-9', '', 0, '2016-12-09 17:52:31', '2016-12-09 17:52:31'),
@@ -739,7 +739,7 @@ INSERT INTO `job_bids` (`id`, `user_id`, `job_id`, `bid_amount`, `bid_fee`, `bid
 (218, 13, 152, 5.00, 0.50, 4.50, NULL, 'yrtuytru', 1, '0', NULL, NULL, 0, 5.00, 0.50, 4.50, '0', NULL, 0.00, 0.00, '0', '2017-02-15 08:21:32', 0, NULL, 0, '0.00', 0, 1, 1, 0),
 (219, 9, 152, 5.00, 0.50, 4.50, NULL, 'tyur6tu', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-17 10:30:57', 0, NULL, 1, '0.00', 0, 1, 2, 0),
 (220, 15, 152, 5.00, 0.50, 4.50, NULL, 'fgdfhg', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-17 10:31:24', 0, NULL, 0, '0.00', 0, NULL, NULL, 0),
-(221, 13, 153, 600.00, 60.00, 540.00, 'Less than 1 month', 'fsgfdg', 0, '0', 'seo for 1 webiste', 'fdhfdh', 0, NULL, NULL, NULL, '0', '1', 0.00, 610.00, '17/02/2017', '2017-02-17 10:35:06', 0, NULL, 0, '600.00', 0, NULL, NULL, 3),
+(221, 13, 153, 600.00, 60.00, 540.00, 'Less than 1 month', 'fsgfdg', 0, '0', 'seo for 1 webiste', 'fdhfdh', 0, NULL, NULL, NULL, '0', '1', 0.00, 615.00, '17/02/2017', '2017-02-17 10:35:06', 0, NULL, 0, '600.00', 0, NULL, NULL, 3),
 (222, 9, 153, 61.00, 6.10, 54.90, 'Less than 1 week', 'frgtdfy', 0, '1', 'seo for 1 webiste', 'hfdh', 0, NULL, NULL, NULL, '0', '1', 0.00, 61.00, '17/02/2017', '2017-02-17 10:35:34', 0, NULL, 0, '61.00', 0, NULL, NULL, 2),
 (223, 15, 153, 45.00, 4.50, 40.50, 'Less than 1 month', 'dgfhftghj', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-18 09:57:40', 0, NULL, 0, '0.00', 0, NULL, NULL, 0),
 (224, 9, 154, 12.00, 1.20, 10.80, 'Less than 1 month', 'Hourly-Applied count and hire page interview count issue', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-18 10:23:10', 0, NULL, 1, '0.00', 0, 1, 2, 1),
@@ -916,7 +916,7 @@ CREATE TABLE IF NOT EXISTS `job_conversation` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `have_seen` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1= unseen,0=seen',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=335 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=337 ;
 
 --
 -- Dumping data for table `job_conversation`
@@ -942,6 +942,8 @@ INSERT INTO `job_conversation` (`id`, `job_id`, `bid_id`, `message_conversation`
 (36, 32, 14, 'hi', 25, 18, '2016-09-01 19:01:54', 0),
 (37, 33, 19, 'hi', 9, 18, '2016-09-01 19:03:56', 0),
 (38, 32, 14, 'gh,fhfdfh hd hd', 25, 18, '2016-09-01 19:12:10', 0),
+(336, 153, 221, 'hi', 13, 18, '2017-03-01 17:02:36', 0),
+(335, 157, 228, 'h', 13, 18, '2017-03-01 08:01:38', 0),
 (334, 157, 228, 'hi', 13, 18, '2017-02-27 20:29:00', 0),
 (128, 36, 30, 'yes m here', 25, 18, '2016-09-29 07:14:57', 0),
 (333, 153, 221, 'ssssssaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 13, 18, '2017-02-27 18:50:25', 0),
@@ -1161,7 +1163,7 @@ CREATE TABLE IF NOT EXISTS `job_feedback` (
 --
 
 INSERT INTO `job_feedback` (`feedback_id`, `feedback_job_id`, `feedback_userid`, `feedback_clientid`, `sender_id`, `feedback_skill`, `feedback_quality`, `feedback_ability`, `feedback_deadline`, `feedback_communication`, `feedback_score`, `feedback_comment`, `feedback_creted`, `haveseen`) VALUES
-(94, 143, 13, 18, 13, 0.00, 0.00, 0.00, 0, 0.00, 0.00, 'gfyfu', '2017-02-28 17:24:23', 1),
+(94, 143, 13, 18, 13, 0.00, 0.00, 0.00, 0, 0.00, 0.00, 'gfyfu', '2017-02-28 17:24:23', 0),
 (92, 138, 13, 18, 13, 5.00, 5.00, 5.00, 5, 4.50, 4.90, 'dfgh', '2017-02-03 18:59:12', 0),
 (93, 148, 9, 18, 18, 5.00, 5.00, 5.00, 5, 5.00, 5.00, 'fgt', '2017-02-03 19:12:14', 0),
 (89, 132, 13, 18, 18, 5.00, 5.00, 5.00, 5, 5.00, 5.00, 'ok', '2017-01-27 17:18:43', 0),
@@ -1414,7 +1416,7 @@ CREATE TABLE IF NOT EXISTS `job_workdairy` (
   `working_date` date DEFAULT NULL,
   `end_work` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`workdairy_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=65 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=66 ;
 
 --
 -- Dumping data for table `job_workdairy`
@@ -1423,7 +1425,8 @@ CREATE TABLE IF NOT EXISTS `job_workdairy` (
 INSERT INTO `job_workdairy` (`workdairy_id`, `jobid`, `bid_id`, `cuser_id`, `fuser_id`, `starting_hour`, `ending_hour`, `total_hour`, `working_date`, `end_work`) VALUES
 (62, 149, 210, 18, 13, '2017-02-05 17:00:12', '2017-02-05 18:00:15', '1', '2017-02-05', '2017-02-06 01:00:15'),
 (63, 147, 207, 18, 13, '2017-02-06 13:00:03', '2017-02-06 18:00:10', '5', '2017-02-06', '2017-02-07 01:00:10'),
-(64, 149, 210, 18, 13, '2017-02-21 18:00:20', '2017-02-21 23:00:23', '5', '2017-02-21', '2017-02-22 06:00:23');
+(64, 149, 210, 18, 13, '2017-02-21 18:00:20', '2017-02-21 23:00:23', '5', '2017-02-21', '2017-02-22 06:00:23'),
+(65, 147, 207, 18, 13, '2017-03-01 18:00:08', '2017-03-01 19:00:10', '1', '2017-03-01', '2017-03-01 19:00:10');
 
 -- --------------------------------------------------------
 
@@ -1496,7 +1499,7 @@ CREATE TABLE IF NOT EXISTS `payments` (
   `payer_email` varchar(255) NOT NULL,
   `payment_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`payment_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=239 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=240 ;
 
 --
 -- Dumping data for table `payments`
@@ -1507,6 +1510,7 @@ INSERT INTO `payments` (`payment_id`, `user_id`, `buser_id`, `job_id`, `bid_id`,
 (236, 13, 18, 153, 0, 0, '', '1', 0, 600.00, 'Full Paid', '', '', '2017-02-17 11:34:56'),
 (237, 13, 18, 154, 0, 0, '', '1', 0, 4555.00, 'Full Paid', '', '', '2017-02-18 18:17:10'),
 (238, 13, 18, 153, 0, 0, '', '1', 0, 10.00, 'Milestone', '', '', '2017-02-27 10:18:10'),
+(239, 13, 18, 153, 0, 0, '', '1', 0, 5.00, 'Payment', '', '', '2017-03-01 14:39:24'),
 (232, 13, 18, 153, 0, 0, '', '1', 0, 600.00, 'Full Paid', '', '', '2017-02-17 11:34:35'),
 (233, 13, 18, 153, 0, 0, '', '1', 0, 600.00, 'Full Paid', '', '', '2017-02-17 11:34:41'),
 (234, 9, 18, 153, 0, 0, '', '1', 0, 61.00, 'Full Paid', '', '', '2017-02-17 11:34:46'),
@@ -4533,7 +4537,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `username`, `email`, `password`, `type`, `status`, `lastlogin`, `position`, `country`, `phone`) VALUES
-(1, 'Administrator', 'admin', 'getupwork@gmail.com', 'bac1a377c236d995f382e338fd56a349', '1', '1', '1488257604.9822', '', '', ''),
+(1, 'Administrator', 'admin', 'getupwork@gmail.com', 'bac1a377c236d995f382e338fd56a349', '1', '1', '1488402477.1409', '', '', ''),
 (8, 'sagar', 'sagar', 'sagar@sagar.me', '41ed44e3038dbeee7d2ffaa7f51d8a4b', '1', '1', '', '', 'all', ''),
 (9, 'Arif Hossain', 'arif', 'arif@arif.com', '0ff6c3ace16359e41e37d40b8301d67f', '2', '2', '1459555964.1421', '', '4', ''),
 (10, 'jahangir alam', 'jahangir', 'canvasdevelopers@gmail.com', '5fce16e0de0d807a14654c67a7b90405', '2', '2', '', '', 'all', ''),
@@ -4964,7 +4968,7 @@ INSERT INTO `webuser_basic_profile` (`id`, `webuser_id`, `tagline`, `hourly_rate
 (4, 13, 'Web Designer,PHP,WORDPRESS', 11, 1, 1, '', 'I am working as a web developer for PHP/Mysql,Magento, Wordpress,html5  since last 5 years. Testa', '1488301153639'),
 (5, 21, 'Web developer', 10, 5, 1, 'HTML', 'tst', '1472746678600'),
 (6, 25, 'Tagline (mandatory)', 12, 18, 1, 'PHP, HTML, AJAX', 'O', '1472765256950'),
-(8, 15, 'I have 5 years xperience in wordpress', 7, 1, 1, '', 'Article Submission, Article Submission directories eg.', '1488213512558'),
+(8, 15, 'I have 5 years xperience in wordpress', 7, 1, 1, '', 'Article Submission, Article Submission directories eg.', '1488395878395'),
 (7, 18, 'dsgfsg', 5, 1, 1, 'php', 'dsfsdgf', '1472805191580'),
 (9, 33, 'sdfsfdg', 1, 2, 2, 'php', 'dfsdgfgd', '1476476070240');
 
@@ -5103,24 +5107,25 @@ CREATE TABLE IF NOT EXISTS `webuser_skills` (
   `webuser_id` int(11) NOT NULL,
   `skill_name` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=119 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=130 ;
 
 --
 -- Dumping data for table `webuser_skills`
 --
 
 INSERT INTO `webuser_skills` (`id`, `webuser_id`, `skill_name`) VALUES
-(110, 15, 'Chroma key'),
-(109, 15, 'javascript'),
-(108, 15, 'PHP'),
+(129, 15, 'TypePad'),
+(127, 15, 'javascript'),
 (117, 13, 'HTML'),
 (116, 13, 'mysql'),
 (115, 13, 'Adobe Flash'),
+(128, 15, 'Chroma key'),
 (111, 9, 'Adobe Flash'),
 (112, 9, 'Paypal API'),
 (113, 9, 'Facebook'),
 (114, 9, 'jquery'),
-(118, 13, 'HTML5');
+(118, 13, 'HTML5'),
+(126, 15, 'PHP');
 
 -- --------------------------------------------------------
 
@@ -5376,7 +5381,9 @@ CREATE TABLE IF NOT EXISTS `withdraw` (
 --
 
 INSERT INTO `withdraw` (`id`, `userid`, `amount`, `payment_type`, `processingfees`, `date`) VALUES
-(0, 25, 12, '1', '1', '2016-10-21 09:41:09');
+(0, 25, 12, '1', '1', '2016-10-21 09:41:09'),
+(0, 13, 10, '3', '2', '2017-03-01 11:54:42'),
+(0, 13, 100, '', '', '2017-03-01 11:54:13');
 
 -- --------------------------------------------------------
 
@@ -5394,13 +5401,23 @@ CREATE TABLE IF NOT EXISTS `workdairy_tracker` (
   `capture_time` text NOT NULL,
   `working_date` date DEFAULT NULL,
   PRIMARY KEY (`worktracker_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2411 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2421 ;
 
 --
 -- Dumping data for table `workdairy_tracker`
 --
 
 INSERT INTO `workdairy_tracker` (`worktracker_id`, `jobid`, `bid_id`, `cuser_id`, `fuser_id`, `cpture_image`, `capture_time`, `working_date`) VALUES
+(2420, 147, 207, 18, 13, NULL, '2017-03-01 19:00:08', '2017-03-01'),
+(2419, 147, 207, 18, 13, NULL, '2017-03-01 18:54:08', '2017-03-01'),
+(2418, 147, 207, 18, 13, NULL, '2017-03-01 18:48:08', '2017-03-01'),
+(2417, 147, 207, 18, 13, NULL, '2017-03-01 18:42:08', '2017-03-01'),
+(2416, 147, 207, 18, 13, NULL, '2017-03-01 18:36:08', '2017-03-01'),
+(2415, 147, 207, 18, 13, NULL, '2017-03-01 18:30:08', '2017-03-01'),
+(2414, 147, 207, 18, 13, NULL, '2017-03-01 18:24:08', '2017-03-01'),
+(2413, 147, 207, 18, 13, NULL, '2017-03-01 18:18:08', '2017-03-01'),
+(2412, 147, 207, 18, 13, NULL, '2017-03-01 18:12:08', '2017-03-01'),
+(2411, 147, 207, 18, 13, NULL, '2017-03-01 18:06:08', '2017-03-01'),
 (2410, 149, 210, 18, 13, NULL, '2017-02-21 23:00:20', '2017-02-21'),
 (2409, 149, 210, 18, 13, NULL, '2017-02-21 22:54:20', '2017-02-21'),
 (2408, 149, 210, 18, 13, NULL, '2017-02-21 22:48:20', '2017-02-21'),
