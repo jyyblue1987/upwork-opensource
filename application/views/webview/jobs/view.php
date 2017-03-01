@@ -47,114 +47,6 @@ input#submitmsg {  background: #2baad9 none repeat scroll 0 0;  border: medium n
 .custom_user_skills span:hover{background:#008329 !important;}
 		</style>
 
-<?php
-//die();
-//date_default_timezone_set("UTC");
-function time_elapsed_string($ptime)
-{
-    $etime = time() - $ptime;
-
-    if ($etime < 1)
-    {
-        return '0 seconds';
-    }
-
-    $a = array(365 * 24 * 60 * 60 => 'year',
-        30 * 24 * 60 * 60 => 'month',
-        24 * 60 * 60 => 'day',
-        60 * 60 => 'hour',
-        60 => 'minute',
-        1 => 'second'
-    );
-    $a_plural = array('year' => 'years',
-        'month' => 'months',
-        'day' => 'days',
-        'hour' => 'hours',
-        'minute' => 'minutes',
-        'second' => 'seconds'
-    );
-
-    foreach ($a as $secs => $str)
-    {
-        $d = $etime / $secs;
-        if ($d >= 1)
-        {
-            $r = round($d);
-            return $r . ' ' . ($r > 1 ? $a_plural[$str] : $str) . ' ago';
-        }
-    }
-}
-?>
-
-<?php
-
-/* find client payment set status start */
-
-$this->db->select('*');
-$this->db->from('billingmethodlist');
-$this->db->where('billingmethodlist.belongsTo', $value->webuser_id);
-// $this->db->where('billingmethodlist.paymentMethod', "stripe");
-$this->db->where('billingmethodlist.isDeleted', "0");
-$query = $this->db->get();
-$paymentSet = 0;
-if (is_object($query)) {
-    $paymentSet = $query->num_rows();
-}
-/* find client payment set status end */
-
-
-/* find total spent by client start */
-$client_id=$value->webuser_id;
-$query_spent = $this->db->query("SELECT SUM(payment_gross) as total_spent FROM `payments` INNER JOIN `webuser` ON `webuser`.`webuser_id` = `payments`.`user_id` INNER JOIN `jobs` ON `jobs`.`id` = `payments`.`job_id` INNER JOIN `job_accepted` ON `job_accepted`.`job_id` = `payments`.`job_id` INNER JOIN `job_bids` ON `job_bids`.`job_id` = `payments`.`job_id` WHERE `job_accepted`.`fuser_id` = `payments`.`user_id` AND
-    `job_bids`.`user_id` = `payments`.`user_id` AND `payments`.`buser_id` = $client_id");
-$row_spent = $query_spent->row();
-$total_spent=$row_spent->total_spent;
-/* find total soent by client end */
-
-
-
-
-$total_feedbackScore=0 ;
-$total_budget=0 ;
-foreach($accepted_jobs as $job_data){
-	$this->db->select('*');
-	$this->db->from('job_feedback');
-	$this->db->where('job_feedback.feedback_userid',$job_data->fuser_id);
-	$this->db->where('job_feedback.sender_id !=',$job_data->fuser_id);
-	$this->db->where('job_feedback.feedback_job_id',$job_data->job_id);
-	$query=$this->db->get();
-	$jobfeedback= $query->row();
-	
-	if($job_data->jobstatus == 1){
-		if(!empty($jobfeedback)){
-			if($job_data->job_type == "fixed"){
-				$total_price_fixed=$job_data->fixedpay_amount;
-				$total_feedbackScore += ($jobfeedback->feedback_score *$total_price_fixed);
-				$total_budget += $total_price_fixed;
-			}else{
-				$this->db->select('*');
-				$this->db->from('job_workdairy');
-				$this->db->where('fuser_id',$job_data->fuser_id);
-				$this->db->where('jobid',$job_data->job_id);
-				$query_done = $this->db->get();
-				$job_done = $query_done->result();
-				$total_work = 0;
-				foreach($job_done as $work){
-					$total_work +=$work->total_hour;
-				}
-				
-				if($job_data->offer_bid_amount) {
-				$amount = $job_data->offer_bid_amount;
-				} else {$amount =  $job_data->bid_amount;} 
-				 $total_price= $total_work *$amount;
-				$total_budget += $total_price ;
-				$total_feedbackScore += ($jobfeedback->feedback_score *$total_price);
-			}
-		}
-	}
-}
-?>
-
 <p class="result-msg" style="text-align: center;color: green;font-size: 20px;display: none;"></p>
 <section id="big_header" style="margin-top: 40px; margin-bottom: 40px; height: auto;">
     <div class="container">
@@ -188,8 +80,8 @@ foreach($accepted_jobs as $job_data){
                        // date_default_timezone_set("Asia/Bangkok");
                         $timeDate = strtotime($value->created);
                         $dateInLocal = date("Y-m-d H:i:s", $timeDate);
-                            
-                        echo time_elapsed_string(strtotime($dateInLocal)); ?></span>
+
+                        echo \DatetimeHelper::timeElapsedString(strtotime($dateInLocal)); ?></span>
                     </div>
                 </div>
                 <div class="jobdes-bordered-wrapper">
@@ -278,57 +170,27 @@ foreach($accepted_jobs as $job_data){
                     </div>
                     <div style="font-family: calibri; font-size: 16px; margin-bottom: 17px; margin-top: 8px;" class="col-md-12 text-justify page-label"><?php echo ucfirst($value->job_description) ?></div>
                 </div>
-<div class="jobdes-bordered-wrapper">
-                <div class="row jobdes-bordered page-label">
-                    <div class="col-md-4 text-center">
- <?php 
-$this->db->select('*');
-$this->db->from('job_bids');
-$this->db->where(array('job_id'=>$value->id,'bid_reject'=>0, 'status!=1'=>null));
-$query =$this->db->get();
-$Proposals_count = $query->num_rows();
-$jobfeedback= $query->result();
-//var_dump($value->id);var_dump($Proposals_count);die();
-?>
-                        <label style="font-family: calibri;font-size: 17px;">Proposals</label> <br /> <span>
-                       <?=$Proposals_count;?>
-                        </span>
-                    </div>
+                <div class="jobdes-bordered-wrapper">
+                    <div class="row jobdes-bordered page-label">
+                        <div class="col-md-4 text-center">
+                            <label style="font-family: calibri;font-size: 17px;">Proposals</label> <br /> <span>
+                                <?=$Proposals_count;?>
+                            </span>
+                        </div>
 
-                    <div class="col-md-4 text-center page-label">
- <?php 
-$this->db->select('*');
-$this->db->from('job_conversation');
-$this->db->where('job_conversation.sender_id', $value->user_id);
-$this->db->join('job_bids', 'job_bids.id=job_conversation.bid_id', 'inner');
-$this->db->where('job_conversation.job_id', $value->id);
-$this->db->where('job_bids.bid_reject', 0);
-$this->db->group_by('bid_id'); 
-$query=$this->db->get();
-$interview_count = $query->num_rows();
-?>
-                        <label style="font-family: calibri;font-size: 17px;">Interviewing</label><br /> <span><?=$interview_count;?> </span>
-                    </div>
+                        <div class="col-md-4 text-center page-label">
+                            <label style="font-family: calibri;font-size: 17px;">Interviewing</label><br /> <span><?=$interview_count;?> </span>
+                        </div>
 
-                    <div class=" last-div col-md-4 text-center page-label">
-<?php
-$this->db->select('*');
-$this->db->from('job_accepted');
-$this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-$this->db->where('job_accepted.buser_id',$value->user_id);
-$this->db->where('job_accepted.job_id',$value->id);
-$this->db->where('job_bids.hired', '0' );
-$this->db->where('job_bids.jobstatus', '0' );
-$query=$this->db->get();
-$hire_count = $query->num_rows();
-?>
-                        <label style="font-family: calibri;font-size: 17px;">Hired</label><br /> <span>
-                            <?php echo $hire_count;?>
-                        </span>
-                    </div>
+                        <div class=" last-div col-md-4 text-center page-label">
+                            <label style="font-family: calibri;font-size: 17px;">Hired</label><br /> <span>
+                                <?php echo $hire_count;?>
+                            </span>
+                        </div>
 
-                </div> 
-                    </div><?php /*?>
+                    </div> 
+                </div>
+                <?php /*?>
 				<div class="">
 					<div class="col-lg-12 col-md-12 col-sm-12 chat-screen">
 						<div class="chat-details-topbar">
@@ -406,19 +268,15 @@ $hire_count = $query->num_rows();
                 </div>
                 <?php
 										
-                if(!empty($accepted_jobs)){ 
-                foreach($accepted_jobs as $job_data){
-                    
-                    
-$this->db->select('*');
-$this->db->from('job_feedback');
-$this->db->where('job_feedback.feedback_userid',$job_data->fuser_id);
-$this->db->where('job_feedback.sender_id !=',$job_data->fuser_id);
-$this->db->where('job_feedback.feedback_job_id',$job_data->job_id);
-$query=$this->db->get();
-$jobfeedback= $query->row();
-                    
-                    
+                if(!empty($accepted_jobs)) { 
+                    foreach($accepted_jobs as $job_data) {
+                        $this->db->select('*');
+                        $this->db->from('job_feedback');
+                        $this->db->where('job_feedback.feedback_userid',$job_data->fuser_id);
+                        $this->db->where('job_feedback.sender_id !=',$job_data->fuser_id);
+                        $this->db->where('job_feedback.feedback_job_id',$job_data->job_id);
+                        $query=$this->db->get();
+                        $jobfeedback= $query->row();
                 ?>
                 <div class="buttonsidethree">
                     <div class="row  page-label">
@@ -656,7 +514,7 @@ if ($value->isactive && $paymentSet) {
                         <div style="margin-top: 4px;margin-left: -19px;" class="row margin-top-2 border-bottom">
                             <div class="col-md-12">
                                 <label style="font-family: Calibri;font-size: 20.26px;color: #494949;margin-top: -29px;">
-								<?=count($hire);?> 
+								<?=$hire;?> 
 								<span style="font-size: 14px;color: #494949;font-family: calibri;">Hired</span>
 								</label>
                             </div>

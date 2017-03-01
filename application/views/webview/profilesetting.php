@@ -127,7 +127,7 @@
                                 <div id="editcancel">
                                     <div class="row" >
                                         <div class="col-xs-2">
-                                            <span>Picture</span>
+                                            <span>Picture<?php $imageData = $croppedImage->cropped_image;?></span>
                                            
                                         </div>
                                         <div style="margin-left: 70px;" class="col-xs-4">
@@ -289,19 +289,18 @@
                             <div class="col-xs-2">
                                 <span> </span>	
                             </div>
-                            <div style="margin-left: 70px;" class="col-xs-8">
-                                <span style="font-size:17px;font-family: calibri;" id="country"><?php echo $webuserCountry ?> </span>
+                            <div style="margin-top:-5%;" class="col-xs-8">
+                                <span style="font-size:17px;font-family: calibri;" id="country"> </span>
                             </div>
-
                         </div>
-
+                        
                         <div  class="row">
 
                             <div class="col-xs-2">
-                                <span>  Phone</span>	
+                             <span>Phone</span>	
                             </div>
-                            <div style="margin-left: 70px;" class="col-xs-8">
-                                <span style="font-size:17px;font-family: calibri;" id="phone"><?php echo $this->Adminforms->getdataaddress("phone_number", "webuseraddresses", $id); ?> </span>
+                           <div style="margin-left: 70px;" class="col-xs-8">
+                                <span style="font-size:17px;font-family: calibri;" id="phone"><?php echo $country_code_dailing; ?>-<?php echo $this->Adminforms->getdataaddress("phone_number", "webuseraddresses", $id); ?> </span>
                             </div>
 
                         </div>
@@ -420,12 +419,12 @@
       <form action="<?php echo site_url("savepic"); ?>" method="POST">
         <div class="modal-header" style="border: none;">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
+          <h4 class="modal-title">Change Profile Picture </h4>
         </div>
         <div class="modal-body" style="border: none;">
           <div class="row">
         <div class="col-xs-12 col-sm-6 col-lg-8">
-            <div>Select an image file: <input type="file" name="picture" id="fileInput" /></div>
+             <input type="file" name="picture" id="fileInput" />
                 <div class="cropArea">
                   <img-crop image="myImage" result-image="myCroppedImage"></img-crop>
             </div>
@@ -434,7 +433,7 @@
         <div class="col-xs-6 col-lg-4" style="margin-top: 53px;">
              <div>Cropped Image:</div>
               <div><img ng-src="{{myCroppedImage}}" /></div>
-              <textarea name="CroppedImage" class="result-datauri">{{myCroppedImage}}</textarea>
+              <textarea  name="CroppedImage" class="result-datauri hidden">{{myCroppedImage}}</textarea>
               
         </div>
       </div>
@@ -455,7 +454,39 @@
 
 
 
+ <!-- Modal -->
+  <div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog" style="width: 800px;">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="border: none;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body" style="border: none;">
+            <div class="row">
+                <div class="col-xs-12 col-md-8">
+                    <div>Select an image file: <input type="file" id="fileInput" /></div>
+                      <div class="cropArea">
+                        <img-crop image="myImage" result-image="myCroppedImage"></img-crop>
+                      </div>
+                </div>
+                <div class="col-xs-6 col-md-4" style="margin-top: 27px;">
+                    <div>Cropped Image:</div>
+                    <div><img ng-src="{{myCroppedImage}}" /></div>
+                </div>
+                <div class="modal-footer">
+                   <button class="btn-primary transparent-btn big_mass_button" id="cropContainerHeaderButton">Save</button>
+                        
+                  <button type="button" class="btn-danger transparent-btn big_mass_button" data-dismiss="modal">Close</button>
 
+                </div>
+            </div>      
+        </div>
+       </div>
+    </div>
+  </div>
   <script type="text/javascript">
   angular.module('app', ['ngImgCrop'])
   .controller('Ctrl', function($scope) {
