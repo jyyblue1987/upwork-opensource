@@ -6,12 +6,12 @@ class Payment extends CI_Controller
         parent::__construct();
         $this->load->model(array('common_mod'));
     }
-    
+
     public function methods()
     {
         if ($this->Adminlogincheck->checkx()) {
-             
-            $params = array( 
+
+            $params = array(
                 'page' => "profilesetting",
                 'name' => $this->session->userdata('fname') . " " . $this->session->userdata('lname'),
                 'id' => $this->session->userdata('id'),
@@ -46,7 +46,7 @@ class Payment extends CI_Controller
             redirect(site_url("signin"));
         }
     }
-    
+
     public function removeAccount(){
         if ($this->Adminlogincheck->checkx()) {
             $response['status'] = "error";
@@ -68,13 +68,13 @@ class Payment extends CI_Controller
                             'account_id'=>$this->session->userdata("email"),
                             'last_update_time'=>round(microtime(true)*1000)
                         );
-                        
+
                         $hasUpdated = $this->common_mod->updateVal(WB_PAYMENT_METHODS,$updateArry,$conditionArry,null);
                         if($hasUpdated){
                             $response['status'] = "success";
                             $response['msg'] = "success";
                         }else{
-                           $response['msg'] = "System error!Please try again"; 
+                           $response['msg'] = "System error!Please try again";
                         }
                     }else{
                         $response['msg'] = "No Match Found";
@@ -90,7 +90,6 @@ class Payment extends CI_Controller
             redirect(site_url("signin"));
         }
     }
-    
     // added by jeison arenales start
     public function exist_account(){
         if ($this->Adminlogincheck->checkx()) {
@@ -156,13 +155,12 @@ class Payment extends CI_Controller
             redirect(site_url("signin"));
         }
     }
-    
+
     public function taxInformation(){
         if ($this->Adminlogincheck->checkx()) {
             //tax details//
             $condition = " AND webuser_id=".$this->session->userdata(USER_ID);
             $webUserTaxdetails = $this->common_mod->get(WB_TAX_INFO,null,$condition);
-  
             if(empty($webUserTaxdetails['rows'])){
                 $webUserTaxdetails['rows'][0] = "";
             }
@@ -172,7 +170,7 @@ class Payment extends CI_Controller
             //get country//
             $condition = " AND country_id=".$this->session->userdata("webuser_country");
             $params['country'] = $this->common_mod->getSpecificColVal(COUNTEY_TABLE,"country_name",$condition);
-            //all country// 
+            //all country//
             $country= $this->common_mod->getSpecificColVal(COUNTEY_TABLE,"country_name",$condition);
 
             $condition = " AND country_id != 0";
@@ -185,7 +183,8 @@ class Payment extends CI_Controller
             $params['webUserTaxdetails'] = $webUserTaxdetails['rows'][0];
             $params['title'] = "Tax Information";
             $params['webuserCountry'] = $webuserCountry;
-         
+
+
             $condition = " AND webuser_id=".$this->session->userdata(USER_ID);
             $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
             if(empty($webUserContactDetails['rows'])){
@@ -196,8 +195,6 @@ class Payment extends CI_Controller
            // $webuserCountry = $this->common_mod->getSpecificColVal(COUNTEY_TABLE,"country_name"," AND country_id  =".$this->session->userdata('webuser_country'));
           //  $countryList = $this->common_mod->get(COUNTEY_TABLE,null," AND country_status=1");
            // print_r($webUserTaxdetails);die();
-           
-         /***********Indsys Technologies 23/02/2017  country_dialingcode*********/
             $params = array(
                     'country_name' => $country,
                   //  'page' => "profilesetting",
@@ -211,18 +208,16 @@ class Payment extends CI_Controller
                     'openSub' =>'profile-basic',
                     'webuserContactDetails' =>$webUserContactDetails['rows'][0],
                 'webUserTaxdetails' =>$webUserTaxdetails['rows'][0],
-                'webUserTaxdetails' =>$webUserTaxdetails['rows'][0],
-                'webuserCountry'=>$webuserCountry,
-                     
+
                 );
             $this->Admintheme->webview("payment/tax-information",$params);
         }else{
             redirect(site_url("signin"));
         }
     }
-    
+
     public function updateTaxInformation(){
-        
+
         if ($this->Adminlogincheck->checkx()) {
             $response['status'] = "error";
             $response['msg'] = "error";
@@ -283,7 +278,7 @@ class Payment extends CI_Controller
                     $formVal['zip'] = $this->input->post("zipcode");
                     $formVal['created_time'] = round(microtime(true)*1000);
                     $formVal['state'] = $this->input->post("state");
-               
+
                     $condition = " AND webuser_id=".$this->session->userdata(USER_ID)." ";
                     if($this->common_mod->getCount(WB_TAX_INFO,null,$condition) > 0){
                         $updated = $this->common_mod->updateVal(WB_TAX_INFO,$formVal,null,$condition);

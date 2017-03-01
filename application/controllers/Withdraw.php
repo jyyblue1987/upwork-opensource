@@ -8,6 +8,7 @@ class Withdraw extends CI_Controller {
         parent::__construct();
         $this->load->model(array('Category', 'Common_mod'));
         $this->load->model(array('common_mod'));
+        $this->load->model('withdraw_model');
     }
 
     public function index() {
@@ -50,14 +51,62 @@ class Withdraw extends CI_Controller {
 
             $condition = " AND webuser_id=".$this->session->userdata(USER_ID);
             $webUserTaxdetails = $this->common_mod->get(WB_TAX_INFO,null,$condition);
-            
-            if(!empty($webUserTaxdetails->rows)){
+
+            if(!empty($webUserTaxdetails['rows'])){
                 $tax_status = 1;
             }else{
                 $tax_status = 0;
             }
 
-            $data = array('tax_status' => $tax_status,'job_available_hourly' => $job_available_hourly, 'paymentData' => $paymentDatas,'job_available_fixed' => $job_available_fixed, 'withdraws' => $withdraws);
+            $seven_days_pre=date('Y-m-d H:i:s', strtotime('-7 days'));
+
+            /* fixed available start */
+            $this->db->select_sum('payments.payment_gross');
+            $this->db->from('payments');
+            $this->db->join('webuser', 'webuser.webuser_id = payments.buser_id', 'inner');
+            $this->db->join('jobs', 'jobs.id = payments.job_id', 'inner');
+            $this->db->join('job_accepted', 'job_accepted.job_id = payments.job_id', 'inner');
+            $this->db->where('job_accepted.fuser_id = payments.user_id');
+            $this->db->join('job_bids', 'job_bids.job_id = payments.job_id', 'inner');
+            $this->db->where('job_bids.user_id = payments.user_id');
+            //$this->db->where('payments.payment_create >=', $seven_days_pre);
+            $this->db->where('payments.payment_create <=', $seven_days_pre);
+            $this->db->where('payments.user_id', $user_id);
+            $this->db->where('jobs.job_type','fixed');
+            $query_payment_fixed_avail = $this->db->get();
+            $payment_fixed_avail = $query_payment_fixed_avail->result();
+            /* fixed available end */
+
+            /* Hourly available start */
+
+            $this->db->select_sum('payments.payment_gross');
+            $this->db->from('payments');
+            $this->db->join('webuser', 'webuser.webuser_id = payments.buser_id', 'inner');
+            $this->db->join('jobs', 'jobs.id = payments.job_id', 'inner');
+            $this->db->join('job_accepted', 'job_accepted.job_id = payments.job_id', 'inner');
+            $this->db->where('job_accepted.fuser_id = payments.user_id');
+            $this->db->join('job_bids', 'job_bids.job_id = payments.job_id', 'inner');
+            $this->db->where('job_bids.user_id = payments.user_id');
+            $this->db->where('payments.payment_create <=', $seven_days_pre);
+            $this->db->where('payments.user_id', $user_id);
+            $this->db->where('jobs.job_type','hourly');
+            $query_payment_hourly_avail = $this->db->get();
+            $payment_hourly_avail = $query_payment_fixed_avail->result();
+
+            /* Hourly available end */
+            $record = $this->withdraw_model->get_all_by_user($user_id);
+
+            $data = array(
+                'payment_fixed_avail'=>$payment_fixed_avail,
+                'payment_hourly_avail'=>$payment_hourly_avail,
+                'tax_status' => $tax_status,
+                'job_available_hourly' => $job_available_hourly,
+                'paymentData' => $paymentDatas,
+                'job_available_fixed' => $job_available_fixed,
+                'withdraws' => $withdraws,
+                'record' => $record
+            );
+
             $this->Admintheme->webview("withdraw", $data);
         }
     }
@@ -79,7 +128,11 @@ class Withdraw extends CI_Controller {
         );
 
         $this->db->insert('withdraw', $jobendpay_end);
+
+        $record = $this->withdraw_model->get_all_by_user($user_id, true);
+        $response['record'] = $record;
         $response['success'] = true;
+        $response['data'] = true;
         $response['message'] = "Sucessfully Withdraw the amount";
         print_r(json_encode($response));
     }

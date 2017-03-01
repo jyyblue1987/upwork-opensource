@@ -39,10 +39,10 @@ class Pay extends CI_Controller {
     }
     //payment function by haseeburrehman.com starts
     public function addCC($sub = null)
-  	{
+    {
       $user_id = $this->session->userdata('id');
         if(empty($sub)){
-  				$this->load->view('MasterCardSelection/index');
+          $this->load->view('MasterCardSelection/index');
         }
         elseif($sub == "edit"){
           $form_data = $this->input->post();
@@ -67,7 +67,7 @@ class Pay extends CI_Controller {
             $error = $err['message'];
           }
         }
-  			elseif($sub == "add"){
+        elseif($sub == "add"){
           $form_data = $this->input->post();
           $token = $form_data['stripeToken'];
           try{
@@ -81,9 +81,9 @@ class Pay extends CI_Controller {
           }
 
 
-  				$query = ("INSERT INTO ccdetails VALUES(NULL,".$this->db->escape($form_data['fname']).",".$this->db->escape($form_data['lname']).",".$this->db->escape(substr($form_data['cardNumber'], -4)).",".$this->db->escape($form_data['cvv']).",".$this->db->escape($form_data['month']).",".$this->db->escape($form_data['year']).",".$this->db->escape($form_data['country']).",".$this->db->escape($form_data['address']).",".$this->db->escape($form_data['address2']).",".$this->db->escape($form_data['city']).",".$this->db->escape($form_data['zip']).",".$this->db->escape(time()).",".$this->db->escape(time()).",".$this->db->escape($user_id).",'0')");
-  				if ($this->db->query($query)){
-  					$insert_id = $this->db->insert_id();
+          $query = ("INSERT INTO ccdetails VALUES(NULL,".$this->db->escape($form_data['fname']).",".$this->db->escape($form_data['lname']).",".$this->db->escape(substr($form_data['cardNumber'], -4)).",".$this->db->escape($form_data['cvv']).",".$this->db->escape($form_data['month']).",".$this->db->escape($form_data['year']).",".$this->db->escape($form_data['country']).",".$this->db->escape($form_data['address']).",".$this->db->escape($form_data['address2']).",".$this->db->escape($form_data['city']).",".$this->db->escape($form_data['zip']).",".$this->db->escape(time()).",".$this->db->escape(time()).",".$this->db->escape($user_id).",'0')");
+          if ($this->db->query($query)){
+            $insert_id = $this->db->insert_id();
             $isPrimary = "";
             if(primaryPaymentMethodExistance($user_id)){$isPrimary = "0";}else{$isPrimary = "1";}
             $bml_insert = array(
@@ -94,22 +94,22 @@ class Pay extends CI_Controller {
               'isDeleted' => 0
             );
 
-  					if($this->db->insert('billingmethodlist', $bml_insert)){
-  						if($customer->id){
-  							$query2 = ("INSERT INTO stripe_customerdetail VALUES(NULL, ".$this->db->escape($user_id).", ".$this->db->escape($customer).", ".$this->db->escape($customer->id).",".$this->db->escape($insert_id).")");
-  							if ($this->db->query($query2)){
-  								header('Location: /pay/billing?addCard=success');
-  							}
-  						}
-  					}
+            if($this->db->insert('billingmethodlist', $bml_insert)){
+              if($customer->id){
+                $query2 = ("INSERT INTO stripe_customerdetail VALUES(NULL, ".$this->db->escape($user_id).", ".$this->db->escape($customer).", ".$this->db->escape($customer->id).",".$this->db->escape($insert_id).")");
+                if ($this->db->query($query2)){
+                  header('Location: /pay/billing?addCard=success');
+                }
+              }
+            }
 
-  				}else{echo "error";}
-  				//print_r($form_data);
-  				//$this->load->view('welcome_message');
-  			}else{
-  				header('Location: ../../Billing?from=addCC');
-  			}
-  	}
+          }else{echo "error";}
+          //print_r($form_data);
+          //$this->load->view('welcome_message');
+        }else{
+          header('Location: ../../Billing?from=addCC');
+        }
+    }
     public function addPP($sub = ""){
 
       if(empty($sub)){
@@ -527,74 +527,74 @@ class Pay extends CI_Controller {
             $this->db->where('payments.user_id', $user_id);
             $query_payment = $this->db->get();
             $list_payments = $query_payment->result();
-            
-            
-            
+
+
+
             /* fixed pending start */
-            
+
             $seven_days_pre=date('Y-m-d H:i:s', strtotime('-7 days'));
             $today1 = strtotime('today');
             $today1 = date('y-m-d H:i:s',$today1);
-            $this->db->select_sum('payments.payment_gross');            
+            $this->db->select_sum('payments.payment_gross');
             $this->db->from('payments');
             $this->db->join('webuser', 'webuser.webuser_id = payments.buser_id', 'inner');
             $this->db->join('jobs', 'jobs.id = payments.job_id', 'inner');
             $this->db->join('job_accepted', 'job_accepted.job_id = payments.job_id', 'inner');
             $this->db->where('job_accepted.fuser_id = payments.user_id');
             $this->db->join('job_bids', 'job_bids.job_id = payments.job_id', 'inner');
-            $this->db->where('job_bids.user_id = payments.user_id');               
-            $this->db->where('payments.payment_create >=', $seven_days_pre);                        
-            $this->db->where('payments.payment_create <=', $today1);            
+            $this->db->where('job_bids.user_id = payments.user_id');
+            $this->db->where('payments.payment_create >=', $seven_days_pre);
+            $this->db->where('payments.payment_create <=', $today1);
             $this->db->where('payments.user_id', $user_id);
-            $this->db->where('jobs.job_type','fixed'); 
+            $this->db->where('jobs.job_type','fixed');
             $query_payment_fixed_pending = $this->db->get();
             $payment_fixed_pending = $query_payment_fixed_pending->result();
-            
+
 
           /* fixed pending end */
-          
+
           /* fixed available start */
 
-        $this->db->select_sum('payments.payment_gross');            
+        $this->db->select_sum('payments.payment_gross');
         $this->db->from('payments');
         $this->db->join('webuser', 'webuser.webuser_id = payments.buser_id', 'inner');
         $this->db->join('jobs', 'jobs.id = payments.job_id', 'inner');
         $this->db->join('job_accepted', 'job_accepted.job_id = payments.job_id', 'inner');
         $this->db->where('job_accepted.fuser_id = payments.user_id');
         $this->db->join('job_bids', 'job_bids.job_id = payments.job_id', 'inner');
-        $this->db->where('job_bids.user_id = payments.user_id');               
-        //$this->db->where('payments.payment_create >=', $seven_days_pre);                        
-        $this->db->where('payments.payment_create <=', $seven_days_pre);            
+        $this->db->where('job_bids.user_id = payments.user_id');
+        //$this->db->where('payments.payment_create >=', $seven_days_pre);
+        $this->db->where('payments.payment_create <=', $seven_days_pre);
         $this->db->where('payments.user_id', $user_id);
-        $this->db->where('jobs.job_type','fixed'); 
+        $this->db->where('jobs.job_type','fixed');
         $query_payment_fixed_avail = $this->db->get();
         $payment_fixed_avail = $query_payment_fixed_avail->result();
 
       /* fixed available end */
-      
-      
+
+
       /* Hourly available start */
 
-        $this->db->select_sum('payments.payment_gross');            
+        $this->db->select_sum('payments.payment_gross');
         $this->db->from('payments');
         $this->db->join('webuser', 'webuser.webuser_id = payments.buser_id', 'inner');
         $this->db->join('jobs', 'jobs.id = payments.job_id', 'inner');
         $this->db->join('job_accepted', 'job_accepted.job_id = payments.job_id', 'inner');
         $this->db->where('job_accepted.fuser_id = payments.user_id');
         $this->db->join('job_bids', 'job_bids.job_id = payments.job_id', 'inner');
-        $this->db->where('job_bids.user_id = payments.user_id');                                      
-        $this->db->where('payments.payment_create <=', $seven_days_pre);            
+        $this->db->where('job_bids.user_id = payments.user_id');
+        $this->db->where('payments.payment_create <=', $seven_days_pre);
         $this->db->where('payments.user_id', $user_id);
-        $this->db->where('jobs.job_type','hourly'); 
+        $this->db->where('jobs.job_type','hourly');
         $query_payment_hourly_avail = $this->db->get();
         $payment_hourly_avail = $query_payment_fixed_avail->result();
 
       /* Hourly available end */
-      
-      
-      
-          
-          
+
+
+
+
+
 
 
 //        print_r($list_payments);die();
@@ -701,7 +701,7 @@ class Pay extends CI_Controller {
             }
             $data = array();
             if ($this->input->post('job_id') && $this->input->post('fuser_id') && $this->input->post('buser_id')) {
-                //	echo "hahah";
+                //  echo "hahah";
                 $data['job_id'] = $this->input->post('job_id');
                 $data['fuser_id'] = $this->input->post('fuser_id');
                 $data['buser_id'] = $this->input->post('buser_id');

@@ -1,3 +1,4 @@
+
 <?php
 //    $this->load->view("webview/includes/header");
 $paypal = "";
@@ -242,7 +243,7 @@ $this->load->view("webview/includes/footer-common-script");
         }
     }
 
-	// added by jeison arenales end
+    // added by jeison arenales end
     $('.new-account').click(function () {
         var key = $(this).attr('accesskey');
         var img = $('.' + key + '-img').attr('src');
@@ -286,6 +287,7 @@ $this->load->view("webview/includes/footer-common-script");
         $('.payment-method').modal('show');
     });
     // added by jeison arenales end
+
     $('.add-account').click(function () {
         var email = $('.account-email').html().trim();
         $(this).val("Processing...");

@@ -3,6 +3,7 @@ class Withdawlrequest extends CI_Model {
 
     function __construct() {
         parent::__construct();
+        $this->load->model('withdraw_model');
     }
 
 	  function check($permission) {
@@ -35,8 +36,15 @@ class Withdawlrequest extends CI_Model {
 			$result = $query->result();
 
 
-			
-			$data = array( 'title' => $title, 'permission' => $permission, 'loadpage' => $page['loadpage'], 'subpage' => $page['subpage'],'result' => $result,  );
+
+			$data = array(
+				'title' => $title,
+				'permission' => $permission,
+				'loadpage' => $page['loadpage'],
+				'subpage' => $page['subpage'],
+				'result' => $result,
+				'record' => $this->withdraw_model->get_by_all_user()
+			);
 
 			$this->Admintheme->loadview($page['loadpage']."/".$page['subpage'],$data);
 

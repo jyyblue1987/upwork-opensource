@@ -1,5 +1,5 @@
 <?php
- 
+
 $paypal = "";
 $skrill = "";
 $payoneer = "";
@@ -19,25 +19,25 @@ if (isset($paymentData) && is_array($paymentData)) {
 
 <style>
 .withdraw .abailone span {
-color: #858484;
+color: #000;
 font-family: "calibri";
 font-size: 17px;
-font-weight: 700;
+font-weight: bold;
 }
 </style>
 <section id="mid_content" class="withdraw">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 col-sm-12 white-box-feed" style="margin-top:40px; margin-bottom:40px;border: 1px solid #ccc;width: 970px;">
+            <div class="col-md-12 col-sm-12 white-box-feed" style="margin-top:40px; margin-bottom:40px;border: 1px solid #ccc;width: 970px;padding-top: 0;">
                 <p class="result-msg" style="text-align: center;color: green;font-size: 20px;display: none;"></p>
                 <form id="withdraw_from">
                     <div class="wrapper-top">
-                        <div id="alert-msg" class="header-title" style="color:red;"> 
+                        <div id="alert-msg" class="header-title" style="color:red;">
                         </div>
-                        <div class="header-title"> Use the page to withdraw funds from your account.For withdrawal options and processing time <a href="#">click here</a>
+                        <div style="font-size: 21px;font-family: calibri;" class="header-title"> Use the page to withdraw funds from your account.For withdrawal options and processing time <a href="#">click here</a>
                         </div>
-                        <h5>Withdrawal Method</h5>
-                        <select style="font-size: 17px;font-family: calibri;" class="custom-select selectoption form-control" id="payment_type" name="payment_type">
+                        <h5 style="font-size: 17px;font-family: calibri;font-weight: bold;">Withdrawal Method</h5>
+                        <select style="font-size: 17px;font-family: calibri;margin-bottom: 30px;" class="custom-select selectoption form-control" id="payment_type" name="payment_type">
                             <option value="">- Select -</option>
                             <?php
                             if (strlen($paypal) > 0) {
@@ -52,19 +52,19 @@ font-weight: 700;
                                 <option value="2">Skrill</option>
                                 <?php
                             }
-                            ?>    
+                            ?>
                              <?php
                             if (strlen($payoneer) > 0) {
                                 ?>
                                 <option value="3">Payoneer</option>
                                 <?php
                             }
-                            ?> 
-                           
+                            ?>
+
                         </select>
                     </div>
-                    <table class="table table-condensed" id="maintable">
-                        <tbody>
+                    <table style="width: 800px;" class="table table-condensed" id="maintable">
+                        <tbody style="border-top: 2px solid transparent;">
                             <tr class="abailone">
                                 <td>Abailable Balance</td>
                                 <td>US $</td>
@@ -110,18 +110,21 @@ font-weight: 700;
                                         $withdraw += ($val->amount + $val->processingfees);
                                     }
                                     $available = $available - $withdraw;
+                                    $payment_fixed_avail_amount=$payment_fixed_avail[0]->payment_gross;
+                                    $payment_hourly_avail_amount=$payment_hourly_avail[0]->payment_gross;
+                                    $available=$payment_fixed_avail_amount+$payment_fixed_avail_amount-$withdraw;
                                     ?>
                                     <span id="available_bal"><?= $available; ?></span>
                                 </td>
                             </tr>
                         </tbody>
-                        <tbody>
+                        <tbody style="border-top: 1px solid #ccc;">
                             <tr class="abailbanfle">
-                                <td> Withdra Balance</td>
+                                <td> Withdraw Balance</td>
                                 <td>US $</td>
                                 <td style=" min-width: 382px;">
-                                    <input style="font-size: 17px;font-family: calibri;" type="text" value="" name="bal_withdraw" id="bal_withdraw" placeholder="">
-                                    <span id="erreo"></span>
+                                    <input style="font-size: 17px;font-family: calibri;width: 80px;margin-right: 3px;" type="text" value="" name="bal_withdraw" id="bal_withdraw" placeholder="">
+                                    <span style="font-size: 17px;font-family: calibri;" id="erreo"></span>
                                 </td>
                             </tr>
                             <tr class="abailone">
@@ -142,7 +145,7 @@ font-weight: 700;
                     <div style="margin-left: -40px;" class="row">
                         <div class="col-xs-12 col-sm-3">
                         </div>
-                        <div class="col-xs-12 col-sm-2">
+                        <div style="margin-left: 37px;" class="col-xs-12 col-sm-2">
                             <button type="submit" class="btn-primary big_mass_active transparent-btn big_mass_button" id="Withdrawbutton">Withdraw</button>
                         </div>
                         <div style="margin-left: -60px;" class="col-xs-12 col-sm-2">
@@ -154,28 +157,47 @@ font-weight: 700;
                 <div class="clear:both"></div>
                 <div class="col-md-12 col-sm-12 nopadding">
                     <div class="last ">
-                        <h3>Withdrawal Requested</h3>
+                        <h3 style="font-size: 19px;font-family: calibri;font-weight: bold;">Withdrawal Requested</h3>
                     </div>
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12 latimptable nopadding">
                     <div class="lasttable">
-                        <table class="table table-bordered">
-                            <tbody>
-                                <tr class="bacvolor">
-                                    <td>Requested at</td>
-                                    <td>Amount</td>
-                                    <td>Transaction Type</td>
-                                    <td>Status </td>
-                                    <td>Processing Data</td>
+                        <table class="table table-bordered" id="withdraw-table">
+                            <thead>
+                                <tr class="bacvolor cus_bottom_menu">
+                                    <th>Requested at</th>
+                                    <th>Amount</th>
+                                    <th>Transaction Type</th>
+                                    <th>Status </th>
+                                    <th>Processing Data</th>
                                 </tr>
+                            </thead>
+
+                            <tbody>
+                                <?php foreach ($record as $value) : ?>
+                                <tr>
+                                    <td>
+                                        <?= $value['email'] ?>
+                                    </td>
+                                    <td>
+                                        <?="$ ". $value['amount'] ?>
+                                    </td>
+                                    <td>
+                                        <?= $value['payment_type'] ?>
+                                    </td>
+                                    <td>
+                                        Pending
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                               <?php
+                               endforeach; ?>
                             </tbody>
 
 
                         </table>
 
-                        <article class="text-center">
-                            You have no Pending withdrawal request
-                        </article>
                     </div>
                 </div>
 
@@ -192,13 +214,13 @@ font-weight: 700;
         var withdraw = $("#bal_withdraw").val();
         calculatewithdraw(paymentType, withdraw);
     });
-    $("#bal_withdraw").keyup(function (e) { 
+    $("#bal_withdraw").keyup(function (e) {
         e.preventDefault();
-        
+
         var paymentType = $("#payment_type").val();
         var withdraw = $("#bal_withdraw").val();
         if (!$.isNumeric(withdraw)) {
-            $("#erreo").text("Please enter Numeric value");
+            $("#erreo").text("Numeric value only");
             ;
             return false;
         }
@@ -209,18 +231,19 @@ font-weight: 700;
         var paymentType = $("#payment_type").val();
         var withdraw = $("#bal_withdraw").val();
         if (!$.isNumeric(withdraw)) {
-            $("#erreo").text("Please enter Numeric value");
+            $("#erreo").text("Numeric value only");
             return false;
         }
         calculatewithdraw(paymentType, withdraw);
     });
     $("#Withdrawbutton").on('click', function (e) {
         e.preventDefault();
+
         var tax_status = "<?php echo $tax_status;?>";
         var tax_url = "<?php echo site_url('payment/tax-information') ?>";
         var alert_msg = "!Please submit your tax information to complete withdrawal   or  Before withdrawing funds, all freelancers must provide their  tax information.<a href='"+ tax_url +"'> Add Tax Info</a>";
-       
-        if (tax_status == '0') { 
+
+        if (tax_status == '0') {
             $("#alert-msg").html(alert_msg);
             return false;
         }
@@ -233,23 +256,41 @@ font-weight: 700;
         calculatewithdraw(paymentType, withdraw);
         var $form = $("#withdraw_from");
 
-        $.post("<?php echo site_url('withdraw/withdrawamount'); ?>", {form: $form.serialize()}, function (data) {
-            if (data.success) {
-                $form[0].reset();
-                $('.form-loader').hide();
-                $('.result-msg').html(data.message);
-                $(".result-msg").show().delay(5000).fadeOut();
-                var total = $('#total_work_time').val();
-            } else {
-                $('.result-msg').html(data.message);
-                $(".result-msg").show().delay(5000).fadeOut();
-                alert('Opps!! Something went wrong.');
+        $.ajax({
+            url:"<?php echo site_url('withdraw/withdrawamount'); ?>",
+            type: "post",
+            dataType: "html",
+            data: ({form: $form.serialize()}),
+            success: function (data) {
+                var rows = "";
+                var json = $.parseJSON(data);
+                if (json.success) {
+                    $form[0].reset();
+                    $('.form-loader').hide();
+                    $('.result-msg').html(json.message);
+                    $(".result-msg").show().delay(5000).fadeIn();
+                    var total = $('#total_work_time').val();
+
+                    rows = "<tr><td>";
+                    rows += json.record['email']+"</td> <td> $ ";
+                    rows += json.record['amount']+"</td> <td>";
+                    rows += json.record['payment_type']+"</td>";
+                    rows += "<td>Pending</td>";
+                    rows += "<td></td>";
+                    rows += "</tr>";
+
+                    $('#withdraw-table > tbody:last-child').append(rows);
+                }
+                else {
+                    $('.result-msg').html(json.message);
+                    $(".result-msg").show().delay(5000).fadeOut();
+                    alert('Opps!! Something went wrong.');
+                }
+            },
+            error: function () {
+                console.log('error');
             }
-        }, 'json');
-
-
-
-
+        });
 
     });
 
