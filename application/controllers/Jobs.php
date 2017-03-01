@@ -1378,16 +1378,24 @@ class Jobs extends CI_Controller {
             //  echo $this->db->last_query();
 
             $records = array();
+            $this->db->select(array(
+                '*',
+                'GROUP_CONCAT(DISTINCT "", webuser_skills.skill_name) AS wuser_skills',
+            ));
             $this->db->join('webuser', 'webuser.webuser_id=job_bids.user_id', 'left');
+            $this->db->join('webuser_skills', 'webuser.webuser_id=webuser_skills.webuser_id', 'left');
             $this->db->order_by("job_bids.id", "desc");
-             // added by jahid start 
-             $this->db->where('job_bids.job_progres_status', 0);
-             $this->db->where(array('job_bids.withdrawn' => NULL)); 
-             // added by jahid end 
+            // added by jahid start 
+            $this->db->where('job_bids.job_progres_status', 0);
+            $this->db->where(array('job_bids.withdrawn' => NULL));
+            $this->db->group_by('webuser_skills.webuser_id');
+            // added by jahid end 
             $query = $this->db->get_where('job_bids', array('job_id' => $jobId, 'bid_reject' => 0, 'status!=1' => null));
                          
-            if ($query->num_rows() > 0)
+            if ($query->num_rows() > 0) {
                 $records = $query->result();            
+            }
+
             $this->db->where('id', $jobId);
             $q = $this->db->get('jobs');
             $jobDetails = $q->row();
@@ -1425,10 +1433,10 @@ class Jobs extends CI_Controller {
             // reject count
             $this->db->select('*');
             $this->db->from('job_bids');
-             // added by jahid start 
+            // added by jahid start 
             $this->db->where(array('job_id' => $jobId));  
-	    $this->db->where("(withdrawn=1 OR bid_reject=1)", NULL, FALSE); 
-             // added by jahid end 
+    	    $this->db->where("(withdrawn=1 OR bid_reject=1)", NULL, FALSE); 
+            // added by jahid end 
             
             $query_totalreject = $this->db->get();
             $reject_count = $query_totalreject->num_rows();
@@ -1464,9 +1472,16 @@ class Jobs extends CI_Controller {
             $jobId = base64_decode($jobId);
             $sender_id = $this->session->userdata(USER_ID);
 
+
+            $this->db->select(array(
+                '*',
+                'GROUP_CONCAT(DISTINCT "", webuser_skills.skill_name) AS wuser_skills',
+            ));
             $this->db->join('webuser', 'webuser.webuser_id=job_bids.user_id', 'left');
+            $this->db->join('webuser_skills', 'webuser.webuser_id=webuser_skills.webuser_id', 'left');
             $this->db->join('job_conversation', 'job_conversation.bid_id=job_bids.id', 'inner');
             $this->db->group_by('job_conversation.bid_id');
+            $this->db->group_by('webuser_skills.webuser_id');
             $this->db->order_by("job_bids.id", "desc");
             // added by jahid start 
             $query = $this->db->get_where('job_bids', array(

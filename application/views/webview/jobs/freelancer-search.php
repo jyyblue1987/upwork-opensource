@@ -188,8 +188,8 @@ span.rating-badge {
                                     <div class="col-md-11 skills">
                                        <div class="user_skills">
 									   <?php
-                                       if(strlen($fp->skills) > 0){
-                                           $temp = explode(",", $fp->skills);
+                                       if(strlen($fp->wuser_skills) > 0){
+                                           $temp = explode(",", $fp->wuser_skills);
                                            foreach ($temp as $t) {
                                         ?>
                                         <span><?php echo $t ?></span>

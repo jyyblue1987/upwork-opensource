@@ -9,11 +9,23 @@ class ProfileModel extends CI_Model{
     
     public function getFreelancerSearch($keywords,$limit = 10,$offset = 0){
         
-        $this->db->select("wu.webuser_id, wu.webuser_fname,wu.webuser_lname,wu.webuser_picture,c.country_name,".
-               "wubp.tagline,wubp.hourly_rate,wubp.overview,wubp.overview,wubp.skills");
+        $this->db->select(array(
+            'wu.webuser_id',
+            'wu.webuser_fname',
+            'wu.webuser_lname',
+            'wu.webuser_picture',
+            'c.country_name',
+            'wubp.tagline',
+            'wubp.hourly_rate',
+            'wubp.overview',
+            'wubp.overview',
+            'wubp.skills',
+            'GROUP_CONCAT(DISTINCT "", webuser_skills.skill_name) AS wuser_skills',
+        ));
         $this->db->from(WEB_USER_TABLE." as wu");
         $this->db->join(COUNTEY_TABLE." as c","wu.webuser_country = c.country_id");
         $this->db->join(WEB_USER_BASIC_PROFILE_TABLE." as wubp","wu.webuser_id = wubp.webuser_id");
+        $this->db->join('webuser_skills', 'wu.webuser_id=webuser_skills.webuser_id', 'left');
         $this->db->where("wu.webuser_type",2);
         $this->db->like("wu.webuser_fname",$keywords);
         $this->db->or_like("wu.webuser_lname",$keywords);

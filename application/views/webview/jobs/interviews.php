@@ -112,6 +112,7 @@ $totalApplication = $this->db->count_all_results();
             </div>
             
             <?php
+           
             foreach ($records as $value){
                 $this->db->select('*');
                 $this->db->from('job_accepted');
@@ -184,7 +185,7 @@ $totalApplication = $this->db->count_all_results();
                                 </div>
                                 <div class="col-md-8 text-left margin-left-1" style="margin-top:-4px;">
                                   <div class="aplicant_identity">
-                                        <label class="aplicant_name"><a href="<?php echo base_url() ?>interview?user_id=<?=base64_encode($value->user_id)?>&job_id=<?=base64_encode($value->job_id)?>&bid_id=<?=base64_encode($value->id)?>"><?php echo ucfirst($value->webuser_fname) . " " . ucfirst($value->webuser_lname) ?></a></label> 
+                                        <label class="aplicant_name"><a href="<?php echo base_url() ?>interview?user_id=<?=base64_encode($value->user_id)?>&job_id=<?=base64_encode($value->job_id)?>&bid_id=<?=base64_encode($value->bid_id)?>"><?php echo ucfirst($value->webuser_fname) . " " . ucfirst($value->webuser_lname) ?></a></label> 
                                     <br/> 
                                     <b>
                                         <span>
@@ -293,14 +294,13 @@ $totalApplication = $this->db->count_all_results();
                                         <div class="col-md-1">
                                         <span class="gray-text" style="font-size:14px;">Skills</span></div>
                                         <div class="col-md-11 text-left skills">                                                                <div class="user_skills">
-                                            <?php
-                                            if (isset($profile->skills) && !empty($profile->skills))
-                                            {
-                                                $skills = explode(',', $profile->skills);
-                                                foreach ($skills as $skill)
-                                                   echo "<span>$skill</span>";
-                                            }
-                                            ?>
+                                            <?php if (!empty($value->wuser_skills)) {
+                                                $skills = explode(',', $value->wuser_skills);
+
+                                                foreach ($skills as $skill) {
+                                                  echo "<span>$skill</span>";
+                                                }
+                                            } ?>
                                         </div>
                                         </div>
                                     </div>

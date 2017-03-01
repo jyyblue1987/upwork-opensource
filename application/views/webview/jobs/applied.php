@@ -147,7 +147,6 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
             <?php
            // echo "<pre>"; print_r($records); exit;
             foreach ($records as $value) {
-                
                 $this->db->select('*');
                 $this->db->from('job_accepted');
                 $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
@@ -336,14 +335,13 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
                                         <div class="col-md-1">
                                         <span class="gray-text" style="font-size:14px;">Skills</span></div>
                                         <div class="col-md-11 text-left skills">                                                                             <div class="user_skills">
-                                            <?php
-                                            if (isset($profile->skills) && !empty($profile->skills))
-                                            {
-                                                $skills = explode(',', $profile->skills);
-                                                foreach ($skills as $skill)
-                                                   echo "<span>$skill</span>";
-                                            }
-                                            ?>
+                                            <?php if (!empty($value->wuser_skills)) {
+                                                $skills = explode(',', $value->wuser_skills);
+
+                                                foreach ($skills as $skill) {
+                                                  echo "<span>$skill</span>";
+                                                }
+                                            } ?>
                                         </div>         
                                         </div>
                                     </div>

@@ -121,6 +121,7 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
 
        
 		 <?php
+		// echo "<pre>"; print_r($messages); exit;
             foreach ($messages as $value) {
 				
                 $this->db->select('*');
@@ -306,14 +307,13 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
                                         <span class="gray-text" style="font-size:14px;">Skills</span></div>
                                         <div class="col-md-11 text-left skills">                                            
                                             <div class="user_skills">
-                                                <?php
-                                            if (isset($profile->skills) && !empty($profile->skills))
-                                            {
-                                                $skills = explode(',', $profile->skills);
-                                                foreach ($skills as $skill)
-                                                   echo "<span>$skill</span>";
-                                            }
-                                            ?>
+                                              <?php if (!empty($value->wuser_skills)) {
+                                                $skills = explode(',', $value->wuser_skills);
+
+                                                foreach ($skills as $skill) {
+                                                  echo "<span>$skill</span>";
+                                                }
+                                              } ?>
                                             </div>
                                         </div>
                                     </div>
@@ -323,11 +323,11 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
                                 <div class="col-md-2 margin-top-5 text-right msg-buttons">
                                     <!--<a href="javascript:void(0)" onclick="loadmessage(<?=$value->id?>,<?=$value->user_id?>,<?=$value->job_id?>)">Message</a>-->
                                     <div class="hire_decline"><?php if($value->bid_reject == '1'){echo 'Declined By You';}else{echo 'Declined By Freelancer';} ?></div>  
-                                  <div class="hire_sms_btn"><a class="btn btn-primary form-btn" href="<?php echo base_url() ?>interview?user_id=<?=base64_encode($value->user_id)?>&job_id=<?=base64_encode($value->job_id)?>&bid_id=<?=base64_encode($value->id)?>">Message</a>  
+                                  <div class="hire_sms_btn"><a class="btn btn-primary form-btn" href="<?php echo base_url() ?>interview?user_id=<?=base64_encode($value->freelancer_id)?>&job_id=<?=base64_encode($value->job_id)?>&bid_id=<?=base64_encode($value->bid_id)?>">Message</a>  
                                     </div>
    <div class="hire_me_btn">
 		<?php if($ststus->isactive==1){ ?>
-		<a class="btn btn-primary form-btn" href="<?php if ($jobDetails->job_type == 'hourly') { echo site_url("jobs/confirm_hired_hourly?user_id=".base64_encode($value->user_id)."&job_id=".base64_encode($value->job_id));} else { echo site_url("jobs/confirm_hired_fixed?user_id=".base64_encode($value->user_id)."&job_id=".base64_encode($value->job_id));} ?>">Hire Me</a><?php } ?>
+		<a class="btn btn-primary form-btn" href="<?php if ($jobDetails->job_type == 'hourly') { echo site_url("jobs/confirm_hired_hourly?user_id=".base64_encode($value->freelancer_id)."&job_id=".base64_encode($value->job_id));} else { echo site_url("jobs/confirm_hired_fixed?user_id=".base64_encode($value->freelancer_id)."&job_id=".base64_encode($value->job_id));} ?>">Hire Me</a><?php } ?>
 
                                </div>
                                 </div>
