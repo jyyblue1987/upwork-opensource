@@ -95,8 +95,9 @@ border-radius: 4px;}
                         <div class="form-group">
                             <label class="col-xs-4">Tax Country </label>
                             <div class="col-xs-8">
-                                <span id="adress"><?php  
-                                echo $countryList[$webUserTaxdetails['country']]['country_name']  ?> </span>
+								<!--*******Indsys Technologies 23/02/2017  country_dialingcode****-->
+                                <span id="adress"><?php
+                                echo getCountryName($webUserTaxdetails['country']);  ?> </span>
                             </div>
                         </div>
                         
@@ -115,8 +116,8 @@ border-radius: 4px;}
                 </div>   
                 <div id="editableform">
                     <form action="#" name="" method="post" id="tax-form">
-
-
+                        <div class="row"><div style="text-align-center;" class="col-xs-12 sys-message"></div></div>
+                       <br/>
                         <div class=" row">
                             <label for="" id="olemail" class="col-xs-3 col-form-label">Legal Name</label>
                             <div class="col-xs-6">
@@ -141,9 +142,10 @@ border-radius: 4px;}
                                     <select style="width: 250px;font-size: 16px;font-family: calibri;" name="country" class="select form-control select-country">
                                         <option value="">Select Country</option>
                                     <?php
+                                    
                                     if (isset($countryList) && is_array($countryList) && !empty($countryList)) {
                                         foreach ($countryList as $country) {
-                                            if ($country['country_id'] == $this->session->userdata('webuser_country')) {
+                                            if ($country['country_id'] == $webUserTaxdetails['country']) {
                                                 $selected = "selected = selected";
                                             } else {
                                                 $selected = "";
@@ -223,12 +225,12 @@ border-radius: 4px;}
 
                         <div class=" row">
                             <div class="col-xs-3"></div>
-                            <div style="margin-top: 20px;margin-left: -5px;" class="col-xs-4">
+                            <div style="margin-top: 20px;margin-left: -5px;  padding:2px;" class="col-xs-4">
                                 <button style="float: left;" type="button" id="update-tax" onclick="saveTax();" class="btn-primary big_mass_active transparent-btn big_mass_button">Update</button>
                                 <?php $tax_url = site_url('payment/tax-information');;?>
-                                <button type="button" class="btn-primary transparent-btn big_mass_button" onclick="location.href = '<?php echo $tax_url ?>'">Cancel</button>
+                                <button style="margin-top:-28px;" type="button" class="btn-primary transparent-btn big_mass_button" onclick="location.href = '<?php echo $tax_url ?>'">Cancel</button>
                             </div>
-                            <div class="col-xs-5 sys-message"></div>
+                            
                         </div>
                     </form>
                 </div>  
@@ -333,3 +335,5 @@ $this->load->view("webview/includes/footer-common-script");
     }
 </script>
 <!-- big_header-->
+
+<style>

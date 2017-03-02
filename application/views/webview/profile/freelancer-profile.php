@@ -44,6 +44,80 @@ foreach ($accepted_jobs as $job_data) {
     }
 }
 ?>
+<!-- this css update by indsys tech 3 march -->
+
+ <style type="text/css">
+    
+.buttonsidefoure {
+    margin-top:40px !important;
+    margin-bottom:  !important;
+    background: white;
+    max-width: 370px;
+    margin-right: -5px;
+    margin-left: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    height: 100%;
+    padding-bottom: 20px;
+}
+.buttonsidefoure ul li {
+    padding: 13px 0px 0px 5px;
+}
+.buttonsidefoure h2 {
+    font-size: 21.26px;
+    margin: -8px 30px 15px 7px;
+    color: #494949;
+    font-family:'Calibri';
+    src: url(../fonts/Calibri.ttf);
+    display: block;
+    padding: 15px 0 0 0;
+    font-weight:800;
+}
+.buttonsidefoure ul li a {
+    text-decoration: none;
+    color: #494949;
+    font-family: 'Calibri';
+    src: url(../fonts/Calibri.ttf);
+    font-size: 16.26px;
+    display: block;
+    font-weight: bold;
+}
+span.rating-badge {
+    background: #F77D0E none repeat scroll 0 0;
+    border-radius: 2px;
+    color: #fff;
+    padding: 2px 4px 2px 5px;
+    font-size: 12px;
+}
+.review_ratting {
+  margin-bottom: 20px;
+}
+.user_view_img {
+    margin-left: 15px;
+}
+.topmiddle {
+    margin-left: 30px;
+}
+.user_view_img img {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    margin: 10px 0px 6px 10px;
+    }
+span.rating-badge {
+    background: #F77D0E none repeat scroll 0 0;
+    border-radius: 2px;
+    color: #fff;
+    padding: 2px 4px 2px 5px;
+    font-size: 12px;
+}
+.profile_star-rating::before {top: -8px;left:-2px;}
+ul.cus_main_side_nav_bar li a i{}
+
+    
+ </style>
+<section id="big_header"  style="margin-bottom: 40px; height: auto;">
+<!-- end code of 3 march indsys tech-->
  
 <div style="clear:both"></div>
 <div class="container">
@@ -705,69 +779,3 @@ $this->load->view("webview/includes/footer-common-script");
 </div>
 <style>
 
-.buttonsidefoure {
-    margin-top:40px !important;
-    margin-bottom:  !important;
-    background: white;
-    max-width: 370px;
-    margin-right: -5px;
-    margin-left: 20px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    height: 100%;
-    padding-bottom: 20px;
-}
-.buttonsidefoure ul li {
-    padding: 13px 0px 0px 5px;
-}
-.buttonsidefoure h2 {
-    font-size: 21.26px;
-    margin: -8px 30px 15px 7px;
-    color: #494949;
-    font-family:'Calibri';
-    src: url(../fonts/Calibri.ttf);
-    display: block;
-    padding: 15px 0 0 0;
-    font-weight:800;
-}
-.buttonsidefoure ul li a {
-    text-decoration: none;
-    color: #494949;
-    font-family: 'Calibri';
-    src: url(../fonts/Calibri.ttf);
-    font-size: 16.26px;
-    display: block;
-    font-weight: bold;
-}
-span.rating-badge {
-    background: #F77D0E none repeat scroll 0 0;
-    border-radius: 2px;
-    color: #fff;
-    padding: 2px 4px 2px 5px;
-    font-size: 12px;
-}
-.review_ratting {
-  margin-bottom: 20px;
-}
-.user_view_img {
-    margin-left: 15px;
-}
-.topmiddle {
-    margin-left: 30px;
-}
-.user_view_img img {
-    border-radius: 50%;
-    height: 100px;
-    width: 100px;
-    margin: 10px 0px 6px 10px;
-    }
-span.rating-badge {
-    background: #F77D0E none repeat scroll 0 0;
-    border-radius: 2px;
-    color: #fff;
-    padding: 2px 4px 2px 5px;
-    font-size: 12px;
-}
-.profile_star-rating::before {top: -8px;left:-2px;}
-ul.cus_main_side_nav_bar li a i{}
-</style>
