@@ -153,7 +153,7 @@
                                             <tr><td>
 
                                                 <b><?= $value['payment_type']; ?> Account:</b>
-                                                2ss
+                                               <?= $value['email_payment']; ?>
                                             </td>
                                             </tr>
                                         </table>
@@ -162,12 +162,14 @@
                                     <td><?= $value['payment_type']; ?></td>
                                     <td><?= $value['amount']; ?></td>
                                     <td>
-                                        <input type="checkbox" checked data-toggle="toggle" data-on="<i class='fa fa-check'></i>" data-off="<i class='fa fa-circle-o'></i>" data-size="normal">
+                                        <span id="<?= 'td'.$value['id'];?>"><?= ucwords($value['status_payment']); ?></span>
+                                        <input type="checkbox" data-toggle="toggle" data-on="<i class='fa fa-check'></i>" data-off="<i class='fa fa-circle-o'></i>" data-size="normal" id="<?="check-".$value['id']?>" value="<?="check-".$value['id']?>" class="status-toggle" >
                                     </td>
                                     <td>
                                         <div class="selector" id="uniform-user_type" style="width: 100px;">
-                                            <select id="user_type" name="user_type" class="form-control">
-                                                <option value="">Edit</option>
+                                            <select id="user_type" name="user_type" class="form-control status-select" key="<?= $value['id'] ?>">
+                                                <option value="">Select value</option>
+                                                <option value="1" >Edit</option>
 
                                                 <option value="3">Pending</option>
                                                 <option value="2">Processed</option>
@@ -194,24 +196,80 @@
         $('#example').DataTable({
             bFilter: false,
         });
+
+        $('.status-select').on("change", function(){
+            var id = this.getAttribute("key");
+            var flag = false;
+            if(this.value == 2 && !$('#check-'+id).checked)
+                flag = changestatus(id);
+
+            if(!flag)
+                $(this).val("");
+            else{
+                $(this).prop('disabled',true);
+                $("#td"+id).html('Processed');
+                $('#check-'+id).bootstrapToggle('on');
+                $('#check-'+id).bootstrapToggle('disable');
+            }
+        });
+
     } );
 
+
+
+    $('.status-toggle').on("change",function(){
+        if(this.checked){
+            var op = $(this).val().split("-");
+            var flag = false;
+
+            if($("[key="+op[1]+"]").val() != 2)
+               flag = changestatus(op[1]);
+
+            if(!flag)
+                this.bootstrapToggle('off');
+            else{
+                $("[key="+op[1]+"]").val(2);
+                $("[key="+op[1]+"]").prop('disabled',true);
+                $("#td"+op[1]).html('Processed');
+                $(this).bootstrapToggle('disable');
+            }
+        }
+    });
+
     function changestatus(id){
+        var result = confirm('Are you sure ?');
 
-        $.post("<?php echo base_url() ?>administrator/userpage/changeactiveTosuspend", { id: id },  function(data) {
+            if(result){
 
-					if(data.success){
-
-							$('.result-msg').html('You have successfully change The Status');
-							$(".result-msg").show().delay(5000).fadeOut();
-							setTimeout(function(){ window.location = "<?php echo base_url();?>administrator/userpage/loadpage/webuser/subpage/suspendclient"; }, 5000);
-					}
-					else{
-							alert('Opps!! Something went wrong.');
-					}
-
-			}, 'json');
-
+                $.ajax({
+                url:"<?php echo site_url('withdraw/withdrawstatus'); ?>",
+                type: "post",
+                dataType: "html",
+                data: ({id: id}),
+                success: function (data) {
+                    var json = $.parseJSON(data);
+                    if (json.success) {
+                            $('.form-loader').hide();
+                            $('.result-msg').html(json.message);
+                            $(".result-msg").show().delay(5000).fadeIn();
+                            //var total = $('#total_work_time').val();
+                            $('#check-'+id).attr('disabled',true);
+                        }
+                        else {
+                            alert('nada');
+                            $('.result-msg').html(json.message);
+                            $(".result-msg").show().delay(5000).fadeOut();
+                            alert('Opps!! Something went wrong.');
+                        }
+                    },
+                    error: function () {
+                        console.log('error');
+                    }
+                });
+                return true;
+            }else{
+                return false;
+            }
     }
 
 

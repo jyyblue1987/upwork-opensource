@@ -137,4 +137,19 @@ class Withdraw extends CI_Controller {
         print_r(json_encode($response));
     }
 
+    public function withdrawstatus() {
+        $user_id = $this->session->userdata('id');
+        $id_withdraw = $_POST['id'];
+        $status_withdraw = 'processed';
+        $data_update = array('status'=>$status_withdraw,'operation_date'=>date('Y-m-d h:i:s'));
+        $this->db->where('id',$id_withdraw);
+        //$this->db->where('userid',$user_id);
+        $this->db->update('withdraw', $data_update);
+        $response['id'] = $id_withdraw;
+        $response['success'] = true;
+        $response['data'] = true;
+        $response['message'] = "Sucessfully Withdraw the status";
+        print_r(json_encode($response));
+    }
+
 }

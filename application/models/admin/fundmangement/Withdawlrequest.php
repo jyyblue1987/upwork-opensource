@@ -4,6 +4,7 @@ class Withdawlrequest extends CI_Model {
     function __construct() {
         parent::__construct();
         $this->load->model('withdraw_model');
+        $this->load->model('payment_methods_model');
     }
 
 	  function check($permission) {
@@ -35,7 +36,13 @@ class Withdawlrequest extends CI_Model {
 			$query = $this->db->get();
 			$result = $query->result();
 
+			$record = $this->withdraw_model->get_by_all_user('pending');
+			foreach ($record as $key => $value)
+			{
+				$data = $this->payment_methods_model->get_email_by_user_and_method($value['webuser_id'], strtolower($value['payment_type']));
 
+				$record[$key]['email_payment'] = $data->account_id;
+			}
 
 			$data = array(
 				'title' => $title,
@@ -43,7 +50,7 @@ class Withdawlrequest extends CI_Model {
 				'loadpage' => $page['loadpage'],
 				'subpage' => $page['subpage'],
 				'result' => $result,
-				'record' => $this->withdraw_model->get_by_all_user()
+				'record' => $record
 			);
 
 			$this->Admintheme->loadview($page['loadpage']."/".$page['subpage'],$data);

@@ -186,9 +186,10 @@ font-weight: bold;
                                         <?= $value['payment_type'] ?>
                                     </td>
                                     <td>
-                                        Pending
+                                        <?= ucwords($value['status']) ?>
                                     </td>
                                     <td>
+                                    <?= empty($value['operation_date']) ? '' : $value['operation_date']; ?>
                                     </td>
                                 </tr>
                                <?php
@@ -271,12 +272,15 @@ font-weight: bold;
                     $(".result-msg").show().delay(5000).fadeIn();
                     var total = $('#total_work_time').val();
 
+                    if(json.record['operation_date'] == null)
+                        json.record['operation_date'] = '';
+
                     rows = "<tr><td>";
                     rows += json.record['email']+"</td> <td> $ ";
                     rows += json.record['amount']+"</td> <td>";
-                    rows += json.record['payment_type']+"</td>";
-                    rows += "<td>Pending</td>";
-                    rows += "<td></td>";
+                    rows += json.record['payment_type']+"</td> <td>";
+                    rows += json.record['status']+"</td> <td>";
+                    rows += json.record['operation_date']+"</td>";
                     rows += "</tr>";
 
                     $('#withdraw-table > tbody:last-child').append(rows);
