@@ -24,6 +24,15 @@ font-family: "calibri";
 font-size: 17px;
 font-weight: bold;
 }
+.disabled-input{
+    cursor: not-allowed !important;
+    background-color: #EEE;
+    color: #9E9999;
+}
+.disabled {
+    opacity: .5;
+    cursor: not-allowed !important;
+}
 </style>
 <section id="mid_content" class="withdraw">
     <div class="container">
@@ -146,10 +155,10 @@ font-weight: bold;
                         <div class="col-xs-12 col-sm-3">
                         </div>
                         <div style="margin-left: 37px;" class="col-xs-12 col-sm-2">
-                            <button type="submit" class="btn-primary big_mass_active transparent-btn big_mass_button" id="Withdrawbutton">Withdraw</button>
+                            <button type="submit" class=" btn-primary big_mass_active transparent-btn big_mass_button" id="Withdrawbutton">Withdraw</button>
                         </div>
                         <div style="margin-left: -60px;" class="col-xs-12 col-sm-2">
-                            <button type="submit" class="btn-primary transparent-btn big_mass_button" id="cencelbutton">Cancel</button>
+                            <button type="submit" class=" btn-primary transparent-btn big_mass_button" id="cancelbutton">Cancel</button>
                         </div>
                         <div class="clear:both"></div>
                     </div>
@@ -209,6 +218,24 @@ font-weight: bold;
 <div style="clear:both"></div>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script>
+
+    $(document).ready(function(){
+        $('#bal_withdraw').prop('disabled',true).addClass('disabled-input');
+        $('#Withdrawbutton').prop('disabled',true).addClass('disabled');
+    });
+
+    $('#payment_type').on("change", function(){
+
+        if(this.value != ""){
+            $('#bal_withdraw').prop('disabled',false).removeClass('disabled-input');
+            $('#Withdrawbutton').prop('disabled',false).removeClass('disabled');
+        }else{
+            $('#bal_withdraw').prop('disabled',true).addClass('disabled-input');
+            $('#Withdrawbutton').prop('disabled',true).addClass('disabled');
+        }
+
+    });
+
     $("#payment_type").on('change', function (e) {
         e.preventDefault();
         var paymentType = $("#payment_type").val();
@@ -237,6 +264,23 @@ font-weight: bold;
         }
         calculatewithdraw(paymentType, withdraw);
     });
+
+
+    $("#cancelbutton").on('click', function (e) {
+        var $form = $("#withdraw_from");
+        $form[0].reset();
+        $("#processfees").text("0.00");
+        $("#new_available").text("0.00");
+        if(!$('#bal_withdraw').hasClass('disabled-input')){
+
+            $('#bal_withdraw').prop('disabled',false).addClass('disabled-input');
+            $('#Withdrawbutton').prop('disabled',false).addClass('disabled');
+        }
+
+        return false;
+
+    });
+
     $("#Withdrawbutton").on('click', function (e) {
         e.preventDefault();
 
@@ -284,6 +328,14 @@ font-weight: bold;
                     rows += "</tr>";
 
                     $('#withdraw-table > tbody:last-child').append(rows);
+                    if($('#payment_type').val() == ""){
+                        $('#bal_withdraw').prop('disabled',false).removeClass('disabled-input');
+                        $('#Withdrawbutton').prop('disabled',false).removeClass('disabled');
+                    }else{
+                        $('#bal_withdraw').prop('disabled',true).addClass('disabled-input');
+                        $('#Withdrawbutton').prop('disabled',true).addClass('disabled');
+                    }
+
                 }
                 else {
                     $('.result-msg').html(json.message);
@@ -295,6 +347,7 @@ font-weight: bold;
                 console.log('error');
             }
         });
+
 
     });
 
