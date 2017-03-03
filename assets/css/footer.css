@@ -89,14 +89,14 @@ textarea {
 	background-color:#252525;
 /*	margin-top:40px;*/
 }
-.footer1 ul{
+.footer-menu ul{
 list-style-type: none;
 padding: 95px 0px 60px 0px;
 padding-top: 20px;
 padding-bottom: 20px;
 }
 
-.footer1 ul li{
+.footer-menu ul li{
 color: #807d7d;
 padding: 15px 0px 0px 0px;
 font-family: 'Open Sans', sans-serif;
@@ -105,8 +105,8 @@ font-size: 18px;
 padding-top: 5px;
 font-family: calibri;
 }
-
-.footer1 ul li:last-child{
+/* add css indsys start*/
+.footer-menul li:last-child{
 	color:#8b8a8a;
 	padding:15px 0px 58px 0px;
 	font-family:'Raleway';
@@ -115,7 +115,7 @@ font-family: calibri;
 	padding-bottom: 0;
 }
 
-.footer1 ul li p{
+.footer-menu ul li p{
 color: #fff;
 padding: 15px 0px 0px 0px;
 font-family: 'Open Sans', sans-serif;
@@ -124,6 +124,7 @@ font-size: 19px;
 margin-bottom: 9px;
 font-family: calibri;
 }
+/* add css indsys end*/
 
 .footer2 p{
 	color:#8b8a8a;

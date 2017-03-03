@@ -8,7 +8,7 @@
 <div id="find-jobs_container" class="container">
     <div class="row">
 	 <div class="col-sm-6 col-md-6 col-lg-3">
-	    <div class="footer1">  
+	    <div class="footer-menu">  
 			 <ul>
 			 <li><p><b>Winjob</b></p></li>
 			 <li><a href="<?php echo site_url("aboutus"); ?>">About us</a></li>
@@ -20,7 +20,7 @@
 		</div>
 	 </div>
   <div class="col-sm-6 col-md-6 col-lg-3">
-	       <div class="footer1">  
+	       <div class="footer-menu">  
 			 <ul>
 			  <li><p><b>Contact Support</b></p></li>
 			 <li>Help & Support</li>
@@ -31,7 +31,7 @@
 	 </div>
 	 <div class="clear1"></div>
 	<div class="col-sm-6 col-md-6 col-lg-3">
-	      <div class="footer1">  
+	      <div class="footer-menu">  
 			 <ul>
 			 <li><p><b>Information</b></p></li>
 			  <li>Fee and Charges</li>
@@ -44,7 +44,7 @@
 	 </div>
 
 	<div class="col-sm-6 col-md-6 col-lg-3">
-	      <div class="footer1">  
+	      <div class="footer-menu">  
 			
 			<ul>
 			<li><p><b>Knowledgebase</b></p></li>
@@ -74,6 +74,9 @@
 </div>
 <!-- End footer---->
 </section>
+</body>
+</html>
+
 
 		<!--<script src="<?php //echo site_url("assets/js/jquery.js"); ?>"></script>-->
 		<script src="<?php echo site_url("assets/js/bootstrap.min.js"); ?>"></script>
