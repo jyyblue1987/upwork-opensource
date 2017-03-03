@@ -241,6 +241,6 @@
             <header>Build your online Dream Team- <a href="signup" style="text-decoration: none;color: inherit">Get Started</a></header>
         </div>
     </section>
-    <?php $this->load->view("webview/includes/new-footer"); $this->load->view("webview/includes/new-footer-common-script"); ?> </body>
+    <?php $this->load->view("webview/layout/footer"); $this->load->view("webview/includes/new-footer-common-script"); ?> </body>
 
 </html>
