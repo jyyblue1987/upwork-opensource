@@ -586,23 +586,12 @@ class Pay extends CI_Controller {
         $this->db->where('payments.payment_create <=', $seven_days_pre);
         $this->db->where('payments.user_id', $user_id);
         $this->db->where('jobs.job_type','hourly');
+        $this->db->order_by('payment_create');
         $query_payment_hourly_avail = $this->db->get();
         $payment_hourly_avail = $query_payment_fixed_avail->result();
 
-      /* Hourly available end */
-
-
-
-
-
-
-
-//        print_r($list_payments);die();
-
-
-
-            $data = array('payment_hourly_avail'=>$payment_hourly_avail,'payment_fixed_avail'=>$payment_fixed_avail,'payment_fixed_pending'=>$payment_fixed_pending,'list_users' => $list_client, 'list_payments' => $list_payments, 'job_progress' => $job_progress, 'job_pending' => $job_pending, 'job_pending_fixed' => $job_pending_fixed, 'job_available_hourly' => $job_available_hourly, 'job_available_fixed' => $job_available_fixed, 'withdraws' => $withdraws);
-            $this->Admintheme->webview("clientpay/freelancerbalance", $data);
+        $data = array('payment_hourly_avail'=>$payment_hourly_avail,'payment_fixed_avail'=>$payment_fixed_avail,'payment_fixed_pending'=>$payment_fixed_pending,'list_users' => $list_client, 'list_payments' => $list_payments, 'job_progress' => $job_progress, 'job_pending' => $job_pending, 'job_pending_fixed' => $job_pending_fixed, 'job_available_hourly' => $job_available_hourly, 'job_available_fixed' => $job_available_fixed, 'withdraws' => $withdraws);
+        $this->Admintheme->webview("clientpay/freelancerbalance", $data);
         }
     }
 
@@ -865,17 +854,10 @@ class Pay extends CI_Controller {
                 $this->db->where('payments.user_id', base64_decode($_GET['employers']));
             }
 
-
-
             $this->db->where('payments.buser_id', $client_id);
-            $this->db->order_by("payment_id", "asc");
+            $this->db->order_by("payment_create");
             $query_payment = $this->db->get();
             $list_payments = $query_payment->result();
-            //  print_r($list_payments);die();
-            // echo $this->db->last_query();
-
-
-
 
             $data = array('list_users' => $list_users, 'list_payments' => $list_payments);
             $this->Admintheme->webview("clientpay/clientpay", $data);
