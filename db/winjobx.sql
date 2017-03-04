@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Mar 02, 2017 at 04:14 PM
+-- Generation Time: Mar 04, 2017 at 04:43 PM
 -- Server version: 5.6.33-cll-lve
 -- PHP Version: 5.6.20
 
@@ -526,7 +526,7 @@ CREATE TABLE IF NOT EXISTS `jobs` (
   `job_created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=178 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=180 ;
 
 --
 -- Dumping data for table `jobs`
@@ -542,6 +542,8 @@ INSERT INTO `jobs` (`id`, `user_id`, `title`, `category`, `job_description`, `jo
 (74, 29, 'category 3', 84, 'Create website current website is www.movingtargets.ca Use this as a basic outline of what I need. -must be easy to add or remove a product -integrated inventory tracking. Only sell product that is in stock. List products as in stock or out of stock -phone and desktop friendly -send to search engines, do initial SEO -main shipper for canada is Canpar courier. Canpar will provide sandbox to test website. -secondary couriers for international shipping are Fedex and DHL. Use the courier that is the least expensive -website will notify me when an order is placed, print out shipping labels -payment methods are paypal and credit card If this one is successful I have one other online store to create', 'hourly', 'HTML', '3_6_months', 'Entry level', 0.00, '20-29', '', 0, '2016-11-24 15:11:35', '0000-00-00 00:00:00'),
 (75, 29, 'category 4', 84, 'gdfhgfdhj', 'fixed', 'Jquery', '3_6_months', 'Entry level', 100.00, 'not_sure', '', 0, '2016-11-24 15:12:00', '0000-00-00 00:00:00'),
 (82, 29, 'Archive testing', 80, 'dfhggtfdh', 'fixed', 'PHP', '3_6_months', 'Entry level', 500.00, 'not_sure', '', 0, '2016-12-03 17:04:50', '0000-00-00 00:00:00'),
+(179, 18, 'php hourly', 1, 'php hourly', 'hourly', '', '3_6_months', 'Entry level', 0.00, '10-19', '', 1, '2017-03-04 17:33:54', '2017-03-04 17:33:54'),
+(178, 18, 'Developer testing ', 1, 'Developer testing ', 'fixed', '', '3_6_months', 'Entry level', 15.00, 'not_sure', '', 1, '2017-03-03 21:06:24', '2017-03-03 21:06:24'),
 (177, 18, 't9', 1, 'g09', 'hourly', '', 'not_sure', 'Entry level', 0.00, 'not_sure', '', 0, '2017-02-27 20:49:38', '2017-02-27 20:49:38'),
 (90, 41, 'seo for 20 websites ', 29, 'i need seo ', 'fixed', 'HTML', 'less_than_1_week', 'Entry level', 450.00, 'not_sure', '', 0, '2016-12-04 19:56:20', '0000-00-00 00:00:00'),
 (158, 18, 'test', 1, 'test', 'hourly', 'PHP', 'more_than_6_months', 'Entry level', 0.00, '10-19', '', 0, '2017-02-27 18:05:05', '0000-00-00 00:00:00'),
@@ -567,7 +569,7 @@ INSERT INTO `jobs` (`id`, `user_id`, `title`, `category`, `job_description`, `jo
 (156, 18, 'skills ', 1, 'wdefwf', 'hourly', '', '1_3_months', 'Entry level', 0.00, '10-19', '', 1, '2017-02-19 17:09:48', '2017-02-19 17:09:48'),
 (155, 18, 'Hourly-Applied count and hire page interview count issue', 1, 'Hourly-Applied count and hire page interview count issue', 'hourly', '', '1_3_months', 'Experienced', 0.00, '10-19', '', 0, '2017-02-18 10:22:29', '2017-02-18 10:22:29'),
 (154, 18, 'Fixed-Applied count and hire page interview count issue', 1, 'Fixed-Applied count and hire page interview count issue', 'fixed', '', '3_6_months', 'Entry level', 30.00, 'not_sure', '', 0, '2017-02-18 10:21:51', '2017-02-18 10:21:51'),
-(153, 18, 'seo for 1 webiste', 1, 'seo for 1 webiste', 'fixed', '', 'more_than_6_months', 'Entry level', 500.00, 'not_sure', '', 1, '2017-02-17 10:34:36', '2017-02-17 10:34:36'),
+(153, 18, 'seo for 1 webiste', 1, 'seo for 1 webiste', 'fixed', '', 'more_than_6_months', 'Entry level', 500.00, 'not_sure', '', 0, '2017-02-17 10:34:36', '2017-02-17 10:34:36'),
 (152, 18, 'Designer', 1, 'Designer', 'hourly', '', '1_3_months', 'Entry level', 0.00, '20-29', '', 0, '2017-02-15 08:21:01', '2017-02-15 08:21:01'),
 (151, 29, 'php', 1, 'saf safsaf ', 'hourly', '', 'not_sure', 'Entry level', 0.00, 'not_sure', '', 0, '2017-02-12 15:52:53', '2017-02-12 15:52:53'),
 (150, 18, 'fixed rate', 1, 'fixed rate', 'fixed', '', '3_6_months', 'Entry level', 300.00, 'not_sure', '', 0, '2017-02-03 18:53:10', '2017-02-03 18:53:10'),
@@ -611,7 +613,7 @@ CREATE TABLE IF NOT EXISTS `job_accepted` (
   `contact_id` varchar(100) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=134 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=135 ;
 
 --
 -- Dumping data for table `job_accepted`
@@ -620,6 +622,7 @@ CREATE TABLE IF NOT EXISTS `job_accepted` (
 INSERT INTO `job_accepted` (`id`, `fuser_id`, `job_id`, `buser_id`, `bid_id`, `comments`, `contact_id`, `created`) VALUES
 (115, 13, 132, 18, 181, 'df', '13_5OS7HI6P95', '2017-01-13 06:55:31'),
 (116, 9, 132, 18, 185, 'ok', '9_0NT7FC39XL', '2017-01-13 10:04:34'),
+(134, 13, 178, 18, 235, 'ok', '13_YFAQFUN0YA', '2017-03-03 21:19:24'),
 (95, 9, 65, 0, 83, 'hyuru', '9_WWOOUT9B5L', '2016-12-01 15:28:43'),
 (85, 15, 75, 0, 86, 'dfhfghj', '15_03I82BY0GD', '2016-11-28 22:22:35'),
 (133, 13, 153, 18, 221, 'sfg', '13_1X5O5V630B', '2017-02-17 11:39:00'),
@@ -681,7 +684,7 @@ CREATE TABLE IF NOT EXISTS `job_bids` (
   `withdrawn_by` int(11) DEFAULT NULL,
   `job_progres_status` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=235 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=237 ;
 
 --
 -- Dumping data for table `job_bids`
@@ -711,6 +714,7 @@ INSERT INTO `job_bids` (`id`, `user_id`, `job_id`, `bid_amount`, `bid_fee`, `bid
 (28, 15, 35, 400.00, 40.00, 360.00, '10-19', 'erghedrkjghjdsflhj;', 0, '0', 'Fixed test', 'test', 0, 0.00, 0.00, 0.00, '0', '2', 0.00, 100.00, '2016/10/28 21:25', '2016-09-06 20:10:50', 1, '2016-09-28 08:09:06', 0, '0.00', 1, NULL, NULL, 0),
 (29, 9, 36, 30.00, 3.00, 27.00, '1-9', 'dxvfgsdgbfd', 0, '0', 'hourly rate testing', 'testing', 0, 20.00, 2.00, 18.00, '0', '0', 0.00, NULL, '2016/09/20 20:17', '2016-09-07 10:35:34', 1, '2016-09-20 14:09:35', 1, '0.00', 0, NULL, NULL, 0),
 (30, 25, 36, 5.00, 0.50, 4.50, 'not_sure', 'test', 0, '0', 'tesrt', 'test', 20, 3.00, 0.30, 2.70, '1', '0', 60.00, NULL, '2016/09/26 20:30', '2016-09-07 10:35:37', 0, '2016-09-20 09:09:42', 0, '0.00', 1, NULL, NULL, 0),
+(236, 13, 179, 5.00, 0.50, 4.50, NULL, 'wregtert', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-03-04 17:34:18', 0, NULL, 0, '0.00', 0, NULL, NULL, 1),
 (33, 15, 37, 5.00, 0.50, 4.50, '10-19', 'thythy', 0, '0', 'test', 'hi', 23, NULL, NULL, NULL, '0', '0', 0.00, NULL, '2016/09/09 21:51', '2016-09-07 21:02:45', 1, '2016-09-20 10:09:51', 1, '0.00', 0, NULL, NULL, 0),
 (34, 9, 38, 500.00, 50.00, 450.00, '10-19', 'hghfgh', 0, '0', 'Fiixed 1000 job', 'adadad adada', 0, NULL, NULL, NULL, '0', '1', 0.00, 500.00, '2016/09/23 19:26', '2016-09-08 07:45:16', 1, '2016-09-25 16:09:55', 0, '0.00', 1, NULL, NULL, 0),
 (35, 25, 38, 800.00, 80.00, 720.00, '40_plus', 'Cover Letter FIXED', 0, '1', ' Fiixed 1000 job', 'asdadadadada', 0, NULL, NULL, NULL, '0', '2', 0.00, 150.00, '2016/09/30 19:23', '2016-09-08 07:45:35', 0, '0000-00-00 00:00:00', 1, '0.00', 1, NULL, NULL, 0),
@@ -721,6 +725,7 @@ INSERT INTO `job_bids` (`id`, `user_id`, `job_id`, `bid_amount`, `bid_fee`, `bid
 (40, 9, 37, 5.00, 0.50, 4.50, 'not_sure', 'gdfg', 0, '0', 'seo', 'dwdfwf', 20, NULL, NULL, NULL, '0', NULL, 100.00, 0.00, '2016/09/22 14:42', '2016-09-22 16:24:48', 1, '2016-09-23 14:09:47', 1, '0.00', 0, NULL, NULL, 0),
 (234, 13, 176, 5.00, 0.50, 4.50, NULL, 'tett', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-27 20:37:00', 0, NULL, 1, '0.00', 0, 1, 2, 0),
 (231, 9, 157, 34.00, 3.40, 30.60, 'Less than 1 month', 'dafdf', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-27 17:02:08', 0, NULL, 1, '0.00', 0, 1, 2, 0),
+(235, 13, 178, 45.00, 4.50, 40.50, 'Less than 1 month', 'df', 0, '0', 'Developer testing ', 'thfgj', 0, NULL, NULL, NULL, '0', '1', 0.00, 45.00, '03/03/2017', '2017-03-03 21:07:36', 0, NULL, 0, '45.00', 0, NULL, NULL, 3),
 (45, 15, 40, 444.00, 44.40, 399.60, '1-9', 'fdgdfg', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2016-10-05 23:02:45', 0, NULL, 0, '0.00', 0, NULL, NULL, 0),
 (46, 15, 41, 5.00, 0.50, 4.50, NULL, 'rgtrgy', 0, '0', 'Web Developer -Professional', 'ryhtryh', 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '2016/10/11 23:55', '2016-10-05 23:03:12', 1, '2016-10-10 22:10:18', 0, '0.00', 0, NULL, NULL, 0),
 (205, 13, 140, 5.00, 0.50, 4.50, NULL, 'My proven SEO is in reference to Search Engine Optimization (SEO) Services for proven Results, offering "1st page rank on Google, Yahoo and Bing (whatever is your preferable search engine) and targeted traffic" at a very competitive cost. We will do online promotional activities and work as an Online Marketing Team for your business.', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-02 06:54:33', 0, NULL, 1, '0.00', 0, 1, 2, 0),
@@ -916,7 +921,7 @@ CREATE TABLE IF NOT EXISTS `job_conversation` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `have_seen` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1= unseen,0=seen',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=337 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=339 ;
 
 --
 -- Dumping data for table `job_conversation`
@@ -942,6 +947,8 @@ INSERT INTO `job_conversation` (`id`, `job_id`, `bid_id`, `message_conversation`
 (36, 32, 14, 'hi', 25, 18, '2016-09-01 19:01:54', 0),
 (37, 33, 19, 'hi', 9, 18, '2016-09-01 19:03:56', 0),
 (38, 32, 14, 'gh,fhfdfh hd hd', 25, 18, '2016-09-01 19:12:10', 0),
+(338, 153, 221, 'j', 18, 18, '2017-03-04 18:50:42', 0),
+(337, 179, 236, 'dd', 18, 13, '2017-03-04 17:51:44', 1),
 (336, 153, 221, 'hi', 13, 18, '2017-03-01 17:02:36', 0),
 (335, 157, 228, 'h', 13, 18, '2017-03-01 08:01:38', 0),
 (334, 157, 228, 'hi', 13, 18, '2017-02-27 20:29:00', 0),
@@ -1242,7 +1249,7 @@ CREATE TABLE IF NOT EXISTS `job_skills` (
   `job_id` int(11) NOT NULL,
   `skill_name` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=67 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=69 ;
 
 --
 -- Dumping data for table `job_skills`
@@ -1287,7 +1294,9 @@ INSERT INTO `job_skills` (`id`, `job_id`, `skill_name`) VALUES
 (63, 174, 'Telemarketing Exp'),
 (64, 175, 'Translation'),
 (65, 176, 'Brochure Design'),
-(66, 177, 'Lead Generation');
+(66, 177, 'Lead Generation'),
+(67, 178, 'PHP'),
+(68, 179, 'phonegap');
 
 -- --------------------------------------------------------
 
@@ -4537,7 +4546,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `username`, `email`, `password`, `type`, `status`, `lastlogin`, `position`, `country`, `phone`) VALUES
-(1, 'Administrator', 'admin', 'getupwork@gmail.com', 'bac1a377c236d995f382e338fd56a349', '1', '1', '1488496190.2322', '', '', ''),
+(1, 'Administrator', 'admin', 'getupwork@gmail.com', 'bac1a377c236d995f382e338fd56a349', '1', '1', '1488664593.0225', '', '', ''),
 (8, 'sagar', 'sagar', 'sagar@sagar.me', '41ed44e3038dbeee7d2ffaa7f51d8a4b', '1', '1', '', '', 'all', ''),
 (9, 'Arif Hossain', 'arif', 'arif@arif.com', '0ff6c3ace16359e41e37d40b8301d67f', '2', '2', '1459555964.1421', '', '4', ''),
 (10, 'jahangir alam', 'jahangir', 'canvasdevelopers@gmail.com', '5fce16e0de0d807a14654c67a7b90405', '2', '2', '', '', 'all', ''),
@@ -4963,7 +4972,7 @@ CREATE TABLE IF NOT EXISTS `webuser_basic_profile` (
 INSERT INTO `webuser_basic_profile` (`id`, `webuser_id`, `tagline`, `hourly_rate`, `work_experience_year`, `work_experience_month`, `skills`, `overview`, `last_updated_time`) VALUES
 (2, 22, 'Web developer', 15, 4, 6, 'Java, PHP, HTML, CSS', 'Testing overview', '1472202235770'),
 (3, 9, 'Graphics designer,HTML,SEO', 4, 3, 1, '', 'We are looking a developer for our project', '1488215050077'),
-(4, 13, 'Web Designer,PHP,WORDPRESS', 11, 1, 1, '', 'I am working as a web developer for PHP/Mysql,Magento, Wordpress,html5  since last 5 years. Testa', '1488301153639'),
+(4, 13, 'Web Designer,PHP,WORDPRESS', 11, 1, 1, '', 'I am working as a web developer for PHP/Mysql,Magento, Wordpress,html5  since last 5 years. Testa', '1488565458465'),
 (5, 21, 'Web developer', 10, 5, 1, 'HTML', 'tst', '1472746678600'),
 (6, 25, 'Tagline (mandatory)', 12, 18, 1, 'PHP, HTML, AJAX', 'O', '1472765256950'),
 (8, 15, 'I have 5 years xperience in wordpress', 7, 1, 1, '', 'Article Submission, Article Submission directories eg.', '1488395878395'),
@@ -5105,7 +5114,7 @@ CREATE TABLE IF NOT EXISTS `webuser_skills` (
   `webuser_id` int(11) NOT NULL,
   `skill_name` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=130 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=135 ;
 
 --
 -- Dumping data for table `webuser_skills`
@@ -5114,16 +5123,17 @@ CREATE TABLE IF NOT EXISTS `webuser_skills` (
 INSERT INTO `webuser_skills` (`id`, `webuser_id`, `skill_name`) VALUES
 (129, 15, 'TypePad'),
 (127, 15, 'javascript'),
-(117, 13, 'HTML'),
-(116, 13, 'mysql'),
-(115, 13, 'Adobe Flash'),
+(133, 13, 'HTML5'),
+(132, 13, 'Adobe Flash'),
+(131, 13, 'mysql'),
 (128, 15, 'Chroma key'),
 (111, 9, 'Adobe Flash'),
 (112, 9, 'Paypal API'),
 (113, 9, 'Facebook'),
 (114, 9, 'jquery'),
-(118, 13, 'HTML5'),
-(126, 15, 'PHP');
+(130, 13, 'HTML'),
+(126, 15, 'PHP'),
+(134, 13, 'javascript');
 
 -- --------------------------------------------------------
 
