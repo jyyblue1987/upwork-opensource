@@ -528,6 +528,23 @@ class Pay extends CI_Controller {
             $query_payment = $this->db->get();
             $list_payments = $query_payment->result();
 
+            $sql = ("SELECT jobs.job_type, job_accepted.id,payments.payment_create,payments.hire_end_id,jobs.title,payments.des,job_accepted.fuser_id,job_accepted.job_id,job_accepted.contact_id,job_bids.offer_bid_amount,webuser.webuser_fname,webuser.webuser_lname,payments.payment_gross,payments.txn_id, 'con_id' as con_id, 'amount' as amount, '1' as type
+            FROM payments
+            JOIN webuser ON webuser.webuser_id = payments.user_id
+            JOIN jobs ON jobs.id = payments.job_id
+            JOIN job_accepted ON job_accepted.job_id = payments.job_id
+            JOIN job_bids ON job_bids.job_id = payments.job_id
+            WHERE job_bids.user_id = payments.user_id
+            AND job_accepted.fuser_id = payments.user_id
+            AND payments.user_id =$user_id
+            UNION ALL SELECT  'hourly' AS job_type, ja.id, dt.date as payment_create, 'hire' as hire_end_id, 'title' as title, dt.des as des,ja.fuser_id,ja.job_id,ja.contact_id, 'offer_bid_amount' as offer_bid_amount,u.webuser_fname,u.webuser_lname,'payment_gross' as payment_gross, 'txn_id' as txn_id,ja.contact_id as con_id,dt.amount as amount, '2' as type
+            FROM daily_hourly_transaction dt
+            LEFT JOIN job_accepted ja ON ja.contact_id = dt.contract_id
+            LEFT JOIN webuser u ON u.webuser_id = dt.fuser_id
+            WHERE dt.fuser_id = $user_id ORDER BY payment_create DESC");
+            $query = $this->db->query($sql);
+            $list_payments = $query->result();
+
 
 
             /* fixed pending start */
@@ -840,7 +857,7 @@ class Pay extends CI_Controller {
             $this->db->where('job_accepted.fuser_id = payments.user_id');
             $this->db->join('job_bids', 'job_bids.job_id = payments.job_id', 'inner');
             $this->db->where('job_bids.user_id = payments.user_id');
-            $this->db->order_by("jobs.id", "DESC");
+            /*$this->db->order_by("jobs.id", "DESC");*/
             if (isset($_GET['startDate']) && $_GET['startDate'] != "") {
                 $this->db->where('payments.payment_create >=', date('Y-m-d', strtotime($_GET['startDate'])));
             }
@@ -855,9 +872,28 @@ class Pay extends CI_Controller {
             }
 
             $this->db->where('payments.buser_id', $client_id);
-            $this->db->order_by("payment_create");
+            $this->db->order_by("payments.payment_create");
             $query_payment = $this->db->get();
             $list_payments = $query_payment->result();
+
+            /*------------NUEVA CONSULTA--------*/
+
+            $sql = ("SELECT jobs.job_type, job_accepted.id,payments.payment_create,payments.hire_end_id,jobs.title,payments.des,job_accepted.fuser_id,job_accepted.job_id,job_accepted.contact_id,job_bids.offer_bid_amount,webuser.webuser_fname,webuser.webuser_lname,payments.payment_gross,payments.txn_id, 'con_id' as con_id, 'amount' as amount, '1' as type
+            FROM payments
+            JOIN webuser ON webuser.webuser_id = payments.user_id
+            JOIN jobs ON jobs.id = payments.job_id
+            JOIN job_accepted ON job_accepted.job_id = payments.job_id
+            JOIN job_bids ON job_bids.job_id = payments.job_id
+            WHERE job_bids.user_id = payments.user_id
+            AND job_accepted.fuser_id = payments.user_id
+            AND payments.buser_id =$client_id
+            UNION ALL SELECT  'hourly' AS job_type, ja.id, dt.date as payment_create, 'hire' as hire_end_id, 'title' as title, dt.des as des,ja.fuser_id,ja.job_id,ja.contact_id, 'offer_bid_amount' as offer_bid_amount,u.webuser_fname,u.webuser_lname,'payment_gross' as payment_gross, 'txn_id' as txn_id,ja.contact_id as con_id,dt.amount as amount, '2' as type
+            FROM daily_hourly_transaction dt
+            LEFT JOIN job_accepted ja ON ja.contact_id = dt.contract_id
+            LEFT JOIN webuser u ON u.webuser_id = dt.fuser_id
+            WHERE dt.cuser_id = $client_id ORDER BY payment_create DESC");
+            $query = $this->db->query($sql);
+            $list_payments = $query->result();
 
             $data = array('list_users' => $list_users, 'list_payments' => $list_payments);
             $this->Admintheme->webview("clientpay/clientpay", $data);

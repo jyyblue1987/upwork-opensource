@@ -1243,6 +1243,7 @@ class Jobs extends CI_Controller {
             $this->db->where('payments.buser_id', $sender_id);
             $this->db->where('payments.user_id', $user_id);
             $this->db->where('payments.job_id', $jobId);
+            $this->db->order_by("payment_create", "DESC");
             $query = $this->db->get();
             $payments = $query->result();
             // print_r($payments);die();
