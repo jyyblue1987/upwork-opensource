@@ -1035,7 +1035,7 @@ class Jobs extends CI_Controller {
             $this->Admintheme->webview("jobs/browse", $data);
         }
     }
-
+    
    // added by (Donfack Zeufack Hermann) start private function to sanitize $_GET fixed client view datas
     private function prepare_fixed_client_data(){
         
@@ -1113,7 +1113,7 @@ class Jobs extends CI_Controller {
                 $this->load->model(array('jobs_model', 'webuser_model', 'payment_model'));
             }catch(RuntimeException $e){
                 log_message('debug', $e->getMessage());
-				redirect(site_url("find-jobs"));
+                redirect(site_url("find-jobs"));
             }
             // added by (Donfack Zeufack Hermann) end           
             
@@ -2460,6 +2460,8 @@ class Jobs extends CI_Controller {
             }
          // added by jahid end 
             $response['success'] = true;
+            
+          
             print_r(json_encode($response));
         }
     }
