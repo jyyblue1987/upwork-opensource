@@ -1265,7 +1265,7 @@ class Jobs extends CI_Controller {
 
         if(empty($fm_job)){
             //TODO: set a message here to explain redirection.
-            redirect(site_url('winsjob'));
+            redirect(site_url('find-jobs'));
         }
         
         return array(
@@ -1287,6 +1287,7 @@ class Jobs extends CI_Controller {
                 $this->load->model(array('jobs_model', 'webuser_model', 'payment_model'));
             }catch(RuntimeException $e){
                 log_message('debug', $e->getMessage());
+                redirect(site_url("find-jobs"));
             }
             // added by (Donfack Zeufack Hermann) end           
             
@@ -1303,6 +1304,7 @@ class Jobs extends CI_Controller {
             // added by (Donfack Zeufack Hermann) end
         }
     }
+    
 
     public function hourly_freelancer_view() {
         if ($this->Adminlogincheck->checkx()) {
