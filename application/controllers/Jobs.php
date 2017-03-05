@@ -54,8 +54,8 @@ class Jobs extends CI_Controller {
             if ($this->session->userdata('type') != 1) {
                 redirect(site_url("find-jobs"));
             }
-            
-            /* check if account is suspend then redirect to payment start */
+			
+			/* check if account is suspend then redirect to payment start */
             
             $user_id = $this->session->userdata('id');
             $this->db->select('*');            
@@ -83,7 +83,6 @@ class Jobs extends CI_Controller {
             // Added by Armen end
             $data = array('js' => array('vendor/jquery.form.js', 'internal/job_create.js'),
                 'skillList' => $skillList);
-            $data2 = $this->input->post();
             $this->Admintheme->webview("jobs/create_job", $data);
         }
         if ($this->input->post('title')) {
@@ -118,7 +117,6 @@ class Jobs extends CI_Controller {
                 $data = $this->input->post();
                 $skills = $this->input->post('skills');
 
-
                 $skillNames = '';
                 if (isset($dbPath))
                     $data['userfile'] = $dbPath;
@@ -126,12 +124,7 @@ class Jobs extends CI_Controller {
                 $data['skills'] = $skillNames;
                 $data['job_created'] = $data['created'];
 
-                $date_utc = new \DateTime(null, new \DateTimeZone("UTC"));
-                $data['job_created'] = $date_utc->format('Y-m-d H:i:s');
-                $data['created'] = $data['job_created'];
-
                 unset($data['submitbtn']);
-
                 if ($this->db->insert('jobs', $data)) {
                     $insert_id = $this->db->insert_id();
                     // Added by Armen start
@@ -160,7 +153,6 @@ class Jobs extends CI_Controller {
 
         $data = $this->session->userdata('preview');
         unset($data['submitbtn']);
-        is_array($data['skills']) and $data['skills'] = implode(' ', $data['skills']);
         if ($this->input->post('submitbtn')) {
             if ($this->db->insert('jobs', $data)) {
                 $insert_id = $this->db->insert_id();
@@ -672,12 +664,12 @@ class Jobs extends CI_Controller {
             $postId = base64_decode($postId);
             $id = $this->session->userdata('id');
 
-            // $this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
-            // $this->db->order_by("jobs.id", "desc");
-            // $query = $this->db->get_where('jobs', array('id' => $postId));
-            // $record = $query->row();
 
-            // Employer info
+//            $this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
+//            $this->db->order_by("jobs.id", "desc");
+//            $query = $this->db->get_where('jobs', array('id' => $postId));
+//            $record = $query->row();
+
             $this->db->select('*');
             $this->db->from('webuser w');
             $this->db->join('jobs j', 'j.user_id=w.webuser_id', 'left');
@@ -697,6 +689,7 @@ class Jobs extends CI_Controller {
             $bids_details = $query->row();
             $is_applied = $query->num_rows();
 
+
             //conversation
             $conversation_count = 0;
             $conversation = array();
@@ -708,13 +701,13 @@ class Jobs extends CI_Controller {
                 $this->db->where('job_conversation.job_id', $postId);
                 $this->db->where('job_conversation.bid_id', $bids_details->id);
 
-                // assign to a variable
-                $query = $this->db->get();
+                $query = $this->db->get(); // assign to a variable
+                $conversation_count = $query->num_rows(); // then use num rows
 
-                // then use num rows
-                $conversation_count = $query->num_rows();
+
 
                 if ($conversation_count) {
+
                     $this->db->select('job_conversation.*,webuser.*');
                     $this->db->from('job_conversation');
                     $this->db->join('webuser', 'job_conversation.sender_id = webuser.webuser_id', 'inner');
@@ -741,35 +734,19 @@ class Jobs extends CI_Controller {
             $query_sidebar = $this->db->get();
             $record_sidebar = $query_sidebar->result();
 
-            // Current count of frelancers
-            $this->db->select('*');
-            $this->db->from('job_accepted');
-            $this->db->join('webuser', 'webuser.webuser_id=job_accepted.fuser_id', 'inner');
-            $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-            $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
-            $this->db->join('country', 'country.country_id=webuser.webuser_country', 'inner');
-            $this->db->where('job_accepted.buser_id', $record->user_id);
-            $this->db->where('job_bids.hired', '0');
-            $this->db->where('job_bids.jobstatus', '0');
-            $query = $this->db->get();
-            $offer_count = $query->num_rows();
+            $jobids = array();
+            foreach ($record_sidebar as $jobs) {
+                $jobids[] = $jobs->id;
+            }
+            $jobids = implode(",", $jobids);
 
-            // Past hired freelancers
-            $this->db->select('*');
-            $this->db->from('job_accepted');
-            $this->db->join('webuser', 'webuser.webuser_id=job_accepted.fuser_id', 'inner');
-            $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-            $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
-            $this->db->join('country', 'country.country_id=webuser.webuser_country', 'inner');
-            $this->db->where('job_accepted.buser_id', $record->user_id);
-            $this->db->where('job_bids.hired', '0');
-            $this->db->where('job_bids.jobstatus', '1');
-            $query = $this->db->get();
-            $result = $query->result();
-            $past_hire = $query->num_rows();
 
-            // Total employer's freelancers hired
-            $record_hire = $offer_count + $past_hire;
+            $this->db->select('*');
+            $this->db->from('job_bids');
+            $this->db->where_in('job_id', $jobids);
+            $this->db->where('hired', 1);
+            $query_hire = $this->db->get();
+            $record_hire = $query_hire->result();
 
             $this->db->select('*');
             $this->db->from('job_workdairy');
@@ -791,131 +768,7 @@ class Jobs extends CI_Controller {
             $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id));
             $proposals = $query->num_rows();
 
-            /* find client payment set status start */
-            $this->db->select('*');
-            $this->db->from('billingmethodlist');
-            $this->db->where('billingmethodlist.belongsTo', $record->webuser_id);
-            // $this->db->where('billingmethodlist.paymentMethod', "stripe");
-            $this->db->where('billingmethodlist.isDeleted', "0");
-            $query = $this->db->get();
-            $paymentSet = 0;
-
-            if (is_object($query)) {
-                $paymentSet = $query->num_rows();
-            }
-            /* find client payment set status end */
-
-            /* find total spent by client start */
-            $client_id = $record->webuser_id;
-            $query_spent = $this->db->query("SELECT SUM(payment_gross) as total_spent
-                FROM `payments`
-                INNER JOIN `webuser` ON `webuser`.`webuser_id` = `payments`.`user_id`
-                INNER JOIN `jobs` ON `jobs`.`id` = `payments`.`job_id`
-                INNER JOIN `job_accepted` ON `job_accepted`.`job_id` = `payments`.`job_id`
-                INNER JOIN `job_bids` ON `job_bids`.`job_id` = `payments`.`job_id`
-                WHERE `job_accepted`.`fuser_id` = `payments`.`user_id`
-                    AND `job_bids`.`user_id` = `payments`.`user_id`
-                    AND `payments`.`buser_id` = $client_id
-            ");
-
-            $row_spent = $query_spent->row();
-            $total_spent = $row_spent->total_spent;
-            /* find total soent by client end */
-
-            $total_feedbackScore = 0;
-            $total_budget = 0;
-
-            foreach ($accepted_jobs as $job_data) {
-                $this->db->select('*');
-                $this->db->from('job_feedback');
-                $this->db->where('job_feedback.feedback_userid', $job_data->fuser_id);
-                $this->db->where('job_feedback.sender_id !=', $job_data->fuser_id);
-                $this->db->where('job_feedback.feedback_job_id', $job_data->job_id);
-                $query = $this->db->get();
-                $jobfeedback = $query->row();
-                
-                if ($job_data->jobstatus == 1) {
-                    if (!empty($jobfeedback)) {
-                        if ($job_data->job_type === "fixed") {
-                            $total_price_fixed = $job_data->fixedpay_amount;
-                            $total_feedbackScore += ($jobfeedback->feedback_score * $total_price_fixed);
-                            $total_budget += $total_price_fixed;
-                        }
-                        else {
-                            $this->db->select('*');
-                            $this->db->from('job_workdairy');
-                            $this->db->where('fuser_id', $job_data->fuser_id);
-                            $this->db->where('jobid', $job_data->job_id);
-                            $query_done = $this->db->get();
-                            $job_done = $query_done->result();
-                            $total_work = 0;
-
-                            foreach ($job_done as $work){
-                                $total_work += $work->total_hour;
-                            }
-                            
-                            if ($job_data->offer_bid_amount) {
-                                $amount = $job_data->offer_bid_amount;
-                            }
-                            else {
-                                $amount =  $job_data->bid_amount;
-                            }
-
-                            $total_price = $total_work * $amount;
-                            $total_budget += $total_price ;
-                            $total_feedbackScore += ($jobfeedback->feedback_score * $total_price);
-                        }
-                    }
-                }
-            }
-
-            $this->db->select('*');
-            $this->db->from('job_bids');
-            $this->db->where(array('job_id' => $record->id,'bid_reject' => 0, 'status!=1' => null));
-            $query = $this->db->get();
-            $Proposals_count = $query->num_rows();
-
-            $this->db->select('*');
-            $this->db->from('job_conversation');
-            $this->db->where('job_conversation.sender_id', $record->user_id);
-            $this->db->join('job_bids', 'job_bids.id=job_conversation.bid_id', 'inner');
-            $this->db->where('job_conversation.job_id', $record->id);
-            $this->db->where('job_bids.bid_reject', 0);
-            $this->db->group_by('bid_id'); 
-            $query = $this->db->get();
-            $interview_count = $query->num_rows();
-
-            $this->db->select('*');
-            $this->db->from('job_accepted');
-            $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-            $this->db->where('job_accepted.buser_id', $record->user_id);
-            $this->db->where('job_accepted.job_id', $record->id);
-            $this->db->where('job_bids.hired', '0' );
-            $this->db->where('job_bids.jobstatus', '0' );
-            $query = $this->db->get();
-            $hire_count = $query->num_rows();
-
-            $data = array(
-                'value' => $record,
-                'proposals' => $proposals,
-                'applied' => $is_applied,
-                'conversations' => $conversation,
-                'conversation_count' => $conversation_count,
-                'bid_details' => $bids_details,
-                'accepted_jobs' => $accepted_jobs,
-                'record_sidebar' => $record_sidebar,
-                'hire' => $record_hire,
-                'workedhours' => $workedhours,
-                'ststus' => $ststus,
-                'paymentSet' => $paymentSet,
-                'total_spent' => $total_spent,
-                'total_feedbackScore' => $total_feedbackScore,
-                'total_budget' => $total_budget,
-                'Proposals_count' => $Proposals_count,
-                'interview_count' => $interview_count,
-                'hire_count' => $hire_count,
-            );
-
+            $data = array('value' => $record, 'proposals' => $proposals, 'applied' => $is_applied, 'conversations' => $conversation, 'conversation_count' => $conversation_count, 'bid_details' => $bids_details, 'accepted_jobs' => $accepted_jobs, 'record_sidebar' => $record_sidebar, 'hire' => $record_hire, 'workedhours' => $workedhours, 'ststus' => $ststus);
             // Davit end
             $this->Admintheme->webview("jobs/view", $data);
         }
@@ -987,7 +840,6 @@ class Jobs extends CI_Controller {
                 }
                 die;
             }
-
             $postId = base64_decode($postId);
             //$id = $this->session->userdata('id');
             $this->db->select(array('*', 'jobs.id as job_id'));
@@ -995,18 +847,10 @@ class Jobs extends CI_Controller {
             $this->db->join('webuser_basic_profile', 'webuser_basic_profile.webuser_id=jobs.user_id', 'left');
             $this->db->order_by("jobs.id", "desc");
             $query = $this->db->get_where('jobs', array('jobs.id' => $postId));
-
             //echo $this->db->last_query();
-
             $record = $query->row();
-
             // Davit start
-            $data = array(
-                'value' => $record,
-                'proposals' => $proposals,
-                'js' => array('dropzone.js', 'vendor/jquery.form.js', 'internal/job_apply.js'),
-            );
-
+            $data = array('value' => $record, 'proposals' => $proposals, 'js' => array('dropzone.js', 'vendor/jquery.form.js', 'internal/job_apply.js'));
             // Davit end
             $this->Admintheme->webview("jobs/apply", $data);
         }
@@ -1054,59 +898,41 @@ class Jobs extends CI_Controller {
             if ($this->session->userdata('type') != 2) {
                 redirect(site_url("jobs-home"));
             }
-
             $records = array();
             $records1 = array();
             $records2 = array();
 
             $id = $this->session->userdata('id');
-            $this->db->select(array(
-                'job_bids.*',
-                'jobs.title',
-                'jobs.user_id as client_id',
-                '(select webuser_company from webuser where webuser_id=jobs.user_id) as company')
-            );
+            $this->db->select(array('job_bids.*', 'jobs.title', 'jobs.user_id as client_id', '(select webuser_company from webuser where webuser_id=jobs.user_id) as company'));
             $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'left');
             $this->db->where('job_bids.status', 1);
             
-            // added by jahid start
-            $this->db->where('job_bids.job_progres_status', 0);
-            $this->db->where(array('job_bids.withdrawn' => 1)); 
-            // added by jahid end
+            // added by jahid start 
+             $this->db->where('job_bids.job_progres_status', 0);
+             $this->db->where(array('job_bids.withdrawn' => 1)); 
+             // added by jahid end 
             
             $this->db->order_by("job_bids.id", "desc");
             $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id));
-
-            if ($query->num_rows() > 0) {
+            if ($query->num_rows() > 0)
                 $records1 = $query->result();
-            }
 
             $id = $this->session->userdata('id');
-            $this->db->select(array(
-                'job_bids.*',
-                'jobs.title',
-                'jobs.user_id as client_id',
-                '(select webuser_company from webuser where webuser_id=jobs.user_id) as company')
-            );
+            $this->db->select(array('job_bids.*', 'jobs.title', 'jobs.user_id as client_id', '(select webuser_company from webuser where webuser_id=jobs.user_id) as company'));
             $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'left');
             $this->db->where('job_bids.bid_reject', 1);
             
-            // added by jahid start 
-            $this->db->where('job_bids.job_progres_status', 0);
-            $this->db->where(array('job_bids.withdrawn' => 1)); 
-            // added by jahid end 
+             // added by jahid start 
+             $this->db->where('job_bids.job_progres_status', 0);
+             $this->db->where(array('job_bids.withdrawn' => 1)); 
+             // added by jahid end 
             
             $this->db->order_by("job_bids.id", "desc");
             $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id));
-
-            if ($query->num_rows() > 0) {
+            if ($query->num_rows() > 0)
                 $records2 = $query->result();
-            }
-
             $records = array_merge($records1, $records2);
-
             $data = array('records' => $records);
-
             $this->Admintheme->webview("jobs/archived_bids_list", $data);
         }
     }
@@ -1210,81 +1036,101 @@ class Jobs extends CI_Controller {
         }
     }
 
+   // added by (Donfack Zeufack Hermann) start private function to sanitize $_GET fixed client view datas
+    private function prepare_fixed_client_data(){
+        
+        $fm_job    = $this->input->get('fmJob');
+        $fuser     = $this->input->get('fuser');
+
+        if(empty($fm_job) || empty($fuser)){
+            //TODO: set a message here to explain redirection.
+            redirect(site_url('mystaff'));
+        }
+        
+        return array(
+          base64_decode($fm_job),
+          $this->session->userdata('id'),
+          base64_decode($fuser),
+        ); 
+        
+    }
+    // added by (Donfack Zeufack Hermann) end
+    
+
     public function fixed_client_view() {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
                 redirect(site_url("find-jobs"));
             }
 
-            $jobId = base64_decode($_GET['fmJob']);
-            $sender_id = $this->session->userdata('id');
-            $user_id = base64_decode($_GET['fuser']);
-            $this->db->select('*,jobs.status AS job_status,jobs.job_duration AS jobduration,jobs.created AS job_created');
-            $this->db->from('job_accepted');
-            $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-            $this->db->join('webuser', 'webuser.webuser_id=job_accepted.fuser_id', 'inner');
-            $this->db->join('webuser_basic_profile', 'webuser_basic_profile.webuser_id=webuser.webuser_id', 'inner');
-            $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
-            $this->db->where('job_accepted.buser_id', $sender_id);
-            $this->db->where('job_accepted.fuser_id', $user_id);
-            $this->db->where('job_accepted.job_id', $jobId);
-            $query = $this->db->get();
-            $job_status = $query->row();
-            //  print_r($job_status);
-
-            $this->db->select('*');
-            $this->db->from('webuser');
-            $this->db->where('webuser.webuser_id', $sender_id);
-            $query_status = $this->db->get();
-            $ststus = $query_status->row();
-
-            $this->db->select('*');
-            $this->db->from('payments');
-            $this->db->where('payments.buser_id', $sender_id);
-            $this->db->where('payments.user_id', $user_id);
-            $this->db->where('payments.job_id', $jobId);
-            $this->db->order_by("payment_create", "DESC");
-            $query = $this->db->get();
-            $payments = $query->result();
-            // print_r($payments);die();
-            $data = array('job_status' => $job_status, 'ststus' => $ststus, 'payments' => $payments);
-            $this->Admintheme->webview2("jobs/fixed_client_view", $data);
+            // added by (Donfack Zeufack Hermann) start load models
+            try{
+                $this->load->model(array('jobs_model', 'webuser_model', 'payment_model'));
+            }catch(RuntimeException $e){
+                log_message('debug', $e->getMessage());
+            }
+            // added by (Donfack Zeufack Hermann) end            
+            
+            // added by (Donfack Zeufack Hermann) start replace access to $_GET values with $this->input->get() and set standard
+            list($job_id, $sender_id, $user_id) = $this->prepare_fixed_client_data();  
+            $job_status = $this->jobs_model->load_job_status($sender_id, $user_id, $job_id);
+            $ststus     = $this->webuser_model->load_informations($sender_id);
+            $payments   = $this->payment_model->load_job_transactions($sender_id, $user_id, $job_id); 
+            // added by (Donfack Zeufack Hermann) end
+            
+            // added by (Donfack Zeufack Hermann) start reduce the number line of code to pass data to the view.
+            $this->Admintheme->webview2("jobs/fixed_client_view", compact('job_status', 'ststus', 'payments'));
+            // added by (Donfack Zeufack Hermann) end
         }
     }
+    
+    // added by (Donfack Zeufack Hermann) start private function to sanitize $_GET fixed freelancer view datas
+    private function prepare_fixed_freelancer_data(){
+        
+        $fm_job    = $this->input->get('fmJob');
+
+        if(empty($fm_job)){
+            //TODO: set a message here to explain redirection.
+            redirect(site_url('find-jobs'));
+        }
+        
+        return array(
+          base64_decode($fm_job),
+          $this->session->userdata('id'),
+        ); 
+        
+    }
+    // added by (Donfack Zeufack Hermann) end
 
     public function fixed_freelancer_view() {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 2) {
                 redirect(site_url("jobs-home"));
             }
-            $jobId = base64_decode($_GET['fmJob']);
-            $user_id = $this->session->userdata('id');
+            
+            // added by (Donfack Zeufack Hermann) start load models
+            try{
+                $this->load->model(array('jobs_model', 'webuser_model', 'payment_model'));
+            }catch(RuntimeException $e){
+                log_message('debug', $e->getMessage());
+				redirect(site_url("find-jobs"));
+            }
+            // added by (Donfack Zeufack Hermann) end           
+            
+            
+            // added by (Donfack Zeufack Hermann) start replace access to $_GET values with $this->input->get() and set standard
+            list($job_id, $user_id) = $this->prepare_fixed_freelancer_data();  
+            $job_status = $this->jobs_model->load_job_status(null, $user_id, $job_id);
+            $ststus     = $this->webuser_model->load_informations($job_status->buser_id);
+            $payments   = $this->payment_model->load_job_transactions($job_status->buser_id, $user_id, $job_id); 
+            // added by (Donfack Zeufack Hermann) end
 
-            $this->db->select('*,jobs.status AS job_status,jobs.job_duration AS jobduration,jobs.created AS job_created');
-            $this->db->from('job_accepted');
-            $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-            $this->db->join('webuser', 'webuser.webuser_id=job_accepted.buser_id', 'inner');
-            $this->db->join('webuser_basic_profile', 'webuser_basic_profile.webuser_id=webuser.webuser_id', 'inner');
-            $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
-            $this->db->join('country', 'country.country_id=webuser.webuser_country', 'inner');
-            $this->db->where('job_accepted.fuser_id', $user_id);
-            $this->db->where('job_accepted.job_id', $jobId);
-
-            $query = $this->db->get();
-            $job_status = $query->row();
-
-
-            $this->db->select('*');
-            $this->db->from('webuser');
-            $this->db->where('webuser.webuser_id', $job_status->buser_id);
-            $query_status = $this->db->get();
-            $ststus = $query_status->row();
-
-            $data = array('job_status' => $job_status, 'ststus' => $ststus);
-            $this->Admintheme->webview("jobs/fixed_freelancer_view", $data);
+            // added by (Donfack Zeufack Hermann) start enhance code make it more compact to pass data to the view 
+            $this->Admintheme->webview("jobs/fixed_freelancer_view", compact('job_status', 'ststus', 'payments'));
+            // added by (Donfack Zeufack Hermann) end
         }
     }
-
+	
     public function hourly_freelancer_view() {
         if ($this->Adminlogincheck->checkx()) {
 
@@ -1379,24 +1225,16 @@ class Jobs extends CI_Controller {
             //  echo $this->db->last_query();
 
             $records = array();
-            $this->db->select(array(
-                '*',
-                'GROUP_CONCAT(DISTINCT "", webuser_skills.skill_name) AS wuser_skills',
-            ));
             $this->db->join('webuser', 'webuser.webuser_id=job_bids.user_id', 'left');
-            $this->db->join('webuser_skills', 'webuser.webuser_id=webuser_skills.webuser_id', 'left');
             $this->db->order_by("job_bids.id", "desc");
-            // added by jahid start 
-            $this->db->where('job_bids.job_progres_status', 0);
-            $this->db->where(array('job_bids.withdrawn' => NULL));
-            $this->db->group_by('webuser_skills.webuser_id');
-            // added by jahid end 
+             // added by jahid start 
+             $this->db->where('job_bids.job_progres_status', 0);
+             $this->db->where(array('job_bids.withdrawn' => NULL)); 
+             // added by jahid end 
             $query = $this->db->get_where('job_bids', array('job_id' => $jobId, 'bid_reject' => 0, 'status!=1' => null));
                          
-            if ($query->num_rows() > 0) {
+            if ($query->num_rows() > 0)
                 $records = $query->result();            
-            }
-
             $this->db->where('id', $jobId);
             $q = $this->db->get('jobs');
             $jobDetails = $q->row();
@@ -1434,10 +1272,10 @@ class Jobs extends CI_Controller {
             // reject count
             $this->db->select('*');
             $this->db->from('job_bids');
-            // added by jahid start 
+             // added by jahid start 
             $this->db->where(array('job_id' => $jobId));  
-    	    $this->db->where("(withdrawn=1 OR bid_reject=1)", NULL, FALSE); 
-            // added by jahid end 
+	    $this->db->where("(withdrawn=1 OR bid_reject=1)", NULL, FALSE); 
+             // added by jahid end 
             
             $query_totalreject = $this->db->get();
             $reject_count = $query_totalreject->num_rows();
@@ -1449,17 +1287,7 @@ class Jobs extends CI_Controller {
             $ststus = $query_status->row();
 
 
-            $data = array(
-                'jobId' => $jobId,
-                'Offer_count' => $Offer_count,
-                'hire_count' => $hire_count,
-                'records' => $records,
-                'jobDetails' => $jobDetails,
-                'interview_count' => $conversation_count,
-                'reject_count' => $reject_count,
-                'ststus' => $ststus
-            );
-
+            $data = array('jobId' => $jobId, 'Offer_count' => $Offer_count, 'hire_count' => $hire_count, 'records' => $records, 'jobDetails' => $jobDetails, 'interview_count' => $conversation_count, 'reject_count' => $reject_count, 'ststus' => $ststus);
             $this->Admintheme->webview("jobs/applied", $data);
         }
     }
@@ -1474,25 +1302,14 @@ class Jobs extends CI_Controller {
             $sender_id = $this->session->userdata(USER_ID);
 
 
-            $this->db->select(array(
-                '*',
-                'GROUP_CONCAT(DISTINCT "", webuser_skills.skill_name) AS wuser_skills',
-            ));
+
             $this->db->join('webuser', 'webuser.webuser_id=job_bids.user_id', 'left');
-            $this->db->join('webuser_skills', 'webuser.webuser_id=webuser_skills.webuser_id', 'left');
             $this->db->join('job_conversation', 'job_conversation.bid_id=job_bids.id', 'inner');
             $this->db->group_by('job_conversation.bid_id');
-            $this->db->group_by('webuser_skills.webuser_id');
             $this->db->order_by("job_bids.id", "desc");
             // added by jahid start 
-            $query = $this->db->get_where('job_bids', array(
-                'job_bids.job_id' => $jobId,
-                'bid_reject' => 0,
-                'job_bids.status!=1' => null,
-                'job_bids.job_progres_status' => 1,
-                'job_bids.withdrawn' => NULL
-            ));
-            // added by jahid end 
+            $query = $this->db->get_where('job_bids', array('job_bids.job_id' => $jobId, 'bid_reject' => 0, 'job_bids.status!=1' => null,'job_bids.job_progres_status'=>1,'job_bids.withdrawn'=>NULL));
+             // added by jahid end 
             //$this->db->last_query();
             $records = $query->result();
 
@@ -1517,51 +1334,46 @@ class Jobs extends CI_Controller {
             // total number of job
             $this->db->select('*');
             $this->db->from('job_bids');
-            // added by jahid start  
-            // added by jahid end 
-            $this->db->where(array(
-                'job_id' => $jobId,
-                'bid_reject' => 0,
-                'status!=1' => null,
-                'job_progres_status' => 0,
-                'withdrawn' => NULL
-            ));
+                          // added by jahid start  
+             // added by jahid end 
+              $this->db->where(array('job_id' => $jobId, 'bid_reject' => 0, 'status!=1' => null,'job_progres_status'=>0,'withdrawn'=>NULL));
             $query_totalApplication = $this->db->get();
             $Application_count = $query_totalApplication->num_rows();
-            // echo $Application_count; exit;
+            //echo $Application_count; exit;
 
-            // Offer count
+            //Offer count
             $this->db->select('*');
             $this->db->from('job_bids');
-            // added by jahid start 
-            $this->db->where('job_bids.job_progres_status', 2);
-            $this->db->where(array('job_bids.withdrawn' => NULL)); 
-            // added by jahid end 
+              // added by jahid start 
+             $this->db->where('job_bids.job_progres_status', 2);
+             $this->db->where(array('job_bids.withdrawn' => NULL)); 
+             // added by jahid end 
             $this->db->where(array('job_id' => $jobId, 'hired' => '1'));
             $query_totaloffer = $this->db->get();
             $Offer_count = $query_totaloffer->num_rows();
 
-            // hire
+            //hire
             $this->db->select('*');
             $this->db->from('job_accepted');
             $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
             $this->db->where('job_accepted.buser_id', $sender_id);
             $this->db->where('job_accepted.job_id', $jobId);
             $this->db->where('job_bids.jobstatus', '0');
-            // added by jahid start 
-            $this->db->where('job_bids.job_progres_status', 3);
-            $this->db->where(array('job_bids.withdrawn' => NULL)); 
-            // added by jahid end 
+                          // added by jahid start 
+             $this->db->where('job_bids.job_progres_status', 3);
+             $this->db->where(array('job_bids.withdrawn' => NULL)); 
+             // added by jahid end 
             $query = $this->db->get();
             $hire_count = $query->num_rows();
+
 
             // reject count
             $this->db->select('*');
             $this->db->from('job_bids');
             // added by Jahid start 
             $this->db->where(array('job_id' => $jobId));
-            $this->db->where("(job_bids.withdrawn=1 OR job_bids.bid_reject=1)", NULL, FALSE);
-            // added by Jahid end 
+             $this->db->where("(job_bids.withdrawn=1 OR job_bids.bid_reject=1)", NULL, FALSE);
+             // added by Jahid end 
             $query_totalreject = $this->db->get();
             $reject_count = $query_totalreject->num_rows();
 
@@ -1571,18 +1383,9 @@ class Jobs extends CI_Controller {
             $query_status = $this->db->get();
             $ststus = $query_status->row();
 
-            $data = array(
-                'jobId' => $jobId,
-                'records' => $records,
-                'jobDetails' => $jobDetails,
-                'interview_count' => $conversation_count,
-                'hire_count' => $hire_count,
-                'Application_count' => $Application_count,
-                'Offer_count' => $Offer_count,
-                'reject_count' => $reject_count,
-                'ststus' => $ststus
-            );
 
+
+            $data = array('jobId' => $jobId, 'records' => $records, 'jobDetails' => $jobDetails, 'interview_count' => $conversation_count, 'hire_count' => $hire_count, 'Application_count' => $Application_count, 'Offer_count' => $Offer_count, 'reject_count' => $reject_count, 'ststus' => $ststus);
             $this->Admintheme->webview("jobs/interviews", $data);
         }
     }

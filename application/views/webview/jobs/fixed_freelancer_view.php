@@ -155,34 +155,8 @@ input.btn-cancel:hover{border:1px solid transparent;color:#fff;background:#28609
 				</div>
 				
 
-				 <div class="row margin-top margin-top-4">
-					<div class="col-md-10 col-md-offset-1">
-						<div class="row">
-							 <div class="fix_view">
-							 <div style="font-size: 14px;" class="col-md-8 text-centered text-left">Description</div>
-							<div style="font-size: 14px;" class="col-md-2 text-centered text-right">Amount</div>
-							<div style="font-size: 14px;" class="col-md-2 text-centered text-left">Date</div>
-							
-							 </div>
-						</div>
-						<div class="u_border"></div>
-					</div>
-				</div>
-				
-				
-				
-				<div class="row margin-top-2">
-					<div class="col-md-10 col-md-offset-1">
-						<div class="row">
-							
-							<div style="font-size: 14px;" class="col-md-8 text-centered text-left gray-text"><?php if($job_status->fixedpay_amount == $job_status->bid_amount){ echo "Paid All";} elseif($job_status->fixedpay_amount < $job_status->bid_amount){echo "Milestone";} elseif($job_status->fixedpay_amount == 0 ) {echo "Paid Nothing";} ?></div>
-							<div style="font-size: 14px;" class="col-md-2 text-centered text-right gray-text">$<?= $job_status->fixedpay_amount;?></div>
-							<div style="font-size: 14px;" class="col-md-2 text-centered text-center gray-text"><?php  echo date(' M j, Y ', strtotime($job_status->start_date)); ?></div>
-						</div>
-					</div>
-				</div>
-				 
-				
+				<?php $this->load->view("webview/jobs/partials/job-transactions", compact('payments', 'job_status')); ?>
+                            
 				<div class="sec-padding">
 				    <div class="row margin-top-5 margin-bottom-2 ">
 					<div style="margin-left: 51px;" class="col-md-10 col-md-offset-1">
