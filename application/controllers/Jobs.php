@@ -1253,7 +1253,7 @@ class Jobs extends CI_Controller {
             // added by (Donfack Zeufack Hermann) end
             
             // added by (Donfack Zeufack Hermann) start reduce the number line of code to pass data to the view.
-            $this->Admintheme->webview2("jobs/fixed_client_view", compact('job_status', 'ststus', 'payments'));
+            $this->Admintheme->webview_2("jobs/fixed_client_view", compact('job_status', 'ststus', 'payments'));
             // added by (Donfack Zeufack Hermann) end
         }
     }
