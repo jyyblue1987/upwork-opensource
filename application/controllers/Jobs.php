@@ -1209,6 +1209,27 @@ class Jobs extends CI_Controller {
             $this->Admintheme->webview("jobs/browse", $data);
         }
     }
+    
+    // added by (Donfack Zeufack Hermann) start private function to sanitize $_GET fixed client view datas
+    private function prepare_fixed_client_data(){
+        
+        $fm_job    = $this->input->get('fmJob');
+        $fuser     = $this->input->get('fuser');
+
+        if(empty($fm_job) || empty($fuser)){
+            //TODO: set a message here to explain redirection.
+            redirect(site_url('mystaff'));
+        }
+        
+        return array(
+          base64_decode($fm_job),
+          $this->session->userdata('id'),
+          base64_decode($fuser),
+        ); 
+        
+    }
+    // added by (Donfack Zeufack Hermann) end
+    
 
     public function fixed_client_view() {
         if ($this->Adminlogincheck->checkx()) {
@@ -1216,72 +1237,70 @@ class Jobs extends CI_Controller {
                 redirect(site_url("find-jobs"));
             }
 
-            $jobId = base64_decode($_GET['fmJob']);
-            $sender_id = $this->session->userdata('id');
-            $user_id = base64_decode($_GET['fuser']);
-            $this->db->select('*,jobs.status AS job_status,jobs.job_duration AS jobduration,jobs.created AS job_created');
-            $this->db->from('job_accepted');
-            $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-            $this->db->join('webuser', 'webuser.webuser_id=job_accepted.fuser_id', 'inner');
-            $this->db->join('webuser_basic_profile', 'webuser_basic_profile.webuser_id=webuser.webuser_id', 'inner');
-            $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
-            $this->db->where('job_accepted.buser_id', $sender_id);
-            $this->db->where('job_accepted.fuser_id', $user_id);
-            $this->db->where('job_accepted.job_id', $jobId);
-            $query = $this->db->get();
-            $job_status = $query->row();
-            //  print_r($job_status);
-
-            $this->db->select('*');
-            $this->db->from('webuser');
-            $this->db->where('webuser.webuser_id', $sender_id);
-            $query_status = $this->db->get();
-            $ststus = $query_status->row();
-
-            $this->db->select('*');
-            $this->db->from('payments');
-            $this->db->where('payments.buser_id', $sender_id);
-            $this->db->where('payments.user_id', $user_id);
-            $this->db->where('payments.job_id', $jobId);
-            $this->db->order_by("payment_create", "DESC");
-            $query = $this->db->get();
-            $payments = $query->result();
-            // print_r($payments);die();
-            $data = array('job_status' => $job_status, 'ststus' => $ststus, 'payments' => $payments);
-            $this->Admintheme->webview2("jobs/fixed_client_view", $data);
+            // added by (Donfack Zeufack Hermann) start load models
+            try{
+                $this->load->model(array('jobs_model', 'webuser_model', 'payment_model'));
+            }catch(RuntimeException $e){
+                log_message('debug', $e->getMessage());
+            }
+            // added by (Donfack Zeufack Hermann) end            
+            
+            // added by (Donfack Zeufack Hermann) start replace access to $_GET values with $this->input->get() and set standard
+            list($job_id, $sender_id, $user_id) = $this->prepare_fixed_client_data();  
+            $job_status = $this->jobs_model->load_job_status($sender_id, $user_id, $job_id);
+            $ststus     = $this->webuser_model->load_informations($sender_id);
+            $payments   = $this->payment_model->load_job_transactions($sender_id, $user_id, $job_id); 
+            // added by (Donfack Zeufack Hermann) end
+            
+            // added by (Donfack Zeufack Hermann) start reduce the number line of code to pass data to the view.
+            $this->Admintheme->webview2("jobs/fixed_client_view", compact('job_status', 'ststus', 'payments'));
+            // added by (Donfack Zeufack Hermann) end
         }
     }
+    
+    // added by (Donfack Zeufack Hermann) start private function to sanitize $_GET fixed freelancer view datas
+    private function prepare_fixed_freelancer_data(){
+        
+        $fm_job    = $this->input->get('fmJob');
+
+        if(empty($fm_job)){
+            //TODO: set a message here to explain redirection.
+            redirect(site_url('winsjob'));
+        }
+        
+        return array(
+          base64_decode($fm_job),
+          $this->session->userdata('id'),
+        ); 
+        
+    }
+    // added by (Donfack Zeufack Hermann) end
 
     public function fixed_freelancer_view() {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 2) {
                 redirect(site_url("jobs-home"));
             }
-            $jobId = base64_decode($_GET['fmJob']);
-            $user_id = $this->session->userdata('id');
+            
+            // added by (Donfack Zeufack Hermann) start load models
+            try{
+                $this->load->model(array('jobs_model', 'webuser_model', 'payment_model'));
+            }catch(RuntimeException $e){
+                log_message('debug', $e->getMessage());
+            }
+            // added by (Donfack Zeufack Hermann) end           
+            
+            
+            // added by (Donfack Zeufack Hermann) start replace access to $_GET values with $this->input->get() and set standard
+            list($job_id, $user_id) = $this->prepare_fixed_freelancer_data();  
+            $job_status = $this->jobs_model->load_job_status(null, $user_id, $job_id);
+            $ststus     = $this->webuser_model->load_informations($job_status->buser_id);
+            $payments   = $this->payment_model->load_job_transactions($job_status->buser_id, $user_id, $job_id); 
+            // added by (Donfack Zeufack Hermann) end
 
-            $this->db->select('*,jobs.status AS job_status,jobs.job_duration AS jobduration,jobs.created AS job_created');
-            $this->db->from('job_accepted');
-            $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-            $this->db->join('webuser', 'webuser.webuser_id=job_accepted.buser_id', 'inner');
-            $this->db->join('webuser_basic_profile', 'webuser_basic_profile.webuser_id=webuser.webuser_id', 'inner');
-            $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
-            $this->db->join('country', 'country.country_id=webuser.webuser_country', 'inner');
-            $this->db->where('job_accepted.fuser_id', $user_id);
-            $this->db->where('job_accepted.job_id', $jobId);
-
-            $query = $this->db->get();
-            $job_status = $query->row();
-
-
-            $this->db->select('*');
-            $this->db->from('webuser');
-            $this->db->where('webuser.webuser_id', $job_status->buser_id);
-            $query_status = $this->db->get();
-            $ststus = $query_status->row();
-
-            $data = array('job_status' => $job_status, 'ststus' => $ststus);
-            $this->Admintheme->webview("jobs/fixed_freelancer_view", $data);
+            // added by (Donfack Zeufack Hermann) start enhance code make it more compact to pass data to the view 
+            $this->Admintheme->webview("jobs/fixed_freelancer_view", compact('job_status', 'ststus', 'payments'));
+            // added by (Donfack Zeufack Hermann) end
         }
     }
 
@@ -2657,6 +2676,8 @@ class Jobs extends CI_Controller {
             }
          // added by jahid end 
             $response['success'] = true;
+            
+          
             print_r(json_encode($response));
         }
     }
