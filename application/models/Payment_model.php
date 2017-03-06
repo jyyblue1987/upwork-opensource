@@ -19,4 +19,14 @@ class Payment_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+    
+    public function save_job_transaction($job_id, $fuser_id, $buser_id, $amount) {
+        $this->db->insert('payments', array(
+            'job_id'        => $job_id,
+            'user_id'       => $fuser_id,
+            'buser_id'      => $buser_id,
+            'des'           => 'Payment',
+            'payment_gross' => $amount,
+        ));
+    }
 }

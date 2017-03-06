@@ -5,7 +5,7 @@
     <div class="col-md-6"><input style="margin-left: -40px;margin-top: -5px;font-size: 16px;font-family: calibri;width: 80px;" class="form-control" type="text" name="amount" value="<?php if(isset($remaining)) echo $remaining;?>" /></div>
     </div>
     <input name="job_id" type="hidden" value="<?php if(isset($job_id)) echo $job_id; ?>" />
-    <input name="user_id" type="hidden" value="<?php if(isset($fuser_id)) echo $fuser_id; ?>" />
+    <input name="fuser_id" type="hidden" value="<?php if(isset($fuser_id)) echo $fuser_id; ?>" />
     <input name="buser_id" type="hidden" value="<?php if(isset($buser_id)) echo $buser_id; ?>" />
 
 <button style="float: left;margin-left: 148px;" id="hr_btnpay" class="btn-primary big_mass_active transparent-btn big_mass_button">Pay Now</button>
@@ -25,13 +25,13 @@
             //encode      : true,
         })
             .done(function(res) {
-                if(res == "done"){
-                  window.location.replace("/jobs/fixed_client_view?fmJob=NTY=&fuser=MTU=");
+                var result = res.split('::');
+                if(result[0] == "done"){
+                  window.location.replace("/jobs/fixed_client_view?fmJob=" + result[1] + "&fuser=" + result[2]);
                 }else {
                   $('#hr_msg').text(res);
                   $('#hr_btnpay').prop('disabled', false);
                 }
-                console.log(res);
             });
         event.preventDefault();
     });

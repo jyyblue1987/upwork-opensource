@@ -20,7 +20,7 @@ class Admintheme extends CI_Model {
                $this->load->view('admin/layout/menu.php',$data, false);
                $this->load->view('admin/'.$page,$data, false);
                $this->load->view('admin/layout/footer.php',$data, false);
-               $this->load->view('admin/layout/afterfooter.php',$data, false);
+              // $this->load->view('admin/layout/afterfooter.php',$data, false);      // indsys tech 3 feb 
 
 
 
@@ -37,7 +37,7 @@ class Admintheme extends CI_Model {
                $this->load->view('webview/layout/menu.php',$data, false);
                $this->load->view('webview/'.$page,$data, false);
                $this->load->view('webview/layout/footer.php',$data, false);
-               $this->load->view('webview/layout/afterfooter.php',$data, false);
+              // $this->load->view('webview/layout/afterfooter.php',$data, false);    // indsys tech 3 feb 
 
 
 
@@ -49,17 +49,32 @@ class Admintheme extends CI_Model {
 
     $data['text']=$text;
 
-             $this->load->view('webview/layout/header2.php',$data, false);
+             //$this->load->view('webview/layout/header2.php',$data, false);
+             $this->load->view('webview/layout/header.php',$data, false);
               $this->load->view('webview/layout/afterheader.php',$data, false);
                $this->load->view('webview/layout/menu.php',$data, false);
                $this->load->view('webview/'.$page,$data, false);
-               $this->load->view('webview/layout/footer2.php',$data, false);
-               $this->load->view('webview/layout/afterfooter.php',$data, false);
+               $this->load->view('webview/layout/footer.php',$data, false);
+               //$this->load->view('webview/layout/footer2.php',$data, false);    // indsys tech 3 feb 
+              // $this->load->view('webview/layout/afterfooter.php',$data, false);    // indsys tech 3 feb 
 
 
 
 
      }
+	 
+	 // added by (Donfack Zeufack Hermann) start load models
+	 function webview_2($page,$data){
+		$text=$this->siteconfig->text();
+        $data['text']=$text;
+        $this->load->view('webview/layout/header.php',$data, false);
+        $this->load->view('webview/layout/afterheader.php',$data, false);
+        $this->load->view('webview/layout/menu.php',$data, false);
+        $this->load->view('webview/'.$page,$data, false);
+        $this->load->view('webview/layout/footer2.php',$data, false);
+        $this->load->view('webview/layout/afterfooter.php',$data, false); 
+     }
+	 // added by (Donfack Zeufack Hermann) end
 
     //added by Sergey start
     function webview3($page,$data){
@@ -68,12 +83,13 @@ class Admintheme extends CI_Model {
 
         $data['text']=$text;
 
-        $this->load->view('webview/layout/header3.php',$data, false);
+        //$this->load->view('webview/layout/header3.php',$data, false);
+        $this->load->view('webview/layout/header.php',$data, false);
         $this->load->view('webview/layout/afterheader.php',$data, false);
         $this->load->view('webview/layout/menu.php',$data, false);
         $this->load->view('webview/'.$page,$data, false);
         $this->load->view('webview/layout/footer.php',$data, false);
-        $this->load->view('webview/layout/afterfooter.php',$data, false);
+       // $this->load->view('webview/layout/afterfooter.php',$data, false);   // indsys tech 3 feb 
     }
     //added by Sergey end
 
@@ -88,7 +104,7 @@ class Admintheme extends CI_Model {
                $this->load->view('webview/layout/menu.php',$data, false);
                $this->load->view('webview/'.$page,$data, false);
                $this->load->view('webview/layout/footer.php',$data, false);
-               $this->load->view('webview/layout/afterfooter.php',$data, false);
+             //  $this->load->view('webview/layout/afterfooter.php',$data, false);  // indsys tech 3 feb 
 
 
 
@@ -108,7 +124,7 @@ class Admintheme extends CI_Model {
                 $this->load->view('admin/'.$page,$data, false);
                 $this->load->view('admin/layout/footer.php',$data, false);
                 $this->load->view('admin/'.$footer,$data, false);
-                $this->load->view('admin/layout/afterfooter.php',$data, false);
+              //  $this->load->view('admin/layout/afterfooter.php',$data, false);     // indsys tech 3 feb 
 
 
 
