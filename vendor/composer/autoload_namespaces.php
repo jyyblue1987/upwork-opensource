@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'org\\bovigo\\vfs' => array($vendorDir . '/mikey179/vfsStream/src/main/php'),
+    'Twig_' => array($vendorDir . '/twig/twig/lib'),
     'PayPal\\Types' => array($vendorDir . '/paypal/adaptivepayments-sdk-php/lib'),
     'PayPal\\Service' => array($vendorDir . '/paypal/adaptivepayments-sdk-php/lib', $vendorDir . '/paypal/merchant-sdk-php/lib'),
     'PayPal\\PayPalAPI' => array($vendorDir . '/paypal/merchant-sdk-php/lib'),

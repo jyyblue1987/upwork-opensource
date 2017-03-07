@@ -2,13 +2,13 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Jobs extends CI_Controller {
+class Jobs extends Winjob_Controller {
 
     public function __construct() {
         parent::__construct();
         $this->load->model(array('Category', 'Common_mod'));
         $this->load->library('paypal_lib');
-		
+        
 		/* check profile info is okay start */
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
@@ -1553,8 +1553,7 @@ class Jobs extends CI_Controller {
                 redirect(site_url("find-jobs"));
             }
 
-
-            $user_id = $this->session->userdata('id');
+            /*$user_id = $this->session->userdata('id');
             $this->db->select('*');
             $this->db->from('job_accepted');
             $this->db->join('webuser', 'webuser.webuser_id=job_accepted.fuser_id', 'inner');
@@ -1590,7 +1589,8 @@ class Jobs extends CI_Controller {
 
 
             $data = array('all_data' => $result, 'offer_count' => $offer_count, 'past_hire' => $past_hire);
-            $this->Admintheme->webview("jobs/mystaff", $data);
+            $this->Admintheme->webview("jobs/mystaff", $data);*/
+            $this->twig->display('webview/jobs/my-staff');
         }
     }
 

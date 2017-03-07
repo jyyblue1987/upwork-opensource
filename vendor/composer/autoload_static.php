@@ -36,6 +36,13 @@ class ComposerStaticInit76c7465780a2401a468a58af8983c36b
                 0 => __DIR__ . '/..' . '/mikey179/vfsStream/src/main/php',
             ),
         ),
+        'T' => 
+        array (
+            'Twig_' => 
+            array (
+                0 => __DIR__ . '/..' . '/twig/twig/lib',
+            ),
+        ),
         'P' => 
         array (
             'PayPal\\Types' => 
