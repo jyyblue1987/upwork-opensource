@@ -15,7 +15,8 @@
 		"stripe/stripe-php": "3.*",
 		"paypal/rest-api-sdk-php": "*",
 		"paypal/adaptivepayments-sdk-php":"v3.6.106",
-		"paypal/merchant-sdk-php":"*"
+		"paypal/merchant-sdk-php":"*",
+		"kenjis/codeigniter-ss-twig": "^0.2.1"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

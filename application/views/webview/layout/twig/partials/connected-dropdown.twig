@@ -1,0 +1,25 @@
+<li>
+    <a href="{{ site_url("messageboard") }}" 
+       class="show_notification" 
+       {% if notification %} style="color: #e84c3d !important;" {% endif %} >
+        
+        {% if notification %}
+           <span style="color: #e84c3d;padding: 0 5px;">{{ notification }}</span>
+        {% endif %}
+        <i class="fa fa-envelope-o " aria-hidden="true"></i>
+    </a>
+</li>
+<!-- TODO: Add notification dropdown option here -->
+<li>
+    <a href="javascript:void(0);" data-toggle="dropdown"> 
+        HI {{ app_user_data()['fname']|upper }} 
+        <i class="fa fa-caret-down" aria-hidden="true" ></i>
+    </a>
+    <ul class="dropdown-menu">
+        {% if app_user_data()['type'] == '2' %}
+            <li><a href="{{ site_url("profile-settings") }}">My Profile</a></li>
+        {% endif %}
+        <li><a href="{{ site_url("profile-settings") }}">Settings</a></li>
+        <li><a href="{{ site_url("logout/") }}">Logout</a></li>
+    </ul>
+</li>

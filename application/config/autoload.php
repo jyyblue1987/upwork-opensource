@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('form_validation','database', 'session', 'siteconfig','Conversation');
+$autoload['libraries'] = array('form_validation','database', 'session', 'siteconfig', 'Conversation');
 
 /*
 | -------------------------------------------------------------------
@@ -91,8 +91,9 @@ $autoload['drivers'] = array();
 */
 // "charge" added by HaseebUrRehman
 // "datetime" added by Kalskov Vladimir (spirit@taganlife.ru)
+// "app" added by Donfack Zeufack Hermann (donfack.hermann@gmail.com)
 // $autoload['helper'] = array('url','cookie','security','form','charge');
-$autoload['helper'] = array('url','cookie','security','form','charge','datetime');
+$autoload['helper'] = array('url','cookie','security','form','charge','datetime', 'app');
 
 /*
 | -------------------------------------------------------------------

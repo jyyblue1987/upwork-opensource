@@ -5,8 +5,6 @@ class App extends CI_Controller {
 
 	public function index()
 	{
-
-		$this->load->view('app/app');
-
+            $this->load->view('app/app');
 	}
 }
