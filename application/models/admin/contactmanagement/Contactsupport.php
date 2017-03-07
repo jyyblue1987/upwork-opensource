@@ -1,11 +1,11 @@
 <?php
+session_start();
 class Contactsupport extends CI_Model {
 
     function __construct() {
         parent::__construct();
     }
-
-	  function check($permission) {
+	function check($permission) {
 
 		if($this->Adminlogincheck->checkper($permission['contactsupport'])){
 			return true;
@@ -15,7 +15,6 @@ class Contactsupport extends CI_Model {
 		}
     }
 	function load($permission,$mod){
-
 
 		$page=$this->uri->uri_to_assoc();
 		$title=$this->Adminforms->getdata("name","usersubpage",$permission['contactsupport']);

@@ -2,11 +2,6 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 <div class="page animsition">
     <div class="page-header">
-
-
-
-
-
         <div class="page-header">
             <h1 class="page-title"><?php echo $title; ?></h1>
             <div class="page-header-actions">

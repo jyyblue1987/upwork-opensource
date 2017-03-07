@@ -50,7 +50,9 @@ class Contactdeleteredstatus extends CI_Model {
             'receiver_id' => $webuser_id,
             'message' => $message,
             'status' => 'green',
-            'created' => date("Y-m-d H:m:s")
+            'created' => date("Y-m-d H:m:s"),
+            'sender' => 'support',
+            'receiver' => 'user'
         ));
         $ticketMessageID = $this->db->insert_id();
 
