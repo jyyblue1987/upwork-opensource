@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Mar 04, 2017 at 04:43 PM
+-- Generation Time: Mar 07, 2017 at 07:57 AM
 -- Server version: 5.6.33-cll-lve
 -- PHP Version: 5.6.20
 
@@ -80,10 +80,10 @@ INSERT INTO `billingmethodlist` (`sr`, `belongsTo`, `paymentMethod`, `attachedTo
 (56, 18, 'paypal', 38, 0, 1),
 (57, 29, 'paypal', 39, 0, 1),
 (58, 18, 'paypal', 40, 0, 1),
-(59, 18, 'paypal', 41, 0, 0),
+(59, 18, 'paypal', 41, 1, 0),
 (60, 18, 'stripe', 47, 0, 1),
 (61, 18, 'stripe', 48, 0, 1),
-(62, 18, 'stripe', 52, 1, 0),
+(62, 18, 'stripe', 52, 0, 0),
 (63, 18, 'stripe', 53, 0, 1),
 (64, 18, 'stripe', 54, 0, 1),
 (65, 18, 'stripe', 55, 0, 1),
@@ -566,7 +566,7 @@ INSERT INTO `jobs` (`id`, `user_id`, `title`, `category`, `job_description`, `jo
 (175, 18, 'te', 1, 'te', 'hourly', '', 'not_sure', 'Entry level', 0.00, 'not_sure', '', 0, '2017-02-27 20:02:02', '2017-02-28 03:02:02'),
 (176, 18, 't8', 1, 's', 'hourly', '', 'not_sure', 'Entry level', 0.00, 'not_sure', '', 0, '2017-02-28 03:10:46', '2017-02-28 03:10:46'),
 (157, 18, 'job testing', 1, 'job testing', 'fixed', '', '1_3_months', 'Entry level', 100.00, '1-9', '', 1, '2017-02-22 11:25:33', '2017-02-22 11:25:33'),
-(156, 18, 'skills ', 1, 'wdefwf', 'hourly', '', '1_3_months', 'Entry level', 0.00, '10-19', '', 1, '2017-02-19 17:09:48', '2017-02-19 17:09:48'),
+(156, 18, 'skills ', 1, 'wdefwf', 'hourly', '', '1_3_months', 'Entry level', 0.00, '10-19', '', 0, '2017-02-19 17:09:48', '2017-02-19 17:09:48'),
 (155, 18, 'Hourly-Applied count and hire page interview count issue', 1, 'Hourly-Applied count and hire page interview count issue', 'hourly', '', '1_3_months', 'Experienced', 0.00, '10-19', '', 0, '2017-02-18 10:22:29', '2017-02-18 10:22:29'),
 (154, 18, 'Fixed-Applied count and hire page interview count issue', 1, 'Fixed-Applied count and hire page interview count issue', 'fixed', '', '3_6_months', 'Entry level', 30.00, 'not_sure', '', 0, '2017-02-18 10:21:51', '2017-02-18 10:21:51'),
 (153, 18, 'seo for 1 webiste', 1, 'seo for 1 webiste', 'fixed', '', 'more_than_6_months', 'Entry level', 500.00, 'not_sure', '', 0, '2017-02-17 10:34:36', '2017-02-17 10:34:36'),
@@ -684,7 +684,7 @@ CREATE TABLE IF NOT EXISTS `job_bids` (
   `withdrawn_by` int(11) DEFAULT NULL,
   `job_progres_status` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=237 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=239 ;
 
 --
 -- Dumping data for table `job_bids`
@@ -694,10 +694,12 @@ INSERT INTO `job_bids` (`id`, `user_id`, `job_id`, `bid_amount`, `bid_fee`, `bid
 (1, 9, 27, 12.00, 1.20, 10.80, '10-19', 'fgdfhgfhgf', 1, '0', NULL, NULL, 0, 0.00, 0.00, 0.00, '0', '0', 0.00, NULL, '0', '2016-08-25 20:15:06', 0, '', 0, '0.00', 0, NULL, NULL, 0),
 (2, 9, 27, 12.00, 1.20, 10.80, '10-19', 'hgfhjgj', 0, '0', NULL, NULL, 0, 0.00, 0.00, 0.00, '0', '0', 0.00, NULL, '0', '2016-08-25 20:17:17', 0, '', 0, '0.00', 0, NULL, NULL, 0),
 (3, 9, 26, 123.00, 12.30, 111.70, 'not_sure', 'vsfbgdfbhgf', 1, '0', NULL, NULL, 0, 0.00, 0.00, 0.00, '0', '0', 0.00, NULL, '0', '2016-08-25 20:17:46', 0, '', 0, '0.00', 0, NULL, NULL, 0),
+(238, 15, 178, 233.00, 23.30, 209.70, 'Less than 1 month', 'rgrg', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-03-06 17:10:26', 0, NULL, 1, '0.00', 0, 1, 2, 0),
 (5, 9, 24, 12.00, 1.20, 10.80, '1-9', 'hello', 0, '0', NULL, NULL, 0, 0.00, 0.00, 0.00, '0', '0', 0.00, NULL, '0', '2016-08-26 17:10:01', 0, '', 0, '0.00', 0, NULL, NULL, 0),
 (10, 9, 23, 12.00, 1.20, 10.80, '10-19', 'dfgdfh', 0, '0', NULL, NULL, 0, 0.00, 0.00, 0.00, '0', '0', 0.00, NULL, '0', '2016-08-26 18:36:10', 0, '', 0, '0.00', 0, NULL, NULL, 0),
 (11, 9, 21, 0.00, 0.00, 0.00, '1-9', 'ghgfh', 0, '0', NULL, NULL, 0, 0.00, 0.00, 0.00, '0', '0', 0.00, NULL, '0', '2016-08-26 18:37:18', 0, '', 0, '0.00', 0, NULL, NULL, 0),
 (12, 9, 31, 22.00, 2.20, 19.80, '1-9', 'dfgdg', 0, '0', NULL, NULL, 0, 0.00, 0.00, 0.00, '0', '0', 0.00, NULL, '0', '2016-08-26 18:56:07', 0, '', 0, '0.00', 0, NULL, NULL, 0),
+(237, 15, 179, 5.00, 0.50, 4.50, NULL, 'rrgrg', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-03-06 17:09:53', 0, NULL, 0, '0.00', 0, NULL, NULL, 0),
 (15, 9, 32, 5.00, 0.50, 4.50, '1-9', 'fgdfh', 0, '0', 'Testing', 'rujygfjh', 50, 10.00, 1.00, 9.00, '0', '0', 500.00, NULL, '2016/09/27 21:07', '2016-08-26 19:04:21', 0, '', 0, '0.00', 1, NULL, NULL, 0),
 (16, 15, 33, 5.00, 0.50, 4.50, '30-39', 'dgfghfdh', 1, '0', NULL, NULL, 0, 0.00, 0.00, 0.00, '0', '0', 0.00, NULL, '0', '2016-08-26 19:20:36', 0, '', 0, '0.00', 0, NULL, NULL, 0),
 (17, 25, 27, 11.00, 1.10, 9.90, '1-9', 'I want to do the job', 0, '0', 'Need Virtual Assistant with excellent English writing skills for email, blog, and social media upkee', 'vnjmgngfn', 10, 5.00, 0.50, 4.50, '1', '0', 0.00, NULL, '2016/09/15 00:25', '2016-08-30 05:24:23', 0, '', 0, '0.00', 0, NULL, NULL, 0),
@@ -714,7 +716,7 @@ INSERT INTO `job_bids` (`id`, `user_id`, `job_id`, `bid_amount`, `bid_fee`, `bid
 (28, 15, 35, 400.00, 40.00, 360.00, '10-19', 'erghedrkjghjdsflhj;', 0, '0', 'Fixed test', 'test', 0, 0.00, 0.00, 0.00, '0', '2', 0.00, 100.00, '2016/10/28 21:25', '2016-09-06 20:10:50', 1, '2016-09-28 08:09:06', 0, '0.00', 1, NULL, NULL, 0),
 (29, 9, 36, 30.00, 3.00, 27.00, '1-9', 'dxvfgsdgbfd', 0, '0', 'hourly rate testing', 'testing', 0, 20.00, 2.00, 18.00, '0', '0', 0.00, NULL, '2016/09/20 20:17', '2016-09-07 10:35:34', 1, '2016-09-20 14:09:35', 1, '0.00', 0, NULL, NULL, 0),
 (30, 25, 36, 5.00, 0.50, 4.50, 'not_sure', 'test', 0, '0', 'tesrt', 'test', 20, 3.00, 0.30, 2.70, '1', '0', 60.00, NULL, '2016/09/26 20:30', '2016-09-07 10:35:37', 0, '2016-09-20 09:09:42', 0, '0.00', 1, NULL, NULL, 0),
-(236, 13, 179, 5.00, 0.50, 4.50, NULL, 'wregtert', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-03-04 17:34:18', 0, NULL, 0, '0.00', 0, NULL, NULL, 1),
+(236, 13, 179, 5.00, 0.50, 4.50, NULL, 'wregtert', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-03-04 17:34:18', 0, NULL, 1, '0.00', 0, 1, 2, 1),
 (33, 15, 37, 5.00, 0.50, 4.50, '10-19', 'thythy', 0, '0', 'test', 'hi', 23, NULL, NULL, NULL, '0', '0', 0.00, NULL, '2016/09/09 21:51', '2016-09-07 21:02:45', 1, '2016-09-20 10:09:51', 1, '0.00', 0, NULL, NULL, 0),
 (34, 9, 38, 500.00, 50.00, 450.00, '10-19', 'hghfgh', 0, '0', 'Fiixed 1000 job', 'adadad adada', 0, NULL, NULL, NULL, '0', '1', 0.00, 500.00, '2016/09/23 19:26', '2016-09-08 07:45:16', 1, '2016-09-25 16:09:55', 0, '0.00', 1, NULL, NULL, 0),
 (35, 25, 38, 800.00, 80.00, 720.00, '40_plus', 'Cover Letter FIXED', 0, '1', ' Fiixed 1000 job', 'asdadadadada', 0, NULL, NULL, NULL, '0', '2', 0.00, 150.00, '2016/09/30 19:23', '2016-09-08 07:45:35', 0, '0000-00-00 00:00:00', 1, '0.00', 1, NULL, NULL, 0),
@@ -724,8 +726,8 @@ INSERT INTO `job_bids` (`id`, `user_id`, `job_id`, `bid_amount`, `bid_fee`, `bid
 (39, 9, 40, 400.00, 40.00, 360.00, '20-29', 'testing', 0, '0', 'asdadadad', 'dadada', 0, NULL, NULL, NULL, '0', '2', 0.00, 400.00, '2016/09/17 16:46', '2016-09-21 19:22:05', 1, '2016-09-28 07:09:12', 1, '0.00', 0, NULL, NULL, 0),
 (40, 9, 37, 5.00, 0.50, 4.50, 'not_sure', 'gdfg', 0, '0', 'seo', 'dwdfwf', 20, NULL, NULL, NULL, '0', NULL, 100.00, 0.00, '2016/09/22 14:42', '2016-09-22 16:24:48', 1, '2016-09-23 14:09:47', 1, '0.00', 0, NULL, NULL, 0),
 (234, 13, 176, 5.00, 0.50, 4.50, NULL, 'tett', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-27 20:37:00', 0, NULL, 1, '0.00', 0, 1, 2, 0),
-(231, 9, 157, 34.00, 3.40, 30.60, 'Less than 1 month', 'dafdf', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-27 17:02:08', 0, NULL, 1, '0.00', 0, 1, 2, 0),
-(235, 13, 178, 45.00, 4.50, 40.50, 'Less than 1 month', 'df', 0, '0', 'Developer testing ', 'thfgj', 0, NULL, NULL, NULL, '0', '1', 0.00, 45.00, '03/03/2017', '2017-03-03 21:07:36', 0, NULL, 0, '45.00', 0, NULL, NULL, 3),
+(231, 9, 157, 34.00, 3.40, 30.60, 'Less than 1 month', 'dafdf', 0, '1', 'job testing', 'fgg', 0, NULL, NULL, NULL, '0', '1', 0.00, 34.00, '05/03/2017', '2017-02-27 17:02:08', 0, NULL, 1, '34.00', 0, 1, 2, 2),
+(235, 13, 178, 45.00, 4.50, 40.50, 'Less than 1 month', 'df', 0, '0', 'Developer testing ', 'thfgj', 0, NULL, NULL, NULL, '0', '1', 0.00, 48.00, '03/03/2017', '2017-03-03 21:07:36', 0, NULL, 0, '45.00', 0, NULL, NULL, 3),
 (45, 15, 40, 444.00, 44.40, 399.60, '1-9', 'fdgdfg', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2016-10-05 23:02:45', 0, NULL, 0, '0.00', 0, NULL, NULL, 0),
 (46, 15, 41, 5.00, 0.50, 4.50, NULL, 'rgtrgy', 0, '0', 'Web Developer -Professional', 'ryhtryh', 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '2016/10/11 23:55', '2016-10-05 23:03:12', 1, '2016-10-10 22:10:18', 0, '0.00', 0, NULL, NULL, 0),
 (205, 13, 140, 5.00, 0.50, 4.50, NULL, 'My proven SEO is in reference to Search Engine Optimization (SEO) Services for proven Results, offering "1st page rank on Google, Yahoo and Bing (whatever is your preferable search engine) and targeted traffic" at a very competitive cost. We will do online promotional activities and work as an Online Marketing Team for your business.', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-02 06:54:33', 0, NULL, 1, '0.00', 0, 1, 2, 0),
@@ -744,16 +746,16 @@ INSERT INTO `job_bids` (`id`, `user_id`, `job_id`, `bid_amount`, `bid_fee`, `bid
 (218, 13, 152, 5.00, 0.50, 4.50, NULL, 'yrtuytru', 1, '0', NULL, NULL, 0, 5.00, 0.50, 4.50, '0', NULL, 0.00, 0.00, '0', '2017-02-15 08:21:32', 0, NULL, 0, '0.00', 0, 1, 1, 0),
 (219, 9, 152, 5.00, 0.50, 4.50, NULL, 'tyur6tu', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-17 10:30:57', 0, NULL, 1, '0.00', 0, 1, 2, 0),
 (220, 15, 152, 5.00, 0.50, 4.50, NULL, 'fgdfhg', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-17 10:31:24', 0, NULL, 0, '0.00', 0, NULL, NULL, 0),
-(221, 13, 153, 600.00, 60.00, 540.00, 'Less than 1 month', 'fsgfdg', 0, '0', 'seo for 1 webiste', 'fdhfdh', 0, NULL, NULL, NULL, '0', '1', 0.00, 615.00, '17/02/2017', '2017-02-17 10:35:06', 0, NULL, 0, '600.00', 0, NULL, NULL, 3),
+(221, 13, 153, 600.00, 60.00, 540.00, 'Less than 1 month', 'fsgfdg', 0, '0', 'seo for 1 webiste', 'fdhfdh', 0, NULL, NULL, NULL, '0', '1', 0.00, 626.00, '17/02/2017', '2017-02-17 10:35:06', 0, NULL, 0, '600.00', 0, NULL, NULL, 3),
 (222, 9, 153, 61.00, 6.10, 54.90, 'Less than 1 week', 'frgtdfy', 0, '1', 'seo for 1 webiste', 'hfdh', 0, NULL, NULL, NULL, '0', '1', 0.00, 61.00, '17/02/2017', '2017-02-17 10:35:34', 0, NULL, 0, '61.00', 0, NULL, NULL, 2),
 (223, 15, 153, 45.00, 4.50, 40.50, 'Less than 1 month', 'dgfhftghj', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-18 09:57:40', 0, NULL, 0, '0.00', 0, NULL, NULL, 0),
 (224, 9, 154, 12.00, 1.20, 10.80, 'Less than 1 month', 'Hourly-Applied count and hire page interview count issue', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-18 10:23:10', 0, NULL, 1, '0.00', 0, 1, 2, 1),
 (225, 13, 154, 4555.00, 455.50, 4099.50, 'Less than 1 week', 'gdfhytgh', 0, '1', 'Fixed-Applied count and hire page interview count issue', 'gh', 0, NULL, NULL, NULL, '0', '1', 0.00, 4555.00, '18/02/2017', '2017-02-18 10:29:21', 0, NULL, 1, '4555.00', 0, 1, 2, 2),
-(226, 13, 156, 5.00, 0.50, 4.50, NULL, 'sfefef', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-21 06:48:56', 0, NULL, 0, '0.00', 0, NULL, NULL, 1),
+(226, 13, 156, 5.00, 0.50, 4.50, NULL, 'sfefef', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-21 06:48:56', 0, NULL, 1, '0.00', 0, 1, 2, 1),
 (227, 13, 155, 5.00, 0.50, 4.50, NULL, 'wdef', 1, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-21 06:49:12', 0, NULL, 0, '0.00', 0, 1, 1, 0),
 (228, 13, 157, 90.00, 9.00, 81.00, '3-6 months', 'Hi\nI have 4 + Years Exp. My Skill''s are PHP, My Sql, \n\nRegards\n\nArun', 0, '1', 'job testing', '', 0, NULL, NULL, NULL, '0', '1', 0.00, 90.00, '02/03/2017', '2017-02-22 11:27:55', 0, NULL, 0, '90.00', 0, NULL, NULL, 2),
 (229, 15, 156, 5.00, 0.50, 4.50, NULL, 'srgthtft', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-27 16:39:43', 0, NULL, 0, '0.00', 0, NULL, NULL, 0),
-(230, 15, 157, 12.00, 1.20, 10.80, 'Less than 1 week', 'dsd', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-27 17:01:26', 0, NULL, 0, '0.00', 0, NULL, NULL, 0),
+(230, 15, 157, 12.00, 1.20, 10.80, 'Less than 1 week', 'dsd', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-27 17:01:26', 0, NULL, 1, '0.00', 0, 1, 2, 0),
 (48, 9, 41, 5.00, 0.50, 4.50, NULL, 'We are a virtual digital marketing firm focused on provided digital marketing solutions to businesses and organisations in USA and around the world. Currently the firm has around 10 virtual staff around the world with most based in Australia. Stuart is currently looking to add an experienced Web Developer to our team. The commitment required for this role will be between 35 – 40 hours per week. Tasks • Manage and develop existing and new client websites. Experience/Skills • Experience in CSS, HTML, Java Script, Joomla and Google Analytics. • Experience with SSL wildcards. • Ecommerce set up and management. • SEO set up and running experience. • Prior experience or exposure to Healcode would be advantageous. • Well versed in several WP templates. • Regularly communicate with the rest of the team on project status. • Attention to detail. • Fast turnaround on tasks. • Fluent in English, both conversational and written. Both individuals and small development firms are encouraged to apply. Please do not call, email or Skype OUTSIDE of Upwork. Those who do so will be immediately eliminated from the process', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2016-10-09 18:22:50', 0, NULL, 1, '0.00', 0, NULL, NULL, 0),
 (49, 9, 42, 5.00, 0.50, 4.50, NULL, 'We are a virtual digital marketing firm focused on provided digital marketing solutions to businesses and organisations in USA and around the world. Currently the firm has around 10 virtual staff around the world with most based in Australia. Stuart is currently looking to add an experienced Web Developer to our team. The commitment required for this role will be between 35 – 40 hours per week. Tasks • Manage and develop existing and new client websites. Experience/Skills • Experience in CSS, HTML, Java Script, Joomla and Google Analytics. • Experience with SSL wildcards. • Ecommerce set up and management. • SEO set up and running experience. • Prior experience or exposure to Healcode would be advantageous. • Well versed in several WP templates. • Regularly communicate with the rest of the team on project status. • Attention to detail. • Fast turnaround on tasks. • Fluent in English, both conversational and written. Both individuals and small development firms are encouraged to apply. Please do not call, email or Skype OUTSIDE of Upwork. Those who do so will be immediately eliminated from the process', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2016-10-09 19:03:07', 0, NULL, 1, '0.00', 0, NULL, NULL, 0),
 (204, 9, 147, 5.00, 0.50, 4.50, NULL, 'dfrgtdfgfg', 0, '0', 'web design', 'oyiiuyi', 4, NULL, NULL, NULL, '0', NULL, 20.00, 0.00, '2017/02/09 22:05', '2017-01-30 06:43:08', 0, NULL, 0, '0.00', 0, NULL, NULL, 3),
@@ -948,7 +950,7 @@ INSERT INTO `job_conversation` (`id`, `job_id`, `bid_id`, `message_conversation`
 (37, 33, 19, 'hi', 9, 18, '2016-09-01 19:03:56', 0),
 (38, 32, 14, 'gh,fhfdfh hd hd', 25, 18, '2016-09-01 19:12:10', 0),
 (338, 153, 221, 'j', 18, 18, '2017-03-04 18:50:42', 0),
-(337, 179, 236, 'dd', 18, 13, '2017-03-04 17:51:44', 1),
+(337, 179, 236, 'dd', 18, 13, '2017-03-04 17:51:44', 0),
 (336, 153, 221, 'hi', 13, 18, '2017-03-01 17:02:36', 0),
 (335, 157, 228, 'h', 13, 18, '2017-03-01 08:01:38', 0),
 (334, 157, 228, 'hi', 13, 18, '2017-02-27 20:29:00', 0),
@@ -1508,18 +1510,35 @@ CREATE TABLE IF NOT EXISTS `payments` (
   `payer_email` varchar(255) NOT NULL,
   `payment_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`payment_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=240 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=257 ;
 
 --
 -- Dumping data for table `payments`
 --
 
 INSERT INTO `payments` (`payment_id`, `user_id`, `buser_id`, `job_id`, `bid_id`, `hire_end_id`, `txn_id`, `payment_condition`, `processfees`, `payment_gross`, `des`, `currency_code`, `payer_email`, `payment_create`) VALUES
+(247, 18, 0, 0, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-06 02:55:15'),
+(248, 18, 0, 0, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-06 02:56:50'),
+(249, 18, 0, 0, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-06 03:00:29'),
+(250, 18, 0, 0, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-06 03:01:40'),
+(251, 18, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-06 03:04:16'),
+(252, 18, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-06 03:05:34'),
+(253, 18, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-06 03:12:47'),
+(254, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-06 03:16:37'),
+(255, 13, 18, 178, 0, 0, '', '1', 0, 1.00, 'Milestone', '', '', '2017-03-06 07:54:36'),
+(256, 13, 18, 178, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-06 08:30:22'),
+(243, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Milestone', '', '', '2017-03-05 19:35:45'),
+(244, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-05 19:46:08'),
+(245, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-06 00:28:13'),
+(246, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-06 00:29:59'),
+(241, 13, 18, 153, 0, 0, '', '1', 0, 2.00, 'Payment', '', '', '2017-03-05 19:25:10'),
+(242, 13, 18, 178, 0, 0, '', '1', 0, 1.00, 'Milestone', '', '', '2017-03-05 19:31:15'),
 (235, 13, 18, 153, 0, 0, '', '1', 0, 600.00, 'Full Paid', '', '', '2017-02-17 11:34:51'),
 (236, 13, 18, 153, 0, 0, '', '1', 0, 600.00, 'Full Paid', '', '', '2017-02-17 11:34:56'),
 (237, 13, 18, 154, 0, 0, '', '1', 0, 4555.00, 'Full Paid', '', '', '2017-02-18 18:17:10'),
 (238, 13, 18, 153, 0, 0, '', '1', 0, 10.00, 'Milestone', '', '', '2017-02-27 10:18:10'),
 (239, 13, 18, 153, 0, 0, '', '1', 0, 5.00, 'Payment', '', '', '2017-03-01 14:39:24'),
+(240, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-05 19:24:20'),
 (232, 13, 18, 153, 0, 0, '', '1', 0, 600.00, 'Full Paid', '', '', '2017-02-17 11:34:35'),
 (233, 13, 18, 153, 0, 0, '', '1', 0, 600.00, 'Full Paid', '', '', '2017-02-17 11:34:41'),
 (234, 9, 18, 153, 0, 0, '', '1', 0, 61.00, 'Full Paid', '', '', '2017-02-17 11:34:46'),
@@ -4860,7 +4879,7 @@ CREATE TABLE IF NOT EXISTS `webuser` (
   `isdelete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=not del,1=deleted',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`webuser_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=51 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=52 ;
 
 --
 -- Dumping data for table `webuser`
@@ -4873,7 +4892,7 @@ INSERT INTO `webuser` (`webuser_id`, `webuser_company`, `webuser_fname`, `webuse
 (9, '', 'Hasan', 'Rahman', 'hasan', 'temp/userimg_157100542218168084502024692625.jpeg', NULL, 'TYtW0TvXMGJB9K978oC6ph2j1L6RhX', 'hafijarrahman@gmail.com', '258b0812e0ac4d011cb9d9b7072b6c1c', 'Mykey2016', '2', '2', '', '', '9', '116576543564675', 'p3YEKaDeicgZ7ggKhyYZetnJW4Hc0B', '1471000246', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
 (11, '', 'Didar', 'Singh', 'didar084', '', NULL, 'rgA93XrEg9Y3NfyLi9mpe3T6Vqzs9R', 'didar084@gmail.com', '404a85dcecb080f5799dc3da3a812135', 'Shanna@5', '2', '2', '', '', '9', '', '', '', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
 (12, '', 'Arun', 'Nagyaan', 'arunk2711', '', NULL, '9WZRB8TIZC0e9HNARN2qUOomQ7F54C', 'arunk2711@gmail.com', '1359e1b2829b6ab3552f38d64da879f6', 'Arunk2711', '2', '1', '', '', '9', '', 'gYqKys5MiiUIi0L9ZxXmm0ZqC6hZHx', '1471001466', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
-(13, '', 'Arun', 'Kumar', 'arun', 'temp/userimg_61142670199713580123372512.jpeg', NULL, 'QnM7yAptNNSiW1Yh0xUOa7EznHvLg3', 'getupwork@gmail.com', '5455c33e251ab225e5c61c67e1902769', 'Arun', '2', '2', '', '', '46', '99999999999', 'p93BCI65rhfmT6M2XEpf3Rd8S6JYIO', '1485869660', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
+(13, '', 'Arun', 'Kumar', 'arun', '', NULL, 'QnM7yAptNNSiW1Yh0xUOa7EznHvLg3', 'getupwork@gmail.com', '5455c33e251ab225e5c61c67e1902769', 'Arun', '2', '2', '', '', '23', '99999999999', 'p93BCI65rhfmT6M2XEpf3Rd8S6JYIO', '1485869660', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
 (14, '', 'Michael Jay', 'Catubay', 'cmichaeljay89', '', NULL, 'O2M5lh1u6sslFTDtvUnBpvf9OjwshO', 'catubaymichaeljay@yahoo.com', '4cfe81cbdfcbc660837525796de7483a', 'nv01vostro', '2', '2', '', '', '9', '', 'ZFPmruLee6wgAZDrD2CYWJbOqcoJhx', '1472482086', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
 (15, '', 'Sheraz', ' salem', 'msherax', 'temp/userimg_10551427119675669211090345819.jpeg', NULL, 'RU2zapVPfrYnJb92lEvMLcjy4Nkn3D', 'm.sherax@gmail.com', 'befbc55882a5a60e8260b78de5a0911e', 'msherax', '2', '2', '', '', '9', '1111154888', '', '', '', '', 1, 0, 0, '0000-00-00 00:00:00'),
 (16, '', 'alexei', 'andropov', 'alexei.andropov', '', NULL, 'v7GgXa1V2T9jBopuYgFjtzJwm3DHaH', 'alexei.andropov210@gmail.com', 'b21d455dc9a79b5a082ab9b38b985ae8', 'kaifaquA3212', '2', '2', '', '', '9', '', '', 'undefined', 'undefined', 'undefined', 1, 0, 0, '0000-00-00 00:00:00');
@@ -4908,7 +4927,8 @@ INSERT INTO `webuser` (`webuser_id`, `webuser_company`, `webuser_fname`, `webuse
 (47, '', 'Ashish', 'Patil', 'Ashishi', '', NULL, 'Wk6mq1BHJtmE3KjVUdv8rs0sAv6V3o', 'iamashish_patil@Rediffmail.com', '7c8dd773ee4835d67029e21b64fb02fb', 'sbimanish', '2', '1', '', '', '10', '', '', '', '', '', 1, 0, 0, '2017-02-07 06:18:58'),
 (48, '', 'Zar', 'Htet', 'Zar Htet', '', NULL, 'EQ9rqxjOKPJsHgaggLhfP38Z0MEiH1', 'zarhtetoo@gmail.com', '0d261f802de0a78479d857697ccc33fc', 'zarhtetoo11', '2', '2', '', '', '44', '', '', '', '', '', 1, 0, 0, '2017-02-20 10:18:34'),
 (49, '', 'shivani', 'patidar', 'shivani', '', NULL, 'aS3h3sEkWpgWLGj3Kk7KYFENSCEwrk', 'shivanidesignersveltosest005@gmail.com', '20f6ebca209ba3b5c07622689c97ef3c', '@Sh1van1', '1', '2', '', '', '10', '', '', '', '', '', 1, 0, 0, '2017-02-24 10:32:47'),
-(50, '', 'ankit ', 'jain', 'sveltose', '', NULL, 'S9ykOJgP6QmIf8UbahuK7WBVghscnS', 'ankit.jain.mit@gmail.com', '6d142d761fa3dcaa81dbe3f2f8337d0b', 'Hanumanji2017', '2', '2', '', '', '87', '', '', '', '', '', 1, 0, 0, '2017-02-27 11:45:01');
+(50, '', 'ankit ', 'jain', 'sveltose', '', NULL, 'S9ykOJgP6QmIf8UbahuK7WBVghscnS', 'ankit.jain.mit@gmail.com', '6d142d761fa3dcaa81dbe3f2f8337d0b', 'Hanumanji2017', '2', '2', '', '', '87', '', '', '', '', '', 1, 0, 0, '2017-02-27 11:45:01'),
+(51, '', 'Arjay', 'Villanueva', 'yajuno0305', '', NULL, 'LXZAQ0R3AFJnaXWhW4U300O05wBRNJ', 'kingkingmirage@gmail.com', 'cc3e4f842b57311d829094e5b43a96e9', 'Wh@ty0us331swh@ty0ug3t0589', '2', '1', '', '', '153', '', '', '', '', '', 1, 0, 0, '2017-03-07 14:55:57');
 
 -- --------------------------------------------------------
 
@@ -4941,7 +4961,7 @@ INSERT INTO `webuseraddresses` (`id`, `webuser_id`, `address`, `address1`, `city
 (17, 22, 'Shewrapara', 'Dhaka', 'Dhaka', 'Dhaka', '1212', '5', '8801717457174', 'UTC 06.00 Almaty, Dhaka'),
 (16, 9, 'brisbane', 'brisbane', 'brisbane', 'brisbane', '3422', '9', '116576543564675', ''),
 (11, 16, 'ertert', 'dfgdfgd', 'Bogra', 'Bogra', '5881', 'Bangladesh', '  880 01711473899', 'UTC   06.00 Almaty, Dhaka'),
-(20, 13, 'street address 1', 'street address 2', 'City', 'State', '4500', '46', '99999999999', '5'),
+(20, 13, 'street address 1', 'street address 2', 'City', 'State', '4500', '23', '99999999999', '5'),
 (21, 29, 'fgdthted', 'rgetyh', 'etrhytrjr', 'rtjuhrtu', '1243', '14', '122323322', '15');
 
 -- --------------------------------------------------------
