@@ -177,11 +177,11 @@ $clientend = $Conversation->clientend();
                                 <?php
                                 if (strlen($this->session->userdata("webuser_picture")) > 0) {
                                     ?>
-                                    <img src="<?php echo base_url() . $this->session->userdata("webuser_picture") ?>" class="profile-pic" />
+                                    <img src="<?php echo $croppedImage->cropped_image ?>" class="profile-pic" />
                                     <?php
                                 } else {
                                     ?>
-                                    <img src="<?php echo base_url() ?>assets/img/profile_img.jpg" class="profile-pic" />
+                                    <img src="<?php echo base_url() ?>assets/user.png" class="profile-pic" />
                                     <?php
                                 }
                                 ?>

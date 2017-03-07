@@ -568,6 +568,10 @@ class Jobs extends CI_Controller {
                 $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id));
                 $proposals = $query->num_rows();
                 $data['proposals'] = $proposals;
+
+                $sql = "SELECT cropped_image FROM webuser WHERE webuser_id =  " . $this->session->userdata(USER_ID);
+                $croppedImage =    $this->db->query($sql)->row();
+                $data['croppedImage'] = $croppedImage;
                 // Davit end
                 if ($jobCatPage) {
 

@@ -46,8 +46,14 @@ class Profilesetting extends CI_Controller {
                     'id' => $this->session->userdata('id'),
                     'croppedImage' =>$croppedImage, // ad by indsys tech
                     'js' =>array(),
-                    'jsf' =>array("assets/js/layerslider.transitions.js","assets/js/layerslider.kreaturamedia.jquery.js","assets/js/owl.carousel.min.js","assets/js/homepage.js"),
-                    'css' =>array("assets/css/layerslider.css","assets/css/owl.carousel.css","assets/css/owl.theme.css"),
+                    'jsf' =>array(
+                        "assets/js/layerslider.transitions.js",
+                        "assets/js/layerslider.kreaturamedia.jquery.js",
+                        "assets/js/owl.carousel.min.js","assets/js/homepage.js"),
+                    'css' =>array(
+                        "assets/css/layerslider.css",
+                        "assets/css/owl.carousel.css",
+                        "assets/css/owl.theme.css"),
                     'countryList' => $countryList['rows'],
                     'open' => 'account',
                     'openSub' =>'profile-basic',
@@ -56,9 +62,9 @@ class Profilesetting extends CI_Controller {
                     'timezone' => $timezone,
                     'timezones' => $timezones,
 					'profile'=>$profile,
-					'country_code_dailing' =>$countrydailing->country_dialingcode
+					'country_code_dailing' =>$countrydailing->country_dialingcode,
+                    'country_name'=> $countrydailing->country_name
                 );
-            
                 
                     $this->Admintheme->webview("profilesetting",$data);
                 }else{

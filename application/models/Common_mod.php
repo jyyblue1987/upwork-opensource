@@ -63,7 +63,7 @@ class Common_mod extends CI_Model{
     }
     //added by Indsys Technologies
     public function get_record_by_id($tabl=null,$country_id=null){
-			$this->db->select('country_id,country_dialingcode');
+			$this->db->select('country_id,country_dialingcode,country_name');
 			$this->db->from($tabl);
 			$this->db->where('country_id',$country_id);
 			return $this->db->get()->row();

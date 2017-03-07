@@ -280,6 +280,8 @@
                             </div>
                             <div style="margin-left: 70px;" class="col-xs-8">
                                 <span style="font-size:17px;font-family: calibri;" id="state"><?php echo $this->Adminforms->getdataaddress("state", "webuseraddresses", $id) . ', ' . $this->Adminforms->getdataaddress("zipcode", "webuseraddresses", $id); ?> </span>
+                                <br>
+                                <?php echo $country_name ?>
                             </div>
 
                         </div>

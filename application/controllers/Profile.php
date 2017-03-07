@@ -18,6 +18,9 @@ class Profile extends CI_Controller {
 
             $user_id = $this->session->userdata('id');
 
+            $sql = "SELECT cropped_image FROM webuser WHERE webuser_id =  " . $user_id;
+            $params['userimg'] = $this->db->query($sql)->row();
+
             $this->db->select('*,job_bids.id as bid_id,job_bids.status AS bid_status,jobs.job_duration AS jobduration,job_bids.created AS bid_created');
             $this->db->from('job_accepted');
             //  $this->db->join('job_feedback', 'job_feedback.feedback_job_id=job_accepted.job_id', 'inner');
@@ -42,6 +45,8 @@ class Profile extends CI_Controller {
 
             $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
             $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
+            /*print_r($timezone);
+            die();*/
 
             if (!empty($data['rows'][0])) {
                 //get country//
@@ -92,7 +97,11 @@ class Profile extends CI_Controller {
 
                     if (!empty($timezone)) {
                         $date =  new DateTime(date('Y-m-d h:i:s',time()), new DateTimezone('UTC'));
-                        $date->setTimezone(new \DateTimezone($timezone['gmt']));
+                        /*$date->setTimezone(new \DateTimezone($timezone['gmt']));*/
+                        /*print_r($timezone['gmt']);
+                        die();*/
+                        $date->setTimezone($timeZone['gmt']);
+
                         $params['localtime'] = $date->format('H:i');
                     } else {
                         $params['localtime'] = date('H:i');
@@ -238,11 +247,14 @@ class Profile extends CI_Controller {
     }
 
     public function basicProfilePage() {
+        $sql = "SELECT cropped_image FROM webuser WHERE webuser_id =  " . $this->session->userdata(USER_ID);
+        $croppedImage =    $this->db->query($sql)->row();
         $data = array(
             'title' => "Profile Setting",
             'page' => "profilesetting",
             'name' => $this->session->userdata('fname') . " " . $this->session->userdata('lname'),
             'id' => $this->session->userdata('id'),
+            'croppedImage' =>$croppedImage, // ad by indsys tech
             'js' => array(),
             'jsf' => array(
                 "assets/js/layerslider.transitions.js",
