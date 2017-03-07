@@ -43,9 +43,7 @@
             
         {{ include('webview/layout/twig/partials/footer.twig') }}
         
-        {% block commonjs %}
-            <script data-main="{{ app_modular_js("lib/require.js") }}" src="{{ app_modular_js("lib/require.js") }}"></script>
-        {% endblock %}
+        {% block js %}{% endblock %}
         
     </body>
 </html>
