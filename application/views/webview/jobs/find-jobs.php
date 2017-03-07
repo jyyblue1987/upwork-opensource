@@ -1,7 +1,7 @@
 
 
 <?php
-//include 'content.php';  
+//include 'content.php';
 $Conversation = new Conversation();
 $notification = $Conversation->index();
 $notification_details = $Conversation->details();
@@ -21,17 +21,17 @@ $clientend = $Conversation->clientend();
 
                     </h4>
                 </div>
-            </div>   
-<?php } 
+            </div>
+<?php }
 
         if ($this->session->userdata('type') == '1') { ?>
-			<?php if(!empty($clientend)) { ?>			
+			<?php if(!empty($clientend)) { ?>
 			<div class="row margin-top-1">
 				<div class="bordered-alert text-center ack-box" style="max-width: 969px; height: 40px; margin-bottom: 0px;">
-					<h4 style="margin-top: -5px;">! You have  <a href="<?php echo base_url() ?>jobs/client_endjobnotification" class="show_notification" style="color: #28da28 !important;"> <?=count($clientend)?> ended contract - waiting for feedback</a>			
+					<h4 style="margin-top: -5px;">! You have  <a href="<?php echo base_url() ?>jobs/client_endjobnotification" class="show_notification" style="color: #28da28 !important;"> <?=count($clientend)?> ended contract - waiting for feedback</a>
 					</h4>
 				</div>
-			</div> 			 
+			</div>
 			<?php } ?>
 			<?php if($ststus->isactive==0){ ?>
 				<div class="row ">
@@ -44,10 +44,10 @@ $clientend = $Conversation->clientend();
 			<?php  if(!empty($freelancerend)) { ?>
 			<div class="row margin-top-1">
 				<div class="bordered-alert text-center ack-box" style="max-width: 969px; height: 40px; margin-bottom: 0px;">
-					<h4 style="margin-top: -5px;">! You have  <a href="<?php echo base_url() ?>jobs/freelancer_endjobnotification" class="show_notification" style="color: #28da28 !important;"> <?=count($freelancerend)?> ended contract - waiting for feedback</a>		
+					<h4 style="margin-top: -5px;">! You have  <a href="<?php echo base_url() ?>jobs/freelancer_endjobnotification" class="show_notification" style="color: #28da28 !important;"> <?=count($freelancerend)?> ended contract - waiting for feedback</a>
 					</h4>
 				</div>
-			</div> 				
+			</div>
 			<?php } ?>
 			<?php if($ststus->isactive==0){ ?>
 				<div class="row ">
@@ -57,27 +57,27 @@ $clientend = $Conversation->clientend();
 				</div>
 			<?php } ?>
 		<?php } ?>
-        
-        
-        
+
+
+
         <div class="row">
             <div class="col-md-10 col-md-offset-0">
                 <div style="margin-top: -23px;" class="row">
                     <div class="col-md-12 no-padding margin-top-search">
                         <form action="find-jobs" method="post" id="job-search-form">
-                            <input style="width: 735px;" type="text" placeholder="Find job" name="jobsearchbykeywords" id="jobsearch" value=""  class="form-control search-field" /> 
+                            <input style="width: 735px;" type="text" placeholder="Find job" name="jobsearchbykeywords" id="jobsearch" value=""  class="form-control search-field" />
                             <i class="fa fa-search search-btn search-btn-home custom_btn" aria-hidden="true"></i>
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 margin-top-1 page-title"> 
+            <div class="col-md-2 margin-top-1 page-title">
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12"> 
+            <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-2"> 
+                    <div class="col-md-2">
                         <div class="row">
                             <div style="border: 1px solid #ccc;border-radius: 3px;" class="col-md-12 borderedx white-box">
                                 <div class="row">
@@ -122,7 +122,7 @@ $clientend = $Conversation->clientend();
                                                     <li style="position:relative;"><input type="checkbox" name="jobType[]" class="jtype-check" value="hourly"/> &nbsp;<span style="color: #686361;position: absolute;top: -2px;">Hourly price</span></li>
                                                     <li style="position:relative;"><input type="checkbox" name="jobType[]" class="jtype-check" value="fixed"/> &nbsp;<span style="color: #686361;position: absolute;top: -2px;">Fixed price</span></li>
                                                </ul>
-                                                
+
                                                 <li style="padding-top: 5px;padding-bottom: 5px;font-family: calibri;font-size: 17px;font-weight: bold;color: #686361;" data-toggle="collapse" data-target="#tob-duration" class="collapsed">
                                                  Job Duration <span class="arrow"></span>
                                                 </li>
@@ -170,12 +170,12 @@ $clientend = $Conversation->clientend();
                             <div class='load-more'>Load more <img src='/assets/img/version1/loader.gif' class="form-loader" style="display:none"></div>
                         </section>
 
-                    </div>   
+                    </div>
                     <div class="col-md-2">
                         <div style="border: 1px solid #F0F0F0;" class="row">
                             <div class="col-md-12 no-padding">
                                 <?php
-                                if (strlen($this->session->userdata("webuser_picture")) > 0) {
+                                if (! empty($croppedImage->cropped_image)) {
                                     ?>
                                     <img src="<?php echo $croppedImage->cropped_image ?>" class="profile-pic" />
                                     <?php
@@ -194,16 +194,16 @@ $clientend = $Conversation->clientend();
                             // var_dump($user_id);die();
                             $this->db->select('*');
                             $this->db->from('webuser');
-                            $this->db->where('webuser.webuser_id',$user_id); 
+                            $this->db->where('webuser.webuser_id',$user_id);
                             $query= $this->db->get();
                             $webuser = $query->row();
                             ?>
                             <div class="col-md-12">
-                                <label  style="color: #3bafdb;font-size: 16px;font-family: calibri;font-weight: bold;" class="blue-text"><?php echo $this->session->userdata("fname") . " " . $this->session->userdata("lname"); ?></label><br> 
+                                <label  style="color: #3bafdb;font-size: 16px;font-family: calibri;font-weight: bold;" class="blue-text"><?php echo $this->session->userdata("fname") . " " . $this->session->userdata("lname"); ?></label><br>
                                 <a style="color: #3bafdb;font-size: 16px;font-family: calibri;font-weight: bold;" href="<?php echo site_url('profile/'.$webuser->webuser_username); ?>" class="view-profile">View Profile</a>
 
                             </div>
-                        </div>      
+                        </div>
 
                         <div class="row">
                             <div class="col-md-12 margin-top-space proposal-box">
@@ -236,7 +236,7 @@ $clientend = $Conversation->clientend();
                                 <div class='row'>
                                     <div class="col-md-12 text-center gray-text">
                                         <span style="font-size: 17px; margin: 0px 0px 0px -3px;font-family: calibri;font-weight: bold;" class="gray-text">Profile completeness</span>
-										
+
                                         <div style="margin-top: 10px;" class="progress">
                                             <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:<?=$profilecompleteness['profileprogress'];?>%">
                                                 <?=$profilecompleteness['profileprogress'];?>%
@@ -266,7 +266,7 @@ $clientend = $Conversation->clientend();
 												Portfolios
 											</a>
 										</div>
-									<?php } ?>	
+									<?php } ?>
 									<?php if($profilecompleteness['addexp'] !=1){ ?>
 										<div class="col-md-12 element">
 											<a href="<?php echo base_url();?>profile/basic_bio">
@@ -283,14 +283,14 @@ $clientend = $Conversation->clientend();
 											</a>
 										</div>
 									<?php } ?>
-									
+
                                 </div>
 
                             </div>
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
 
             <!--            <div class="col-md-3 job-summery-box">-->
 

@@ -16,29 +16,29 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/ng-img-crop.css">
 <script type='text/javascript' src="<?php echo base_url(); ?>assets/js/ng-img-crop.js"></script>
 
-<section id="big_header" style="margin-top:40px;margin-bottom:40px;height: auto;"> 
+<section id="big_header" style="margin-top:40px;margin-bottom:40px;height: auto;">
     <div class="container" >
     <div class="white-box" style="padding-top: 15px;margin-left: -8px;margin-right: 16px;border: 1px solid #ccc;">
-        <div class="row"> 
+        <div class="row">
             <div class="col-xs-12 col-sm-3 col-md-3 align-left">
-                <?php 
+                <?php
                 $data = array(
                     'current_active' => 'profile-settings',
                     'username' => $username,
-                    ); 
+                    );
                 $this->load->view("webview/profile/freelancer-profile-left-sidebar",$data) ?>
             </div>
-            <div class="col-xs-12 col-sm-9 col-md-9 custom_profile_info"> 
+            <div class="col-xs-12 col-sm-9 col-md-9 custom_profile_info">
                 <div class="row title-line">
                     <div class="abc">
-                        <h3>Personal Info  </h3> 
+                        <h3>Personal Info  </h3>
                     </div>
-                    <div class="abd"> 
+                    <div class="abd">
                         <h3 onclick="openprofileedit();" style="cursor:pointer;">Edit</h3>
                     </div>
-                </div> 
-                    <div class="row">   
-                        <div style="margin-left: -14px;" class="col-md-12">  
+                </div>
+                    <div class="row">
+                        <div style="margin-left: -14px;" class="col-md-12">
         <div id="editon"  style="display:none;">
 			<div class="row">
 				<div class="col-xs-3">
@@ -46,29 +46,29 @@
 				 </div>
 				<div class="col-xs-9">
 		  			<input type="text" id="infname" value="<?php echo $this->Adminforms->getdatax("fname","webuser",$id); ?>"><br>
-		  
+
 		 		</div>
 		 	</div>
 			<div class="row">
-		 
+
 				<div class="col-xs-3">
 			 		<span>Last name</span>
 			 	</div>
 				<div class="col-xs-9">
 			  		<input type="text" id="inlname" value="<?php echo $this->Adminforms->getdatax("lname","webuser",$id); ?>"><br>
 			 	</div>
-		 
+
 		 	</div>
 		 	<div class="row">
-	 
+
 				<div class="col-xs-3">
 			 		<span>Username</span>
 			 	</div>
 				<div class="col-xs-9">
 					<span style="margin-left: 11px;font-size: 17px;font-family: calibri;" id="xinfname"><?php echo $this->Adminforms->getdatax("username","webuser",$id); ?></span>
-			  
+
 			 	</div>
-		 
+
 		 	</div>
 		 	<div class="row">
 				<div class="col-xs-3">
@@ -76,7 +76,7 @@
 				 </div>
 				<div class="col-xs-9">
 		  			<span style="margin-left: 11px;font-size: 17px;font-family: calibri;"><?php echo $this->Adminforms->getdatax("email","webuser",$id); ?></span>
-		  
+
 		 		</div>
 		 	</div>
 		 	 <?php
@@ -89,7 +89,7 @@
 					 </div>
 					<div class="col-xs-9">
 			  			<input type="text" id="usercompany" value="<?php echo $this->Adminforms->getdatax("company","webuser",$id); ?>"><br>
-			  
+
 			 		</div>
 			 	</div>
 			 	<div class="row">
@@ -98,7 +98,7 @@
 					 </div>
 					<div class="col-xs-9">
 			  			<input type="text" id="usertitle" value="<?php echo $this->Adminforms->getdatax("title","webuser",$id); ?>"><br>
-			  
+
 			 		</div>
 			 	</div>
 			 	<div class="row">
@@ -107,7 +107,7 @@
 					 </div>
 					<div class="col-xs-9">
 			  			<input type="text" id="usersite" value="<?php echo $this->Adminforms->getdatax("site","webuser",$id); ?>"><br>
-			  
+
 			 		</div>
 			 	</div>
 			 	<div class="row">
@@ -116,29 +116,31 @@
 					 </div>
 					<div class="col-xs-9">
 			  			<input type="text" id="uservat" value="<?php echo $this->Adminforms->getdatax("resetexpire","webuser",$id); ?>"><br>
-			  
+
 			 		</div>
-			 	</div>    
+			 	</div>
 		        <?php
 		        }
 		            ?>
-		            
+
 	 	</div>
                                 <div id="editcancel">
                                     <div class="row" >
                                         <div class="col-xs-2">
                                             <span>Picture<?php $imageData = $croppedImage->cropped_image;?></span>
-                                           
+
                                         </div>
                                         <div style="margin-left: 70px;" class="col-xs-4">
-                                            <?php if ($this->Adminforms->getdatax("picture", "webuser", $id) == "") { ?>
+                                            <?php
+                                            if (empty($croppedImage->cropped_image)) : ?>
                                                 <img style="border-radius: 86%;height: 100px;width: 100px;" src="<?php echo site_url("assets/user.png"); ?>" width="100px">
-                                            <?php } else { ?>
+                                            <?php
+                                            else : ?>
                                                 <img style="border-radius: 86%;height: 100px;width: 100px;" src="<?php echo $croppedImage->cropped_image;?>" width="100px">
-                                            <?php }
-                                            ?>
+                                            <?php
+                                            endif; ?>
                                         </div>
-                                        <div class="col-xs-4">                                        
+                                        <div class="col-xs-4">
                                          <!--<a  href="<?php //echo site_url("changepic"); ?>" class="btn change_btn-primary btn-primary pull-left"> Change Picture111</a>-->
                                          <a  data-toggle="modal" data-target="#myModal" href="#" class="btn change_btn-primary btn-primary pull-left"> Change Picture</a>
                                         </div>
@@ -151,7 +153,7 @@
                                             <span style="font-size:17px;font-family: calibri;"  id="xinffname"><?php echo $this->Adminforms->getdatax("fname", "webuser", $id); ?> </span>
                                             <span style="font-size:17px;font-family: calibri;"  id="xinflname"><?php echo $this->Adminforms->getdatax("lname", "webuser", $id); ?> </span>
                                         </div>
-                                        <div class="col-xs-6"> 
+                                        <div class="col-xs-6">
                                         </div>
                                     </div>
                                     <div class="row" >
@@ -161,7 +163,7 @@
                                         <div style="margin-left: 70px;" class="col-xs-4"  >
                                            <span style="font-size:17px;font-family: calibri;"> <?php echo $this->Adminforms->getdatax("username", "webuser", $id); ?> </span>
                                         </div>
-                                         <div class="col-xs-6"> 
+                                         <div class="col-xs-6">
                                         </div>
                                     </div>
                                     <div class="row" >
@@ -171,7 +173,7 @@
                                         <div style="margin-left: 70px;" class="col-xs-4"  >
                                            <span style="font-size:17px;font-family: calibri;"> <?php echo $this->Adminforms->getdatax("email", "webuser", $id); ?> </span>
                                         </div>
-                                         <div class="col-xs-6"> 
+                                         <div class="col-xs-6">
                                         </div>
                                     </div>
                                     <?php
@@ -184,7 +186,7 @@
                                             <div style="margin-left: 70px;" class="col-xs-4"  >
                                                 <span style="font-size:14px;" id="xincompany"><?php echo $this->Adminforms->getdatax("company", "webuser", $id); ?></span>
                                             </div>
-                                             <div class="col-xs-6"> 
+                                             <div class="col-xs-6">
                                         </div>
                                         </div>
                                         <div class="row" >
@@ -194,7 +196,7 @@
                                             <div style="margin-left: 70px;" class="col-xs-4" >
                                                 <span style="font-size:14px;" id="xintitle"><?php echo $this->Adminforms->getdatax("title", "webuser", $id); ?></span>
                                             </div>
-                                             <div class="col-xs-6"> 
+                                             <div class="col-xs-6">
                                         </div>
                                         </div>
                                         <div class="row" >
@@ -204,7 +206,7 @@
                                             <div style="margin-left: 70px;" class="col-xs-4"  >
                                                 <span style="font-size:14px;" id="xinsite"><?php echo $this->Adminforms->getdatax("site", "webuser", $id); ?></span>
                                             </div>
-                                             <div class="col-xs-6"> 
+                                             <div class="col-xs-6">
                                         </div>
                                         </div>
                                         <div class="row" >
@@ -219,11 +221,11 @@
                                     }
                                     ?>
                                 </div>
-                            
-                        </div> 
-                        
-                    </div>     
-              
+
+                        </div>
+
+                    </div>
+
 
                 <div id="editonb" style="display:none;">
                     <div style="margin-top: 24px;margin-bottom: 30px;" class="">
@@ -246,11 +248,11 @@
                             <h3 onclick="openaddressedit();" style="cursor:pointer;">   Edit  </h3>
                         </div>
                     </div>
-                    
+
                     <div class="abf"  id="editcancelabe" style="margin-left: -14px;">
                         <div  class="row">
                             <div class="col-xs-2">
-                                <span>  Address</span>	
+                                <span>  Address</span>
                             </div>
                             <div style="margin-left: 70px;" class="col-xs-8">
                                 <span style="font-size:17px;font-family: calibri;" id="adress"><?php echo $this->Adminforms->getdataaddress("address", "webuseraddresses", $id); ?> </span>
@@ -258,7 +260,7 @@
                         </div>
                         <div  class="row">
                             <div class="col-xs-2">
-                                <span> </span>	
+                                <span> </span>
                             </div>
                             <div style="margin-left: 70px;" class="col-xs-8">
                                 <span style="font-size:17px;font-family: calibri;" id="adress"><?php echo $this->Adminforms->getdataaddress("address1", "webuseraddresses", $id); ?> </span>
@@ -266,7 +268,7 @@
                         </div>
                         <div  class="row">
                             <div class="col-xs-2">
-                                <span></span>	
+                                <span></span>
                             </div>
                             <div style="margin-left: 70px;" class="col-xs-8">
                                 <span style="font-size:17px;font-family: calibri;" id="city"><?php echo $this->Adminforms->getdataaddress("city", "webuseraddresses", $id); ?> </span>
@@ -276,7 +278,7 @@
                         <div  class="row">
 
                             <div class="col-xs-2">
-                                <span>  </span>	
+                                <span>  </span>
                             </div>
                             <div style="margin-left: 70px;" class="col-xs-8">
                                 <span style="font-size:17px;font-family: calibri;" id="state"><?php echo $this->Adminforms->getdataaddress("state", "webuseraddresses", $id) . ', ' . $this->Adminforms->getdataaddress("zipcode", "webuseraddresses", $id); ?> </span>
@@ -289,17 +291,17 @@
                         <div  class="row">
 
                             <div class="col-xs-2">
-                                <span> </span>	
+                                <span> </span>
                             </div>
                             <div style="margin-top:-5%;" class="col-xs-8">
                                 <span style="font-size:17px;font-family: calibri;" id="country"> </span>
                             </div>
                         </div>
-                        
+
                         <div  class="row">
 
                             <div class="col-xs-2">
-                             <span>Phone</span>	
+                             <span>Phone</span>
                             </div>
                            <div style="margin-left: 70px;" class="col-xs-8">
                                 <span style="font-size:17px;font-family: calibri;" id="phone"><?php echo $country_code_dailing; ?>-<?php echo $this->Adminforms->getdataaddress("phone_number", "webuseraddresses", $id); ?> </span>
@@ -310,7 +312,7 @@
                         <div  class="row">
 
                             <div class="col-xs-2">
-                                <span>  Time zone</span>	
+                                <span>  Time zone</span>
                             </div>
                             <div style="margin-left: 70px;" class="col-xs-8">
                                 <span style="font-size:17px;font-family: calibri;" id="timezone"><?php echo !empty($timezone) ? '(' . $timezone['gmt'] . ') - ' . $timezone['name'] : '-' ?> </span>
@@ -401,13 +403,13 @@
 
 
                 </div>
-            </div>  
+            </div>
         </div>
     </div>
     </div>
 
 
-</section><!-- big_header--> 
+</section><!-- big_header-->
 
 
 <!-- modal popup -->
@@ -415,7 +417,7 @@
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog" ng-app="app" ng-controller="Ctrl">
     <div class="modal-dialog" style="width: 950px !important ">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
       <form action="<?php echo site_url("savepic"); ?>" method="POST">
@@ -436,7 +438,7 @@
              <div>Cropped Image:</div>
               <div><img ng-src="{{myCroppedImage}}" /></div>
               <textarea  name="CroppedImage" class="result-datauri hidden">{{myCroppedImage}}</textarea>
-              
+
         </div>
       </div>
         </div>
@@ -446,10 +448,10 @@
         </div>
       </form>
       </div>
-      
+
     </div>
   </div>
-  
+
 </div>
 
 
@@ -459,7 +461,7 @@
  <!-- Modal -->
   <div class="modal fade" id="myModal1" role="dialog">
     <div class="modal-dialog" style="width: 800px;">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header" style="border: none;">
@@ -480,11 +482,11 @@
                 </div>
                 <div class="modal-footer">
                    <button class="btn-primary transparent-btn big_mass_button" id="cropContainerHeaderButton">Save</button>
-                        
+
                   <button type="button" class="btn-danger transparent-btn big_mass_button" data-dismiss="modal">Close</button>
 
                 </div>
-            </div>      
+            </div>
         </div>
        </div>
     </div>
@@ -521,7 +523,7 @@ $('.numbersOnly').keyup(function () {
    function getCountryCode(){
       getcountry_dialingcode();
 	}
-	
+
 	$(document).ready(function() {
     getcountry_dialingcode();
     });
@@ -535,18 +537,18 @@ function getcountry_dialingcode(){
             type: "post",
             success: function (response) {
 				if(response.key=='sucsses'){
-				$("#country_dialingcode").val(response.country_dialingcode);	  
-				$('#country_dialingcode').attr('readonly', true);	  
+				$("#country_dialingcode").val(response.country_dialingcode);
+				$('#country_dialingcode').attr('readonly', true);
 				}else{
 				$("#country_dialingcode").val('');
-				$('#country_dialingcode').attr('readonly', false);		
+				$('#country_dialingcode').attr('readonly', false);
 			   }
-            
+
             },
-         
+
         });
-	
-	
+
+
 	}
 <!-------------------------end--------------------------------------->
 
@@ -556,13 +558,13 @@ function getcountry_dialingcode(){
          $("#editcancel").hide();
          $("#editon").show();
          $("#editonb").show();
-        <?php  
+        <?php
     }
     else if($profile==2)
     {?>
         $("#editcancelabe").hide();
         $("#editonabe").show();
-        <?php 
+        <?php
     }
 ?>
 
