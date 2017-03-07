@@ -130,7 +130,11 @@ ul.cus_main_side_nav_bar li a i{}
                             <div class="col-md-2 col-sm-4" style="width: 122px">
                                 <div class="topleftside">
                                     <div style="margin-left: 0;margin-bottom: -2px;" class="user_view_img">
-                                        <img class="" width="120" src="<?php echo base_url() . $webUserInfo['webuser_picture']; ?>"/>
+                                    <?php if(!empty($userimg->cropped_image)){ ?>
+                                        <img class="" width="120" src="<?php echo $userimg->cropped_image;?>"/>
+                                    <?php }else{ ?>
+                                    <img class="" width="120" src="<?php echo site_url("assets/user.png");?>"/>
+                                    <?php } ?>
                                     </div>
                                     <div style="clear:both"></div>
                                     
@@ -570,11 +574,11 @@ foreach ($experience as $val) { ?>
             <div class="row">
                 <div class="col-md-12 col-sm-12">
                     <div class="exp-showcase">  
-                        <div><b><a style="color:#grey; "href="#" id ="<?php echo $val->id; ?>" onclick="editClickedExp(this.id)" ><i class="fa fa-pencil" aria-hidden="true"></i></a> </b></div>
+                        <div><b><a style="color:grey; " href="#" id ="<?php echo $val->id; ?>" onclick="editClickedExp(this.id)" ><i class="fa fa-pencil" aria-hidden="true"></i></a> </b></div>
                         <div><h4><a style="color:#000;" href=""><?php echo $val->title; ?></a> </h4></div> 
                         <div class="company_name">
                             <h4>
-                                <a style="color:#494949;"href="">
+                                <a style="color:#494949;" href="">
                                     <span><?php echo $val->company; ?></span>
                                 </a>
                             </h4>
@@ -582,15 +586,16 @@ foreach ($experience as $val) { ?>
                         <div class="address_bar">
                             <a  style="color:grey;" href="" class="">
                                 <span>
-                                    <?php echo DatetimeHelper::getMonthByNum($val->month1); ?>-<?php echo $val->year1; ?>
-                                    <? if ((int)$val->year2 === 0) {
-                                        echo ' - Till present';
+                                    <?= DatetimeHelper::getMonthByNum($val->month1)."-".$val->year1; ?>
+                                    <?php if ((int)$val->year2 === 0) {
+                                        echo ' - Till present | ';
                                     }
                                     else {
-                                        echo 'To ' . DatetimeHelper::getMonthByNum($val->month2) . ' - ' . $val->year2;
+                                        echo 'To ' . DatetimeHelper::getMonthByNum($val->month2) . ' - ' . $val->year2." | ";
                                         ;
-                                    } ?>
-                                    | <?php echo $val->location; ?>
+                                    } 
+                                     echo $val->location; 
+                                    ?>
                                 </span>
                             </a>
                         </div>
