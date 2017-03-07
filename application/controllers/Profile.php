@@ -64,7 +64,7 @@ class Profile extends CI_Controller {
                         $title .= " | " . $data2['rows'][0]["tagline"];
                     }
                     $params['title'] = $title;
-                    // added by Armen start 
+                    // added by Armen start
 
                     $this->db->select("skill_name");
                     $this->db->from("webuser_skills");
@@ -75,13 +75,13 @@ class Profile extends CI_Controller {
                     // added by Armen end
                     $params['basicDetails'] = $data2['rows'][0];
                     $params['basicDetails']['user_skills'] = $user_skills;
-           
+
                     //get protfolio details//
                     $portfolioDetails = $this->common_mod->get(WEB_USER_PORTFOLIO_TABLE, null, $condition . " AND visibility_status='yes'");
                     if (!empty($portfolioDetails['rows'][0])) {
                         $params['portfolios'] = $portfolioDetails['rows'];
                     }
- 
+
                     $this->db->select('*');
                     $this->db->from('freelancer_education');
                     $this->db->where('fuser_id', $user_id);
@@ -97,10 +97,7 @@ class Profile extends CI_Controller {
 
                     if (!empty($timezone)) {
                         $date =  new DateTime(date('Y-m-d h:i:s',time()), new DateTimezone('UTC'));
-                        /*$date->setTimezone(new \DateTimezone($timezone['gmt']));*/
-                        /*print_r($timezone['gmt']);
-                        die();*/
-                        $date->setTimezone($timeZone['gmt']);
+                        $date->setTimezone(new \DateTimezone($timezone['gmt']));
 
                         $params['localtime'] = $date->format('H:i');
                     } else {
@@ -182,7 +179,7 @@ class Profile extends CI_Controller {
                 }
 
                 if ($this->input->is_ajax_request()) {
-                    
+
                 } else {
                     $data['searchWord'] = "";
                     $keywords = $this->input->post("keywords");
@@ -279,14 +276,14 @@ class Profile extends CI_Controller {
             // print_r($this->input->post());
             // die();
 
-            //save data echo "<pre>"; print_r($data); die;	
+            //save data echo "<pre>"; print_r($data); die;
             if (count($_POST)) {
                 try {
                     $data = (object) $this->input->post('inputs', TRUE);
                     $data->curr_working_place = ($data->curr_working_place === 'on') ? 1 : 0;
                     ($data->curr_working_place === 1) and $data->month2 = $data->year2 = 0;
                     //$this->input->post("skills");
-                    //echo "<pre>"; print_r($data); die;    
+                    //echo "<pre>"; print_r($data); die;
                     $err = 0;
 
                     if ($data->company == '' || $data->title == '' || $data->location == '') {
@@ -330,7 +327,7 @@ class Profile extends CI_Controller {
     public function add_education($edu_id = null, $page_from = null) {
         if ($this->Adminlogincheck->checkx()) {
 
-            if (count($_POST)) { //save data echo "<pre>"; print_r($data); die;	
+            if (count($_POST)) { //save data echo "<pre>"; print_r($data); die;
                 $school = $this->input->post('school');
                 $dates_attend_from = $this->input->post('year3');
                 $dates_attend_to = $this->input->post('year4');
@@ -471,7 +468,7 @@ class Profile extends CI_Controller {
                     $formVal['zipcode'] = $this->input->post("zipcode");
                     $formVal['timezone'] = $this->input->post("timeZone");
                     $condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
-                    
+
                     $condition_on = "webuser_id=" . $this->session->userdata(USER_ID);
                     $hasUpdated = $this->common_mod->updateVal(WEB_USER_TABLE, $webuser, null, $condition);
                     if ($hasUpdated) {
@@ -639,7 +636,7 @@ class Profile extends CI_Controller {
                     }
                 }
             } else {
-                //$response['msg'] = "Invalid input found."; 
+                //$response['msg'] = "Invalid input found.";
             }
         } else {
             $response['msg'] = "Authentication Failed";
@@ -649,7 +646,7 @@ class Profile extends CI_Controller {
     }
 
     public function editPortfolio() {
-        
+
         if ($this->Adminlogincheck->checkx() && $this->input->is_ajax_request()) {
             if (!empty($_POST)) {
                 $key = $this->input->post("key");
@@ -678,7 +675,7 @@ class Profile extends CI_Controller {
                             empty($params['completion_date']) or $params['completion_date'] = date('m/d/Y', strtotime($params['completion_date']));
                             $params['projectCateList'] = $this->Category->get_categories();
                             // added by Armen start
-                            
+
                             $this->db->select("skill_name");
                             $this->db->from("webuser_portfolio_skills");
                             $this->db->where("portfolio_id = ", $id);
@@ -988,7 +985,7 @@ class Profile extends CI_Controller {
                     if (!empty($portfolioDetails['rows'][0])) {
                         $params['portfolios'] = $portfolioDetails['rows'];
                     }
- 
+
                     $this->db->select('*');
                     $this->db->from('freelancer_education');
                     $this->db->where('fuser_id', $user_id);
@@ -1057,7 +1054,7 @@ class Profile extends CI_Controller {
                     $data['educations'] = $educations;
            // $this->load->view("webview/profile/profile_basic_bio", $data);
             $this->Admintheme->webview2("profile/profile_basic_bio", $data);
-            
+
         } else {
             redirect(site_url("signin"));
         }
