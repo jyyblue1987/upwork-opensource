@@ -25,11 +25,10 @@
         <link rel='stylesheet' media='screen and (min-width: 0px) and (max-width: 1199px)' href='{{ site_url("assets/css/md-style.css") }}' />
         <link rel='stylesheet' media='screen and (min-width: 0px) and (max-width: 991px)' href='{{ site_url("assets/css/sm-style.css") }}' />
         <link rel='stylesheet' media='screen and (min-width: 0px) and (max-width: 767px)' href='{{ site_url("assets/css/xs-style.css") }}' />    
-        <script src="https://use.fontawesome.com/73754fb9b3.js"></script>
-
-        <script src="{{ site_url("assets/js/vendor/modernizr-2.8.3.min.js") }}"></script>
-                
-        <script> var siteurl="{{ site_url() }}"; </script>
+        
+        <!-- Block to load specific page style -->
+        {% block styles %}{% endblock %}
+        
     </head>
     <body>
         
@@ -37,12 +36,18 @@
         
         <section class="main_area"  id="mid_contant"  >
             <div class="container">
+                <!-- Block to load content page style -->
                 {% block content %}{% endblock %}
             </div>
         </section>
             
         {{ include('webview/layout/twig/partials/footer.twig') }}
         
+        <script src="https://use.fontawesome.com/73754fb9b3.js"></script>
+        <script src="{{ site_url("assets/js/vendor/modernizr-2.8.3.min.js") }}"></script>
+        <script> var siteurl="{{ site_url() }}"; </script>
+        
+        <!-- Block to load specific page script -->
         {% block js %}{% endblock %}
         
     </body>

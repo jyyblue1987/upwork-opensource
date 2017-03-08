@@ -1,0 +1,107 @@
+
+{% set title    = job.hire_title %}
+                
+<div class="row margintop-2 ms_white_box">
+    <div class="col-md-12 freelancer-job white-box" style="padding: 20px">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-5" style="padding-left:-20px">
+			<div class="st_img freelancer_img">
+                            <img src="{{ app_user_img(job.webuser_picture) }}" width="85" height="68">
+			</div>
+		    </div>
+                    <div class="col-md-7 nopadding" style="padding-left: -15px !important">
+                        <div class="user_name" style="padding-left:2px">
+		            <h5 style="margin-bottom:0">
+                                {{ job.webuser_fname }}  {{ job.webuser_lname }}
+                                <br/>
+                            </h5>
+			    <span>{{ job.country_name }}</span>
+			</div>
+		    </div>
+                </div>
+            </div>
+            
+            {% if job.job_type == 'hourly' %}
+                <div class="col-md-4 text-center hour_info">
+                
+                    {% set job_id     = job.job_id %}
+                    {% set fuser_id   = job.fuser_id %}
+                    {% set total_hour = 0 %}
+
+                    {% if freelancer_job_hour[ job_id ] is defined and freelancer_job_hour[ job_id ][ fuser_id] is defined and freelancer_job_hour[ job_id ][ fuser_id]  > 0 %}
+                        {% set total_hour = freelancer_job_hour[job_id][fuser_id] %}
+                        {{ app_lang('text_app_total_hour')|format( total_hour )|raw }}
+                    {% else %}
+                        {{ app_lang('text_app_total_hour')|format( '0.00' )|raw }}
+                    {% endif %}
+
+                    <br />
+
+                    {% if job.offer_bid_amount %}
+                        {% set amount   = job.offer_bid_amount %}
+                    {% else %}
+                        {% set amount   = job.bid_amount %}
+                    {% endif %}
+
+                    @ {{ app_lang('text_app_by_hours')|format(amount) }} = <b> ${{ amount * total_hour }}</b>
+
+                    <br />
+                    <p style="margin:0 !important;">{{ app_lang('text_app_contract_hold') }}</p>
+                    <hr>
+
+                </div>
+            {% else %}
+                <div class="pay_btn">
+                    <div class="col-md-4 text-center">
+                        <span><b>$<?=$data->fixedpay_amount?></b> Paid of $<?=$data->hired_on?>
+                            <br />
+                            <p style="margin:0 !important;">This contract has been hold</p>
+                        </span>
+                    </div>
+                </div>
+            {% endif %}
+                
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="ms_hr_massage_butt">
+                        <div class="mystaff_msg_btnx hour_btn message_btn">
+                            <input type="button" 
+                                   class="btn btn-primary form-btn"  
+                                   onclick="loadmessage({{ job.bid_id }}, {{ job.user_id }}, {{ job.fuser_id }},'{{ job.webuser_fname }} {{ job.webuser_lname }}','{{ title }}')" 
+                                   value="{{ app_lang('text_mystaff_btn_message') }}">
+                        </div>
+                    </div>
+                    <div class="ms_hr_work_diary">
+                        <div class="mystaff_work_diary hour_btn work_diary_btn">
+                            <a href="{{ base_url() }}jobs/workdairy_client?fmJob={{ base64_encode(job.job_id) }}&fuser={{ base64_encode(job.fuser_id) }}">
+			    <input style="margin-right: -1px;" type="button" class="btn btn-primary form-btn" value="{{ app_lang('text_mystaff_btn_work_diary') }}" /></a>
+			</div>
+  		   </div>
+                    <div class="ms_hr_drop_butt">
+                        <div class="dropdown hour_btnx dropdown_btn">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul style="left: -156px;" class="dropdown-menu">
+                                <li><a href="#">{{ app_lang('text_mystaff_btn_op_view_contact') }}</a></li>
+                                <li><a href="#">{{ app_lang('text_mystaff_btn_op_view_profile') }}</a></li>
+                                <li><a href="#">{{ app_lang('text_mystaff_btn_op_end_contract') }}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="job_detais" style="margin-top: -10px;">
+                    <a href="{{ base_url() }}jobs/hourly_client_view?fmJob={{ base64_encode(job.job_id) }}&fuser={{ base64_encode(job.fuser_id) }}"> {{ app_lang('text_job_link_detail') }}</a>  
+                    <strong>-</strong>
+                    <span><b>{{ title }}</b></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

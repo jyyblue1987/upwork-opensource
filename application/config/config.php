@@ -82,6 +82,11 @@ $config['url_suffix'] = '';
 */
 $config['language']	= 'english';
 
+// added by (Donfack Zeufack Hermann) start 
+// Allowed language
+$config['allowed_language'] = array('english', 'bulgarian', 'french', 'portuguese-brazilian', 'spanish' );
+// added by (Donfack Zeufack Hermann) end
+
 /*
 |--------------------------------------------------------------------------
 | Default Character Set

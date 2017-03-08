@@ -10,8 +10,9 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
         $this->parent = false;
 
         $this->blocks = array(
+            'styles' => array($this, 'block_styles'),
             'content' => array($this, 'block_content'),
-            'commonjs' => array($this, 'block_commonjs'),
+            'js' => array($this, 'block_js'),
         );
     }
 
@@ -93,27 +94,24 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
         // line 27
         echo twig_escape_filter($this->env, site_url("assets/css/xs-style.css"), "html", null, true);
         echo "' />    
-        <script src=\"https://use.fontawesome.com/73754fb9b3.js\"></script>
-
-        <script src=\"";
+        
+        <!-- Block to load specific page style -->
+        ";
         // line 30
-        echo twig_escape_filter($this->env, site_url("assets/js/vendor/modernizr-2.8.3.min.js"), "html", null, true);
-        echo "\"></script>
-                
-        <script> var siteurl=\"";
-        // line 32
-        echo twig_escape_filter($this->env, site_url(), "html", null, true);
-        echo "\"; </script>
+        $this->displayBlock('styles', $context, $blocks);
+        // line 31
+        echo "        
     </head>
     <body>
         
         ";
-        // line 36
+        // line 35
         echo twig_include($this->env, $context, "webview/layout/twig/partials/header.twig");
         echo "
         
         <section class=\"main_area\"  id=\"mid_contant\"  >
             <div class=\"container\">
+                <!-- Block to load content page style -->
                 ";
         // line 40
         $this->displayBlock('content', $context, $blocks);
@@ -126,13 +124,29 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
         echo twig_include($this->env, $context, "webview/layout/twig/partials/footer.twig");
         echo "
         
+        <script src=\"https://use.fontawesome.com/73754fb9b3.js\"></script>
+        <script src=\"";
+        // line 47
+        echo twig_escape_filter($this->env, site_url("assets/js/vendor/modernizr-2.8.3.min.js"), "html", null, true);
+        echo "\"></script>
+        <script> var siteurl=\"";
+        // line 48
+        echo twig_escape_filter($this->env, site_url(), "html", null, true);
+        echo "\"; </script>
+        
+        <!-- Block to load specific page script -->
         ";
-        // line 46
-        $this->displayBlock('commonjs', $context, $blocks);
-        // line 49
+        // line 51
+        $this->displayBlock('js', $context, $blocks);
+        // line 52
         echo "        
     </body>
 </html>";
+    }
+
+    // line 30
+    public function block_styles($context, array $blocks = array())
+    {
     }
 
     // line 40
@@ -140,16 +154,9 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
     {
     }
 
-    // line 46
-    public function block_commonjs($context, array $blocks = array())
+    // line 51
+    public function block_js($context, array $blocks = array())
     {
-        // line 47
-        echo "            <script data-main=\"";
-        echo twig_escape_filter($this->env, app_modular_js("lib/require.js"), "html", null, true);
-        echo "\" src=\"";
-        echo twig_escape_filter($this->env, app_modular_js("lib/require.js"), "html", null, true);
-        echo "\"></script>
-        ";
     }
 
     public function getTemplateName()
@@ -164,7 +171,7 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
 
     public function getDebugInfo()
     {
-        return array (  147 => 47,  144 => 46,  139 => 40,  133 => 49,  131 => 46,  126 => 44,  121 => 41,  119 => 40,  112 => 36,  105 => 32,  100 => 30,  94 => 27,  90 => 26,  86 => 25,  82 => 24,  78 => 23,  74 => 22,  70 => 21,  66 => 20,  62 => 19,  58 => 18,  54 => 17,  50 => 16,  46 => 15,  42 => 14,  38 => 13,  31 => 9,  21 => 1,);
+        return array (  158 => 51,  153 => 40,  148 => 30,  142 => 52,  140 => 51,  134 => 48,  130 => 47,  124 => 44,  119 => 41,  117 => 40,  109 => 35,  103 => 31,  101 => 30,  95 => 27,  91 => 26,  87 => 25,  83 => 24,  79 => 23,  75 => 22,  71 => 21,  67 => 20,  63 => 19,  59 => 18,  55 => 17,  51 => 16,  47 => 15,  43 => 14,  39 => 13,  32 => 9,  22 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -204,11 +211,10 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
         <link rel='stylesheet' media='screen and (min-width: 0px) and (max-width: 1199px)' href='{{ site_url(\"assets/css/md-style.css\") }}' />
         <link rel='stylesheet' media='screen and (min-width: 0px) and (max-width: 991px)' href='{{ site_url(\"assets/css/sm-style.css\") }}' />
         <link rel='stylesheet' media='screen and (min-width: 0px) and (max-width: 767px)' href='{{ site_url(\"assets/css/xs-style.css\") }}' />    
-        <script src=\"https://use.fontawesome.com/73754fb9b3.js\"></script>
-
-        <script src=\"{{ site_url(\"assets/js/vendor/modernizr-2.8.3.min.js\") }}\"></script>
-                
-        <script> var siteurl=\"{{ site_url() }}\"; </script>
+        
+        <!-- Block to load specific page style -->
+        {% block styles %}{% endblock %}
+        
     </head>
     <body>
         
@@ -216,15 +222,19 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
         
         <section class=\"main_area\"  id=\"mid_contant\"  >
             <div class=\"container\">
+                <!-- Block to load content page style -->
                 {% block content %}{% endblock %}
             </div>
         </section>
             
         {{ include('webview/layout/twig/partials/footer.twig') }}
         
-        {% block commonjs %}
-            <script data-main=\"{{ app_modular_js(\"lib/require.js\") }}\" src=\"{{ app_modular_js(\"lib/require.js\") }}\"></script>
-        {% endblock %}
+        <script src=\"https://use.fontawesome.com/73754fb9b3.js\"></script>
+        <script src=\"{{ site_url(\"assets/js/vendor/modernizr-2.8.3.min.js\") }}\"></script>
+        <script> var siteurl=\"{{ site_url() }}\"; </script>
+        
+        <!-- Block to load specific page script -->
+        {% block js %}{% endblock %}
         
     </body>
 </html>", "webview/layout/twig/layout.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\layout\\twig\\layout.twig");

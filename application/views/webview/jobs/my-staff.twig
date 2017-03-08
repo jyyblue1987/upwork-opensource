@@ -1,7 +1,50 @@
 {% extends "webview/layout/twig/layout.twig" %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{{ site_url("assets/css/mystaff.css") }}">
+{% endblock %}
+
 {% block content %}
-    <h1>My Staff</h1>
+    <section id="big_header" class="my_staff">
+	<div class="container">
+	    <div class="row ">
+	        <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-10 nopadding">
+                            <nav class="staff-navbar freelancer-navbar ms_navbar ">
+                                <ul>
+                                    <li><a class="active" href="mystaff"><i class="fa fa-briefcase" aria-hidden="true"></i> <b>My Hired</b></a></li>
+                                    <li><a href="pasthire"><i class="fa fa-undo" aria-hidden="true"></i> <b>Past Hires</b></a></li>
+                                    <li><a href="offersent"><i class="fa fa-gift" aria-hidden="true"></i> <b>Offers Sent</b></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+		   <div class="row">
+                       <div class="col-md-12 bordered-alert text-center hirefeebar">
+                           {% if nb_freelancer_hired > 0 %}
+                               <h4>{{ app_lang('text_job_mystaff_hired')|format(nb_freelancer_hired)  }}</h4>    
+                           {% else %}
+                               <h4>{{ app_lang('text_job_mystaff_not_hired')  }}</h4>
+                               <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="border-box empty_freelancer_box"></div>
+                                    </div>
+                                </div>
+                           {% endif %}
+                       </div>
+                   </div>
+                   {% if jobs_accepted is defined %}
+                       {% for job in jobs_accepted %}
+                            {{ include('webview/jobs/partials/job-item.twig', {'job': job, 'freelancer_job_hour': freelancer_job_hour }, with_context = false) }}
+                        {% endfor %}
+                   {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
 
 {% block js %}

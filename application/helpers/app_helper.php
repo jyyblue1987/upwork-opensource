@@ -58,7 +58,7 @@ if ( ! function_exists('app_header_link_template'))
      *
      * Return the template link name to use according the user context.
      *
-     * @param	string	$protocol
+     * @param	string	$view_folder
      * @return	string
      */
     function app_header_link_template($view_folder = 'webview/layout/twig/partials')
@@ -90,7 +90,7 @@ if ( ! function_exists('app_user_dropdown_template'))
      *
      * Return the template link name to use according the user context.
      *
-     * @param	string	$protocol
+     * @param	string	$view_folder
      * @return	string
      */
     function app_user_dropdown_template($view_folder = 'webview/layout/twig/partials')
@@ -154,7 +154,7 @@ if ( ! function_exists('app_sub_header_template'))
 if ( ! function_exists('app_modular_js'))
 {
     /**
-     * Get right sub header according the user context
+     * Help to build url of all file inside asset/modular folder
      *
      * @return	string
      */
@@ -163,4 +163,35 @@ if ( ! function_exists('app_modular_js'))
         return site_url($asset_js_folder . '/' . $js);
     }
 }
+
+if( ! function_exists('app_lang')){
+    
+    /**
+     * Helper to fetch language item
+     */
+    function app_lang($line){
+        $line = get_instance()->lang->line($line);
+        return $line;
+    }
+}
+
+if( ! function_exists('app_user_img') ){
+    
+    /**
+     * Helper in the view to display a correct user img url
+     * 
+     * @param type $img_url
+     */
+    function app_user_img( $img_url ){
+        
+        if(!empty( $img_url )){
+            return base_url($img_url);
+        }else{
+            return "http://www.winjob.com/assets/user.png";
+        }
+    }
+}
+
+
+
 // added by (Donfack Zeufack Hermann) end

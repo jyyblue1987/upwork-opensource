@@ -1,0 +1,55 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 8 mars 2017, 10:36:55
+    Author     : Hermannovich <donfack.hermann@gmail.com>
+*/
+
+.message_lists{
+    max-height: 230px;
+    min-height: 230px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.m_list.scroll-ul > li {
+  display: block;
+  margin: 10px 0 36px 5px;
+  overflow: hidden;
+  width: 100%;
+  padding-bottom: 4px;
+}
+
+.chat-identity .img-circle {
+  float: left;
+  margin-right: 14px;
+}
+
+#conversion_message > input {
+  background: rgb(28, 167, 219) none repeat scroll 0 0;
+  float: right;
+  font-size: 21px;
+  height: 50px;
+  margin-top: 4%;
+  vertical-align: middle;
+  width: 19%;
+}
+
+#conversion_message textarea {
+  float: left;
+  height: 100px;
+  width: 76%;
+}
+
+.modal-body {
+  overflow: hidden;padding-bottom: 20px !important;
+}
+
+#my_staff {
+    margin-top: 32px; 
+    margin-bottom: 40px; 
+    height: auto;
+}
