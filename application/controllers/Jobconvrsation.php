@@ -11,18 +11,17 @@ class Jobconvrsation extends CI_Controller
         $this->load->model(array('Category', 'Common_mod'));
         $this->load->model(array('common_mod', 'Category', 'profile/ProfileModel'));
         $this->load->model(array('timezone'));
-        $this->load->model(array('time_zone_model'));
     }
 
     public function index()
     {
-        
+
     }
      public function add_conversetion(){
         parse_str($_POST['form'], $form);
         $response = array();
         $response['success'] = false;
-      
+
        $data = array(
         'job_id'  =>  $form['job_id'] ,
         'bid_id'   =>  $form['bid_id'],
@@ -40,8 +39,8 @@ class Jobconvrsation extends CI_Controller
 
     }
     //public function add_conversetion(){
-    //    
-    //  
+    //
+    //
     //   $data = array(
     //    'job_id'  =>  $_POST['job_id'] ,
     //    'bid_id'   =>  $_POST['bid_id'],
@@ -52,13 +51,13 @@ class Jobconvrsation extends CI_Controller
     //    $this->db->insert('job_conversation', $data);
     //    echo $insert_id = $this->db->insert_id();
     //
-    //     
-    //    
-    //   
+    //
+    //
+    //
     //}
     public function current_conversetion(){
        $lastid = $_REQUEST['lastid'];
-       
+
        $this->db->select('job_conversation.*,webuser.*');
         $this->db->from('job_conversation');
         $this->db->join('webuser', 'job_conversation.sender_id = webuser.webuser_id', 'inner');
@@ -66,38 +65,38 @@ class Jobconvrsation extends CI_Controller
         $this->db->order_by("job_conversation.id", "ASC");
         $query_conversation=$this->db->get();
         $conversation =  $query_conversation->row();
-        
+
          $result ='<li><div class="chat-identity"> <img src="'.site_url($conversation->webuser_picture).'" width="60px" class="img-circle"/><h4>'.$conversation->webuser_fname.'&nbsp;'.$conversation->webuser_lname.'</h4><b>'. date(' F j, Y g:i A', strtotime($conversation->created)).'</b></div><div>'.$conversation->message_conversation.'</div></li>';
 
         echo $result;
-  
+
    }
-   
-   
+
+
      public function message_from_superhero(){
-        
+
             $response = array();
             $job_bid_id = $_REQUEST['job_bid_id'];
             $user_id = $_REQUEST['user_id'];
             $job_id = $_REQUEST['job_id'];
             $bidder_id = $this->session->userdata('id');
-            
+
             //conversation
             $conversation_count = 0;
             $conversation = array();
-            
-            if( $bidder_id ){     
+
+            if( $bidder_id ){
                 $this->db->select('*');
                 $this->db->from('job_conversation');
                // $this->db->where('job_conversation.sender_id', $bidder_id);
                 $this->db->where('job_conversation.job_id', $job_id);
                 $this->db->where('job_conversation.bid_id', $job_bid_id);
-                
+
                 $query=$this->db->get();// assign to a variable
                 $conversation_count = $query->num_rows();// then use num rows
-     
+
                 if( $conversation_count ){
-                
+
                     $this->db->select('job_conversation.*,job_conversation.created as date_conversation,webuser.*');
                     $this->db->from('job_conversation');
                     $this->db->join('webuser', 'job_conversation.sender_id = webuser.webuser_id', 'inner');
@@ -112,8 +111,8 @@ class Jobconvrsation extends CI_Controller
             $condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
             $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
             $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
-                        
-            $result = '<ul class="m_list scroll-ul">';   
+
+            $result = '<ul class="m_list scroll-ul">';
             foreach($conversation as $data){
                  $pic = $this->Adminforms->getdatax("picture", "webuser", $data->sender_id);
 
@@ -140,7 +139,7 @@ class Jobconvrsation extends CI_Controller
             $response['html'] = $result;
             echo json_encode( $response );
         }
-        
+
         function xyz()
         {
             echo "hjhjhjh";

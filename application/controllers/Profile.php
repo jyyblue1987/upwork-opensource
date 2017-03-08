@@ -8,7 +8,6 @@ class Profile extends CI_Controller {
         parent::__construct('');
         $this->load->model(array('common_mod', 'Category', 'profile/ProfileModel'));
         $this->load->model(array('timezone'));
-        $this->load->model(array('time_zone_model'));
     }
 
      public function index($username=null) {
