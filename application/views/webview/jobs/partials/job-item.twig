@@ -55,7 +55,7 @@
             {% else %}
                 <div class="pay_btn">
                     <div class="col-md-4 text-center">
-                        <span><b>$<?=$data->fixedpay_amount?></b> Paid of $<?=$data->hired_on?>
+                        <span><b>{{ job.fixedpay_amount }}</b> Paid of ${{ job.hired_on }}
                             <br />
                             <p style="margin:0 !important;">This contract has been hold</p>
                         </span>
