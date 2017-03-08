@@ -1,4 +1,4 @@
-<?php  
+<?php
 $_data = array();
 foreach ($messages as $v) {
 	$v = (array) $v;
@@ -73,7 +73,8 @@ span.text2{margin-top: 5px;}
 .chat-details-topbar h3 { padding: 0 10px; font-weight: bold;}
 .chat-details-topbar h5 { padding: 0 10px;}
 .chat-details-topbar p { padding: 24px 0 0px 10px; margin: 0;  color: #757575;}
-.chat-details ul li span.details { display: block; margin-left: 75px;  font-size: 14px;  color: #757474;}
+.chat-details ul li span.details { display: block; margin-left: 75px;  font-size: 14px;  color: #757474; word-wrap: break-word;
+max-width: 85%}
 .chat-details ul li .chat_image { margin-left: 75px;  font-size: 14px;}
 textarea#chat-input { width: 95%; height: 40px; margin: 0 0 0 30px;  border: 2px solid #1ca7db;}
 textarea#chat-input.has-error { border-color: #a94442;	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);}
@@ -93,28 +94,28 @@ span.group-date { display: block; text-align: center; font-size: 16px; color: #7
 span.name { text-transform: capitalize;font-size: 16px;}
 span.text1 {text-transform: capitalize;}
 .chat-details-topbar p{padding:0;}
-from#chat_form 
+from#chat_form
 </style>
 
-<section id="big_header" style="margin-top:40px;margin-bottom:40px;height: auto;"> 
+<section id="big_header" style="margin-top:40px;margin-bottom:40px;height: auto;">
     <div style="width: 970px !important;" class="container">
-	  
-		
-		
+
+
+
 		<?php if(empty($messages)){ ?>
 			<h2 class="text-center" style="font-size:22px;">Sorry! No Message Available right now</h2>
 		<?php } ?>
-		
+
 		<?php if(!empty($messages)){ ?>
-		
+
 		<div class="row chat-box">
 			<div class="col-lg-3 col-md-3 col-sm-3 chat-sidebar">
-			
-				<?php foreach($messages as $message) { 
+
+				<?php foreach($messages as $message) {
 					$name = $message['webuser_fname']." ".$message['webuser_lname'];
 				?>
-			
-				<a onclick="chat_details(<?=$message['bid_id']?>, <?=$message['is_ticket']?>);">
+
+				<a onclick="chat_details(<?=$message['bid_id']?>, <?=$message['is_ticket']?>);" style="cursor: pointer;">
 				<div id="<?=$message['bid_id']?>" class="sidebar-block <?php if($message['have_seen'] == 0){echo "seen";}?> <?php if($message['bid_id'] == ($chat_details[0]->bid_id)){ echo "active";}?>">
 					<p style="width: 18%; display: block; float: left; margin: 0 5px 0 0;"><i class="fa fa-comments fa-3x" aria-hidden="true"></i></p>
 					<p style="width: 75%; display: block; float: left; position:relative;">
@@ -125,9 +126,9 @@ from#chat_form
 					</p>
 				</div>
 				</a>
-				
+
 				<?php } ?>
-				
+
 			</div>
 			<div class="col-lg-9 col-md-9 col-sm-9 chat-screen">
 				<div class="chat-details-topbar custom_chat-details-topbar">
@@ -142,16 +143,24 @@ from#chat_form
 					$current_date = strtotime(date("d-m-Y"));
 					$date ='';$temp_date ='';
 					foreach($chat_details as $chat_data) {
-					
-					if(($chat_data->webuser_picture) == "") { 
+						if (!empty($timezone)) {
+						$date2 =  new DateTime(date('Y-m-d h:i:s',strtotime($chat_data->created)), new DateTimezone('UTC'));
+						$date2->setTimezone(new \DateTimezone($timezone['gmt']));
+
+						$time = $date2->format('g:i A');
+						} else {
+						$time = date('g:i A',strtotime($chat_data->created));
+						}
+
+					if(($chat_data->cropped_image) == "") {
 						$src = site_url("assets/user.png");
-					 } else { 
-						$src = base_url().$chat_data->webuser_picture;
-					 } 
-					
-					
-					
-					
+					 } else {
+						$src =$chat_data->cropped_image;
+					 }
+
+
+
+
 					$temp_date = date("d-m-Y", strtotime($chat_data->created));
 					if($date != strtotime($temp_date)){
 						$date = strtotime($temp_date);
@@ -160,15 +169,15 @@ from#chat_form
 					else {
 						$group_time = false;
 					}
-					
+
 					if($group_time){
-						
+
 					?>
 					<li><span class="group-date"><?php if($date == $current_date) { echo "Today";} else { echo date("l, F j, Y", $date);}?></span></li>
-					
+
 					<?php } ?>
-						<li>							
-							<span class="name"><img src="<?=$src?>"><?=$chat_data->webuser_fname?> <?=$chat_data->webuser_lname?></span> <span class="chat-date"><?=date("g:i a", strtotime($chat_data->created))?></span>
+						<li>
+							<span class="name"><img src="<?=$src?>"><?=$chat_data->webuser_fname?> <?=$chat_data->webuser_lname?></span> <span class="chat-date"><?= $time;?></span>
 							<span id="scroll" class="details"><?=$chat_data->message_conversation?></span>
 							<?php if(count($chat_data->images_array) > 0):?>
 								<?php foreach ($chat_data->images_array as $key => $image):?>
@@ -193,7 +202,7 @@ from#chat_form
 							<i style="cursor: pointer;" class="fa fa-paperclip" aria-hidden="true"></i>
 						</div>
 						<div class = "uploaded_files">
-							
+
 						</div>
 						<input type = "hidden" name = "removed_files" value = "" id = "removed_files">
 						<input type="file" name="fileupload[]" class = "hidden" value="fileupload" id="fileupload" multiple>
@@ -205,10 +214,10 @@ from#chat_form
 				</div>
 			</div>
 		</div>
-		
+
 		<?php } ?>
-		
-		
+
+
 </section><!-- big_header-->
 <script>
 $(document).ready(function(){
@@ -241,11 +250,11 @@ function chat_details(bid_id, is_ticket) {
 					$('#'+bid_id).addClass('seen');
 					$('#'+bid_id).addClass('active');
 					$('.chat-screen').html(data);
-					$('.chat-details').animate({scrollTop: $('.chat-details').prop("scrollHeight")}, 1);	
+					$('.chat-details').animate({scrollTop: $('.chat-details').prop("scrollHeight")}, 1);
 				} else {
-					
+
 				}
-			}, 'json'); 
+			}, 'json');
 }
 
 $('.chat-screen').on('click','#chat-btn',function(event) {

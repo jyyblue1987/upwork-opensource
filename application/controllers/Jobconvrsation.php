@@ -9,8 +9,9 @@ class Jobconvrsation extends CI_Controller
     {
         parent::__construct();
         $this->load->model(array('Category', 'Common_mod'));
-        //$this->load->model("Category");
-        //$this->load->model("Common_mod");
+        $this->load->model(array('common_mod', 'Category', 'profile/ProfileModel'));
+        $this->load->model(array('timezone'));
+        $this->load->model(array('time_zone_model'));
     }
 
     public function index()
@@ -97,28 +98,43 @@ class Jobconvrsation extends CI_Controller
      
                 if( $conversation_count ){
                 
-                    $this->db->select('job_conversation.*,webuser.*');
+                    $this->db->select('job_conversation.*,job_conversation.created as date_conversation,webuser.*');
                     $this->db->from('job_conversation');
                     $this->db->join('webuser', 'job_conversation.sender_id = webuser.webuser_id', 'inner');
                     $this->db->where('job_conversation.job_id', $job_id);
                     $this->db->where('job_conversation.bid_id', $job_bid_id);
-                    $this->db->order_by("job_conversation.id", "DESC");
+                    $this->db->order_by("job_conversation.id", "ASC");
                     $query_conversation=$this->db->get();
                     $conversation =  $query_conversation->result();
                 }
             }
-            
+
+            $condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
+            $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
+            $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
+                        
             $result = '<ul class="m_list scroll-ul">';   
             foreach($conversation as $data){
                  $pic = $this->Adminforms->getdatax("picture", "webuser", $data->sender_id);
-                 if ($pic == "")
+
+                if (!empty($timezone)) {
+                $date2 =  new DateTime(date('Y-m-d h:i:s',strtotime($data->date_conversation)), new DateTimezone('UTC'));
+                /*$date2->setTimezone(new \DateTimezone($timezone['gmt']));*/
+                $date2->setTimezone(new \DateTimezone("America/Caracas"));
+
+                $time = $date2->format(' F j, Y g:i A');
+                } else {
+                $time = date(' F j, Y g:i A',strtotime($data->date_conversation));
+                }
+
+                 if ($data->cropped_image == "")
                  {
                      $profile_pic = '<img src="'.site_url("assets/user.png").'" width="64" height="64" class="img-circle">';
                  } else
                  {
-                     $profile_pic = '<img src="'.site_url($pic).'" width="64" height="64" class="img-circle">';
+                     $profile_pic = '<img src="'.$data->cropped_image.'" width="64" height="64" class="img-circle">';
                  }
-                 $result .='<li><div class="chat-identity"> '.$profile_pic.'<h4>'.$data->webuser_fname.'&nbsp;'.$data->webuser_lname.'</h4><b>'. date(' F j, Y g:i A', strtotime($data->created)).'</b></div><div>'.nl2br($data->message_conversation).'</div></li>';
+                 $result .='<li><div class="chat-identity"> '.$profile_pic.'<h4>'.$data->webuser_fname.'&nbsp;'.$data->webuser_lname.'</h4><b>'.$time.'</b></div><div style="word-wrap: break-word; width:85%">'.nl2br($data->message_conversation).'</div></li>';
             }
             $result .= '</ul>';
             $response['html'] = $result;
