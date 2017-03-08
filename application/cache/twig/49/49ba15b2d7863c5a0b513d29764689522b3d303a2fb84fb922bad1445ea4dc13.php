@@ -31,7 +31,7 @@ class __TwigTemplate_1b9b41ebfa8d4e76f6929e7df0813721bddd4fec14d836fdc0953fd724c
     {
         // line 4
         echo "    <link rel=\"stylesheet\" href=\"";
-        echo twig_escape_filter($this->env, site_url("assets/css/mystaff.css"), "html", null, true);
+        echo twig_escape_filter($this->env, base_url("assets/css/pages/mystaff.css"), "html", null, true);
         echo "\">
 ";
     }
@@ -81,43 +81,48 @@ class __TwigTemplate_1b9b41ebfa8d4e76f6929e7df0813721bddd4fec14d836fdc0953fd724c
         }
         // line 37
         echo "                       </div>
-                   </div>
-                   ";
-        // line 39
+                        ";
+        // line 38
         if (array_key_exists("jobs_accepted", $context)) {
-            // line 40
-            echo "                       ";
+            // line 39
+            echo "                            ";
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["jobs_accepted"]) ? $context["jobs_accepted"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["job"]) {
-                // line 41
-                echo "                            ";
+                // line 40
+                echo "                                 ";
                 echo twig_include($this->env, $context, "webview/jobs/partials/job-item.twig", array("job" => $context["job"], "freelancer_job_hour" => (isset($context["freelancer_job_hour"]) ? $context["freelancer_job_hour"] : null)), false);
                 echo "
-                        ";
+                             ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['job'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 43
-            echo "                   ";
+            // line 42
+            echo "                        ";
         }
-        // line 44
-        echo "                </div>
+        // line 43
+        echo "                   </div>
+                </div>
             </div>
         </div>
     </section>
+                        
+    ";
+        // line 49
+        echo twig_include($this->env, $context, "webview/modals/message-conversion-modal.twig");
+        echo "
 ";
     }
 
-    // line 50
+    // line 52
     public function block_js($context, array $blocks = array())
     {
-        // line 51
-        echo "    <script data-main=\"";
-        echo twig_escape_filter($this->env, app_modular_js("mystaff"), "html", null, true);
-        echo "\" src=\"";
-        echo twig_escape_filter($this->env, app_modular_js("lib/require.dev.js"), "html", null, true);
+        // line 53
+        echo "    ";
+        // line 54
+        echo "    <script src=\"";
+        echo twig_escape_filter($this->env, app_modular_js("pages/my-staff.js"), "html", null, true);
         echo "\"></script>
 ";
     }
@@ -134,7 +139,7 @@ class __TwigTemplate_1b9b41ebfa8d4e76f6929e7df0813721bddd4fec14d836fdc0953fd724c
 
     public function getDebugInfo()
     {
-        return array (  117 => 51,  114 => 50,  106 => 44,  103 => 43,  94 => 41,  89 => 40,  87 => 39,  83 => 37,  72 => 30,  66 => 28,  64 => 27,  43 => 8,  40 => 7,  33 => 4,  30 => 3,  11 => 1,);
+        return array (  124 => 54,  122 => 53,  119 => 52,  113 => 49,  105 => 43,  102 => 42,  93 => 40,  88 => 39,  86 => 38,  83 => 37,  72 => 30,  66 => 28,  64 => 27,  43 => 8,  40 => 7,  33 => 4,  30 => 3,  11 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -150,7 +155,7 @@ class __TwigTemplate_1b9b41ebfa8d4e76f6929e7df0813721bddd4fec14d836fdc0953fd724c
         return new Twig_Source("{% extends \"webview/layout/twig/layout.twig\" %}
 
 {% block styles %}
-    <link rel=\"stylesheet\" href=\"{{ site_url(\"assets/css/mystaff.css\") }}\">
+    <link rel=\"stylesheet\" href=\"{{ base_url(\"assets/css/pages/mystaff.css\") }}\">
 {% endblock %}
 
 {% block content %}
@@ -184,20 +189,23 @@ class __TwigTemplate_1b9b41ebfa8d4e76f6929e7df0813721bddd4fec14d836fdc0953fd724c
                                 </div>
                            {% endif %}
                        </div>
+                        {% if jobs_accepted is defined %}
+                            {% for job in jobs_accepted %}
+                                 {{ include('webview/jobs/partials/job-item.twig', {'job': job, 'freelancer_job_hour': freelancer_job_hour }, with_context = false) }}
+                             {% endfor %}
+                        {% endif %}
                    </div>
-                   {% if jobs_accepted is defined %}
-                       {% for job in jobs_accepted %}
-                            {{ include('webview/jobs/partials/job-item.twig', {'job': job, 'freelancer_job_hour': freelancer_job_hour }, with_context = false) }}
-                        {% endfor %}
-                   {% endif %}
                 </div>
             </div>
         </div>
     </section>
+                        
+    {{ include('webview/modals/message-conversion-modal.twig')}}
 {% endblock %}
 
 {% block js %}
-    <script data-main=\"{{ app_modular_js(\"mystaff\") }}\" src=\"{{ app_modular_js(\"lib/require.dev.js\") }}\"></script>
+    {# <!-- <script data-main=\"{{ app_modular_js(\"mystaff\") }}\" src=\"{{ app_modular_js(\"lib/require.dev.js\") }}\"></script> --> #}
+    <script src=\"{{ app_modular_js(\"pages/my-staff.js\") }}\"></script>
 {% endblock %}
 ", "webview/jobs/my-staff.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\jobs\\my-staff.twig");
     }

@@ -183,15 +183,12 @@ if( ! function_exists('app_user_img') ){
      * @param type $img_url
      */
     function app_user_img( $img_url ){
-        
-        if(!empty( $img_url )){
+        if(!empty( $img_url ) && file_exists( $img_url )){
             return base_url($img_url);
         }else{
             return "http://www.winjob.com/assets/user.png";
         }
     }
 }
-
-
 
 // added by (Donfack Zeufack Hermann) end

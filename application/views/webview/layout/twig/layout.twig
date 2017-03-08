@@ -43,9 +43,19 @@
             
         {{ include('webview/layout/twig/partials/footer.twig') }}
         
+        <script src="{{ site_url("assets/js/vendor/jquery-2.2.3.min.js") }}"></script>
+        <script src="{{ site_url("assets/js/bootstrap.min.js") }}"></script>
+        <script src="{{ site_url("assets/js/plugins.js") }}"></script>        
+        <script src="{{ site_url("assets/js/bootstrap-datepicker.js") }}"></script>
+        <script src="{{ site_url("assets/js/main.js") }}"></script>
+        <script src="{{ site_url("assets/range/jquery_range.js") }}"></script>
+        <script src="{{ site_url("assets/range/jquery-ui.js") }}"> </script>
+        <script src="{{ site_url("assets/global/vendor/formvalidation/formValidation.js") }}" type="text/javascript"></script>
+        <script src="{{ site_url("assets/js/reCaptcha2.min.js") }}" type="text/javascript"></script>
+        <script src="{{ site_url("assets/global/vendor/formvalidation/framework/bootstrap.js") }}" type="text/javascript"></script>
         <script src="https://use.fontawesome.com/73754fb9b3.js"></script>
         <script src="{{ site_url("assets/js/vendor/modernizr-2.8.3.min.js") }}"></script>
-        <script> var siteurl="{{ site_url() }}"; </script>
+        <script> var site_url="{{ site_url() }}"; </script>
         
         <!-- Block to load specific page script -->
         {% block js %}{% endblock %}

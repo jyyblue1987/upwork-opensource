@@ -1,7 +1,7 @@
 {% extends "webview/layout/twig/layout.twig" %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{{ site_url("assets/css/mystaff.css") }}">
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/mystaff.css") }}">
 {% endblock %}
 
 {% block content %}
@@ -35,18 +35,21 @@
                                 </div>
                            {% endif %}
                        </div>
+                        {% if jobs_accepted is defined %}
+                            {% for job in jobs_accepted %}
+                                 {{ include('webview/jobs/partials/job-item.twig', {'job': job, 'freelancer_job_hour': freelancer_job_hour }, with_context = false) }}
+                             {% endfor %}
+                        {% endif %}
                    </div>
-                   {% if jobs_accepted is defined %}
-                       {% for job in jobs_accepted %}
-                            {{ include('webview/jobs/partials/job-item.twig', {'job': job, 'freelancer_job_hour': freelancer_job_hour }, with_context = false) }}
-                        {% endfor %}
-                   {% endif %}
                 </div>
             </div>
         </div>
     </section>
+                        
+    {{ include('webview/modals/message-conversion-modal.twig')}}
 {% endblock %}
 
 {% block js %}
-    <script data-main="{{ app_modular_js("mystaff") }}" src="{{ app_modular_js("lib/require.dev.js") }}"></script>
+    {# <!-- <script data-main="{{ app_modular_js("mystaff") }}" src="{{ app_modular_js("lib/require.dev.js") }}"></script> --> #}
+    <script src="{{ app_modular_js("pages/my-staff.js") }}"></script>
 {% endblock %}
