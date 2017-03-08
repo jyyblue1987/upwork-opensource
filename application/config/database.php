@@ -76,8 +76,8 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'root', //'winjobx',
-	'password' => '', //winjobx1234#',
+	'username' => 'winjobx',
+	'password' => 'winjobx1234#',
 	'database' => 'winjobx',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
@@ -94,4 +94,5 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
 
