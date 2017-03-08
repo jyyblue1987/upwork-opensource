@@ -11,7 +11,7 @@ class Winsjob extends CI_Controller{
         if ($this->Adminlogincheck->checkx()){
             $user_id = $this->session->userdata('id');
             
-             $this->db->select('*,job_bids.id as bid_id,job_bids.status AS bid_status,jobs.job_duration AS jobduration,job_bids.created AS bid_created');
+             $this->db->select('*,job_bids.id as bid_id,job_bids.status AS bid_status,jobs.job_duration AS jobduration,job_bids.created AS bid_created, webuser.cropped_image');
 			$this->db->from('job_accepted');
 			$this->db->join('webuser', 'webuser.webuser_id=job_accepted.buser_id', 'inner');
 			$this->db->join('webuser_basic_profile', 'webuser_basic_profile.webuser_id=webuser.webuser_id', 'inner');

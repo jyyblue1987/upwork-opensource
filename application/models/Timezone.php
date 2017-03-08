@@ -16,7 +16,7 @@ class Timezone extends CI_Model
             $result = $resultset->result_array();
             return reset($result);
         } else {
-            return [];
+            return null;
         }
 
     }

@@ -8,6 +8,7 @@ class Profile extends CI_Controller {
         parent::__construct('');
         $this->load->model(array('common_mod', 'Category', 'profile/ProfileModel'));
         $this->load->model(array('timezone'));
+        $this->load->model(array('time_zone_model'));
     }
 
      public function index($username=null) {
@@ -95,13 +96,18 @@ class Profile extends CI_Controller {
 
                     //$this->load->view("webview/profile/freelancer-profile", $params);
 
+                   /* echo phpinfo();
+                    die();*/
                     if (!empty($timezone)) {
-                        $date =  new DateTime(date('Y-m-d h:i:s',time()), new DateTimezone('UTC'));
+                        $date =  new \DateTime(date('Y-m-d h:i:s',time()), new DateTimezone('UTC'));
                         $date->setTimezone(new \DateTimezone($timezone['gmt']));
-
-                        $params['localtime'] = $date->format('H:i');
+                      /*  print_r($timezone['gmt']);
+                        echo "<br>";
+                        print_r($date);
+                        die();*/
+                        $params['localtime'] = $date->format('h:i A');
                     } else {
-                        $params['localtime'] = date('H:i');
+                        $params['localtime'] = date('h:i A');
                     }
 
                     $this->Admintheme->webview2("profile/freelancer-profile", $params);

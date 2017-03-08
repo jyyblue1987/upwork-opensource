@@ -88,7 +88,7 @@
 								<div class="row">
 									<div class="col-md-5">
 										<div style="margin-left: -10px;margin-top: -2px;" class="st_img">
-										    <img src="<?php echo base_url()?><?=$data->webuser_picture?>" width="90" height="68" />
+										    <img src="<?=$data->cropped_image == "" ? site_url("assets/user.png") : $data->cropped_image?>" width="90" height="68" />
 										</div>
 									</div>
 									<div class="col-md-7 nopadding" style="padding-left: 2px !important">
@@ -218,7 +218,7 @@
 								<div class="row">
 									<div class="col-md-5" style="padding-left: -20px">
 										<div style="margin-left: -10px;margin-top: -2px;" class="st_img">
-										    <img src="<?php echo base_url()?><?=$data->webuser_picture?>" width="70px" height="70px" />
+										    <img src="<?=$data->cropped_image == "" ? site_url("assets/user.png") : $data->cropped_image?>" width="70px" height="70px" />
 										</div>
 									</div>
 									<div class="col-md-7 nopadding" style="padding-left: 2px !important">

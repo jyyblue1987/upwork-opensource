@@ -12,15 +12,18 @@ class Messageboard extends CI_Controller
         //$this->load->model(array('Category', 'Common_mod'));
         //$this->load->model("Category");
         //$this->load->model("Common_mod");
+        $this->load->model(array('common_mod', 'Category', 'profile/ProfileModel'));
+        $this->load->model(array('timezone'));
+        $this->load->model(array('time_zone_model'));
     }
 
     public function index()
     {
 
 		if($this->Adminlogincheck->checkx()) {
-			$user_id = $this->session->userdata('id');	
+			$user_id = $this->session->userdata('id');
 			$this->db->select('jc.id, jc.job_id, jc.bid_id, jc.message_conversation, jc.sender_id, jc.receiver_id, jc.created, jc.have_seen,'
-					.'webuser.webuser_fname, webuser.webuser_lname, webuser.webuser_picture, webuser.webuser_email,'
+					.'webuser.webuser_fname, webuser.webuser_lname, webuser.cropped_image, webuser.webuser_email,'
 					.'jobs.title, 0 as is_ticket');
 			$this->db->from('job_conversation jc');
 			$this->db->join('webuser', 'jc.sender_id = webuser.webuser_id', 'inner');
@@ -40,7 +43,7 @@ class Messageboard extends CI_Controller
 						.'wtm.sender_id, wtm.receiver_id, wtm.created, wtm.have_seen,'
 						.' "" as webuser_fname, '
 						.'"" as webuser_lname,'
-						.'if(wtm.sender="user", webuser.webuser_picture, "") as webuser_picture,'
+						.'if(wtm.sender="user", webuser.cropped_image, "") as cropped_image,'
 						.'if(wtm.sender="user", webuser.webuser_email, user.email) as webuser_email, "Support" as title, '
 						.'1 as is_ticket');
 			$this->db->from('webuser_ticket_messages wtm');
@@ -57,14 +60,19 @@ class Messageboard extends CI_Controller
 			$result = $query->result();
 			$data['messages'] = $result;
 
-		if(!empty($result)) {	
-		
+		if(!empty($result)) {
+
+			$condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
+			$webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
+            $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
+            $data['timezone'] = $timezone;
+
 			if(isset($_GET['bid_id'])){
-				
+
 				$bid_id = base64_decode($_GET['bid_id']);
-				
+
 			} else {
-				
+
 				$bid_id = $result['0']->bid_id;
 				$is_ticket = $result['0']->is_ticket;
 			}
@@ -109,7 +117,7 @@ class Messageboard extends CI_Controller
 				$this->db->select('wtm.id, wtm.ticket_id as job_id, wtm.ticket_id as bid_id, wtm.message as message_conversation,'
 					.'wtm.sender_id, wtm.receiver_id, wtm.created, wtm.have_seen,'
 					.' "Support" as fname, if(wtm.sender="user", webuser.webuser_fname, "Support") as webuser_fname,'
-					. ' webuser.webuser_lname, webuser.webuser_picture,  wt.subject as title, '
+					. ' webuser.webuser_lname, webuser.cropped_image,  wt.subject as title, '
 					.'wtm.created as created, 1 as is_ticket');
 				$this->db->from('webuser_ticket_messages wtm');
 				$this->db->join('user', 'wtm.sender_id = user.id and sender = "support" ', 'left');
@@ -133,27 +141,27 @@ class Messageboard extends CI_Controller
 				}
 				// added by Armen end
 
-				
+
 
 			}
 
 			// modify by Sergey end
 
-			
+
 			$data['chat_details'] = $result1;
-			
+
 		}
-			
-			
-			$this->Admintheme->webview("message_board", $data);	
+
+
+			$this->Admintheme->webview("message_board", $data);
 		} else {
 			redirect('/');
-		}	
-		
+		}
+
     }
-	
+
 	public function chatdetails()
-	
+
     {
 			$bid_id = $this->input->post('bid_id');
 			//$sender_id = $this->input->post('sender_id');
@@ -190,7 +198,7 @@ class Messageboard extends CI_Controller
 				$this->db->select('wtm.id, wtm.ticket_id as job_id, wtm.ticket_id as bid_id, wtm.message as message_conversation,'
 					.'wtm.sender_id, wtm.receiver_id, wtm.created, wtm.have_seen,'
 					.' "Support" as fname, if(wtm.sender="user", webuser.webuser_fname, "Support") as webuser_fname,'
-					. ' webuser.webuser_lname, webuser.webuser_picture,  wt.subject as title, '
+					. ' webuser.webuser_lname, webuser.cropped_image,  wt.subject as title, '
 					.'wtm.created as created, 1 as is_ticket');
 				$this->db->from('webuser_ticket_messages wtm');
 				$this->db->join('user', 'wtm.sender_id = user.id and sender = "support" ', 'left');
@@ -204,9 +212,9 @@ class Messageboard extends CI_Controller
 				$result = $query->result();
 			}
 
-			
+
 			$html = '';
-			
+
 			$html .='<div class="chat-details-topbar">';
 			$html .='<h3>'.$result[0]->fname.' '.$result[0]->lname.'</h3>';
 			$html .='<h5>'.$result[0]->title.'</h5>';
@@ -214,19 +222,32 @@ class Messageboard extends CI_Controller
 			$html .='</div>';
 			$html .='<div class="chat-details">';
 			$html .='<ul id="scroll-ul">';
-			
+
 			$result = array_reverse($result);
 			$group_time = false;
 			$current_date = strtotime(date("d-m-Y"));
 			$date ='';$temp_date ='';
-			
+
+			$condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
+			$webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
+            $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
+
+
 			foreach($result as $data){
-			
-				if(($data->webuser_picture) == "") { 
+
+			if (!empty($timezone)) {
+			$date2 =  new DateTime(date('Y-m-d h:i:s',strtotime($data->created)), new DateTimezone('UTC'));
+			$date2->setTimezone(new \DateTimezone($timezone['gmt']));
+
+			$time = $date2->format('g:i A');
+			} else {
+			$time = date('g:i A',strtotime($data->created));
+			}
+				if(($data->cropped_image) == "") {
 					$src = site_url("assets/user.png");
-			 	} else { 
-					$src = base_url().$data->webuser_picture;
-			 	} 
+			 	} else {
+					$src = $data->cropped_image;
+			 	}
 			 	$temp_date = date("d-m-Y", strtotime($data->created));
 				if($date != strtotime($temp_date)){
 					$date = strtotime($temp_date);
@@ -255,23 +276,23 @@ class Messageboard extends CI_Controller
 
 
 			 	if($group_time) {
-				 
-					if($date == $current_date) { 
+
+					if($date == $current_date) {
 						$grp_dt = "Today";
 					} else {
 						$grp_dt = date("l, F j, Y", $date);
 					}
-				
+
 					$html .='<li>';
 					$html .='<span class="group-date">'.$grp_dt.'</span>';
 					$html .='</li>';
 			 	}
-			 
+
 				$html .='<li>';
 				$html .='<span class="name"><img src="'.$src.'"> '.$data->webuser_fname.' '.$data->webuser_lname.' </span>';
-				$html .='<span class="chat-date">'.date("g:i a", strtotime($data->created)).'</span>';
+				$html .='<span class="chat-date">'.$time.'</span>';
 				$html .='<span class="details">'.$data->message_conversation.'</span>';
-				
+
 
 				// added by Armen start
 				if(isset($images) && !empty($images)){
@@ -280,12 +301,12 @@ class Messageboard extends CI_Controller
 					}
 				}
 				// added by Armen end
-							
+
 				$html .='</li>';
 			}
 				$html .='</ul>';
 				$html .='</div>';
-				
+
 				$html .='<div class="chat-bar">';
 				$html .='<form id="chat_form" action="">';
 				$html .='<input type="hidden" id="job_id" name="job_id" value="'.$result[0]->job_id.'">';
@@ -309,7 +330,7 @@ class Messageboard extends CI_Controller
 			print_r(json_encode($html)); die;
 	}
 	function chatinsert() {
-		
+
 		// parse_str($_POST['form'], $form);
 		$form = $_POST;
 		$user_id = $this->session->userdata('id');
@@ -324,7 +345,7 @@ class Messageboard extends CI_Controller
 			$this->db->query($data);
 			$msg_id = $this->db->insert_id();
 
-			$this->db->select('job_conversation.*,webuser.*,jobs.title,wu.webuser_fname as fname,wu.webuser_lname as lname,wu.webuser_id as r_id');
+			$this->db->select('job_conversation.*, job_conversation.created as conversation_date,webuser.*,jobs.title,wu.webuser_fname as fname,wu.webuser_lname as lname,wu.webuser_id as r_id');
 			$this->db->from('job_conversation');
 			$this->db->join('webuser', 'job_conversation.sender_id = webuser.webuser_id', 'inner');
 			$this->db->join('jobs', 'jobs.id = job_conversation.job_id', 'inner');
@@ -433,7 +454,7 @@ class Messageboard extends CI_Controller
 				$images = $query->result_array();
 	        }
 
-	        
+
 			// added by Armen end
 
 
@@ -456,8 +477,8 @@ class Messageboard extends CI_Controller
 			$this->db->select('wtm.id, wtm.ticket_id as job_id, wtm.ticket_id as bid_id, wtm.message as message_conversation,'
 				.'wtm.sender_id, wtm.receiver_id, wtm.created, wtm.have_seen,'
 				.' "Support" as fname, if(wtm.sender="user", webuser.webuser_fname, "Support") as webuser_fname,'
-				. ' webuser.webuser_lname, webuser.webuser_picture,  wt.subject as title, '
-				.'wtm.created as created, 1 as is_ticket');
+				. ' webuser.webuser_lname, webuser.cropped_image,  wt.subject as title, '
+				.'wtm.created as conversation_date, 1 as is_ticket');
 			$this->db->from('webuser_ticket_messages wtm');
 			$this->db->join('user', 'wtm.sender_id = user.id and sender = "support" ', 'left');
 			$this->db->join('webuser', 'wtm.sender_id = webuser.webuser_id and sender = "user"', 'left');
@@ -468,19 +489,31 @@ class Messageboard extends CI_Controller
 			$query=$this->db->get();
 			$conversation_count = $query->num_rows();
 			$result = $query->result();
-
 		}
+
+
+			$condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
+			$webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
+            $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
+			if (!empty($timezone)) {
+				$date2 =  new DateTime(date('Y-m-d h:i:s',strtotime($result[0]->conversation_date)), new DateTimezone('UTC'));
+				$date2->setTimezone(new \DateTimezone($timezone['gmt']));
+
+				$time = $date2->format('g:i A');
+			} else {
+				$time = date('g:i A',strtotime($result[0]->conversation_date));
+			}
 
 		//added by Sergey end
 		$html = '';
-		if(($result[0]->webuser_picture) == "") {
+		if(($result[0]->cropped_image) == "") {
 			$src = site_url("assets/user.png");
-	 	} else { 
-			$src = base_url().$result[0]->webuser_picture;
-	 	} 
+	 	} else {
+			$src = $result[0]->cropped_image;
+	 	}
 		$html .='<li>';
 		$html .='<span class="name"><img src="'.$src.'"> '.$result[0]->webuser_fname.' '.$result[0]->webuser_lname.' </span>';
-		$html .='<span class="chat-date">'.date("g:i a", strtotime($result[0]->created)).'</span>';
+		$html .='<span class="chat-date">'.$time.'</span>';
 		$html .='<span class="details">'.$result[0]->message_conversation.'</span>';
 		// added by Armen start
 		if(isset($images) && !empty($images)){

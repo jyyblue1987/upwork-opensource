@@ -90,7 +90,7 @@
                                             <div class="row">
                                                 <div class="col-md-5">
                                                     <div style="margin-top: -2px;margin-left: -10px;margin-bottom: 10px;" class="st_img">
-                                                     <img src="<?php echo base_url() ?><?= $data->webuser_picture ?>" width="90" height="68" />
+                                                     <img src="<?= $data->cropped_image ?>" width="90" height="68" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-7 nopadding" style="padding-left: 0 !important">
@@ -239,7 +239,7 @@
                                             <div class="row">
                                                 <div class="col-md-5">
                                                     <div style="margin-top: -2px;margin-left: -10px;margin-bottom: 10px;" class="st_img">
-                                                      <img src="<?php echo base_url() ?><?= $data->webuser_picture ?>" width="90" height="68" />
+                                                      <img src="<?= $data->cropped_image ?>" width="90" height="68" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-7 nopadding" style="padding-left: -2px !important;">
