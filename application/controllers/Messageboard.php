@@ -14,7 +14,6 @@ class Messageboard extends CI_Controller
         //$this->load->model("Common_mod");
         $this->load->model(array('common_mod', 'Category', 'profile/ProfileModel'));
         $this->load->model(array('timezone'));
-        $this->load->model(array('time_zone_model'));
     }
 
     public function index()
