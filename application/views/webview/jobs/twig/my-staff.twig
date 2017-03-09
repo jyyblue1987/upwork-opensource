@@ -1,6 +1,7 @@
 {% extends "webview/layout/twig/layout.twig" %}
 
 {% block styles %}
+    {{ parent() }}
     <link rel="stylesheet" href="{{ base_url("assets/css/pages/mystaff.css") }}">
 {% endblock %}
 
@@ -13,9 +14,9 @@
                         <div class="col-md-10 nopadding">
                             <nav class="staff-navbar freelancer-navbar ms_navbar ">
                                 <ul>
-                                    <li><a class="active" href="mystaff"><i class="fa fa-briefcase" aria-hidden="true"></i> <b>My Hired</b></a></li>
-                                    <li><a href="pasthire"><i class="fa fa-undo" aria-hidden="true"></i> <b>Past Hires</b></a></li>
-                                    <li><a href="offersent"><i class="fa fa-gift" aria-hidden="true"></i> <b>Offers Sent</b></a></li>
+                                    <li><a class="active" href="mystaff"><i class="fa fa-briefcase" aria-hidden="true"></i> <b>{{ app_lang('text_job_my_hired')  }}</b></a></li>
+                                    <li><a href="pasthire"><i class="fa fa-undo" aria-hidden="true"></i> <b>{{ app_lang('text_job_past_hired')  }}</b></a></li>
+                                    <li><a href="offersent"><i class="fa fa-gift" aria-hidden="true"></i> <b>{{ app_lang('text_job_offer_sent')  }}</b></a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -50,6 +51,7 @@
 {% endblock %}
 
 {% block js %}
+    {{ parent() }}
     {# <!-- <script data-main="{{ app_modular_js("mystaff") }}" src="{{ app_modular_js("lib/require.dev.js") }}"></script> --> #}
     <script src="{{ app_modular_js("pages/my-staff.js") }}"></script>
 {% endblock %}

@@ -1051,8 +1051,46 @@ class Jobs extends Winjob_Controller {
             $this->Admintheme->webview("jobs/browse", $data);
         }
     }
+        
+    private function authorized(){
+        if ( ! $this->Adminlogincheck->checkx() )
+           redirect(home_url());  
+    }
     
-   // added by (Donfack Zeufack Hermann) start private function to sanitize $_GET fixed client view datas
+    // added by (Donfack Zeufack Hermann) start 
+    // Merge code of {fixed|hourly}_{client|freelancer}_view
+    
+    /**
+     * This will handled fixed and hourly job.
+     * It will replace fixed_client_view, hourly_client_view, 
+     * freelancer_client_view and freelancer_hourly_view method in this 
+     * controller.
+     */
+    public function contract(){
+        $this->authorized();
+        
+        try{
+            $this->load->model(array('jobs_model', 'webuser_model', 'payment_model'));
+        }catch(RuntimeException $e){
+            log_message('debug', $e->getMessage());
+            $this->session->set_flashdata('error', $this->lang->item('text_app_runtime_exception_message'));
+            redirect(home_url());
+        }
+        
+        list($job_id, $sender_id, $user_id) = $this->prepare_fixed_client_data();  
+        $job_status = $this->jobs_model->load_job_status($sender_id, $user_id, $job_id);
+        $ststus     = $this->webuser_model->load_informations($sender_id);
+        $payments   = $this->payment_model->load_job_transactions($sender_id, $user_id, $job_id); 
+        
+        $this->twig->display('webview/jobs/twig/contract', compact('job_status', 'ststus', 'payments'));
+        
+    }
+    
+    // added by (Donfack Zeufack Hermann) end
+    
+    
+   // added by (Donfack Zeufack Hermann) start 
+   // private function to sanitize $_GET fixed client view datas
     private function prepare_fixed_client_data(){
         
         $fm_job    = $this->input->get('fmJob');
@@ -1060,7 +1098,7 @@ class Jobs extends Winjob_Controller {
 
         if(empty($fm_job) || empty($fuser)){
             //TODO: set a message here to explain redirection.
-            redirect(site_url('mystaff'));
+            redirect(site_url('jobs/mystaff'));
         }
         
         return array(
@@ -1581,7 +1619,7 @@ class Jobs extends Winjob_Controller {
                 $this->load->model(array('jobs_model'));
             }catch(RuntimeException $e){
                 log_message('debug', $e->getMessage());
-                $this->session->set_flashdata('error', $this->lang->item('text_app_runtime_excepption_message'));
+                $this->session->set_flashdata('error', $this->lang->item('text_job_runtime_exception_message'));
                 redirect(site_url(home_url()));
             }
             
@@ -1600,7 +1638,7 @@ class Jobs extends Winjob_Controller {
             $nb_offer            = $this->jobs_model->number_offer();
             $nb_past_hired       = $this->jobs_model->number_past_hired();
             
-            $this->twig->display('webview/jobs/my-staff', compact('nb_freelancer_hired', 'jobs_accepted', 'freelancer_job_hour', 'nb_offer', 'past_hired'));
+            $this->twig->display('webview/jobs/twig/my-staff', compact('nb_freelancer_hired', 'jobs_accepted', 'freelancer_job_hour', 'nb_offer', 'past_hired'));
             // added by (Donfack Zeufack Hermann) end
         }
     }

@@ -21,137 +21,54 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
         // line 2
         $context["title"] = $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "hire_title", array());
         // line 3
+        $context["job_id_encoded"] = base64_encode($this->getAttribute((isset($context["job"]) ? $context["job"] : null), "job_id", array()));
+        // line 4
+        $context["fuser_id_encoded"] = base64_encode($this->getAttribute((isset($context["job"]) ? $context["job"] : null), "fuser_id", array()));
+        // line 5
+        echo "
+";
+        // line 6
+        if (($this->getAttribute((isset($context["job"]) ? $context["job"] : null), "job_type", array()) == "hourly")) {
+            // line 7
+            echo "    
+    ";
+            // line 8
+            $context["end_contract_link"] = ((((base_url() . "endhourlyfixed/hourly_client?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&fuser=") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
+            // line 9
+            echo "    ";
+            $context["job_detail_link"] = ((((base_url() . "jobs/hourly_client_view?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&fuser") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
+            // line 10
+            echo "
+";
+        } else {
+            // line 12
+            echo "    
+    ";
+            // line 13
+            $context["end_contract_link"] = ((((base_url() . "endhourlyfixed/fixed_client?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&fuser=") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
+            // line 14
+            echo "    ";
+            $context["job_detail_link"] = ((((base_url() . "jobs/fixed_client_view?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&fuser=") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
+            // line 15
+            echo "    
+";
+        }
+        // line 17
         echo "                
 <div class=\"row margintop-2 ms_white_box\">
     <div class=\"col-md-12 freelancer-job white-box\" style=\"padding: 20px\">
         <div class=\"row\">
-            <div class=\"col-md-4\">
-                <div class=\"row\">
-                    <div class=\"col-md-5\" style=\"padding-left:-20px\">
-\t\t\t<div class=\"st_img freelancer_img\">
-                            <img src=\"";
-        // line 11
-        echo twig_escape_filter($this->env, app_user_img($this->getAttribute((isset($context["job"]) ? $context["job"] : null), "webuser_picture", array())), "html", null, true);
-        echo "\" width=\"85\" height=\"68\">
-\t\t\t</div>
-\t\t    </div>
-                    <div class=\"col-md-7 nopadding\" style=\"padding-left: -15px !important\">
-                        <div class=\"user_name\" style=\"padding-left:2px\">
-\t\t            <h5 style=\"margin-bottom:0\">
-                                ";
-        // line 17
-        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "webuser_fname", array()), "html", null, true);
-        echo "  ";
-        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "webuser_lname", array()), "html", null, true);
-        echo "
-                                <br/>
-                            </h5>
-\t\t\t    <span>";
-        // line 20
-        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "country_name", array()), "html", null, true);
-        echo "</span>
-\t\t\t</div>
-\t\t    </div>
-                </div>
-            </div>
             
             ";
-        // line 26
-        if (($this->getAttribute((isset($context["job"]) ? $context["job"] : null), "job_type", array()) == "hourly")) {
-            // line 27
-            echo "                <div class=\"col-md-4 text-center hour_info\">
+        // line 22
+        echo twig_include($this->env, $context, "webview/jobs/partials/job-user-info.twig");
+        echo "
+            
+            ";
+        // line 24
+        echo twig_include($this->env, $context, "webview/jobs/partials/job-payment-info.twig");
+        echo "
                 
-                    ";
-            // line 29
-            $context["job_id"] = $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "job_id", array());
-            // line 30
-            echo "                    ";
-            $context["fuser_id"] = $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "fuser_id", array());
-            // line 31
-            echo "                    ";
-            $context["total_hour"] = 0;
-            // line 32
-            echo "
-                    ";
-            // line 33
-            if ((($this->getAttribute((isset($context["freelancer_job_hour"]) ? $context["freelancer_job_hour"] : null), (isset($context["job_id"]) ? $context["job_id"] : null), array(), "array", true, true) && $this->getAttribute($this->getAttribute((isset($context["freelancer_job_hour"]) ? $context["freelancer_job_hour"] : null), (isset($context["job_id"]) ? $context["job_id"] : null), array(), "array", false, true), (isset($context["fuser_id"]) ? $context["fuser_id"] : null), array(), "array", true, true)) && ($this->getAttribute($this->getAttribute((isset($context["freelancer_job_hour"]) ? $context["freelancer_job_hour"] : null), (isset($context["job_id"]) ? $context["job_id"] : null), array(), "array"), (isset($context["fuser_id"]) ? $context["fuser_id"] : null), array(), "array") > 0))) {
-                // line 34
-                echo "                        ";
-                $context["total_hour"] = $this->getAttribute($this->getAttribute((isset($context["freelancer_job_hour"]) ? $context["freelancer_job_hour"] : null), (isset($context["job_id"]) ? $context["job_id"] : null), array(), "array"), (isset($context["fuser_id"]) ? $context["fuser_id"] : null), array(), "array");
-                // line 35
-                echo "                        ";
-                echo sprintf(app_lang("text_job_total_hour"), (isset($context["total_hour"]) ? $context["total_hour"] : null));
-                echo "
-                    ";
-            } else {
-                // line 37
-                echo "                        ";
-                echo sprintf(app_lang("text_job_total_hour"), "0.00");
-                echo "
-                    ";
-            }
-            // line 39
-            echo "
-                    <br />
-
-                    ";
-            // line 42
-            if ($this->getAttribute((isset($context["job"]) ? $context["job"] : null), "offer_bid_amount", array())) {
-                // line 43
-                echo "                        ";
-                $context["amount"] = $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "offer_bid_amount", array());
-                // line 44
-                echo "                    ";
-            } else {
-                // line 45
-                echo "                        ";
-                $context["amount"] = $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "bid_amount", array());
-                // line 46
-                echo "                    ";
-            }
-            // line 47
-            echo "
-                    @ ";
-            // line 48
-            echo twig_escape_filter($this->env, sprintf(app_lang("text_job_by_hours"), (isset($context["amount"]) ? $context["amount"] : null)), "html", null, true);
-            echo " = <b> \$";
-            echo twig_escape_filter($this->env, ((isset($context["amount"]) ? $context["amount"] : null) * (isset($context["total_hour"]) ? $context["total_hour"] : null)), "html", null, true);
-            echo "</b>
-
-                    <br />
-                    <p style=\"margin:0 !important;\">";
-            // line 51
-            echo twig_escape_filter($this->env, app_lang("text_job_contract_hold"), "html", null, true);
-            echo "</p>
-                    <hr>
-
-                </div>
-            ";
-        } else {
-            // line 56
-            echo "                <div class=\"pay_btn\">
-                    <div class=\"col-md-4 text-center\">
-                        <span>
-                            <b>";
-            // line 59
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "fixedpay_amount", array()), "html", null, true);
-            echo "</b> 
-                            ";
-            // line 60
-            echo twig_escape_filter($this->env, sprintf(app_lang("text_job_paid_of"), $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "hired_on", array())), "html", null, true);
-            echo "
-                            <br />
-                            <p style=\"margin:0 !important;\">";
-            // line 62
-            echo twig_escape_filter($this->env, app_lang("text_job_contract_hold"), "html", null, true);
-            echo "</p>
-                        </span>
-                    </div>
-                </div>
-            ";
-        }
-        // line 67
-        echo "                
             <div class=\"col-md-4\">
                 <div class=\"row\">
                     <div class=\"ms_hr_massage_butt\">
@@ -159,7 +76,7 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
                             <input type=\"button\" 
                                    class=\"btn btn-primary form-btn\"  
                                    onclick=\"loadmessage(";
-        // line 74
+        // line 32
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "bid_id", array()), "html", null, true);
         echo ", ";
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "user_id", array()), "html", null, true);
@@ -173,64 +90,41 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
         echo twig_escape_filter($this->env, (isset($context["title"]) ? $context["title"] : null), "html", null, true);
         echo "')\" 
                                    value=\"";
-        // line 75
+        // line 33
         echo twig_escape_filter($this->env, app_lang("text_job_btn_message"), "html", null, true);
         echo "\">
                         </div>
                     </div>
+                        
                     ";
-        // line 78
-        if (($this->getAttribute((isset($context["job"]) ? $context["job"] : null), "job_type", array()) == "hourly")) {
-            // line 79
-            echo "                    <div class=\"ms_hr_work_diary\">
-                        <div class=\"mystaff_work_diary hour_btn work_diary_btn\">
-                            <a href=\"";
-            // line 81
-            echo twig_escape_filter($this->env, base_url(), "html", null, true);
-            echo "jobs/workdairy_client?fmJob=";
-            echo twig_escape_filter($this->env, base64_encode($this->getAttribute((isset($context["job"]) ? $context["job"] : null), "job_id", array())), "html", null, true);
-            echo "&fuser=";
-            echo twig_escape_filter($this->env, base64_encode($this->getAttribute((isset($context["job"]) ? $context["job"] : null), "fuser_id", array())), "html", null, true);
-            echo "\">
-\t\t\t    <input style=\"margin-right: -1px;\" type=\"button\" class=\"btn btn-primary form-btn\" value=\"";
-            // line 82
-            echo twig_escape_filter($this->env, app_lang("text_job_btn_work_diary"), "html", null, true);
-            echo "\" /></a>
-\t\t\t</div>
-  \t\t    </div>
-                    ";
-        } else {
-            // line 86
-            echo "                    <div class=\"ms_pay_butt\">
-                        <div class=\"mystaff_pay_btnx payment_btn\">
-                            <input type=\"button\" class=\"btn btn-primary form-btn my-btn\"
-                                   value=\"";
-            // line 89
-            echo twig_escape_filter($this->env, app_lang("text_job_btn_payment"), "html", null, true);
-            echo "\" 
-                                   id=\"2\" 
-                                   onclick=\"editClickedPayment(this.id)\" />
-                        </div>
-                    </div>    
-                    ";
-        }
-        // line 95
-        echo "                    <div class=\"ms_hr_drop_butt\">
+        // line 37
+        echo twig_include($this->env, $context, "webview/jobs/partials/job-payment-buttons.twig");
+        echo "
+                    
+                    <div class=\"ms_hr_drop_butt\">
                         <div class=\"dropdown hour_btnx dropdown_btn\">
                             <button class=\"btn btn-default dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\">
                                 <span class=\"caret\"></span>
                             </button>
                             <ul style=\"left: -156px;\" class=\"dropdown-menu\">
+                                <li><a href=\"";
+        // line 45
+        echo twig_escape_filter($this->env, (isset($context["job_detail_link"]) ? $context["job_detail_link"] : null), "html", null, true);
+        echo "\">";
+        echo twig_escape_filter($this->env, app_lang("text_job_btn_op_give_milestone"), "html", null, true);
+        echo "</a></li>
                                 <li><a href=\"#\">";
-        // line 101
+        // line 46
         echo twig_escape_filter($this->env, app_lang("text_job_btn_op_view_contact"), "html", null, true);
         echo "</a></li>
                                 <li><a href=\"#\">";
-        // line 102
+        // line 47
         echo twig_escape_filter($this->env, app_lang("text_job_btn_op_view_profile"), "html", null, true);
         echo "</a></li>
-                                <li><a href=\"#\">";
-        // line 103
+                                <li><a href=\"";
+        // line 48
+        echo twig_escape_filter($this->env, (isset($context["end_contract_link"]) ? $context["end_contract_link"] : null), "html", null, true);
+        echo "\">";
         echo twig_escape_filter($this->env, app_lang("text_job_btn_op_end_contract"), "html", null, true);
         echo "</a></li>
                             </ul>
@@ -243,18 +137,14 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
             <div class=\"col-md-12\">
                 <div class=\"job_detais\" style=\"margin-top: -10px;\">
                     <a href=\"";
-        // line 113
-        echo twig_escape_filter($this->env, base_url(), "html", null, true);
-        echo "jobs/hourly_client_view?fmJob=";
-        echo twig_escape_filter($this->env, base64_encode($this->getAttribute((isset($context["job"]) ? $context["job"] : null), "job_id", array())), "html", null, true);
-        echo "&fuser=";
-        echo twig_escape_filter($this->env, base64_encode($this->getAttribute((isset($context["job"]) ? $context["job"] : null), "fuser_id", array())), "html", null, true);
-        echo "\"> ";
+        // line 58
+        echo twig_escape_filter($this->env, (isset($context["job_detail_link"]) ? $context["job_detail_link"] : null), "html", null, true);
+        echo "\">  ";
         echo twig_escape_filter($this->env, app_lang("text_job_link_detail"), "html", null, true);
-        echo "</a>  
+        echo " </a>  
                     <strong>-</strong>
                     <span><b>";
-        // line 115
+        // line 60
         echo twig_escape_filter($this->env, (isset($context["title"]) ? $context["title"] : null), "html", null, true);
         echo "</b></span>
                 </div>
@@ -276,7 +166,7 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
 
     public function getDebugInfo()
     {
-        return array (  258 => 115,  247 => 113,  234 => 103,  230 => 102,  226 => 101,  218 => 95,  209 => 89,  204 => 86,  197 => 82,  189 => 81,  185 => 79,  183 => 78,  177 => 75,  163 => 74,  154 => 67,  146 => 62,  141 => 60,  137 => 59,  132 => 56,  124 => 51,  116 => 48,  113 => 47,  110 => 46,  107 => 45,  104 => 44,  101 => 43,  99 => 42,  94 => 39,  88 => 37,  82 => 35,  79 => 34,  77 => 33,  74 => 32,  71 => 31,  68 => 30,  66 => 29,  62 => 27,  60 => 26,  51 => 20,  43 => 17,  34 => 11,  24 => 3,  22 => 2,  19 => 1,);
+        return array (  148 => 60,  141 => 58,  126 => 48,  122 => 47,  118 => 46,  112 => 45,  101 => 37,  94 => 33,  80 => 32,  69 => 24,  64 => 22,  57 => 17,  53 => 15,  50 => 14,  48 => 13,  45 => 12,  41 => 10,  38 => 9,  36 => 8,  33 => 7,  31 => 6,  28 => 5,  26 => 4,  24 => 3,  22 => 2,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -290,71 +180,29 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
     public function getSourceContext()
     {
         return new Twig_Source("
-{% set title    = job.hire_title %}
+{% set title            = job.hire_title %}
+{% set job_id_encoded   = base64_encode(job.job_id) %}
+{% set fuser_id_encoded = base64_encode(job.fuser_id) %}
+
+{% if job.job_type == \"hourly\" %}
+    
+    {% set end_contract_link = base_url() ~ \"endhourlyfixed/hourly_client?fmJob=\" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
+    {% set job_detail_link   = base_url() ~ \"jobs/hourly_client_view?fmJob=\" ~ job_id_encoded ~ '&fuser' ~ fuser_id_encoded %}
+
+{% else %}
+    
+    {% set end_contract_link = base_url() ~ \"endhourlyfixed/fixed_client?fmJob=\" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
+    {% set job_detail_link   = base_url() ~ \"jobs/fixed_client_view?fmJob=\" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
+    
+{% endif %}
                 
 <div class=\"row margintop-2 ms_white_box\">
     <div class=\"col-md-12 freelancer-job white-box\" style=\"padding: 20px\">
         <div class=\"row\">
-            <div class=\"col-md-4\">
-                <div class=\"row\">
-                    <div class=\"col-md-5\" style=\"padding-left:-20px\">
-\t\t\t<div class=\"st_img freelancer_img\">
-                            <img src=\"{{ app_user_img(job.webuser_picture) }}\" width=\"85\" height=\"68\">
-\t\t\t</div>
-\t\t    </div>
-                    <div class=\"col-md-7 nopadding\" style=\"padding-left: -15px !important\">
-                        <div class=\"user_name\" style=\"padding-left:2px\">
-\t\t            <h5 style=\"margin-bottom:0\">
-                                {{ job.webuser_fname }}  {{ job.webuser_lname }}
-                                <br/>
-                            </h5>
-\t\t\t    <span>{{ job.country_name }}</span>
-\t\t\t</div>
-\t\t    </div>
-                </div>
-            </div>
             
-            {% if job.job_type == 'hourly' %}
-                <div class=\"col-md-4 text-center hour_info\">
-                
-                    {% set job_id     = job.job_id %}
-                    {% set fuser_id   = job.fuser_id %}
-                    {% set total_hour = 0 %}
-
-                    {% if freelancer_job_hour[ job_id ] is defined and freelancer_job_hour[ job_id ][ fuser_id] is defined and freelancer_job_hour[ job_id ][ fuser_id]  > 0 %}
-                        {% set total_hour = freelancer_job_hour[job_id][fuser_id] %}
-                        {{ app_lang('text_job_total_hour')|format( total_hour )|raw }}
-                    {% else %}
-                        {{ app_lang('text_job_total_hour')|format( '0.00' )|raw }}
-                    {% endif %}
-
-                    <br />
-
-                    {% if job.offer_bid_amount %}
-                        {% set amount   = job.offer_bid_amount %}
-                    {% else %}
-                        {% set amount   = job.bid_amount %}
-                    {% endif %}
-
-                    @ {{ app_lang('text_job_by_hours')|format(amount) }} = <b> \${{ amount * total_hour }}</b>
-
-                    <br />
-                    <p style=\"margin:0 !important;\">{{ app_lang('text_job_contract_hold') }}</p>
-                    <hr>
-
-                </div>
-            {% else %}
-                <div class=\"pay_btn\">
-                    <div class=\"col-md-4 text-center\">
-                        <span>
-                            <b>{{ job.fixedpay_amount }}</b> 
-                            {{ app_lang('text_job_paid_of')|format(job.hired_on) }}
-                            <br />
-                            <p style=\"margin:0 !important;\">{{ app_lang('text_job_contract_hold') }}</p>
-                        </span>
-                    </div>
-                </div>
-            {% endif %}
+            {{ include('webview/jobs/partials/job-user-info.twig') }}
+            
+            {{ include('webview/jobs/partials/job-payment-info.twig') }}
                 
             <div class=\"col-md-4\">
                 <div class=\"row\">
@@ -366,32 +214,19 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
                                    value=\"{{ app_lang('text_job_btn_message') }}\">
                         </div>
                     </div>
-                    {% if job.job_type == 'hourly' %}
-                    <div class=\"ms_hr_work_diary\">
-                        <div class=\"mystaff_work_diary hour_btn work_diary_btn\">
-                            <a href=\"{{ base_url() }}jobs/workdairy_client?fmJob={{ base64_encode(job.job_id) }}&fuser={{ base64_encode(job.fuser_id) }}\">
-\t\t\t    <input style=\"margin-right: -1px;\" type=\"button\" class=\"btn btn-primary form-btn\" value=\"{{ app_lang('text_job_btn_work_diary') }}\" /></a>
-\t\t\t</div>
-  \t\t    </div>
-                    {% else %}
-                    <div class=\"ms_pay_butt\">
-                        <div class=\"mystaff_pay_btnx payment_btn\">
-                            <input type=\"button\" class=\"btn btn-primary form-btn my-btn\"
-                                   value=\"{{ app_lang('text_job_btn_payment') }}\" 
-                                   id=\"2\" 
-                                   onclick=\"editClickedPayment(this.id)\" />
-                        </div>
-                    </div>    
-                    {% endif %}
+                        
+                    {{ include('webview/jobs/partials/job-payment-buttons.twig') }}
+                    
                     <div class=\"ms_hr_drop_butt\">
                         <div class=\"dropdown hour_btnx dropdown_btn\">
                             <button class=\"btn btn-default dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\">
                                 <span class=\"caret\"></span>
                             </button>
                             <ul style=\"left: -156px;\" class=\"dropdown-menu\">
+                                <li><a href=\"{{ job_detail_link }}\">{{ app_lang('text_job_btn_op_give_milestone') }}</a></li>
                                 <li><a href=\"#\">{{ app_lang('text_job_btn_op_view_contact') }}</a></li>
                                 <li><a href=\"#\">{{ app_lang('text_job_btn_op_view_profile') }}</a></li>
-                                <li><a href=\"#\">{{ app_lang('text_job_btn_op_end_contract') }}</a></li>
+                                <li><a href=\"{{ end_contract_link }}\">{{ app_lang('text_job_btn_op_end_contract') }}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -401,7 +236,7 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
         <div class=\"row\">
             <div class=\"col-md-12\">
                 <div class=\"job_detais\" style=\"margin-top: -10px;\">
-                    <a href=\"{{ base_url() }}jobs/hourly_client_view?fmJob={{ base64_encode(job.job_id) }}&fuser={{ base64_encode(job.fuser_id) }}\"> {{ app_lang('text_job_link_detail') }}</a>  
+                    <a href=\"{{ job_detail_link }}\">  {{ app_lang('text_job_link_detail') }} </a>  
                     <strong>-</strong>
                     <span><b>{{ title }}</b></span>
                 </div>
