@@ -48,8 +48,7 @@
 
                     <select name="trxTypes" id="trxTypes">
                         <option value="ALL" label="All Transactions" selected="selected">All Transactions</option>
-                        <option value="CRED" label="Credits">Debits</option>
-                        <option value="CRED" label="Credits">Credits</option>
+                        <option value="CREDITES" label="Credits">Debits</option>
                         <option value="HOURLY" label="Hourly">Hourly</option>
                         <option value="FIXED" label="Fixed-price">Fixed-price</option>
                      
