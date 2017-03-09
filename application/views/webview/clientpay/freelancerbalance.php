@@ -190,11 +190,9 @@
                 <div class="ib" id="jsFilterSelectArea">
                     <select name="trxTypes" id="trxTypes">
                         <option value="ALL" label="All Transactions" selected="selected">All Transactions</option>
-                        <option value="DEBIT" label="Debits">Debits</option>
-                        <option value="CRED" label="Credits">Credits</option>
+                        <option value="CREDITES" label="Credits">Credits</option>
                         <option value="HOURLY" label="Hourly">Hourly</option>
                         <option value="FIXED" label="Fixed-price">Fixed Price</option>
-                        <option value="WITHDRAW" label="Withdrawals">Withdrawals</option>
                     </select>
                     <select style="margin-right: 15px;" name="employers" id="employers">
                         <option value="">All Clients</option>
