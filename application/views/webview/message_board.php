@@ -80,7 +80,7 @@ textarea#chat-input { width: 95%; height: 40px; margin: 0 0 0 30px;  border: 2px
 textarea#chat-input.has-error { border-color: #a94442;	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);}
 .active { border: 2px solid #ccc;  color: #1ca7db;background-color: #F9F9F9 !important;}
 .chat-sidebar a { color: #000;}
-.chat-bar { width: 100%; z-index: 1; bottom: 0;position: absolute; background: #fff; top: 545px; }
+.chat-bar { width: 100%; z-index: 1;position: absolute; background: #fff; top: 545px; }
 form#chat_form a {display: inline-block;
 background: #1ca7db;
 color: #fff;
@@ -94,7 +94,22 @@ span.group-date { display: block; text-align: center; font-size: 16px; color: #7
 span.name { text-transform: capitalize;font-size: 16px;}
 span.text1 {text-transform: capitalize;}
 .chat-details-topbar p{padding:0;}
-from#chat_form
+
+/*textarea {
+    width:100%;
+    resize:none;
+    overflow:hidden;
+    font-size:18px;
+    height:1.1em;
+    min-height: 40px;
+    padding: 10px 10px;
+    padding-right: 50px;
+    max-height: 50px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-left: 10px;
+    border-radius: 4px;
+}*/
 </style>
 
 <section id="big_header" style="margin-top:40px;margin-bottom:40px;height: auto;">
@@ -108,7 +123,7 @@ from#chat_form
 
 		<?php if(!empty($messages)){ ?>
 
-		<div class="row chat-box">
+		<div class="row chat-box ">
 			<div class="col-lg-3 col-md-3 col-sm-3 chat-sidebar">
 
 				<?php foreach($messages as $message) {
@@ -207,12 +222,15 @@ from#chat_form
 						<input type = "hidden" name = "removed_files" value = "" id = "removed_files">
 						<input type="file" name="fileupload[]" class = "hidden" value="fileupload" id="fileupload" multiple>
 						<!-- Added by Armen End -->
-						<textarea name="chat-input" class="form-control" required id="chat-input"></textarea>
+
+						<textarea id="chat-input" name="chat-input" style="resize: none; padding-right: 50px; border-radius: 4px;"></textarea>
+						<div style="clear:both;"></div>
 					</div>
 					<div class="ccc_send ccc_sms_send_btn" style="float: left;margin-left: 20px;"><a href="" id="chat-btn" role="button" type="submit">SEND</a></div>
 					</form>
 				</div>
 			</div>
+			<div style="clear:both;"></div>
 		</div>
 
 		<?php } ?>
@@ -242,6 +260,27 @@ $(document).ready(function(){
         $('#removed_files').val(removed_files);
     });
 	// Added by Armen end
+
+/*	var span = $('<span>').css('display','inline-block')
+	.css('word-break','break-all').appendTo('body').css('visibility','hidden');
+	function initSpan(textarea){
+	  span.text(textarea.text())
+	      .width(textarea.width())      
+	      .css('font',textarea.css('font'));
+	}
+	$('textarea').on({
+	    input: function(){
+	      var text = $(this).val();      
+	      span.text(text);      
+	      $(this).height(text ? span.height() : '1.1em');
+	    },
+	    focus: function(){
+	     initSpan($(this));
+	    },
+	    keypress: function(e){
+	        if(e.which == 13) e.preventDefault();
+	    }
+	});*/
 });
 function chat_details(bid_id, is_ticket) {
 			$.post('<?php echo base_url() ?>Messageboard/chatdetails', { bid_id: bid_id, is_ticket: is_ticket},  function(data) {

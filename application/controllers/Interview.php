@@ -11,6 +11,8 @@ class Interview extends CI_Controller{
         parent::__construct();
 
         $this->load->model(array('common_mod','Category'));
+        $this->load->model(array('common_mod', 'Category', 'profile/ProfileModel'));
+        $this->load->model(array('timezone'));
 
     }
 
@@ -84,7 +86,7 @@ class Interview extends CI_Controller{
 
 				
 
-			$this->db->select('job_conversation.*,webuser.*,jobs.title');
+			$this->db->select('job_conversation.*,job_conversation.created as conversation_date,webuser.*,jobs.title');
 
 			$this->db->from('job_conversation');
 
@@ -108,10 +110,24 @@ class Interview extends CI_Controller{
 
 			$result = $query->result();
 
+			foreach ($result as $key => $value) {
+					$this->db->select('*');
+					$this->db->from('job_conversation_files');
+					$this->db->where('job_conversation_id', $value->id);
+					$query = $this->db->get();
+					$images = $query->result();
+					$result[$key]->images_array = $images;
+				}
+
 			$params['messages'] = $result;
 
-			//print_r($result); die;
 
+			/*print_r($result); die;*/
+
+			$condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
+			$webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
+            $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
+            $params['timezone'] = $timezone;
 			
 
 			$job_info = array();
@@ -142,7 +158,7 @@ class Interview extends CI_Controller{
 
 			} 
 
-            $cols = array("webuser_id","webuser_fname","webuser_lname","webuser_picture","webuser_country");
+            $cols = array("webuser_id","webuser_fname","webuser_lname","cropped_image","webuser_country");
 
             $condition = " AND webuser_id=". $user_id ;
 
@@ -230,7 +246,8 @@ class Interview extends CI_Controller{
 
 	public function insert_message(){
 
-		
+		/*print_r($_POST['data']);
+		die();*/
 
 		//parse_str($_POST['form'], $form);
 
@@ -244,8 +261,8 @@ class Interview extends CI_Controller{
 
 		$bid_id = $this->input->post('bid_id');
 
-		$messsage = $this->input->post('messsage');
-
+		$messsage = $this->input->post('chat-input');
+		$form = $_POST;
 		
 
 		if($bid_id == 0){
@@ -285,11 +302,57 @@ class Interview extends CI_Controller{
                 
                 // added by jahid end 
 
-		
+
+
+	if (isset($_FILES['fileupload']) && !empty($_FILES['fileupload'])) {
+				$attachment_file = $_FILES["fileupload"];
+				$removed_images = (isset($_POST['removed_files']) && !empty($_POST['removed_files'])) ? explode(',', $_POST['removed_files']) : array();
+	            if(count($removed_images) <= 1 && !empty($removed_images)){
+	                if (in_array($removed_images[0], $attachment_file['name']))
+	                {
+	                    $key = array_search ($removed_images[0], $attachment_file['name']);
+	                    unset($attachment_file['name'][$key]);
+	                    unset($attachment_file['tmp_name'][$key]);
+	                }
+	            }else if(count($removed_images) > 1 && !empty($removed_images)){
+	                foreach ($removed_images as $index => $value) {
+	                   if (in_array($value, $attachment_file['name']))
+	                    {
+	                        $key = array_search ($value, $attachment_file['name']);
+	                        unset($attachment_file['name'][$key]);
+	                        unset($attachment_file['tmp_name'][$key]);
+	                    }
+	                }
+	            }
+	            $no_files = count($attachment_file['name']);
+	            for ($i = 0; $i < $no_files; $i++) {
+	                if ($attachment_file["error"][$i] > 0) {
+	                    // echo "Error: " . $attachment_file["error"][$i] . "<br>";
+	                } else {
+	                	$img = $attachment_file["name"][$i];
+	                	$file = explode(".",$img);
+	                	$new_image_name = 'image_' . uniqid() .'.'. 'jpg';
+                        move_uploaded_file($attachment_file["tmp_name"][$i], 'uploads/' . $new_image_name);
+                    	$this->db->insert('job_conversation_files',array(
+							'job_conversation_id' => $insert_id,
+							'name' => $new_image_name,
+							'original_name' => $img
+						));
+	                }
+	            }
+	            // get images to show
+		        $this->db->select("name");
+				$this->db->from("job_conversation_files");
+				$this->db->where("job_conversation_id",$insert_id);
+				$query=$this->db->get();
+				$images = $query->result_array();
+	        }
 
 		
 
-		$this->db->select('job_conversation.*,webuser.*,jobs.title,wu.webuser_fname as fname,wu.webuser_lname as lname,wu.webuser_id as r_id');
+		
+
+		$this->db->select('job_conversation.*,job_conversation.created as conversation_date,webuser.*,jobs.title,wu.webuser_fname as fname,wu.webuser_lname as lname,wu.webuser_id as r_id');
 
 		$this->db->from('job_conversation');
 
@@ -309,19 +372,29 @@ class Interview extends CI_Controller{
 
 		$result = $query->result();
 
-		
+		$condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
+		$webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
+        $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
+		if (!empty($timezone)) {
+			$date2 =  new DateTime(date('Y-m-d h:i:s',strtotime($result[0]->conversation_date)), new DateTimezone('UTC'));
+			$date2->setTimezone(new \DateTimezone($timezone['gmt']));
+
+			$time = $date2->format('g:i A');
+		} else {
+			$time = date('g:i A',strtotime($result[0]->conversation_date));
+		}
 
 		
 
 		$html = '';
 
-		if(($result[0]->webuser_picture) == "") { 
+		if(($result[0]->cropped_image) == "") { 
 
 				$src = site_url("assets/user.png");
 
 			 } else { 
 
-				$src = base_url().$result[0]->webuser_picture;
+				$src = $result[0]->cropped_image;
 
 			 } 
 
@@ -329,12 +402,18 @@ class Interview extends CI_Controller{
 
 			$html .='<span class="name"><img src="'.$src.'"> '.$result[0]->webuser_fname.' '.$result[0]->webuser_lname.' </span>';
 
-			$html .='<span class="chat-date">'.date("g:i a", strtotime($result[0]->created)).'</span>';
+			$html .='<span class="chat-date">'.$time.'</span>';
 
 			$html .='<span class="details">'.$result[0]->message_conversation.'</span>';
 
-			$html .='</li>';
 
+			if(isset($images) && !empty($images)){
+				foreach ($images as $key => $value) {
+					$html .= '<div class = "chat_image"><a target = "blank" download href = "'.base_url().'uploads/'.$value['name'].'">'.$value['name'].'</a></div>';
+				}
+			}
+
+			$html .='</li>';
 
 
 		print_r(json_encode($html)); die;

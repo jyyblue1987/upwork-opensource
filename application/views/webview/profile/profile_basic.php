@@ -56,7 +56,7 @@ $this->session->unset_userdata(ACTION_DATA);
                         <h4 class="custom_personal_info_title">Picture</h4>
                     </div>
                     <div class="col-xs-4">
-                        <?php if ($this->Adminforms->getdatax("picture", "webuser", $id) == "") { ?>
+                        <?php if ($croppedImage->cropped_image == "") { ?>
                             <img style="border-radius: 60%;" src="<?php echo site_url("assets/user.png"); ?>" width="100px">
                         <?php } else { ?>
                             <img style="border-radius: 60%;" src="<?php echo $croppedImage->cropped_image;?>" width="100px">
