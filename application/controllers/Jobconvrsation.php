@@ -110,7 +110,16 @@ class Jobconvrsation extends CI_Controller
 
             $condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
             $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
-            $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
+
+            if (empty($this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone'])))
+                {
+                    $gmt = 'GMT'.date('P');
+
+                    $timezone = $this->timezone->getByGMT($gmt);
+                }
+                else
+                    $timezone = $this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone']);
+
 
             $result = '<ul class="m_list scroll-ul">';
             foreach($conversation as $data){

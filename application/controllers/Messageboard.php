@@ -63,8 +63,16 @@ class Messageboard extends CI_Controller
 
 			$condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
 			$webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
-            $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
-            $data['timezone'] = $timezone;
+      if (empty($this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone'])))
+			{
+				$gmt = 'GMT'.date('P');
+
+				$timezone = $this->timezone->getByGMT($gmt);
+			}
+			else
+				$timezone = $this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone']);
+
+      $data['timezone'] = $timezone;
 
 			if(isset($_GET['bid_id'])){
 
@@ -229,8 +237,14 @@ class Messageboard extends CI_Controller
 
 			$condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
 			$webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
-            $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
+			if (empty($this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone'])))
+			{
+				$gmt = 'GMT'.date('P');
 
+				$timezone = $this->timezone->getByGMT($gmt);
+			}
+			else
+				$timezone = $this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone']);
 
 			foreach($result as $data){
 
@@ -493,7 +507,14 @@ class Messageboard extends CI_Controller
 
 			$condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
 			$webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
-            $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
+			if (empty($this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone'])))
+			{
+				$gmt = 'GMT'.date('P');
+
+				$timezone = $this->timezone->getByGMT($gmt);
+			}
+			else
+				$timezone = $this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone']);
 			if (!empty($timezone)) {
 				$date2 =  new DateTime(date('Y-m-d h:i:s',strtotime($result[0]->conversation_date)), new DateTimezone('UTC'));
 				$date2->setTimezone(new \DateTimezone($timezone['gmt']));
