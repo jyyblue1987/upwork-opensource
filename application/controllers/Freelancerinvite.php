@@ -6,7 +6,9 @@ class Freelancerinvite extends CI_Controller {
 	  public function __construct()
     {
         parent::__construct();
-        $this->load->model(array('Category', 'Common_mod'));
+        //$this->load->model(array('Category', 'Common_mod'));
+        $this->load->model(array('common_mod', 'Category', 'profile/ProfileModel'));
+        $this->load->model(array('timezone'));
       
     }
 	
@@ -49,7 +51,7 @@ class Freelancerinvite extends CI_Controller {
                
                 if( $conversation_count ){
                 
-                    $this->db->select('job_conversation.*,webuser.*');
+                    $this->db->select('job_conversation.*,job_conversation.created as conversation_date,webuser.*');
                     $this->db->from('job_conversation');
                     $this->db->join('webuser', 'job_conversation.sender_id = webuser.webuser_id', 'inner');
                     $this->db->where('job_conversation.job_id', $postId);
@@ -57,6 +59,15 @@ class Freelancerinvite extends CI_Controller {
                     $this->db->order_by("job_conversation.id", "ASC");
                     $query_conversation=$this->db->get();
                     $conversation =  $query_conversation->result();
+                }
+
+                foreach ($conversation as $key => $value) {
+                    $this->db->select('*');
+                    $this->db->from('job_conversation_files');
+                    $this->db->where('job_conversation_id', $value->id);
+                    $query = $this->db->get();
+                    $images = $query->result();
+                    $conversation[$key]->images_array = $images;
                 }
             }
 		
@@ -95,7 +106,11 @@ class Freelancerinvite extends CI_Controller {
             $this->db->where_in('cuser_id',$record->user_id);
             $queryhour=$this->db->get();
             $workedhours = $queryhour->result();
-		
+
+            $condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
+            $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
+            $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
+            $data['timezone'] = $timezone;
 		
 			   
             $data = array('value' => $record, 'applied' => $is_applied, 'conversations' => $conversation, 'conversation_count' => $conversation_count, 'bid_details'=>$bids_details,'js' => array('vendor/jquery.form.js', 'internal/job_withdraw.js'),'accepted_jobs'=>$accepted_jobs,'record_sidebar' => $record_sidebar,'hire'=>$record_hire,'workedhours'=>$workedhours);

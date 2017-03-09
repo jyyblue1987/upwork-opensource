@@ -63,16 +63,8 @@ class Messageboard extends CI_Controller
 
 			$condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
 			$webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
-      if (empty($this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone'])))
-			{
-				$gmt = 'GMT'.date('P');
-
-				$timezone = $this->timezone->getByGMT($gmt);
-			}
-			else
-				$timezone = $this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone']);
-
-      $data['timezone'] = $timezone;
+            $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
+            $data['timezone'] = $timezone;
 
 			if(isset($_GET['bid_id'])){
 
@@ -191,7 +183,7 @@ class Messageboard extends CI_Controller
 				$this->db->where('job_conversation.bid_id', $bid_id);
 				//$this->db->where('job_conversation.sender_id', $sender_id);
 				//$this->db->where('job_conversation.have_seen', 1);
-				$this->db->order_by("job_conversation.id", "desc");
+				$this->db->order_by("job_conversation.created", "desc");
 				//$this->db->group_by('bid_id');
 				$query=$this->db->get();
 				$conversation_count = $query->num_rows();
@@ -212,7 +204,7 @@ class Messageboard extends CI_Controller
 				$this->db->join('webuser', 'wtm.sender_id = webuser.webuser_id and sender = "user"', 'left');
 				$this->db->join('webuser_tickets wt', 'wt.id = wtm.ticket_id', 'inner');
 				$this->db->where('wtm.ticket_id', $bid_id);
-				$this->db->order_by("wtm.id", "desc");
+				$this->db->order_by("wtm.created", "desc");
 
 				$query=$this->db->get();
 				$conversation_count = $query->num_rows();
@@ -237,19 +229,14 @@ class Messageboard extends CI_Controller
 
 			$condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
 			$webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
-			if (empty($this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone'])))
-			{
-				$gmt = 'GMT'.date('P');
+            $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
 
-				$timezone = $this->timezone->getByGMT($gmt);
-			}
-			else
-				$timezone = $this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone']);
 
 			foreach($result as $data){
 
 			if (!empty($timezone)) {
 			$date2 =  new DateTime(date('Y-m-d h:i:s',strtotime($data->created)), new DateTimezone('UTC'));
+			/*$date2->setTimezone(new \DateTimezone($timezone['gmt']));*/
 			$date2->setTimezone(new \DateTimezone($timezone['gmt']));
 
 			$time = $date2->format('g:i A');
@@ -507,14 +494,7 @@ class Messageboard extends CI_Controller
 
 			$condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
 			$webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
-			if (empty($this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone'])))
-			{
-				$gmt = 'GMT'.date('P');
-
-				$timezone = $this->timezone->getByGMT($gmt);
-			}
-			else
-				$timezone = $this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone']);
+            $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
 			if (!empty($timezone)) {
 				$date2 =  new DateTime(date('Y-m-d h:i:s',strtotime($result[0]->conversation_date)), new DateTimezone('UTC'));
 				$date2->setTimezone(new \DateTimezone($timezone['gmt']));

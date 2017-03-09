@@ -50,11 +50,22 @@ input#submitmsg {  background: #2baad9 none repeat scroll 0 0;  border: medium n
 
 .attach_icon {
 	position: absolute;
-	right: 5%;
+	right: 7%;
 	font-size: 26px;
 	top: 1%;
 	color: #a2a2a2;
 	transform: rotate(90deg);
+}
+.show_files{
+    position: absolute;
+    left: 5%;
+    top: 3%;
+}
+.show_files span{
+    font-size: 12px;
+}
+.show_files .delete_item{
+    margin-left: 5px;
 }
 		</style>
 
@@ -510,14 +521,22 @@ $hire_count = $query->num_rows();
 							
 							if(!empty($conversations)){
 							foreach($conversations as $chat_data) {
+                                if (!empty($timezone)) {
+                                $date2 =  new DateTime(date('Y-m-d h:i:s',strtotime($chat_data->conversation_date)), new DateTimezone('UTC'));
+                                $date2->setTimezone(new \DateTimezone($timezone['gmt']));
+
+                                $time = $date2->format('g:i A');
+                                } else {
+                                $time = date('g:i A',strtotime($chat_data->conversation_date));
+                                }
 							
-							if(($chat_data->webuser_picture) == "") { 
+							if(($chat_data->cropped_image) == "") { 
 								$src = site_url("assets/user.png");
 							 } else { 
-								$src = base_url().$chat_data->webuser_picture;
+								$src = $chat_data->cropped_image;
 							 } 
 							
-							$temp_date = date("d-m-Y", strtotime($chat_data->created));
+							$temp_date = date("d-m-Y", strtotime($chat_data->conversation_date));
 							if($date != strtotime($temp_date)){
 								$date = strtotime($temp_date);
 								$group_time = true;
@@ -533,8 +552,16 @@ $hire_count = $query->num_rows();
 							
 							<?php } ?>
 								<li style="margin-bottom: 20px;">							
-									<span class="name"><img style="margin-right: 20px;" src="<?=$src?>"><?=$chat_data->webuser_fname?> <?=$chat_data->webuser_lname?></span> <span class="chat-date"><?=date("g:i a", strtotime($chat_data->created))?></span>
+									<span class="name"><img style="margin-right: 20px;" src="<?=$src?>"><?=$chat_data->webuser_fname?> <?=$chat_data->webuser_lname?></span> <span class="chat-date"><?=$time?></span>
 									<span style="margin-left: 70px;"id="scroll" class="details"><?=$chat_data->message_conversation?></span>
+
+                                    <?php if(count($chat_data->images_array) > 0):?>
+                                        <?php foreach ($chat_data->images_array as $key => $image):?>
+                                            <div class = "chat_image">
+                                                <a href = "<?=base_url('uploads')."/".$image->name?>" download target = "blank"><?=$image->name?></a>
+                                            </div>
+                                        <?php endforeach;?>
+                                    <?php endif;?>
 								</li>
 							<?php } }?>
 
@@ -546,11 +573,14 @@ $hire_count = $query->num_rows();
 							<input type="hidden" name="job_id" id="job_id" value="<?=$value->id?>">
 							<input type="hidden" name="user_id" id="user_id" value="<?=$value->user_id?>">
 							<div style="width:80%;float: left;height: 100px;position: relative;">
-							<textarea style="border-radius: 4px;" name="chat-input" id="chat-input"></textarea>
-
-							<div class="attach_icon">
-								<i style="cursor: pointer;" class="fa fa-paperclip" aria-hidden="true"></i>
-							</div>
+                            <div class = "uploaded_files">
+                            </div>
+                            <input type = "hidden" name = "removed_files" value = "" id = "removed_files">
+                            <input type="file" name="fileupload[]" class = "hidden" value="fileupload" id="fileupload" multiple>
+                            <div class="attach_icon">
+                                <i style="cursor: pointer;" class="fa fa-paperclip" aria-hidden="true"></i>
+                            </div>
+							<textarea style="border-radius: 4px; resize: none; padding-right: 24px;" name="chat-input" id="chat-input"></textarea>
 							</div>
 							<div class="ccc_sms_send_btn" style="width:20%;float: left;height: 100px;"><a href="javascript:void(0);" id="submit">SEND</a></div>
 							</form>
@@ -904,6 +934,27 @@ if ($value->isactive && $paymentSet) {
 <script>
 $(document).ready(function(){
 	$('.chat-details').animate({scrollTop: $('.chat-details').prop("scrollHeight")}, 1);
+
+    $(document).on("click",".attach_icon", function() {
+        $('#fileupload').trigger('click');
+    });
+    $(document).on("change","#fileupload", function() {
+        var filename = $('#fileupload').prop("files");
+        var names = $.map(filename, function(val) { return val.name; });
+        $('.uploaded_files').addClass('show_files');
+        $.each(names, function( index, value ) {
+            $('.uploaded_files').append('<div class = "item"><span class = "item_name">'+value+'</span><span class = "delete_item"><i class="fa fa-times" aria-hidden="true"></i></span></div>')
+        });
+    });
+
+    var removed_files = [];
+    $(document).on("click",".delete_item", function() {
+        var img_name = $(this).prev().html();
+        $(this).parent().remove();
+        removed_files.push(img_name);
+        $('#removed_files').val(removed_files);
+    });
+
 });
 
 
@@ -917,7 +968,7 @@ $('#submit').click(function(){
 		$("#error_span").show().delay(5000).fadeOut();
 		return false;
 	}
-	$.post('<?php echo base_url() ?>Interview/insert_message', { freelancer_id: f_id, job_id: j_id, bid_id: b_id, messsage: messsage },  function(data) {
+/*	$.post('<?php echo base_url() ?>Interview/insert_message', { freelancer_id: f_id, job_id: j_id, bid_id: b_id, messsage: messsage },  function(data) {
 		
 			if(data != '') {
 					$('#scroll-ul').append(data);
@@ -928,7 +979,25 @@ $('#submit').click(function(){
 			} else {
 		
 			}
-		}, 'json'); 
+		}, 'json'); */
+
+    var form_data = new FormData($('#chat_form')[0]);
+        $.ajax({
+            url: '<?php echo base_url() ?>Interview/insert_message',
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function (data) {
+                $('#scroll-ul').append(data);
+                $('#chat_form')[0].reset(); 
+                $('.chat-details').animate({scrollTop: $('.chat-details').prop("scrollHeight")}, 1);
+                $('#success_span').html('Message send successfully.');
+                $("#success_span").show().delay(5000).fadeOut();
+            }
+        });
 	
 });
 
