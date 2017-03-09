@@ -45,3 +45,6 @@ $lang['text_job_transaction_date'] = 'Date';
 
 $lang['text_job_transaction_paid_all'] = 'Paid All';
 $lang['text_job_transaction_paid_nothing'] = 'Paid Nothing';
+$lang['text_job_transaction_cancelled'] = 'Cancel';
+$lang['text_job_btn_add_milestone'] = 'Add Milestone';
+$lang['text_job_transaction_empty'] = 'No transaction yet.';

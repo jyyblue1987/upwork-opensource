@@ -126,29 +126,29 @@
                     <div class="row margin-top-1"> </div>
                     
                     {# Load transaction line here... #}
-                    {{ include("webview/jobs/partials/job-transactions.twig", {'payments': payments, 'job_status': job_status}, with_context: false) }}
+                    {{ include("webview/jobs/partials/job-transactions.twig", {payments: payments, job_status: job_status}, with_context= false) }}
                     
                     <div class="row margin-top-5 margin-bottom-2">
                         <div class="col-md-10 col-md-offset-1">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="">
-                                        <input style="float: left;margin-left: 0;" type="button" class="btn my_btn btn-cancel" value="Add Milestone" id ="2" onclick="editClickedMilestone(this.id)" />
+                                        <input style="float: left;margin-left: 0;" type="button" class="btn my_btn btn-cancel" value="{{ app_lang('text_job_btn_add_milestone') }}" id ="2" onclick="editClickedMilestone(this.id)" />
                                     </div>
-                                    <input style="margin-left: 15px;" type="button" class="btn my_btn btn-cancel" value="Payment"  id ="2" onclick="editClickedPayment(this.id)" />
+                                    <input style="margin-left: 15px;" type="button" class="btn my_btn btn-cancel" value="{{ app_lang('text_job_btn_payment') }}"  id ="2" onclick="editClickedPayment(this.id)" />
                                 </div>
                                 <div class="col-md-6">
                                     <div style="float: left; position: absolute;right: 143px;" class="cancel_content_btn">
-                                        <input value="Cancel" class="btn my_btn btn-cancel" type="button"> 
+                                        <input value="{{ app_lang('text_job_transaction_cancelled') }}" class="btn my_btn btn-cancel" type="button"> 
                                     </div>
                                     <div class="">
                                         {% if job_status.jobstatus == 1 %}
                                             <a href="{{ base_url() }}feedback/fixed_client?fmJob={{ job_id_encoded }}&fuser={{ fuser_id_encoded }}">
-                                                <input style="float: right;margin-right: 0px;" type="button" class="btn my_btn btn-default_activv" value="End Contract" />
+                                                <input style="float: right;margin-right: 0px;" type="button" class="btn my_btn btn-default_activv" value="{{ app_lang('text_job_btn_op_end_contract') }}" />
                                             </a>
                                         {% else %}
                                             <a href="{{ base_url() }}endhourlyfixed/fixed_client?fmJob={{ job_id_encoded }}&fuser={{ fuser_id_encoded }}">
-                                                <input style="float: right;margin-right: 0px;" type="button" class="btn my_btn btn-default_activv" value="End Contract" />
+                                                <input style="float: right;margin-right: 0px;" type="button" class="btn my_btn btn-default_activv" value="{{ app_lang('text_job_btn_op_end_contract') }}" />
                                             </a>
                                         {% endif %}
                                     </div>

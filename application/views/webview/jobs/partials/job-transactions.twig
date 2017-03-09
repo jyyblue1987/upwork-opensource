@@ -10,26 +10,32 @@
         <div class="u_border"></div>
     </div>
 </div>
-            
+
 <div class="row margin-top-2">
     <div class="col-md-10 col-md-offset-1">
         <div class="row">
-        {% for payment in payments %}
-            <div style="font-size: 14px;" class="col-md-7 text-centered text-left gray-text">
-            {% if payment.payment_gross == job_status.bid_amount %}
-                {{ app_lang('text_job_transaction_paid_all') }}
-            {% elseif payment.payment_gross < job_status.bid_amount || payment.payment_gross > job_status.bid_amount) %}
-                {{ payment.des  }}
-            {% elseif payment.payment_gross == 0 %}
-                {{ app_lang('text_job_transaction_paid_nothing') }}
+            {% if payment is empty %}
+                <div style="font-size: 14px;" class="col-md-7 text-centered text-left gray-text">
+                    {{ app_lang('text_job_transaction_empty') }}
+                </div>
+            {% else %}
+                {% for payment in payments %}
+                    <div style="font-size: 14px;" class="col-md-7 text-centered text-left gray-text">
+                    {% if payment.payment_gross == job_status.bid_amount %}
+                        {{ app_lang('text_job_transaction_paid_all') }}
+                    {% elseif payment.payment_gross < job_status.bid_amount or payment.payment_gross > job_status.bid_amount %}
+                        {{ payment.des  }}
+                    {% elseif payment.payment_gross == 0 %}
+                        {{ app_lang('text_job_transaction_paid_nothing') }}
+                    {% endif %}
+                    ?>
+                    </div>
+                    <div style="font-size: 14px;" class="col-md-2 text-centered text-right gray-text">${{ payment.payment_gross }}</div>
+                    <div style="font-size: 14px;" class="col-md-3 text-centered text-center gray-text">
+                        {{ app_date( payment.payment_create, ' M j, Y ') }}
+                    </div>
+                {% endfor %}
             {% endif %}
-            ?>
-            </div>
-            <div style="font-size: 14px;" class="col-md-2 text-centered text-right gray-text">${{ payment.payment_gross }}</div>
-            <div style="font-size: 14px;" class="col-md-3 text-centered text-center gray-text">
-                <?php echo date(' M j, Y ', strtotime($payment->payment_create)); ?>
-            </div>
-        {% endfor %}
         </div>
     </div>
 </div>

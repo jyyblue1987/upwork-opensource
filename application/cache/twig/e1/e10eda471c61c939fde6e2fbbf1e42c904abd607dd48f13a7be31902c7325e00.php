@@ -253,25 +253,37 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
                     
                     ";
         // line 129
-        echo "                    
+        echo "                    ";
+        echo twig_include($this->env, $context, "webview/jobs/partials/job-transactions.twig", array("payments" => (isset($context["payments"]) ? $context["payments"] : null), "job_status" => (isset($context["job_status"]) ? $context["job_status"] : null)), false);
+        echo "
+                    
                     <div class=\"row margin-top-5 margin-bottom-2\">
                         <div class=\"col-md-10 col-md-offset-1\">
                             <div class=\"row\">
                                 <div class=\"col-md-6\">
                                     <div class=\"\">
-                                        <input style=\"float: left;margin-left: 0;\" type=\"button\" class=\"btn my_btn btn-cancel\" value=\"Add Milestone\" id =\"2\" onclick=\"editClickedMilestone(this.id)\" />
+                                        <input style=\"float: left;margin-left: 0;\" type=\"button\" class=\"btn my_btn btn-cancel\" value=\"";
+        // line 136
+        echo twig_escape_filter($this->env, app_lang("text_job_btn_add_milestone"), "html", null, true);
+        echo "\" id =\"2\" onclick=\"editClickedMilestone(this.id)\" />
                                     </div>
-                                    <input style=\"margin-left: 15px;\" type=\"button\" class=\"btn my_btn btn-cancel\" value=\"Payment\"  id =\"2\" onclick=\"editClickedPayment(this.id)\" />
+                                    <input style=\"margin-left: 15px;\" type=\"button\" class=\"btn my_btn btn-cancel\" value=\"";
+        // line 138
+        echo twig_escape_filter($this->env, app_lang("text_job_btn_payment"), "html", null, true);
+        echo "\"  id =\"2\" onclick=\"editClickedPayment(this.id)\" />
                                 </div>
                                 <div class=\"col-md-6\">
                                     <div style=\"float: left; position: absolute;right: 143px;\" class=\"cancel_content_btn\">
-                                        <input value=\"Cancel\" class=\"btn my_btn btn-cancel\" type=\"button\"> 
+                                        <input value=\"";
+        // line 142
+        echo twig_escape_filter($this->env, app_lang("text_job_transaction_cancelled"), "html", null, true);
+        echo "\" class=\"btn my_btn btn-cancel\" type=\"button\"> 
                                     </div>
                                     <div class=\"\">
                                         ";
-        // line 144
+        // line 145
         if (($this->getAttribute((isset($context["job_status"]) ? $context["job_status"] : null), "jobstatus", array()) == 1)) {
-            // line 145
+            // line 146
             echo "                                            <a href=\"";
             echo twig_escape_filter($this->env, base_url(), "html", null, true);
             echo "feedback/fixed_client?fmJob=";
@@ -279,11 +291,14 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
             echo "&fuser=";
             echo twig_escape_filter($this->env, (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null), "html", null, true);
             echo "\">
-                                                <input style=\"float: right;margin-right: 0px;\" type=\"button\" class=\"btn my_btn btn-default_activv\" value=\"End Contract\" />
+                                                <input style=\"float: right;margin-right: 0px;\" type=\"button\" class=\"btn my_btn btn-default_activv\" value=\"";
+            // line 147
+            echo twig_escape_filter($this->env, app_lang("text_job_btn_op_end_contract"), "html", null, true);
+            echo "\" />
                                             </a>
                                         ";
         } else {
-            // line 149
+            // line 150
             echo "                                            <a href=\"";
             echo twig_escape_filter($this->env, base_url(), "html", null, true);
             echo "endhourlyfixed/fixed_client?fmJob=";
@@ -291,11 +306,14 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
             echo "&fuser=";
             echo twig_escape_filter($this->env, (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null), "html", null, true);
             echo "\">
-                                                <input style=\"float: right;margin-right: 0px;\" type=\"button\" class=\"btn my_btn btn-default_activv\" value=\"End Contract\" />
+                                                <input style=\"float: right;margin-right: 0px;\" type=\"button\" class=\"btn my_btn btn-default_activv\" value=\"";
+            // line 151
+            echo twig_escape_filter($this->env, app_lang("text_job_btn_op_end_contract"), "html", null, true);
+            echo "\" />
                                             </a>
                                         ";
         }
-        // line 153
+        // line 154
         echo "                                    </div>
                                 </div>
                             </div>
@@ -308,15 +326,15 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
 ";
     }
 
-    // line 164
+    // line 165
     public function block_js($context, array $blocks = array())
     {
-        // line 165
+        // line 166
         echo "    ";
         $this->displayParentBlock("js", $context, $blocks);
         echo "
     ";
-        // line 167
+        // line 168
         echo "    <script src=\"";
         echo twig_escape_filter($this->env, app_modular_js("pages/contract.js"), "html", null, true);
         echo "\"></script>
@@ -335,7 +353,7 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
 
     public function getDebugInfo()
     {
-        return array (  320 => 167,  315 => 165,  312 => 164,  299 => 153,  287 => 149,  275 => 145,  273 => 144,  256 => 129,  243 => 118,  240 => 117,  237 => 116,  234 => 115,  232 => 114,  229 => 113,  227 => 112,  218 => 106,  210 => 101,  198 => 92,  191 => 88,  185 => 85,  161 => 68,  156 => 67,  153 => 66,  150 => 65,  147 => 64,  144 => 63,  142 => 62,  127 => 54,  119 => 48,  113 => 46,  107 => 44,  105 => 43,  96 => 37,  90 => 36,  83 => 32,  70 => 22,  64 => 19,  55 => 12,  52 => 11,  50 => 10,  47 => 9,  44 => 8,  38 => 5,  33 => 4,  30 => 3,  11 => 1,);
+        return array (  338 => 168,  333 => 166,  330 => 165,  317 => 154,  311 => 151,  302 => 150,  296 => 147,  287 => 146,  285 => 145,  279 => 142,  272 => 138,  267 => 136,  256 => 129,  243 => 118,  240 => 117,  237 => 116,  234 => 115,  232 => 114,  229 => 113,  227 => 112,  218 => 106,  210 => 101,  198 => 92,  191 => 88,  185 => 85,  161 => 68,  156 => 67,  153 => 66,  150 => 65,  147 => 64,  144 => 63,  142 => 62,  127 => 54,  119 => 48,  113 => 46,  107 => 44,  105 => 43,  96 => 37,  90 => 36,  83 => 32,  70 => 22,  64 => 19,  55 => 12,  52 => 11,  50 => 10,  47 => 9,  44 => 8,  38 => 5,  33 => 4,  30 => 3,  11 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -476,28 +494,29 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
                     <div class=\"row margin-top-1\"> </div>
                     
                     {# Load transaction line here... #}
+                    {{ include(\"webview/jobs/partials/job-transactions.twig\", {payments: payments, job_status: job_status}, with_context= false) }}
                     
                     <div class=\"row margin-top-5 margin-bottom-2\">
                         <div class=\"col-md-10 col-md-offset-1\">
                             <div class=\"row\">
                                 <div class=\"col-md-6\">
                                     <div class=\"\">
-                                        <input style=\"float: left;margin-left: 0;\" type=\"button\" class=\"btn my_btn btn-cancel\" value=\"Add Milestone\" id =\"2\" onclick=\"editClickedMilestone(this.id)\" />
+                                        <input style=\"float: left;margin-left: 0;\" type=\"button\" class=\"btn my_btn btn-cancel\" value=\"{{ app_lang('text_job_btn_add_milestone') }}\" id =\"2\" onclick=\"editClickedMilestone(this.id)\" />
                                     </div>
-                                    <input style=\"margin-left: 15px;\" type=\"button\" class=\"btn my_btn btn-cancel\" value=\"Payment\"  id =\"2\" onclick=\"editClickedPayment(this.id)\" />
+                                    <input style=\"margin-left: 15px;\" type=\"button\" class=\"btn my_btn btn-cancel\" value=\"{{ app_lang('text_job_btn_payment') }}\"  id =\"2\" onclick=\"editClickedPayment(this.id)\" />
                                 </div>
                                 <div class=\"col-md-6\">
                                     <div style=\"float: left; position: absolute;right: 143px;\" class=\"cancel_content_btn\">
-                                        <input value=\"Cancel\" class=\"btn my_btn btn-cancel\" type=\"button\"> 
+                                        <input value=\"{{ app_lang('text_job_transaction_cancelled') }}\" class=\"btn my_btn btn-cancel\" type=\"button\"> 
                                     </div>
                                     <div class=\"\">
                                         {% if job_status.jobstatus == 1 %}
                                             <a href=\"{{ base_url() }}feedback/fixed_client?fmJob={{ job_id_encoded }}&fuser={{ fuser_id_encoded }}\">
-                                                <input style=\"float: right;margin-right: 0px;\" type=\"button\" class=\"btn my_btn btn-default_activv\" value=\"End Contract\" />
+                                                <input style=\"float: right;margin-right: 0px;\" type=\"button\" class=\"btn my_btn btn-default_activv\" value=\"{{ app_lang('text_job_btn_op_end_contract') }}\" />
                                             </a>
                                         {% else %}
                                             <a href=\"{{ base_url() }}endhourlyfixed/fixed_client?fmJob={{ job_id_encoded }}&fuser={{ fuser_id_encoded }}\">
-                                                <input style=\"float: right;margin-right: 0px;\" type=\"button\" class=\"btn my_btn btn-default_activv\" value=\"End Contract\" />
+                                                <input style=\"float: right;margin-right: 0px;\" type=\"button\" class=\"btn my_btn btn-default_activv\" value=\"{{ app_lang('text_job_btn_op_end_contract') }}\" />
                                             </a>
                                         {% endif %}
                                     </div>
