@@ -5,13 +5,13 @@
 
 {% if job.job_type == "hourly" %}
     
-    {% set end_contract_link = base_url() ~ "endhourlyfixed/hourly_client?fmJob=" ~ job_id_encoded ~ '&' ~ fuser_id_encoded %}
-    {% set job_detail_link   = base_url() ~ "jobs/hourly_client_view?fmJob=" ~ job_id_encoded ~ '&' ~ fuser_id_encoded %}
+    {% set end_contract_link = base_url() ~ "endhourlyfixed/hourly_client?fmJob=" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
+    {% set job_detail_link   = base_url() ~ "jobs/hourly_client_view?fmJob=" ~ job_id_encoded ~ '&fuser' ~ fuser_id_encoded %}
 
 {% else %}
     
-    {% set end_contract_link = base_url() ~ "endhourlyfixed/fixed_client?fmJob=" ~ job_id_encoded ~ '&' ~ fuser_id_encoded %}
-    {% set job_detail_link   = base_url() ~ "endhourlyfixed/hourly_client?fmJob=" ~ job_id_encoded ~ '&' ~ fuser_id_encoded %}
+    {% set end_contract_link = base_url() ~ "endhourlyfixed/fixed_client?fmJob=" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
+    {% set job_detail_link   = base_url() ~ "jobs/fixed_client_view?fmJob=" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
     
 {% endif %}
                 

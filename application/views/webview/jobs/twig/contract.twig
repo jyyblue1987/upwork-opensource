@@ -1,0 +1,16 @@
+{% extends "webview/layout/twig/layout.twig" %}
+
+{% block styles %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/contract.css") }}">
+{% endblock %}
+
+{% block content %}
+    <h1>Contract page</h1>
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    {# <!-- <script data-main="{{ app_modular_js("mystaff") }}" src="{{ app_modular_js("lib/require.dev.js") }}"></script> --> #}
+    <script src="{{ app_modular_js("pages/contract.js") }}"></script>
+{% endblock %}

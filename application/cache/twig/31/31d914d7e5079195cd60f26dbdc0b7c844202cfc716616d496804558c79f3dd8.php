@@ -33,10 +33,10 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
             echo "    
     ";
             // line 8
-            $context["end_contract_link"] = ((((base_url() . "endhourlyfixed/hourly_client?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
+            $context["end_contract_link"] = ((((base_url() . "endhourlyfixed/hourly_client?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&fuser=") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
             // line 9
             echo "    ";
-            $context["job_detail_link"] = ((((base_url() . "jobs/hourly_client_view?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
+            $context["job_detail_link"] = ((((base_url() . "jobs/hourly_client_view?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&fuser") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
             // line 10
             echo "
 ";
@@ -45,10 +45,10 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
             echo "    
     ";
             // line 13
-            $context["end_contract_link"] = ((((base_url() . "endhourlyfixed/fixed_client?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
+            $context["end_contract_link"] = ((((base_url() . "endhourlyfixed/fixed_client?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&fuser=") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
             // line 14
             echo "    ";
-            $context["job_detail_link"] = ((((base_url() . "endhourlyfixed/hourly_client?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
+            $context["job_detail_link"] = ((((base_url() . "jobs/fixed_client_view?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&fuser=") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
             // line 15
             echo "    
 ";
@@ -107,8 +107,10 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
                                 <span class=\"caret\"></span>
                             </button>
                             <ul style=\"left: -156px;\" class=\"dropdown-menu\">
-                                <li><a href=\"#\">";
+                                <li><a href=\"";
         // line 45
+        echo twig_escape_filter($this->env, (isset($context["job_detail_link"]) ? $context["job_detail_link"] : null), "html", null, true);
+        echo "\">";
         echo twig_escape_filter($this->env, app_lang("text_job_btn_op_give_milestone"), "html", null, true);
         echo "</a></li>
                                 <li><a href=\"#\">";
@@ -164,7 +166,7 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
 
     public function getDebugInfo()
     {
-        return array (  146 => 60,  139 => 58,  124 => 48,  120 => 47,  116 => 46,  112 => 45,  101 => 37,  94 => 33,  80 => 32,  69 => 24,  64 => 22,  57 => 17,  53 => 15,  50 => 14,  48 => 13,  45 => 12,  41 => 10,  38 => 9,  36 => 8,  33 => 7,  31 => 6,  28 => 5,  26 => 4,  24 => 3,  22 => 2,  19 => 1,);
+        return array (  148 => 60,  141 => 58,  126 => 48,  122 => 47,  118 => 46,  112 => 45,  101 => 37,  94 => 33,  80 => 32,  69 => 24,  64 => 22,  57 => 17,  53 => 15,  50 => 14,  48 => 13,  45 => 12,  41 => 10,  38 => 9,  36 => 8,  33 => 7,  31 => 6,  28 => 5,  26 => 4,  24 => 3,  22 => 2,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -184,13 +186,13 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
 
 {% if job.job_type == \"hourly\" %}
     
-    {% set end_contract_link = base_url() ~ \"endhourlyfixed/hourly_client?fmJob=\" ~ job_id_encoded ~ '&' ~ fuser_id_encoded %}
-    {% set job_detail_link   = base_url() ~ \"jobs/hourly_client_view?fmJob=\" ~ job_id_encoded ~ '&' ~ fuser_id_encoded %}
+    {% set end_contract_link = base_url() ~ \"endhourlyfixed/hourly_client?fmJob=\" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
+    {% set job_detail_link   = base_url() ~ \"jobs/hourly_client_view?fmJob=\" ~ job_id_encoded ~ '&fuser' ~ fuser_id_encoded %}
 
 {% else %}
     
-    {% set end_contract_link = base_url() ~ \"endhourlyfixed/fixed_client?fmJob=\" ~ job_id_encoded ~ '&' ~ fuser_id_encoded %}
-    {% set job_detail_link   = base_url() ~ \"endhourlyfixed/hourly_client?fmJob=\" ~ job_id_encoded ~ '&' ~ fuser_id_encoded %}
+    {% set end_contract_link = base_url() ~ \"endhourlyfixed/fixed_client?fmJob=\" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
+    {% set job_detail_link   = base_url() ~ \"jobs/fixed_client_view?fmJob=\" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
     
 {% endif %}
                 
@@ -221,7 +223,7 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
                                 <span class=\"caret\"></span>
                             </button>
                             <ul style=\"left: -156px;\" class=\"dropdown-menu\">
-                                <li><a href=\"#\">{{ app_lang('text_job_btn_op_give_milestone') }}</a></li>
+                                <li><a href=\"{{ job_detail_link }}\">{{ app_lang('text_job_btn_op_give_milestone') }}</a></li>
                                 <li><a href=\"#\">{{ app_lang('text_job_btn_op_view_contact') }}</a></li>
                                 <li><a href=\"#\">{{ app_lang('text_job_btn_op_view_profile') }}</a></li>
                                 <li><a href=\"{{ end_contract_link }}\">{{ app_lang('text_job_btn_op_end_contract') }}</a></li>
