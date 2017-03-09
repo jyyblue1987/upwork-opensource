@@ -8,7 +8,6 @@ class Profile extends CI_Controller {
         parent::__construct('');
         $this->load->model(array('common_mod', 'Category', 'profile/ProfileModel'));
         $this->load->model(array('timezone'));
-        $this->load->model(array('time_zone_model'));
     }
 
      public function index($username=null) {
@@ -45,9 +44,14 @@ class Profile extends CI_Controller {
             $data = $this->common_mod->getColsVal(WEB_USER_TABLE, $cols, $condition);
 
             $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
-            $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
-            /*print_r($timezone);
-            die();*/
+            if (empty($this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone'])))
+            {
+                $gmt = 'GMT'.date('P');
+
+                $timezone = $this->timezone->getByGMT($gmt);
+            }
+            else
+                $timezone = $this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone']);
 
             if (!empty($data['rows'][0])) {
                 //get country//

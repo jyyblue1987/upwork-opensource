@@ -18,6 +18,17 @@ class Timezone extends CI_Model
         } else {
             return null;
         }
+    }
 
+    public function getByGMT($GMT)
+    {
+        $this->db->where('gmt', $GMT);
+
+        $query = $this->db->get('timezones');
+
+        if ($query->num_rows() > 0) {
+          return $query->row_array();
+        }
+        return array();
     }
 }
