@@ -1066,7 +1066,7 @@ class Jobs extends Winjob_Controller {
      * freelancer_client_view and freelancer_hourly_view method in this 
      * controller.
      */
-    public function contract(){
+    public function contracts(){
         $this->authorized();
         
         try{

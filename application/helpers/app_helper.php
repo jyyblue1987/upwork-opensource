@@ -168,9 +168,18 @@ if( ! function_exists('app_lang')){
     
     /**
      * Helper to fetch language item
+     * 
+     * @param string $line
+     * @param array $data
+     * @return string
      */
-    function app_lang($line){
+    function app_lang($line, $data = null){
         $line = get_instance()->lang->line($line);
+        
+        if($data !== null && is_array( $data )){
+            return call_user_func_array('sprintf', $data);
+        }
+        
         return $line;
     }
 }
@@ -188,6 +197,21 @@ if( ! function_exists('app_user_img') ){
         }else{
             return "http://www.winjob.com/assets/user.png";
         }
+    }
+}
+
+if( ! function_exists('app_date')){
+    
+    
+    /**
+     * Helper to format the date in twig template
+     * 
+     * @param string $date (It should be compatible with strtotime php function
+     * @param string $format
+     * @return string
+     */
+    function app_date($date, $format ){
+        return date($format, strtotime($date));
     }
 }
 

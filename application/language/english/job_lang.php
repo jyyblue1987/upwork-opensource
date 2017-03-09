@@ -15,8 +15,8 @@ $lang['text_job_btn_op_give_milestone'] = 'Give milestone';
 $lang['text_job_btn_op_view_contact']   = 'View contact';
 $lang['text_job_btn_op_view_profile']   = 'View Profile';
 $lang['text_job_btn_op_end_contract']   = 'End contract';
-$lang['text_job_link_detail']               = 'Job Details';
-$lang['text_job_paid_of']                   = 'Paid of $%.2f';
+$lang['text_job_link_detail']           = 'Job Details';
+$lang['text_job_paid_of']               = 'Paid of $%.2f';
 
 $lang['text_job_runtime_exception_message'] =  'An internal error has occured when accessing job page. Please wait a minute and try again.';
 $lang['text_job_total_hour'] =  '<b>%.2f</b> hrs this week';
@@ -29,3 +29,19 @@ $lang['text_job_modal_btn_send'] = 'Send';
 $lang['text_job_my_hired'] = 'My Hired';
 $lang['text_job_past_hired'] = 'Past Hires';
 $lang['text_job_offer_sent'] = 'Offers Sent';
+
+$lang['text_job_since'] = 'Since %s';
+$lang['text_job_status_state'] = 'Status : %s';
+$lang['text_job_state_ended'] = 'Ended';
+$lang['text_job_state_actived'] = 'Active';
+
+$lang['text_job_contract_amount'] = 'Amount';
+$lang['text_job_contract_paid'] = 'Paid';
+$lang['text_job_contract_remaining_amount'] = 'Remaining';
+
+$lang['text_job_transaction_description'] = 'Description';
+$lang['text_job_transaction_amount'] = 'Amount';
+$lang['text_job_transaction_date'] = 'Date';
+
+$lang['text_job_transaction_paid_all'] = 'Paid All';
+$lang['text_job_transaction_paid_nothing'] = 'Paid Nothing';

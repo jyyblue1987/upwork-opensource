@@ -1,3 +1,87 @@
+<style>
+
+    .message_lists{
+
+        max-height: 250px;
+
+        overflow-y: scroll;
+
+        overflow-x: hidden;
+
+        min-height: 250px;
+
+    }
+
+    .m_list.scroll-ul > li {
+
+        display: block;
+
+        margin: 10px 0 21px 5px;
+
+        overflow: hidden;
+
+        width: 100%;
+
+        border-bottom: 1px solid #dddddf;
+
+        padding-bottom: 4px;
+
+    }
+
+    .chat-identity .img-circle {
+
+        float: left;
+
+        margin-right: 14px;
+
+    }
+
+    #conversion_message > input {
+
+        background: rgb(28, 167, 219) none repeat scroll 0 0;
+
+        float: right;
+
+        font-size: 21px;
+
+        height: 50px;
+
+        margin-top: 4%;
+
+        vertical-align: middle;
+
+        width: 19%;
+
+    }
+
+    #conversion_message textarea {
+
+        float: left;
+
+        height: 100px;
+
+        width: 80%;
+
+    }
+
+    .modal-body {
+
+        overflow: hidden;padding-bottom: 20px !important;
+
+    }
+
+
+
+    input.btn-default_activv{background:#028FFC;color:#fff;}
+
+    input.btn-default_activv:hover{background:#286090;color:#fff;}
+
+    input.btn-cancel{border:1px solid #CED0D4;color:#1CA7DB;background:#fff;}
+
+    input.btn-cancel:hover{border:1px solid transparent;color:#fff;background:#286090;}
+
+</style>
+
 <section id="big_header" style="margin-top: 36px; margin-bottom: 40px; height: auto;margin-left: 14px;">
 
 

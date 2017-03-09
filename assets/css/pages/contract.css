@@ -53,3 +53,10 @@ input.btn-default_activv{background:#028FFC;color:#fff;}
 input.btn-default_activv:hover{background:#286090;color:#fff;}
 input.btn-cancel{border:1px solid #CED0D4;color:#1CA7DB;background:#fff;}
 input.btn-cancel:hover{border:1px solid transparent;color:#fff;background:#286090;}
+
+.contract-section{
+    margin-top: 36px; 
+    margin-bottom: 40px; 
+    height: auto;
+    margin-left: 14px;
+}
