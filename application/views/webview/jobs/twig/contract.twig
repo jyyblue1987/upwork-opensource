@@ -49,9 +49,11 @@
                         </div>
                         <div class="col-md-3 col-md-offset-1">
                             <div class="msg_btnx hour_btn">
-                                <input type="button" class="btn-primary transparent-btn big_mass_button" 
-                                       value="Message" 
-                                       onclick="loadmessage({{ job_status.bid_id }}, {{ job_status.fuser_id }}, {{ job_status.job_id }})" 
+                                <input type="button" class="btn-primary transparent-btn big_mass_button _job_btn_message" 
+                                       value="{{ app_lang('text_job_btn_message') }}" 
+                                       data-bid="{{ job_status.bid_id }}"
+                                       data-uid="{{ job_status.fuser_id }}"
+                                       data-jid="{{ job_status.job_id }}" 
                                        />
                             </div>
                         </div>
@@ -133,9 +135,20 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="">
-                                        <input style="float: left;margin-left: 0;" type="button" class="btn my_btn btn-cancel" value="{{ app_lang('text_job_btn_add_milestone') }}" id ="2" onclick="editClickedMilestone(this.id)" />
+                                        <input style="float: left;margin-left: 0;" type="button" class="btn my_btn btn-cancel _job_add_milestone" 
+                                               value="{{ app_lang('text_job_btn_add_milestone') }}" 
+                                               id ="2" 
+                                               data-buserid="{{ job_status.buser_id }}"
+                                               data-fuserid="{{ job_status.fuser_id }}"
+                                               data-jobid="{{ job_status.job_id }}" />
                                     </div>
-                                    <input style="margin-left: 15px;" type="button" class="btn my_btn btn-cancel" value="{{ app_lang('text_job_btn_payment') }}"  id ="2" onclick="editClickedPayment(this.id)" />
+                                    <input style="margin-left: 15px;" type="button" class="btn my_btn btn-cancel _job_btn_payment" 
+                                           value="{{ app_lang('text_job_btn_payment') }}"  
+                                           id ="2"
+                                           data-buserid="{{ job_status.buser_id }}"
+                                           data-fuserid="{{ job_status.fuser_id }}"
+                                           data-jobid="{{ job_status.job_id }}"
+                                           />
                                 </div>
                                 <div class="col-md-6">
                                     <div style="float: left; position: absolute;right: 143px;" class="cancel_content_btn">
@@ -160,10 +173,21 @@
             </div>
         </div>
     </section>
+    
+    {{ include('webview/modals/message-conversion-modal.twig', {'webuser_fname': job_status.webuser_fname, 'webuser_lname': job_status.webuser_lname , 'job_title': job_title }) }}
+        
+    {{ include("webview/modals/milestone-modal.twig") }}
+
+    {{ include("webview/modals/payment-modal.twig") }}
+    
 {% endblock %}
 
 {% block js %}
-    {{ parent() }}
-    {# <!-- <script data-main="{{ app_modular_js("mystaff") }}" src="{{ app_modular_js("lib/require.dev.js") }}"></script> --> #}
-    <script src="{{ app_modular_js("pages/contract.js") }}"></script>
+    
+    {# this variable defines the asset/modular/pages file to load #}
+    <script> var page = 'contract'; </script>
+    
+    <script data-main="{{ app_modular_js("winjob") }}" src="{{ app_modular_js("lib/require.dev.js") }}"></script>
+    <script src="{{ site_url("assets/js/vendor/modernizr-2.8.3.min.js") }}"></script>
+    {# <script src="{{ app_modular_js("pages/contract.js") }}"></script> #}
 {% endblock %}

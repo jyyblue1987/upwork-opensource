@@ -6,8 +6,13 @@
 //except for 'app' ones, which are in a sibling
 //directory.
 requirejs.config({
-    baseUrl: siteurl + 'assets/modular/js/lib',
+    baseUrl: site_url + 'assets/modular/js/lib',
+    shim : {
+        "bootstrap" : { "deps" :['jquery'] }
+    },
     paths: {
-        app: '../app'
+        pages: '../pages',
+        bootstrap: '../lib/bootstrap',
+        jquery: '../lib/jquery-2.2.3'
     }
 });

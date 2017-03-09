@@ -10,6 +10,7 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
         $this->parent = false;
 
         $this->blocks = array(
+            'title' => array($this, 'block_title'),
             'styles' => array($this, 'block_styles'),
             'content' => array($this, 'block_content'),
             'js' => array($this, 'block_js'),
@@ -24,25 +25,29 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
     <head>
         <meta charset=\"utf-8\">
         <meta http-equiv=\"x-ua-compatible\" content=\"ie=edge\">
-        <title>HOME</title>
+        ";
+        // line 7
+        echo "        <title>";
+        $this->displayBlock('title', $context, $blocks);
+        echo "</title>
         <meta name=\"description\" content=\"\">
 \t<meta name=\"viewport\" content=\"width=device-width,height=device-height, initial-scale=1, user-scalable=no\">
         <link rel=\"apple-touch-icon\" href=\"";
-        // line 9
+        // line 10
         echo twig_escape_filter($this->env, site_url("assets/apple-touch-icon.png"), "html", null, true);
         echo "\">        
         
-        <!-- Block to load common style which can be overrided by a specific page -->
+        <!-- Block to load common style which can be overrided|extended by a specific page -->
         ";
-        // line 12
+        // line 13
         $this->displayBlock('styles', $context, $blocks);
-        // line 29
+        // line 30
         echo "        
     </head>
     <body>
         
         ";
-        // line 33
+        // line 34
         echo twig_include($this->env, $context, "webview/layout/twig/partials/header.twig");
         echo "
         
@@ -50,150 +55,160 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
             <div class=\"container\">
                 <!-- Block to load content page -->
                 ";
-        // line 38
-        $this->displayBlock('content', $context, $blocks);
         // line 39
+        $this->displayBlock('content', $context, $blocks);
+        // line 40
         echo "            </div>
         </section>
             
         ";
-        // line 42
+        // line 43
         echo twig_include($this->env, $context, "webview/layout/twig/partials/footer.twig");
         echo "
         
         
         <script> var site_url=\"";
-        // line 45
+        // line 46
         echo twig_escape_filter($this->env, site_url(), "html", null, true);
         echo "\"; </script>
         
-        <!-- Block to load common scripts which can be overrided by a specific page  -->
+        <!-- Block to load common scripts which can be overrided|extended by a specific page  -->
         ";
-        // line 48
+        // line 49
         $this->displayBlock('js', $context, $blocks);
-        // line 62
+        // line 66
         echo "        
     </body>
 </html>";
     }
 
-    // line 12
+    // line 7
+    public function block_title($context, array $blocks = array())
+    {
+        echo "HOME";
+    }
+
+    // line 13
     public function block_styles($context, array $blocks = array())
     {
-        // line 13
+        // line 14
         echo "            <link rel=\"stylesheet\" href=\"";
         echo twig_escape_filter($this->env, site_url("assets/css/bootstrap.min.css"), "html", null, true);
         echo "\">
             <link rel=\"stylesheet\" href=\"";
-        // line 14
+        // line 15
         echo twig_escape_filter($this->env, site_url("assets/css/font-awesome.min.css"), "html", null, true);
         echo "\">
             <link rel=\"stylesheet\" href=\"";
-        // line 15
+        // line 16
         echo twig_escape_filter($this->env, site_url("assets/css/fonts.css"), "html", null, true);
         echo "\">
             <link rel=\"stylesheet\" href=\"";
-        // line 16
+        // line 17
         echo twig_escape_filter($this->env, site_url("assets/css/header.css"), "html", null, true);
         echo "\">
             <link rel=\"stylesheet\" href=\"";
-        // line 17
+        // line 18
         echo twig_escape_filter($this->env, site_url("assets/css/croppic.css"), "html", null, true);
         echo "\">
             <link rel=\"stylesheet\" href=\"";
-        // line 18
+        // line 19
         echo twig_escape_filter($this->env, site_url("assets/css/footer.css"), "html", null, true);
         echo "\">
             <link rel=\"stylesheet\" href=\"";
-        // line 19
+        // line 20
         echo twig_escape_filter($this->env, site_url("assets/css/bootstrap-socil.css"), "html", null, true);
         echo "\">
             <link rel=\"stylesheet\" href=\"";
-        // line 20
+        // line 21
         echo twig_escape_filter($this->env, site_url("assets/css/normalize.css"), "html", null, true);
         echo "\">
             <link rel=\"stylesheet\" href=\"";
-        // line 21
+        // line 22
         echo twig_escape_filter($this->env, site_url("assets/css/style.css"), "html", null, true);
         echo "\">
             <link rel=\"stylesheet\" href=\"";
-        // line 22
+        // line 23
         echo twig_escape_filter($this->env, site_url("assets/css/bootstrap-social.css"), "html", null, true);
         echo "\">
             <link href=\"";
-        // line 23
+        // line 24
         echo twig_escape_filter($this->env, site_url("assets/range/jquery-ui.css"), "html", null, true);
         echo "\" rel=\"stylesheet\">
             <link rel='stylesheet' media='screen and (min-width: 0px) and (max-width: 5000px)' href='";
-        // line 24
+        // line 25
         echo twig_escape_filter($this->env, site_url("assets/css/lg-style.css"), "html", null, true);
         echo "' />
             <link rel='stylesheet' media='screen and (min-width: 0px) and (max-width: 1199px)' href='";
-        // line 25
+        // line 26
         echo twig_escape_filter($this->env, site_url("assets/css/md-style.css"), "html", null, true);
         echo "' />
             <link rel='stylesheet' media='screen and (min-width: 0px) and (max-width: 991px)' href='";
-        // line 26
+        // line 27
         echo twig_escape_filter($this->env, site_url("assets/css/sm-style.css"), "html", null, true);
         echo "' />
             <link rel='stylesheet' media='screen and (min-width: 0px) and (max-width: 767px)' href='";
-        // line 27
+        // line 28
         echo twig_escape_filter($this->env, site_url("assets/css/xs-style.css"), "html", null, true);
         echo "' />
         ";
     }
 
-    // line 38
+    // line 39
     public function block_content($context, array $blocks = array())
     {
     }
 
-    // line 48
+    // line 49
     public function block_js($context, array $blocks = array())
     {
-        // line 49
+        // line 50
         echo "            <script src=\"";
         echo twig_escape_filter($this->env, site_url("assets/js/vendor/jquery-2.2.3.min.js"), "html", null, true);
         echo "\"></script>
             <script src=\"";
-        // line 50
+        // line 51
         echo twig_escape_filter($this->env, site_url("assets/js/bootstrap.min.js"), "html", null, true);
         echo "\"></script>
-            <script src=\"";
-        // line 51
+            ";
+        // line 53
+        echo "            <script src=\"";
         echo twig_escape_filter($this->env, site_url("assets/js/plugins.js"), "html", null, true);
         echo "\"></script>        
             <script src=\"";
-        // line 52
+        // line 54
         echo twig_escape_filter($this->env, site_url("assets/js/bootstrap-datepicker.js"), "html", null, true);
         echo "\"></script>
-            <script src=\"";
-        // line 53
+            ";
+        // line 56
+        echo "            <script src=\"";
         echo twig_escape_filter($this->env, site_url("assets/js/main.js"), "html", null, true);
         echo "\"></script>
             <script src=\"";
-        // line 54
+        // line 57
         echo twig_escape_filter($this->env, site_url("assets/range/jquery_range.js"), "html", null, true);
         echo "\"></script>
             <script src=\"";
-        // line 55
+        // line 58
         echo twig_escape_filter($this->env, site_url("assets/range/jquery-ui.js"), "html", null, true);
         echo "\"> </script>
             <script src=\"";
-        // line 56
+        // line 59
         echo twig_escape_filter($this->env, site_url("assets/global/vendor/formvalidation/formValidation.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
             <script src=\"";
-        // line 57
+        // line 60
         echo twig_escape_filter($this->env, site_url("assets/js/reCaptcha2.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
             <script src=\"";
-        // line 58
+        // line 61
         echo twig_escape_filter($this->env, site_url("assets/global/vendor/formvalidation/framework/bootstrap.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
-            <script src=\"https://use.fontawesome.com/73754fb9b3.js\"></script>
+            ";
+        // line 63
+        echo "            <script src=\"https://use.fontawesome.com/73754fb9b3.js\"></script>
             <script src=\"";
-        // line 60
+        // line 64
         echo twig_escape_filter($this->env, site_url("assets/js/vendor/modernizr-2.8.3.min.js"), "html", null, true);
         echo "\"></script>
         ";
@@ -211,7 +226,7 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
 
     public function getDebugInfo()
     {
-        return array (  197 => 60,  192 => 58,  188 => 57,  184 => 56,  180 => 55,  176 => 54,  172 => 53,  168 => 52,  164 => 51,  160 => 50,  155 => 49,  152 => 48,  147 => 38,  141 => 27,  137 => 26,  133 => 25,  129 => 24,  125 => 23,  121 => 22,  117 => 21,  113 => 20,  109 => 19,  105 => 18,  101 => 17,  97 => 16,  93 => 15,  89 => 14,  84 => 13,  81 => 12,  75 => 62,  73 => 48,  67 => 45,  61 => 42,  56 => 39,  54 => 38,  46 => 33,  40 => 29,  38 => 12,  32 => 9,  22 => 1,);
+        return array (  212 => 64,  209 => 63,  205 => 61,  201 => 60,  197 => 59,  193 => 58,  189 => 57,  184 => 56,  180 => 54,  175 => 53,  171 => 51,  166 => 50,  163 => 49,  158 => 39,  152 => 28,  148 => 27,  144 => 26,  140 => 25,  136 => 24,  132 => 23,  128 => 22,  124 => 21,  120 => 20,  116 => 19,  112 => 18,  108 => 17,  104 => 16,  100 => 15,  95 => 14,  92 => 13,  86 => 7,  80 => 66,  78 => 49,  72 => 46,  66 => 43,  61 => 40,  59 => 39,  51 => 34,  45 => 30,  43 => 13,  37 => 10,  30 => 7,  23 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -229,12 +244,13 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
     <head>
         <meta charset=\"utf-8\">
         <meta http-equiv=\"x-ua-compatible\" content=\"ie=edge\">
-        <title>HOME</title>
+        {# Specific page can set its own title #}
+        <title>{% block title %}HOME{% endblock %}</title>
         <meta name=\"description\" content=\"\">
 \t<meta name=\"viewport\" content=\"width=device-width,height=device-height, initial-scale=1, user-scalable=no\">
         <link rel=\"apple-touch-icon\" href=\"{{ site_url(\"assets/apple-touch-icon.png\") }}\">        
         
-        <!-- Block to load common style which can be overrided by a specific page -->
+        <!-- Block to load common style which can be overrided|extended by a specific page -->
         {% block styles %}
             <link rel=\"stylesheet\" href=\"{{ site_url(\"assets/css/bootstrap.min.css\") }}\">
             <link rel=\"stylesheet\" href=\"{{ site_url(\"assets/css/font-awesome.min.css\") }}\">
@@ -270,18 +286,21 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
         
         <script> var site_url=\"{{ site_url() }}\"; </script>
         
-        <!-- Block to load common scripts which can be overrided by a specific page  -->
+        <!-- Block to load common scripts which can be overrided|extended by a specific page  -->
         {% block js %}
             <script src=\"{{ site_url(\"assets/js/vendor/jquery-2.2.3.min.js\") }}\"></script>
             <script src=\"{{ site_url(\"assets/js/bootstrap.min.js\") }}\"></script>
+            {# plugins should only be loaded on development environment #}
             <script src=\"{{ site_url(\"assets/js/plugins.js\") }}\"></script>        
             <script src=\"{{ site_url(\"assets/js/bootstrap-datepicker.js\") }}\"></script>
+            {# main is for setup datapicker and slider_range #}
             <script src=\"{{ site_url(\"assets/js/main.js\") }}\"></script>
             <script src=\"{{ site_url(\"assets/range/jquery_range.js\") }}\"></script>
             <script src=\"{{ site_url(\"assets/range/jquery-ui.js\") }}\"> </script>
             <script src=\"{{ site_url(\"assets/global/vendor/formvalidation/formValidation.js\") }}\" type=\"text/javascript\"></script>
             <script src=\"{{ site_url(\"assets/js/reCaptcha2.min.js\") }}\" type=\"text/javascript\"></script>
             <script src=\"{{ site_url(\"assets/global/vendor/formvalidation/framework/bootstrap.js\") }}\" type=\"text/javascript\"></script>
+            {# why do we use this js file ? #}
             <script src=\"https://use.fontawesome.com/73754fb9b3.js\"></script>
             <script src=\"{{ site_url(\"assets/js/vendor/modernizr-2.8.3.min.js\") }}\"></script>
         {% endblock %}

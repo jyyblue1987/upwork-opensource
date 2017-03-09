@@ -20,8 +20,9 @@ function editClickedPayment(clicked_id) {
 }
 
 function loadmessage(b_id, u_id, j_id, u_name, j_title) {
-    $('.user_name').html(u_name);
-    $('.job_title').html(j_title);
+    
+    $('.chat_user_name').html(u_name);
+    $('.chat_job_title').html(j_title);
 
     var modal = document.getElementById('message_convertionModal');
     $.post(site_url + "jobconvrsation/message_from_superhero", {job_bid_id: b_id, user_id: u_id, job_id: j_id}, function (data) {
@@ -38,6 +39,10 @@ function hidemessagepopup() {
     var modal = document.getElementById('message_convertionModal');
     modal.style.display = "none";
 }
+
+$('._js_modal_close').on('click', function(){
+    hidemessagepopup();
+}); 
 
 jQuery("#conversion_message").on("submit", function (e) {
     e.preventDefault();

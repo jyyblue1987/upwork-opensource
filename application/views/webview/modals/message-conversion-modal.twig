@@ -1,13 +1,36 @@
+{# 
+  This partial can be customized by several variables : 
+     -> webuser_fname  
+     -> webuser_lname
+     -> job_title
+  
+  and it can be include in another view like :
+    
+{{ include(parital_path, {'webuser_fname': value, 'webuser_lname': value , 'job_title': value }) }}
+
+#}
 <div id="message_convertionModal" class="modal custom_modal">
     <div class="modal-dialog cccc_massage_box">
         <div style="padding: 30px;padding-bottom: 60px;" class="modal-content">
-            <button type="button" class="close" data-dismiss="modal" onclick="hidemessagepopup();">&times;</button>
+            <button type="button" class="close _js_modal_close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">{{ app_lang('text_job_modal_message') }}</h4>
             <div class="modal-header">
                 <div class="chat-screen">
                     <div class="chat-details-topbar">
-                        <h3 class="user_name"></h3>
-                        <h5 class="job_title"></h5>
+                        <h3 class="chat_user_name">
+                            {% if webuser_fname is defined %}
+                            {{ webuser_fname }}
+                            {% endif %}
+                            
+                            {% if webuser_lname is defined %}
+                            &nbsp;{{ webuser_lname }}
+                            {% endif %}
+                        </h3>
+                        <h5 class="chat_job_title">
+                            {% if job_title is defined %}
+                            {{ job_title }}
+                            {% endif %}
+                        </h5>
                     </div>
                 </div>
             </div>
