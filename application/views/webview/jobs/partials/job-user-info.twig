@@ -1,0 +1,18 @@
+<div class="col-md-4">
+    <div class="row">
+        <div class="col-md-5" style="padding-left:-20px">
+            <div class="st_img freelancer_img">
+                <img src="{{ app_user_img(job.webuser_picture) }}" width="85" height="68">
+            </div>
+        </div>
+        <div class="col-md-7 nopadding" style="padding-left: -15px !important">
+            <div class="user_name" style="padding-left:2px">
+                <h5 style="margin-bottom:0">
+                    {{ job.webuser_fname }}  {{ job.webuser_lname }}
+                    <br/>
+                </h5>
+                <span>{{ job.country_name }}</span>
+            </div>
+        </div>
+    </div>
+</div>

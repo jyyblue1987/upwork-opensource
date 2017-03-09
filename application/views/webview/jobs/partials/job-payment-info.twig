@@ -1,0 +1,41 @@
+{% if job.job_type == 'hourly' %}
+    <div class="col-md-4 text-center hour_info">
+
+        {% set job_id     = job.job_id %}
+        {% set fuser_id   = job.fuser_id %}
+        {% set total_hour = 0 %}
+
+        {% if freelancer_job_hour[ job_id ] is defined and freelancer_job_hour[ job_id ][ fuser_id] is defined and freelancer_job_hour[ job_id ][ fuser_id]  > 0 %}
+            {% set total_hour = freelancer_job_hour[job_id][fuser_id] %}
+            {{ app_lang('text_job_total_hour')|format( total_hour )|raw }}
+        {% else %}
+            {{ app_lang('text_job_total_hour')|format( '0.00' )|raw }}
+        {% endif %}
+
+        <br />
+
+        {% if job.offer_bid_amount %}
+            {% set amount   = job.offer_bid_amount %}
+        {% else %}
+            {% set amount   = job.bid_amount %}
+        {% endif %}
+
+        @ {{ app_lang('text_job_by_hours')|format(amount) }} = <b> ${{ amount * total_hour }}</b>
+
+        <br />
+        <p style="margin:0 !important;">{{ app_lang('text_job_contract_hold') }}</p>
+        <hr>
+
+    </div>
+{% else %}
+    <div class="pay_btn">
+        <div class="col-md-4 text-center">
+            <span>
+                <b>{{ job.fixedpay_amount }}</b> 
+                {{ app_lang('text_job_paid_of')|format(job.hired_on) }}
+                <br />
+                <p style="margin:0 !important;">{{ app_lang('text_job_contract_hold') }}</p>
+            </span>
+        </div>
+    </div>
+{% endif %}

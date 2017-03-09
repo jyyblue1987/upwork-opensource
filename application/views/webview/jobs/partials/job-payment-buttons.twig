@@ -1,0 +1,18 @@
+{% if job.job_type == 'hourly' %}
+    <div class="ms_hr_work_diary">
+        <div class="mystaff_work_diary hour_btn work_diary_btn">
+            <a href="{{ base_url() }}jobs/workdairy_client?fmJob={{ job_id_encoded }}&fuser={{ fuser_id_encoded }}">
+            <input style="margin-right: -1px;" type="button" class="btn btn-primary form-btn" value="{{ app_lang('text_job_btn_work_diary') }}" /></a>
+        </div>
+    </div>
+{% else %}
+    <div class="ms_pay_butt">
+        <div class="mystaff_pay_btnx payment_btn">
+            <input type="button" class="btn btn-primary form-btn my-btn"
+                   value="{{ app_lang('text_job_btn_payment') }}" 
+                   id="2" 
+                   onclick="editClickedPayment(this.id)" />
+        </div>
+    </div>    
+{% endif %}
+

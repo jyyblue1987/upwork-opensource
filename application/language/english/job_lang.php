@@ -11,6 +11,7 @@ $lang['text_job_mystaff_not_hired']    = '! You have no hired freelancers in thi
 $lang['text_job_btn_message']      = 'Message';
 $lang['text_job_btn_work_diary']   = 'Work Diary';
 
+$lang['text_job_btn_op_give_milestone'] = 'Give milestone';
 $lang['text_job_btn_op_view_contact']   = 'View contact';
 $lang['text_job_btn_op_view_profile']   = 'View Profile';
 $lang['text_job_btn_op_end_contract']   = 'End contract';

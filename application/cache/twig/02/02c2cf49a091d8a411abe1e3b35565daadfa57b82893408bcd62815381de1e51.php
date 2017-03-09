@@ -111,7 +111,7 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
         
         <section class=\"main_area\"  id=\"mid_contant\"  >
             <div class=\"container\">
-                <!-- Block to load content page style -->
+                <!-- Block to load content page -->
                 ";
         // line 40
         $this->displayBlock('content', $context, $blocks);
@@ -262,7 +262,7 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
         
         <section class=\"main_area\"  id=\"mid_contant\"  >
             <div class=\"container\">
-                <!-- Block to load content page style -->
+                <!-- Block to load content page -->
                 {% block content %}{% endblock %}
             </div>
         </section>
