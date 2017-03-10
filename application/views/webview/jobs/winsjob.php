@@ -221,7 +221,7 @@
                                         <div class="col-md-12">
                                             <div class="job_detais">
                                                 <a href="<?php echo base_url() ?>jobs/contracts?fmJob=<?php echo base64_encode($data->job_id); ?>"> Job Details </a> -
-                                                <span><b><?= $data->hire_title ?></b></span>
+                                                <span><b><?php echo character_limiter($data->hire_title, 97); ?></b></span>
                                             </div>
                                         </div>
                                     </div>
@@ -297,7 +297,7 @@
                                         <div class="col-md-12">
                                             <div class="job_detais">
                                                 <a href="<?php echo base_url() ?>jobs/contracts?fmJob=<?php echo base64_encode($data->job_id);?>"> Job Details </a>- 
-                                                <span><b><?= $data->hire_title ?></b></span>
+                                                <span><b><?php echo character_limiter($data->hire_title, 97); ?></b></span>
                                             </div>
                                         </div>
                                     </div>

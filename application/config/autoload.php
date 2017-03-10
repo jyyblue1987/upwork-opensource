@@ -93,7 +93,7 @@ $autoload['drivers'] = array();
 // "datetime" added by Kalskov Vladimir (spirit@taganlife.ru)
 // "app" added by Donfack Zeufack Hermann (donfack.hermann@gmail.com)
 // $autoload['helper'] = array('url','cookie','security','form','charge');
-$autoload['helper'] = array('url','cookie','security','form','charge','datetime', 'app');
+$autoload['helper'] = array('url','cookie','security','form','charge','datetime', 'text', 'app');
 
 /*
 | -------------------------------------------------------------------

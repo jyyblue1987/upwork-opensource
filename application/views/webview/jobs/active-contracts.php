@@ -200,7 +200,8 @@
 						<div class="row">
 							<div class="col-md-12">
 							    <div style="margin-top: -10px;" class="job_detais">
-							   <a href="<?php echo base_url() ?>jobs/hourly_client_view?fmJob=<?php echo base64_encode($data->job_id);?>&fuser=<?php echo base64_encode($data->fuser_id);?>"> Job Details</a>  -  <span><b><?=$data->hire_title?></b></span>
+							   <a href="<?php echo base_url() ?>jobs/contracts?fmJob=<?php echo base64_encode($data->job_id);?>&fuser=<?php echo base64_encode($data->fuser_id);?>"> Job Details</a>  -  
+                                                           <span><b><?= character_limiter($data->hire_title, 97) ?></b></span>
 							</div>
 							</div>
 						</div>
@@ -278,7 +279,7 @@
 						<div class="row">
 							<div class="col-md-12">
 							    <div style="margin-top: -10px;" class="job_detais">
-							   <a href="<?php echo base_url() ?>jobs/fixed_client_view?fmJob=<?php echo base64_encode($data->job_id);?>&fuser=<?php echo base64_encode($data->fuser_id);?>"> Job Details</a> -  <span><b><?=$data->hire_title?></b></span>
+							   <a href="<?php echo base_url() ?>jobs/contracts?fmJob=<?php echo base64_encode($data->job_id);?>&fuser=<?php echo base64_encode($data->fuser_id);?>"> Job Details</a> -  <span><b><?= character_limiter($data->hire_title, 97) ?></b></span>
 							</div>
 							</div>
 						</div>

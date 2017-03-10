@@ -1,17 +1,12 @@
 {% set title            = job.hire_title %}
 {% set job_id_encoded   = base64_encode(job.job_id) %}
 {% set fuser_id_encoded = base64_encode(job.fuser_id) %}
-
+ {% set job_detail_link   = base_url() ~ "jobs/contracts?fmJob=" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
+ 
 {% if job.job_type == "hourly" %}
-    
     {% set end_contract_link = base_url() ~ "endhourlyfixed/hourly_client?fmJob=" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
-    {% set job_detail_link   = base_url() ~ "jobs/contracts?fmJob=" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
-
 {% else %}
-    
     {% set end_contract_link = base_url() ~ "endhourlyfixed/fixed_client?fmJob=" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
-    {% set job_detail_link   = base_url() ~ "jobs/contracts?fmJob=" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
-    
 {% endif %}
                 
 <div class="row margintop-2 ms_white_box">
@@ -56,7 +51,7 @@
                 <div class="job_detais" style="margin-top: -10px;">
                     <a href="{{ job_detail_link }}">  {{ app_lang('text_job_link_detail') }} </a>  
                     <strong>-</strong>
-                    <span><b>{{ title }}</b></span>
+                    <span><b>{{ character_limiter(title, 97) }}</b></span>
                 </div>
             </div>
         </div>

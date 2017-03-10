@@ -17,6 +17,7 @@ class Winjob_Controller extends CI_Controller {
         // added by (Donfack Zeufack Hermann) start load twig library with custom helper function
         $this->load->library('twig', array(
             'functions' => array(
+                'character_limiter',
                 'url_title',
                 'app_date',
                 'base64_encode',
