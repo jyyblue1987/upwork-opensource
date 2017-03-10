@@ -220,7 +220,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="job_detais">
-                                                <a href="<?php echo base_url() ?>jobs/hourly_freelancer_view?fmJob=<?php echo base64_encode($data->job_id); ?>"> Job Details </a> -
+                                                <a href="<?php echo base_url() ?>jobs/contracts?fmJob=<?php echo base64_encode($data->job_id); ?>"> Job Details </a> -
                                                 <span><b><?= $data->hire_title ?></b></span>
                                             </div>
                                         </div>
@@ -296,7 +296,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="job_detais">
-                                                <a href="<?php echo base_url() ?>jobs/fixed_freelancer_view?fmJob=<?php echo base64_encode($data->job_id);?>"> Job Details </a>- 
+                                                <a href="<?php echo base_url() ?>jobs/contracts?fmJob=<?php echo base64_encode($data->job_id);?>"> Job Details </a>- 
                                                 <span><b><?= $data->hire_title ?></b></span>
                                             </div>
                                         </div>
