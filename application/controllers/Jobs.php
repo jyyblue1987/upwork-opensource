@@ -1060,6 +1060,68 @@ class Jobs extends Winjob_Controller {
     // added by (Donfack Zeufack Hermann) start 
     // Merge code of {fixed|hourly}_{client|freelancer}_view
     
+    
+    private function _client_fixed_contract($job_status, $sender_id, $user_id, $ststus){
+        $this->load->model('payment_model');
+        
+        $payments   = $this->payment_model->load_job_transactions($sender_id, $user_id, $job_id); 
+        
+        $this->twig->display('webview/jobs/twig/contract', compact('job_status', 'ststus', 'payments'));
+    }
+    
+    private function _client_hourly_contract($job_status, $ststus){
+        $this->Admintheme->webview("jobs/hourly_client_view", array('job_status' => $job_status, 'ststus' => $ststus));
+    }
+    
+    private function _client_contracts(){
+        try{
+            $this->load->model(array('jobs_model', 'webuser_model'));
+        }catch(RuntimeException $e){
+            log_message('debug', $e->getMessage());
+            $this->session->set_flashdata('error', $this->lang->item('text_app_runtime_exception_message'));
+            redirect(home_url());
+        }
+        
+        list($job_id, $sender_id, $user_id) = $this->prepare_client_data();  
+        $job_status = $this->jobs_model->load_job_status($sender_id, $user_id, $job_id);
+        $ststus     = $this->webuser_model->load_informations($sender_id);
+        
+        if($job_status->job_type == "hourly"){
+            return $this->_client_hourly_contract($job_status, $ststus);
+        }else{
+            return $this->_client_fixed_contract($job_status, $sender_id, $user_id, $ststus);
+        }    
+    }
+    
+    
+    private function _freelancer_hourly_contract( $job_status, $ststus ){
+        $this->Admintheme->webview("jobs/hourly_freelancer_view", array('job_status' => $job_status, 'ststus' => $ststus));
+    }
+    
+    private function _freelancer_fixed_contract($job_status, $job_id, $user_id, $ststus){
+        $payments   = $this->payment_model->load_job_transactions($job_status->buser_id, $user_id, $job_id); 
+        $this->Admintheme->webview("jobs/fixed_freelancer_view", compact('job_status', 'ststus', 'payments'));
+    }
+    
+    private function _freelancer_contracts(){
+        
+        try{
+            $this->load->model(array('jobs_model', 'webuser_model', 'payment_model'));
+        }catch(RuntimeException $e){
+            log_message('debug', $e->getMessage());
+            redirect(site_url("find-jobs"));
+        }
+        list($job_id, $user_id) = $this->prepare_fixed_freelancer_data();
+        $job_status = $this->jobs_model->load_job_status(null, $user_id, $job_id);
+        $ststus     = $this->webuser_model->load_informations($job_status->buser_id);
+        
+        if($job_status->job_type == 'hourly'){
+            $this->_freelancer_hourly_contract($job_status, $ststus);
+        }else{
+            $this->_freelancer_fixed_contract($job_status, $job_id, $user_id, $ststus);
+        }
+    }
+    
     /**
      * This will handled fixed and hourly job.
      * It will replace fixed_client_view, hourly_client_view, 
@@ -1067,22 +1129,16 @@ class Jobs extends Winjob_Controller {
      * controller.
      */
     public function contracts(){
+        
         $this->authorized();
         
-        try{
-            $this->load->model(array('jobs_model', 'webuser_model', 'payment_model'));
-        }catch(RuntimeException $e){
-            log_message('debug', $e->getMessage());
-            $this->session->set_flashdata('error', $this->lang->item('text_app_runtime_exception_message'));
-            redirect(home_url());
+        if ($this->session->userdata('type') == 1) {
+            return $this->_client_contracts();
+        }elseif($this->session->userdata('type') == 2) {
+            return $this->_freelancer_contracts();
+        }else{
+            redirect( home_url() );
         }
-        
-        list($job_id, $sender_id, $user_id) = $this->prepare_fixed_client_data();  
-        $job_status = $this->jobs_model->load_job_status($sender_id, $user_id, $job_id);
-        $ststus     = $this->webuser_model->load_informations($sender_id);
-        $payments   = $this->payment_model->load_job_transactions($sender_id, $user_id, $job_id); 
-        
-        $this->twig->display('webview/jobs/twig/contract', compact('job_status', 'ststus', 'payments'));
         
     }
     
@@ -1091,7 +1147,7 @@ class Jobs extends Winjob_Controller {
     
    // added by (Donfack Zeufack Hermann) start 
    // private function to sanitize $_GET fixed client view datas
-    private function prepare_fixed_client_data(){
+    private function prepare_client_data(){
         
         $fm_job    = $this->input->get('fmJob');
         $fuser     = $this->input->get('fuser');
@@ -1126,7 +1182,7 @@ class Jobs extends Winjob_Controller {
             // added by (Donfack Zeufack Hermann) end            
             
             // added by (Donfack Zeufack Hermann) start replace access to $_GET values with $this->input->get() and set standard
-            list($job_id, $sender_id, $user_id) = $this->prepare_fixed_client_data();  
+            list($job_id, $sender_id, $user_id) = $this->prepare_client_data();  
             $job_status = $this->jobs_model->load_job_status($sender_id, $user_id, $job_id);
             $ststus     = $this->webuser_model->load_informations($sender_id);
             $payments   = $this->payment_model->load_job_transactions($sender_id, $user_id, $job_id); 
@@ -1239,7 +1295,6 @@ class Jobs extends Winjob_Controller {
             $this->db->where('job_accepted.job_id', $jobId);
             $query = $this->db->get();
             $job_status = $query->row();
-            // print_r($job_status);
 
             $this->db->select('*');
             $this->db->from('webuser');

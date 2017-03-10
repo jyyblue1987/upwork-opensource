@@ -44,8 +44,7 @@ class __TwigTemplate_cfe0702bad556a99bdd2a01b3eb557095ac60841584506d0009abbc7765
             </div>
         </div>
     </div>
-</div>
-";
+</div>";
     }
 
     public function getTemplateName()
@@ -90,7 +89,6 @@ class __TwigTemplate_cfe0702bad556a99bdd2a01b3eb557095ac60841584506d0009abbc7765
             </div>
         </div>
     </div>
-</div>
-", "webview/jobs/partials/job-user-info.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\jobs\\partials\\job-user-info.twig");
+</div>", "webview/jobs/partials/job-user-info.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\jobs\\partials\\job-user-info.twig");
     }
 }

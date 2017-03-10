@@ -33,7 +33,7 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
             $context["end_contract_link"] = ((((base_url() . "endhourlyfixed/hourly_client?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&fuser=") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
             // line 8
             echo "    ";
-            $context["job_detail_link"] = ((((base_url() . "jobs/hourly_client_view?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&fuser") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
+            $context["job_detail_link"] = ((((base_url() . "jobs/hourly_client_view?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&fuser=") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
             // line 9
             echo "
 ";
@@ -183,7 +183,7 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
 {% if job.job_type == \"hourly\" %}
     
     {% set end_contract_link = base_url() ~ \"endhourlyfixed/hourly_client?fmJob=\" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
-    {% set job_detail_link   = base_url() ~ \"jobs/hourly_client_view?fmJob=\" ~ job_id_encoded ~ '&fuser' ~ fuser_id_encoded %}
+    {% set job_detail_link   = base_url() ~ \"jobs/hourly_client_view?fmJob=\" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
 
 {% else %}
     
