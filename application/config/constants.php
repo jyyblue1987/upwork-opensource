@@ -129,3 +129,8 @@ define('SUBCATEGORY_TABLE', "job_subcategories");
 define('WEB_USER_ADDRESS', "webuseraddresses");
 define('WB_PAYMENT_METHODS', "webuser_payment_methods");
 define('WB_TAX_INFO', "webuser_tax_information");
+
+
+defined('CONTRACT_JOB_TITLE_MAX') || define('CONTRACT_JOB_TITLE_MAX', 68);
+defined('LIST_JOB_TITLE_MAX') || define('LIST_JOB_TITLE_MAX', 97);
+defined('CONTRACT_JOB_COMPANY_NAME_MAX') || define('CONTRACT_JOB_COMPANY_NAME_MAX', 35);

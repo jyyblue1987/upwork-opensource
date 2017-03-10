@@ -34,7 +34,7 @@
                                 </div>
                                 <div style="margin-left: -24px;" class="col-md-7 text-left">
                                     <h5 style="margin-top: -4px;" class="free_name">{{ job_status.webuser_fname }} {{ job_status.webuser_lname }}</label>
-                                        <br> <p class="free_name">{{ job_status.webuser_company }}</p>
+                                        <br> <p class="free_name">{{ character_limiter(job_status.webuser_company, 68, '...') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                                     {% else %}
                                         {% set job_title = job_status.hire_title %}
                                     {% endif  %}
-                                    {{ job_title }}</span><br />
+                                    {{ character_limiter(job_title, 35, '...') }}</span><br />
                                 <a href="{{ base_url() }}jobs/view/{{ url_title( job_status.title ) }}/{{ job_id_encoded }}">View original job post</a>
                             </div>
                         </div>

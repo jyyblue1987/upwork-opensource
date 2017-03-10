@@ -150,7 +150,7 @@
 
 
 
-                                    <br> <p class="free_name"><?= $job_status->webuser_company ?></p>
+                                    <br> <p class="free_name"><?= character_limiter($job_status->webuser_company, 68, '...') ?></p>
 
                             </div>
 
@@ -208,7 +208,7 @@
                             }
                             ?>
 
-                            <?= $job_title; ?></span><br />
+                            <?= character_limiter($job_title, 35, '...'); ?></span><br />
 
                         <a href="<?php echo base_url() ?>jobs/view/<?php echo url_title($job_status->title) ?>/<?php echo base64_encode($job_status->job_id); ?>">View original job post</a>
 
@@ -423,7 +423,7 @@
 
                         <h3><?= $job_status->webuser_fname ?> <?= $job_status->webuser_lname ?></h3>
 
-                        <h5><?= $job_title; ?> </h5>
+                        <h5><?= character_limiter($job_title, 35, '...');; ?> </h5>
 
 
 

@@ -93,7 +93,7 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
         echo "</label>
                                         <br> <p class=\"free_name\">";
         // line 37
-        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job_status"]) ? $context["job_status"] : null), "webuser_company", array()), "html", null, true);
+        echo twig_escape_filter($this->env, character_limiter($this->getAttribute((isset($context["job_status"]) ? $context["job_status"] : null), "webuser_company", array()), (isset($context["CONTRACT_JOB_COMPANY_NAME_MAX"]) ? $context["CONTRACT_JOB_COMPANY_NAME_MAX"] : null), "..."), "html", null, true);
         echo "</p>
                                 </div>
                             </div>
@@ -161,7 +161,7 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
         }
         // line 69
         echo "                                    ";
-        echo twig_escape_filter($this->env, (isset($context["job_title"]) ? $context["job_title"] : null), "html", null, true);
+        echo twig_escape_filter($this->env, character_limiter((isset($context["job_title"]) ? $context["job_title"] : null), 35, "..."), "html", null, true);
         echo "</span><br />
                                 <a href=\"";
         // line 70
@@ -461,7 +461,7 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
                                 </div>
                                 <div style=\"margin-left: -24px;\" class=\"col-md-7 text-left\">
                                     <h5 style=\"margin-top: -4px;\" class=\"free_name\">{{ job_status.webuser_fname }} {{ job_status.webuser_lname }}</label>
-                                        <br> <p class=\"free_name\">{{ job_status.webuser_company }}</p>
+                                        <br> <p class=\"free_name\">{{ character_limiter(job_status.webuser_company, CONTRACT_JOB_COMPANY_NAME_MAX, '...') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -493,7 +493,7 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
                                     {% else %}
                                         {% set job_title = job_status.hire_title %}
                                     {% endif  %}
-                                    {{ job_title }}</span><br />
+                                    {{ character_limiter(job_title, 35, '...') }}</span><br />
                                 <a href=\"{{ base_url() }}jobs/view/{{ url_title( job_status.title ) }}/{{ job_id_encoded }}\">View original job post</a>
                             </div>
                         </div>

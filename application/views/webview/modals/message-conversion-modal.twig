@@ -28,7 +28,7 @@
                         </h3>
                         <h5 class="chat_job_title">
                             {% if job_title is defined %}
-                            {{ job_title }}
+                            {{ character_limiter(job_title, CONTRACT_JOB_TITLE_MAX, '...') }}
                             {% endif %}
                         </h5>
                     </div>

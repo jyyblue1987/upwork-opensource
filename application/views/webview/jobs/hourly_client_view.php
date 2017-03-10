@@ -71,7 +71,7 @@ input.btn-cancel:hover{border:1px solid transparent;color:#fff;background:#28609
 							<div class="col-md-7 text-left ">
 								<h5 style="margin-top: -4px;" class="free_name"><?=$job_status->webuser_fname ?> <?=$job_status->webuser_lname ?></h5>
 							
-								<p class="free_name"> <?=$job_status->webuser_company ?></p>
+								<p class="free_name"> <?= character_limiter($job_status->webuser_company, 68, '...')  ?></p>
 							</div>
 						</div>
 					</div>
@@ -101,7 +101,7 @@ input.btn-cancel:hover{border:1px solid transparent;color:#fff;background:#28609
 						}else{
 							$job_title = $job_status->title;
 						}?>
-						<?=$job_title;?></span><br />
+						<?= character_limiter($job_title, CONTRACT_JOB_TITLE_MAX, '...'); ?></span><br />
 						<a href="<?php echo base_url() ?>jobs/view/<?php echo url_title($job_status->title) ?>/<?php echo base64_encode($job_status->job_id);?>">View original job post</a>
 						</div>
 					</div>
@@ -322,7 +322,7 @@ input.btn-cancel:hover{border:1px solid transparent;color:#fff;background:#28609
 			<div class="col-lg-12 col-md-12 col-sm-12 chat-screen">
 				<div class="chat-details-topbar">
 					<h3><?=$job_status->webuser_fname ?> <?=$job_status->webuser_lname ?></h3>
-					<h5><?=$job_title;?> </h5>
+					<h5><?= character_limiter($job_title, 35, '...'); ?> </h5>
 									
 				</div>
 			</div>
