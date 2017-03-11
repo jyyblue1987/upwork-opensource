@@ -5,16 +5,16 @@
                 <div class="col-md-3 col-sm-3">
                     <div class="">
                           <?php 
-                $data = array(
-                    'current_active' => 'changeemail'
-                ); 
-                $this->load->view("webview/profile/freelancer-profile-left-sidebar",$data) ?>
+                            $data = array(
+                                'current_active' => 'changeemail'
+                            ); 
+                            $this->load->view("webview/profile/freelancer-profile-left-sidebar",$data) ?>
                     </div>
                 </div>
                 <div style="padding-left: 33px;" class="col-md-9 col-sm-9 ">
 				<div class="row title-line">
                     <div class="abc">
-                        <h3 style="padding-bottom:19px;">Change Email </h3> 
+                        <h3 style="padding-bottom:19px;">Update Email Address </h3> 
                     </div> 
                 </div> 
                     <div class='form-msg'></div>
@@ -47,8 +47,7 @@
                                 <div class="col-xs-6">
 								<button style="float: left;" type="submit" id=""class="btn-primary big_mass_active transparent-btn big_mass_button">Update</button>
                                     <button style="float: left;" type="reset" id="" class="btn-primary transparent-btn big_mass_button">Cancel</button>
-                                    
-                                    <img src='/assets/img/version1/loader.gif' class="form-loader" style="display:none">
+                                    <img src='<?= site_url() ?>assets/img/version1/loader.gif' class="form-loader" style="display:none">
                                 </div>
                             </div>
                         </div>	                   
