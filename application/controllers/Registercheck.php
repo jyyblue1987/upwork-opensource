@@ -74,23 +74,24 @@ $this->db->insert('webuser', $add_data);
 $id=$this->db->insert_id();
 
 
-$subject ='Confirm your email to activate account';
-$body = 'Hello '.$fname.' '.$lname.',<br><br> Thank you for signing up for an account on Winjob.com <br><br>Please click on the link below to verify your email address: <br> <a href="'.$resetlink.'">'.$resetlink.'</a>'
-        . '<br><br>If you didn\'t sign up for this account, or you are having trouble with your account, please contact us at support@winjob.com and we will be happy to help you.'
-        . '<br><br>Regards,<br>The support team at Winjob.com';
+    $subject ='Confirm your email to activate account';
+    //Added By Arjay
+    $_type = $type == 1 ? "an Employer" : "a Freelancer";
+    $data = array(
+            'fname' => $fname,
+            'company' => 'Winjob',
+            'verification' => $resetlink,
+            'slogan' => 'Hire Talented Freelancers For a Low Cost',
+            'greeting' => 'Hi '. $fname,
+            'para1' => 'Thank you for signing up as '.$_type.' on <a href="'.site_url().'" style="color: #0061A7; text-decoration: none;">Winjob.com</a>. Please click the button below to verify your email address.',
+            'para2' => 'If you did not sign up for this account, or you are having trouble with your account, please <a href="'.site_url().'contact" style="color: #0061A7; text-decoration: none;">contact us</a> and we will be happy to assist you.'
+        );
 
+    $body = $this->load->view("webview/emails/verify_email", $data, TRUE);
 
+    $response=$this->Sesmailer->sesemail($email,$subject,$body);
 
-$response=$this->Sesmailer->sesemail($email,$subject,$body);
-
-
-redirect(site_url('thanks'));
-		
-
-			
+    redirect(site_url('thanks'));
     }
 
-	
-	
-	
 }
