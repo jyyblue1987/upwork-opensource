@@ -136,4 +136,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('autoload/Adminforms','autoload/Adminlogincheck','autoload/Forms','autoload/Sesmailer','autoload/Admintheme');
+$autoload['model'] = array('autoload/Adminforms','autoload/Adminlogincheck','autoload/Forms','autoload/Sesmailer','autoload/Admintheme', 'autoload/Emailtemplate');

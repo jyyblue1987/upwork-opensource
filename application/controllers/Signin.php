@@ -12,7 +12,7 @@ class Signin extends CI_Controller {
                 redirect(site_url("find-jobs"));
         }else {
             $data = array(
-                'title' => "Signin",
+                'title' => "Log In - Winjob",
                 'page' => "signin",
                 'js' => array(),
                 'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
@@ -49,6 +49,7 @@ class Signin extends CI_Controller {
             
             $newEmail = $newEmailText.'@'.$emailArray[1];
             $data['newemail'] = $newEmail;
+
         }
             $this->Admintheme->webview("signin", $data);
         }

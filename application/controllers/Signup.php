@@ -10,7 +10,7 @@ class Signup extends CI_Controller {
 		redirect(site_url("dashboard"));
 		}else{
 	$data = array(
-               'title' => "Signup",
+               'title' => "Create an Account - Winjob",
 				       'page' => "signup",
 							 'js' =>array(),
 							 'jsf' =>array("assets/js/layerslider.transitions.js","assets/js/layerslider.kreaturamedia.jquery.js","assets/js/owl.carousel.min.js","assets/js/homepage.js"),

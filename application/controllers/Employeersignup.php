@@ -7,7 +7,7 @@ class Employeersignup extends CI_Controller {
 	{
 
 	$data = array(
-               'title' => "Employeer Signup",
+               'title' => "Employer Sign Up - Winjob",
 				       'page' => "employeersignup",
 							 'js' =>array(),
 							 'jsf' =>array("assets/js/layerslider.transitions.js","assets/js/layerslider.kreaturamedia.jquery.js","assets/js/owl.carousel.min.js","assets/js/homepage.js"),

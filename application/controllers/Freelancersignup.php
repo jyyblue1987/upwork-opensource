@@ -7,7 +7,7 @@ class Freelancersignup extends CI_Controller {
 	{
 
 	$data = array(
-               'title' => "Freelancer Signup",
+               'title' => "Freelancer Sign Up - Winjob",
 				       'page' => "freelancersignup",
 							 'js' =>array(),
 							 'jsf' =>array("assets/js/layerslider.transitions.js","assets/js/layerslider.kreaturamedia.jquery.js","assets/js/owl.carousel.min.js","assets/js/homepage.js"),
