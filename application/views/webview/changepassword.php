@@ -49,10 +49,10 @@
                                     
                                     <button style="float: left;" type="submit" class="btn-primary big_mass_active transparent-btn big_mass_button">Update</button>
 									<button style="float: left;" type="reset" class="btn-primary transparent-btn big_mass_button">Cancel</button>
-                                    <img src='/assets/img/version1/loader.gif' class="form-loader" style="display:none">
+                                    <img src='<?= site_url() ?>assets/img/version1/loader.gif' class="form-loader" style="display:none">
                                 </div>
                             </div>
-                        </div>	                   
+                        </div>
                     </form>
                 </div>
 

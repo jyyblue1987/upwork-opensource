@@ -91,7 +91,7 @@ class Changeemail extends CI_Controller {
                     'verification' => $resetlink,
                     'slogan' => 'Hire Talented Freelancers For a Low Cost',
                     'greeting' => 'Hi ' . $fname,
-                    'para1' => 'You just updated your email address from ' . $userEmail . ' to ' . $this->input->post('email') . '. Please verify this new email address by clicking the button below.',
+                    'para1' => 'You have updated your email address to ' . $this->input->post('email') . '. Please verify this new email address by clicking the button below.',
                     'para2' => 'If you did not request to change your email address, please <a href="' . site_url() . 'contact" style="color: #0061A7; text-decoration: none;">contact us</a>.'
                 );
 
