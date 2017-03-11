@@ -29,12 +29,12 @@
                             <div class="row">
                                 <div style="margin-left: 20px;" class="col-md-4 col-md-offset-1 text-left">
                                     <div class="st_img hourly_client_view_st_img">
-                                        <img src="{{ app_user_img( job_status.webuser_picture ) }}" width="64" height="64" />
+                                        <img src="{{ app_user_img( job_status.cropped_image ) }}" width="64" height="64" />
                                     </div>
                                 </div>
                                 <div style="margin-left: -24px;" class="col-md-7 text-left">
                                     <h5 style="margin-top: -4px;" class="free_name">{{ job_status.webuser_fname }} {{ job_status.webuser_lname }}</label>
-                                        <br> <p class="free_name">{{ character_limiter(job_status.webuser_company, 68, '...') }}</p>
+                                        <br> <p class="free_name"><strong>{{ character_limiter(job_status.tagline, 36, '...') }}</strong></p>
                                 </div>
                             </div>
                         </div>

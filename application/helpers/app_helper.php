@@ -192,12 +192,33 @@ if( ! function_exists('app_user_img') ){
      * @param type $img_url
      */
     function app_user_img( $img_url ){
+        
+        if (check_base64_image($img_url))
+            return $img_url;
+        
         if(!empty( $img_url ) && file_exists( $img_url )){
             return base_url($img_url);
         }else{
             return "http://www.winjob.com/assets/user.png";
         }
     }
+}
+
+if( !function_exists('check_base64_image')){
+    
+    function check_base64_image($base64) {
+        $matches = array();
+        $pattern = '#^data(\W){1}([-\w]+/[-\w]+)(\W){1}base64(\W){1}(.*)$#';
+        $result  = preg_match($pattern, $base64, $matches);
+        if($result){
+           return $matches[1] == ':' &&
+                  $matches[3] == ';' &&
+                  $matches[4] == ',' &&
+                  base64_decode($matches[5], true) !== false;
+        }  
+        return false;
+    }
+
 }
 
 if( ! function_exists('app_date')){

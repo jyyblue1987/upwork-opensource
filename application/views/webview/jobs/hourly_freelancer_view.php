@@ -63,7 +63,7 @@ input.btn-cancel:hover{border:1px solid transparent;color:#fff;background:#28609
 						<div class="row">
 							<div style="margin-bottom: -5px; margin-left: 10px;" class="col-md-4 col-md-offset-1 text-left">
 								<div class="st_img">
-								    <img src="<?php echo app_user_img( $job_status->webuser_picture ) ?>" width="64" height="64" />
+								    <img src="<?php echo app_user_img( $job_status->cropped_image ) ?>" width="64" height="64" />
 								</div>
 							</div>
 							<div style="margin-left: -24px;" class="col-md-7 text-left">

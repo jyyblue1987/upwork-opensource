@@ -128,15 +128,7 @@
 
                                 <div class="st_img hourly_client_view_st_img">
 
-                                    <?php if ($job_status->webuser_picture != "") { ?>
-
-                                        <img src="<?php echo base_url() . $job_status->webuser_picture ?>" width="64" height="64" />
-
-                                    <?php } else { ?>
-
-                                        <img src="<?php echo base_url() ?>assets/img/profile_img.jpg" width="64" height="64" />
-
-                                    <?php } ?>
+                                    <img src="<?php echo app_user_img( $job_status->cropped_image ) ?>" width="64" height="64" />
 
                                 </div>
 

@@ -80,7 +80,7 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
                                     <div class=\"st_img hourly_client_view_st_img\">
                                         <img src=\"";
         // line 32
-        echo twig_escape_filter($this->env, app_user_img($this->getAttribute((isset($context["job_status"]) ? $context["job_status"] : null), "webuser_picture", array())), "html", null, true);
+        echo twig_escape_filter($this->env, app_user_img($this->getAttribute((isset($context["job_status"]) ? $context["job_status"] : null), "cropped_image", array())), "html", null, true);
         echo "\" width=\"64\" height=\"64\" />
                                     </div>
                                 </div>
@@ -91,10 +91,10 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
         echo " ";
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job_status"]) ? $context["job_status"] : null), "webuser_lname", array()), "html", null, true);
         echo "</label>
-                                        <br> <p class=\"free_name\">";
+                                        <br> <p class=\"free_name\"><strong>";
         // line 37
-        echo twig_escape_filter($this->env, character_limiter($this->getAttribute((isset($context["job_status"]) ? $context["job_status"] : null), "webuser_company", array()), (isset($context["CONTRACT_JOB_COMPANY_NAME_MAX"]) ? $context["CONTRACT_JOB_COMPANY_NAME_MAX"] : null), "..."), "html", null, true);
-        echo "</p>
+        echo twig_escape_filter($this->env, character_limiter($this->getAttribute((isset($context["job_status"]) ? $context["job_status"] : null), "tagline", array()), 36, "..."), "html", null, true);
+        echo "</strong></p>
                                 </div>
                             </div>
                         </div>
@@ -456,12 +456,12 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
                             <div class=\"row\">
                                 <div style=\"margin-left: 20px;\" class=\"col-md-4 col-md-offset-1 text-left\">
                                     <div class=\"st_img hourly_client_view_st_img\">
-                                        <img src=\"{{ app_user_img( job_status.webuser_picture ) }}\" width=\"64\" height=\"64\" />
+                                        <img src=\"{{ app_user_img( job_status.cropped_image ) }}\" width=\"64\" height=\"64\" />
                                     </div>
                                 </div>
                                 <div style=\"margin-left: -24px;\" class=\"col-md-7 text-left\">
                                     <h5 style=\"margin-top: -4px;\" class=\"free_name\">{{ job_status.webuser_fname }} {{ job_status.webuser_lname }}</label>
-                                        <br> <p class=\"free_name\">{{ character_limiter(job_status.webuser_company, CONTRACT_JOB_COMPANY_NAME_MAX, '...') }}</p>
+                                        <br> <p class=\"free_name\"><strong>{{ character_limiter(job_status.tagline, 36, '...') }}</strong></p>
                                 </div>
                             </div>
                         </div>

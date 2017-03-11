@@ -8,10 +8,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Webuser_model extends CI_Model {
     
-    public function load_informations($sender_id) {
+    public function load_informations($id, $with_skill = false) {
+        
         $this->db->select('*');
         $this->db->from('webuser');
-        $this->db->where('webuser.webuser_id', $sender_id);
+        $this->db->where('webuser.webuser_id', $id);
+        
         $query_status = $this->db->get();
         return $query_status->row();
     }

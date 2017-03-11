@@ -22,7 +22,7 @@ class __TwigTemplate_cfe0702bad556a99bdd2a01b3eb557095ac60841584506d0009abbc7765
             <div class=\"st_img freelancer_img\">
                 <img src=\"";
         // line 5
-        echo twig_escape_filter($this->env, app_user_img($this->getAttribute((isset($context["job"]) ? $context["job"] : null), "webuser_picture", array())), "html", null, true);
+        echo twig_escape_filter($this->env, app_user_img($this->getAttribute((isset($context["job"]) ? $context["job"] : null), "cropped_image", array())), "html", null, true);
         echo "\" width=\"85\" height=\"68\">
             </div>
         </div>
@@ -76,7 +76,7 @@ class __TwigTemplate_cfe0702bad556a99bdd2a01b3eb557095ac60841584506d0009abbc7765
     <div class=\"row\">
         <div class=\"col-md-5\" style=\"padding-left:-20px\">
             <div class=\"st_img freelancer_img\">
-                <img src=\"{{ app_user_img(job.webuser_picture) }}\" width=\"85\" height=\"68\">
+                <img src=\"{{ app_user_img( job.cropped_image ) }}\" width=\"85\" height=\"68\">
             </div>
         </div>
         <div class=\"col-md-7 nopadding\" style=\"padding-left: -15px !important\">

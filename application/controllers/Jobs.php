@@ -1062,11 +1062,11 @@ class Jobs extends Winjob_Controller {
     
     
     private function _client_fixed_contract($job_status, $sender_id, $user_id, $ststus){
+        
         $this->load->model('payment_model');
-        
         $payments   = $this->payment_model->load_job_transactions($sender_id, $user_id, $job_id); 
-        
         $this->twig->display('webview/jobs/twig/contract', compact('job_status', 'ststus', 'payments'));
+    
     }
     
     private function _client_hourly_contract($job_status, $ststus){
@@ -1084,11 +1084,12 @@ class Jobs extends Winjob_Controller {
         
         list($job_id, $sender_id, $user_id) = $this->prepare_client_data();  
         $job_status = $this->jobs_model->load_job_status($sender_id, $user_id, $job_id);
-        $ststus     = $this->webuser_model->load_informations($sender_id);
         
         if($job_status->job_type == "hourly"){
+            $ststus     = $this->webuser_model->load_informations($job_status->buser_id);
             return $this->_client_hourly_contract($job_status, $ststus);
         }else{
+            $ststus     = $this->webuser_model->load_informations($sender_id);
             return $this->_client_fixed_contract($job_status, $sender_id, $user_id, $ststus);
         }    
     }
@@ -1113,11 +1114,13 @@ class Jobs extends Winjob_Controller {
         }
         list($job_id, $user_id) = $this->prepare_fixed_freelancer_data();
         $job_status = $this->jobs_model->load_job_status(null, $user_id, $job_id);
-        $ststus     = $this->webuser_model->load_informations($job_status->buser_id);
+        
         
         if($job_status->job_type == 'hourly'){
+            $ststus = $this->webuser_model->load_informations($job_status->buser_id);
             $this->_freelancer_hourly_contract($job_status, $ststus);
         }else{
+            $ststus  = $this->webuser_model->load_informations($job_status->buser_id);
             $this->_freelancer_fixed_contract($job_status, $job_id, $user_id, $ststus);
         }
     }
@@ -1682,7 +1685,7 @@ class Jobs extends Winjob_Controller {
             $employer_id         = $this->session->userdata('id');
             $nb_freelancer_hired = $this->jobs_model->number_freelancer_hired( $employer_id );
             $jobs_accepted       = $this->jobs_model->load_all_jobs_freelancer_hired($employer_id);
-            
+  
             date_default_timezone_set("UTC"); 
             $today               = date('y-m-d', strtotime('today'));
             $this_week_start     = date('y-m-d', strtotime('monday this week'));
