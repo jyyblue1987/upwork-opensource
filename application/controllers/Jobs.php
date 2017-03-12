@@ -903,7 +903,7 @@ class Jobs extends Winjob_Controller {
             $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id));
 
             $proposals = $query->num_rows();
-            $data = array('records' => $records, 'proposals' => $proposals);
+            $data = array('records' => $records, 'proposals' => $proposals, 'title' => 'My Bids - Winjob' );
             // Davit end
             $this->Admintheme->webview("jobs/bids_list", $data);
         }
@@ -948,7 +948,7 @@ class Jobs extends Winjob_Controller {
             if ($query->num_rows() > 0)
                 $records2 = $query->result();
             $records = array_merge($records1, $records2);
-            $data = array('records' => $records);
+            $data = array('records' => $records, 'title' => 'Archived Jobs - Winjob');
             $this->Admintheme->webview("jobs/archived_bids_list", $data);
         }
     }
@@ -1040,7 +1040,7 @@ class Jobs extends Winjob_Controller {
                 }
             }
             // Added by Armen end
-            $data = array('repeated' => $repeated,'job_skills' => $job_skills,'value' => $record, 'js' => array('vendor/jquery.form.js', 'internal/job_edit.js'),'skillList' => $skillList,);
+            $data = array('repeated' => $repeated,'job_skills' => $job_skills,'value' => $record, 'js' => array('vendor/jquery.form.js', 'internal/job_edit.js'),'skillList' => $skillList);
             $this->Admintheme->webview("jobs/edit", $data);
         }
     }

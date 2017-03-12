@@ -148,10 +148,11 @@ class Messageboard extends CI_Controller
 
 
 			$data['chat_details'] = $result1;
+                        
 
 		}
 
-
+                        $data['title'] = 'Messages - Winjob';
 			$this->Admintheme->webview("message_board", $data);
 		} else {
 			redirect('/');

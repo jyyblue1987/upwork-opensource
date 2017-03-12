@@ -104,7 +104,8 @@ class Withdraw extends CI_Controller {
                 'paymentData' => $paymentDatas,
                 'job_available_fixed' => $job_available_fixed,
                 'withdraws' => $withdraws,
-                'record' => $record
+                'record' => $record,
+                'title' => 'Withdraw Funds - Winjob'
             );
 
             $this->Admintheme->webview("withdraw", $data);

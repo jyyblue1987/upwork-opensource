@@ -52,6 +52,7 @@ class Categories extends CI_Controller
                 }
             }
             $data['user_categories'] = $user_cats;
+            $data['title'] = 'Manage Categories - Winjob';
             //echo '<pre>categories data: '; print_r($user_cats); echo '</pre>';
             //echo '<pre>categories data: '; print_r($data['categories']); echo '</pre>';
             

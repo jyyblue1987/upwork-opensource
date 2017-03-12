@@ -24,7 +24,8 @@ class Winsjob extends CI_Controller{
              $query=$this->db->get();
 			$acccept_jobList = $query->result();
 			
-            $data = array('acccept_jobList'=>$acccept_jobList);
+            $data = array('acccept_jobList'=>$acccept_jobList,
+                        'title' => "My Jobs - Winjob");
             $this->Admintheme->webview("jobs/winsjob", $data);
             
             
@@ -51,7 +52,8 @@ class Winsjob extends CI_Controller{
              $query=$this->db->get();
 			$acccept_jobList = $query->result();
 			
-            $data = array('acccept_jobList'=>$acccept_jobList);
+            $data = array('acccept_jobList'=>$acccept_jobList,
+                        'title' => "Finished Jobs - Winjob");
             $this->Admintheme->webview("jobs/endjobs", $data);
             
             
