@@ -14,7 +14,8 @@ class Winjob_Controller extends CI_Controller {
     public function __construct() {
         parent::__construct();
                 
-        // added by (Donfack Zeufack Hermann) start load twig library with custom helper function
+        // added by (Donfack Zeufack Hermann) start 
+        // load twig library with custom helper function
         $this->load->library('twig', array(
             'functions' => array(
                 'character_limiter',
@@ -33,12 +34,30 @@ class Winjob_Controller extends CI_Controller {
              )
         ));
         // added by (Donfack Zeufack Hermann) end
+        
+        // added by (Donfack Zeufack Hermann) start 
+        // remove variable initialization from header view file.
+        //Define them as global variable fpr all view page.
+        $this->initialize_global_view_variable();
+        // added by (Donfack Zeufack Hermann) end
     }
     
-    function get_default_lang() {
+    public function get_default_lang() {
         return $this->_default_lang;
     }
-
+    
+    private function initialize_global_view_variable(){
+        $this->load->model('notification_model');
+        $user_id = $this->session->userdata('id');
+        $this->twig->addGlobal('notification', $this->conversation->index());
+        $this->twig->addGlobal('notification_details', $this->conversation->details());
+        $this->twig->addGlobal('job_alert_count', $this->conversation->job_alert());
+        $this->twig->addGlobal('freelancerend', $this->conversation->freelancerend());
+        $this->twig->addGlobal('clientend', $this->conversation->clientend());
+        $this->twig->addGlobal('notif_count', $this->notification_model->user_notification_count( $user_id ));
+        $this->twig->addGlobal('notifications', $this->notification_model->user_notification( $user_id ));
+    }
+    
         
     /**
      * 

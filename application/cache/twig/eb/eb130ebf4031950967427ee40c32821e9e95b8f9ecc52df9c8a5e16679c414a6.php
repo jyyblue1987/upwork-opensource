@@ -25,12 +25,19 @@ class __TwigTemplate_be8796f3ffd52a043f743eccbde7a45343f1447981333ad2f867c4165e3
                         <li><a href=\"";
         // line 7
         echo twig_escape_filter($this->env, site_url("post-job/"), "html", null, true);
-        echo "\" class=\"current\">Post a Job</a></li>      
+        echo "\" class=\"current\">";
+        echo twig_escape_filter($this->env, app_lang("text_app_post_a_job"), "html", null, true);
+        echo "</a></li>      
                         <li><a href=\"";
         // line 8
         echo twig_escape_filter($this->env, site_url("jobs/activecontracts"), "html", null, true);
-        echo "\"> My Contracts </a></li>\t\t\t
-                        <li><a href=\"#\"> Work History</a></li>
+        echo "\">";
+        echo twig_escape_filter($this->env, app_lang("text_app_my_contracts"), "html", null, true);
+        echo "</a></li>\t\t\t
+                        <li><a href=\"#\">";
+        // line 9
+        echo twig_escape_filter($this->env, app_lang("text_app_work_history"), "html", null, true);
+        echo "</a></li>
                     </ul>
                 </div>
             </div>
@@ -52,7 +59,7 @@ class __TwigTemplate_be8796f3ffd52a043f743eccbde7a45343f1447981333ad2f867c4165e3
 
     public function getDebugInfo()
     {
-        return array (  31 => 8,  27 => 7,  19 => 1,);
+        return array (  39 => 9,  33 => 8,  27 => 7,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -71,9 +78,9 @@ class __TwigTemplate_be8796f3ffd52a043f743eccbde7a45343f1447981333ad2f867c4165e3
             <div class=\"col-xs-12 col-sm-12 col-md-12\">
                 <div class=\"menu\">
                     <ul>  
-                        <li><a href=\"{{ site_url(\"post-job/\") }}\" class=\"current\">Post a Job</a></li>      
-                        <li><a href=\"{{ site_url(\"jobs/activecontracts\") }}\"> My Contracts </a></li>\t\t\t
-                        <li><a href=\"#\"> Work History</a></li>
+                        <li><a href=\"{{ site_url(\"post-job/\") }}\" class=\"current\">{{ app_lang('text_app_post_a_job') }}</a></li>      
+                        <li><a href=\"{{ site_url(\"jobs/activecontracts\") }}\">{{ app_lang('text_app_my_contracts') }}</a></li>\t\t\t
+                        <li><a href=\"#\">{{ app_lang('text_app_work_history') }}</a></li>
                     </ul>
                 </div>
             </div>

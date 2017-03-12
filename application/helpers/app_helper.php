@@ -199,7 +199,7 @@ if( ! function_exists('app_user_img') ){
         if(!empty( $img_url ) && file_exists( $img_url )){
             return base_url($img_url);
         }else{
-            return "http://www.winjob.com/assets/user.png";
+            return site_url("assets/user.png");
         }
     }
 }

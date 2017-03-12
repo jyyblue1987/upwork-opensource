@@ -1,15 +1,47 @@
 <li>
     <a href="{{ site_url("messageboard") }}" 
        class="show_notification" 
-       {% if notification %} style="color: #e84c3d !important;" {% endif %} >
-        
-        {% if notification %}
+        {% if notification %} {{ 'style="color: #e84c3d !important;"' }} {% endif %}>
+        {% if notification %} 
            <span style="color: #e84c3d;padding: 0 5px;">{{ notification }}</span>
         {% endif %}
         <i class="fa fa-envelope-o " aria-hidden="true"></i>
     </a>
+    {% if notification_details %}
+        <div class="notification" style="display: none;" >
+            {% for data in notification_details %}
+                <p class="noti-block">
+                    <a href="/messageboard?bid_id={{ base64_encode( data.bid_id ) }}">
+                        <span class="name">
+                            <img src="{{ app_user_img( data.cropped_image ) }}" >
+                            {{ data.webuser_fname }} {{ data.webuser_lname }}
+                        </span>
+                        <span class="details">{{ character_limiter( data.message_conversation, 80, '...') }}</span>
+                    </a>
+                </p>
+            {% endfor %}
+        </div>
+    {% endif %}
 </li>
-<!-- TODO: Add notification dropdown option here -->
+
+<li>    
+    <a href="javascript:void(0);" data-toggle="dropdown"> 
+        <i class="fa fa-bell-o" aria-hidden="true" ></i> 
+    </a>
+    <div class="{% if notif_count > 0 %} {{ 'notif-alert' }} {% endif %}">
+        <span>{% if notif_count > 0 %} {{ notif_count }} {% endif %}</span>
+    </div>
+    <ul class="dropdown-menu notif-dropdown">
+        {% if notif_count > 0 %}
+            {% for notif in notifications %}
+                <li><a href="{{ site_url("notification/check/{ notif.id_notification }") }}">{{ notif.description }}</a></li> 
+            {% endfor %}
+        {% else %}
+            <li> {{ app_lang('text_app_no_notification') }} </li>
+        {% endif %}
+    </ul>
+</li>
+
 <li>
     <a href="javascript:void(0);" data-toggle="dropdown"> 
         HI {{ app_user_data()['fname']|upper }} 
@@ -17,9 +49,9 @@
     </a>
     <ul class="dropdown-menu">
         {% if app_user_data()['type'] == '2' %}
-            <li><a href="{{ site_url("profile-settings") }}">My Profile</a></li>
+            <li><a href="{{ site_url("profile-settings") }}">{{ app_lang('text_app_my_profile') }}</a></li>
         {% endif %}
-        <li><a href="{{ site_url("profile-settings") }}">Settings</a></li>
-        <li><a href="{{ site_url("logout/") }}">Logout</a></li>
+        <li><a href="{{ site_url("profile-settings") }}">{{ app_lang('text_app_user_settings') }}</a></li>
+        <li><a href="{{ site_url("logout/") }}">{{ app_lang('text_app_logout') }}</a></li>
     </ul>
 </li>

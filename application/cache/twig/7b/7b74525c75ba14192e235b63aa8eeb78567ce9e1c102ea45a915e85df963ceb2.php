@@ -21,7 +21,10 @@ class __TwigTemplate_0c7259eeb07a60d5b219a05d0d54e2eb4ea90c62d6550451510a9b118b4
         // line 2
         echo twig_escape_filter($this->env, site_url("jobs-home"), "html", null, true);
         echo "\">
-        <i class=\"fa fa-briefcase\" aria-hidden=\"true\"></i> Hire 
+        <i class=\"fa fa-briefcase\" aria-hidden=\"true\"></i> ";
+        // line 3
+        echo twig_escape_filter($this->env, app_lang("text_app_hire"), "html", null, true);
+        echo "
     </a>
 </li>
 <li>
@@ -30,7 +33,10 @@ class __TwigTemplate_0c7259eeb07a60d5b219a05d0d54e2eb4ea90c62d6550451510a9b118b4
         echo twig_escape_filter($this->env, site_url("jobs/mystaff"), "html", null, true);
         echo "\">  
         <img src=\"/assets/img/version1/cup.png\"  style=\"height:20px; width:10px; margin-top:0px;\"/> 
-        My Freelancers  
+        ";
+        // line 9
+        echo twig_escape_filter($this->env, app_lang("text_app_my_freelancers"), "html", null, true);
+        echo "
     </a>
 </li> 
 <li>
@@ -39,7 +45,10 @@ class __TwigTemplate_0c7259eeb07a60d5b219a05d0d54e2eb4ea90c62d6550451510a9b118b4
         echo twig_escape_filter($this->env, site_url("pay/clientpay"), "html", null, true);
         echo "\">
         <i class=\"fa fa-cc-discover\" aria-hidden=\"true\"></i>  
-        Pay 
+        ";
+        // line 15
+        echo twig_escape_filter($this->env, app_lang("text_app_clientpay"), "html", null, true);
+        echo "
     </a>
 </li>
 ";
@@ -57,7 +66,7 @@ class __TwigTemplate_0c7259eeb07a60d5b219a05d0d54e2eb4ea90c62d6550451510a9b118b4
 
     public function getDebugInfo()
     {
-        return array (  39 => 13,  30 => 7,  22 => 2,  19 => 1,);
+        return array (  50 => 15,  45 => 13,  38 => 9,  33 => 7,  26 => 3,  22 => 2,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -72,19 +81,19 @@ class __TwigTemplate_0c7259eeb07a60d5b219a05d0d54e2eb4ea90c62d6550451510a9b118b4
     {
         return new Twig_Source("<li>
     <a href=\"{{ site_url('jobs-home') }}\">
-        <i class=\"fa fa-briefcase\" aria-hidden=\"true\"></i> Hire 
+        <i class=\"fa fa-briefcase\" aria-hidden=\"true\"></i> {{ app_lang('text_app_hire') }}
     </a>
 </li>
 <li>
     <a href=\"{{ site_url('jobs/mystaff') }}\">  
         <img src=\"/assets/img/version1/cup.png\"  style=\"height:20px; width:10px; margin-top:0px;\"/> 
-        My Freelancers  
+        {{ app_lang('text_app_my_freelancers') }}
     </a>
 </li> 
 <li>
     <a href=\"{{ site_url('pay/clientpay') }}\">
         <i class=\"fa fa-cc-discover\" aria-hidden=\"true\"></i>  
-        Pay 
+        {{ app_lang('text_app_clientpay') }}
     </a>
 </li>
 ", "webview/layout/twig/partials/client-header-links.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\layout\\twig\\partials\\client-header-links.twig");

@@ -12,7 +12,7 @@ $lang['text_job_btn_message']      = 'Message';
 $lang['text_job_btn_work_diary']   = 'Work Diary';
 
 $lang['text_job_btn_op_give_milestone'] = 'Give milestone';
-$lang['text_job_btn_op_view_contact']   = 'View contact';
+$lang['text_job_btn_op_view_contract']  = 'View contract';
 $lang['text_job_btn_op_view_profile']   = 'View Profile';
 $lang['text_job_btn_op_end_contract']   = 'End contract';
 $lang['text_job_link_detail']           = 'Job Details';
@@ -20,6 +20,7 @@ $lang['text_job_paid_of']               = 'Paid of $%.2f';
 
 $lang['text_job_runtime_exception_message'] =  'An internal error has occured when accessing job page. Please wait a minute and try again.';
 $lang['text_job_total_hour'] =  '<b>%.2f</b> hrs this week';
+$lang['text_job_total_hour_pasthire'] = '<b>%.2f</b> hrs worked';
 $lang['text_job_by_hours']   =  '%.2f/hr';
 $lang['text_job_contract_hold'] = 'This contract has been hold';
 $lang['text_job_btn_payment'] = "Payment";
@@ -48,3 +49,11 @@ $lang['text_job_transaction_paid_nothing'] = 'Paid Nothing';
 $lang['text_job_transaction_cancelled'] = 'Cancel';
 $lang['text_job_btn_add_milestone'] = 'Add Milestone';
 $lang['text_job_transaction_empty'] = 'No transaction yet.';
+
+$lang['text_job_my_staff'] = 'My Staff';
+$lang['text_job_pasthired'] = 'Past Hires';
+
+$lang['text_job_message_past_hired']         = '! You have ended %s contract';
+$lang['text_job_message_no_past_hired']      = '! You have no ended contact';
+$lang['text_job_btn_refired']                = 'Rehire';
+$lang['text_job_btn_op_view_ended_contract'] = 'View Ended contact';

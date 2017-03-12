@@ -8,11 +8,15 @@
 requirejs.config({
     baseUrl: site_url + 'assets/modular/js/lib',
     shim : {
-        "bootstrap" : { "deps" :['jquery'] }
+        bootstrap : { "deps" :['jquery'] },
+        chatbox   : { "deps" :['jquery', 'bootstrap'] },
+        payment   : { "deps" :['jquery', 'bootstrap'] }
     },
     paths: {
         pages: '../pages',
         bootstrap: '../lib/bootstrap',
-        jquery: '../lib/jquery-2.2.3'
+        jquery: '../lib/jquery-2.2.3',
+        chatbox: '../modules/chat-box',
+        payment: '../modules/payment'
     }
 });

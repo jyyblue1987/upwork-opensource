@@ -5,8 +5,7 @@ define(function (require) {
      */
     var $           = require('jquery'),
         bootstrap   = require('bootstrap'), 
-        chatBox     = require('chatbox'),
-        payment     = require('payment');
+        chatBox     = require('chatbox');
         
     $('._job_btn_message').chatbox({
         sendto:      site_url + "jobconvrsation/add_conversetion",

@@ -41,11 +41,9 @@
                 <div style="position: absolute;right: 23%;font-size: 26px;top: 35%;color:#a2a2a2;transform: rotate(90deg);" class="attach_icon">
                     <i style="cursor: pointer;" class="fa fa-paperclip" aria-hidden="true"></i>
                 </div>
-                <input name="job_id" type="hidden" id="job_id"  value="" />
-                <input name="bid_id" type="hidden" id="bid_id"  value=""  />
+                
                 <input name="sender_id" type="hidden" id="sender_id"  value="{{ app_user_data()['id'] }}"  />
-                <input name="receiver_id" type="hidden" id="receiver_id"  value=""  />
-                <input name="submitmsg" type="submit"  id="submitmsg" value="{{ app_lang('text_job_modal_btn_send') }}" />
+                <input name="submitmsg" type="submit" id="submitmsg" value="{{ app_lang('text_job_modal_btn_send') }}" />
              </form>
         </div>
     </div>

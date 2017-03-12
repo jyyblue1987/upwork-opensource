@@ -137,15 +137,20 @@ class Jobs_model extends CI_Model {
         return $result[0]->nb_pas_hired;
     }
     
-    public function get_all_freelancer_total_hour( $job_ids, $this_week_start, $today){
+    public function get_all_freelancer_total_hour( $job_ids, $this_week_start = null, $today = null){
         
         $this->db
             ->select('fuser_id, jobid, SUM(total_hour) as total_hour')
             ->from('job_workdairy')
-            ->where_in('jobid', $job_ids)
-            ->where('working_date >=', $this_week_start)
-            ->where('working_date <=', $today)
-            ->group_by(array('fuser_id', 'jobid'));
+            ->where_in('jobid', $job_ids);
+        
+        if( $this_week_start != null )
+            $this->db->where('working_date >=', $this_week_start);
+        
+        if( $today != null )
+            $this->db->where('working_date <=', $today);
+        
+        $this->db->group_by(array('fuser_id', 'jobid'));
         
         $query    = $this->db->get();
         $job_done = $query->result();

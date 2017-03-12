@@ -25,7 +25,7 @@ use PayPal\Types\AP\ReceiverList;
 use PayPal\Types\AP\SenderIdentifier;
 use PayPal\Types\Common\PhoneNumberType;
 
-class Pay extends CI_Controller
+class Pay extends Winjob_Controller
 {
     
     private $job_payment_datas = array(); 

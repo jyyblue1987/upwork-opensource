@@ -72,15 +72,13 @@ class __TwigTemplate_d71f7bf9520f222f68cc828af1c25038507141501c0986e06123625e809
                 <div style=\"position: absolute;right: 23%;font-size: 26px;top: 35%;color:#a2a2a2;transform: rotate(90deg);\" class=\"attach_icon\">
                     <i style=\"cursor: pointer;\" class=\"fa fa-paperclip\" aria-hidden=\"true\"></i>
                 </div>
-                <input name=\"job_id\" type=\"hidden\" id=\"job_id\"  value=\"\" />
-                <input name=\"bid_id\" type=\"hidden\" id=\"bid_id\"  value=\"\"  />
+                
                 <input name=\"sender_id\" type=\"hidden\" id=\"sender_id\"  value=\"";
-        // line 46
+        // line 45
         echo twig_escape_filter($this->env, $this->getAttribute(app_user_data(), "id", array(), "array"), "html", null, true);
         echo "\"  />
-                <input name=\"receiver_id\" type=\"hidden\" id=\"receiver_id\"  value=\"\"  />
-                <input name=\"submitmsg\" type=\"submit\"  id=\"submitmsg\" value=\"";
-        // line 48
+                <input name=\"submitmsg\" type=\"submit\" id=\"submitmsg\" value=\"";
+        // line 46
         echo twig_escape_filter($this->env, app_lang("text_job_modal_btn_send"), "html", null, true);
         echo "\" />
              </form>
@@ -102,7 +100,7 @@ class __TwigTemplate_d71f7bf9520f222f68cc828af1c25038507141501c0986e06123625e809
 
     public function getDebugInfo()
     {
-        return array (  84 => 48,  79 => 46,  64 => 33,  58 => 31,  56 => 30,  52 => 28,  46 => 26,  44 => 25,  41 => 24,  35 => 22,  33 => 21,  25 => 16,  19 => 12,);
+        return array (  82 => 46,  78 => 45,  64 => 33,  58 => 31,  56 => 30,  52 => 28,  46 => 26,  44 => 25,  41 => 24,  35 => 22,  33 => 21,  25 => 16,  19 => 12,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -158,11 +156,9 @@ class __TwigTemplate_d71f7bf9520f222f68cc828af1c25038507141501c0986e06123625e809
                 <div style=\"position: absolute;right: 23%;font-size: 26px;top: 35%;color:#a2a2a2;transform: rotate(90deg);\" class=\"attach_icon\">
                     <i style=\"cursor: pointer;\" class=\"fa fa-paperclip\" aria-hidden=\"true\"></i>
                 </div>
-                <input name=\"job_id\" type=\"hidden\" id=\"job_id\"  value=\"\" />
-                <input name=\"bid_id\" type=\"hidden\" id=\"bid_id\"  value=\"\"  />
+                
                 <input name=\"sender_id\" type=\"hidden\" id=\"sender_id\"  value=\"{{ app_user_data()['id'] }}\"  />
-                <input name=\"receiver_id\" type=\"hidden\" id=\"receiver_id\"  value=\"\"  />
-                <input name=\"submitmsg\" type=\"submit\"  id=\"submitmsg\" value=\"{{ app_lang('text_job_modal_btn_send') }}\" />
+                <input name=\"submitmsg\" type=\"submit\" id=\"submitmsg\" value=\"{{ app_lang('text_job_modal_btn_send') }}\" />
              </form>
         </div>
     </div>

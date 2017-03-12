@@ -2,6 +2,8 @@
 
 {% block styles %}
     {{ parent() }}
+    
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/job-common.css") }}">
     <link rel="stylesheet" href="{{ base_url("assets/css/pages/contract.css") }}">
 {% endblock %}
 
@@ -34,7 +36,7 @@
                                 </div>
                                 <div style="margin-left: -24px;" class="col-md-7 text-left">
                                     <h5 style="margin-top: -4px;" class="free_name">{{ job_status.webuser_fname }} {{ job_status.webuser_lname }}</label>
-                                        <br> <p class="free_name"><strong>{{ character_limiter(job_status.tagline, 36, '...') }}</strong></p>
+                                        <br> <p class=""><strong>{{ character_limiter(job_status.tagline, 36, '...') }}</strong></p>
                                 </div>
                             </div>
                         </div>
@@ -137,14 +139,14 @@
                                     <div class="">
                                         <input style="float: left;margin-left: 0;" type="button" class="btn my_btn btn-cancel _job_add_milestone" 
                                                value="{{ app_lang('text_job_btn_add_milestone') }}" 
-                                               id ="2" 
+                                               data-id ="2" 
                                                data-buserid="{{ job_status.buser_id }}"
                                                data-fuserid="{{ job_status.fuser_id }}"
                                                data-jobid="{{ job_status.job_id }}" />
                                     </div>
                                     <input style="margin-left: 15px;" type="button" class="btn my_btn btn-cancel _job_btn_payment" 
                                            value="{{ app_lang('text_job_btn_payment') }}"  
-                                           id ="2"
+                                           data-id ="2"
                                            data-buserid="{{ job_status.buser_id }}"
                                            data-fuserid="{{ job_status.fuser_id }}"
                                            data-jobid="{{ job_status.job_id }}"

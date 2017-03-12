@@ -39,18 +39,19 @@ class __TwigTemplate_4439f3e9b8b8533cd9bf3cce4a90e55d6615a37250a9cb945d41dd77724
             // line 9
             echo "    <div class=\"ms_pay_butt\">
         <div class=\"mystaff_pay_btnx payment_btn\">
-            <input type=\"button\" class=\"btn btn-primary form-btn my-btn\"
+            <input type=\"button\" class=\"btn btn-primary form-btn my-btn _job_btn_payment\"
                    value=\"";
             // line 12
             echo twig_escape_filter($this->env, app_lang("text_job_btn_payment"), "html", null, true);
-            echo "\" 
+            echo "\"
+                   data-payment=\"2\"
                    id=\"2\" 
-                   onclick=\"editClickedPayment(this.id)\" />
+                 />
         </div>
     </div>    
 ";
         }
-        // line 18
+        // line 19
         echo "
 ";
     }
@@ -67,7 +68,7 @@ class __TwigTemplate_4439f3e9b8b8533cd9bf3cce4a90e55d6615a37250a9cb945d41dd77724
 
     public function getDebugInfo()
     {
-        return array (  54 => 18,  45 => 12,  40 => 9,  33 => 5,  25 => 4,  21 => 2,  19 => 1,);
+        return array (  55 => 19,  45 => 12,  40 => 9,  33 => 5,  25 => 4,  21 => 2,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -90,10 +91,11 @@ class __TwigTemplate_4439f3e9b8b8533cd9bf3cce4a90e55d6615a37250a9cb945d41dd77724
 {% else %}
     <div class=\"ms_pay_butt\">
         <div class=\"mystaff_pay_btnx payment_btn\">
-            <input type=\"button\" class=\"btn btn-primary form-btn my-btn\"
-                   value=\"{{ app_lang('text_job_btn_payment') }}\" 
+            <input type=\"button\" class=\"btn btn-primary form-btn my-btn _job_btn_payment\"
+                   value=\"{{ app_lang('text_job_btn_payment') }}\"
+                   data-payment=\"2\"
                    id=\"2\" 
-                   onclick=\"editClickedPayment(this.id)\" />
+                 />
         </div>
     </div>    
 {% endif %}

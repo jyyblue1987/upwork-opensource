@@ -192,3 +192,46 @@ body{
 .notif-dropdown{
     
 }
+
+.notification {
+    background: #35adda none repeat scroll 0 0;
+    color: #fff;
+    height: auto;
+    left: -6px;
+    min-width: 250px;
+    padding: 10px;
+    position: absolute;
+    top: 110px;
+    width: 100%;
+    z-index: 99999;
+}
+
+/**
+ * Notification style from afterheader.php view file.
+ */
+.notification p.noti-block {
+    background-color: rgba(0, 0, 0, 0.18);
+    padding: 6px;
+}
+                                
+.notification p span.details {
+    display: block;
+    color: #fff;
+    font-size: 13px;
+}
+
+.notification p span.name {
+    display: block;
+    text-transform: capitalize;
+    color: #fff;
+}
+
+.notification p span.name img {
+    width: 28px;
+    margin-bottom: 3px;
+    border-radius: 50%;
+}
+
+.notification p.noti-block a {
+    text-decoration: none;
+}

@@ -1773,7 +1773,11 @@ class Jobs extends Winjob_Controller {
             $this->db->group_by('bid_id');
             $query_offer = $this->db->get();
             $offer_count = $query_offer->num_rows();
-
+            
+            $this->load->model('jobs_model');
+            $job_ids             = $this->extrat_all_job_ids( $result );
+            $freelancer_job_hour = $this->jobs_model->get_all_freelancer_total_hour($job_ids);
+            
             $this->db->select('*');
             $this->db->from('job_accepted');
             $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
@@ -1783,9 +1787,16 @@ class Jobs extends Winjob_Controller {
             $query_myhire = $this->db->get();
             $myhire_count = $query_myhire->num_rows();
 
-
-            $data = array('messages' => $result, 'offer_count' => $offer_count, 'myhire_count' => $myhire_count, 'past_hire' => $past_hire);
-            $this->Admintheme->webview("jobs/pasthire", $data);
+            $data = array(
+                'messages' => $result, 
+                'offer_count' => $offer_count, 
+                'myhire_count' => $myhire_count, 
+                'past_hire' => $past_hire, 
+                'freelancer_job_hour' => $freelancer_job_hour
+            );
+            
+            //$this->Admintheme->webview("jobs/pasthire", $data);
+            $this->twig->display( 'webview/jobs/twig/pasthire', $data );
         }
     }
 

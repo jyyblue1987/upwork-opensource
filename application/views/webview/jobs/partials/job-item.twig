@@ -1,13 +1,5 @@
 {% set title            = job.hire_title %}
-{% set job_id_encoded   = base64_encode(job.job_id) %}
-{% set fuser_id_encoded = base64_encode(job.fuser_id) %}
- {% set job_detail_link   = base_url() ~ "jobs/contracts?fmJob=" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
- 
-{% if job.job_type == "hourly" %}
-    {% set end_contract_link = base_url() ~ "endhourlyfixed/hourly_client?fmJob=" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
-{% else %}
-    {% set end_contract_link = base_url() ~ "endhourlyfixed/fixed_client?fmJob=" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
-{% endif %}
+{% set username         = job.webuser_fname ~ ' ' ~ job.webuser_lname %}
                 
 <div class="row margintop-2 ms_white_box">
     <div class="col-md-12 freelancer-job white-box" style="padding: 20px">
@@ -20,39 +12,55 @@
             <div class="col-md-4">
                 <div class="row">
                     <div class="ms_hr_massage_butt">
-                        <div class="mystaff_msg_btnx hour_btn message_btn">
+                        <div class="mystaff_msg_btnx hour_btn message_btn ">
                             <input type="button" 
-                                   class="btn btn-primary form-btn"  
-                                   onclick="loadmessage({{ job.bid_id }}, {{ job.user_id }}, {{ job.fuser_id }},'{{ job.webuser_fname }} {{ job.webuser_lname }}','{{ title }}')" 
+                                   class="btn btn-primary form-btn _job_btn_message"
+                                   data-bid="{{ job.bid_id }}"
+                                   data-uid="{{ chat_receiver_id }}"
+                                   data-jid="{{ job.job_id }}"
+                                   data-title="{{ title }}"
+                                   data-uname="{{ username }}"
                                    value="{{ app_lang('text_job_btn_message') }}">
                         </div>
                     </div>
-                        
-                    {{ include('webview/jobs/partials/job-payment-buttons.twig') }}
                     
+                    {% if specific_btn_template is defined %}    
+                        {{ include( specific_btn_template ) }}
+                    {% endif %}
+                    
+                    {% if options_dropdown is defined %}
                     <div class="ms_hr_drop_butt">
                         <div class="dropdown hour_btnx dropdown_btn">
                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
                                 <span class="caret"></span>
                             </button>
                             <ul style="left: -156px;" class="dropdown-menu">
-                                <li><a href="{{ job_detail_link }}">{{ app_lang('text_job_btn_op_give_milestone') }}</a></li>
-                                <li><a href="#">{{ app_lang('text_job_btn_op_view_contact') }}</a></li>
-                                <li><a href="#">{{ app_lang('text_job_btn_op_view_profile') }}</a></li>
-                                <li><a href="{{ end_contract_link }}">{{ app_lang('text_job_btn_op_end_contract') }}</a></li>
+                                {{ include( options_dropdown ) }}
                             </ul>
                         </div>
                     </div>
+                    {% endif %}
                 </div>
             </div> 
         </div>
         <div class="row">
-            <div class="col-md-12">
-                <div class="job_detais" style="margin-top: -10px;">
-                    <a href="{{ job_detail_link }}">  {{ app_lang('text_job_link_detail') }} </a>  
-                    <strong>-</strong>
-                    <span><b>{{ character_limiter(title, 94, '...') }}</b></span>
-                </div>
+            <div class="job_detais col-md-12">
+                {# profile link #}
+                {% if profil_link is defined %}
+                 <a href="{{ profil_link }}" 
+                    style="font-size: 14px;color: #3DB0DD;">{{ app_lang('text_job_btn_op_view_profile') }}
+                 </a>
+                 <strong>-</strong>
+                {% endif %}
+                
+                {# job detail link #}
+                {% if job_detail_link is defined %}
+                <a href="{{ job_detail_link }}">  {{ app_lang('text_job_link_detail') }} </a>  
+                <strong>-</strong>
+                {% endif %}
+                
+                {# job hire title #}
+                <span><b>{{ character_limiter(title, 94, '...') }}</b></span>
             </div>
         </div>
     </div>
