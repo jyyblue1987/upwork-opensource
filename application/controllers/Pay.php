@@ -630,7 +630,7 @@ class Pay extends CI_Controller
             $query_payment_hourly_avail = $this->db->get();
             $payment_hourly_avail = $query_payment_fixed_avail->result();
 
-            $data = array('payment_hourly_avail'=>$payment_hourly_avail,'payment_fixed_avail'=>$payment_fixed_avail,'payment_fixed_pending'=>$payment_fixed_pending,'list_users' => $list_client, 'list_payments' => $list_payments, 'job_progress' => $job_progress, 'job_pending' => $job_pending, 'job_pending_fixed' => $job_pending_fixed, 'job_available_hourly' => $job_available_hourly, 'job_available_fixed' => $job_available_fixed, 'withdraws' => $withdraws);
+            $data = array('payment_hourly_avail'=>$payment_hourly_avail,'payment_fixed_avail'=>$payment_fixed_avail,'payment_fixed_pending'=>$payment_fixed_pending,'list_users' => $list_client, 'list_payments' => $list_payments, 'job_progress' => $job_progress, 'job_pending' => $job_pending, 'job_pending_fixed' => $job_pending_fixed, 'job_available_hourly' => $job_available_hourly, 'job_available_fixed' => $job_available_fixed, 'withdraws' => $withdraws, 'title' => 'My Balance - Winjob');
             $this->Admintheme->webview("clientpay/freelancerbalance", $data);
         }
     }

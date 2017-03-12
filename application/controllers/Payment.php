@@ -12,6 +12,7 @@ class Payment extends CI_Controller
         if ($this->Adminlogincheck->checkx()) {
 
             $params = array(
+                'title' => 'Payment Methods - Winjob',
                 'page' => "profilesetting",
                 'name' => $this->session->userdata('fname') . " " . $this->session->userdata('lname'),
                 'id' => $this->session->userdata('id'),
@@ -35,7 +36,6 @@ class Payment extends CI_Controller
                 ),
                // 'projectCateList' => $value['projectCateList'],
             );
-            $params['title'] = "HOME | Payment Methods";
             $condition = " AND webuser_id=".$this->session->userdata(USER_ID)." AND current_status='active'";
             $data = $this->common_mod->get(WB_PAYMENT_METHODS,null,$condition);
             if(!empty($data) && sizeof($data['rows']) > 0){
@@ -196,6 +196,7 @@ class Payment extends CI_Controller
           //  $countryList = $this->common_mod->get(COUNTEY_TABLE,null," AND country_status=1");
            // print_r($webUserTaxdetails);die();
             $params = array(
+                    'title' => 'Tax Information - Winjob',
                     'country_name' => $country,
                   //  'page' => "profilesetting",
                     'name' => $this->session->userdata('fname')." ".$this->session->userdata('lname'),
