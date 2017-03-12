@@ -83,8 +83,17 @@ class Changeemail extends CI_Controller {
                 $this->db->update('webuser', $data);
 
                 $resetlink = site_url() . "verifyemail?token=" . $token;
-                $subject = "Change Email Address Request";
 
+                $notif = array(
+                    'user_id' => $id,
+                    'read_status' => 0,
+                    'description' => 'Updated email address',
+                    'link' => site_url().'profile-settings'
+                );
+
+                $this->db->insert('notification', $notif);
+
+                $subject = "Change Email Address Request";
                 $data = array(
                     'fname' => $fname,
                     'company' => 'Winjob',

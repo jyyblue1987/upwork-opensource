@@ -67,8 +67,15 @@ class Changepassword extends CI_Controller {
                 $this->db->where('webuser_id', $this->session->userdata('id'));
                 $this->db->update('webuser', $data);
 
-                $subject = "Successfully Updated Password";
+                $notif = array(
+                    'user_id' => $id,
+                    'read_status' => 0,
+                    'description' => 'Updated account password',
+                    'link' => site_url().'profile-settings'
+                );
+                $this->db->insert('notification', $notif);
 
+                $subject = "Successfully Updated Password";
                 $data = array(
                     'fname' => $fname,
                     'company' => 'Winjob',
