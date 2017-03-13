@@ -108,6 +108,29 @@ class Pay extends CI_Controller
                         }
                     }
                 }
+            
+            //added by arjay
+            //get email and name of employer
+            $this->db->select('*');
+            $this->db->from('webuser');
+            $this->db->where('webuser_id', $user_id);
+            $query = $this->db->get();
+            $result = $query->row();
+
+            if ($query->num_rows() > 0) {
+                $fname = $result->webuser_fname;
+                $email = $result->webuser_email;
+            }
+
+            $subject = "Successfully Added Payment Method";
+            $details = array(
+                    'fname' => ucfirst($fname),
+                    'company' => 'Winjob',
+                    'slogan' => 'Hire Talented Freelancers For a Low Cost',
+                    'para1' => 'Your new payment method has been add for your account. If you did not make this change, please <a href="' . site_url() . 'contact" style="color: #0061A7; text-decoration: none;">contact us</a>.'
+                );
+                $response = $this->Sesmailer->sesemail($email, $subject, $this->Emailtemplate->emailview('set_primary_payment', $details));
+                
             } else {
                 echo "error";
             }
@@ -388,6 +411,28 @@ class Pay extends CI_Controller
             $this->db->where("billingmethodlist.paymentMethod", $type);
             $this->db->where("billingmethodlist.attachedTo", $id);
             $this->db->update("billingmethodlist", $updateArray);
+            
+            //added by arjay
+            //get email and name of employer
+            $this->db->select('*');
+            $this->db->from('webuser');
+            $this->db->where('webuser_id', $user_id);
+            $query = $this->db->get();
+            $result = $query->row();
+
+            if ($query->num_rows() > 0) {
+                $fname = $result->webuser_fname;
+                $email = $result->webuser_email;
+            }
+
+            $subject = "Updated Primary Payment Method";
+            $details = array(
+                    'fname' => ucfirst($fname),
+                    'company' => 'Winjob',
+                    'slogan' => 'Hire Talented Freelancers For a Low Cost',
+                    'para1' => 'Your payment method has been updated for your account. If you did not make this change, please <a href="' . site_url() . 'contact" style="color: #0061A7; text-decoration: none;">contact us</a>.'
+                );
+                $response = $this->Sesmailer->sesemail($email, $subject, $this->Emailtemplate->emailview('set_primary_payment', $details));
 
             header('Location: ../pay/billing?primary=changed');
         }

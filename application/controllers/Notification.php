@@ -10,6 +10,7 @@ class Notification extends CI_Controller {
                 $this->db->select('*');
                 $this->db->from('notification');
                 $this->db->where('id_notification', $notif_id);
+                $this->db->order_by("date desc");
                 $query = $this->db->get();
                 $result = $query->row();
 
@@ -20,6 +21,24 @@ class Notification extends CI_Controller {
                 redirect($result->link);
             }
         }
+    }
+
+    public function read_all($userid) {
+        if ($this->Adminlogincheck->checkx()) {
+            $this->db->select('*');
+            $this->db->from('notification');
+            $this->db->where('user_id', $userid);
+            $query = $this->db->get();
+            $result = $query->row();
+        }
+
+        $data = array(
+            'read_status' => 1
+        );
+
+        $this->db->where('user_id', $userid);
+        $this->db->update('notification', $data);
+        redirect(site_url().'jobs-home');
     }
 
 }
