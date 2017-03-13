@@ -31,13 +31,14 @@ class __TwigTemplate_ae6e33793b374f138cc3f8ceba6a28eb5dddf96040ec33ee992131b5903
             echo twig_escape_filter($this->env, (isset($context["empty_message"]) ? $context["empty_message"] : null), "html", null, true);
             echo "</h4>
         <div class=\"row\">
-             <div class=\"col-md-12\">
-                 <div class=\"border-box empty_freelancer_box\"></div>
+             <div class=\"col-md-12\" style=\"margin-left: 8px; margin-top: 22px;\">
+                 <div class=\"border-box empty_freelancer_box\" style=\"height: 377px\"></div>
              </div>
          </div>
+        <div class=\"clear-both\"></div>
     ";
         }
-        // line 12
+        // line 13
         echo "</div>";
     }
 
@@ -53,7 +54,7 @@ class __TwigTemplate_ae6e33793b374f138cc3f8ceba6a28eb5dddf96040ec33ee992131b5903
 
     public function getDebugInfo()
     {
-        return array (  41 => 12,  30 => 5,  24 => 3,  22 => 2,  19 => 1,);
+        return array (  42 => 13,  30 => 5,  24 => 3,  22 => 2,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -72,10 +73,11 @@ class __TwigTemplate_ae6e33793b374f138cc3f8ceba6a28eb5dddf96040ec33ee992131b5903
     {% else %}
         <h4>{{ empty_message  }}</h4>
         <div class=\"row\">
-             <div class=\"col-md-12\">
-                 <div class=\"border-box empty_freelancer_box\"></div>
+             <div class=\"col-md-12\" style=\"margin-left: 8px; margin-top: 22px;\">
+                 <div class=\"border-box empty_freelancer_box\" style=\"height: 377px\"></div>
              </div>
          </div>
+        <div class=\"clear-both\"></div>
     {% endif %}
 </div>", "webview/jobs/partials/job-hirefeebar.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\jobs\\partials\\job-hirefeebar.twig");
     }

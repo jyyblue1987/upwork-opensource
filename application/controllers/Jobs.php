@@ -1883,7 +1883,8 @@ class Jobs extends Winjob_Controller {
 
 
             $data = array('messages' => $result, 'offer_count' => $offer_count, 'myhire_count' => $myhire_count, 'past_hire' => $past_hire);
-            $this->Admintheme->webview("jobs/offersent", $data);
+            //$this->Admintheme->webview("jobs/offersent", $data);
+            $this->twig->display('webview/jobs/twig/offer-sent', $data);
         }
     }
 

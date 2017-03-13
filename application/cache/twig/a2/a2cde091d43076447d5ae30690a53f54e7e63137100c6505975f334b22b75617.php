@@ -39,21 +39,29 @@ class __TwigTemplate_4439f3e9b8b8533cd9bf3cce4a90e55d6615a37250a9cb945d41dd77724
             // line 9
             echo "    <div class=\"ms_pay_butt\">
         <div class=\"mystaff_pay_btnx payment_btn\">
-            <input type=\"button\" class=\"btn btn-primary form-btn my-btn _job_btn_payment\"
-                   value=\"";
+            <input type=\"button\" class=\"btn btn-primary form-btn my-btn \" ";
             // line 12
+            echo "                   value=\"";
             echo twig_escape_filter($this->env, app_lang("text_job_btn_payment"), "html", null, true);
             echo "\"
-                   data-payment=\"2\"
-                   id=\"2\" 
+                   data-id =\"2\"
+                   data-buserid=\"";
+            // line 14
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "buser_id", array()), "html", null, true);
+            echo "\"
+                   data-fuserid=\"";
+            // line 15
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "fuser_id", array()), "html", null, true);
+            echo "\"
+                   data-jobid=\"";
+            // line 16
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "job_id", array()), "html", null, true);
+            echo "\"
                  />
         </div>
     </div>    
 ";
         }
-        // line 19
-        echo "
-";
     }
 
     public function getTemplateName()
@@ -68,7 +76,7 @@ class __TwigTemplate_4439f3e9b8b8533cd9bf3cce4a90e55d6615a37250a9cb945d41dd77724
 
     public function getDebugInfo()
     {
-        return array (  55 => 19,  45 => 12,  40 => 9,  33 => 5,  25 => 4,  21 => 2,  19 => 1,);
+        return array (  58 => 16,  54 => 15,  50 => 14,  44 => 12,  40 => 9,  33 => 5,  25 => 4,  21 => 2,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -91,15 +99,15 @@ class __TwigTemplate_4439f3e9b8b8533cd9bf3cce4a90e55d6615a37250a9cb945d41dd77724
 {% else %}
     <div class=\"ms_pay_butt\">
         <div class=\"mystaff_pay_btnx payment_btn\">
-            <input type=\"button\" class=\"btn btn-primary form-btn my-btn _job_btn_payment\"
+            <input type=\"button\" class=\"btn btn-primary form-btn my-btn \" {# _job_btn_payment class to active payment button via js #}
                    value=\"{{ app_lang('text_job_btn_payment') }}\"
-                   data-payment=\"2\"
-                   id=\"2\" 
+                   data-id =\"2\"
+                   data-buserid=\"{{ job.buser_id }}\"
+                   data-fuserid=\"{{ job.fuser_id }}\"
+                   data-jobid=\"{{ job.job_id }}\"
                  />
         </div>
     </div>    
-{% endif %}
-
-", "webview/jobs/partials/job-payment-buttons.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\jobs\\partials\\job-payment-buttons.twig");
+{% endif %}", "webview/jobs/partials/job-payment-buttons.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\jobs\\partials\\job-payment-buttons.twig");
     }
 }

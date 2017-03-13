@@ -132,5 +132,5 @@ define('WB_TAX_INFO', "webuser_tax_information");
 
 
 defined('CONTRACT_JOB_TITLE_MAX') || define('CONTRACT_JOB_TITLE_MAX', 68);
-defined('LIST_JOB_TITLE_MAX') || define('LIST_JOB_TITLE_MAX', 97);
+defined('LIST_JOB_TITLE_MAX') || define('LIST_JOB_TITLE_MAX', 88);
 defined('CONTRACT_JOB_COMPANY_NAME_MAX') || define('CONTRACT_JOB_COMPANY_NAME_MAX', 35);

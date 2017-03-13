@@ -236,4 +236,25 @@ if( ! function_exists('app_date')){
     }
 }
 
+if( ! function_exists('app_substr')){
+    
+    
+    /**
+     * Helper truncate the string inside a twig template
+     * 
+     * @param string $string
+     * @param int $limit
+     * @param string $end_with
+     * @return string
+     */
+    function app_substr($string, $limit, $end_with ){
+        if(strlen($string) > $limit){
+            return substr($string, 0, $limit - strlen($end_with)) . $end_with;
+        }
+        return $string;
+    }
+}
+
+
+
 // added by (Donfack Zeufack Hermann) end

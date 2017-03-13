@@ -1,14 +1,14 @@
 <?php
 
-/* webview/jobs/twig/my-staff.twig */
-class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b16352997 extends Twig_Template
+/* webview/jobs/twig/offer-sent.twig */
+class __TwigTemplate_16fa7dae927f628145ee9d230e1cf7494f538690aba10dfa70ce526f5af16019 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
         parent::__construct($env);
 
         // line 1
-        $this->parent = $this->loadTemplate("webview/layout/twig/layout.twig", "webview/jobs/twig/my-staff.twig", 1);
+        $this->parent = $this->loadTemplate("webview/layout/twig/layout.twig", "webview/jobs/twig/offer-sent.twig", 1);
         $this->blocks = array(
             'title' => array($this, 'block_title'),
             'styles' => array($this, 'block_styles'),
@@ -31,7 +31,7 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
     public function block_title($context, array $blocks = array())
     {
         echo "  ";
-        echo twig_escape_filter($this->env, app_lang("text_job_my_staff"), "html", null, true);
+        echo twig_escape_filter($this->env, app_lang("text_job_title_page_offer_sent"), "html", null, true);
         echo " - Winjob  ";
     }
 
@@ -49,7 +49,7 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
         echo "\">
     <link rel=\"stylesheet\" href=\"";
         // line 9
-        echo twig_escape_filter($this->env, base_url("assets/css/pages/mystaff.css"), "html", null, true);
+        echo twig_escape_filter($this->env, base_url("assets/css/pages/offer-sent.css"), "html", null, true);
         echo "\">
 ";
     }
@@ -66,7 +66,7 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
                         <div class=\"col-md-10 nopadding\">
                             ";
         // line 19
-        echo twig_include($this->env, $context, "webview/jobs/partials/job-client-left-menu.twig", array("mystaff" => true), false);
+        echo twig_include($this->env, $context, "webview/jobs/partials/job-client-left-menu.twig", array("offersent" => true), false);
         echo "
                         </div>
                     </div>
@@ -77,22 +77,22 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
                         ";
         // line 27
         echo "                        ";
-        $context["message"] = sprintf(app_lang("text_job_mystaff_hired"), (isset($context["nb_freelancer_hired"]) ? $context["nb_freelancer_hired"] : null));
+        $context["message"] = sprintf(app_lang("text_job_message_offer_sent"), (isset($context["offer_count"]) ? $context["offer_count"] : null));
         // line 28
         echo "                        ";
-        $context["empty_message"] = app_lang("text_job_mystaff_not_hired");
+        $context["empty_message"] = app_lang("text_job_message_no_offer_sent");
         // line 29
         echo "                        ";
-        echo twig_include($this->env, $context, "webview/jobs/partials/job-hirefeebar.twig", array("number" => (isset($context["nb_freelancer_hired"]) ? $context["nb_freelancer_hired"] : null), "message" => (isset($context["message"]) ? $context["message"] : null), "empty_message" => (isset($context["empty_message"]) ? $context["empty_message"] : null)), false);
+        echo twig_include($this->env, $context, "webview/jobs/partials/job-hirefeebar.twig", array("number" => (isset($context["offer_count"]) ? $context["offer_count"] : null), "message" => (isset($context["message"]) ? $context["message"] : null), "empty_message" => (isset($context["empty_message"]) ? $context["empty_message"] : null)), false);
         echo "
                        
                         ";
         // line 31
-        if (array_key_exists("jobs_accepted", $context)) {
+        if (array_key_exists("messages", $context)) {
             // line 32
             echo "                            ";
             $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable((isset($context["jobs_accepted"]) ? $context["jobs_accepted"] : null));
+            $context['_seq'] = twig_ensure_traversable((isset($context["messages"]) ? $context["messages"] : null));
             $context['loop'] = array(
               'parent' => $context['_parent'],
               'index0' => 0,
@@ -112,7 +112,7 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
                                 ";
                 // line 35
                 echo "                                ";
-                $context["page"] = "mystaff";
+                $context["page"] = "offersent";
                 // line 36
                 echo "                                
                                 ";
@@ -137,40 +137,27 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
                 // line 45
                 $context["profil_link"] = ((((((base_url() . "interview?user_id=") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null)) . "&job_id=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&bid_id=") . (isset($context["bid_id_encoded"]) ? $context["bid_id_encoded"] : null));
                 // line 46
-                echo "                                
+                echo "                     
                                 ";
                 // line 47
-                $context["job_detail_link"] = ((((base_url() . "jobs/contracts?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&fuser=") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
+                $context["cancel_link"] = ((((base_url() . "canceloffer?bid_id=") . (isset($context["bid_id_encoded"]) ? $context["bid_id_encoded"] : null)) . "&job_id=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null));
+                echo "          
+                                ";
                 // line 48
-                echo "                                
+                $context["job_detail_link"] = (isset($context["cancel_link"]) ? $context["cancel_link"] : null);
+                echo "    
+                                
                                 ";
-                // line 49
-                if (($this->getAttribute($context["job"], "job_type", array()) == "hourly")) {
-                    // line 50
-                    echo "                                    ";
-                    $context["end_contract_link"] = ((((base_url() . "endhourlyfixed/hourly_client?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&fuser=") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
-                    // line 51
-                    echo "                                ";
-                } else {
-                    // line 52
-                    echo "                                    ";
-                    $context["end_contract_link"] = ((((base_url() . "endhourlyfixed/fixed_client?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&fuser=") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
-                    // line 53
-                    echo "                                ";
-                }
-                // line 54
-                echo "                                
-                                ";
-                // line 56
+                // line 51
                 echo "                                ";
-                $context["specific_btn_template"] = "webview/jobs/partials/job-payment-buttons.twig";
-                // line 57
+                $context["specific_btn_template"] = "webview/jobs/partials/job-offer-buttons.twig";
+                // line 52
                 echo "                                ";
-                $context["options_dropdown"] = "webview/jobs/partials/job-staff-dropdown.twig";
-                // line 58
+                $context["options_dropdown"] = "webview/jobs/partials/job-offer-dropdown.twig";
+                // line 53
                 echo "
                                 ";
-                // line 60
+                // line 55
                 echo "                                ";
                 echo twig_include($this->env, $context, "webview/jobs/partials/job-item.twig");
                 echo "
@@ -187,10 +174,10 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['job'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 62
+            // line 57
             echo "                        ";
         }
-        // line 63
+        // line 58
         echo "                   </div>
                 </div>
             </div>
@@ -198,23 +185,23 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
     </section>
                         
     ";
-        // line 69
+        // line 64
         echo twig_include($this->env, $context, "webview/modals/message-conversion-modal.twig");
         echo "
 ";
     }
 
-    // line 72
+    // line 67
     public function block_js($context, array $blocks = array())
     {
-        // line 73
+        // line 68
         echo "    
     ";
-        // line 75
+        // line 70
         echo "    <script> var page = 'my-staff'; </script>
     
     <script data-main=\"";
-        // line 77
+        // line 72
         echo twig_escape_filter($this->env, app_modular_js("winjob"), "html", null, true);
         echo "\" src=\"";
         echo twig_escape_filter($this->env, app_modular_js("lib/require.dev.js"), "html", null, true);
@@ -225,7 +212,7 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
 
     public function getTemplateName()
     {
-        return "webview/jobs/twig/my-staff.twig";
+        return "webview/jobs/twig/offer-sent.twig";
     }
 
     public function isTraitable()
@@ -235,7 +222,7 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
 
     public function getDebugInfo()
     {
-        return array (  218 => 77,  214 => 75,  211 => 73,  208 => 72,  202 => 69,  194 => 63,  191 => 62,  174 => 60,  171 => 58,  168 => 57,  165 => 56,  162 => 54,  159 => 53,  156 => 52,  153 => 51,  150 => 50,  148 => 49,  145 => 48,  143 => 47,  140 => 46,  138 => 45,  135 => 44,  132 => 43,  129 => 42,  126 => 41,  123 => 39,  120 => 38,  117 => 36,  114 => 35,  111 => 33,  93 => 32,  91 => 31,  85 => 29,  82 => 28,  79 => 27,  69 => 19,  61 => 13,  58 => 12,  52 => 9,  48 => 8,  42 => 6,  39 => 5,  31 => 3,  11 => 1,);
+        return array (  205 => 72,  201 => 70,  198 => 68,  195 => 67,  189 => 64,  181 => 58,  178 => 57,  161 => 55,  158 => 53,  155 => 52,  152 => 51,  147 => 48,  143 => 47,  140 => 46,  138 => 45,  135 => 44,  132 => 43,  129 => 42,  126 => 41,  123 => 39,  120 => 38,  117 => 36,  114 => 35,  111 => 33,  93 => 32,  91 => 31,  85 => 29,  82 => 28,  79 => 27,  69 => 19,  61 => 13,  58 => 12,  52 => 9,  48 => 8,  42 => 6,  39 => 5,  31 => 3,  11 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -250,13 +237,13 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
     {
         return new Twig_Source("{% extends \"webview/layout/twig/layout.twig\" %}
 
-{% block title %}  {{ app_lang('text_job_my_staff') }} - Winjob  {% endblock %}
+{% block title %}  {{ app_lang('text_job_title_page_offer_sent') }} - Winjob  {% endblock %}
 
 {% block styles %}
     {{ parent() }}
     
     <link rel=\"stylesheet\" href=\"{{ base_url(\"assets/css/pages/job-common.css\") }}\">
-    <link rel=\"stylesheet\" href=\"{{ base_url(\"assets/css/pages/mystaff.css\") }}\">
+    <link rel=\"stylesheet\" href=\"{{ base_url(\"assets/css/pages/offer-sent.css\") }}\">
 {% endblock %}
 
 {% block content %}
@@ -266,7 +253,7 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
 \t        <div class=\"col-md-3\">
                     <div class=\"row\">
                         <div class=\"col-md-10 nopadding\">
-                            {{ include('webview/jobs/partials/job-client-left-menu.twig', { mystaff: true }, with_context = false) }}
+                            {{ include('webview/jobs/partials/job-client-left-menu.twig', { offersent: true }, with_context = false) }}
                         </div>
                     </div>
                 </div>
@@ -274,15 +261,15 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
 \t\t   <div class=\"row\">
                         
                         {# top message #}
-                        {% set message       = app_lang('text_job_mystaff_hired')|format(nb_freelancer_hired) %}
-                        {% set empty_message = app_lang('text_job_mystaff_not_hired') %}
-                        {{ include('webview/jobs/partials/job-hirefeebar.twig', { number: nb_freelancer_hired, message: message , empty_message: empty_message }, with_context = false ) }}
+                        {% set message       = app_lang('text_job_message_offer_sent')|format(offer_count) %}
+                        {% set empty_message = app_lang('text_job_message_no_offer_sent') %}
+                        {{ include('webview/jobs/partials/job-hirefeebar.twig', { number: offer_count, message: message , empty_message: empty_message }, with_context = false ) }}
                        
-                        {% if jobs_accepted is defined %}
-                            {% for job in jobs_accepted %}
+                        {% if messages is defined %}
+                            {% for job in messages %}
                                 
                                 {# specific the current page #}
-                                {% set page = 'mystaff' %}
+                                {% set page = 'offersent' %}
                                 
                                 {# chat receiver id #}
                                 {% set chat_receiver_id      = job.fuser_id %}
@@ -293,18 +280,13 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
                                 {% set bid_id_encoded        = base64_encode(job.bid_id) %}
                                 
                                 {% set profil_link           = base_url() ~ \"interview?user_id=\" ~ fuser_id_encoded ~ \"&job_id=\" ~ job_id_encoded ~ \"&bid_id=\" ~ bid_id_encoded %}
-                                
-                                {% set job_detail_link       = base_url() ~ \"jobs/contracts?fmJob=\" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
-                                
-                                {% if job.job_type == \"hourly\" %}
-                                    {% set end_contract_link = base_url() ~ \"endhourlyfixed/hourly_client?fmJob=\" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
-                                {% else %}
-                                    {% set end_contract_link = base_url() ~ \"endhourlyfixed/fixed_client?fmJob=\" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
-                                {% endif %}
+                     
+                                {% set cancel_link           = base_url() ~ \"canceloffer?bid_id=\" ~ bid_id_encoded ~ \"&job_id=\" ~ job_id_encoded  %}          
+                                {% set job_detail_link       = cancel_link %}    
                                 
                                 {# Specifics partials #}
-                                {% set specific_btn_template = 'webview/jobs/partials/job-payment-buttons.twig' %}
-                                {% set options_dropdown      = 'webview/jobs/partials/job-staff-dropdown.twig' %}
+                                {% set specific_btn_template = 'webview/jobs/partials/job-offer-buttons.twig' %}
+                                {% set options_dropdown      = 'webview/jobs/partials/job-offer-dropdown.twig' %}
 
                                 {# To display profil link pass profil_link variable to job-item named as profil_link #}
                                 {{ include('webview/jobs/partials/job-item.twig') }}
@@ -327,6 +309,6 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
     <script data-main=\"{{ app_modular_js(\"winjob\") }}\" src=\"{{ app_modular_js(\"lib/require.dev.js\") }}\"></script>
     
 {% endblock %}
-", "webview/jobs/twig/my-staff.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\jobs\\twig\\my-staff.twig");
+", "webview/jobs/twig/offer-sent.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\jobs\\twig\\offer-sent.twig");
     }
 }

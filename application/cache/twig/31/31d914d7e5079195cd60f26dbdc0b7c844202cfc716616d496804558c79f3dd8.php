@@ -21,7 +21,10 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
         $context["username"] = (($this->getAttribute((isset($context["job"]) ? $context["job"] : null), "webuser_fname", array()) . " ") . $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "webuser_lname", array()));
         // line 3
         echo "                
-<div class=\"row margintop-2 ms_white_box\">
+<div class=\"row margintop-2 ms_white_box ";
+        // line 4
+        echo twig_escape_filter($this->env, (isset($context["page"]) ? $context["page"] : null), "html", null, true);
+        echo "\">
     <div class=\"col-md-12 freelancer-job white-box\" style=\"padding: 20px\">
         <div class=\"row\">
             
@@ -34,7 +37,7 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
         // line 10
         echo twig_include($this->env, $context, "webview/jobs/partials/job-payment-info.twig");
         echo "
-                
+            
             <div class=\"col-md-4\">
                 <div class=\"row\">
                     <div class=\"ms_hr_massage_butt\">
@@ -141,7 +144,7 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
                 ";
         // line 63
         echo "                <span><b>";
-        echo twig_escape_filter($this->env, character_limiter((isset($context["title"]) ? $context["title"] : null), 94, "..."), "html", null, true);
+        echo twig_escape_filter($this->env, app_substr((isset($context["title"]) ? $context["title"] : null), twig_constant("LIST_JOB_TITLE_MAX"), "..."), "html", null, true);
         echo "</b></span>
             </div>
         </div>
@@ -161,7 +164,7 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
 
     public function getDebugInfo()
     {
-        return array (  143 => 63,  140 => 61,  131 => 58,  128 => 57,  125 => 55,  118 => 51,  113 => 50,  110 => 49,  103 => 43,  95 => 38,  87 => 32,  85 => 31,  82 => 30,  77 => 28,  73 => 27,  66 => 23,  62 => 22,  58 => 21,  54 => 20,  50 => 19,  46 => 18,  35 => 10,  30 => 8,  23 => 3,  21 => 2,  19 => 1,);
+        return array (  146 => 63,  143 => 61,  134 => 58,  131 => 57,  128 => 55,  121 => 51,  116 => 50,  113 => 49,  106 => 43,  98 => 38,  90 => 32,  88 => 31,  85 => 30,  80 => 28,  76 => 27,  69 => 23,  65 => 22,  61 => 21,  57 => 20,  53 => 19,  49 => 18,  38 => 10,  33 => 8,  26 => 4,  23 => 3,  21 => 2,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -177,14 +180,14 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
         return new Twig_Source("{% set title            = job.hire_title %}
 {% set username         = job.webuser_fname ~ ' ' ~ job.webuser_lname %}
                 
-<div class=\"row margintop-2 ms_white_box\">
+<div class=\"row margintop-2 ms_white_box {{ page }}\">
     <div class=\"col-md-12 freelancer-job white-box\" style=\"padding: 20px\">
         <div class=\"row\">
             
             {{ include('webview/jobs/partials/job-user-info.twig') }}
             
             {{ include('webview/jobs/partials/job-payment-info.twig') }}
-                
+            
             <div class=\"col-md-4\">
                 <div class=\"row\">
                     <div class=\"ms_hr_massage_butt\">
@@ -236,7 +239,7 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
                 {% endif %}
                 
                 {# job hire title #}
-                <span><b>{{ character_limiter(title, 94, '...') }}</b></span>
+                <span><b>{{ app_substr(title, constant('LIST_JOB_TITLE_MAX'), '...' ) }}</b></span>
             </div>
         </div>
     </div>
