@@ -34,7 +34,7 @@ $mail->SMTPAuth = true;
 //$mail->SMTPSecure = 'tls';
 $mail->Username = "donotreply@winjob.com";
 $mail->Password = "Winjob2016";
-$mail->setFrom("donotreply@winjob.com", "donotreply@winjob.com");
+$mail->setFrom("donotreply@winjob.com", "Winjob.com");
 $mail->addAddress($email, $email);
 $mail->Subject = $subject;
 $mail->msgHTML($body);

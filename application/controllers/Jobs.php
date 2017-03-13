@@ -1399,7 +1399,7 @@ class Jobs extends Winjob_Controller {
             $ststus = $query_status->row();
 
 
-            $data = array('jobId' => $jobId, 'Offer_count' => $Offer_count, 'hire_count' => $hire_count, 'records' => $records, 'jobDetails' => $jobDetails, 'interview_count' => $conversation_count, 'reject_count' => $reject_count, 'ststus' => $ststus);
+            $data = array('jobId' => $jobId, 'Offer_count' => $Offer_count, 'hire_count' => $hire_count, 'records' => $records, 'jobDetails' => $jobDetails, 'interview_count' => $conversation_count, 'reject_count' => $reject_count, 'ststus' => $ststus, 'title' => 'Job Offer - Winjob');
             $this->Admintheme->webview("jobs/applied", $data);
         }
     }
@@ -2197,7 +2197,7 @@ class Jobs extends Winjob_Controller {
         $query_bids = $this->db->get();
         $result3_bid = $query_bids->row();
         $bid_id = $result3_bid->id;
-
+        $job_id = $result3_bid->job_id;
 
         if (isset($_POST['budget']) && isset($_POST['budget_type']) && $_POST['budget_type'] == 1) {
             $budget = $_POST['budget'];
@@ -2226,10 +2226,100 @@ class Jobs extends Winjob_Controller {
  // addded by jahid start 
         if (isset($_POST['budget']) && isset($_POST['budget_type'])) {
             $sql = "UPDATE  job_bids set job_progres_status=2,hired = '1', hire_title = '" . $title . "', hire_message = '" . $message . "',fixedpay_amount = '" . $budget . "',fixed_pay_status= '" . $budget_type . "', payment_status = 0,  start_date = '" . $start_date . "' WHERE user_id ='" . $applier_id . "' AND job_id = '" . $job_id . "'";
+            $this->db->select('*');
+                $this->db->from('webuser');
+                $this->db->where('webuser_id', $applier_id);
+                $query = $this->db->get();
+                $result = $query->row();
+            
+                if ($query->num_rows() > 0) {
+                    $fname_freelancer = $result->webuser_fname;
+                    $email_freelancer = $result->webuser_email;
+                }
+                
+                //get job owner
+                $this->db->select('*');
+                $this->db->from('jobs');
+                $this->db->join('webuser', 'user_id = webuser_id');
+                $this->db->where('id', $job_id);
+                $query = $this->db->get();
+                $result = $query->row();
+            
+                if ($query->num_rows() > 0) {
+                    $fname_poster = $result->webuser_fname. ' '.$result->webuser_lname;
+                    $email_poster = $result->webuser_email;
+                    $title = $result->title;
+                    $job_desc = $result->job_description;
+                    $job_type = $result->job_type;
+                    $duration = $result->job_duration;
+                    $exp_level = $result->experience_level;
+                    $budget = $result->budget;
+                    $hrs_per_week = $result->hours_per_week;
+                    $company = $result->webuser_company;
+                    $skills = $result->skills;
+                    $thisid = $result->id;
+                }
+
+                $subject = "Job Offer from $company";
+                $details = array(
+                    'fname' => ucfirst($fname_freelancer),
+                    'company' => 'Winjob',
+                    'verification' => site_url()."jobs/view/" . $title . "/" . base64_encode($job_id),
+                    'slogan' => 'Hire Talented Freelancers For a Low Cost',
+                    'para1' => 'You have a job offer from '.$company.', please review the job post below.',
+                    'para2' => '<div><strong style="color: #000;">Job Title:</strong> '.ucwords($title).'</div><strong style="color: #000;">Posted By: </strong>'.ucwords($fname_poster).'<br><br><strong style="color: #000;">Message: </strong><br><br>'.$message.'<br><br><strong style="color: #000;">Skills: </strong>'.$skills.''
+                );
+                $response = $this->Sesmailer->sesemail($email_freelancer, $subject, $this->Emailtemplate->emailview('job_offer', $details));
+            
         } else {
             $sql = "UPDATE  job_bids set job_progres_status=2,hired = '1', hire_title = '" . $title . "', hire_message = '" . $message . "', weekly_limit = '" . $weekly_limit . "', allow_freelancer = '" . $allow_freelancer . "', weekly_amount = '" . $weekly_limit_amount . "', payment_status = 0, start_date = '" . $start_date . "' WHERE user_id ='" . $applier_id . "' AND job_id = '" . $job_id . "'";
+        
+                $this->db->select('*');
+                $this->db->from('webuser');
+                $this->db->where('webuser_id', $applier_id);
+                $query = $this->db->get();
+                $result = $query->row();
+            
+                if ($query->num_rows() > 0) {
+                    $fname_freelancer = $result->webuser_fname;
+                    $email_freelancer = $result->webuser_email;
+                }
+                
+                //get job owner
+                $this->db->select('*');
+                $this->db->from('jobs');
+                $this->db->join('webuser', 'user_id = webuser_id');
+                $this->db->where('id', $job_id);
+                $query = $this->db->get();
+                $result = $query->row();
+            
+                if ($query->num_rows() > 0) {
+                    $fname_poster = $result->webuser_fname. ' '.$result->webuser_lname;
+                    $email_poster = $result->webuser_email;
+                    $title = $result->title;
+                    $job_desc = $result->job_description;
+                    $job_type = $result->job_type;
+                    $duration = $result->job_duration;
+                    $exp_level = $result->experience_level;
+                    $budget = $result->budget;
+                    $hrs_per_week = $result->hours_per_week;
+                    $company = $result->webuser_company;
+                    $skills = $result->skills;
+                    $thisid = $result->id;
+                }
+
+                $subject = "Job Offer from $company";
+                $details = array(
+                    'fname' => ucfirst($fname_freelancer),
+                    'company' => 'Winjob',
+                    'verification' => site_url()."jobs/view/" . $title . "/" . base64_encode($job_id),
+                    'slogan' => 'Hire Talented Freelancers For a Low Cost',
+                    'para1' => 'You have a job offer from '.$company.', please review the job post below.',
+                    'para2' => '<div><strong style="color: #000;">Job Title:</strong> '.ucwords($title).'</div><strong style="color: #000;">Posted By: </strong>'.ucwords($fname_poster).'<br><br><strong style="color: #000;">Message: </strong><br><br>'.$message.'<br><br><strong style="color: #000;">Skills: </strong>'.$skills.''
+                );
+                $response = $this->Sesmailer->sesemail($email_freelancer, $subject, $this->Emailtemplate->emailview('job_offer', $details));
         }
-   // addded by jahid end      
+   // addded by jahid end
 
         if ($this->db->query($sql)) {
             if (isset($_POST['budget']) && isset($_POST['budget_type'])) {
@@ -2272,7 +2362,7 @@ class Jobs extends Winjob_Controller {
         }
 
 
-        echo json_encode($response);
+       // echo json_encode($response);
     }
 
     public function freelancer_endjobnotification() {
