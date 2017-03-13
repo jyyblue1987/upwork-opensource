@@ -1064,7 +1064,8 @@ class Jobs extends Winjob_Controller {
     private function _client_fixed_contract($job_status, $sender_id, $user_id, $ststus){
         
         $this->load->model('payment_model');
-        $payments   = $this->payment_model->load_job_transactions($sender_id, $user_id, $job_id); 
+        $payments   = $this->payment_model->load_job_transactions($sender_id, $user_id, $job_status->job_id);
+        //var_dump( array($job_status->job_id, $payments) ); die();
         $this->twig->display('webview/jobs/twig/contract', compact('job_status', 'ststus', 'payments'));
     
     }
@@ -1084,7 +1085,6 @@ class Jobs extends Winjob_Controller {
         
         list($job_id, $sender_id, $user_id) = $this->prepare_client_data();  
         $job_status = $this->jobs_model->load_job_status($sender_id, $user_id, $job_id);
-        
         if($job_status->job_type == "hourly"){
             $ststus     = $this->webuser_model->load_informations($job_status->buser_id);
             return $this->_client_hourly_contract($job_status, $ststus);

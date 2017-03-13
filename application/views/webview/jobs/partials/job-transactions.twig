@@ -14,7 +14,7 @@
 <div class="row margin-top-2">
     <div class="col-md-10 col-md-offset-1">
         <div class="row">
-            {% if payment is empty %}
+            {% if payments is empty %}
                 <div style="font-size: 14px;" class="col-md-7 text-centered text-left gray-text">
                     {{ app_lang('text_job_transaction_empty') }}
                 </div>
@@ -28,7 +28,6 @@
                     {% elseif payment.payment_gross == 0 %}
                         {{ app_lang('text_job_transaction_paid_nothing') }}
                     {% endif %}
-                    ?>
                     </div>
                     <div style="font-size: 14px;" class="col-md-2 text-centered text-right gray-text">${{ payment.payment_gross }}</div>
                     <div style="font-size: 14px;" class="col-md-3 text-centered text-center gray-text">

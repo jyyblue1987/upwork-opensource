@@ -1,12 +1,10 @@
 {% extends "webview/layout/twig/layout.twig" %}
 
-{% block title %}  {{ app_lang('text_job_title_page_offer_sent') }} - Winjob  {% endblock %}
+{% block title %}  {{ app_lang('text_job_my_staff') }} - Winjob  {% endblock %}
 
 {% block styles %}
     {{ parent() }}
-    
     <link rel="stylesheet" href="{{ base_url("assets/css/pages/job-common.css") }}">
-    <link rel="stylesheet" href="{{ base_url("assets/css/pages/offer-sent.css") }}">
 {% endblock %}
 
 {% block content %}
@@ -16,7 +14,7 @@
 	        <div class="col-md-3">
                     <div class="row">
                         <div class="col-md-10 nopadding">
-                            {{ include('webview/jobs/partials/job-client-left-menu.twig', { offersent: true }, with_context = false) }}
+                            {{ include('webview/jobs/partials/job-freelancer-left-menu.twig', { winjobs: true }, with_context = false) }}
                         </div>
                     </div>
                 </div>
@@ -24,15 +22,15 @@
 		   <div class="row">
                         
                         {# top message #}
-                        {% set message       = app_lang('text_job_message_offer_sent')|format(offer_count) %}
-                        {% set empty_message = app_lang('text_job_message_no_offer_sent') %}
-                        {{ include('webview/jobs/partials/job-hirefeebar.twig', { number: offer_count, message: message , empty_message: empty_message }, with_context = false ) }}
+                        {% set message       = app_lang('text_job_mystaff_hired')|format(nb_freelancer_hired) %}
+                        {% set empty_message = app_lang('text_job_mystaff_not_hired') %}
+                        {{ include('webview/jobs/partials/job-hirefeebar.twig', { number: nb_freelancer_hired, message: message , empty_message: empty_message }, with_context = false ) }}
                        
-                        {% if messages is defined %}
-                            {% for job in messages %}
+                        {% if jobs_accepted is defined %}
+                            {% for job in jobs_accepted %}
                                 
                                 {# specific the current page #}
-                                {% set page = 'offersent' %}
+                                {% set page = 'mystaff' %}
                                 
                                 {# chat receiver id #}
                                 {% set chat_receiver_id      = job.fuser_id %}
@@ -42,14 +40,19 @@
                                 {% set fuser_id_encoded      = base64_encode(job.fuser_id) %}
                                 {% set bid_id_encoded        = base64_encode(job.bid_id) %}
                                 
-                                {# set profil_link           = base_url() ~ "interview?user_id=" ~ fuser_id_encoded ~ "&job_id=" ~ job_id_encoded ~ "&bid_id=" ~ bid_id_encoded #}
-                     
-                                {% set cancel_link           = base_url() ~ "canceloffer?bid_id=" ~ bid_id_encoded ~ "&job_id=" ~ job_id_encoded  %}          
-                                {% set job_detail_link       = cancel_link %}    
+                                {% set profil_link           = base_url() ~ "interview?user_id=" ~ fuser_id_encoded ~ "&job_id=" ~ job_id_encoded ~ "&bid_id=" ~ bid_id_encoded %}
+                                
+                                {% set job_detail_link       = base_url() ~ "jobs/contracts?fmJob=" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
+                                
+                                {% if job.job_type == "hourly" %}
+                                    {% set end_contract_link = base_url() ~ "endhourlyfixed/hourly_client?fmJob=" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
+                                {% else %}
+                                    {% set end_contract_link = base_url() ~ "endhourlyfixed/fixed_client?fmJob=" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
+                                {% endif %}
                                 
                                 {# Specifics partials #}
-                                {% set specific_btn_template = 'webview/jobs/partials/job-offer-buttons.twig' %}
-                                {% set options_dropdown      = 'webview/jobs/partials/job-offer-dropdown.twig' %}
+                                {% set specific_btn_template = 'webview/jobs/partials/job-payment-buttons.twig' %}
+                                {% set options_dropdown      = 'webview/jobs/partials/job-staff-dropdown.twig' %}
 
                                 {# To display profil link pass profil_link variable to job-item named as profil_link #}
                                 {{ include('webview/jobs/partials/job-item.twig') }}

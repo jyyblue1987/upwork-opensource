@@ -134,8 +134,6 @@ class __TwigTemplate_16fa7dae927f628145ee9d230e1cf7494f538690aba10dfa70ce526f5af
                 // line 44
                 echo "                                
                                 ";
-                // line 45
-                $context["profil_link"] = ((((((base_url() . "interview?user_id=") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null)) . "&job_id=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&bid_id=") . (isset($context["bid_id_encoded"]) ? $context["bid_id_encoded"] : null));
                 // line 46
                 echo "                     
                                 ";
@@ -222,7 +220,7 @@ class __TwigTemplate_16fa7dae927f628145ee9d230e1cf7494f538690aba10dfa70ce526f5af
 
     public function getDebugInfo()
     {
-        return array (  205 => 72,  201 => 70,  198 => 68,  195 => 67,  189 => 64,  181 => 58,  178 => 57,  161 => 55,  158 => 53,  155 => 52,  152 => 51,  147 => 48,  143 => 47,  140 => 46,  138 => 45,  135 => 44,  132 => 43,  129 => 42,  126 => 41,  123 => 39,  120 => 38,  117 => 36,  114 => 35,  111 => 33,  93 => 32,  91 => 31,  85 => 29,  82 => 28,  79 => 27,  69 => 19,  61 => 13,  58 => 12,  52 => 9,  48 => 8,  42 => 6,  39 => 5,  31 => 3,  11 => 1,);
+        return array (  203 => 72,  199 => 70,  196 => 68,  193 => 67,  187 => 64,  179 => 58,  176 => 57,  159 => 55,  156 => 53,  153 => 52,  150 => 51,  145 => 48,  141 => 47,  138 => 46,  135 => 44,  132 => 43,  129 => 42,  126 => 41,  123 => 39,  120 => 38,  117 => 36,  114 => 35,  111 => 33,  93 => 32,  91 => 31,  85 => 29,  82 => 28,  79 => 27,  69 => 19,  61 => 13,  58 => 12,  52 => 9,  48 => 8,  42 => 6,  39 => 5,  31 => 3,  11 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -279,7 +277,7 @@ class __TwigTemplate_16fa7dae927f628145ee9d230e1cf7494f538690aba10dfa70ce526f5af
                                 {% set fuser_id_encoded      = base64_encode(job.fuser_id) %}
                                 {% set bid_id_encoded        = base64_encode(job.bid_id) %}
                                 
-                                {% set profil_link           = base_url() ~ \"interview?user_id=\" ~ fuser_id_encoded ~ \"&job_id=\" ~ job_id_encoded ~ \"&bid_id=\" ~ bid_id_encoded %}
+                                {# set profil_link           = base_url() ~ \"interview?user_id=\" ~ fuser_id_encoded ~ \"&job_id=\" ~ job_id_encoded ~ \"&bid_id=\" ~ bid_id_encoded #}
                      
                                 {% set cancel_link           = base_url() ~ \"canceloffer?bid_id=\" ~ bid_id_encoded ~ \"&job_id=\" ~ job_id_encoded  %}          
                                 {% set job_detail_link       = cancel_link %}    

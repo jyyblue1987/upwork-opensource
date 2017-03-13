@@ -134,8 +134,6 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
                 // line 44
                 echo "                                
                                 ";
-                // line 45
-                $context["profil_link"] = ((((((base_url() . "interview?user_id=") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null)) . "&job_id=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&bid_id=") . (isset($context["bid_id_encoded"]) ? $context["bid_id_encoded"] : null));
                 // line 46
                 echo "                                
                                 ";
@@ -235,7 +233,7 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
 
     public function getDebugInfo()
     {
-        return array (  218 => 77,  214 => 75,  211 => 73,  208 => 72,  202 => 69,  194 => 63,  191 => 62,  174 => 60,  171 => 58,  168 => 57,  165 => 56,  162 => 54,  159 => 53,  156 => 52,  153 => 51,  150 => 50,  148 => 49,  145 => 48,  143 => 47,  140 => 46,  138 => 45,  135 => 44,  132 => 43,  129 => 42,  126 => 41,  123 => 39,  120 => 38,  117 => 36,  114 => 35,  111 => 33,  93 => 32,  91 => 31,  85 => 29,  82 => 28,  79 => 27,  69 => 19,  61 => 13,  58 => 12,  52 => 9,  48 => 8,  42 => 6,  39 => 5,  31 => 3,  11 => 1,);
+        return array (  216 => 77,  212 => 75,  209 => 73,  206 => 72,  200 => 69,  192 => 63,  189 => 62,  172 => 60,  169 => 58,  166 => 57,  163 => 56,  160 => 54,  157 => 53,  154 => 52,  151 => 51,  148 => 50,  146 => 49,  143 => 48,  141 => 47,  138 => 46,  135 => 44,  132 => 43,  129 => 42,  126 => 41,  123 => 39,  120 => 38,  117 => 36,  114 => 35,  111 => 33,  93 => 32,  91 => 31,  85 => 29,  82 => 28,  79 => 27,  69 => 19,  61 => 13,  58 => 12,  52 => 9,  48 => 8,  42 => 6,  39 => 5,  31 => 3,  11 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -292,7 +290,7 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
                                 {% set fuser_id_encoded      = base64_encode(job.fuser_id) %}
                                 {% set bid_id_encoded        = base64_encode(job.bid_id) %}
                                 
-                                {% set profil_link           = base_url() ~ \"interview?user_id=\" ~ fuser_id_encoded ~ \"&job_id=\" ~ job_id_encoded ~ \"&bid_id=\" ~ bid_id_encoded %}
+                                {# set profil_link           = base_url() ~ \"interview?user_id=\" ~ fuser_id_encoded ~ \"&job_id=\" ~ job_id_encoded ~ \"&bid_id=\" ~ bid_id_encoded #}
                                 
                                 {% set job_detail_link       = base_url() ~ \"jobs/contracts?fmJob=\" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
                                 

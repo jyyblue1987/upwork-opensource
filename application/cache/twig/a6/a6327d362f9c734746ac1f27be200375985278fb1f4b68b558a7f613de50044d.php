@@ -43,7 +43,7 @@ class __TwigTemplate_4e97f2cf58d32e1ace7e04d143c94fcd9958c283ef683e4ecf15f40a62f
         <div class=\"row\">
             ";
         // line 17
-        if (twig_test_empty((isset($context["payment"]) ? $context["payment"] : null))) {
+        if (twig_test_empty((isset($context["payments"]) ? $context["payments"] : null))) {
             // line 18
             echo "                <div style=\"font-size: 14px;\" class=\"col-md-7 text-centered text-left gray-text\">
                     ";
@@ -84,15 +84,14 @@ $context["payment"], "payment_gross", array()) == 0)) {
                     ";
                 }
                 // line 31
-                echo "                    ?>
-                    </div>
+                echo "                    </div>
                     <div style=\"font-size: 14px;\" class=\"col-md-2 text-centered text-right gray-text\">\$";
-                // line 33
+                // line 32
                 echo twig_escape_filter($this->env, $this->getAttribute($context["payment"], "payment_gross", array()), "html", null, true);
                 echo "</div>
                     <div style=\"font-size: 14px;\" class=\"col-md-3 text-centered text-center gray-text\">
                         ";
-                // line 35
+                // line 34
                 echo twig_escape_filter($this->env, app_date($this->getAttribute($context["payment"], "payment_create", array()), " M j, Y "), "html", null, true);
                 echo "
                     </div>
@@ -101,10 +100,10 @@ $context["payment"], "payment_gross", array()) == 0)) {
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['payment'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 38
+            // line 37
             echo "            ";
         }
-        // line 39
+        // line 38
         echo "        </div>
     </div>
 </div>";
@@ -122,7 +121,7 @@ $context["payment"], "payment_gross", array()) == 0)) {
 
     public function getDebugInfo()
     {
-        return array (  108 => 39,  105 => 38,  96 => 35,  91 => 33,  87 => 31,  81 => 29,  79 => 28,  74 => 27,  72 => 26,  67 => 25,  65 => 24,  62 => 23,  57 => 22,  51 => 19,  48 => 18,  46 => 17,  33 => 7,  29 => 6,  25 => 5,  19 => 1,);
+        return array (  107 => 38,  104 => 37,  95 => 34,  90 => 32,  87 => 31,  81 => 29,  79 => 28,  74 => 27,  72 => 26,  67 => 25,  65 => 24,  62 => 23,  57 => 22,  51 => 19,  48 => 18,  46 => 17,  33 => 7,  29 => 6,  25 => 5,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -151,7 +150,7 @@ $context["payment"], "payment_gross", array()) == 0)) {
 <div class=\"row margin-top-2\">
     <div class=\"col-md-10 col-md-offset-1\">
         <div class=\"row\">
-            {% if payment is empty %}
+            {% if payments is empty %}
                 <div style=\"font-size: 14px;\" class=\"col-md-7 text-centered text-left gray-text\">
                     {{ app_lang('text_job_transaction_empty') }}
                 </div>
@@ -165,7 +164,6 @@ $context["payment"], "payment_gross", array()) == 0)) {
                     {% elseif payment.payment_gross == 0 %}
                         {{ app_lang('text_job_transaction_paid_nothing') }}
                     {% endif %}
-                    ?>
                     </div>
                     <div style=\"font-size: 14px;\" class=\"col-md-2 text-centered text-right gray-text\">\${{ payment.payment_gross }}</div>
                     <div style=\"font-size: 14px;\" class=\"col-md-3 text-centered text-center gray-text\">

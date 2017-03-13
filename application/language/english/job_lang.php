@@ -63,3 +63,4 @@ $lang['text_job_message_no_offer_sent'] = '! You have not sent any offers';
 $lang['text_job_btn_cancel_offer']  = 'Cancel Offer';
 $lang['text_job_title_page_offer_sent'] = 'Offers sent';
 $lang['text_job_btn_op_view_offer'] = 'View offer';
+$lang['text_job_original_view'] = 'View original job post';

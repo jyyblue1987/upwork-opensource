@@ -18,6 +18,8 @@ define(function (require) {
         paymentUrl:      site_url + "pay/full_milestone/",
         modalPaymentId:    '#edit-payment',
         modalPaymentTransactionId:  '#payment-details-modal',
+        modalPaymentForm : '#hr_fullMilestone',
+        redirectPatternUrl: site_url + "jobs/contracts",
         method: 'makePayment'
     });
     
@@ -25,6 +27,8 @@ define(function (require) {
         paymentUrl:      site_url + "pay/add_milestone/",
         modalPaymentId:    '#edit-milestone',
         modalPaymentTransactionId:  '#milestone-details-modal',
+        modalPaymentForm : '#hr_addMilestone',
+        redirectPatternUrl: site_url + "jobs/contracts",
         method: 'makePayment'
     })
     

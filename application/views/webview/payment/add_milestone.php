@@ -12,27 +12,3 @@
 <a style="float: left;" class="btn-primary big_mass_active transparent-btn big_mass_button" class="close" data-dismiss="modal">cancel</a>
 </form>
 <strong id="hr_msg"></strong>
-<script>
-// process the form
-    $('#hr_addMilestone').submit(function(event) {
-      $('#hr_btnpay').prop('disabled', true);
-        var response = "";
-        $.ajax({
-            type        : 'POST',
-            url         : '<?php echo site_url("pay/add_milestone"); ?>',
-            data        : $('form#hr_addMilestone').serialize(),
-            //dataType    : 'json',
-            //encode      : true,
-        })
-            .done(function(res) {
-                if(res == "done"){
-                  window.location.replace("/jobs/fixed_client_view?fmJob=NTY=&fuser=MTU=");
-                }else {
-                  $('#hr_msg').text(res);
-                  $('#hr_btnpay').prop('disabled', false);
-                }
-                console.log(res);
-            });
-        event.preventDefault();
-    });
-</script>

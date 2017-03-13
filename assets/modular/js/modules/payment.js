@@ -9,6 +9,7 @@ define(['jquery', 'bootstrap'], function ($) {
         this.options    = null
         this.enabled    = null
         this.$element   = null
+        this.$modal     = null
         this.options    = options
         
         this.init('payment', element, options)
@@ -20,19 +21,57 @@ define(['jquery', 'bootstrap'], function ($) {
         
     }
     
+    // PRIVATE FUNCTION (IT SHOULD ME INTO A HELPER MODULE
+    //====================================================
+    
+    String.prototype.aContainsB = function (b) {
+        return this.indexOf(b) >= 0;
+    }
+    
     Payment.prototype.init = function (type, element, options) {
         this.enabled   = true
         this.type      = type
         this.$element  = $(element)
+        this.$modal    = this.$element.find( this.options.modalPaymentTransactionId )
         this.options   = options
         this.bindEventsUI()
     }
     
     Payment.prototype.bindEventsUI  = function(){        
-        this.$element.on('click.wj.' + this.type, $.proxy(this.makePayment, this))
+        this.$element.on('click.wj.' + this.type, $.proxy(this.openPaymentModal, this))
+        $(this.options.modalPaymentTransactionId).on('submit.wj.' + this.type, this.options.modalPaymentForm , $.proxy(this.makePayment, this))
     }
     
-    Payment.prototype.makePayment  = function(){        
+    Payment.prototype.makePayment  = function( event ){
+        event.preventDefault();
+        
+        //TODO: add a good friendly visual for client
+        $('#hr_btnpay').prop('disabled', true);
+        
+        var response = "";
+        
+        //sent request 
+        var jqxhr = $.ajax({
+            type        : 'POST',
+            url         : this.options.paymentUrl,
+            data        : $(this.options.modalPaymentForm).serialize(),
+        });
+        
+        var query = $.param({fmJob: this.options.encoded_jobid , fuser: this.options.encoded_fuserid }); 
+        var that  = this
+        
+        //Handle response 
+        jqxhr.done(function(res) {
+            if(res.aContainsB('done')){
+              window.location.replace( that.options.redirectPatternUrl + '?' + query);
+            }else {
+              $('#hr_msg').text(res);
+              $('#hr_btnpay').prop('disabled', false);
+            }
+        });
+    }
+    
+    Payment.prototype.openPaymentModal  = function(){        
        
        var paymentDatas = {
            key: null, 

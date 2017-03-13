@@ -36,7 +36,7 @@
                                 </div>
                                 <div style="margin-left: -24px;" class="col-md-7 text-left">
                                     <h5 style="margin-top: -4px;" class="free_name">{{ job_status.webuser_fname }} {{ job_status.webuser_lname }}</label>
-                                        <br> <p class=""><strong>{{ character_limiter(job_status.tagline, 36, '...') }}</strong></p>
+                                        <br> <p class=""><strong>{{ app_substr(job_status.tagline, constant('CONTRACT_JOB_COMPANY_NAME_MAX'), '...') }}</strong></p>
                                 </div>
                             </div>
                         </div>
@@ -68,8 +68,8 @@
                                     {% else %}
                                         {% set job_title = job_status.hire_title %}
                                     {% endif  %}
-                                    {{ character_limiter(job_title, 35, '...') }}</span><br />
-                                <a href="{{ base_url() }}jobs/view/{{ url_title( job_status.title ) }}/{{ job_id_encoded }}">View original job post</a>
+                                    {{ app_substr(job_title, constant('CONTRACT_JOB_TITLE_MAX'), '...') }}</span><br />
+                                <a href="{{ base_url() }}jobs/view/{{ url_title( job_status.title ) }}/{{ job_id_encoded }}">{{ app_lang('text_job_original_view') }}</a>
                             </div>
                         </div>
                     </div>
@@ -140,6 +140,8 @@
                                         <input style="float: left;margin-left: 0;" type="button" class="btn my_btn btn-cancel _job_add_milestone" 
                                                value="{{ app_lang('text_job_btn_add_milestone') }}" 
                                                data-id ="2" 
+                                               data-encoded_fuserid="{{ fuser_id_encoded }}"
+                                               data-encoded_jobid="{{ job_id_encoded }}"
                                                data-buserid="{{ job_status.buser_id }}"
                                                data-fuserid="{{ job_status.fuser_id }}"
                                                data-jobid="{{ job_status.job_id }}" />
@@ -147,6 +149,8 @@
                                     <input style="margin-left: 15px;" type="button" class="btn my_btn btn-cancel _job_btn_payment" 
                                            value="{{ app_lang('text_job_btn_payment') }}"  
                                            data-id ="2"
+                                           data-encoded_fuserid="{{ fuser_id_encoded }}"
+                                           data-encoded_jobid="{{ job_id_encoded }}"
                                            data-buserid="{{ job_status.buser_id }}"
                                            data-fuserid="{{ job_status.fuser_id }}"
                                            data-jobid="{{ job_status.job_id }}"
@@ -191,5 +195,5 @@
     
     <script data-main="{{ app_modular_js("winjob") }}" src="{{ app_modular_js("lib/require.dev.js") }}"></script>
     <script src="{{ site_url("assets/js/vendor/modernizr-2.8.3.min.js") }}"></script>
-    {# <script src="{{ app_modular_js("pages/contract.js") }}"></script> #}
+    
 {% endblock %}
