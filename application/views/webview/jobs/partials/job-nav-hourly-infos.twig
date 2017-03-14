@@ -1,0 +1,151 @@
+
+{% if job_status.offer_bid_amount > 0 %}
+    {% set amount = job_status.offer_bid_amount %}
+{% else %} 
+    {% set amount = job_status.bid_amount %}
+{% endif %}
+
+<div class="row">
+    <div style="padding: 3px 10px 10px;border: 1px solid #ccc;border-radius: 0 0 4px 4px;border-top: 0;" class="col-md-9 white-box remove-border-top ">
+        <div class="row"></div>
+        <div class="row margin-top-2">
+            <div class="col-md-12 bordered_week">
+                <div class="row nav-bar">
+                    <div style="height: 78px;" class="col-md-4 blue-text text-center nav-bar-item">
+                        <label style="font-size: 14px;color: #333 !important;position: absolute;top: -3px;left: 83px;" class="gray-text">
+                            <b> {{ app_lang('text_job_contract_hourly_this_week') }}</b>
+                        </label>
+                        <span style="position: absolute;top: -6px;left: 94px;" class="bold_text">
+                            <br/> 
+                            {% if hour_this_week > 1 %}
+                                {% set text_id = 'text_job_hourly_units' %}
+                            {% else %}
+                                {% set text_id = 'text_job_hourly_unit' %}
+                            {% endif %}
+                            {{ app_lang(text_id)|format(hour_this_week) }} 
+                            <br />
+                        </span>
+                        <label style="font-size:14px;color: #333 !important;position: absolute;top: 50px;left: 110px;" class="gray-text hours_text">
+                            ${{ hour_this_week * amount }}
+                        </label>
+                    </div>
+                    <div  style="height: 78px;" class="col-md-4 blue-text text-center nav-bar-item">
+                        <label style="font-size: 14px;color: #333 !important;position: absolute;top: -3px;left: 87px;" class="gray-text">
+                            {{ app_lang('text_job_contract_hourly_last_week') }}
+                        </label>
+                        <span style="position: absolute;top: -7px;left: 95px;" class="bold_text"><br/>
+                            {% if hour_last_week > 1 %}
+                                {% set text_id = 'text_job_hourly_units' %}
+                            {% else %}
+                                {% set text_id = 'text_job_hourly_unit' %}
+                            {% endif %}
+
+                            {{ app_lang(text_id)|format(hour_last_week) }}
+                            <br/></span>
+                        <label style="color: #333 !important;position: absolute;top: 50px;left: 113px;" class="gray-text hours_text">
+                            ${{ hour_last_hour * amount }}
+                        </label>
+                    </div>
+                    <div style="height: 78px;" class="col-md-4 blue-text text-center nav-bar-item">
+                        <label style="font-size: 14px;color: #333 !important;position: absolute;top: -3px;left: 102px;" style="margin-top: 2px;font-size: 12px;" class="gray-text">
+                            {{ app_lang('text_job_contract_hourly_total') }} 
+                        </label>
+                        <br />
+                        <span style="position: absolute;top: 21px;left: 94px;" class="bold_text">
+
+                            {% if total_hour > 1 %}
+                                {% set text_id = 'text_job_hourly_units' %}
+                            {% else %}
+                                {% set text_id = 'text_job_hourly_unit' %}
+                            {% endif %}
+                            {{ app_lang(text_id)|format(total_hour) }}
+
+                        </span>
+                        <br />
+                        <label style="color: #333 !important;position: absolute;top: 50px;left: 113px;" class="gray-text hours_text">
+                            ${{ total_hour * amount }}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top margin_top25">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <a href="{{ base_url() }}jobs/workdairy_client?fmJob={{ base64_encode(job_status.job_id) }}&fuser={{ base64_encode( job_status.fuser_id ) }}">
+                            <input type="button" class="btn btn-primary form-btn" value="{{ app_lang('text_job_hourly_view_diary') }}" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-top-1 margin-bottom-2 margin-top29px">
+            <div class="col-md-10 col-md-offset-1 text-left">
+                <div class="row">
+                    <div class="col-md-8 text-centered text-left">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="week_font">
+                                    <span>
+                                        <p class="ma-gin_bottom_20px">{{ app_lang('text_job_hourly_rate') }}</p>
+                                        <p>{{ app_lang('text_job_hourly_weekly_limit') }} </p>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="p-btn">
+                                    <span>
+                                        <p class="ma-gin_bottom_20px">
+                                            <b> 
+                                                ${% if job_status.offer_bid_amount %}
+                                                    {{ job_status.offer_bid_amount }}
+                                                {% else %}
+                                                    {{ job_status.bid_amount }}
+                                                {% endif %}
+                                            </b> /hr
+                                        </p> 
+                                        <p><b>{{ job_status.weekly_limit }}</b> Hrs/Week</p>
+                                    </span>     
+                                    <div class="hour_pause_btn">
+                                        <input type="button" class="btn btn-primary form-btn pause-btn" value="{{ app_lang('text_job_hourly_btn_pause') }}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-centered text-left gray-text">
+                        <div class="p-btn"></div>
+                        <div class="col-md-4 text-right gray-text"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row margin-top-1">
+                <div class="col-md-12">
+                    <div class="row margin-top-3 cus_cancel_button"> 
+                        <div class="col-md-6 text-centered text-center"></div>
+                        <div class="col-md-6 text-right">
+                            <div style="float: left; margin-top: 10px; margin-left: 67px;" class="cancel_content_btn" style="margin-left: -65px">
+                                <input value="{{ app_lang('text_job_transaction_cancelled') }}" class="btn my_btn btn-cancel" type="button"> 
+                            </div>
+                            <div class="hour_end_btn">
+                                {% if job_status.jobstatus == 1 %}
+                                <a href="{{ base_url() }}feedback/hourly_client?fmJob={{ base64_encode(job_status.job_id) }}&fuser={{ base64_encode(job_status.fuser_id) }}">
+                                    <input type="button" class="btn my_btn btn-default_activv" value="{{ app_lang('text_job_btn_op_end_contract') }}" />
+                                </a>
+                                {% else %}
+                                <a href="{{ base_url() }}endhourlyfixed/hourly_client?fmJob={{ base64_encode(job_status.job_id) }}&fuser={{ base64_encode(job_status.fuser_id) }}">
+                                    <input type="button" class="btn  my_btn btn-default_activv" value="{{ app_lang('text_job_btn_op_end_contract') }}" />
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

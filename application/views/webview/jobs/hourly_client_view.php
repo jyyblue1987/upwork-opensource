@@ -75,7 +75,7 @@ input.btn-cancel:hover{border:1px solid transparent;color:#fff;background:#28609
 					<div class="col-md-4 text-center gray-text">
 						<div class="status_bar">
 						    	
-						<?php if($ststus->isactive==0){ ?>
+						<?php if($webuser->isactive==0){ ?>
 							<label style="margin-top: -8px;" class="gray-text">Status : <span style="color:#ff0000;" >Hold</span></label>
 						<?php }else if($job_status->jobstatus ==1){?>
 							<label style="margin-top: -8px;" class="gray-text">Status : Ended</label>
@@ -97,7 +97,7 @@ input.btn-cancel:hover{border:1px solid transparent;color:#fff;background:#28609
 						}else{
 							$job_title = $job_status->title;
 						}?>
-						<?= character_limiter($job_title, CONTRACT_JOB_TITLE_MAX, '...'); ?></span><br />
+						<?= app_substr($job_title, CONTRACT_JOB_TITLE_MAX, '...'); ?></span><br />
 						<a href="<?php echo base_url() ?>jobs/view/<?php echo url_title($job_status->title) ?>/<?php echo base64_encode($job_status->job_id);?>">View original job post</a>
 						</div>
 					</div>

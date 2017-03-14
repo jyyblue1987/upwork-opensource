@@ -68,7 +68,7 @@ input.btn-cancel:hover{border:1px solid transparent;color:#fff;background:#28609
 							</div>
 							<div style="margin-left: -24px;" class="col-md-7 text-left">
 								<div class="hourly_name">
-								    <h5 class="free_name"><?=$job_status->webuser_fname ?> <?=$job_status->webuser_lname ?></h5> <p class="free_name"><?= character_limiter($job_status->webuser_company, 68, '...') ?></p>
+                                                                    <h5 class="free_name"><?=$job_status->webuser_fname ?> <?=$job_status->webuser_lname ?></h5> <p class="free_name"><?= app_substr($job_status->webuser_company, CONTRACT_JOB_TITLE_MAX, '...') ?></p>
 								</div>
 							</div>
 							

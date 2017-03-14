@@ -130,6 +130,8 @@ define('WEB_USER_ADDRESS', "webuseraddresses");
 define('WB_PAYMENT_METHODS', "webuser_payment_methods");
 define('WB_TAX_INFO', "webuser_tax_information");
 
+defined('FIXED_JOB_TYPE') || define('FIXED_JOB_TYPE', 'fixed');
+defined('HOURLY_JOB_TYPE') || define('HOURLY_JOB_TYPE', 'hourly');
 
 defined('CONTRACT_JOB_TITLE_MAX') || define('CONTRACT_JOB_TITLE_MAX', 68);
 defined('LIST_JOB_TITLE_MAX') || define('LIST_JOB_TITLE_MAX', 88);

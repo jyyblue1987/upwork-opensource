@@ -1,0 +1,7 @@
+{% if job.jobstatus != 1 %}
+    {% if webuser.isactive == 0 %}
+    <br />
+    <p style="margin:0 !important;">{{ app_lang('text_job_contract_hold') }}</p>
+    <hr>
+    {% endif %}
+{% endif %}

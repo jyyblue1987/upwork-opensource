@@ -1061,17 +1061,38 @@ class Jobs extends Winjob_Controller {
     // Merge code of {fixed|hourly}_{client|freelancer}_view
     
     
-    private function _client_fixed_contract($job_status, $sender_id, $user_id, $ststus){
+    private function _client_fixed_contract($job_status, $sender_id, $user_id, $webuser){
         
         $this->load->model('payment_model');
         $payments   = $this->payment_model->load_job_transactions($sender_id, $user_id, $job_status->job_id);
-        //var_dump( array($job_status->job_id, $payments) ); die();
-        $this->twig->display('webview/jobs/twig/contract', compact('job_status', 'ststus', 'payments'));
+        $this->twig->display('webview/jobs/twig/contract', compact('job_status', 'webuser', 'payments'));
     
     }
     
-    private function _client_hourly_contract($job_status, $ststus){
-        $this->Admintheme->webview("jobs/hourly_client_view", array('job_status' => $job_status, 'ststus' => $ststus));
+    private function _client_hourly_contract($job_status, $webuser){
+        
+        date_default_timezone_set("UTC"); 
+        
+        $job_id   = $job_status->job_id; 
+        $fuser_id = $job_status->fuser_id;
+        
+        $today             = date( 'Y-m-d', strtotime('today') );
+        $this_week_start   = date( 'Y-m-d', strtotime('monday this week') );
+        
+        $hour_this_week    = $this->jobs_model->get_work_total_hour($job_id, $fuser_id, $this_week_start, $today);
+        
+        
+        $last_week_start = date( 'Y-m-d', strtotime('-1 week monday') );
+        if($last_week_start == $this_week_start)
+            $last_week_start = date( 'Y-m-d', strtotime('-2 week monday') );
+        
+        $last_week_end   = date( 'Y-m-d', strtotime('-1 week sunday') );
+        $hour_last_week  = $this->jobs_model->get_work_total_hour($job_id, $fuser_id, $last_week_start, $last_week_end);
+        
+        $total_hour      = $this->jobs_model->get_work_total_hour($job_id, $fuser_id );
+        
+        //$this->Admintheme->webview("jobs/hourly_client_view", compact('job_status', 'webuser'));
+        $this->twig->display('webview/jobs/twig/contract', compact('job_status', 'webuser', 'hour_this_week', 'hour_last_week', 'total_hour'));
     }
     
     private function _client_contracts(){
@@ -1086,11 +1107,11 @@ class Jobs extends Winjob_Controller {
         list($job_id, $sender_id, $user_id) = $this->prepare_client_data();  
         $job_status = $this->jobs_model->load_job_status($sender_id, $user_id, $job_id);
         if($job_status->job_type == "hourly"){
-            $ststus     = $this->webuser_model->load_informations($job_status->buser_id);
-            return $this->_client_hourly_contract($job_status, $ststus);
+            $webuser     = $this->webuser_model->load_informations($job_status->buser_id);
+            return $this->_client_hourly_contract($job_status, $webuser);
         }else{
-            $ststus     = $this->webuser_model->load_informations($sender_id);
-            return $this->_client_fixed_contract($job_status, $sender_id, $user_id, $ststus);
+            $webuser     = $this->webuser_model->load_informations($sender_id);
+            return $this->_client_fixed_contract($job_status, $sender_id, $user_id, $webuser);
         }    
     }
     

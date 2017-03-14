@@ -255,6 +255,18 @@ if( ! function_exists('app_substr')){
     }
 }
 
-
+if( ! function_exists('dump') ){
+    function dump( $data , $die = false ){
+        echo '<pre>';
+        if(is_array( $data) || is_object($data)){
+            $data = json_encode($data, JSON_PRETTY_PRINT, 512);
+        }
+        var_dump( $data );
+        echo '</pre>';
+        
+        if($die)
+            die();
+    }
+}
 
 // added by (Donfack Zeufack Hermann) end

@@ -30,26 +30,18 @@
 
             @ {{ app_lang('text_job_by_hours')|format(amount) }} = <b> ${{ amount * total_hour }}</b>
 
-            {# hold contract text #}
-            {%if job.jobstatus != '1' %}
-            <br />
-            <p style="margin:0 !important;">{{ app_lang('text_job_contract_hold') }}</p>
-            <hr>
-            {% endif %}
+            {{ include('webview/jobs/partials/job-status-hold.twig') }}
+            
         </div>
     {% else %}
         <div class="pay_btn">
             <div class="col-md-4 text-center">
                 <span>
-                    <b>${{ job.fixedpay_amount }}</b> 
+                    
+                    <b>${{ job.fixedpay_amount }}</b>
                     {{ app_lang('text_job_paid_of')|format(job.hired_on) }}
-
-                    {# hold contract text #}
-                    {%if job.jobstatus != '1' %}
-                    <br />
-                    <p style="margin:0 !important;">{{ app_lang('text_job_contract_hold') }}</p>
-                    {% endif %}
-
+                    {{ include('webview/jobs/partials/job-status-hold.twig') }}
+                    
                 </span>
             </div>
         </div>

@@ -99,49 +99,31 @@ class __TwigTemplate_1ccfc13766236691d53c61a8b9e17f8c81befb01b6836626f66994812e5
                 echo "</b>
 
             ";
-                // line 34
-                echo "            ";
-                if (($this->getAttribute((isset($context["job"]) ? $context["job"] : null), "jobstatus", array()) != "1")) {
-                    // line 35
-                    echo "            <br />
-            <p style=\"margin:0 !important;\">";
-                    // line 36
-                    echo twig_escape_filter($this->env, app_lang("text_job_contract_hold"), "html", null, true);
-                    echo "</p>
-            <hr>
-            ";
-                }
-                // line 39
-                echo "        </div>
+                // line 33
+                echo twig_include($this->env, $context, "webview/jobs/partials/job-status-hold.twig");
+                echo "
+            
+        </div>
     ";
             } else {
-                // line 41
+                // line 37
                 echo "        <div class=\"pay_btn\">
             <div class=\"col-md-4 text-center\">
                 <span>
+                    
                     <b>\$";
-                // line 44
+                // line 41
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "fixedpay_amount", array()), "html", null, true);
-                echo "</b> 
+                echo "</b>
                     ";
-                // line 45
+                // line 42
                 echo twig_escape_filter($this->env, sprintf(app_lang("text_job_paid_of"), $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "hired_on", array())), "html", null, true);
                 echo "
-
                     ";
-                // line 48
-                echo "                    ";
-                if (($this->getAttribute((isset($context["job"]) ? $context["job"] : null), "jobstatus", array()) != "1")) {
-                    // line 49
-                    echo "                    <br />
-                    <p style=\"margin:0 !important;\">";
-                    // line 50
-                    echo twig_escape_filter($this->env, app_lang("text_job_contract_hold"), "html", null, true);
-                    echo "</p>
-                    ";
-                }
-                // line 52
+                // line 43
+                echo twig_include($this->env, $context, "webview/jobs/partials/job-status-hold.twig");
                 echo "
+                    
                 </span>
             </div>
         </div>
@@ -162,7 +144,7 @@ class __TwigTemplate_1ccfc13766236691d53c61a8b9e17f8c81befb01b6836626f66994812e5
 
     public function getDebugInfo()
     {
-        return array (  144 => 52,  139 => 50,  136 => 49,  133 => 48,  128 => 45,  124 => 44,  119 => 41,  115 => 39,  109 => 36,  106 => 35,  103 => 34,  96 => 31,  93 => 30,  90 => 29,  87 => 28,  84 => 27,  81 => 26,  79 => 25,  74 => 22,  68 => 20,  62 => 18,  59 => 17,  57 => 16,  54 => 15,  51 => 14,  48 => 13,  46 => 12,  43 => 11,  40 => 10,  37 => 9,  34 => 8,  32 => 7,  28 => 5,  25 => 4,  21 => 2,  19 => 1,);
+        return array (  124 => 43,  120 => 42,  116 => 41,  110 => 37,  103 => 33,  96 => 31,  93 => 30,  90 => 29,  87 => 28,  84 => 27,  81 => 26,  79 => 25,  74 => 22,  68 => 20,  62 => 18,  59 => 17,  57 => 16,  54 => 15,  51 => 14,  48 => 13,  46 => 12,  43 => 11,  40 => 10,  37 => 9,  34 => 8,  32 => 7,  28 => 5,  25 => 4,  21 => 2,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -207,31 +189,22 @@ class __TwigTemplate_1ccfc13766236691d53c61a8b9e17f8c81befb01b6836626f66994812e5
 
             @ {{ app_lang('text_job_by_hours')|format(amount) }} = <b> \${{ amount * total_hour }}</b>
 
-            {# hold contract text #}
-            {%if job.jobstatus != '1' %}
-            <br />
-            <p style=\"margin:0 !important;\">{{ app_lang('text_job_contract_hold') }}</p>
-            <hr>
-            {% endif %}
+            {{ include('webview/jobs/partials/job-status-hold.twig') }}
+            
         </div>
     {% else %}
         <div class=\"pay_btn\">
             <div class=\"col-md-4 text-center\">
                 <span>
-                    <b>\${{ job.fixedpay_amount }}</b> 
+                    
+                    <b>\${{ job.fixedpay_amount }}</b>
                     {{ app_lang('text_job_paid_of')|format(job.hired_on) }}
-
-                    {# hold contract text #}
-                    {%if job.jobstatus != '1' %}
-                    <br />
-                    <p style=\"margin:0 !important;\">{{ app_lang('text_job_contract_hold') }}</p>
-                    {% endif %}
-
+                    {{ include('webview/jobs/partials/job-status-hold.twig') }}
+                    
                 </span>
             </div>
         </div>
     {% endif %}
-{% endif %}
-", "webview/jobs/partials/job-payment-info.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\jobs\\partials\\job-payment-info.twig");
+{% endif %}", "webview/jobs/partials/job-payment-info.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\jobs\\partials\\job-payment-info.twig");
     }
 }

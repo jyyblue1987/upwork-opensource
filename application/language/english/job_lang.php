@@ -82,3 +82,15 @@ $lang['text_job_menu_win_jobs'] = 'Win Jobs';
 $lang['text_job_menu_ended_jobs'] = 'Ended Jobs';
 
 $lang['text_job_title_freelancer_endjobs'] = "Finished Jobs";
+$lang['text_job_state_hold'] = "Hold";
+
+$lang['text_job_contract_hourly_this_week'] = 'This Week';
+$lang['text_job_contract_hourly_last_week'] = 'Last Week';
+$lang['text_job_contract_hourly_total'] = 'Total';
+
+$lang['text_job_hourly_units'] = "%s Hrs";
+$lang['text_job_hourly_unit'] = "%s Hr";
+$lang['text_job_hourly_view_diary'] = 'View Work Diary';
+$lang['text_job_hourly_rate'] = 'Hourly Rate';
+$lang['text_job_hourly_weekly_limit'] = 'Weekly Limit';
+$lang['text_job_hourly_btn_pause'] = 'Pause';
