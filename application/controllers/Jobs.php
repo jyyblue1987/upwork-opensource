@@ -1166,6 +1166,45 @@ class Jobs extends Winjob_Controller {
         
     }
     
+    private function _update_bid_state( $state ){
+        $this->authorized();
+        
+        if ($this->session->userdata('type') == 1) {
+            
+            $bid_id = base64_decode($this->input->get('fbid'));
+            
+            if(!is_numeric($bid_id))
+                redirect( home_url() );
+            
+            $this->load->model('jobs_model');
+            
+            $bid = $this->jobs_model->load_bid( $bid_id );
+            
+            if(empty($bid)){
+                $this->session->set_flashdata('error', $this->lang->item('text_app_bid_does_not_exists'));
+                redirect( home_url() );
+            }
+            
+            $this->jobs_model->update_bid_state($bid_id, $state);
+            
+            $encode_job_id   = base64_encode($bid->job_id);
+            $encode_fuser_id = base64_encode($bid->user_id);
+            
+            redirect( site_url('jobs/contracts?' . http_build_query( array( 'fmJob' => $encode_job_id, 'fuser' => $encode_fuser_id ) )) );
+            
+        }else{
+            redirect( home_url() );
+        }
+    }
+    
+    public function restart(){
+        return $this->_update_bid_state( BID_STATE_APPLIED );
+    }
+    
+    public function paused(){
+        $this->_update_bid_state( BID_STATE_PAUSED );
+    }
+    
     // added by (Donfack Zeufack Hermann) end
     
     
@@ -1698,7 +1737,7 @@ class Jobs extends Winjob_Controller {
             $employer_id         = $this->session->userdata('id');
             $nb_freelancer_hired = $this->jobs_model->number_freelancer_hired( $employer_id );
             $jobs_accepted       = $this->jobs_model->load_all_jobs_freelancer_hired($employer_id);
-  
+                        
             date_default_timezone_set("UTC"); 
             $today               = date('y-m-d', strtotime('today'));
             $this_week_start     = date('y-m-d', strtotime('monday this week'));
@@ -1706,8 +1745,8 @@ class Jobs extends Winjob_Controller {
             $job_ids             = $this->extrat_all_job_ids( $jobs_accepted );
             $freelancer_job_hour = $this->jobs_model->get_all_freelancer_total_hour($job_ids, $this_week_start, $today);
             
-            $nb_offer            = $this->jobs_model->number_offer();
-            $nb_past_hired       = $this->jobs_model->number_past_hired();
+            $nb_offer            = $this->jobs_model->number_offer( $employer_id );
+            $nb_past_hired       = $this->jobs_model->number_past_hired( $employer_id );
             
             $this->twig->display('webview/jobs/twig/my-staff', compact('nb_freelancer_hired', 'jobs_accepted', 'freelancer_job_hour', 'nb_offer', 'past_hired'));
             // added by (Donfack Zeufack Hermann) end
@@ -2447,7 +2486,7 @@ class Jobs extends Winjob_Controller {
                 $date = date('Y/m/d');
             }
 
-            $this->db->select('*');
+            $this->db->select('*, job_bids.status as bid_status');
             $this->db->from('job_accepted');
             $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
             $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
@@ -2456,14 +2495,18 @@ class Jobs extends Winjob_Controller {
             $this->db->where('jobs.job_type', 'hourly');
             $query_list = $this->db->get();
             $job_list = $query_list->result();
+            
+            
 
             $this->db->select('jobs.*, job_bids.*,jobs.user_id AS offerduser_id,job_bids.status AS bid_status,jobs.job_duration AS jobduration,job_bids.id AS bid_id,job_bids.created AS bid_created');
             $this->db->join('job_bids', 'jobs.id=job_bids.job_id', 'inner');
             $this->db->where('job_bids.user_id', $user_id);
             $this->db->where('job_bids.job_id', $job_id);
-            $this->db->where('job_bids.status', 0);
+            $this->db->where('job_bids.status', BID_STATE_APPLIED);
+            $this->db->or_where('job_bids.status', BID_STATE_PAUSED);
             $query = $this->db->get('jobs');
             $job_details = $query->row();
+            
             //Total Worked(Hours)
             $this->db->select('*');
             $this->db->from('job_workdairy');

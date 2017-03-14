@@ -136,3 +136,6 @@ defined('HOURLY_JOB_TYPE') || define('HOURLY_JOB_TYPE', 'hourly');
 defined('CONTRACT_JOB_TITLE_MAX') || define('CONTRACT_JOB_TITLE_MAX', 68);
 defined('LIST_JOB_TITLE_MAX') || define('LIST_JOB_TITLE_MAX', 88);
 defined('CONTRACT_JOB_COMPANY_NAME_MAX') || define('CONTRACT_JOB_COMPANY_NAME_MAX', 35);
+
+defined('BID_STATE_APPLIED') || define('BID_STATE_APPLIED', 0);
+defined('BID_STATE_PAUSED') || define('BID_STATE_PAUSED', 2);

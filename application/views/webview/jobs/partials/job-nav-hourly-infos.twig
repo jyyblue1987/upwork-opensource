@@ -109,7 +109,15 @@
                                         <p><b>{{ job_status.weekly_limit }}</b> Hrs/Week</p>
                                     </span>     
                                     <div class="hour_pause_btn">
-                                        <input type="button" class="btn btn-primary form-btn pause-btn" value="{{ app_lang('text_job_hourly_btn_pause') }}" />
+                                        {% if job_status.bid_status == 2 %}
+                                        <a href="{{ base_url("jobs/restart") }}?fbid={{ bid_id_encoded }}">
+                                            <input type="button" class="btn btn-primary form-btn pause-btn" value="{{ app_lang('text_job_hourly_btn_restart') }}" />
+                                        </a>
+                                        {% else %}
+                                        <a href="{{ base_url("jobs/paused") }}?fbid={{ bid_id_encoded }}">
+                                            <input type="button" class="btn btn-primary form-btn pause-btn" value="{{ app_lang('text_job_hourly_btn_pause') }}" />
+                                        </a>    
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -121,8 +129,7 @@
                     </div>
                 </div>
             </div>
-
-
+                                    
             <div class="row margin-top-1">
                 <div class="col-md-12">
                     <div class="row margin-top-3 cus_cancel_button"> 

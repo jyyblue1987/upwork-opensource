@@ -26,7 +26,7 @@ class Jobs_model extends CI_Model {
     
     public function load_job_status($sender_id, $user_id, $job_id, $with_country = false) {
         
-        $this->db->select('*,jobs.status AS job_status,jobs.job_duration AS jobduration,jobs.created AS job_created, webuser.cropped_image');
+        $this->db->select('*,jobs.status AS job_status,jobs.job_duration AS jobduration,jobs.created AS job_created, webuser.cropped_image, job_bids.status as bid_status');
         $this->db->from('job_accepted');
         $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
         
@@ -85,7 +85,7 @@ class Jobs_model extends CI_Model {
         if(empty($employer_id) || !is_numeric($employer_id))
             return null;
         
-        $this->db->select('*');
+        $this->db->select('*, job_bids.status as bid_status');
         $this->db->from('job_accepted');
         $this->db->join('webuser', 'webuser.webuser_id=job_accepted.fuser_id', 'inner');
         $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
@@ -201,4 +201,24 @@ class Jobs_model extends CI_Model {
         return $result;
     }
     
+    public function update_bid_state($bid_id, $state ){
+        
+        $this->db->where('id', $bid_id);
+        
+        return $this->db->update('job_bids', array( 'status' => $state )); 
+    }
+    
+    public function load_bid( $bid_id, $hired = false ){
+        
+        $this->db
+                ->select('*')
+                ->from('job_bids')
+                ->where('id', $bid_id );
+        
+        if($hired)
+            $this->db->where('hired', 1);
+        
+        $query   = $this->db->get();
+        return $query->row();
+    }
 }

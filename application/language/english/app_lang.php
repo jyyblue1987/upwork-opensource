@@ -53,3 +53,4 @@ $lang['text_app_how_to_join_us'] = 'How to Join us?';
 $lang['text_app_how_to_create_support_tickets'] = 'How to create support tickets?';
 $lang['text_app_how_to_get_your_work_done'] = 'How to get your work done?';
 $lang['text_app_how_to_add_fund'] = 'How to add fund?';
+$lang['text_app_bid_does_not_exists'] = 'You want to stop a bid that does not exists.';

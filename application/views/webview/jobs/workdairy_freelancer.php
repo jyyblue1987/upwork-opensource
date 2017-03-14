@@ -60,7 +60,9 @@ $ujob_id = $_GET['fmJob'];
 									</h3>
 								</div>
 								<div style="margin-left: 46px;" class="col-md-3 col-sm-3">
-									<?php if($ststus->isactive==0){ ?>
+                                                                        <?php if($job_details->bid_status == 2){ ?>
+                                                                            <button data-toggle="modal"  id="top-bottom">Request Manual Hour Paused</button>
+                                                                        <?php }elseif($ststus->isactive==0){ ?>
 										<button data-toggle="modal"  id="top-bottom">Request Manual Hour Hold</button>
 									<?php }else{ ?>
 										<button data-toggle="modal" data-target="#manual_time" id="top-bottom">Request Manual Hour</button>
