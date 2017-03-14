@@ -1676,7 +1676,7 @@ class Jobs extends Winjob_Controller {
             }
 
             $subject = "Invoice for Contract $contact_id";
-            $company = $form['company'];
+            $company_name = $form['company'];
 
             $details = array(
                     'fname' => $user_name,
@@ -1685,7 +1685,7 @@ class Jobs extends Winjob_Controller {
                     'slogan' => 'Hire Talented Freelancers For a Low Cost',
                     'para1' => 'You have successfully received '.$payment.' from '.$company_name.'. Please see details below.',
                     'payment' => $payment,
-                    'company_name' => $company,
+                    'company_name' => $company_name,
                     'client' => $client_name,
                     'date' => date('F j, Y'),
                     'contract' => $contact_id,
@@ -1697,7 +1697,7 @@ class Jobs extends Winjob_Controller {
                     'company' => 'Winjob',
                     'slogan' => 'Hire Talented Freelancers For a Low Cost',
                     'payment' => $payment,
-                    'company_name' => $company,
+                    'company_name' => $company_name,
                     'client' => $client_name,
                     'freelancer' => $user_name,
                     'date' => date('F j, Y'),
