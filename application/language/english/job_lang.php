@@ -64,3 +64,21 @@ $lang['text_job_btn_cancel_offer']  = 'Cancel Offer';
 $lang['text_job_title_page_offer_sent'] = 'Offers sent';
 $lang['text_job_btn_op_view_offer'] = 'View offer';
 $lang['text_job_original_view'] = 'View original job post';
+
+$lang['text_job_title_active_contracts'] = 'Active Contracts';
+$lang['text_job_menu_active_contracts'] = 'Active Contracts';
+
+$lang['text_job_title_ended_contracts']  = 'Ended Contracts';
+$lang['text_job_menu_ended_contracts']  = 'Ended Contracts';
+
+$lang['text_job_message_active_contract']     = '! You have hired %s freelancers in this team';
+$lang['text_job_message_no_active_contract']  = '! You have no hired freelancers in this team';
+
+$lang['text_job_title_winjob'] = 'Wins Job';
+$lang['text_job_message_winjob'] = '! You have hired %s jobs';
+$lang['text_job_message_no_winjob'] = '! You have no hired jobs';
+
+$lang['text_job_menu_win_jobs'] = 'Win Jobs';
+$lang['text_job_menu_ended_jobs'] = 'Ended Jobs';
+
+$lang['text_job_title_freelancer_endjobs'] = "Finished Jobs";

@@ -15,15 +15,19 @@ class __TwigTemplate_02f91a26f97e8f6a6e8b5fcd781aafa6cc37251200f9d38c13d98417076
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        // line 2
-        echo "<div class=\"ph_rehire_butt\">
+        // line 1
+        if (((isset($context["page"]) ? $context["page"] : null) != "endedjobs")) {
+            // line 2
+            echo "<div class=\"ph_rehire_butt\">
     <div class=\"rehire-btn\">
         <input type=\"button\" class=\"btn btn-primary form-btn\" value=\"";
-        // line 4
-        echo twig_escape_filter($this->env, app_lang("text_job_btn_refired"), "html", null, true);
-        echo "\" />
+            // line 4
+            echo twig_escape_filter($this->env, app_lang("text_job_btn_refired"), "html", null, true);
+            echo "\" />
     </div>
-</div>";
+</div>
+";
+        }
     }
 
     public function getTemplateName()
@@ -38,7 +42,7 @@ class __TwigTemplate_02f91a26f97e8f6a6e8b5fcd781aafa6cc37251200f9d38c13d98417076
 
     public function getDebugInfo()
     {
-        return array (  23 => 4,  19 => 2,);
+        return array (  25 => 4,  21 => 2,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -51,11 +55,12 @@ class __TwigTemplate_02f91a26f97e8f6a6e8b5fcd781aafa6cc37251200f9d38c13d98417076
 
     public function getSourceContext()
     {
-        return new Twig_Source("{# empty Twig template #}
+        return new Twig_Source("{% if page != \"endedjobs\" %}
 <div class=\"ph_rehire_butt\">
     <div class=\"rehire-btn\">
         <input type=\"button\" class=\"btn btn-primary form-btn\" value=\"{{ app_lang('text_job_btn_refired') }}\" />
     </div>
-</div>", "webview/jobs/partials/job-hire-button.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\jobs\\partials\\job-hire-button.twig");
+</div>
+{% endif %}", "webview/jobs/partials/job-hire-button.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\jobs\\partials\\job-hire-button.twig");
     }
 }

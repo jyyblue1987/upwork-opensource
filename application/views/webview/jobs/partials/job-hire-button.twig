@@ -1,6 +1,7 @@
-{# empty Twig template #}
+{% if page != "endedjobs" %}
 <div class="ph_rehire_butt">
     <div class="rehire-btn">
         <input type="button" class="btn btn-primary form-btn" value="{{ app_lang('text_job_btn_refired') }}" />
     </div>
 </div>
+{% endif %}

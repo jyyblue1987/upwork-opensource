@@ -28,39 +28,44 @@ class __TwigTemplate_4439f3e9b8b8533cd9bf3cce4a90e55d6615a37250a9cb945d41dd77724
             echo "&fuser=";
             echo twig_escape_filter($this->env, (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null), "html", null, true);
             echo "\">
-            <input style=\"margin-right: -1px;\" type=\"button\" class=\"btn btn-primary form-btn\" value=\"";
+                <input style=\"margin-right: -1px;\" type=\"button\" class=\"btn btn-primary form-btn\" value=\"";
             // line 5
             echo twig_escape_filter($this->env, app_lang("text_job_btn_work_diary"), "html", null, true);
-            echo "\" /></a>
+            echo "\" />
+            </a>
         </div>
     </div>
 ";
         } else {
-            // line 9
-            echo "    <div class=\"ms_pay_butt\">
+            // line 10
+            echo "    ";
+            if ( !(isset($context["freelancer"]) ? $context["freelancer"] : null)) {
+                // line 11
+                echo "    <div class=\"ms_pay_butt\">
         <div class=\"mystaff_pay_btnx payment_btn\">
             <input type=\"button\" class=\"btn btn-primary form-btn my-btn \" ";
-            // line 12
-            echo "                   value=\"";
-            echo twig_escape_filter($this->env, app_lang("text_job_btn_payment"), "html", null, true);
-            echo "\"
+                // line 14
+                echo "                   value=\"";
+                echo twig_escape_filter($this->env, app_lang("text_job_btn_payment"), "html", null, true);
+                echo "\"
                    data-id =\"2\"
                    data-buserid=\"";
-            // line 14
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "buser_id", array()), "html", null, true);
-            echo "\"
+                // line 16
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "buser_id", array()), "html", null, true);
+                echo "\"
                    data-fuserid=\"";
-            // line 15
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "fuser_id", array()), "html", null, true);
-            echo "\"
+                // line 17
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "fuser_id", array()), "html", null, true);
+                echo "\"
                    data-jobid=\"";
-            // line 16
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "job_id", array()), "html", null, true);
-            echo "\"
+                // line 18
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "job_id", array()), "html", null, true);
+                echo "\"
                  />
         </div>
-    </div>    
-";
+    </div>
+    ";
+            }
         }
     }
 
@@ -76,7 +81,7 @@ class __TwigTemplate_4439f3e9b8b8533cd9bf3cce4a90e55d6615a37250a9cb945d41dd77724
 
     public function getDebugInfo()
     {
-        return array (  58 => 16,  54 => 15,  50 => 14,  44 => 12,  40 => 9,  33 => 5,  25 => 4,  21 => 2,  19 => 1,);
+        return array (  62 => 18,  58 => 17,  54 => 16,  48 => 14,  44 => 11,  41 => 10,  33 => 5,  25 => 4,  21 => 2,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -93,10 +98,12 @@ class __TwigTemplate_4439f3e9b8b8533cd9bf3cce4a90e55d6615a37250a9cb945d41dd77724
     <div class=\"ms_hr_work_diary\">
         <div class=\"mystaff_work_diary hour_btn work_diary_btn\">
             <a href=\"{{ base_url() }}jobs/workdairy_client?fmJob={{ job_id_encoded }}&fuser={{ fuser_id_encoded }}\">
-            <input style=\"margin-right: -1px;\" type=\"button\" class=\"btn btn-primary form-btn\" value=\"{{ app_lang('text_job_btn_work_diary') }}\" /></a>
+                <input style=\"margin-right: -1px;\" type=\"button\" class=\"btn btn-primary form-btn\" value=\"{{ app_lang('text_job_btn_work_diary') }}\" />
+            </a>
         </div>
     </div>
 {% else %}
+    {% if not freelancer %}
     <div class=\"ms_pay_butt\">
         <div class=\"mystaff_pay_btnx payment_btn\">
             <input type=\"button\" class=\"btn btn-primary form-btn my-btn \" {# _job_btn_payment class to active payment button via js #}
@@ -107,7 +114,8 @@ class __TwigTemplate_4439f3e9b8b8533cd9bf3cce4a90e55d6615a37250a9cb945d41dd77724
                    data-jobid=\"{{ job.job_id }}\"
                  />
         </div>
-    </div>    
+    </div>
+    {% endif %}
 {% endif %}", "webview/jobs/partials/job-payment-buttons.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\jobs\\partials\\job-payment-buttons.twig");
     }
 }

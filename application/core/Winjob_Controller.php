@@ -83,4 +83,12 @@ class Winjob_Controller extends CI_Controller {
     protected function load_language(){
         $this->lang->load('app', $this->get_default_lang());
     }
+    
+    protected function extrat_all_job_ids( $jobs ){
+        $job_ids = array();
+        foreach( $jobs as $job){
+            $job_ids[] = $job->job_id;
+        }
+        return $job_ids; 
+    }
 }

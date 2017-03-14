@@ -51,7 +51,7 @@ class __TwigTemplate_1ccfc13766236691d53c61a8b9e17f8c81befb01b6836626f66994812e5
                     echo "            ";
                 }
                 // line 15
-                echo "
+                echo "            
             ";
                 // line 16
                 if ((($this->getAttribute((isset($context["freelancer_job_hour"]) ? $context["freelancer_job_hour"] : null), (isset($context["job_id"]) ? $context["job_id"] : null), array(), "array", true, true) && $this->getAttribute($this->getAttribute((isset($context["freelancer_job_hour"]) ? $context["freelancer_job_hour"] : null), (isset($context["job_id"]) ? $context["job_id"] : null), array(), "array", false, true), (isset($context["fuser_id"]) ? $context["fuser_id"] : null), array(), "array", true, true)) && ($this->getAttribute($this->getAttribute((isset($context["freelancer_job_hour"]) ? $context["freelancer_job_hour"] : null), (isset($context["job_id"]) ? $context["job_id"] : null), array(), "array"), (isset($context["fuser_id"]) ? $context["fuser_id"] : null), array(), "array") > 0))) {
@@ -189,7 +189,7 @@ class __TwigTemplate_1ccfc13766236691d53c61a8b9e17f8c81befb01b6836626f66994812e5
             {% if page == 'pasthire' %}
                 {% set text_job_total_hour = 'text_job_total_hour_pasthire' %}
             {% endif %}
-
+            
             {% if freelancer_job_hour[ job_id ] is defined and freelancer_job_hour[ job_id ][ fuser_id] is defined and freelancer_job_hour[ job_id ][ fuser_id]  > 0 %}
                 {% set total_hour = freelancer_job_hour[job_id][fuser_id] %}
                 {{ app_lang(text_job_total_hour)|format( total_hour )|raw }}

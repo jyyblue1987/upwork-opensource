@@ -1655,14 +1655,6 @@ class Jobs extends Winjob_Controller {
         }
     }
     
-    
-    private function extrat_all_job_ids( $jobs ){
-        $job_ids = array();
-        foreach( $jobs as $job){
-            $job_ids[] = $job->job_id;
-        }
-        return $job_ids; 
-    }
 
     public function mystaff() {
         if ($this->Adminlogincheck->checkx()) {
@@ -1739,8 +1731,9 @@ class Jobs extends Winjob_Controller {
 
 
 
-            $data = array('all_data' => $result, 'offer_count' => $offer_count, 'past_hire' => $past_hire);
-            $this->Admintheme->webview("jobs/active-contracts", $data);
+            $data = array('all_data' => $result, 'offer_count' => $offer_count, 'past_hire' => $past_hire, 'nb_item' => count($result) );
+            //$this->Admintheme->webview("jobs/active-contracts", $data);
+            $this->twig->display('webview/jobs/twig/active-contracts', $data);
         }
     }
 
@@ -1837,7 +1830,8 @@ class Jobs extends Winjob_Controller {
 
 
             $data = array('messages' => $result, 'offer_count' => $offer_count, 'myhire_count' => $myhire_count, 'past_hire' => $past_hire);
-            $this->Admintheme->webview("jobs/ended-contracts", $data);
+            //$this->Admintheme->webview("jobs/ended-contracts", $data);
+            $this->twig->display('webview/jobs/twig/ended-contracts', $data);
         }
     }
 

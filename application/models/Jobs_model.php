@@ -165,4 +165,33 @@ class Jobs_model extends CI_Model {
         return $result;
     }
     
+    public function get_each_work_total_hour( $job_ids, $user_id, $this_week_start = null, $today = null ){
+        
+        $this->db
+            ->select('fuser_id, jobid, SUM(total_hour) as total_hour')
+            ->from('job_workdairy')
+            ->where('fuser_id', $user_id)
+            ->where_in('jobid', $job_ids);
+        
+        if( $this_week_start != null )
+            $this->db->where('working_date >=', $this_week_start);
+        
+        if( $today != null )
+            $this->db->where('working_date <=', $today);
+        
+        $this->db->group_by(array('fuser_id', 'jobid'));
+        
+        $query    = $this->db->get();
+        $job_done = $query->result();
+
+        $result = array();  
+        
+        if($job_done != null){
+            foreach($job_done as $job){
+                $result[$job->jobid][$job->fuser_id] =  (int) $job->total_hour;
+            }
+        }
+        return $result;
+    }
+    
 }

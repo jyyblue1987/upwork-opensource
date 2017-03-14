@@ -1,6 +1,19 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Winsjob extends CI_Controller{
+
+class Winsjob extends Winjob_Controller{
+    
+    public function __construct() {
+        parent::__construct();
+        // added by (Donfack Zeufack Hermann) start 
+        // load the default language for the current user.
+        $this->load_language();
+        // added by (Donfack Zeufack Hermann) end
+    }
+    protected function load_language(){
+        parent::load_language();
+        $this->lang->load('job', $this->get_default_lang());
+    }
     
     public function index()    {
         
@@ -23,12 +36,24 @@ class Winsjob extends CI_Controller{
             
              $query=$this->db->get();
 			$acccept_jobList = $query->result();
-			
-            $data = array('acccept_jobList'=>$acccept_jobList,
-                        'title' => "My Jobs - Winjob");
-            $this->Admintheme->webview("jobs/winsjob", $data);
             
+            $this->load->model('jobs_model');
+            date_default_timezone_set("UTC"); 
+            $today               = date('y-m-d', strtotime('today'));
+            $this_week_start     = date('y-m-d', strtotime('monday this week'));
             
+            $job_ids             = $this->extrat_all_job_ids( $acccept_jobList );
+            $freelancer_job_hour = $this->jobs_model->get_each_work_total_hour($job_ids, $user_id, $this_week_start, $today);
+            
+            $data = array(
+                        'acccept_jobList' => $acccept_jobList,
+                        'count_' => count( $acccept_jobList ),
+                        'title' => "My Jobs - Winjob",
+                        'freelancer_job_hour' => $freelancer_job_hour
+                    );
+            
+            //$this->Admintheme->webview("jobs/winsjob", $data);
+            $this->twig->display('webview/jobs/twig/winsjob', $data);            
         }
     }
 	public function endjobs()    {
@@ -52,11 +77,13 @@ class Winsjob extends CI_Controller{
              $query=$this->db->get();
 			$acccept_jobList = $query->result();
 			
-            $data = array('acccept_jobList'=>$acccept_jobList,
-                        'title' => "Finished Jobs - Winjob");
-            $this->Admintheme->webview("jobs/endjobs", $data);
+            $data = array(
+                        'acccept_jobList' => $acccept_jobList,
+                        'past_hire'       => count( $acccept_jobList ),
+                        'title'           => "Finished Jobs - Winjob");
             
-            
+            //$this->Admintheme->webview("jobs/endjobs", $data);
+            $this->twig->display('webview/jobs/twig/end-jobs', $data);
         }
     }
     

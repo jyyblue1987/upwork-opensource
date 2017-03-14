@@ -12,7 +12,7 @@
             {% if page == 'pasthire' %}
                 {% set text_job_total_hour = 'text_job_total_hour_pasthire' %}
             {% endif %}
-
+            
             {% if freelancer_job_hour[ job_id ] is defined and freelancer_job_hour[ job_id ][ fuser_id] is defined and freelancer_job_hour[ job_id ][ fuser_id]  > 0 %}
                 {% set total_hour = freelancer_job_hour[job_id][fuser_id] %}
                 {{ app_lang(text_job_total_hour)|format( total_hour )|raw }}

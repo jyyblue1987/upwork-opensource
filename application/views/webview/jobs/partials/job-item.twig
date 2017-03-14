@@ -11,7 +11,15 @@
             
             <div class="col-md-4">
                 <div class="row">
+                    {% if freelancer %}
+                        {% if job.job_type == 'fixed' or page == 'endedjobs'  %}
+                            <div class="wj_massage_butt2">
+                        {% else %}
+                            <div class="ms_hr_massage_butt">
+                        {% endif %}
+                    {% else %}
                     <div class="ms_hr_massage_butt">
+                    {% endif %}
                         <div class="mystaff_msg_btnx hour_btn message_btn ">
                             <input type="button" 
                                    class="btn btn-primary form-btn _job_btn_message"
