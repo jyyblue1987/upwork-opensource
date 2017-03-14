@@ -106,6 +106,7 @@
                                         &nbsp;
                                     </td>
 				</tr>
+                                <?php if($fname){ ?>
 				<tr>
                                     <td>
                                         <table border="0" cellspacing="0" cellpadding="0" align="left" class="inner" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; margin: 0 20px 0 20px; font-size: 12px; color: #00354f;">
@@ -116,3 +117,4 @@
 					</table>
                                     </td>
 				</tr>
+                                <?php } ?>
