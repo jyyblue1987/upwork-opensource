@@ -61,5 +61,17 @@ $route['profile/remove-exp/(:num)/(:any)'] = 'profile/removeExp/$1/$2';
 
 $route['profile/(:any)'] = 'profile/index/($1)';
 
-
-
+//Routes for Footer
+$route['add-fund'] = 'footerPages/add_fund';
+$route['cancellation-refund'] = 'footerPages/cancellation';
+$route['desktop-app'] = 'footerPages/desktop_app';
+$route['enterprise-solution'] = 'footerPages/enterprise';
+$route['fees-charges'] = 'footerPages/fees';
+$route['getwork-done'] = 'footerPages/getwork_done';
+$route['help'] = 'footerPages/help';
+$route['how-to-join'] = 'footerPages/join';
+$route['make-better'] = 'footerPages/make_better';
+$route['press'] = 'footerPages/press';
+$route['create-ticket'] = 'footerPages/create_ticket';
+$route['trust-safety'] = 'footerPages/trust_safety';
+$route['feedback'] = 'footerPages/feedback';
