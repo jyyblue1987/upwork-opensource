@@ -24,6 +24,8 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
 <div class=\"row margintop-2 ms_white_box ";
         // line 4
         echo twig_escape_filter($this->env, (isset($context["page"]) ? $context["page"] : null), "html", null, true);
+        echo " ";
+        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "job_type", array()), "html", null, true);
         echo "\">
     <div class=\"col-md-12 freelancer-job white-box\" style=\"padding: 20px\">
         <div class=\"row\">
@@ -40,74 +42,53 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
             
             <div class=\"col-md-4\">
                 <div class=\"row\">
-                    ";
-        // line 14
-        if ((isset($context["freelancer"]) ? $context["freelancer"] : null)) {
-            // line 15
-            echo "                        ";
-            if ((($this->getAttribute((isset($context["job"]) ? $context["job"] : null), "job_type", array()) == "fixed") || ((isset($context["page"]) ? $context["page"] : null) == "endedjobs"))) {
-                // line 16
-                echo "                            <div class=\"wj_massage_butt2\">
-                        ";
-            } else {
-                // line 18
-                echo "                            <div class=\"ms_hr_massage_butt\">
-                        ";
-            }
-            // line 20
-            echo "                    ";
-        } else {
-            // line 21
-            echo "                    <div class=\"ms_hr_massage_butt\">
-                    ";
-        }
-        // line 23
-        echo "                        <div class=\"mystaff_msg_btnx hour_btn message_btn \">
+                    <div class=\"ms_hr_massage_butt\">
+                        <div class=\"mystaff_msg_btnx hour_btn message_btn \">
                             <input type=\"button\" 
                                    class=\"btn btn-primary form-btn _job_btn_message\"
                                    data-bid=\"";
-        // line 26
+        // line 18
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "bid_id", array()), "html", null, true);
         echo "\"
                                    data-uid=\"";
-        // line 27
+        // line 19
         echo twig_escape_filter($this->env, (isset($context["chat_receiver_id"]) ? $context["chat_receiver_id"] : null), "html", null, true);
         echo "\"
                                    data-jid=\"";
-        // line 28
+        // line 20
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["job"]) ? $context["job"] : null), "job_id", array()), "html", null, true);
         echo "\"
                                    data-title=\"";
-        // line 29
+        // line 21
         echo twig_escape_filter($this->env, (isset($context["title"]) ? $context["title"] : null), "html", null, true);
         echo "\"
                                    data-uname=\"";
-        // line 30
+        // line 22
         echo twig_escape_filter($this->env, (isset($context["username"]) ? $context["username"] : null), "html", null, true);
         echo "\"
                                    value=\"";
-        // line 31
+        // line 23
         echo twig_escape_filter($this->env, app_lang("text_job_btn_message"), "html", null, true);
         echo "\">
                         </div>
                     </div>
                     
                     ";
-        // line 35
+        // line 27
         if (array_key_exists("specific_btn_template", $context)) {
             echo "    
                         ";
-            // line 36
+            // line 28
             echo twig_include($this->env, $context, (isset($context["specific_btn_template"]) ? $context["specific_btn_template"] : null));
             echo "
                     ";
         }
-        // line 38
+        // line 30
         echo "                    
                     ";
-        // line 39
+        // line 31
         if (array_key_exists("options_dropdown", $context)) {
-            // line 40
+            // line 32
             echo "                    <div class=\"ms_hr_drop_butt\">
                         <div class=\"dropdown hour_btnx dropdown_btn\">
                             <button class=\"btn btn-default dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\">
@@ -115,7 +96,7 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
                             </button>
                             <ul style=\"left: -156px;\" class=\"dropdown-menu\">
                                 ";
-            // line 46
+            // line 38
             echo twig_include($this->env, $context, (isset($context["options_dropdown"]) ? $context["options_dropdown"] : null));
             echo "
                             </ul>
@@ -123,35 +104,35 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
                     </div>
                     ";
         }
-        // line 51
+        // line 43
         echo "                </div>
             </div> 
         </div>
         <div class=\"row\">
             <div class=\"job_detais col-md-12\">
                 ";
-        // line 57
+        // line 49
         echo "                ";
         if (array_key_exists("profil_link", $context)) {
-            // line 58
+            // line 50
             echo "                 <a href=\"";
             echo twig_escape_filter($this->env, (isset($context["profil_link"]) ? $context["profil_link"] : null), "html", null, true);
             echo "\" 
                     style=\"font-size: 14px;color: #3DB0DD;\">";
-            // line 59
+            // line 51
             echo twig_escape_filter($this->env, app_lang("text_job_btn_op_view_profile"), "html", null, true);
             echo "
                  </a>
                  <strong>-</strong>
                 ";
         }
-        // line 63
+        // line 55
         echo "                
                 ";
-        // line 65
+        // line 57
         echo "                ";
         if (array_key_exists("job_detail_link", $context)) {
-            // line 66
+            // line 58
             echo "                <a href=\"";
             echo twig_escape_filter($this->env, (isset($context["job_detail_link"]) ? $context["job_detail_link"] : null), "html", null, true);
             echo "\">  ";
@@ -160,10 +141,10 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
                 <strong>-</strong>
                 ";
         }
-        // line 69
+        // line 61
         echo "                
                 ";
-        // line 71
+        // line 63
         echo "                <span><b>";
         echo twig_escape_filter($this->env, app_substr((isset($context["title"]) ? $context["title"] : null), twig_constant("LIST_JOB_TITLE_MAX"), "..."), "html", null, true);
         echo "</b></span>
@@ -185,7 +166,7 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
 
     public function getDebugInfo()
     {
-        return array (  167 => 71,  164 => 69,  155 => 66,  152 => 65,  149 => 63,  142 => 59,  137 => 58,  134 => 57,  127 => 51,  119 => 46,  111 => 40,  109 => 39,  106 => 38,  101 => 36,  97 => 35,  90 => 31,  86 => 30,  82 => 29,  78 => 28,  74 => 27,  70 => 26,  65 => 23,  61 => 21,  58 => 20,  54 => 18,  50 => 16,  47 => 15,  45 => 14,  38 => 10,  33 => 8,  26 => 4,  23 => 3,  21 => 2,  19 => 1,);
+        return array (  148 => 63,  145 => 61,  136 => 58,  133 => 57,  130 => 55,  123 => 51,  118 => 50,  115 => 49,  108 => 43,  100 => 38,  92 => 32,  90 => 31,  87 => 30,  82 => 28,  78 => 27,  71 => 23,  67 => 22,  63 => 21,  59 => 20,  55 => 19,  51 => 18,  40 => 10,  35 => 8,  26 => 4,  23 => 3,  21 => 2,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -201,7 +182,7 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
         return new Twig_Source("{% set title            = job.hire_title %}
 {% set username         = job.webuser_fname ~ ' ' ~ job.webuser_lname %}
                 
-<div class=\"row margintop-2 ms_white_box {{ page }}\">
+<div class=\"row margintop-2 ms_white_box {{ page }} {{ job.job_type }}\">
     <div class=\"col-md-12 freelancer-job white-box\" style=\"padding: 20px\">
         <div class=\"row\">
             
@@ -211,15 +192,7 @@ class __TwigTemplate_1d35c34b4593619f1d74fc3bfba3eb26398b0891f3168a0947271fdf66a
             
             <div class=\"col-md-4\">
                 <div class=\"row\">
-                    {% if freelancer %}
-                        {% if job.job_type == 'fixed' or page == 'endedjobs'  %}
-                            <div class=\"wj_massage_butt2\">
-                        {% else %}
-                            <div class=\"ms_hr_massage_butt\">
-                        {% endif %}
-                    {% else %}
                     <div class=\"ms_hr_massage_butt\">
-                    {% endif %}
                         <div class=\"mystaff_msg_btnx hour_btn message_btn \">
                             <input type=\"button\" 
                                    class=\"btn btn-primary form-btn _job_btn_message\"

@@ -116,7 +116,7 @@ class __TwigTemplate_423edc218afcc5677d7f024fa2968b871781c4a5c3d1ead64f4eedebd0f
                                 ";
                 // line 36
                 echo "                                ";
-                $context["page"] = "mystaff";
+                $context["page"] = "winjobs";
                 // line 37
                 echo "                                
                                 ";
@@ -285,7 +285,7 @@ class __TwigTemplate_423edc218afcc5677d7f024fa2968b871781c4a5c3d1ead64f4eedebd0f
                             {% for job in acccept_jobList %}
                                 
                                 {# specific the current page #}
-                                {% set page = 'mystaff' %}
+                                {% set page = 'winjobs' %}
                                 
                                 {# chat receiver id #}
                                 {% set chat_receiver_id      = job.buser_id %}

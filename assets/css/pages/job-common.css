@@ -47,3 +47,16 @@ and open the template in the editor.
 .modal-body {
   overflow: hidden;padding-bottom: 20px !important;
 }
+
+#big_header{
+    margin-top: 32px;
+    margin-bottom: 40px;
+    height: auto;   
+}
+
+.endedjobs .ms_hr_massage_butt,
+.winjobs.fixed .ms_hr_massage_butt{
+    position: absolute;
+    right: 42px;
+    top: 0;
+}

@@ -1,7 +1,7 @@
 {% set title            = job.hire_title %}
 {% set username         = job.webuser_fname ~ ' ' ~ job.webuser_lname %}
                 
-<div class="row margintop-2 ms_white_box {{ page }}">
+<div class="row margintop-2 ms_white_box {{ page }} {{ job.job_type }}">
     <div class="col-md-12 freelancer-job white-box" style="padding: 20px">
         <div class="row">
             
@@ -11,15 +11,7 @@
             
             <div class="col-md-4">
                 <div class="row">
-                    {% if freelancer %}
-                        {% if job.job_type == 'fixed' or page == 'endedjobs'  %}
-                            <div class="wj_massage_butt2">
-                        {% else %}
-                            <div class="ms_hr_massage_butt">
-                        {% endif %}
-                    {% else %}
                     <div class="ms_hr_massage_butt">
-                    {% endif %}
                         <div class="mystaff_msg_btnx hour_btn message_btn ">
                             <input type="button" 
                                    class="btn btn-primary form-btn _job_btn_message"
