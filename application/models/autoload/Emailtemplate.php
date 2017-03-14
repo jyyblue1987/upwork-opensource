@@ -13,5 +13,11 @@ class Emailtemplate extends CI_Model {
 
         return $body;
     }
+    
+    function emailtest($page, $data){
+        $this->load->view('admin/emailtemplates/header', $data, false);
+        $this->load->view('emailview/'.$page, $data, false);
+        $this->load->view('admin/emailtemplates/footer', $data, false);
+    }
 
 }

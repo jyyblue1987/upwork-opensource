@@ -1543,7 +1543,7 @@ class Jobs extends Winjob_Controller {
                 $offerduser_details = null;
             }
 
-            $data = array('job_details' => $job_details, 'offerduser_details' => $offerduser_details, 'user_details' => $user_details);
+            $data = array('job_details' => $job_details, 'offerduser_details' => $offerduser_details, 'user_details' => $user_details, 'title' => 'Accept Job Offer - Winjob');
             $this->Admintheme->webview("jobs/accept_hourly", $data);
         }
     }
@@ -1612,6 +1612,130 @@ class Jobs extends Winjob_Controller {
             );
 
             // var_dump($offer_confo_data);die();
+
+            
+            $this->db->select('*');
+            $this->db->from('job_bids');
+            $this->db->where('job_id', $jobId);
+            $query = $this->db->get();
+            $result = $query->row();
+
+            if ($query->num_rows() > 0) {
+                $payment = '$'.$result->bid_earning;
+            }
+
+            //Get Address of Client
+            $this->db->select('*');
+            $this->db->from('webuseraddresses');
+            $this->db->where('webuser_id', $client_id);
+            $query = $this->db->get();
+            $result_client = $query->row();
+
+            if ($query->num_rows() > 0) {
+                $address = $result_client->address.' '.$result_client->address1;
+                $address1 = $result_client->city.' '.$result_client->state.' '.$result_client->zipcode;
+                $country = $result_client->country;
+            }
+
+            //Get Tax information of Freelancer
+            $this->db->select('*');
+            $this->db->from('webuser_tax_information');
+            $this->db->where('webuser_id', $user_id);
+            $query = $this->db->get();
+            $result_fl = $query->row();
+
+            if ($query->num_rows() > 0) {
+                $fl_address = $result_fl->address.' '.$result_fl->address_line1;
+                $fl_address1 = $result_fl->city.' '.$result_fl->state.' '.$result_fl->zipcode;
+                $fl_country = $result_fl->country;
+            }
+            
+            //Get Profile Address of Freelancer
+            $this->db->select('*');
+            $this->db->from('webuseraddresses');
+            $this->db->where('webuser_id', $user_id);
+            $query = $this->db->get();
+            $result_add = $query->row();
+
+            if ($query->num_rows() > 0) {
+                $address_profile = $result_add->address.' '.$result_add->address1;
+                $address1_profile = $result_add->city.' '.$result_add->state.' '.$result_add->zipcode;
+                $country_profile = $result_add->country;
+            }
+            
+            //Get Job Title
+            
+            $this->db->select('*');
+            $this->db->from('jobs');
+            $this->db->where('id', $job_id);
+            $query = $this->db->get();
+            $result_job = $query->row();
+
+            if ($query->num_rows() > 0) {
+                $job_title = $result_job->title;
+            }
+
+            $subject = "Invoice for Contract $contact_id";
+            $company = $form['company'];
+
+            $details = array(
+                    'fname' => $user_name,
+                    'company' => 'Winjob',
+                    'verification' => site_url()."jobs/view/" . $title . "/" . base64_encode($job_id),
+                    'slogan' => 'Hire Talented Freelancers For a Low Cost',
+                    'para1' => 'You have successfully received '.$payment.' from '.$company_name.'. Please see details below.',
+                    'payment' => $payment,
+                    'company_name' => $company,
+                    'client' => $client_name,
+                    'date' => date('F j, Y'),
+                    'contract' => $contact_id,
+                    'invoice_no' => mt_rand() . "<br>",
+                    'job_title' => $job_name
+                );
+            
+            $details_employer = array(
+                    'company' => 'Winjob',
+                    'slogan' => 'Hire Talented Freelancers For a Low Cost',
+                    'payment' => $payment,
+                    'company_name' => $company,
+                    'client' => $client_name,
+                    'freelancer' => $user_name,
+                    'date' => date('F j, Y'),
+                    'contract' => $contract,
+                    'invoice_no' => $invoice_no,
+                    'job_title' => $job_name,
+                    'address' => $address,
+                    'address1' => $address1,
+                    'country' => $country,
+                    'fl_address' => $fl_address ? $fl_address : $address_profile,
+                    'fl_address1' => $fl_address1 ? $fl_address1 : $address1_profile,
+                    'fl_country' => $fl_country ? $fl_country : $country_profile
+            );
+
+            //Email sent to client when offer is accepted 
+            $accept_subject = "Job Offer has been Accepted by $user_name";
+            $accept_email = array(
+                    'company' => 'Winjob',
+                    'slogan' => 'Hire Talented Freelancers For a Low Cost',
+                    'fname' => $client_name,
+                    'verification' => site_url()."jobs/view/" . $job_title . "/" . base64_encode($jobId),
+                    'para1' => 'Your contract has started with '.$user_name.'. Please review the job post below.',
+            );
+            
+            //Email sent to freelancer when offer is accepted
+            $accept_freelancer = "You have Accepted Job Offer from $client_name";
+            $accept_freelancer = array(
+                    'company' => 'Winjob',
+                    'slogan' => 'Hire Talented Freelancers For a Low Cost',
+                    'fname' => $user_name,
+                    'verification' => site_url()."jobs/view/" . $job_title . "/" . base64_encode($jobId),
+                    'para1' => 'Your contract has started with '.$client_name.'. Please review the job post below.',
+            );    
+            
+            $this->Sesmailer->sesemail($user_email,$subject,$this->Emailtemplate->emailview('freelancer_invoice', $details));
+            $this->Sesmailer->sesemail($client_email,$subject,$this->Emailtemplate->emailview('employer_invoice', $details_employer));
+            $this->Sesmailer->sesemail($client_email,$accept_subject,$this->Emailtemplate->emailview('job_offer', $accept_email));
+            $this->Sesmailer->sesemail($user_email,$accept_subject,$this->Emailtemplate->emailview('job_offer', $accept_freelancer));
             $this->db->insert('job_accepted', $offer_confo_data);
             // die();
 
@@ -2229,6 +2353,7 @@ class Jobs extends Winjob_Controller {
                 if ($query->num_rows() > 0) {
                     $fname_freelancer = $result->webuser_fname;
                     $email_freelancer = $result->webuser_email;
+                    $name_freelancer = $result->webuser_fname.' '.$result->webuser_lname;
                 }
                 
                 //get job owner
@@ -2240,6 +2365,7 @@ class Jobs extends Winjob_Controller {
                 $result = $query->row();
             
                 if ($query->num_rows() > 0) {
+                    $fname_post = $result->webuser_fname;
                     $fname_poster = $result->webuser_fname. ' '.$result->webuser_lname;
                     $email_poster = $result->webuser_email;
                     $title = $result->title;
@@ -2254,7 +2380,7 @@ class Jobs extends Winjob_Controller {
                     $thisid = $result->id;
                 }
 
-                $subject = "Job Offer from $company";
+                $subject = "Pending Job Offer from $company";
                 $details = array(
                     'fname' => ucfirst($fname_freelancer),
                     'company' => 'Winjob',
@@ -2263,7 +2389,19 @@ class Jobs extends Winjob_Controller {
                     'para1' => 'You have a job offer from '.$company.', please review the job post below.',
                     'para2' => '<div><strong style="color: #000;">Job Title:</strong> '.ucwords($title).'</div><strong style="color: #000;">Posted By: </strong>'.ucwords($fname_poster).'<br><br><strong style="color: #000;">Message: </strong><br><br>'.$message.'<br><br><strong style="color: #000;">Skills: </strong>'.$skills.''
                 );
+
+                $subject_client = "You have Sent a Job Offer";
+                $details_client = array(
+                    'fname' => ucfirst($fname_post),
+                    'company' => 'Winjob',
+                    'verification' => site_url()."jobs/view/" . $title . "/" . base64_encode($job_id),
+                    'slogan' => 'Hire Talented Freelancers For a Low Cost',
+                    'para1' => 'You have sent a job offer to '.$company.', please review the job post below.',
+                    'para2' => '<div><strong style="color: #000;">Job Title:</strong> '.ucwords($title).'</div><strong style="color: #000;">Posted By: </strong>'.ucwords($fname_poster).'<br><br><strong style="color: #000;">Message: </strong><br><br>'.$message.'<br><br><strong style="color: #000;">Skills: </strong>'.$skills.''
+                );
+
                 $response = $this->Sesmailer->sesemail($email_freelancer, $subject, $this->Emailtemplate->emailview('job_offer', $details));
+                $response = $this->Sesmailer->sesemail($email_poster, $subject_client, $this->Emailtemplate->emailview('job_offer', $details_client));
             
         } else {
             $sql = "UPDATE  job_bids set job_progres_status=2,hired = '1', hire_title = '" . $title . "', hire_message = '" . $message . "', weekly_limit = '" . $weekly_limit . "', allow_freelancer = '" . $allow_freelancer . "', weekly_amount = '" . $weekly_limit_amount . "', payment_status = 0, start_date = '" . $start_date . "' WHERE user_id ='" . $applier_id . "' AND job_id = '" . $job_id . "'";
@@ -2302,7 +2440,7 @@ class Jobs extends Winjob_Controller {
                     $thisid = $result->id;
                 }
 
-                $subject = "Job Offer from $company";
+                $subject = "Pending Job Offer from $company";
                 $details = array(
                     'fname' => ucfirst($fname_freelancer),
                     'company' => 'Winjob',
@@ -2311,7 +2449,19 @@ class Jobs extends Winjob_Controller {
                     'para1' => 'You have a job offer from '.$company.', please review the job post below.',
                     'para2' => '<div><strong style="color: #000;">Job Title:</strong> '.ucwords($title).'</div><strong style="color: #000;">Posted By: </strong>'.ucwords($fname_poster).'<br><br><strong style="color: #000;">Message: </strong><br><br>'.$message.'<br><br><strong style="color: #000;">Skills: </strong>'.$skills.''
                 );
+                
+                $subject_client = "You have Sent a Job Offer";
+                $details_client = array(
+                    'fname' => ucfirst($fname_post),
+                    'company' => 'Winjob',
+                    'verification' => site_url()."jobs/view/" . $title . "/" . base64_encode($job_id),
+                    'slogan' => 'Hire Talented Freelancers For a Low Cost',
+                    'para1' => 'You have sent a job offer to '.$company.', please review the job post below.',
+                    'para2' => '<div><strong style="color: #000;">Job Title:</strong> '.ucwords($title).'</div><strong style="color: #000;">Posted By: </strong>'.ucwords($fname_poster).'<br><br><strong style="color: #000;">Message: </strong><br><br>'.$message.'<br><br><strong style="color: #000;">Skills: </strong>'.$skills.''
+                );
+                
                 $response = $this->Sesmailer->sesemail($email_freelancer, $subject, $this->Emailtemplate->emailview('job_offer', $details));
+                $response = $this->Sesmailer->sesemail($email_poster, $subject_client, $this->Emailtemplate->emailview('job_offer', $details_client));
         }
    // addded by jahid end
 

@@ -41,7 +41,8 @@
 						<input name="job_name" type="hidden" id="job_name"  value="<?=$offerduser_details->title ?>"  />
 						<input name="client_id" type="hidden" id="client_id"  value="<?=$offerduser_details->webuser_id ?>"  />
 						<input name="user_id" type="hidden" id="user_id"  value="<?=$user_details->webuser_id ?>"  />
-						
+						<input name="company" type="hidden" id="user_id"  value="<?=$user_details->webuser_company ?>"  />
+                                                
 						<input name="bid_id" type="hidden" id="bid_id"  value="<?=$Bid_id?>"  />
 						<input name="job_id" type="hidden" id="job_id"  value="<?=$jobId?>"  />
 						

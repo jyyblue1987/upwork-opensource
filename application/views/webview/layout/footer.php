@@ -13,9 +13,9 @@
 			 <li><p><b>Winjob</b></p></li>
 			 <li><a href="<?php echo site_url("aboutus"); ?>">About us</a></li>
 			 <li><a href="<?php echo site_url("contact"); ?>">Contact us</a></li>
-			 <li>Press</li>
-			 <li>Enterprise Soluation</li>
-			 <li>Feedback</li>
+                         <li><a href="<?php echo site_url("press"); ?>">Press</a></li>
+			 <li><a href="<?php echo site_url("enterprise_solution"); ?>">Enterprise Solution</a></li>
+			 <li><a href="<?php echo site_url("feedback_footer"); ?>">Feedback</a></li>
 			</ul>
 		</div>
 	 </div>
@@ -23,9 +23,9 @@
 	       <div class="footer-menu">  
 			 <ul>
 			  <li><p><b>Contact Support</b></p></li>
-			 <li>Help & Support</li>
-			 <li>Trust and Safety</li>
-			 <li>Help Make Winjob better</li>
+			 <li><a href="<?php echo site_url("help"); ?>">Help & Support</a></li>
+                         <li><a href="<?php echo site_url("trust_safety"); ?>">Trust and Safety</a></li>
+			 <li><a href="<?php echo site_url("make_better"); ?>">Help Make Winjob better</a></li>
 			</ul>
 		 </div>
 	 </div>
@@ -34,11 +34,11 @@
 	      <div class="footer-menu">  
 			 <ul>
 			 <li><p><b>Information</b></p></li>
-			  <li>Fee and Charges</li>
-			  <li>Cancellations & Refunds</li>
+			  <li><a href="<?php echo site_url("fees_charges"); ?>">Fee and Charges</a></li>
+			  <li><a href="<?php echo site_url("cancellation_refunds"); ?>">Cancellations & Refunds</a></li>
 			  <li><a href="<?php echo site_url("terms"); ?>">Terms & Conditions</a></li>
-			  <li><a href="<?php echo site_url("policy"); ?>">Privacy Policy</a></li>
-			  <li>Desktop App</li>
+			  <li><a href="<?php echo site_url("privacy"); ?>">Privacy Policy</a></li>
+			  <li><a href="<?php echo site_url("desktop_app"); ?>">Desktop App</a></li>
 			</ul>
 		 </div>
 	 </div>
@@ -48,10 +48,10 @@
 			
 			<ul>
 			<li><p><b>Knowledgebase</b></p></li>
-				<li>How to Join us?</li>
-				<li>How to create support tickets?</li>
-				<li>How to get your work done?</li>
-				<li>How to add fund?</li>
+				<li><a href="<?php echo site_url("how_to_join"); ?>">How to Join us?</a></li>
+				<li><a href="<?php echo site_url("create_ticket"); ?>">How to create support tickets?</a></li>
+				<li><a href="<?php echo site_url("getwork_done"); ?>">How to get your work done?</a></li>
+				<li><a href="<?php echo site_url("add_fund"); ?>">How to add fund?</a></li>
 			</ul>
 		 </div>
 	 </div>
