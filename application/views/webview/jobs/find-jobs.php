@@ -87,7 +87,7 @@ $clientend = $Conversation->clientend();
                                         foreach ($subCateList as $sub) {
                                             ?>
                                             <div style="margin-bottom: 8px;line-height: 20px;font-size: 16px;font-family: calibri;" class="col-md-12 blue-text">
-                                                <label> <a href="<?php echo site_url('find-jobs/' . $sub['url_rewrite']) ?>"> <?php echo $sub['subcategory_name'] ?> </a> </label>
+                                                <label> <a href="<?php echo site_url('find-jobs/' . $sub['cat_id']) ?>"> <?php echo $sub['subcategory_name'] ?> </a> </label>
                                             </div>
                                             <?php
                                         }

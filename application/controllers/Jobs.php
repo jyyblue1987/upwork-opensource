@@ -350,6 +350,11 @@ class Jobs extends Winjob_Controller {
                         $jobTypeQuery = ' AND (jobs.job_type IN (' . $jobTypeQuery . '))';
 
                     }
+                    
+                    $sortQuery = " ORDER BY jobs.created DESC ";
+                            if($sort == 0){
+                                $sortQuery = " ORDER BY jobs.created ASC ";
+                            }
 
                     $query = $this->db->query(""
                             . "SELECT * FROM jobs "
