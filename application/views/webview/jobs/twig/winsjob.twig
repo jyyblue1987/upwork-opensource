@@ -55,6 +55,8 @@
                                 {# Specifics partials #}
                                 {% set specific_btn_template = 'webview/jobs/partials/job-payment-buttons.twig' %}
                                 {% set options_dropdown      = 'webview/jobs/partials/job-winsjob-dropdown.twig' %}
+                                
+                                {% set employerStatus =  job.isactive %}
 
                                 {# To display profil link pass profil_link variable to job-item named as profil_link #}
                                 {{ include('webview/jobs/partials/job-item.twig') }}

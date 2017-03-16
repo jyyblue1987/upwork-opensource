@@ -139,3 +139,7 @@ defined('CONTRACT_JOB_COMPANY_NAME_MAX') || define('CONTRACT_JOB_COMPANY_NAME_MA
 
 defined('BID_STATE_APPLIED') || define('BID_STATE_APPLIED', 0);
 defined('BID_STATE_PAUSED') || define('BID_STATE_PAUSED', 2);
+
+
+defined('EMPLOYER') || define('EMPLOYER', 1);
+defined('FREELANCER') || define('FREELANCER', 2);

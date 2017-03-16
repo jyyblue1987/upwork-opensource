@@ -1069,12 +1069,10 @@ class Jobs extends Winjob_Controller {
     
     }
     
-    private function _client_hourly_contract($job_status, $webuser){
+    
+    private function _calculate_hourly_worked($job_id, $fuser_id){
         
-        date_default_timezone_set("UTC"); 
-        
-        $job_id   = $job_status->job_id; 
-        $fuser_id = $job_status->fuser_id;
+        date_default_timezone_set("UTC");
         
         $today             = date( 'Y-m-d', strtotime('today') );
         $this_week_start   = date( 'Y-m-d', strtotime('monday this week') );
@@ -1091,8 +1089,7 @@ class Jobs extends Winjob_Controller {
         
         $total_hour      = $this->jobs_model->get_work_total_hour($job_id, $fuser_id );
         
-        //$this->Admintheme->webview("jobs/hourly_client_view", compact('job_status', 'webuser'));
-        $this->twig->display('webview/jobs/twig/contract', compact('job_status', 'webuser', 'hour_this_week', 'hour_last_week', 'total_hour'));
+        return array($hour_this_week, $hour_last_week, $total_hour);
     }
     
     private function _client_contracts(){
@@ -1108,7 +1105,7 @@ class Jobs extends Winjob_Controller {
         $job_status = $this->jobs_model->load_job_status($sender_id, $user_id, $job_id);
         if($job_status->job_type == "hourly"){
             $webuser     = $this->webuser_model->load_informations($job_status->buser_id);
-            return $this->_client_hourly_contract($job_status, $webuser);
+            return $this->_hourly_contract_display($job_status, $webuser);
         }else{
             $webuser     = $this->webuser_model->load_informations($sender_id);
             return $this->_client_fixed_contract($job_status, $sender_id, $user_id, $webuser);
@@ -1116,13 +1113,23 @@ class Jobs extends Winjob_Controller {
     }
     
     
-    private function _freelancer_hourly_contract( $job_status, $ststus ){
-        $this->Admintheme->webview("jobs/hourly_freelancer_view", array('job_status' => $job_status, 'ststus' => $ststus));
+    private function _hourly_contract_display( $job_status, $webuser ){
+        
+        $job_id   = $job_status->job_id; 
+        $fuser_id = $job_status->fuser_id;
+        
+        list($hour_this_week, $hour_last_week, $total_hour) = $this->_calculate_hourly_worked($job_id, $fuser_id);
+        
+        //$this->Admintheme->webview("jobs/hourly_freelancer_view", array('job_status' => $job_status, 'ststus' => $webuser ));
+        $this->twig->display('webview/jobs/twig/contract', compact('job_status', 'webuser', 'hour_this_week', 'hour_last_week', 'total_hour'));
     }
     
-    private function _freelancer_fixed_contract($job_status, $job_id, $user_id, $ststus){
+    private function _freelancer_fixed_contract($job_status, $job_id, $user_id, $webuser){
+        
         $payments   = $this->payment_model->load_job_transactions($job_status->buser_id, $user_id, $job_id); 
-        $this->Admintheme->webview("jobs/fixed_freelancer_view", compact('job_status', 'ststus', 'payments'));
+        
+        //$this->Admintheme->webview("jobs/fixed_freelancer_view", compact('job_status', 'ststus', 'payments'));
+        $this->twig->display('webview/jobs/twig/contract', compact('job_status', 'webuser', 'payments'));
     }
     
     private function _freelancer_contracts(){
@@ -1133,16 +1140,17 @@ class Jobs extends Winjob_Controller {
             log_message('debug', $e->getMessage());
             redirect(site_url("find-jobs"));
         }
+        
         list($job_id, $user_id) = $this->prepare_fixed_freelancer_data();
         $job_status = $this->jobs_model->load_job_status(null, $user_id, $job_id);
         
         
         if($job_status->job_type == 'hourly'){
-            $ststus = $this->webuser_model->load_informations($job_status->buser_id);
-            $this->_freelancer_hourly_contract($job_status, $ststus);
+            $webuser = $this->webuser_model->load_informations($job_status->buser_id);
+            $this->_hourly_contract_display($job_status, $webuser);
         }else{
-            $ststus  = $this->webuser_model->load_informations($job_status->buser_id);
-            $this->_freelancer_fixed_contract($job_status, $job_id, $user_id, $ststus);
+            $webuser  = $this->webuser_model->load_informations($job_status->buser_id);
+            $this->_freelancer_fixed_contract($job_status, $job_id, $user_id, $webuser);
         }
     }
     
@@ -1202,7 +1210,7 @@ class Jobs extends Winjob_Controller {
     }
     
     public function paused(){
-        $this->_update_bid_state( BID_STATE_PAUSED );
+        return $this->_update_bid_state( BID_STATE_PAUSED );
     }
     
     // added by (Donfack Zeufack Hermann) end
@@ -1850,7 +1858,7 @@ class Jobs extends Winjob_Controller {
             
             // load models
             try{
-                $this->load->model(array('jobs_model'));
+                $this->load->model(array('jobs_model', 'webuser_model'));
             }catch(RuntimeException $e){
                 log_message('debug', $e->getMessage());
                 $this->session->set_flashdata('error', $this->lang->item('text_job_runtime_exception_message'));
@@ -1871,8 +1879,9 @@ class Jobs extends Winjob_Controller {
             
             $nb_offer            = $this->jobs_model->number_offer( $employer_id );
             $nb_past_hired       = $this->jobs_model->number_past_hired( $employer_id );
+            $webuser             = $this->webuser_model->load_informations( $employer_id );
             
-            $this->twig->display('webview/jobs/twig/my-staff', compact('nb_freelancer_hired', 'jobs_accepted', 'freelancer_job_hour', 'nb_offer', 'past_hired'));
+            $this->twig->display('webview/jobs/twig/my-staff', compact('nb_freelancer_hired', 'jobs_accepted', 'freelancer_job_hour', 'nb_offer', 'past_hired', 'webuser'));
             // added by (Donfack Zeufack Hermann) end
         }
     }

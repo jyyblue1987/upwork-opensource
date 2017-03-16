@@ -1,11 +1,11 @@
-{% if job.bid_status == 2 %}
-    <br />
-    <p style="margin:0 !important;">{{ app_lang('text_job_contract_paused') }}</p>
-    <hr>
-{% elseif job.jobstatus != 1 %}
-    {% if webuser.isactive == 0 %}
+{% if job.jobstatus != 1 %}
+    {% if employerStatus == 0 %}
     <br />
     <p style="margin:0 !important;">{{ app_lang('text_job_contract_hold') }}</p>
+    <hr>
+    {% elseif job.bid_status == 2 %}
+    <br />
+    <p style="margin:0 !important;">{{ app_lang('text_job_contract_paused') }}</p>
     <hr>
     {% endif %}
 {% endif %}

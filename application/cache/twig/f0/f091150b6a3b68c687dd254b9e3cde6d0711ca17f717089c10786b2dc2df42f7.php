@@ -166,9 +166,12 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
                 echo "                                ";
                 $context["options_dropdown"] = "webview/jobs/partials/job-staff-dropdown.twig";
                 // line 58
+                echo "                                ";
+                $context["employerStatus"] = $this->getAttribute((isset($context["webuser"]) ? $context["webuser"] : null), "isactive", array());
+                // line 59
                 echo "
                                 ";
-                // line 60
+                // line 61
                 echo "                                ";
                 echo twig_include($this->env, $context, "webview/jobs/partials/job-item.twig");
                 echo "
@@ -185,10 +188,10 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['job'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 62
+            // line 63
             echo "                        ";
         }
-        // line 63
+        // line 64
         echo "                   </div>
                 </div>
             </div>
@@ -196,23 +199,23 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
     </section>
                         
     ";
-        // line 69
+        // line 70
         echo twig_include($this->env, $context, "webview/modals/message-conversion-modal.twig");
         echo "
 ";
     }
 
-    // line 72
+    // line 73
     public function block_js($context, array $blocks = array())
     {
-        // line 73
+        // line 74
         echo "    
     ";
-        // line 75
+        // line 76
         echo "    <script> var page = 'my-staff'; </script>
     
     <script data-main=\"";
-        // line 77
+        // line 78
         echo twig_escape_filter($this->env, app_modular_js("winjob"), "html", null, true);
         echo "\" src=\"";
         echo twig_escape_filter($this->env, app_modular_js("lib/require.dev.js"), "html", null, true);
@@ -233,7 +236,7 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
 
     public function getDebugInfo()
     {
-        return array (  216 => 77,  212 => 75,  209 => 73,  206 => 72,  200 => 69,  192 => 63,  189 => 62,  172 => 60,  169 => 58,  166 => 57,  163 => 56,  160 => 54,  157 => 53,  154 => 52,  151 => 51,  148 => 50,  146 => 49,  143 => 48,  141 => 47,  138 => 46,  135 => 44,  132 => 43,  129 => 42,  126 => 41,  123 => 39,  120 => 38,  117 => 36,  114 => 35,  111 => 33,  93 => 32,  91 => 31,  85 => 29,  82 => 28,  79 => 27,  69 => 19,  61 => 13,  58 => 12,  52 => 9,  48 => 8,  42 => 6,  39 => 5,  31 => 3,  11 => 1,);
+        return array (  219 => 78,  215 => 76,  212 => 74,  209 => 73,  203 => 70,  195 => 64,  192 => 63,  175 => 61,  172 => 59,  169 => 58,  166 => 57,  163 => 56,  160 => 54,  157 => 53,  154 => 52,  151 => 51,  148 => 50,  146 => 49,  143 => 48,  141 => 47,  138 => 46,  135 => 44,  132 => 43,  129 => 42,  126 => 41,  123 => 39,  120 => 38,  117 => 36,  114 => 35,  111 => 33,  93 => 32,  91 => 31,  85 => 29,  82 => 28,  79 => 27,  69 => 19,  61 => 13,  58 => 12,  52 => 9,  48 => 8,  42 => 6,  39 => 5,  31 => 3,  11 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -303,6 +306,7 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
                                 {# Specifics partials #}
                                 {% set specific_btn_template = 'webview/jobs/partials/job-payment-buttons.twig' %}
                                 {% set options_dropdown      = 'webview/jobs/partials/job-staff-dropdown.twig' %}
+                                {% set employerStatus =  webuser.isactive %}
 
                                 {# To display profil link pass profil_link variable to job-item named as profil_link #}
                                 {{ include('webview/jobs/partials/job-item.twig') }}

@@ -56,7 +56,7 @@ class __TwigTemplate_d71f7bf9520f222f68cc828af1c25038507141501c0986e06123625e809
         if (array_key_exists("job_title", $context)) {
             // line 31
             echo "                            ";
-            echo twig_escape_filter($this->env, character_limiter((isset($context["job_title"]) ? $context["job_title"] : null), (isset($context["CONTRACT_JOB_TITLE_MAX"]) ? $context["CONTRACT_JOB_TITLE_MAX"] : null), "..."), "html", null, true);
+            echo twig_escape_filter($this->env, app_substr((isset($context["job_title"]) ? $context["job_title"] : null), twig_constant("CONTRACT_JOB_TITLE_MAX"), "..."), "html", null, true);
             echo "
                             ";
         }
@@ -143,7 +143,7 @@ class __TwigTemplate_d71f7bf9520f222f68cc828af1c25038507141501c0986e06123625e809
                         </h3>
                         <h5 class=\"chat_job_title\">
                             {% if job_title is defined %}
-                            {{ character_limiter(job_title, CONTRACT_JOB_TITLE_MAX, '...') }}
+                            {{ app_substr(job_title, constant('CONTRACT_JOB_TITLE_MAX'), '...') }}
                             {% endif %}
                         </h5>
                     </div>

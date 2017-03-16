@@ -19,7 +19,20 @@
     
     {% set job_id_encoded   = base64_encode( job_status.job_id ) %}
     {% set fuser_id_encoded = base64_encode( job_status.fuser_id ) %}
+    {% set buser_id_encoded = base64_encode( job_status.buser_id ) %}
     {% set bid_id_encoded   = base64_encode( job_status.bid_id) %}
+    
+    {% set chat_receiver_id = webuser.webuser_id %}
+    
+    {% set _action = 'client' %}
+    
+    {% set _query  = 'fuser' %}
+    {% set param_userid = fuser_id_encoded %}
+    {% if app_user_data()['type'] == constant('FREELANCER') %}
+        {% set _action = 'freelancer' %}
+        {% set _query  = 'buser' %}
+        {% set param_userid = buser_id_encoded %}
+    {% endif %}
     
     <section id="big_header" class="contract-section">
         <div class="container">
@@ -44,20 +57,28 @@
                                     </div>
                                 </div>
                                 <div style="margin-left: -24px;" class="col-md-7 text-left">
-                                    <h5 style="margin-top: -4px;" class="free_name">{{ job_status.webuser_fname }} {{ job_status.webuser_lname }}</label>
-                                        <br> <p class=""><strong>{{ app_substr(job_status.tagline, constant('CONTRACT_JOB_COMPANY_NAME_MAX'), '...') }}</strong></p>
+                                    <div class="hourly_name">
+                                        <h5 style="margin-top: -4px;" class="free_name">{{ job_status.webuser_fname }} {{ job_status.webuser_lname }}</h5>
+                                        <p class="free_name">
+                                            {% if app_user_data()['type'] == constant('FREELANCER') %}
+                                                {{ app_substr(webuser.webuser_company, constant('CONTRACT_JOB_COMPANY_NAME_MAX'), '...') }}
+                                            {% else %}
+                                                {{ app_substr(job_status.tagline, constant('CONTRACT_JOB_TITLE_MAX'), '...') }}
+                                            {% endif %}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3 text-center gray-text">
                             <div style="margin-top: -8px;" class="status_bar">
-                                {% if job_status.bid_status == 2  %}
-                                    <label class="gray-text">{{ app_lang('text_job_status_state')|format(app_lang('text_job_state_paused')) }}</label>
-                                {% elseif webuser.isactive == 0 %}
+                                {% if webuser.isactive == 0 %}
                                     <label style="margin-top: -8px;" class="gray-text">
                                         {% set hold = "<span style='color:#ff0000;'>%s</span>" %}
                                         {{ app_lang('text_job_status_state')|format(hold)|format(app_lang('text_job_state_hold'))|raw }}
                                     </label>
+                                {% elseif job_status.bid_status == 2  %}
+                                    <label class="gray-text">{{ app_lang('text_job_status_state')|format(app_lang('text_job_state_paused')) }}</label>
                                 {% elseif job_status.jobstatus == 1 %}
                                     <label class="gray-text">{{ app_lang('text_job_status_state')|format(app_lang('text_job_state_ended')) }}</label>
                                 {% else %}
@@ -70,18 +91,18 @@
                                 <input type="button" class="btn-primary transparent-btn big_mass_button _job_btn_message" 
                                        value="{{ app_lang('text_job_btn_message') }}" 
                                        data-bid="{{ job_status.bid_id }}"
-                                       data-uid="{{ job_status.fuser_id }}"
+                                       data-uid="{{ chat_receiver_id }}"
                                        data-jid="{{ job_status.job_id }}" 
                                        />
                             </div>
                         </div>
-                        
-                        <div class="col-md-12">
-                            <div class="job_title client_job_title">
-                                <span class="clint_view_j-title">
-                                    {{ app_substr(job_title, constant('CONTRACT_JOB_TITLE_MAX'), '...') }}</span><br />
-                                <a href="{{ base_url() }}jobs/view/{{ url_title( job_status.title ) }}/{{ job_id_encoded }}">{{ app_lang('text_job_original_view') }}</a>
-                            </div>
+                    </div>
+                                       
+                    <div class="col-md-12">
+                        <div class="job_title client_job_title">
+                            <span class="clint_view_j-title">
+                                {{ app_substr(job_title, constant('CONTRACT_JOB_TITLE_MAX'), '...') }}</span><br />
+                            <a href="{{ base_url() }}jobs/view/{{ url_title( job_status.title ) }}/{{ job_id_encoded }}">{{ app_lang('text_job_original_view') }}</a>
                         </div>
                     </div>
                 </div>
@@ -99,10 +120,12 @@
     </section>
     
     {{ include('webview/modals/message-conversion-modal.twig', {'webuser_fname': job_status.webuser_fname, 'webuser_lname': job_status.webuser_lname , 'job_title': job_title }) }}
-        
-    {{ include("webview/modals/milestone-modal.twig") }}
-
-    {{ include("webview/modals/payment-modal.twig") }}
+     
+    {# Only include modal for client contract page #}
+    {% if app_user_data()['type'] == constant('EMPLOYER') %}
+        {{ include("webview/modals/milestone-modal.twig") }}
+        {{ include("webview/modals/payment-modal.twig") }}
+    {% endif %}
     
 {% endblock %}
 

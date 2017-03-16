@@ -44,7 +44,7 @@ class Winsjob extends Winjob_Controller{
             
             $job_ids             = $this->extrat_all_job_ids( $acccept_jobList );
             $freelancer_job_hour = $this->jobs_model->get_each_work_total_hour($job_ids, $user_id, $this_week_start, $today);
-            
+                       
             $data = array(
                         'acccept_jobList' => $acccept_jobList,
                         'count_' => count( $acccept_jobList ),
