@@ -1815,7 +1815,7 @@ class Jobs extends Winjob_Controller {
             );
             
             //Email sent to freelancer when offer is accepted
-            $accept_freelancer = "You have Accepted Job Offer from $client_name";
+            $accept_freelancer_sbj = "You have Accepted Job Offer from $client_name";
             $accept_freelancer = array(
                     'company' => 'Winjob',
                     'slogan' => 'Hire Talented Freelancers For a Low Cost',
@@ -1827,7 +1827,7 @@ class Jobs extends Winjob_Controller {
             $this->Sesmailer->sesemail($user_email,$subject,$this->Emailtemplate->emailview('freelancer_invoice', $details));
             $this->Sesmailer->sesemail($client_email,$subject,$this->Emailtemplate->emailview('employer_invoice', $details_employer));
             $this->Sesmailer->sesemail($client_email,$accept_subject,$this->Emailtemplate->emailview('job_offer', $accept_email));
-            $this->Sesmailer->sesemail($user_email,$accept_subject,$this->Emailtemplate->emailview('job_offer', $accept_freelancer));
+            $this->Sesmailer->sesemail($user_email,$accept_freelancer_sbj,$this->Emailtemplate->emailview('job_offer', $accept_freelancer));
             $this->db->insert('job_accepted', $offer_confo_data);
             // die();
 
