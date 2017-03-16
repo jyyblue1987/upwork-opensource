@@ -174,7 +174,7 @@ class Jobs extends Winjob_Controller {
         redirect($_SERVER['HTTP_REFERER']);
     }
 
-    public function find($url_rewrite = null) {
+    public function find($url_rewrite = null, $sort = 1) {
 
         $url_rewrite = substr($url_rewrite, 1, -1);
         $this->db->select('*');
@@ -301,7 +301,22 @@ class Jobs extends Winjob_Controller {
                                 $jobTypeQuery = ' AND (jobs.job_type IN (' . $jobTypeQuery . '))';
 
                             }
-                            $query = $this->db->query("SELECT * FROM jobs LEFT JOIN webuser ON webuser.webuser_id=jobs.user_id WHERE jobs.category in(" . $sql . ") AND (jobs.title like '%" . $keywords . "%' OR jobs.job_description like '%" . $keywords . "%') {$jobTypeQuery} LIMIT " . $offset . ',' . $limit);
+                            
+                            $sortQuery = " ORDER BY jobs.created DESC ";
+                            if($sort == 0){
+                                $sortQuery = " ORDER BY jobs.created ASC ";
+                            }
+                            
+                            $query = $this->db->query(
+                                    "SELECT * FROM jobs "
+                                    . "LEFT JOIN webuser "
+                                    . "ON webuser.webuser_id=jobs.user_id "
+                                    . "WHERE jobs.status = 1 "
+                                    . "AND jobs.category in(" . $sql . ") "
+                                    . "AND (jobs.title like '%" . $keywords . "%' "
+                                    . "OR jobs.job_description like '%" . $keywords . "%') {$jobTypeQuery} "
+                                    . $sortQuery
+                                    . "LIMIT " . $offset . ',' . $limit);
                             // Davit end
 
                             //   var_dump($keywords);die();
@@ -336,7 +351,16 @@ class Jobs extends Winjob_Controller {
 
                     }
 
-                    $query = $this->db->query("SELECT * FROM jobs LEFT JOIN webuser ON webuser.webuser_id=jobs.user_id WHERE jobs.category in(" . implode(',', $category) . ") AND (jobs.title like '%" . $keywords . "%' OR jobs.job_description like '%" . $keywords . "%') {$jobTypeQuery} LIMIT " . $offset . ',' . $limit);
+                    $query = $this->db->query(""
+                            . "SELECT * FROM jobs "
+                            . "LEFT JOIN webuser "
+                            . "ON webuser.webuser_id=jobs.user_id "
+                            . "WHERE jobs.status = 1 "
+                            . "AND jobs.category in(" . implode(',', $category) . ") "
+                            . "AND (jobs.title like '%" . $keywords . "%' "
+                            . "OR jobs.job_description like '%" . $keywords . "%') {$jobTypeQuery} "
+                            . $sortQuery
+                            . "LIMIT " . $offset . ',' . $limit);
                     // Davit end
                 }
 
@@ -364,6 +388,7 @@ class Jobs extends Winjob_Controller {
                 }
 
                 $data = array('records' => $records, 'limit' => $limit);
+                
                 // Davit start
                 //$this->load->view('webview/jobs/content', $data);
                 $content = $this->load->view('webview/jobs/content', $data, true);
@@ -593,7 +618,6 @@ class Jobs extends Winjob_Controller {
                     } else {
                         $data['checkAll'] = false;
                     }
-
                     $this->Admintheme->webview("jobs/category-jobs", $data);
                 } else {
                     $this->Admintheme->webview("jobs/find-jobs", $data);

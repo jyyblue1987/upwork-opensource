@@ -167,7 +167,7 @@ $clientend = $Conversation->clientend();
                                 </div>
 
                             </div>
-                            <div class='load-more'>Load more <img src='/assets/img/version1/loader.gif' class="form-loader" style="display:none"></div>
+                            <div class='load-more'>Load more <img src='<?php echo site_url() ?>assets/img/version1/loader.gif' class="form-loader" style="display:none"></div>
                         </section>
 
                     </div>
@@ -188,7 +188,7 @@ $clientend = $Conversation->clientend();
                             </div>
 
                         </div>
-                        <div style="border-bottom: 1px solid #ccc;border-right: 1px solid #ccc;border-left: 1px solid #ccc;border-radius: 0px 0px 4px 4px;padding: ;" class="row white-box text-center">
+                        <div style="border-bottom: 1px solid #ccc;border-right: 1px solid #ccc;border-left: 1px solid #ccc;border-radius: 0px 0px 4px 4px;padding:" class="row white-box text-center">
                             <?php
                             $user_id = $this->session->userdata('id');
                             // var_dump($user_id);die();

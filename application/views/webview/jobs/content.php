@@ -76,11 +76,12 @@ if (count($records) > 0)
     {
    
     /* find client payment set status start */
-                 
             $this->db->select('*');            
-            $this->db->from('billingmethodlist');
+            $this->db->from('jobs');
+            $this->db->join('billingmethodlist', 'billingmethodlist.belongsTo = jobs.user_id', 'inner');
             $this->db->where('billingmethodlist.belongsTo', $value->webuser_id);
             $this->db->where('billingmethodlist.isDeleted', "0");
+            $this->db->where('jobs.status', 1);
             $query = $this->db->get();   
             $paymentSet=0;
                 if (is_object($query)) {
@@ -283,6 +284,6 @@ $accepted_jobs = $query->result();
 }
 else{
     ?>
-            <p>No data to load.</p>
+            <h3 style="text-align: center; padding-bottom: 35px;" class="no-result-container">No Results Found</h3>
     <?php
 }?>

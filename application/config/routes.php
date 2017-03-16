@@ -18,6 +18,7 @@ $route['administrator'] = 'administrator/home';
 $route['post-job'] = 'jobs/create';
 $route['find-jobs'] = 'jobs/find';
 $route['find-jobs/(:any)'] = 'jobs/find/($1)';
+$route['find-jobs/(:any)/(:any)'] = 'jobs/find/($1)/($2)';
 $route['jobs-home'] = 'jobs/status';
 $route['payment-methods'] = 'payment/methods';
 $route['payment-methods/remove'] = 'payment/removeAccount';
