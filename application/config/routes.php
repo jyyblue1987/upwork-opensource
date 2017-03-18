@@ -76,3 +76,7 @@ $route['press'] = 'footerPages/press';
 $route['create-ticket'] = 'footerPages/create_ticket';
 $route['trust-safety'] = 'footerPages/trust_safety';
 $route['feedback'] = 'footerPages/feedback';
+
+$route['freelance-jobs'] = 'jobs/jobs_no_auth';
+$route['freelance-jobs/(:any)'] = 'jobs/jobs_no_auth/($1)';
+$route['freelance-jobs/(:any)/(:any)'] = 'jobs/jobs_no_auth/($1)/($2)';

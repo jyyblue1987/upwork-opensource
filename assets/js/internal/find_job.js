@@ -1,12 +1,14 @@
 var offset = 1;
 var searchData = null;
-
+var target_path = get_target_path();
+console.log(target_path);
 $(document).ready(function () {    
     sortEvent();
     $(document).on("click",".load-more",function() {
+        
         var _this = $(this);
         var sort = $('select[name="postTime"]').val();
-        var url = siteurl + "jobs/find/"+offset+'/'+sort;
+        var url = siteurl + target_path +  "/"+offset+'/'+sort;
         
         $('.form-loader').show();
         var keywords = $('#jobsearch').val();
@@ -385,8 +387,21 @@ function jobSearch(val,keywords,jobtype,jobduratin,jobweekhour){
     $('.job-searching').html("Searching......");
     var offset=1;
     var sort = $('select[name="postTime"]').val();
-    var url = siteurl + "jobs/find/"+offset+'/'+sort;
-    $.ajax({url: url,data:({jobCat:val,limit:0,keywords:keywords,jobtype:jobtype,jobduratin:jobduratin,jobweekhour:jobweekhour}),type:"post", success: function (result) {
+    var url = siteurl + target_path + "/"+offset+'/'+sort;
+    console.log(url);
+    var data = {
+                jobCat:val,
+                limit:0,
+                keywords:keywords,
+                jobtype:jobtype,
+                jobduratin:jobduratin,
+                jobweekhour:jobweekhour};
+    searchData = data;
+    $.ajax({
+        url: url,
+        data:(data),
+        type:"post",
+        success: function (result) {
         result = JSON.parse(result);
         console.log(result);
             $('.job-searching').html("My Job Feed");
@@ -407,8 +422,7 @@ function jobSearch(val,keywords,jobtype,jobduratin,jobweekhour){
 }
 
 function sortEvent(offset){
-    
-    var url = siteurl + "jobs/find/"+offset;
+    var url = siteurl + target_path +  "/"+offset;
     $('select[name=postTime]').change(function() {
         if(searchData == null){
             var keywords = $('#jobsearch').val();
@@ -432,7 +446,7 @@ function sortEvent(offset){
                     offset++;
 
                     if(htmlJson.count == 0){
-                        _this.hide();
+                        $('.load-more').hide();
                     }
                 },
                 error:function(err){

@@ -78,7 +78,8 @@ $(document).ready(function () {
                 }
                 else
                 {               
-                    window.location = '/jobs-home?success=1';
+                    window.location = base_url() + 'jobs-home';
+                    //window.location = '/jobs-home?success=1';
                     //window.location = "/jobs/view_"+data.type+"/"+data.id+'?success=1';
                 }
 

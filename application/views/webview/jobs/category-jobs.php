@@ -4,20 +4,22 @@
             <div class="col-md-10 col-md-offset-0">
                 <div class="row">
                     <div class="col-md-12 no-padding margin-top-search">
-                        <input style="width: 737px;" type="text" name="jobsearchbykeywords" id="jobsearch" value="<?php if (isset($searchKeyword)) echo $searchKeyword; ?>" autocomplete="on" class="form-control search-field" /> 
-                        <i class="fa fa-search search-btn search-btn-cat" aria-hidden="true"></i>
+                        <form action="find-jobs" method="post" id="job-search-form">
+                            <input style="width: 737px;" type="text" name="jobsearchbykeywords" id="jobsearch" value="<?php if (isset($searchKeyword)) echo $searchKeyword; ?>" autocomplete="on" class="form-control search-field" /> 
+                            <i class="fa fa-search search-btn search-btn-cat" aria-hidden="true"></i>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 margin-top-1 page-title"> 
+            <div class="col-md-2 margin-top-1 page-title">
             </div>
         </div>
         <div class="row" style="margin-top:32px;">
 
             <div class="col-md-12 nopadding">
-                <div class="col-md-2"> 
+                <div class="col-md-2">
                     <div class="row">
-                        <div class="col-md-12">  
+                        <div class="col-md-12">
                             <div class="row">
                                 <div style="border: 1px solid #ccc;border-radius: 3px;" class="col-md-12 white-box">
                                     <div class="row">

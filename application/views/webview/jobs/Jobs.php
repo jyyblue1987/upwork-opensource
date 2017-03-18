@@ -1210,7 +1210,7 @@ class Jobs extends CI_Controller {
             if ($query->num_rows() > 0)
                 $value = $query->row();
             else
-                redirect('/jobs/bids_list');
+                redirect(site_url().'bids_list');
 
             $data = array('value' => $value, 'js' => array('vendor/jquery.form.js', 'internal/job_withdraw.js'));
             $this->Admintheme->webview("jobs/withdraw_system", $data);

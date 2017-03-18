@@ -74,10 +74,33 @@
 </div>
 <!-- End footer---->
 </section>
-</body>
-</html>
+<script>
+ var global_url_array = {
+     'freelance-jobs': 'jobs/jobs_no_auth',
+     'find-jobs': 'jobs/find'
+ };
+ 
+ function get_target_path(){
+    var url = window.location.href;
+    for(var key in global_url_array){
+         if(url.indexOf(key) > -1){
+             return global_url_array[key];
+        }
+    }
 
-
+    return global_url_array['find-jobs'];
+ }
+ 
+ function base_url() {
+    var pathparts = location.pathname.split('/');
+    if (location.host == 'localhost') {
+        var url = location.origin+'/'+pathparts[1].trim('/')+'/';
+    }else{
+        var url = location.origin;
+    }
+    return url;
+}
+ </script>
 		<!--<script src="<?php //echo site_url("assets/js/jquery.js"); ?>"></script>-->
 		<script src="<?php echo site_url("assets/js/bootstrap.min.js"); ?>"></script>
 		<script src="<?php echo site_url("assets/js/plugins.js"); ?>"></script>        
@@ -103,4 +126,5 @@
     }
         }
 		?>
-		
+</body>
+</html>
