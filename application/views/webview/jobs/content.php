@@ -76,12 +76,11 @@ if (count($records) > 0)
     {
    
     /* find client payment set status start */
+                 
             $this->db->select('*');            
-            $this->db->from('jobs');
-            $this->db->join('billingmethodlist', 'billingmethodlist.belongsTo = jobs.user_id', 'inner');
+            $this->db->from('billingmethodlist');
             $this->db->where('billingmethodlist.belongsTo', $value->webuser_id);
             $this->db->where('billingmethodlist.isDeleted', "0");
-            $this->db->where('jobs.status', 1);
             $query = $this->db->get();   
             $paymentSet=0;
                 if (is_object($query)) {
@@ -152,7 +151,7 @@ $accepted_jobs = $query->result();
 ?>
         <div style="margin-top: -15px;" class="row" id="all-jobs">
             <div style="margin-bottom: 5px;" class="col-md-12 col-md-offset-0 page-jobs ">
-                <h1 style="margin-bottom: 12px;"><a style="font-family: 'Calibri';font-size: 22px;color: rgb(2, 143, 204);" href="<?php echo site_url("jobs/view/". url_title($value->title).'/'.  base64_encode($value->id)); ?>"><?php echo ucfirst($value->title) ?></a></h1>
+                <h1 style="margin-bottom: 12px;"><a style="font-family: 'Calibri';font-size: 22px;color: #3399FF;" href="<?php echo site_url("jobs/view/". url_title($value->title).'/'.  base64_encode($value->id)); ?>"><?php echo ucfirst($value->title) ?></a></h1>
 					<div class="custom_find_job">
 						<h5><b><?php echo ucfirst($value->job_type) ?></b></h5>
 						<h5><b>-</b></h5>
@@ -284,6 +283,6 @@ $accepted_jobs = $query->result();
 }
 else{
     ?>
-            <h3 style="text-align: center; padding-bottom: 35px;" class="no-result-container">No Results Found</h3>
+            <p>No data to load.</p>
     <?php
 }?>

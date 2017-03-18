@@ -26,11 +26,8 @@ html {
     margin-right:auto;
     margin-left:auto;
 } 
-@media (min-width: 1200px){
-.container {
-    width: 1000px !important;
-}
-}
+
+
 ::-moz-selection {
     background: #b3d4fc;
     text-shadow: none;
@@ -620,10 +617,6 @@ border-radius:5px;
 	padding-right: 15px;
 }
 
-.col-md-8 {
-    width: 63%;
-}
-
 .page-jobs h1{
    font-family: Roboto;
    font-size: 25px;
@@ -981,6 +974,15 @@ font-size: 17 px;
     border: 1px solid #dedede;
     padding: 10px;
 }
+.bordered-feed{
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	padding-bottom: 0;
+	padding-top: 0;
+}
+
+
+
 .bordered-alert{
     border: 2px solid green;
     border-radius:4px;
@@ -1266,10 +1268,9 @@ h1.job-title{
 .search-field {
     border: 1px solid #3db0db;
     border-radius: 0;
-    display: inline;
-    float: left;
     height: 46px;
-    width: 93%;
+    width: 80%!important;
+    float:left;
 }
 
 .search-btn {
@@ -1280,7 +1281,7 @@ h1.job-title{
 }
 
 .blue-text {
-	color : #3bafdb !important;
+	color : #028FCC !important;
 }
 
 .gray-text {
@@ -3851,7 +3852,6 @@ margin-bottom: 15px;
 padding: 10px 8px;
 width: 780px;}
 .custom_bids_list .white-box-feed{
-padding-left: 44px;
 border: 1px solid #ccc;}
 .custom_bids_list .bottom-blue-border{width: 779px;}
 .custom_bids_list .bottom-blue-border span a{font-size: 18px;}
@@ -4077,7 +4077,7 @@ right: 18px;
 top: 2px;
 font-size: 30px;}
 
-#find-jobs_container{width:1170px !important}
+#find-jobs_container{width:100%!important}
 
 .signup_main_area_div{margin-top: 40px;
 margin-bottom: 40px;
@@ -4395,3 +4395,19 @@ color: #949494;}
 .empty_freelancer_box{margin-left: -19px !important;}
 .custom_empty_freelancer_box{margin-left: -4px;
 margin-top: 14px !important;}
+
+.main-feed{
+	padding-left: 10px;
+	padding-right: 10px;
+
+}
+@media screen and (max-width: 350px) {
+    .main-feed{
+		margin-left: 0px;
+		margin-right: 0px;
+		margin-top: 20px;
+		padding:0;
+    	
+    }
+
+}
