@@ -326,7 +326,7 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
                                   <div class="hire_sms_btn"><a class="btn btn-primary form-btn" href="<?php echo base_url() ?>interview?user_id=<?=base64_encode($value->freelancer_id)?>&job_id=<?=base64_encode($value->job_id)?>&bid_id=<?=base64_encode($value->bid_id)?>">Message</a>  
                                     </div>
    <div class="hire_me_btn">
-		<?php if($ststus->isactive==1){ ?>
+		<?php //if($ststus->isactive==1){ ?>
 		<a class="btn btn-primary form-btn" href="<?php if ($jobDetails->job_type == 'hourly') { echo site_url("jobs/confirm_hired_hourly?user_id=".base64_encode($value->freelancer_id)."&job_id=".base64_encode($value->job_id));} else { echo site_url("jobs/confirm_hired_fixed?user_id=".base64_encode($value->freelancer_id)."&job_id=".base64_encode($value->job_id));} ?>">Hire Me</a><?php } ?>
 
                                </div>
@@ -336,7 +336,7 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
 
                     </div>
                 </div>  
-            <?php } ?>
+            <?php //} ?>
     </div>
 
 </section>

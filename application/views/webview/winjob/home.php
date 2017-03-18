@@ -26,12 +26,18 @@
     <div class="clear"></div>
     <section id="big_header">
         <div class="container">
-            <h1>Hire export freelancers for your online job</h1>
-            <h3>Millions of small businesses use Frelancer to turn their idto reality</h3>
-            <section id="sliderButton">
+            <p class="banner-title">Hire export freelancers for your online job</p>
+            <p class="banner-details">Millions of small businesses use Frelancer to turn their idto reality</p>
+            <section id="sliderButton" class="hidden-xs hidden-sm">
                 <button type="button" onclick="location.href='employeersignup'">I want to Hire</button>
                 <button type="button" onclick="location.href='freelancersignup'">I want to work</button>
             </section>
+
+            <section id="sliderButton-2" class="hidden-lg hidden-md">
+                <button type="button" onclick="location.href='employeersignup'">I want to Hire</button><br><br>
+                <button type="button" onclick="location.href='freelancersignup'">I want to work</button>
+            </section>
+
         </div>
     </section>
     <div class="clear"></div>
@@ -39,7 +45,7 @@
         <div class="container">
             <div class="row">
                 <div id="simpleApproacHeaderTextone">
-                    <p><u>How it Works</u> </p>
+                    <p class="title-header">How it Works </p>
                 </div>
                 
                 <div id="simpleApproacBoxone" class="row">
@@ -61,7 +67,7 @@
                             <div>
                                 <p> Get Biddings </P>
                             </div>
-                            <div>
+                            <div style="background-color: #EE3E41;">
                                 <p>2</p>
                             </div>
                             <div>
@@ -74,7 +80,7 @@
                             <div>
                                 <p> Choose The Best</p>
                             </div>
-                            <div>
+                            <div style="background-color: #FDB813;">
                                 <p>3</p>
                             </div>
                             <div>
@@ -87,7 +93,7 @@
                             <div>
                                 <p>Approve & Pay</P>
                             </div>
-                            <div>
+                            <div style="background-color: #4CAF50;">
                                 <p><i class="fa fa-check" aria-hidden="true"></i> </p>
                             </div>
                             <div>
@@ -102,14 +108,14 @@
     <div class="clear"></div>
     <section id="hr-border">
         <div class="buttonone">
-            <button type="button" id="butcancel" class="btn btn-danger"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;Post your project -<span>Free!</span> </button>
+            <button type="button" id="butcancel" class="btn btn-danger"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;Post Your Project - <span>Free!</span> </button>
         </div>
     </section>
     <div class="clear"></div>
     <section id="simpleapproach">
         <div class="container">
             <div id="simpleApproacHeaderText">
-                <p>Post your Project,Find & Hire Talented Freelancers</p>
+                <p class="title-header">Post your Project,Find & Hire Talented Freelancers</p>
             </div>
             <div class="row">
                 <div class="col-md-1">
@@ -119,15 +125,21 @@
                 <div id="simpleApproacBox" class="row">
                 <div class="col-xs-12 col-sm-6 col-md-3 category-img">
                     <article>
-                        <div><img height="80px" src="<?php echo base_url() ?>assets/home/img/img1.png" /> </div>
+                        <div><i class="fa fa-code fa-5x section-i" aria-hidden="true"></i> </div>
                         <div>
-                            <p>WEB & Mobile DEVELOPERS</p>
+                            <p class="post-title">WEB & Mobile DEVELOPERS</p>
+                        </div>
+                        <div id="web-details">
+                            <p>Front-end Developers</p>
+                            <p>Back-end Developers</p>
+                            <p>IOS Developers</p>
+                            <p>Android Developers</p>
                         </div>
                     </article>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-3 category-img">
                     <article >
-                        <div><img height="80px" src="<?php echo base_url() ?>assets/home/img/img2.png" /> </div>
+                        <div><i class="fa fa-paint-brush fa-5x section-i" aria-hidden="true"></i> </div>
                         <div>
                             <p>DESIGNERS & CREATIVES </p>
                         </div>
@@ -135,7 +147,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-3 category-img">
                     <article >
-                        <div><img height="80px" src="<?php echo base_url() ?>assets/home/img/img3.png" /> </div>
+                        <div><i class="fa fa-file-text-o fa-5x section-i" aria-hidden="true"></i> </div>
                         <div>
                             <p>WRITTERS & TRANSLATION</p>
                         </div>
@@ -143,7 +155,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-3 category-img">
                     <article >
-                        <div><img height="80px" src="<?php echo base_url() ?>assets/home/img/img4.png" /> </div>
+                        <div><i class="fa fa-line-chart fa-5x section-i" aria-hidden="true"></i> </div>
                         <div>
                             <p>SALES & MARKETING </p>
                         </div>
@@ -152,7 +164,7 @@
                 <div class="clear"></div>
                 <div class="col-xs-12 col-sm-6 col-md-3 category-img">
                     <article >
-                        <div><img height="80px" src="<?php echo base_url() ?>assets/home/img/img5.png" /> </div>
+                        <div><i class="fa fa-headphones fa-5x section-i" aria-hidden="true"></i> </div>
                         <div>
                             <p>VIRTUAL ASSISTANTS</p>
                         </div>
@@ -160,7 +172,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-3 category-img">
                     <article >
-                        <div><img height="80px" src="<?php echo base_url() ?>assets/home/img/img6.png" /> </div>
+                        <div><i class="fa fa-search fa-5x section-i" aria-hidden="true"></i> </div>
                         <div>
                             <p> DATA ANALYSIS </p>
                         </div>
@@ -168,7 +180,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-3 category-img">
                     <article class="category-img">
-                        <div><img height="80px" src="<?php echo base_url() ?>assets/home/img/img7.png" /> </div>
+                        <div><i class="fa fa-user fa-5x section-i" aria-hidden="true"></i> </div>
                         <div>
                             <p> CUSTOMER SERVICES</p>
                         </div>
@@ -176,9 +188,9 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-3 category-img">
                     <article>
-                        <div><img height="80px" src="<?php echo base_url() ?>assets/home/img/img8.png" /> </div>
+                        <div><i class="fa fa-briefcase fa-5x section-i" aria-hidden="true"></i> </div>
                         <div>
-                            <p>SALES & MARKETING </p>
+                            <p>ACCOUNTANTS & CONSULTANTS </p>
                         </div>
                     </article>
                 </div>
@@ -197,14 +209,14 @@
     <section id="simpleapproachtwo">
         <div class="container">
             <div id="simpleApproacHeaderTexttwo">
-                <p> Become a <span>Freelancer !</span> </p>
+                <p class="title-header"> Become a <span class="title-header">Freelancer !</span> </p>
             </div>
             <div id="simpleApproacBoxtwo" class="row">
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     <article>
-                        <div><i class="fa fa-user" aria-hidden="true"></i> </div>
+                        <div style="background-color: #F44236;"><i class="fa fa-user" aria-hidden="true"></i> </div>
                         <div>
-                            <p>Bid a project</p>
+                            <p style="color:#F44236">Bid a project</p>
                         </div>
                         <div>
                             <p>Go to Browse projects and bid for it!</p>
@@ -213,9 +225,9 @@
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     <article>
-                        <div><i class="fa fa-briefcase" aria-hidden="true"></i> </div>
+                        <div style="background-color: #02BAD6;"><i class="fa fa-briefcase" aria-hidden="true"></i> </div>
                         <div>
-                            <p>Wait For Approve</p>
+                            <p style="color:#02BAD6">Wait For Approve</p>
                         </div>
                         <div>
                             <p>Wait Until the Employer select you as a project winner. Remember after a selection & get hired the work will be valid for you </p>
@@ -224,9 +236,9 @@
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     <article>
-                        <div><i class="fa fa-clock-o" aria-hidden="true"></i> </div>
+                        <div style="background-color: #4CAF50;"><i class="fa fa-clock-o" aria-hidden="true"></i> </div>
                         <div>
-                            <p>Work & Earning</p>
+                            <p style="color:#4CAF50">Work & Earning</p>
                         </div>
                         <div>
                             <p>Complete your work by schedule that you both agreed or you can run winjob timer for get paid hourly. </p>

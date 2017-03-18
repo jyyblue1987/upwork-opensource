@@ -18,6 +18,7 @@ $route['administrator'] = 'administrator/home';
 $route['post-job'] = 'jobs/create';
 $route['find-jobs'] = 'jobs/find';
 $route['find-jobs/(:any)'] = 'jobs/find/($1)';
+$route['find-jobs/(:any)/(:any)'] = 'jobs/find/($1)/($2)';
 $route['jobs-home'] = 'jobs/status';
 $route['payment-methods'] = 'payment/methods';
 $route['payment-methods/remove'] = 'payment/removeAccount';
@@ -75,3 +76,7 @@ $route['press'] = 'footerPages/press';
 $route['create-ticket'] = 'footerPages/create_ticket';
 $route['trust-safety'] = 'footerPages/trust_safety';
 $route['feedback'] = 'footerPages/feedback';
+
+$route['freelance-jobs'] = 'jobs/jobs_no_auth';
+$route['freelance-jobs/(:any)'] = 'jobs/jobs_no_auth/($1)';
+$route['freelance-jobs/(:any)/(:any)'] = 'jobs/jobs_no_auth/($1)/($2)';

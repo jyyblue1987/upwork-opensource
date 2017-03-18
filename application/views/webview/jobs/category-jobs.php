@@ -4,20 +4,22 @@
             <div class="col-md-10 col-md-offset-0">
                 <div class="row">
                     <div class="col-md-12 no-padding margin-top-search">
-                        <input style="width: 737px;" type="text" name="jobsearchbykeywords" id="jobsearch" value="<?php if (isset($searchKeyword)) echo $searchKeyword; ?>" autocomplete="on" class="form-control search-field" /> 
-                        <i class="fa fa-search search-btn search-btn-cat" aria-hidden="true"></i>
+                        <form action="find-jobs" method="post" id="job-search-form">
+                            <input style="width: 737px;" type="text" name="jobsearchbykeywords" id="jobsearch" value="<?php if (isset($searchKeyword)) echo $searchKeyword; ?>" autocomplete="on" class="form-control search-field" /> 
+                            <i class="fa fa-search search-btn search-btn-cat" aria-hidden="true"></i>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 margin-top-1 page-title"> 
+            <div class="col-md-2 margin-top-1 page-title">
             </div>
         </div>
         <div class="row" style="margin-top:32px;">
 
             <div class="col-md-12 nopadding">
-                <div class="col-md-2"> 
+                <div class="col-md-2">
                     <div class="row">
-                        <div class="col-md-12">  
+                        <div class="col-md-12">
                             <div class="row">
                                 <div style="border: 1px solid #ccc;border-radius: 3px;" class="col-md-12 white-box">
                                     <div class="row">
@@ -107,6 +109,7 @@
                     <style>.page-sub-title {margin-top: 10px;}.page-jobs input {margin-top: 5px;}.load-more{background-color: #23a8d9; color: #fff; padding: 10px; text-align: center; cursor: pointer; margin-top: -32px;}.page-jobs h5{padding-right:5px}</style>
                     <section id="big_header" style="margin-bottom: 50px; height: auto;">
                         <div style="padding-bottom: 0;" class="job-data white-box-feed">
+                            
                             <div class="col-md-8 col-sm-8 no-padding">
                                 <label class="col-md-4 no-padding">Sort by:</label>
                                 <div class="col-md-7 no-padding">
@@ -127,9 +130,11 @@
                             <br/>
                             <div class="row white-box" id="all-jobs">  
 <?php include 'content.php'; ?>
+
                             </div>
                         </div>
-                        <div style="margin-top: -30px;" class='load-more'>Load more <img src='<?php echo base_url() ?>assets/img/version1/loader.gif' class="form-loader" style="display:none"></div>
+                        <!-- Load more for keyword search -->
+                        <div style="margin-top: -30px;" class='load-more'>Load more <img src='<?php echo site_url() ?>assets/img/version1/loader.gif' class="form-loader" style="display:none"></div>
                     </section>
 
                 </div>  
@@ -151,7 +156,7 @@
                         </div>
 
                     </div>
-                    <div style="border-bottom: 1px solid #ccc;border-right: 1px solid #ccc;border-left: 1px solid #ccc;border-radius: 0px 0px 4px 4px;padding: ;padding-bottom: 13px;" class="row white-box text-center">
+                    <div style="border-bottom: 1px solid #ccc;border-right: 1px solid #ccc;border-left: 1px solid #ccc;border-radius: 0px 0px 4px 4px;padding-bottom: 13px;" class="row white-box text-center">
 
                         <div class="col-md-12">
                             <label class="blue-text"><?php echo $this->session->userdata("fname") . " " . $this->session->userdata("lname"); ?></label><br> 

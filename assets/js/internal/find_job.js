@@ -1,6 +1,15 @@
-$(document).ready(function () {
-    var offset = 1;
+var offset = 1;
+var searchData = null;
+var target_path = get_target_path();
+console.log(target_path);
+$(document).ready(function () {    
+    sortEvent();
     $(document).on("click",".load-more",function() {
+        
+        var _this = $(this);
+        var sort = $('select[name="postTime"]').val();
+        var url = siteurl + target_path +  "/"+offset+'/'+sort;
+        
         $('.form-loader').show();
         var keywords = $('#jobsearch').val();
         var jobCatId = "",jobCat = "",jobtype = "",jtypefound = "",jobduratin = "",jobduratinfound = "",jobweekhour = "",jobweekhourfound = "",count = 0;
@@ -48,24 +57,33 @@ $(document).ready(function () {
                jobweekhour  += $(this).val()+",";
                jobweekhourfound++;
            }
-       });   
+       });
+       
         if(jobweekhourfound > 0){
                 jobweekhour = jobweekhour.substring(0, jobweekhour.length -1);
             }else{
                 jobweekhour = "";
             }
+        searchData = {jobCat:jobCatId,limit:offset,keywords:keywords,jobtype:jobtype,jobduratin:jobduratin,jobweekhour:jobweekhour};
         
-        
-        
-        var url = siteurl + "jobs/find/"+offset;
-        $.ajax({url: url,data:({jobCat:jobCatId,limit:offset,keywords:keywords,jobtype:jobtype,jobduratin:jobduratin,jobweekhour:jobweekhour}),type:"post", success: function (result) {
+        $.ajax({
+            url: url,
+            data:(searchData),
+            type:"post", 
+            success: function (result) {
+                var htmlJson = JSON.parse(result);
                 $('.form-loader').hide();
-                $('.job-data').append(result);
+                $('.job-data').append(htmlJson.result);
                 offset++;
+                
+                if(htmlJson.count == 0){
+                    _this.hide();
+                }
         }});
     });
     
     $('.choose-job-cat').click(function(){
+        $('.no-result-container').remove();
         var jobCat = "",jobCatId = "",jobtype = "",jtypefound = "",jobduratin = "",jobduratinfound = "",jobweekhour = "",jobweekhourfound = "",catfound = 0; 
         var val = $(this).val();
 
@@ -368,18 +386,72 @@ function jobSearch(val,keywords,jobtype,jobduratin,jobweekhour){
     }*/
     $('.job-searching').html("Searching......");
     var offset=1;
-    var url = siteurl + "jobs/find/"+offset;
-    $.ajax({url: url,data:({jobCat:val,limit:0,keywords:keywords,jobtype:jobtype,jobduratin:jobduratin,jobweekhour:jobweekhour}),type:"post", success: function (result) {
+    var sort = $('select[name="postTime"]').val();
+    var url = siteurl + target_path + "/"+offset+'/'+sort;
+    console.log(url);
+    var data = {
+                jobCat:val,
+                limit:0,
+                keywords:keywords,
+                jobtype:jobtype,
+                jobduratin:jobduratin,
+                jobweekhour:jobweekhour};
+    searchData = data;
+    $.ajax({
+        url: url,
+        data:(data),
+        type:"post",
+        success: function (result) {
         result = JSON.parse(result);
+        console.log(result);
             $('.job-searching').html("My Job Feed");
             $('#all-jobs').html(result.result.trim());
             $('.jobs-found').text('Total ' + result.count + ' jobs found');
 
             offset++;
+            if(result.count == 0){
+                $('.load-more').hide();
+            }else if(result.count > 0){
+                $('.load-more').show();
+            }
+            
     },error:function(error){
-        console.log(error);
+        console.log(error.responseText);
         $('.job-searching').html("My Job Feed");
     }});
-    
-    
+}
+
+function sortEvent(offset){
+    var url = siteurl + target_path +  "/"+offset;
+    $('select[name=postTime]').change(function() {
+        if(searchData == null){
+            var keywords = $('#jobsearch').val();
+            var jobCat = "";
+            var catfound = 0;
+            var jobCatId = "",jobtype = "",jtypefound = "",jobduratin = "",jobduratinfound = "",jobweekhour = "",jobweekhourfound = "";
+            searchData = {jobCat:jobCatId,limit:offset,keywords:keywords,jobtype:jobtype,jobduratin:jobduratin,jobweekhour:jobweekhour};
+        }
+        console.log(searchData);
+           var sort = $(this).val();
+           $.ajax({
+               url: url + '/' + sort,
+               data:searchData,
+               type:"post",
+               success: function (result) {
+                    //console.log(result);
+                    var htmlJson = JSON.parse(result);
+                    $('.form-loader').hide();
+                    //$('.job-data').html(htmlJson.result);
+                    $('#all-jobs').html(htmlJson.result);
+                    offset++;
+
+                    if(htmlJson.count == 0){
+                        $('.load-more').hide();
+                    }
+                },
+                error:function(err){
+                    console.log(err.responseText);
+                }
+            });
+       });
 }

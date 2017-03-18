@@ -8,11 +8,14 @@ class Category extends CI_Model
         return $resultset->result();
     }
     
-    public function get_subcategories($cat_id, $user_id=null)
+    public function get_subcategories($cat_id = null, $user_id=null)
     {
-        //echo $cat_id;
-        $resultset = $this->db->get_where('job_subcategories', ['cat_id' => $cat_id]);
-        //echo $this->db->last_query();
+        if($cat_id == null){
+            $resultset = $this->db->get('job_subcategories');
+        }else{
+            $resultset = $this->db->get_where('job_subcategories', ['cat_id' => $cat_id]);
+        }
+
         return $resultset->result();
     }
     
