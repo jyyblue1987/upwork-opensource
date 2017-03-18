@@ -1051,11 +1051,6 @@ class Jobs extends Winjob_Controller {
             $this->Admintheme->webview("jobs/browse", $data);
         }
     }
-        
-    private function authorized(){
-        if ( ! $this->Adminlogincheck->checkx() )
-           redirect(home_url());  
-    }
     
     // added by (Donfack Zeufack Hermann) start 
     // Merge code of {fixed|hourly}_{client|freelancer}_view
@@ -1097,7 +1092,7 @@ class Jobs extends Winjob_Controller {
             $this->load->model(array('jobs_model', 'webuser_model'));
         }catch(RuntimeException $e){
             log_message('debug', $e->getMessage());
-            $this->session->set_flashdata('error', $this->lang->item('text_app_runtime_exception_message'));
+            $this->session->set_flashdata('error', $this->lang->line('text_app_runtime_exception_message'));
             redirect(home_url());
         }
         
@@ -1861,7 +1856,7 @@ class Jobs extends Winjob_Controller {
                 $this->load->model(array('jobs_model', 'webuser_model'));
             }catch(RuntimeException $e){
                 log_message('debug', $e->getMessage());
-                $this->session->set_flashdata('error', $this->lang->item('text_job_runtime_exception_message'));
+                $this->session->set_flashdata('error', $this->lang->line('text_job_runtime_exception_message'));
                 redirect(site_url(home_url()));
             }
             

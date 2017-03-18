@@ -1,0 +1,139 @@
+{% set html_rating = '<strong itemprop="ratingValue">%s</strong>' %}
+{% if is_fixed_job %}
+    {% set first_line_title = 'text_job_ended_paid_since' %}
+    {% set second_line_title = 'text_job_ended_paid_amount_title' %}
+{% else %}
+    {% set first_line_title = 'text_job_ended_gain_since_start' %}
+    {% set second_line_title = 'text_job_hourly_rate' %}
+{% endif %}
+
+<div class="row">
+    <div class="contract-feedback-wrapper col-md-9 white-box remove-border-bottom ">
+        <div class="mid-wrop margin-left8px">
+            <div class="row hourlcontact">
+                <div style="margin-right: -63px;" class="col-md-3 col-sm-2 col-md-offset-">
+                    <div class="title">
+                        <h4>{{ app_lang( first_line_title ) }}</h4>
+                    </div>
+                </div>
+                <div style="margin-left: 79px;" class="col-md-3 col-sm-3 col-md-offset-1">
+                    <h4 style="font-size:16px">
+                        {% if is_fixed_job %}
+                            <b>${{ total_paid }}</b>
+                        {% else %}
+                            <b>{{ gain_infos['total_hour'] }}</b> Hrs, <b>${{ gain_infos['amount'] }}</b>
+                        {% endif %}
+                    </h4>
+                </div>
+                <div class="col-md-2 col-sm-2 col-md-offset-1">
+                    <h4>
+                        <span style="font-size: 16px;font-weight: bold;font-family: calibri;">
+                            <a href="">{{ app_lang('text_job_link_dispute') }}</a>
+                        </span>
+                    </h4>
+                </div>
+                <div class="clearfix"></div>
+                <div style="margin-right: -63px;" class="col-md-3 col-sm-2 col-md-offset-">
+                    <div class="title">
+                        <h4>{{ app_lang( second_line_title ) }}</h4>
+                    </div>
+                </div>
+                <div style="margin-left: 79px;" class="col-md-3 col-sm-3 col-md-offset-1">
+                    <h4 style="font-size:16px">
+                        {% if is_fixed_job %}
+                            <b>${{ job_status.hired_on }}</b>
+                        {% else %}
+                            <b>${{ gain_infos['amount_by_hour'] }}</b>/Hr
+                        {% endif %}
+                    </h4>
+                </div>
+                {% if not is_fixed_job %}
+                <div class="clearfix"></div>
+                <div style="margin-right: -63px;" class="col-md-3 col-sm-2 col-md-offset-">
+                    <div class="title">
+                        <h4>{{ app_lang('text_job_hourly_weekly_limit') }}</h4>
+                    </div>
+                </div>
+                <div style="margin-left: 79px;" class="col-md-3 col-sm-3 col-md-offset-1">
+                    <h4 style="font-size:16px">
+                        <b>{{ job_status.weekly_limit }}</b> hrs/Week
+                    </h4>
+                </div>
+                {% endif %}      
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="contract-feedback-wrapper col-md-9 white-box remove-border-bottom">
+        <div class="col-md-4 col-sm-4">
+            <div class="title no-margin">
+                <h4>{{ app_lang('text_job_feedback_freelancer_title') }}</h4>
+            </div>
+        </div>
+        {% if freelancer_feedback is not empty %}
+            <div style="margin-left: -38px;" class="col-md-3 col-sm-4 feedbackbutton">
+                <button  type="button" class="btn btn-danger rating-badge pull-left">
+                    {{ freelancer_feedback['score'] }}
+                </button>
+                <div title="{{ app_lang('text_job_rating_exceed')|format(freelancer_feedback['score']) }}" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+                    <span style="width:{{ freelancer_feedback['rating'] }}%">
+                        {{ app_lang('text_job_rating_feedback')|format( html_rating )|format( freelancer_feedback['score'] )|raw }}
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 wdwarfhead wdwarfheadone">
+                <h3>{{ freelancer_feedback['comment'] }}</h3>
+            </div>
+        {% else %}
+            <div class="col-md-4 col-sm-4">
+                <div class="col-md-12 col-sm-12 wdwarfhead wdwarfheadone">
+                    <a class="btn_feedback_wrapper" href="{{ base_url('endhourlyfixed/fixed_freelancer') }}?fmJob={{ job_id_encoded }}&buser={{ buser_id_encoded }}">
+                        <input type="button" class="btn btn-primary form-btn" value="{{ app_lang('text_job_give_feedback') }}" />
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 wdwarfhead wdwarfheadone">
+                    <h3>{{ app_lang('text_job_waiting_for_feedback') }}</h3>
+            </div>
+        {% endif %}
+    </div>
+</div>
+<div class="row">
+    <div class="contract-feedback-wrapper col-md-9 white-box">
+        <div class="col-md-4 col-sm-4">
+            <div class="title no-margin">
+                <h4>{{ app_lang('text_job_feedback_employer_title') }}</h4>
+            </div>
+        </div>
+        {% if employer_feedback is not empty %}
+            <div style="margin-left: -38px;" class="col-md-3 col-sm-4 feedbackbutton">
+                <button type="button" class="btn btn-danger rating-badge pull-left">
+                    {{ employer_feedback['score'] }}
+                </button>
+                <div title="{{ app_lang('text_job_rating_exceed')|format(employer_feedback['score']) }}" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+                    <span style="width:{{ employer_feedback['rating'] }}%">
+                        {{ app_lang('text_job_rating_feedback')|format( html_rating )|format( employer_feedback['score'] )|raw }}
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 wdwarfhead wdwarfheadone">
+                <h3>{{ employer_feedback['comment'] }}</h3>
+            </div>
+        {% else %}
+            <div style="margin-left: -38px;margin-top: 0px;" class="margin_bottom12 col-md-4 col-sm-4 feedbackbutton">
+                <button type="button" class="btn btn-danger pull-left rating-badge">0.00</button>
+                <h4>
+                    <div title="{{ app_lang('text_job_rating_exceed')|format(0) }}" class="star-rating no-feedback pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+                        <span style="width:0%">
+                            {{ app_lang('text_job_rating_feedback')|format( html_rating )|format( 0 )|raw }}
+                        </span>
+                    </div>
+                </h4>
+            </div>
+            <div class="col-md-12 col-sm-12 wdwarfhead wdwarfheadone">
+                <h3>{{ app_lang('text_job_waiting_for_feedback') }}</h3>
+            </div>
+        {% endif %}
+    </div>
+</div>

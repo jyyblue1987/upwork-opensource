@@ -60,3 +60,69 @@ and open the template in the editor.
     right: 42px;
     top: 0;
 }
+
+.contract-feedback-wrapper{
+    padding-left: 17px; 
+    padding-bottom: 13px; 
+    border: 1px solid #ccc;
+    border-top: 0;
+    border-radius: 0 0 4px 4px;
+}
+
+.contract-feedback-wrapper.remove-border-bottom{
+    border-bottom: none;
+}
+
+.contract-feedback-wrapper .title{
+    margin-left: 19px;
+}
+
+.contract-feedback-wrapper .title h4{
+    font-size: 17px;
+    font-weight: 800;
+    font-family: calibri;
+    color: #565555;
+}
+
+.contract-feedback-wrapper .star-rating{
+    margin-top: -5px;
+}
+
+.contract-feedback-wrapper .wdwarfheadone{
+    padding-left: 15px;
+}
+
+.btn_feedback_wrapper{
+    position: relative;
+    left: -53px;
+}
+
+.contract-feedback-wrapper .give_feed_btn{
+    margin-top: 2px;
+}
+
+.feedbackbutton .rating-badge {
+    float: left;
+    background: #F77D0E;
+    font-size: 11px;
+    font-family: "Calibri";
+    border-radius: 5px;
+    border-color: #F77D0E;
+    padding: 7px 4px;
+    border: #aeb0b1;
+    border-radius: 2px !important;
+    margin-right: 2px;
+    margin-top: 0px;
+}
+
+.feedbackbutton .star-rating.no-feedback::before{
+    margin-top: 2px
+}
+
+.clearfix{
+    clear: both;
+}
+
+.no-margin{
+    margin: 0 !important;
+}

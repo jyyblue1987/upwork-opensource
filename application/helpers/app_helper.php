@@ -269,4 +269,23 @@ if( ! function_exists('dump') ){
     }
 }
 
+if( !function_exists('has_flash') ){
+    function has_flash( $key ){
+        $flash_keys = get_instance()->session->get_flash_keys();
+        return in_array($key , $flash_keys);
+    }
+}
+
+if( !function_exists('flashdata') ){
+    function flashdata( $key ){
+        return get_instance()->session->flashdata( $key );
+    }
+}
+
+if( !function_exists('back') ){
+    function back( ){
+        return get_instance()->session->userdata('redirect_back');
+    }
+}
+
 // added by (Donfack Zeufack Hermann) end

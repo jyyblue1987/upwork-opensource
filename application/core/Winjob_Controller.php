@@ -31,7 +31,8 @@ class Winjob_Controller extends CI_Controller {
                 'app_profile_url',
                 'app_modular_js',
                 'app_lang',
-                'app_user_img'
+                'app_user_img',
+                'has_flash', 'flashdata'
              )
         ));
         // added by (Donfack Zeufack Hermann) end
@@ -41,6 +42,15 @@ class Winjob_Controller extends CI_Controller {
         //Define them as global variable fpr all view page.
         $this->initialize_global_view_variable();
         // added by (Donfack Zeufack Hermann) end
+        
+        // added by (Donfack Zeufack Hermann) start 
+        //Allow to redirect back to the previous url
+        $this->load->library('user_agent');
+        // save the redirect_back data from referral url (where user first was prior to login)
+        $back_url = $this->agent->referrer();
+        $this->session->set_userdata('redirect_back',  ( !empty($back_url) ? $back_url : home_url() ) );
+        // added by (Donfack Zeufack Hermann) end
+          
     }
     
     public function get_default_lang() {
@@ -90,5 +100,10 @@ class Winjob_Controller extends CI_Controller {
             $job_ids[] = $job->job_id;
         }
         return $job_ids; 
+    }
+    
+    protected function authorized(){
+        if ( ! $this->Adminlogincheck->checkx() )
+           redirect(home_url());  
     }
 }

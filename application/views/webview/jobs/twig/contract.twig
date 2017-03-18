@@ -22,7 +22,7 @@
     {% set buser_id_encoded = base64_encode( job_status.buser_id ) %}
     {% set bid_id_encoded   = base64_encode( job_status.bid_id) %}
     
-    {% set chat_receiver_id = webuser.webuser_id %}
+    {% set chat_receiver_id = job_status.webuser_id %}
     
     {% set _action = 'client' %}
     
@@ -34,16 +34,26 @@
         {% set param_userid = buser_id_encoded %}
     {% endif %}
     
+    {% if job.job_type == constant('FIXED_JOB_TYPE') %}
+        {% set is_fixed_job = true %}
+    {% else %}
+        {% set is_fixed_job = false %}
+    {% endif %}
+    
     <section id="big_header" class="contract-section">
         <div class="container">
             <div class="row ">
                 <div style="border: 1px solid #ccc;border-radius: 4px 4px 0 0px;margin: 0;" class="col-md-9 white-box black-box">
                     <div class="row">
                         <div class="date_head">
-                            <div class="col-md-6">{{ app_lang('text_job_since')|format( app_date( job_status.start_date, ' M j, Y ') ) }}</div>
+                            {% if job_status.jobstatus == constant('JOB_ENDED') %}
+                                <div class="col-md-6">{{ app_lang('text_job_ended_at')|format( app_date( job_status.end_date, ' M j, Y ') ) }}</div>
+                            {% else %}
+                                <div class="col-md-6">{{ app_lang('text_job_since')|format( app_date( job_status.start_date, ' M j, Y ') ) }}</div>
+                            {% endif %}
                             <div class="col-md-6">
                                 <div class="main_id">
-                                    <span>ID {{ job_status.contact_id }} </span>
+                                    <span>{{ app_lang('text_job_contract_id')|format( job_status.contact_id ) }}</span>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +71,7 @@
                                         <h5 style="margin-top: -4px;" class="free_name">{{ job_status.webuser_fname }} {{ job_status.webuser_lname }}</h5>
                                         <p class="free_name">
                                             {% if app_user_data()['type'] == constant('FREELANCER') %}
-                                                {{ app_substr(webuser.webuser_company, constant('CONTRACT_JOB_COMPANY_NAME_MAX'), '...') }}
+                                                {{ app_substr(job_status.webuser_company, constant('CONTRACT_JOB_COMPANY_NAME_MAX'), '...') }}
                                             {% else %}
                                                 {{ app_substr(job_status.tagline, constant('CONTRACT_JOB_TITLE_MAX'), '...') }}
                                             {% endif %}
@@ -72,7 +82,7 @@
                         </div>
                         <div class="col-md-3 text-center gray-text">
                             <div style="margin-top: -8px;" class="status_bar">
-                                {% if webuser.isactive == 0 %}
+                                {% if webuser is defined and webuser.isactive == 0 %}
                                     <label style="margin-top: -8px;" class="gray-text">
                                         {% set hold = "<span style='color:#ff0000;'>%s</span>" %}
                                         {{ app_lang('text_job_status_state')|format(hold)|format(app_lang('text_job_state_hold'))|raw }}
@@ -102,18 +112,21 @@
                         <div class="job_title client_job_title">
                             <span class="clint_view_j-title">
                                 {{ app_substr(job_title, constant('CONTRACT_JOB_TITLE_MAX'), '...') }}</span><br />
-                            <a href="{{ base_url() }}jobs/view/{{ url_title( job_status.title ) }}/{{ job_id_encoded }}">{{ app_lang('text_job_original_view') }}</a>
+                            <a href="{{ base_url() }}jobs/view/{{ url_title( job_status.title, 'dash', true ) }}/{{ job_id_encoded }}">{{ app_lang('text_job_original_view') }}</a>
                         </div>
                     </div>
                 </div>
             </div>
             
             <div class="bg-change"></div>
-            
-            {% if job_status.job_type == constant('FIXED_JOB_TYPE') %}
-                {{ include('webview/jobs/partials/job-nav-fixed-infos.twig') }}
+            {% if job_status.jobstatus == constant('JOB_ENDED') %}
+                {{ include('webview/feedback/partials/job-feedbacks.twig') }}
             {% else %}
-                {{ include('webview/jobs/partials/job-nav-hourly-infos.twig') }}
+                {% if job_status.job_type == constant('FIXED_JOB_TYPE') %}
+                    {{ include('webview/jobs/partials/job-nav-fixed-infos.twig') }}
+                {% else %}
+                    {{ include('webview/jobs/partials/job-nav-hourly-infos.twig') }}
+                {% endif %}
             {% endif %}
             
         </div>

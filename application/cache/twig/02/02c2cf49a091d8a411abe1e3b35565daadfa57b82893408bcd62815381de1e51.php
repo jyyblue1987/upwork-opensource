@@ -53,30 +53,44 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
         
         <section class=\"main_area\"  id=\"mid_contant\"  >
             <div class=\"container\">
-                <!-- Block to load content page -->
+                
                 ";
-        // line 39
-        $this->displayBlock('content', $context, $blocks);
         // line 40
-        echo "            </div>
+        echo "                ";
+        if (has_flash("error")) {
+            // line 41
+            echo "                    ";
+            echo twig_include($this->env, $context, "webview/layout/twig/partials/flash-errors.twig");
+            echo "
+                ";
+        }
+        // line 43
+        echo "                
+                ";
+        // line 45
+        echo "                ";
+        $this->displayBlock('content', $context, $blocks);
+        // line 46
+        echo "                
+            </div>
         </section>
             
         ";
-        // line 43
+        // line 50
         echo twig_include($this->env, $context, "webview/layout/twig/partials/footer.twig");
         echo "
         
         
         <script> var site_url=\"";
-        // line 46
+        // line 53
         echo twig_escape_filter($this->env, site_url(), "html", null, true);
         echo "\"; </script>
         
         <!-- Block to load common scripts which can be overrided|extended by a specific page  -->
         ";
-        // line 49
+        // line 56
         $this->displayBlock('js', $context, $blocks);
-        // line 66
+        // line 73
         echo "        
     </body>
 </html>";
@@ -154,61 +168,61 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
         ";
     }
 
-    // line 39
+    // line 45
     public function block_content($context, array $blocks = array())
     {
     }
 
-    // line 49
+    // line 56
     public function block_js($context, array $blocks = array())
     {
-        // line 50
+        // line 57
         echo "            <script src=\"";
         echo twig_escape_filter($this->env, site_url("assets/js/vendor/jquery-2.2.3.min.js"), "html", null, true);
         echo "\"></script>
             <script src=\"";
-        // line 51
+        // line 58
         echo twig_escape_filter($this->env, site_url("assets/js/bootstrap.min.js"), "html", null, true);
         echo "\"></script>
             ";
-        // line 53
+        // line 60
         echo "            <script src=\"";
         echo twig_escape_filter($this->env, site_url("assets/js/plugins.js"), "html", null, true);
         echo "\"></script>        
             <script src=\"";
-        // line 54
+        // line 61
         echo twig_escape_filter($this->env, site_url("assets/js/bootstrap-datepicker.js"), "html", null, true);
         echo "\"></script>
             ";
-        // line 56
+        // line 63
         echo "            <script src=\"";
         echo twig_escape_filter($this->env, site_url("assets/js/main.js"), "html", null, true);
         echo "\"></script>
             <script src=\"";
-        // line 57
+        // line 64
         echo twig_escape_filter($this->env, site_url("assets/range/jquery_range.js"), "html", null, true);
         echo "\"></script>
             <script src=\"";
-        // line 58
+        // line 65
         echo twig_escape_filter($this->env, site_url("assets/range/jquery-ui.js"), "html", null, true);
         echo "\"> </script>
             <script src=\"";
-        // line 59
+        // line 66
         echo twig_escape_filter($this->env, site_url("assets/global/vendor/formvalidation/formValidation.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
             <script src=\"";
-        // line 60
+        // line 67
         echo twig_escape_filter($this->env, site_url("assets/js/reCaptcha2.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
             <script src=\"";
-        // line 61
+        // line 68
         echo twig_escape_filter($this->env, site_url("assets/global/vendor/formvalidation/framework/bootstrap.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
             ";
-        // line 63
+        // line 70
         echo "            <script src=\"https://use.fontawesome.com/73754fb9b3.js\"></script>
             <script src=\"";
-        // line 64
+        // line 71
         echo twig_escape_filter($this->env, site_url("assets/js/vendor/modernizr-2.8.3.min.js"), "html", null, true);
         echo "\"></script>
         ";
@@ -226,7 +240,7 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
 
     public function getDebugInfo()
     {
-        return array (  212 => 64,  209 => 63,  205 => 61,  201 => 60,  197 => 59,  193 => 58,  189 => 57,  184 => 56,  180 => 54,  175 => 53,  171 => 51,  166 => 50,  163 => 49,  158 => 39,  152 => 28,  148 => 27,  144 => 26,  140 => 25,  136 => 24,  132 => 23,  128 => 22,  124 => 21,  120 => 20,  116 => 19,  112 => 18,  108 => 17,  104 => 16,  100 => 15,  95 => 14,  92 => 13,  86 => 7,  80 => 66,  78 => 49,  72 => 46,  66 => 43,  61 => 40,  59 => 39,  51 => 34,  45 => 30,  43 => 13,  37 => 10,  30 => 7,  23 => 1,);
+        return array (  226 => 71,  223 => 70,  219 => 68,  215 => 67,  211 => 66,  207 => 65,  203 => 64,  198 => 63,  194 => 61,  189 => 60,  185 => 58,  180 => 57,  177 => 56,  172 => 45,  166 => 28,  162 => 27,  158 => 26,  154 => 25,  150 => 24,  146 => 23,  142 => 22,  138 => 21,  134 => 20,  130 => 19,  126 => 18,  122 => 17,  118 => 16,  114 => 15,  109 => 14,  106 => 13,  100 => 7,  94 => 73,  92 => 56,  86 => 53,  80 => 50,  74 => 46,  71 => 45,  68 => 43,  62 => 41,  59 => 40,  51 => 34,  45 => 30,  43 => 13,  37 => 10,  30 => 7,  23 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -276,8 +290,15 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
         
         <section class=\"main_area\"  id=\"mid_contant\"  >
             <div class=\"container\">
-                <!-- Block to load content page -->
+                
+                {# display flash error if exists. #}
+                {% if has_flash('error') %}
+                    {{ include('webview/layout/twig/partials/flash-errors.twig')  }}
+                {% endif %}
+                
+                {# Block to load content page #}
                 {% block content %}{% endblock %}
+                
             </div>
         </section>
             

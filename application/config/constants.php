@@ -143,3 +143,5 @@ defined('BID_STATE_PAUSED') || define('BID_STATE_PAUSED', 2);
 
 defined('EMPLOYER') || define('EMPLOYER', 1);
 defined('FREELANCER') || define('FREELANCER', 2);
+
+defined('JOB_ENDED') || define('JOB_ENDED', 1);

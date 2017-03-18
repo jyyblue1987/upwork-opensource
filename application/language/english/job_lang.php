@@ -33,6 +33,7 @@ $lang['text_job_past_hired'] = 'Past Hires';
 $lang['text_job_offer_sent'] = 'Offers Sent';
 
 $lang['text_job_since'] = 'Since %s';
+$lang['text_job_ended_at'] = 'Ended %s';
 $lang['text_job_status_state'] = 'Status : %s';
 $lang['text_job_state_ended'] = 'Ended';
 $lang['text_job_state_actived'] = 'Active';
@@ -97,3 +98,17 @@ $lang['text_job_hourly_rate'] = 'Hourly Rate';
 $lang['text_job_hourly_weekly_limit'] = 'Weekly Limit';
 $lang['text_job_hourly_btn_pause'] = 'Pause';
 $lang['text_job_hourly_btn_restart'] = 'Restart';
+$lang['text_job_contract_id'] = 'Contract ID %s';
+
+$lang['text_job_message_no_exists'] = 'The feedback\'s job does not exists.';
+$lang['text_job_ended_paid_since']  = 'Paid Since Start';
+$lang['text_job_link_dispute']      = 'Dispute';
+$lang['text_job_ended_paid_amount_title'] = 'Amount';
+$lang['text_job_feedback_freelancer_title'] = 'Feedback to Freelancer';
+$lang['text_job_rating_exceed'] = 'Rated %s out of 5';
+$lang['text_job_rating_feedback'] = '%s out of 5';
+$lang['text_job_give_feedback'] = 'Give feedback';
+$lang['text_job_waiting_for_feedback'] = 'Waiting For feedback';
+
+$lang['text_job_feedback_employer_title'] = 'Feedback to Client';
+$lang['text_job_ended_gain_since_start'] = 'Since start';

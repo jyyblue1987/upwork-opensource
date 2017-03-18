@@ -168,10 +168,9 @@
 											</span>
 											</div>
 											</h4>
-											
 										</div>
 										<div class="col-md-12 col-sm-12 wdwarfhead wdwarfheadone">
-											<h3><?=$freelancerfeedback->feedback_comment;?> </h3>
+                                                                                    <h3><?=$freelancerfeedback->feedback_comment;?> </h3>
 										</div>
 								<?php }else{?>
 										<div style="margin-top: -5px;" class="col-md-4 col-sm-4" id="feedbackbutton">
