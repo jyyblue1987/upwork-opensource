@@ -1,11 +1,11 @@
 <section id="big_header"  style="margin-bottom: 40px; height: auto;">
     <div class="container">
-        <div class="row" style="width: 118%;">
+        <div class="row">
             <div class="col-md-10 col-md-offset-0">
                 <div style="margin-top: -23px;" class="row">
                     <div class="col-md-12 no-padding margin-top-search" style="padding: 0px;">
                         <form action="freelance-jobs" method="post" id="job-search-form">
-                            <input style="width: 95%;" type="text" placeholder="Find job" name="jobsearchbykeywords" id="jobsearch" value=""  class="form-control search-field" />
+                            <input type="text" placeholder="Find job" name="jobsearchbykeywords" id="jobsearch" value=""  class="form-control search-field" />
                             <i class="fa fa-search search-btn search-btn-home custom_btn" aria-hidden="true"></i>
                         </form>
                     </div>
@@ -15,8 +15,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-2">
-                        <div class="row" style="width: 220%">
+                    <div class="col-md-4">
+                        <div class="row">
                             <div style="border: 1px solid #ccc; border-radius: 3px;padding-bottom: 0;padding-top: 0; margin-right: 20px; margin-top: 0px;" class="col-md-12 borderedx white-box margin-top-space">
                                 <div class="row">
                                     <div class="nav-side-menu">
@@ -47,7 +47,7 @@
                             </div>
                         </div>
 
-                       <div class="row" style="width: 220%">
+                       <div class="row">
                             <div style="border: 1px solid #ccc;border-radius: 3px;padding-bottom: 0;padding-top: 0;" class="col-md-12 borderedx white-box margin-top-space">
                                 <div class="row">
                                     <div class="nav-side-menu">
@@ -94,7 +94,7 @@
                         <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/rating.css">
                         <style>.page-sub-title {margin-top: 10px;}.page-jobs input {margin-top: 5px;}.load-more{background-color: #23a8d9; color: #fff; padding: 10px; text-align: center; cursor: pointer; margin-top: -32px;}.page-jobs h5{padding-right:5px}</style>
                         <section id="big_header" style="height: auto;">
-                            <div style="width: 105%; border: 1px solid #ccc;padding-top: 25px; padding-left: 20px; padding-bottom: 0; margin-left: 140px;" class="job-data white-box-feed">
+                            <div style="border: 1px solid #ccc;padding-top: 25px; padding-left: 20px; padding-bottom: 0;" class="job-data white-box-feed">
                                 <div class="col-md-8 col-sm-8 no-padding" align="center">
                                     <label class="col-md-4 no-padding">Sort by:</label>
                                     <div class="col-md-7 no-padding">
@@ -112,12 +112,12 @@
                                 <div class="clearfix"></div>
                                 <div style="margin-left: -5px;" class="line custon_line"></div>
                                 <br/>
-                                <div class="row white-box" id="all-jobs" style="padding: 10px 30px 10px 55px;">
+                                <div class="row white-box" id="all-jobs">
                                 <?php include 'no_auth_content.php'; ?>
                                 </div>
 
                             </div>
-                            <div class='load-more' style="margin-left: 140px; width: 105%;">Load more <img src='<?php echo site_url() ?>assets/img/version1/loader.gif' class="form-loader" style="display:none"></div>
+                            <div class='load-more'>Load more <img src='<?php echo site_url() ?>assets/img/version1/loader.gif' class="form-loader" style="display:none"></div>
                         </section>
 
                     </div>
