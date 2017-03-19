@@ -381,14 +381,11 @@ $(document).ready(function () {
 });
 
 function jobSearch(val,keywords,jobtype,jobduratin,jobweekhour){
-    /*if(val == 0){
-        $('.choose-job-cat').attr('checked',true);
-    }*/
     $('.job-searching').html("Searching......");
     var offset=1;
     var sort = $('select[name="postTime"]').val();
     var url = siteurl + target_path + "/"+offset+'/'+sort;
-    console.log(url);
+    //console.log(url);
     var data = {
                 jobCat:val,
                 limit:0,
@@ -397,6 +394,7 @@ function jobSearch(val,keywords,jobtype,jobduratin,jobweekhour){
                 jobduratin:jobduratin,
                 jobweekhour:jobweekhour};
     searchData = data;
+    console.log(searchData);
     $.ajax({
         url: url,
         data:(data),
@@ -421,16 +419,38 @@ function jobSearch(val,keywords,jobtype,jobduratin,jobweekhour){
     }});
 }
 
+function getCat() {
+    var pathparts = window.location.pathname.split('/');
+    return pathparts[pathparts.length-1];
+}
+
 function sortEvent(offset){
     var url = siteurl + target_path +  "/"+offset;
     $('select[name=postTime]').change(function() {
+        $('.no-result-container').remove();
+        $('.load-more').show();
+        var orderby = $(this).val();
         if(searchData == null){
+            var selCat = getCat();
+            console.log($.isNumeric(selCat));
             var keywords = $('#jobsearch').val();
-            var jobCat = "";
+            var jobCat = $.isNumeric(selCat) ? selCat : "";
             var catfound = 0;
             var jobCatId = "",jobtype = "",jtypefound = "",jobduratin = "",jobduratinfound = "",jobweekhour = "",jobweekhourfound = "";
-            searchData = {jobCat:jobCatId,limit:offset,keywords:keywords,jobtype:jobtype,jobduratin:jobduratin,jobweekhour:jobweekhour};
+            searchData = {
+                jobCat:jobCat,
+                //limit:offset,
+                keywords:keywords,
+                jobtype:jobtype,
+                jobduratin:jobduratin,
+                jobweekhour:jobweekhour,
+                orderby: orderby
+            };
         }
+        if(typeof searchData.limit !== 'undefined'){
+            delete searchData.limit;
+        }
+        
         console.log(searchData);
            var sort = $(this).val();
            $.ajax({
@@ -444,10 +464,15 @@ function sortEvent(offset){
                     //$('.job-data').html(htmlJson.result);
                     $('#all-jobs').html(htmlJson.result);
                     offset++;
-
+                    
                     if(htmlJson.count == 0){
                         $('.load-more').hide();
                     }
+//                    else if(htmlJson.count > 0){
+//                         $('.load-more').show();
+//                    }else{
+//                        $('.load-more').hide();
+//                    }
                 },
                 error:function(err){
                     console.log(err.responseText);

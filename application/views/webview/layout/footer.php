@@ -5,7 +5,7 @@
 <!-- End main_Div-->
 <div class="clear"> </div>
 <section class="big_footer">
-<div class="container">
+<div id="find-jobs_container" class="container">
     <div class="row">
 	 <div class="col-sm-6 col-md-6 col-lg-3">
 	    <div class="footer-menu">  
@@ -65,7 +65,7 @@
 
 <!-- End big_footer---->
 <div class="footer">
-  <div class="container">
+  <div id="find-jobs_container" class="container">
      <div class="row">
 	    <div class="col-sm-6 col-md-6"><h1><b>WINJOB</b></h1></div>
 	    <div class="col-sm-6 col-md-6"><p>© 2016 WINJOB</p></div>
@@ -76,21 +76,30 @@
 </section>
 <script>
  var global_url_array = {
-     'freelance-jobs': 'freelance-jobs',
-     'jobs-find': 'jobs/find'
+     'freelance-jobs': 'jobs/jobs_no_auth',
+     'find-jobs': 'jobs/find'
  };
-
+ 
  function get_target_path(){
-     var url = window.location.href;
-
-     for(var key in global_url_array){
-         console.log(url);
-         console.log(global_url_array[key]);
+    var url = window.location.href;
+    for(var key in global_url_array){
          if(url.indexOf(key) > -1){
-             return key;
-         }
-     }
+             return global_url_array[key];
+        }
+    }
+
+    return global_url_array['find-jobs'];
  }
+ 
+ function base_url() {
+    var pathparts = location.pathname.split('/');
+    if (location.host == 'localhost') {
+        var url = location.origin+'/'+pathparts[1].trim('/')+'/';
+    }else{
+        var url = location.origin;
+    }
+    return url;
+}
  </script>
 		<!--<script src="<?php //echo site_url("assets/js/jquery.js"); ?>"></script>-->
 		<script src="<?php echo site_url("assets/js/bootstrap.min.js"); ?>"></script>
@@ -117,4 +126,8 @@
     }
         }
 		?>
+</body>
+</html>
+
+
 		
