@@ -112,3 +112,4 @@ $lang['text_job_waiting_for_feedback'] = 'Waiting For feedback';
 
 $lang['text_job_feedback_employer_title'] = 'Feedback to Client';
 $lang['text_job_ended_gain_since_start'] = 'Since start';
+$lang['text_job_end_btn_confirmation'] = "Confirm";

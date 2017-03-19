@@ -45,8 +45,6 @@ define(function (require) {
             
             event.preventDefault();
             
-            console.log('submit ended contract informations.');
-            
             var classError  = 'has-error',
                 $that       =  $(this);
                 $loading    =  $that.find('.form-loader'),
@@ -65,7 +63,11 @@ define(function (require) {
             $comment.parent().parent().removeClass( classError );
             $loading.addClass('fa-spin').show();
             
-            var jqXhr = $.post(site_url + "endhourlyfixed/end_contactfromclient", { form: $that.serialize(), csrf_test_name: $csrf.val() },  $.noop, 'json');
+            var action = $that.attr('action');
+            console.log(action);
+            return;
+            
+            var jqXhr = $.post(action, { form: $that.serialize(), csrf_test_name: $csrf.val() },  $.noop, 'json');
             
             jqXhr.done(function( data ){
                 console.log(data);
@@ -86,7 +88,7 @@ define(function (require) {
                         $alert.append('You have successfully ended this contract.');
                         
                         setTimeout(function(){ 
-                            window.location = site_url + "jobs/pasthire"; }, 
+                            window.location = $that.data('redirect'); }, 
                         5000);
                     }
 		}else{

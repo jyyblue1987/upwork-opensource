@@ -27,6 +27,11 @@ and open the template in the editor.
     margin-bottom: 0px;
 }
 
+#end_contact_form .user-country{
+    font-size: 13px;
+    color: #666;
+}
+
 #end_contact_form .btn-cancel{
     margin-left: 10px
 }

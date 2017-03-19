@@ -44,13 +44,14 @@
                                 {% set bid_id_encoded        = base64_encode(job.bid_id) %}
                                 {% set buser_id_encoded      = base64_encode(job.buser_id) %}
                                 
-                                {% set job_detail_link       = base_url() ~ "jobs/contracts?fmJob=" ~ job_id_encoded  %}
+                                {% set job_detail_link       = base_url() ~ "contracts?fmJob=" ~ bid_id_encoded  %}
+                                {% set end_contract_link     = base_url() ~ "contract/ended?fmJob=" ~ bid_id_encoded %}
                                 
-                                {% if job.job_type == "hourly" %}
+                                {#{% if job.job_type == "hourly" %}
                                     {% set end_contract_link = base_url() ~ "endhourlyfixed/hourly_client?fmJob=" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
                                 {% else %}
                                     {% set end_contract_link = base_url() ~ "endhourlyfixed/fixed_client?fmJob=" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
-                                {% endif %}
+                                {% endif %}#}
                                 
                                 {# Specifics partials #}
                                 {% set specific_btn_template = 'webview/jobs/partials/job-payment-buttons.twig' %}

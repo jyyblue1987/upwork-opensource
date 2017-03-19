@@ -45,12 +45,8 @@
                                 {% set bid_id_encoded        = base64_encode(job.bid_id) %}
                                 {# set profil_link           = base_url() ~ "interview?user_id=" ~ fuser_id_encoded ~ "&job_id=" ~ job_id_encoded ~ "&bid_id=" ~ bid_id_encoded #}
                                 
-                                {% if job.job_type == 'hourly' %}
-                                    {% set job_detail_link       = base_url() ~ "feedback/hourly_freelancer?fmJob=" ~ job_id_encoded ~ '&buser=' ~ buser_id_encoded %}
-                                {% else %}
-                                    {% set job_detail_link       = base_url() ~ "feedback/fixed_freelancer?fmJob=" ~ job_id_encoded ~ '&buser=' ~ buser_id_encoded %}
-                                {% endif %}
-                                
+                                {% set job_detail_link       = base_url() ~ "contracts?fmJob=" ~ bid_id_encoded  %}
+                                                                
                                 {# Specifics partials #}
                                 {% set specific_btn_template = 'webview/jobs/partials/job-hire-button.twig' %}
                                 {% set options_dropdown      = 'webview/jobs/partials/job-hire-dropdown.twig' %}

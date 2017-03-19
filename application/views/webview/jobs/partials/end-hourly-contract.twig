@@ -1,0 +1,19 @@
+<div class="col-xs-12 contract-info">
+    <div class="row">
+        <span class="info-label col-xs-4">{{ app_lang('text_job_hourly_rate') }}</span>
+        <span class="info-value  col-xs-8">
+            {% if contract.offer_bid_amount is not empty %}
+                {% set  job_price = contract.offer_bid_amount %}
+            {% else %}
+                {% set  job_price = contract.bid_amount %}
+            {% endif %}
+            ${{ job_price }}/hr
+        </span>
+    </div>
+</div>
+<div class="col-xs-12 contract-info">
+    <div class="row">
+        <span class="info-label col-xs-4">{{ app_lang('text_job_ended_gain_since_start') }}</span>
+        <span class="info-value  col-xs-8">{{ app_lang('text_job_total_hour_pasthire')|format(gain_infos['total_hour'])|raw }}, <b>${{ gain_infos['amount'] }}</b></span>
+    </div>
+</div>

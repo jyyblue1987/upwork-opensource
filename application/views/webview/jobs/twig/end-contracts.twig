@@ -26,7 +26,15 @@
     
     <div class="container">
         <section class="information_area custom-end_contact end_contract">
-            <form class="form-horizontal custom_end_contact_from" method="post" id="end_contact_form">
+            {% set sender_id = app_user_data()['id'] %}
+            {% if app_user_data()['type'] == constant('EMPLOYER') %}
+                {% set action   = site_url('endhourlyfixed/end_contactfromclient') %}
+                {% set redirect = site_url('jobs/pasthire') %}
+            {% else %}
+                {% set action   = site_url('endhourlyfixed/end_contactfromSubmit') %}
+                {% set redirect = site_url('endjobs') %}
+            {% endif %}
+            <form class="form-horizontal custom_end_contact_from" method="post" id="end_contact_form" action="{{ action }}" data-redirect="{{ redirect }}">
                 <input type='hidden' name='{{ csrf_name() }}' value='{{ csrf_token() }}'>
                 <div id="action-reporting" class="row hide">
                     <div class="col-xs-12">
@@ -50,10 +58,11 @@
                                                 <a href="{{ base_url("interview?user_id=") ~ user_id_encoded ~ "&job_id=" ~ job_id_encoded ~ "&bid_id=" ~ bid_id_encoded }}">
                                                     <span class="blue-text">{{ contract.webuser_fname ~ ' ' ~ contract.webuser_lname }}</span>
                                                 </a>
+                                                {% if contract.webuser_company is not empty %}
+                                                    <br>
+                                                    <span class="user-country">{{ contract.webuser_company }}</span>
+                                                {% endif %}    
                                             </h3>
-                                            {% if contract.webuser_company is not empty %}
-                                                <h4 class="user-country">{{ contract.webuser_company }}</h4>
-                                            {% endif %}    
                                         </div>
                                     </div>
                                 </div>
@@ -76,38 +85,13 @@
                                     <span class="info-value  col-xs-8">{{ contract.contact_id }}</span>
                                 </div>
                             </div>
-                            <div class="col-xs-12 contract-info">
-                                <div class="row">
-                                    <span class="info-label col-xs-4">{{ app_lang('text_job_contract_budget') }}</span>
-                                    <span class="info-value  col-xs-8">${{ contract.hired_on }}</span>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 contract-info">
-                                <div class="row">
-                                    <span class="info-label col-xs-4">{{ app_lang('text_job_contract_paid') }}</span>
-                                    <span class="info-value  col-xs-8">${{ total_paid }}</span>
-                                </div>
-                            </div>
-                            {% if contract.contract_status != 1 %}
-                            <div class="col-xs-12 contract-info">
-                                <div class="row">
-                                    <span class="info-label col-xs-4">{{ app_lang('text_job_contract_pay') }}</span>
-                                    <span class="normal_normal_font  col-xs-8">
-                                        <span class="custom_radio">
-                                          <label><input type="radio" name="optradio" value="0" >{{ app_lang('text_job_contract_paid_nothing') }}</label>
-                                          <br>
-                                          <label>
-                                                <input  type="radio" name="optradio" value="2">{{ app_lang('text_job_contract_paid_other_amount') }}
-                                          </label>
-                                          <span id="end-pay-container" class="hide">
-                                                <b class="pull-left devise">$</b><input class="form-control pull-left custom_input_text" type="text" name="endpay"> 
-                                          </span>
-                                          <span class="clear cleafix"></span>
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
+                            
+                            {% if contract.job_type == constant('HOURLY_JOB_TYPE') %}
+                                {{ include('webview/jobs/partials/end-hourly-contract.twig') }}
+                            {% else %}
+                                {{ include('webview/jobs/partials/end-fixed-contract.twig') }}
                             {% endif %}
+                            
                             <div class="col-xs-12 contract-info">
                                 <div class="row">
                                     <span class="info-label col-xs-4">{{ app_lang('text_job_contract_start_date') }}</span>
@@ -177,19 +161,19 @@
                     <div class="col-xs-12 text-center">
                         <button type="submit" class="btn btn-default btn-lg btn-default_activv" id="end_contract_btn">
                         {% if contract.contract_status == 1 %}
-                            {{ "Give Feedback" }}
+                            {{ app_lang("text_job_give_feedback") }}
                         {% else %}
-                            {{ "Confirm" }}
+                            {{ app_lang("text_job_end_btn_confirmation") }}
                         {% endif %}
                         <i class="fa fa-circle-o-notch form-loader" style="display: none;"></i>
                         </button>
-                        <button type="button" class="btn btn-default btn-lg btn-cancel">Cancel</button>
+                        <button type="button" class="btn btn-default btn-lg btn-cancel">{{ app_lang('text_job_transaction_cancelled') }}</button>
                     </div>
                 </div>
                 <input name="job_id" type="hidden" id="job_id"  value="{{ contract.job_id }}"  />
                 <input name="user_id" type="hidden" id="user_id"  value="{{ contract.fuser_id }}"  />
                 <input name="clientid" type="hidden" id="clientid"  value="{{ contract.buser_id }}"  />
-                <input name="sender_id" type="hidden" id="sender_id"  value="{{ contract.buser_id }}"  />
+                <input name="sender_id" type="hidden" id="sender_id"  value="{{ sender_id }}"  />
                 <input name="job_type" type="hidden" id="job_type"  value="{{ contract.job_type }}"  />
             </form>
         </section>
