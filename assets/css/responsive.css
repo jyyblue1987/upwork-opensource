@@ -1,0 +1,73 @@
+.header-login{
+	margin-top:20px;
+	color: #262525;
+ 	font-family: 'calibri';
+ 	margin: 13px 4px 31px 21px;
+	margin-bottom: -16px;
+	font-size: 31px;
+}
+
+#next{
+	margin-left: 0!important;
+	width: 100%;
+}
+
+.signup-icon{
+	font-size:100px;
+	color:#1ca8c6;
+}
+
+.or{
+	color: #7D7D7D;
+	font-family: 'Calibri';
+	font-weight: bold;
+	font-size: 35px;
+	margin:0 auto;
+	text-align: center;
+	padding-top:100px;
+}
+
+
+
+.marg-bot-40{
+	margin-bottom:40px;
+}
+.or-container{
+	height:208px;
+}
+
+.emp-sign-header{
+	color:#262525;
+	font-family: 'Roboto';
+	font-weight:400;
+	font-size:25px;
+	margin:4px 4px 4px 21px;
+}
+
+.form-control{
+	width: 100%!important;
+}
+
+#pswd_info{
+	padding-left:10px;
+
+}
+
+
+@media screen and (max-width: 1000px) {
+	.or-container{
+		height:58px;
+	}
+	.or{
+		padding-top:10px;
+	}
+	.select{
+		margin-left: 9px;
+	}
+}
+.no-pad{
+	padding-left: 0;
+}
+#pswd_infob, #captchaContainer{
+	padding-left: 10px;
+}
