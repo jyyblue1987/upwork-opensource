@@ -1,102 +1,100 @@
 <div class="row ">
-                <div style="padding: 3px 10px 5px;border: 1px solid #ccc;border-top: 0;border-radius: 0 0 4px 4px;" class="col-md-9 white-box remove-border-top ">
-                    <div class="row"></div>
-                    
-                    <div style="margin-left: 28px;" class="row margin-top-2 bordered_week">
-                        <div class="col-md-10 col-md-offset-1">
-                            <div class="row">
-                                <div style="padding-top: 5px; margin-right: -6px;" class="col-md-4 paid_table_title text-centered text-center">
-                                     <b>{{ app_lang('text_job_contract_amount') }}</b>
-                                </div>
-                                <div style="padding-top: 5px; border-left: 2px solid #ededed; margin-right: 10px;" class="col-md-4 text-centered text-center">
-                                     <b> {{ app_lang('text_job_contract_paid') }} </b>
-                                </div>
-                                <div style="width: 76px; padding-top: 5px; margin-left: 0px; padding-left: 83px; border-left: 2px solid rgb(237, 237, 237);" 
-                                     class="col-md-4 text-centered text-center">
-                                    <b> {{ app_lang('text_job_contract_remaining_amount') }}</b>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row margin-top-1">
-                            <div class="col-md-10  col-md-offset-1">
-                                <div class="row nav-bar">
-                                    <div style="padding-bottom: 5px;" class="col-md-4 text-center nav-bar-item">
-                                        <span class="bold_text">
-                                             ${{ job_status.hired_on }}
-                                        </span>
-                                    </div>
-                                    <div style="padding-bottom: 5px;" class="col-md-4 text-center nav-bar-item">
-                                        <span class="bold_text">
-                                             ${{ job_status.fixedpay_amount }}                                           
-                                        </span>
-                                    </div>
-                                    <div style="padding-bottom: 5px;" class="col-md-4  text-center nav-bar-item">
-                                        <span class="bold_text">
-                                         {% set remain_budget = job_status.bid_amount - job_status.fixedpay_amount %}
+    <div style="padding: 3px 10px 5px;border: 1px solid #ccc;border-top: 0;border-radius: 0 0 4px 4px;" class="col-md-9 white-box remove-border-top ">
+        <div class="row"></div>
 
-                                         {% if remain_budget < 0 %}
-                                             {% set remain_budget = 0 %}
-                                         {% endif  %}
-
-                                         ${{ remain_budget }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <div style="margin: 20px auto;" class="row margin-top-2 bordered_week">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="row">
+                    <div style="padding-top: 5px; margin-right: -6px;" class="col-md-4 paid_table_title text-centered text-center">
+                         <b>{{ app_lang('text_job_contract_amount') }}</b>
                     </div>
-                    
-                    <div class="row margin-top-1"> </div>
-                    
-                    {{ include("webview/jobs/partials/job-transactions.twig", {payments: payments, job_status: job_status}, with_context= false) }}
-                    
-                    <div class="row margin-top-5 margin-bottom-2">
-                        <div class="col-md-10 col-md-offset-1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    {% if app_user_data()['type'] == constant('EMPLOYER') %}
-                                        {% if job_status.job_type == constant('FIXED_JOB_TYPE') %}
-                                        <div class="">
-                                            <input style="float: left;margin-left: 0;" type="button" class="btn my_btn btn-cancel _job_add_milestone" 
-                                                   value="{{ app_lang('text_job_btn_add_milestone') }}" 
-                                                   data-id ="2" 
-                                                   data-encoded_fuserid="{{ fuser_id_encoded }}"
-                                                   data-encoded_jobid="{{ job_id_encoded }}"
-                                                   data-buserid="{{ job_status.buser_id }}"
-                                                   data-fuserid="{{ job_status.fuser_id }}"
-                                                   data-jobid="{{ job_status.job_id }}" />
-                                        </div>
-                                        <input style="margin-left: 15px;" type="button" class="btn my_btn btn-cancel _job_btn_payment" 
-                                               value="{{ app_lang('text_job_btn_payment') }}"  
-                                               data-id ="2"
-                                               data-encoded_fuserid="{{ fuser_id_encoded }}"
-                                               data-encoded_jobid="{{ job_id_encoded }}"
-                                               data-buserid="{{ job_status.buser_id }}"
-                                               data-fuserid="{{ job_status.fuser_id }}"
-                                               data-jobid="{{ job_status.job_id }}"
-                                               />
-                                        {% endif %}
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-6">
-                                    <div style="float: left; position: absolute;right: 143px;" class="cancel_content_btn">
-                                        <input value="{{ app_lang('text_job_transaction_cancelled') }}" class="btn my_btn btn-cancel" type="button"> 
-                                    </div>
-                                    
-                                    <div class="">
-                                        {% if job_status.jobstatus == 1 %}
-                                            <a href="{{ base_url() }}feedback/fixed_{{ _action }}?fmJob={{ job_id_encoded }}&{{ _query }}={{ param_userid }}">
-                                                <input style="float: right;margin-right: 0px;" type="button" class="btn my_btn btn-default_activv" value="{{ app_lang('text_job_btn_op_end_contract') }}" />
-                                            </a>
-                                        {% else %}
-                                            <a href="{{ base_url() }}endhourlyfixed/fixed_{{ _action }}?fmJob={{ job_id_encoded }}&{{ _query }}={{ param_userid }}">
-                                                <input style="float: right;margin-right: 0px;" type="button" class="btn my_btn btn-default_activv" value="{{ app_lang('text_job_btn_op_end_contract') }}" />
-                                            </a>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
+                    <div style="padding-top: 5px; border-left: 2px solid #ededed; margin-right: 10px;" class="col-md-4 text-centered text-center">
+                         <b> {{ app_lang('text_job_contract_paid') }} </b>
+                    </div>
+                    <div style="width: 76px; padding-top: 5px; margin-left: 0px; padding-left: 83px; border-left: 2px solid rgb(237, 237, 237);" 
+                         class="col-md-4 text-centered text-center">
+                        <b> {{ app_lang('text_job_contract_remaining_amount') }}</b>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-top-1">
+                <div class="col-md-10  col-md-offset-1">
+                    <div class="row nav-bar">
+                        <div style="padding-bottom: 5px;" class="col-md-4 text-center nav-bar-item">
+                            <span class="bold_text">
+                                 ${{ job_status.hired_on }}
+                            </span>
+                        </div>
+                        <div style="padding-bottom: 5px;" class="col-md-4 text-center nav-bar-item">
+                            <span class="bold_text">
+                                 ${{ job_status.fixedpay_amount }}                                           
+                            </span>
+                        </div>
+                        <div style="padding-bottom: 5px;" class="col-md-4  text-center nav-bar-item">
+                            <span class="bold_text">
+                             {% set remain_budget = job_status.bid_amount - job_status.fixedpay_amount %}
+
+                             {% if remain_budget < 0 %}
+                                 {% set remain_budget = 0 %}
+                             {% endif  %}
+
+                             ${{ remain_budget }}
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="row margin-top-1"> </div>
+
+        {{ include("webview/jobs/partials/job-transactions.twig", {payments: payments, job_status: job_status}, with_context= false) }}
+
+        <div class="row margin-top-5 margin-bottom-2">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="row">
+                    <div class="col-md-6">
+                        {% if app_user_data()['type'] == constant('EMPLOYER') %}
+                            {% if job_status.job_type == constant('FIXED_JOB_TYPE') %}
+                            <div class="">
+                                <input style="float: left;margin-left: 0;" type="button" class="btn my_btn btn-cancel _job_add_milestone" 
+                                       value="{{ app_lang('text_job_btn_add_milestone') }}" 
+                                       data-id ="2" 
+                                       data-econtractid="{{ bid_id_encoded }}"
+                                       data-buserid="{{ job_status.buser_id }}"
+                                       data-fuserid="{{ job_status.fuser_id }}"
+                                       data-jobid="{{ job_status.job_id }}" />
+                            </div>
+                            <input style="margin-left: 15px;" type="button" class="btn my_btn btn-cancel _job_btn_payment" 
+                                   value="{{ app_lang('text_job_btn_payment') }}"  
+                                   data-id ="2"
+                                   data-econtractid="{{ bid_id_encoded }}"
+                                   data-buserid="{{ job_status.buser_id }}"
+                                   data-fuserid="{{ job_status.fuser_id }}"
+                                   data-jobid="{{ job_status.job_id }}"
+                                   />
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <div style="float: left; position: absolute;right: 143px;" class="cancel_content_btn">
+                            <input value="{{ app_lang('text_job_transaction_cancelled') }}" class="btn my_btn btn-cancel" type="button"> 
+                        </div>
+
+                        <div class="pull-right">
+                            {% if job_status.jobstatus == 1 %}
+                                <a href="{{ base_url() }}feedback/fixed_{{ _action }}?fmJob={{ job_id_encoded }}&{{ _query }}={{ param_userid }}">
+                                    <input style="float: right;margin-right: 0px;" type="button" class="btn my_btn btn-default_activv" value="{{ app_lang('text_job_btn_op_end_contract') }}" />
+                                </a>
+                            {% else %}
+                                <a href="{{ base_url("contract/ended") }}?fmJob={{ bid_id_encoded }}">
+                                    <input style="float: right;margin-right: 0px;" type="submit" class="btn my_btn btn-default_activv" value="{{ app_lang('text_job_btn_op_end_contract') }}" />
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

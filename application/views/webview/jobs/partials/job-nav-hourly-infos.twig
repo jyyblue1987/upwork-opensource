@@ -8,8 +8,8 @@
 <div class="row">
     <div style="padding: 3px 10px 10px;border: 1px solid #ccc;border-radius: 0 0 4px 4px;border-top: 0;" class="col-md-9 white-box remove-border-top ">
         <div class="row"></div>
-        <div class="row margin-top-2">
-            <div class="col-md-12 bordered_week">
+        <div class="col-xs-12">
+             <div style="margin: 20px auto;" class="bordered_week">
                 <div class="row nav-bar">
                     <div style="height: 78px;" class="col-md-4 blue-text text-center nav-bar-item">
                         <label style="font-size: 14px;color: #333 !important;position: absolute;top: -3px;left: 83px;" class="gray-text">
@@ -69,6 +69,7 @@
                 </div>
             </div>
         </div>
+       
         <div class="row margin-top margin_top25">
             <div class="col-md-10 col-md-offset-1">
                 <div class="row">
@@ -111,11 +112,11 @@
                                     <div class="hour_pause_btn">
                                         {% if app_user_data()['type'] == constant('EMPLOYER') %}
                                             {% if job_status.bid_status == 2 %}
-                                            <a href="{{ base_url("jobs/restart") }}?fbid={{ bid_id_encoded }}">
+                                            <a href="{{ base_url("contract/restart") }}?fbid={{ bid_id_encoded }}">
                                                 <input type="button" class="btn btn-primary form-btn pause-btn" value="{{ app_lang('text_job_hourly_btn_restart') }}" />
                                             </a>
                                             {% else %}
-                                            <a href="{{ base_url("jobs/paused") }}?fbid={{ bid_id_encoded }}">
+                                            <a href="{{ base_url("contract/paused") }}?fbid={{ bid_id_encoded }}">
                                                 <input type="button" class="btn btn-primary form-btn pause-btn" value="{{ app_lang('text_job_hourly_btn_pause') }}" />
                                             </a>    
                                             {% endif %}
@@ -135,21 +136,20 @@
             <div class="row margin-top-1">
                 <div class="col-md-12">
                     <div class="row margin-top-3 cus_cancel_button"> 
-                        <div class="col-md-6 text-centered text-center"></div>
-                        <div class="col-md-6 text-right">
-                            <div style="float: left; margin-top: 10px; margin-left: 67px;" class="cancel_content_btn" style="margin-left: -65px">
-                                <input value="{{ app_lang('text_job_transaction_cancelled') }}" class="btn my_btn btn-cancel" type="button"> 
-                            </div>
-                            <div class="hour_end_btn">
+                        <div class="col-md-6 pull-right">
+                            <div class="hour_end_btn pull-right">
                                 {% if job_status.jobstatus == 1 %}
                                 <a href="{{ base_url() }}feedback/hourly_{{ _action }}?fmJob={{ job_id_encoded }}&{{ _query }}={{ param_userid }}">
                                     <input type="button" class="btn my_btn btn-default_activv" value="{{ app_lang('text_job_btn_op_end_contract') }}" />
                                 </a>
                                 {% else %}
-                                <a href="{{ base_url() }}endhourlyfixed/hourly_{{ _action }}?fmJob={{ job_id_encoded }}&{{ _query }}={{ param_userid }}">
+                                <a href="{{ base_url() }}contract/ended?fmJob={{ bid_id_encoded }}">
                                     <input type="button" class="btn  my_btn btn-default_activv" value="{{ app_lang('text_job_btn_op_end_contract') }}" />
                                 </a>
                                 {% endif %}
+                            </div>
+                            <div style="margin-top: 10px;" class="cancel_content_btn pull-right">
+                                <input value="{{ app_lang('text_job_transaction_cancelled') }}" class="btn my_btn btn-cancel" type="button"> 
                             </div>
                         </div>
                     </div>

@@ -38,6 +38,12 @@ $route['search'] = "search";
 $route['homepage'] = "home/homepage";
 $route['json/(:any)'] = 'json/(:any)';
 $route['endjobs'] = 'Winsjob/endjobs';
+$route['contract/ended'] = 'jobs/ended_contract';
+$route['contract/restart'] = 'jobs/restart';
+$route['contract/paused'] = 'jobs/paused';
+$route['contracts'] = 'jobs/contracts';
+
+
 
 $route['profile/manageaccount'] = "profile/manageaccount";
 $route['profile/basic'] = "profile/basic";

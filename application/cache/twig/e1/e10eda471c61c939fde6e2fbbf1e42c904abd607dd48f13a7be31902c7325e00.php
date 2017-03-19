@@ -117,7 +117,7 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
         echo "    
     ";
         // line 37
-        if (($this->getAttribute((isset($context["job"]) ? $context["job"] : null), "job_type", array()) == twig_constant("FIXED_JOB_TYPE"))) {
+        if (($this->getAttribute((isset($context["job_status"]) ? $context["job_status"] : null), "job_type", array()) == twig_constant("FIXED_JOB_TYPE"))) {
             // line 38
             echo "        ";
             $context["is_fixed_job"] = true;
@@ -140,7 +140,7 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
                         <div class=\"date_head\">
                             ";
         // line 49
-        if (($this->getAttribute((isset($context["job_status"]) ? $context["job_status"] : null), "jobstatus", array()) == twig_constant("JOB_ENDED"))) {
+        if (($this->getAttribute((isset($context["job_status"]) ? $context["job_status"] : null), "contract_status", array()) == twig_constant("JOB_ENDED"))) {
             // line 50
             echo "                                <div class=\"col-md-6\">";
             echo twig_escape_filter($this->env, sprintf(app_lang("text_job_ended_at"), app_date($this->getAttribute((isset($context["job_status"]) ? $context["job_status"] : null), "end_date", array()), " M j, Y ")), "html", null, true);
@@ -209,7 +209,7 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
                             <div style=\"margin-top: -8px;\" class=\"status_bar\">
                                 ";
         // line 85
-        if ((array_key_exists("webuser", $context) && ($this->getAttribute((isset($context["webuser"]) ? $context["webuser"] : null), "isactive", array()) == 0))) {
+        if ((array_key_exists("employer", $context) && ($this->getAttribute((isset($context["employer"]) ? $context["employer"] : null), "isactive", array()) == 0))) {
             // line 86
             echo "                                    <label style=\"margin-top: -8px;\" class=\"gray-text\">
                                         ";
@@ -229,7 +229,7 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
             echo "</label>
                                 ";
         } elseif (($this->getAttribute(        // line 92
-(isset($context["job_status"]) ? $context["job_status"] : null), "jobstatus", array()) == 1)) {
+(isset($context["job_status"]) ? $context["job_status"] : null), "contract_status", array()) == 1)) {
             // line 93
             echo "                                    <label class=\"gray-text\">";
             echo twig_escape_filter($this->env, sprintf(app_lang("text_job_status_state"), app_lang("text_job_state_ended")), "html", null, true);
@@ -294,7 +294,7 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
             <div class=\"bg-change\"></div>
             ";
         // line 122
-        if (($this->getAttribute((isset($context["job_status"]) ? $context["job_status"] : null), "jobstatus", array()) == twig_constant("JOB_ENDED"))) {
+        if (($this->getAttribute((isset($context["job_status"]) ? $context["job_status"] : null), "contract_status", array()) == twig_constant("JOB_ENDED"))) {
             // line 123
             echo "                ";
             echo twig_include($this->env, $context, "webview/feedback/partials/job-feedbacks.twig");
@@ -432,7 +432,7 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
         {% set param_userid = buser_id_encoded %}
     {% endif %}
     
-    {% if job.job_type == constant('FIXED_JOB_TYPE') %}
+    {% if job_status.job_type == constant('FIXED_JOB_TYPE') %}
         {% set is_fixed_job = true %}
     {% else %}
         {% set is_fixed_job = false %}
@@ -444,7 +444,7 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
                 <div style=\"border: 1px solid #ccc;border-radius: 4px 4px 0 0px;margin: 0;\" class=\"col-md-9 white-box black-box\">
                     <div class=\"row\">
                         <div class=\"date_head\">
-                            {% if job_status.jobstatus == constant('JOB_ENDED') %}
+                            {% if job_status.contract_status == constant('JOB_ENDED') %}
                                 <div class=\"col-md-6\">{{ app_lang('text_job_ended_at')|format( app_date( job_status.end_date, ' M j, Y ') ) }}</div>
                             {% else %}
                                 <div class=\"col-md-6\">{{ app_lang('text_job_since')|format( app_date( job_status.start_date, ' M j, Y ') ) }}</div>
@@ -480,14 +480,14 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
                         </div>
                         <div class=\"col-md-3 text-center gray-text\">
                             <div style=\"margin-top: -8px;\" class=\"status_bar\">
-                                {% if webuser is defined and webuser.isactive == 0 %}
+                                {% if employer is defined and employer.isactive == 0 %}
                                     <label style=\"margin-top: -8px;\" class=\"gray-text\">
                                         {% set hold = \"<span style='color:#ff0000;'>%s</span>\" %}
                                         {{ app_lang('text_job_status_state')|format(hold)|format(app_lang('text_job_state_hold'))|raw }}
                                     </label>
                                 {% elseif job_status.bid_status == 2  %}
                                     <label class=\"gray-text\">{{ app_lang('text_job_status_state')|format(app_lang('text_job_state_paused')) }}</label>
-                                {% elseif job_status.jobstatus == 1 %}
+                                {% elseif job_status.contract_status == 1 %}
                                     <label class=\"gray-text\">{{ app_lang('text_job_status_state')|format(app_lang('text_job_state_ended')) }}</label>
                                 {% else %}
                                     <label class=\"gray-text\">{{ app_lang('text_job_status_state')|format(app_lang('text_job_state_actived')) }}</label>
@@ -517,7 +517,7 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
             </div>
             
             <div class=\"bg-change\"></div>
-            {% if job_status.jobstatus == constant('JOB_ENDED') %}
+            {% if job_status.contract_status == constant('JOB_ENDED') %}
                 {{ include('webview/feedback/partials/job-feedbacks.twig') }}
             {% else %}
                 {% if job_status.job_type == constant('FIXED_JOB_TYPE') %}

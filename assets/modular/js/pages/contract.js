@@ -19,7 +19,7 @@ define(function (require) {
         modalPaymentId:    '#edit-payment',
         modalPaymentTransactionId:  '#payment-details-modal',
         modalPaymentForm : '#hr_fullMilestone',
-        redirectPatternUrl: site_url + "jobs/contracts",
+        redirectPatternUrl: site_url + "contracts",
         method: 'makePayment'
     });
     
@@ -28,8 +28,18 @@ define(function (require) {
         modalPaymentId:    '#edit-milestone',
         modalPaymentTransactionId:  '#milestone-details-modal',
         modalPaymentForm : '#hr_addMilestone',
-        redirectPatternUrl: site_url + "jobs/contracts",
+        redirectPatternUrl: site_url + "contracts",
         method: 'makePayment'
-    })
+    });
     
+    $('._js_form_end').on('submit', function( event ){
+        
+        event.preventDefault();
+        
+        var res = confirm("Do you really want to end this contract?");
+        
+        if( res == true ){
+            this.submit();
+        }
+    });
 });

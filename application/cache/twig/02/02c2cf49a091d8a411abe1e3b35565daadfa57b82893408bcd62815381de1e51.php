@@ -81,16 +81,22 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
         echo "
         
         
-        <script> var site_url=\"";
-        // line 53
+        <script> 
+            var site_url   = \"";
+        // line 54
         echo twig_escape_filter($this->env, site_url(), "html", null, true);
-        echo "\"; </script>
+        echo "\"; 
+            var csrf_token = '";
+        // line 55
+        echo twig_escape_filter($this->env, csrf_token(), "html", null, true);
+        echo "';
+        </script>
         
         <!-- Block to load common scripts which can be overrided|extended by a specific page  -->
         ";
-        // line 56
+        // line 59
         $this->displayBlock('js', $context, $blocks);
-        // line 73
+        // line 76
         echo "        
     </body>
 </html>";
@@ -173,56 +179,56 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
     {
     }
 
-    // line 56
+    // line 59
     public function block_js($context, array $blocks = array())
     {
-        // line 57
+        // line 60
         echo "            <script src=\"";
         echo twig_escape_filter($this->env, site_url("assets/js/vendor/jquery-2.2.3.min.js"), "html", null, true);
         echo "\"></script>
             <script src=\"";
-        // line 58
-        echo twig_escape_filter($this->env, site_url("assets/js/bootstrap.min.js"), "html", null, true);
-        echo "\"></script>
-            ";
-        // line 60
-        echo "            <script src=\"";
-        echo twig_escape_filter($this->env, site_url("assets/js/plugins.js"), "html", null, true);
-        echo "\"></script>        
-            <script src=\"";
         // line 61
-        echo twig_escape_filter($this->env, site_url("assets/js/bootstrap-datepicker.js"), "html", null, true);
+        echo twig_escape_filter($this->env, site_url("assets/js/bootstrap.min.js"), "html", null, true);
         echo "\"></script>
             ";
         // line 63
         echo "            <script src=\"";
+        echo twig_escape_filter($this->env, site_url("assets/js/plugins.js"), "html", null, true);
+        echo "\"></script>        
+            <script src=\"";
+        // line 64
+        echo twig_escape_filter($this->env, site_url("assets/js/bootstrap-datepicker.js"), "html", null, true);
+        echo "\"></script>
+            ";
+        // line 66
+        echo "            <script src=\"";
         echo twig_escape_filter($this->env, site_url("assets/js/main.js"), "html", null, true);
         echo "\"></script>
             <script src=\"";
-        // line 64
+        // line 67
         echo twig_escape_filter($this->env, site_url("assets/range/jquery_range.js"), "html", null, true);
         echo "\"></script>
             <script src=\"";
-        // line 65
+        // line 68
         echo twig_escape_filter($this->env, site_url("assets/range/jquery-ui.js"), "html", null, true);
         echo "\"> </script>
             <script src=\"";
-        // line 66
+        // line 69
         echo twig_escape_filter($this->env, site_url("assets/global/vendor/formvalidation/formValidation.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
             <script src=\"";
-        // line 67
+        // line 70
         echo twig_escape_filter($this->env, site_url("assets/js/reCaptcha2.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
             <script src=\"";
-        // line 68
+        // line 71
         echo twig_escape_filter($this->env, site_url("assets/global/vendor/formvalidation/framework/bootstrap.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
             ";
-        // line 70
+        // line 73
         echo "            <script src=\"https://use.fontawesome.com/73754fb9b3.js\"></script>
             <script src=\"";
-        // line 71
+        // line 74
         echo twig_escape_filter($this->env, site_url("assets/js/vendor/modernizr-2.8.3.min.js"), "html", null, true);
         echo "\"></script>
         ";
@@ -240,7 +246,7 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
 
     public function getDebugInfo()
     {
-        return array (  226 => 71,  223 => 70,  219 => 68,  215 => 67,  211 => 66,  207 => 65,  203 => 64,  198 => 63,  194 => 61,  189 => 60,  185 => 58,  180 => 57,  177 => 56,  172 => 45,  166 => 28,  162 => 27,  158 => 26,  154 => 25,  150 => 24,  146 => 23,  142 => 22,  138 => 21,  134 => 20,  130 => 19,  126 => 18,  122 => 17,  118 => 16,  114 => 15,  109 => 14,  106 => 13,  100 => 7,  94 => 73,  92 => 56,  86 => 53,  80 => 50,  74 => 46,  71 => 45,  68 => 43,  62 => 41,  59 => 40,  51 => 34,  45 => 30,  43 => 13,  37 => 10,  30 => 7,  23 => 1,);
+        return array (  232 => 74,  229 => 73,  225 => 71,  221 => 70,  217 => 69,  213 => 68,  209 => 67,  204 => 66,  200 => 64,  195 => 63,  191 => 61,  186 => 60,  183 => 59,  178 => 45,  172 => 28,  168 => 27,  164 => 26,  160 => 25,  156 => 24,  152 => 23,  148 => 22,  144 => 21,  140 => 20,  136 => 19,  132 => 18,  128 => 17,  124 => 16,  120 => 15,  115 => 14,  112 => 13,  106 => 7,  100 => 76,  98 => 59,  91 => 55,  87 => 54,  80 => 50,  74 => 46,  71 => 45,  68 => 43,  62 => 41,  59 => 40,  51 => 34,  45 => 30,  43 => 13,  37 => 10,  30 => 7,  23 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -305,7 +311,10 @@ class __TwigTemplate_3afcc098042bf239eb9d6ca499bc2e0d08453b4d66a7730ada2ee1033d6
         {{ include('webview/layout/twig/partials/footer.twig') }}
         
         
-        <script> var site_url=\"{{ site_url() }}\"; </script>
+        <script> 
+            var site_url   = \"{{ site_url() }}\"; 
+            var csrf_token = '{{ csrf_token() }}';
+        </script>
         
         <!-- Block to load common scripts which can be overrided|extended by a specific page  -->
         {% block js %}

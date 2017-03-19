@@ -781,6 +781,7 @@ class Pay extends Winjob_Controller
                 redirect(site_url("find-jobs"));
             }
             $data = array();
+            
             if ($this->input->post('job_id') && $this->input->post('fuser_id') && $this->input->post('buser_id')) {
                 //  echo "hahah";
                 $data['job_id'] = $this->input->post('job_id');
@@ -825,8 +826,6 @@ class Pay extends Winjob_Controller
 
                 echo "done";
                 die();
-                //redirect(site_url("jobs/fixed_client_view?fmJob=NTY=&fuser=MTU="));
-                //redirect(site_url("pay/clientpay"));
             }
             if ($this->input->post('amount')) {
                 redirect(site_url("jobs-home"));

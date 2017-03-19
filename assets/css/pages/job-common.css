@@ -126,3 +126,7 @@ and open the template in the editor.
 .no-margin{
     margin: 0 !important;
 }
+
+.user-picture{
+    border-radius: 32px;
+}

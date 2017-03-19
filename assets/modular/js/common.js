@@ -16,6 +16,7 @@ requirejs.config({
         pages: '../pages',
         bootstrap: '../lib/bootstrap',
         jquery: '../lib/jquery-2.2.3',
+        rating: '../lib/star-rating',
         chatbox: '../modules/chat-box',
         payment: '../modules/payment'
     }

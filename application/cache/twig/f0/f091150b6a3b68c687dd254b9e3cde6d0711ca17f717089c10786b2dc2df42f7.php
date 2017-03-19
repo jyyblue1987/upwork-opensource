@@ -135,43 +135,27 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
                 echo "                                
                                 ";
                 // line 46
-                echo "                                
-                                ";
+                echo "                                ";
+                $context["job_detail_link"] = ((base_url() . "contracts?fmJob=") . (isset($context["bid_id_encoded"]) ? $context["bid_id_encoded"] : null));
                 // line 47
-                $context["job_detail_link"] = ((((base_url() . "jobs/contracts?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&fuser=") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
+                echo "                                ";
+                $context["end_contract_link"] = ((base_url() . "contract/ended?fmJob=") . (isset($context["bid_id_encoded"]) ? $context["bid_id_encoded"] : null));
                 // line 48
                 echo "                                
                                 ";
-                // line 49
-                if (($this->getAttribute($context["job"], "job_type", array()) == "hourly")) {
-                    // line 50
-                    echo "                                    ";
-                    $context["end_contract_link"] = ((((base_url() . "endhourlyfixed/hourly_client?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&fuser=") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
-                    // line 51
-                    echo "                                ";
-                } else {
-                    // line 52
-                    echo "                                    ";
-                    $context["end_contract_link"] = ((((base_url() . "endhourlyfixed/fixed_client?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&fuser=") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
-                    // line 53
-                    echo "                                ";
-                }
-                // line 54
-                echo "                                
-                                ";
-                // line 56
+                // line 50
                 echo "                                ";
                 $context["specific_btn_template"] = "webview/jobs/partials/job-payment-buttons.twig";
-                // line 57
+                // line 51
                 echo "                                ";
                 $context["options_dropdown"] = "webview/jobs/partials/job-staff-dropdown.twig";
-                // line 58
+                // line 52
                 echo "                                ";
                 $context["employerStatus"] = $this->getAttribute((isset($context["webuser"]) ? $context["webuser"] : null), "isactive", array());
-                // line 59
+                // line 53
                 echo "
                                 ";
-                // line 61
+                // line 55
                 echo "                                ";
                 echo twig_include($this->env, $context, "webview/jobs/partials/job-item.twig");
                 echo "
@@ -188,10 +172,10 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['job'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 63
+            // line 57
             echo "                        ";
         }
-        // line 64
+        // line 58
         echo "                   </div>
                 </div>
             </div>
@@ -199,23 +183,23 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
     </section>
                         
     ";
-        // line 70
+        // line 64
         echo twig_include($this->env, $context, "webview/modals/message-conversion-modal.twig");
         echo "
 ";
     }
 
-    // line 73
+    // line 67
     public function block_js($context, array $blocks = array())
     {
-        // line 74
+        // line 68
         echo "    
     ";
-        // line 76
+        // line 70
         echo "    <script> var page = 'my-staff'; </script>
     
     <script data-main=\"";
-        // line 78
+        // line 72
         echo twig_escape_filter($this->env, app_modular_js("winjob"), "html", null, true);
         echo "\" src=\"";
         echo twig_escape_filter($this->env, app_modular_js("lib/require.dev.js"), "html", null, true);
@@ -236,7 +220,7 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
 
     public function getDebugInfo()
     {
-        return array (  219 => 78,  215 => 76,  212 => 74,  209 => 73,  203 => 70,  195 => 64,  192 => 63,  175 => 61,  172 => 59,  169 => 58,  166 => 57,  163 => 56,  160 => 54,  157 => 53,  154 => 52,  151 => 51,  148 => 50,  146 => 49,  143 => 48,  141 => 47,  138 => 46,  135 => 44,  132 => 43,  129 => 42,  126 => 41,  123 => 39,  120 => 38,  117 => 36,  114 => 35,  111 => 33,  93 => 32,  91 => 31,  85 => 29,  82 => 28,  79 => 27,  69 => 19,  61 => 13,  58 => 12,  52 => 9,  48 => 8,  42 => 6,  39 => 5,  31 => 3,  11 => 1,);
+        return array (  203 => 72,  199 => 70,  196 => 68,  193 => 67,  187 => 64,  179 => 58,  176 => 57,  159 => 55,  156 => 53,  153 => 52,  150 => 51,  147 => 50,  144 => 48,  141 => 47,  138 => 46,  135 => 44,  132 => 43,  129 => 42,  126 => 41,  123 => 39,  120 => 38,  117 => 36,  114 => 35,  111 => 33,  93 => 32,  91 => 31,  85 => 29,  82 => 28,  79 => 27,  69 => 19,  61 => 13,  58 => 12,  52 => 9,  48 => 8,  42 => 6,  39 => 5,  31 => 3,  11 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -294,14 +278,8 @@ class __TwigTemplate_b4c8e0ede79d33d461be2b3f14bcc9b28f4e9fda306695ab0ffb632b163
                                 {% set bid_id_encoded        = base64_encode(job.bid_id) %}
                                 
                                 {# set profil_link           = base_url() ~ \"interview?user_id=\" ~ fuser_id_encoded ~ \"&job_id=\" ~ job_id_encoded ~ \"&bid_id=\" ~ bid_id_encoded #}
-                                
-                                {% set job_detail_link       = base_url() ~ \"jobs/contracts?fmJob=\" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
-                                
-                                {% if job.job_type == \"hourly\" %}
-                                    {% set end_contract_link = base_url() ~ \"endhourlyfixed/hourly_client?fmJob=\" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
-                                {% else %}
-                                    {% set end_contract_link = base_url() ~ \"endhourlyfixed/fixed_client?fmJob=\" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
-                                {% endif %}
+                                {% set job_detail_link   = base_url() ~ \"contracts?fmJob=\" ~ bid_id_encoded %}
+                                {% set end_contract_link = base_url() ~ \"contract/ended?fmJob=\" ~ bid_id_encoded %}
                                 
                                 {# Specifics partials #}
                                 {% set specific_btn_template = 'webview/jobs/partials/job-payment-buttons.twig' %}

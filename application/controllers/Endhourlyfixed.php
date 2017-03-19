@@ -14,9 +14,11 @@ class Endhourlyfixed extends CI_Controller {
     public function fixed_freelancer() {
 
         if ($this->Adminlogincheck->checkx()) {
+            
             $jobId = base64_decode($_GET['fmJob']);
             $user_id = $this->session->userdata('id');
             $client_id = base64_decode($_GET['buser']);
+            
             $this->db->select('*,jobs.status AS job_status,jobs.job_duration AS jobduration,jobs.created AS job_created');
             $this->db->from('job_accepted');
             $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');

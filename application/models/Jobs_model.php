@@ -166,9 +166,9 @@ class Jobs_model extends CI_Model {
     }
     
     public function get_final_paid_infos($job_id, $user_id){
-        $infos = $this->get_each_work_total_hour(array($job_id), $user_id, null, null, true);
-        if(isset($result[$job_id]) && isset($result[$job_id][$user_id]))
-            return $result[$job_id][$user_id];
+        $infos = $this->get_each_work_total_hour(array($job_id), $user_id, null, null, true);        
+        if(isset($infos[$job_id]) && isset($infos[$job_id][$user_id]))
+            return $infos[$job_id][$user_id];
         return array( 'total_hour' => 0, 'amount_by_hour' => null, 'amount' => 0.00 );
     }
     
@@ -198,7 +198,7 @@ class Jobs_model extends CI_Model {
         
         $query    = $this->db->get();
         $job_done = $query->result();
-        
+                
         $result = array();  
         
         if($job_done != null){

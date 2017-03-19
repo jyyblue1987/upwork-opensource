@@ -288,4 +288,16 @@ if( !function_exists('back') ){
     }
 }
 
+if( !function_exists('csrf_name')){
+    function csrf_name(){
+        return get_instance()->security->get_csrf_token_name();
+    }
+}
+
+if( !function_exists('csrf_token')){
+    function csrf_token(){
+        return get_instance()->security->get_csrf_hash();
+    }
+}
+
 // added by (Donfack Zeufack Hermann) end

@@ -50,7 +50,10 @@
         {{ include('webview/layout/twig/partials/footer.twig') }}
         
         
-        <script> var site_url="{{ site_url() }}"; </script>
+        <script> 
+            var site_url   = "{{ site_url() }}"; 
+            var csrf_token = '{{ csrf_token() }}';
+        </script>
         
         <!-- Block to load common scripts which can be overrided|extended by a specific page  -->
         {% block js %}

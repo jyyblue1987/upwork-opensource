@@ -1,0 +1,13 @@
+<div style="margin-left: -38px;margin-top: 0px;" class="margin_bottom12 col-md-4 col-sm-4 feedbackbutton">
+    <button type="button" class="btn btn-danger pull-left rating-badge">0.00</button>
+    <h4>
+        <div title="{{ app_lang('text_job_rating_exceed')|format(0) }}" class="star-rating no-feedback pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+            <span style="width:0%">
+                {{ app_lang('text_job_rating_feedback')|format( html_rating )|format( 0 )|raw }}
+            </span>
+        </div>
+    </h4>
+</div>
+<div class="col-md-12 col-sm-12 wdwarfhead wdwarfheadone">
+    <h3>{{ app_lang('text_job_waiting_for_feedback') }}</h3>
+</div>

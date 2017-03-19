@@ -54,10 +54,10 @@ define(['jquery', 'bootstrap'], function ($) {
         var jqxhr = $.ajax({
             type        : 'POST',
             url         : this.options.paymentUrl,
-            data        : $(this.options.modalPaymentForm).serialize(),
+            data        : $(this.options.modalPaymentForm).serialize() + '&csrf_test_name=' + csrf_token ,
         });
         
-        var query = $.param({fmJob: this.options.encoded_jobid , fuser: this.options.encoded_fuserid }); 
+        var query = $.param({fmJob: this.options.econtractid }); 
         var that  = this
         
         //Handle response 
@@ -77,7 +77,8 @@ define(['jquery', 'bootstrap'], function ($) {
            key: null, 
            buser_id: this.options.buserid, 
            fuser_id: this.options.fuserid, 
-           job_id: this.options.jobid
+           job_id: this.options.jobid,
+           csrf_test_name: csrf_token
        }
        
        var that = this

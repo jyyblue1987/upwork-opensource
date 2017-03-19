@@ -1,0 +1,109 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18 mars 2017, 22:24:21
+    Author     : Hermannovich <donfack.hermann@gmail.com>
+*/
+
+.end_contract{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding-bottom: 0;
+    background-color: #fff;
+    margin: 25px 0;
+    font-family: calibri;
+}
+.end_contract span,
+.end_contract legend{ font-family: Calibri; }
+
+.end_contract legend{ font-weight: 800; }
+
+
+#end_contact_form{
+    padding: 20px;
+    margin-bottom: 0px;
+}
+
+#end_contact_form .btn-cancel{
+    margin-left: 10px
+}
+
+#end_contact_form .btn{
+    border-radius: 0;
+}
+
+.user-info h3{
+    margin-left: 10px;
+}
+
+.user-info h3 span{
+    font-size: 17px;
+}
+
+.contract-info{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.contract-info img{
+    margin-left: 15px;
+}
+
+.contract-info .info-label{
+    font-size: 17px;
+    font-family: 'Calibri';
+    font-weight: 800;
+    color: #454545;
+}
+
+.contract-info .info-value{
+    font-size: 17px;
+}
+
+.contract-info .custom_radio label{
+    height: 20px; 
+    line-height: 20px;
+}
+
+.contract-info .custom_radio input[type='radio']{
+    margin-top: 0;
+    margin-right: 10px;
+}
+
+#end-pay-container{ width: 100%; float: left;}
+#end-pay-container .devise { margin-top: 5px; font-size: 16px; margin-right: 5px; }
+#end-pay-container .custom_input_text { width: 90%; margin-bottom: 0; }
+
+.feedback-info .info-label,
+.feedback-info .feedback-score{ margin-top: 12px; }
+.feedback-info #Comment { 
+    margin: 0; 
+    margin-top: 12px; 
+    padding-top: 5px !important; 
+    padding-bottom: 5px; 
+    resize: none;
+    font-size: 14px;
+}
+
+@media (min-width: 992px){
+    .feedback-info .feedback-score,
+    .feedback-info #Comment, 
+    .feedback-info .comment-error{ margin-left: 12px; }
+}
+
+
+input.rating{ display: none; }
+
+.rating span{ background: none; color: #eba705 !important;	}
+.clear-rating {  display: none !important;}
+.rating-container .empty-stars span.star {  color: #aaa !important;}
+.rating-container .filled-stars {  top: 13px !important;}
+.rating .star{ color: #F77D0E !important; text-shadow: none; -webkit-text-stroke: none; }
+.rating .fa-star-grey { color: #ddd !important; }
+
+button.btn-default_activv{background:#028FFC;color:#fff;}
+button.btn-default_activv:hover{background:#286090;color:#fff;}
+button.btn-cancel{border:1px solid #CED0D4;color:#1CA7DB;background:#fff;}
+button.btn-cancel:hover{color:#fff;background:#286090;border: 1px solid transparent;}

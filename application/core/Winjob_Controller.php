@@ -32,7 +32,7 @@ class Winjob_Controller extends CI_Controller {
                 'app_modular_js',
                 'app_lang',
                 'app_user_img',
-                'has_flash', 'flashdata'
+                'has_flash', 'flashdata', 'csrf_name', 'csrf_token'
              )
         ));
         // added by (Donfack Zeufack Hermann) end

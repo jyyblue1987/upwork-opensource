@@ -1084,15 +1084,30 @@ class Jobs extends Winjob_Controller {
     // Merge code of {fixed|hourly}_{client|freelancer}_view
     
     
-    private function _client_fixed_contract($job_status, $sender_id, $user_id, $webuser){
+    private function _client_fixed_contract($job_status, $employer = null, $freelancer_feedback = null, $employer_feedback = null){
         
-        $this->load->model('payment_model');
-        $payments   = $this->payment_model->load_job_transactions($sender_id, $user_id, $job_status->job_id);
-        $this->twig->display('webview/jobs/twig/contract', compact('job_status', 'webuser', 'payments'));
+        if($job_status->contract_status == JOB_ENDED){
+            
+            //get total paid
+            $total_paid = $this->jobs_model->get_total_paid( $job_status->bid_id, $job_status->fixedpay_amount );
+            
+        }else{
+            
+            $this->load->model('payment_model');
+            $payments   = $this->payment_model->load_job_transactions($job_status->buser_id, $job_status->fuser_id, $job_status->job_id);
+        }
+        
+        $this->twig->display('webview/jobs/twig/contract', compact(
+            'job_status', 
+            'employer', 
+            'payments', 
+            'total_paid',
+            'freelancer_feedback', 
+            'employer_feedback'    
+        ));
     
     }
-    
-    
+        
     private function _calculate_hourly_worked($job_id, $fuser_id){
         
         date_default_timezone_set("UTC");
@@ -1117,34 +1132,84 @@ class Jobs extends Winjob_Controller {
     
     private function _client_contracts(){
         try{
-            $this->load->model(array('jobs_model', 'webuser_model'));
+            $this->load->model(array('jobs_model', 'webuser_model', 'contracts_model'));
         }catch(RuntimeException $e){
             log_message('debug', $e->getMessage());
             $this->session->set_flashdata('error', $this->lang->line('text_app_runtime_exception_message'));
             redirect(home_url());
         }
         
-        list($job_id, $sender_id, $user_id) = $this->prepare_client_data();  
-        $job_status = $this->jobs_model->load_job_status($sender_id, $user_id, $job_id);
-        if($job_status->job_type == "hourly"){
-            $webuser     = $this->webuser_model->load_informations($job_status->buser_id);
-            return $this->_hourly_contract_display($job_status, $webuser);
+        $contract_id = trim($this->input->get('fmJob'));
+        
+        //If contract identifier is not valid redirect to referrer.
+        if(empty($contract_id)){
+            $this->session->set_flashdata('error', $this->lang->line('text_job_invalid_contract'));
+            redirect( back( ) );
+        }
+                      
+        $contract_id      = (int) base64_decode( $contract_id );
+        
+        $job_status = $this->contracts_model->find($contract_id, false);
+        
+        //If contract does not exist or has been deleted redirect to referrer.
+        if(empty($job_status)){
+             $this->session->set_flashdata('error', $this->lang->line('text_job_contract_not_found'));
+            redirect( back( ) );
+        }
+
+        $job_id      = $job_status->job_id;
+        $employer_id = $job_status->buser_id;
+        $user_id     = $job_status->fuser_id; 
+        $employer_feedback   = null;
+        $freelancer_feedback = null;
+        
+        //if contract is ended load feedback
+        if($job_status->contract_status == JOB_ENDED){
+            
+            //has seen feedback
+            $this->jobs_model->set_feedback_saw($job_id, $user_id);
+            
+            //get employer feeback 
+            $employer_feedback = $this->jobs_model->get_feedbacks( $job_id, $employer_id, $user_id );
+
+            //get freelancer feeback 
+            $freelancer_feedback = $this->jobs_model->get_feedbacks( $job_id, $user_id, $user_id );
+        }
+        
+        $employer   = $this->webuser_model->load_informations($job_status->buser_id);
+                
+        if($job_status->job_type == HOURLY_JOB_TYPE){
+            return $this->_hourly_contract_display($job_status, $employer, $freelancer_feedback, $employer_feedback);
         }else{
-            $webuser     = $this->webuser_model->load_informations($sender_id);
-            return $this->_client_fixed_contract($job_status, $sender_id, $user_id, $webuser);
+            return $this->_client_fixed_contract($job_status, $employer, $freelancer_feedback, $employer_feedback);
         }    
     }
-    
-    
-    private function _hourly_contract_display( $job_status, $webuser ){
+        
+    private function _hourly_contract_display( $job_status, $employer, $freelancer_feedback, $employer_feedback ){
         
         $job_id   = $job_status->job_id; 
         $fuser_id = $job_status->fuser_id;
         
-        list($hour_this_week, $hour_last_week, $total_hour) = $this->_calculate_hourly_worked($job_id, $fuser_id);
+        if($job_status->contract_status == JOB_ENDED){
+            //get gain
+            $gain_infos = $this->jobs_model->get_final_paid_infos($job_id, $fuser_id);
+            if($gain_infos['amount_by_hour'] === null){
+                $gain_infos['amount_by_hour'] = !empty($job_status->offer_bid_amount) ? $job_status->offer_bid_amount : $job_status->bid_amount;
+            }
+        }else{
+            list($hour_this_week, $hour_last_week, $total_hour) = $this->_calculate_hourly_worked($job_id, $fuser_id);
+        }
         
-        //$this->Admintheme->webview("jobs/hourly_freelancer_view", array('job_status' => $job_status, 'ststus' => $webuser ));
-        $this->twig->display('webview/jobs/twig/contract', compact('job_status', 'webuser', 'hour_this_week', 'hour_last_week', 'total_hour'));
+        $this->twig->display('webview/jobs/twig/contract', compact(
+                'job_status', 
+                'hour_this_week', 
+                'hour_last_week', 
+                'total_hour', 
+                'gain_infos',
+                'employer',
+                'freelancer_feedback', 
+                'employer_feedback'
+          ));
     }
     
     private function _freelancer_fixed_contract($job_status, $job_id, $user_id, $webuser){
@@ -1187,14 +1252,49 @@ class Jobs extends Winjob_Controller {
         
         $this->authorized();
         
-        if ($this->session->userdata('type') == 1) {
+        if ($this->session->userdata('type') == EMPLOYER) {
             return $this->_client_contracts();
-        }elseif($this->session->userdata('type') == 2) {
+        }elseif($this->session->userdata('type') == FREELANCER) {
             return $this->_freelancer_contracts();
         }else{
             redirect( home_url() );
         }
         
+    }
+    
+    public function ended_contract(){
+        $contract_id = $this->input->get('fmJob');
+        if( ! empty( $contract_id ) && is_string( $contract_id ) ){
+            $contract_id = base64_decode( $contract_id );
+            $user_type   = $this->session->userdata('type');
+            
+            if($user_type == FREELANCER){
+                return $this->freelancer_end_contract( $contract_id );
+            }else{
+                return $this->client_end_contract( $contract_id );
+            }
+        }
+        
+        $this->session->set_flashdata('error', $this->lang->line('text_job_invalid_contract'));
+        redirect( back( ) );
+    }
+    
+    private function client_end_contract( $contract_id ){
+        $this->load->model(array('contracts_model', 'jobs_model'));
+        $buser_id = $this->session->userdata('id');
+        
+        //get conract
+        $contract   = $this->contracts_model->find( $contract_id, false );
+        
+        if($contract == null){
+            $this->session->set_flashdata('error', $this->lang->line('text_job_contract_not_found'));
+            redirect( back( ) );
+        }
+        
+        //get total paid
+        $total_paid = $this->jobs_model->get_total_paid( $contract->bid_id, $contract->fixedpay_amount );
+        
+        $this->twig->display('webview/jobs/twig/end_contracts', compact('contract', 'total_paid'));
     }
     
     private function _update_bid_state( $state ){
@@ -1218,10 +1318,9 @@ class Jobs extends Winjob_Controller {
             
             $this->jobs_model->update_bid_state($bid_id, $state);
             
-            $encode_job_id   = base64_encode($bid->job_id);
-            $encode_fuser_id = base64_encode($bid->user_id);
+            $encode_contract_id   = base64_encode($bid_id);
             
-            redirect( site_url('jobs/contracts?' . http_build_query( array( 'fmJob' => $encode_job_id, 'fuser' => $encode_fuser_id ) )) );
+            redirect( site_url('contracts?' . http_build_query( array( 'fmJob' => $encode_contract_id ) ) ) );
             
         }else{
             redirect( home_url() );

@@ -34,7 +34,7 @@
         {% set param_userid = buser_id_encoded %}
     {% endif %}
     
-    {% if job.job_type == constant('FIXED_JOB_TYPE') %}
+    {% if job_status.job_type == constant('FIXED_JOB_TYPE') %}
         {% set is_fixed_job = true %}
     {% else %}
         {% set is_fixed_job = false %}
@@ -46,7 +46,7 @@
                 <div style="border: 1px solid #ccc;border-radius: 4px 4px 0 0px;margin: 0;" class="col-md-9 white-box black-box">
                     <div class="row">
                         <div class="date_head">
-                            {% if job_status.jobstatus == constant('JOB_ENDED') %}
+                            {% if job_status.contract_status == constant('JOB_ENDED') %}
                                 <div class="col-md-6">{{ app_lang('text_job_ended_at')|format( app_date( job_status.end_date, ' M j, Y ') ) }}</div>
                             {% else %}
                                 <div class="col-md-6">{{ app_lang('text_job_since')|format( app_date( job_status.start_date, ' M j, Y ') ) }}</div>
@@ -82,14 +82,14 @@
                         </div>
                         <div class="col-md-3 text-center gray-text">
                             <div style="margin-top: -8px;" class="status_bar">
-                                {% if webuser is defined and webuser.isactive == 0 %}
+                                {% if employer is defined and employer.isactive == 0 %}
                                     <label style="margin-top: -8px;" class="gray-text">
                                         {% set hold = "<span style='color:#ff0000;'>%s</span>" %}
                                         {{ app_lang('text_job_status_state')|format(hold)|format(app_lang('text_job_state_hold'))|raw }}
                                     </label>
                                 {% elseif job_status.bid_status == 2  %}
                                     <label class="gray-text">{{ app_lang('text_job_status_state')|format(app_lang('text_job_state_paused')) }}</label>
-                                {% elseif job_status.jobstatus == 1 %}
+                                {% elseif job_status.contract_status == 1 %}
                                     <label class="gray-text">{{ app_lang('text_job_status_state')|format(app_lang('text_job_state_ended')) }}</label>
                                 {% else %}
                                     <label class="gray-text">{{ app_lang('text_job_status_state')|format(app_lang('text_job_state_actived')) }}</label>
@@ -119,7 +119,7 @@
             </div>
             
             <div class="bg-change"></div>
-            {% if job_status.jobstatus == constant('JOB_ENDED') %}
+            {% if job_status.contract_status == constant('JOB_ENDED') %}
                 {{ include('webview/feedback/partials/job-feedbacks.twig') }}
             {% else %}
                 {% if job_status.job_type == constant('FIXED_JOB_TYPE') %}

@@ -73,7 +73,7 @@ define(['jquery', 'bootstrap'], function ($) {
                     usermsg:     message
                 });
                 
-                $.post( chatbox.options.sendto, {form: messageDatas}, function (data) {
+                $.post( chatbox.options.sendto, {form: messageDatas, csrf_test_name: csrf_token}, function (data) {
                     if (data.success) {
                         that[0].reset();
                         chatbox.loadMessages();
@@ -103,7 +103,8 @@ define(['jquery', 'bootstrap'], function ($) {
         var post_datas = {
                 job_bid_id: this.options.bid, 
                 user_id: this.options.uid, 
-                job_id: this.options.jid
+                job_id: this.options.jid,
+                csrf_test_name: csrf_token
             },
             that = this;
         

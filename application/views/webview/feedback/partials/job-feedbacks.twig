@@ -1,9 +1,9 @@
 {% set html_rating = '<strong itemprop="ratingValue">%s</strong>' %}
 {% if is_fixed_job %}
-    {% set first_line_title = 'text_job_ended_paid_since' %}
+    {% set first_line_title  = 'text_job_ended_paid_since' %}
     {% set second_line_title = 'text_job_ended_paid_amount_title' %}
 {% else %}
-    {% set first_line_title = 'text_job_ended_gain_since_start' %}
+    {% set first_line_title  = 'text_job_ended_gain_since_start' %}
     {% set second_line_title = 'text_job_hourly_rate' %}
 {% endif %}
 
@@ -86,16 +86,13 @@
                 <h3>{{ freelancer_feedback['comment'] }}</h3>
             </div>
         {% else %}
-            <div class="col-md-4 col-sm-4">
-                <div class="col-md-12 col-sm-12 wdwarfhead wdwarfheadone">
-                    <a class="btn_feedback_wrapper" href="{{ base_url('endhourlyfixed/fixed_freelancer') }}?fmJob={{ job_id_encoded }}&buser={{ buser_id_encoded }}">
-                        <input type="button" class="btn btn-primary form-btn" value="{{ app_lang('text_job_give_feedback') }}" />
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-12 col-sm-12 wdwarfhead wdwarfheadone">
-                    <h3>{{ app_lang('text_job_waiting_for_feedback') }}</h3>
-            </div>
+            
+            {% if app_user_data()['type'] == constant('FREELANCER') %}
+                {{ include('webview/feedback/partials/waiting-for-feedback.twig') }}
+            {% else %}
+                {{ include('webview/feedback/partials/empty-feedback.twig') }}
+            {% endif %}
+            
         {% endif %}
     </div>
 </div>
@@ -121,19 +118,13 @@
                 <h3>{{ employer_feedback['comment'] }}</h3>
             </div>
         {% else %}
-            <div style="margin-left: -38px;margin-top: 0px;" class="margin_bottom12 col-md-4 col-sm-4 feedbackbutton">
-                <button type="button" class="btn btn-danger pull-left rating-badge">0.00</button>
-                <h4>
-                    <div title="{{ app_lang('text_job_rating_exceed')|format(0) }}" class="star-rating no-feedback pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
-                        <span style="width:0%">
-                            {{ app_lang('text_job_rating_feedback')|format( html_rating )|format( 0 )|raw }}
-                        </span>
-                    </div>
-                </h4>
-            </div>
-            <div class="col-md-12 col-sm-12 wdwarfhead wdwarfheadone">
-                <h3>{{ app_lang('text_job_waiting_for_feedback') }}</h3>
-            </div>
+            
+            {% if app_user_data()['type'] == constant('EMPLOYER') %}
+                {{ include('webview/feedback/partials/waiting-for-feedback.twig') }}
+            {% else %}
+                {{ include('webview/feedback/partials/empty-feedback.twig') }}
+            {% endif %}
+            
         {% endif %}
     </div>
 </div>
