@@ -24,7 +24,7 @@
                 </div>
     <?php }?>
 
-            <?if ($this->session->userdata('type') == '1') { ?>
+            <?php if ($this->session->userdata('type') == '1') { ?>
     			<?php if(!empty($clientend)) { ?>
     			<div class="row margin-top-1">
     				<div class="bordered-alert text-center ack-box" style="max-width: 969px; height: 40px; margin-bottom: 0px;">
