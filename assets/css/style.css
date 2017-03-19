@@ -110,7 +110,7 @@ body{
          margin-bottom: 50px;
  }
  .main_area_div_sub_div1{
-	padding:70px 0px 0px 30px;
+	padding:70px 0px 0px 0px;
  }
  
  .main_area_div_sub_div1 h1{
@@ -264,7 +264,7 @@ border-radius: 63%;
 text-align: center;
 position: relative;
 color: #7D7D7D;
-font-family: calibri;
+font-family: 'Calibri';
 font-weight: bold;
 font-size: 35px;
  } 
@@ -4092,18 +4092,16 @@ border: 1px solid #ccc;
 margin-top: 40px;
 margin-bottom: 40px;
 background: #fff;}
-.custom_employeersignup .form-group .form-control{max-width: 400px;
+.custom_employeersignup .form-group .form-control{
 border-radius: 4px;
 font-size: 16px;
 font-family: calibri;}
 .custom_employeersignup .form-group{margin-left:0;}
-.custom_employeersignup .main_area_div_sub_div1{padding: 15px 0px 0px 30px;}
+.custom_employeersignup .main_area_div_sub_div1{padding: 15px 0px 0px 0px;}
 .custom_employeersignup .main_area_div_sub_div1 h1 {font-family: 'calibri';
-font-size: 31px;
-margin-left: 15px;}
+font-size: 31px;}
 .custom_employeersignup .main_area_div_sub_div1 p {font-family: 'calibri';
-font-size: 17px;
-margin-left: 73px;}
+font-size: 17px;}
 .custom_employeersignup .main_area_div_sub_div1 h3{margin-bottom: 30px;}
 .main_area_div_signin{margin-top: 40px;
 margin-bottom: 40px;
@@ -4120,9 +4118,6 @@ margin-left: -25px;
 border-radius: 4px;
 font-size: 16px;
 font-family: calibri;}
-.main_area_div_signin #next{
-width: 93.5%;
-margin-left: -9px;}
 .main_area_div_signin .sing_up_text{margin-right: 29px;}
 .fg_pass #next {
 	width: 400px;
