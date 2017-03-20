@@ -25,6 +25,16 @@ font-size: 19px;}
 .star-rating::before {
     font-size: 19px;
 }
+a.morelink {
+	text-decoration:none;
+	outline: none;
+}
+.morecontent span {
+	display: none;
+        font-family: calibri;
+        font-size: 16px;
+        color: #494949;
+}
 </style>
 
 <?php
@@ -193,7 +203,7 @@ $accepted_jobs = $query->result();
 					</div>
             </div>
             <div style="margin-bottom: -3px;" class="col-md-12 col-md-offset-0 page-jobs ">
-                <h6 style="color: #494949;"><?php echo ucfirst($value->job_description) ?></h6>
+                <h6 class="more" style="color: #494949;"><?php echo ucfirst($value->job_description) ?></h6>
             </div>
             <div class="col-md-12 col-md-offset-0 page-jobs " style=" margin-bottom: 2px;">
 
@@ -287,3 +297,5 @@ else{
             <h3 style="text-align: center; padding-bottom: 35px;" class="no-result-container">No Results Found</h3>
     <?php
 }?>
+<script type="text/javascript" src="<?= site_url() ?>assets/js/dynamic_shorten.js"></script>
+<script type="text/javascript" src="<?= site_url() ?>assets/js/internal/show_moretext.js"></script>
