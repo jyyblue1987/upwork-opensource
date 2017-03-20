@@ -204,7 +204,7 @@
                                 <input type="hidden" name="submitbtn" value="1" id='buttonVal'/>
                             <input type="submit" value="Publish" class="btn my_btn publish_btn" id='submitBtn'>
                             <input type="submit" value="Preview" class="btn my_btn preview_btn" id='previewBtn'>
-                            <img src='/assets/img/version1/loader.gif' class="form-loader" style="display:none">
+                            <img src='<?= site_url(); ?>assets/img/version1/loader.gif' class="form-loader" style="display:none">
                            </div>
                         </div>  
 

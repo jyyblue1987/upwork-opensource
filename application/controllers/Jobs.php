@@ -2746,7 +2746,7 @@ class Jobs extends Winjob_Controller {
         }
 
 
-       // echo json_encode($response);
+        echo json_encode($response);
     }
 
     public function freelancer_endjobnotification() {
