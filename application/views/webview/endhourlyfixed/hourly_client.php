@@ -223,7 +223,7 @@ button.btn-cancel:hover{color:#fff;background:#286090;border: 1px solid transpar
 							$('.form-loader').hide();
 							$('.result-msg').html('You have successfully complete the offer the offer');
 							$(".result-msg").show().delay(5000).fadeOut();
-							setTimeout(function(){ window.location = "<?php echo base_url();?>jobs/pasthire"; }, 5000);
+							setTimeout(function(){ window.location = "<?php echo base_url();?>jobs/past-hires"; }, 5000);
 					}
 					else{
 							alert('Opps!! Something went wrong.');

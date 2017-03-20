@@ -30,9 +30,12 @@ class __TwigTemplate_53706cc21d8c03589e08e73df30ee9d98cd994256ba16facc125aaa1183
 <li>
     <a href=\"";
         // line 7
-        echo twig_escape_filter($this->env, site_url("winsjob"), "html", null, true);
+        echo twig_escape_filter($this->env, site_url("win-jobs"), "html", null, true);
         echo "\">  
-        <img src=\"/assets/img/version1/cup.png\"  style=\"height:20px; width:10px; margin-top:0px;\"/> 
+        <img src=\"";
+        // line 8
+        echo twig_escape_filter($this->env, base_url("assets/img/version1/cup.png"), "html", null, true);
+        echo "\"  style=\"height:20px; width:10px; margin-top:0px;\"/> 
         ";
         // line 9
         echo twig_escape_filter($this->env, app_lang("text_app_win_jobs"), "html", null, true);
@@ -66,7 +69,7 @@ class __TwigTemplate_53706cc21d8c03589e08e73df30ee9d98cd994256ba16facc125aaa1183
 
     public function getDebugInfo()
     {
-        return array (  50 => 15,  45 => 13,  38 => 9,  33 => 7,  26 => 3,  22 => 2,  19 => 1,);
+        return array (  53 => 15,  48 => 13,  41 => 9,  37 => 8,  33 => 7,  26 => 3,  22 => 2,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -85,8 +88,8 @@ class __TwigTemplate_53706cc21d8c03589e08e73df30ee9d98cd994256ba16facc125aaa1183
    </a>
 </li>
 <li>
-    <a href=\"{{ site_url('winsjob') }}\">  
-        <img src=\"/assets/img/version1/cup.png\"  style=\"height:20px; width:10px; margin-top:0px;\"/> 
+    <a href=\"{{ site_url('win-jobs') }}\">  
+        <img src=\"{{ base_url('assets/img/version1/cup.png') }}\"  style=\"height:20px; width:10px; margin-top:0px;\"/> 
         {{ app_lang('text_app_win_jobs') }} 
     </a>
 </li> 

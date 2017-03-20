@@ -29,10 +29,10 @@
             {% set sender_id = app_user_data()['id'] %}
             {% if app_user_data()['type'] == constant('EMPLOYER') %}
                 {% set action   = site_url('endhourlyfixed/end_contactfromclient') %}
-                {% set redirect = site_url('jobs/pasthire') %}
+                {% set redirect = site_url('jobs/past-hires') %}
             {% else %}
                 {% set action   = site_url('endhourlyfixed/end_contactfromSubmit') %}
-                {% set redirect = site_url('endjobs') %}
+                {% set redirect = site_url('ended-jobs') %}
             {% endif %}
             <form class="form-horizontal custom_end_contact_from" method="post" id="end_contact_form" action="{{ action }}" data-redirect="{{ redirect }}">
                 <input type='hidden' name='{{ csrf_name() }}' value='{{ csrf_token() }}'>

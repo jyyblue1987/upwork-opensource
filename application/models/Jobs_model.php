@@ -77,7 +77,10 @@ class Jobs_model extends CI_Model {
         $query = $this->db->get();
         $result = $query->result();
         
-        return $result[0]->nb_freelancer_hired;
+        if( empty( $result ) )
+            return $result[0]->nb_freelancer_hired;
+        
+        return 0;
     }
     
     public function load_all_jobs_freelancer_hired( $employer_id ){
@@ -116,7 +119,10 @@ class Jobs_model extends CI_Model {
         $query  = $this->db->get();
         $result = $query->result();
         
-        return $result[0]->number_offer;
+        if(empty( $result ))        
+            return $result[0]->number_offer;
+        
+        return 0;
     }
     
     public function number_past_hired($employer_id){
@@ -133,8 +139,11 @@ class Jobs_model extends CI_Model {
         
         $query = $this->db->get();
         $result = $query->result();
+                
+        if(empty( $result ))        
+            return $result[0]->nb_pas_hired;
         
-        return $result[0]->nb_pas_hired;
+        return 0;
     }
     
     public function get_all_freelancer_total_hour( $job_ids, $this_week_start = null, $today = null){
@@ -181,6 +190,12 @@ class Jobs_model extends CI_Model {
     }
     
     public function get_each_work_total_hour( $job_ids, $user_id, $begin = null, $end = null, $with_amount = false ){
+        
+        $result = array();  
+        
+        if(empty($job_ids))
+            return $result;
+        
         $this->db
             ->select('job_bids.offer_bid_amount, job_bids.bid_amount, job_bids.user_id, job_bids.job_id, SUM(job_workdairy.total_hour) as total_hour')
             ->from('job_bids')
@@ -198,8 +213,6 @@ class Jobs_model extends CI_Model {
         
         $query    = $this->db->get();
         $job_done = $query->result();
-                
-        $result = array();  
         
         if($job_done != null){
             if($with_amount === false){

@@ -45,9 +45,9 @@
 					<div class="col-md-10 nopadding">
 						<nav class="staff-navbar ph_navbar">
 							<ul style="margin-top: 6px;">
-								<li><a href="mystaff"><i style="margin-right: 5px;" class="fa fa-briefcase"></i><b>My Hired</b></a></li>
-								<li><a class ="active" href="pasthire"><i style="margin-right: 5px;" class="fa fa-undo"></i><b>Past Hires</b></a></li>
-								<li><a href="offersent"><i style="margin-right: 5px;" class="fa fa-gift"></i><b>Offers Sent</b></a></li>
+								<li><a href="<?php echo site_url('jobs/my-freelancers') ?>"><i style="margin-right: 5px;" class="fa fa-briefcase"></i><b>My Hired</b></a></li>
+								<li><a class ="active" href="<?php echo site_url('jobs/past-hires') ?>"><i style="margin-right: 5px;" class="fa fa-undo"></i><b>Past Hires</b></a></li>
+								<li><a href="<?php echo site_url('jobs/offers-sent') ?>"><i style="margin-right: 5px;" class="fa fa-gift"></i><b>Offers Sent</b></a></li>
 							</ul>
 						</nav>
 					</div>

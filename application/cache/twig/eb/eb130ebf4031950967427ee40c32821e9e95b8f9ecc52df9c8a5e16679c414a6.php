@@ -30,7 +30,7 @@ class __TwigTemplate_be8796f3ffd52a043f743eccbde7a45343f1447981333ad2f867c4165e3
         echo "</a></li>      
                         <li><a href=\"";
         // line 8
-        echo twig_escape_filter($this->env, site_url("jobs/activecontracts"), "html", null, true);
+        echo twig_escape_filter($this->env, site_url("jobs/my-contracts"), "html", null, true);
         echo "\">";
         echo twig_escape_filter($this->env, app_lang("text_app_my_contracts"), "html", null, true);
         echo "</a></li>\t\t\t
@@ -79,7 +79,7 @@ class __TwigTemplate_be8796f3ffd52a043f743eccbde7a45343f1447981333ad2f867c4165e3
                 <div class=\"menu\">
                     <ul>  
                         <li><a href=\"{{ site_url(\"post-job/\") }}\" class=\"current\">{{ app_lang('text_app_post_a_job') }}</a></li>      
-                        <li><a href=\"{{ site_url(\"jobs/activecontracts\") }}\">{{ app_lang('text_app_my_contracts') }}</a></li>\t\t\t
+                        <li><a href=\"{{ site_url(\"jobs/my-contracts\") }}\">{{ app_lang('text_app_my_contracts') }}</a></li>\t\t\t
                         <li><a href=\"#\">{{ app_lang('text_app_work_history') }}</a></li>
                     </ul>
                 </div>

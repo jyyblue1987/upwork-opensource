@@ -1145,13 +1145,19 @@ class Jobs extends Winjob_Controller {
         
         //If contract does not exist or has been deleted redirect to referrer.
         if(empty($job_status)){
-             $this->session->set_flashdata('error', $this->lang->line('text_job_contract_not_found'));
+            $this->session->set_flashdata('error', $this->lang->line('text_job_contract_not_found'));
+            redirect( back( ) );
+        }
+        
+        if($job_status->buser_id != $this->session->userdata('id') ){
+            $this->session->set_flashdata('error', $this->lang->line('text_job_contract_not_authorized'));
             redirect( back( ) );
         }
 
         $job_id      = $job_status->job_id;
         $employer_id = $job_status->buser_id;
         $user_id     = $job_status->fuser_id; 
+        
         $employer_feedback   = null;
         $freelancer_feedback = null;
         
@@ -1245,6 +1251,11 @@ class Jobs extends Winjob_Controller {
         //If contract does not exist or has been deleted redirect to referrer.
         if(empty($job_status)){
              $this->session->set_flashdata('error', $this->lang->line('text_job_contract_not_found'));
+            redirect( back( ) );
+        }
+        
+        if($job_status->fuser_id != $this->session->userdata('id') ){
+            $this->session->set_flashdata('error', $this->lang->line('text_job_contract_not_authorized'));
             redirect( back( ) );
         }
 
@@ -1396,7 +1407,7 @@ class Jobs extends Winjob_Controller {
 
         if(empty($fm_job) || empty($fuser)){
             //TODO: set a message here to explain redirection.
-            redirect(site_url('jobs/mystaff'));
+            redirect(site_url('jobs/my-freelancers'));
         }
         
         return array(

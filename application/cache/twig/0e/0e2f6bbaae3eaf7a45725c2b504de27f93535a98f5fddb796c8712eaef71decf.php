@@ -23,7 +23,9 @@ class __TwigTemplate_00a9f42d64a8a0ddd58b0027538fdfeb60f463e399496c6e8f59a35046d
         if ((isset($context["mystaff"]) ? $context["mystaff"] : null)) {
             echo " active ";
         }
-        echo "\" href=\"mystaff\"><i class=\"fa fa-briefcase\" aria-hidden=\"true\"></i> <b>";
+        echo "\" href=\"";
+        echo twig_escape_filter($this->env, site_url("jobs/my-freelancers"), "html", null, true);
+        echo "\"><i class=\"fa fa-briefcase\" aria-hidden=\"true\"></i> <b>";
         echo twig_escape_filter($this->env, app_lang("text_job_my_hired"), "html", null, true);
         echo "</b></a></li>
         <li><a class=\"";
@@ -31,7 +33,9 @@ class __TwigTemplate_00a9f42d64a8a0ddd58b0027538fdfeb60f463e399496c6e8f59a35046d
         if ((isset($context["pasthired"]) ? $context["pasthired"] : null)) {
             echo " active ";
         }
-        echo "\" href=\"pasthire\"><i class=\"fa fa-undo\" aria-hidden=\"true\"></i> <b>";
+        echo "\" href=\"";
+        echo twig_escape_filter($this->env, site_url("jobs/past-hires"), "html", null, true);
+        echo "\"><i class=\"fa fa-undo\" aria-hidden=\"true\"></i> <b>";
         echo twig_escape_filter($this->env, app_lang("text_job_past_hired"), "html", null, true);
         echo "</b></a></li>
         <li><a class=\"";
@@ -39,7 +43,9 @@ class __TwigTemplate_00a9f42d64a8a0ddd58b0027538fdfeb60f463e399496c6e8f59a35046d
         if ((isset($context["offersent"]) ? $context["offersent"] : null)) {
             echo " active ";
         }
-        echo "\" href=\"offersent\"><i class=\"fa fa-gift\" aria-hidden=\"true\"></i> <b>";
+        echo "\" href=\"";
+        echo twig_escape_filter($this->env, site_url("jobs/offers-sent"), "html", null, true);
+        echo "\"><i class=\"fa fa-gift\" aria-hidden=\"true\"></i> <b>";
         echo twig_escape_filter($this->env, app_lang("text_job_offer_sent"), "html", null, true);
         echo "</b></a></li>
     </ul>
@@ -58,7 +64,7 @@ class __TwigTemplate_00a9f42d64a8a0ddd58b0027538fdfeb60f463e399496c6e8f59a35046d
 
     public function getDebugInfo()
     {
-        return array (  39 => 5,  31 => 4,  23 => 3,  19 => 1,);
+        return array (  43 => 5,  33 => 4,  23 => 3,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -73,9 +79,9 @@ class __TwigTemplate_00a9f42d64a8a0ddd58b0027538fdfeb60f463e399496c6e8f59a35046d
     {
         return new Twig_Source("<nav class=\"staff-navbar freelancer-navbar ms_navbar \">
     <ul>
-        <li><a class=\"{% if mystaff %} active {% endif %}\" href=\"mystaff\"><i class=\"fa fa-briefcase\" aria-hidden=\"true\"></i> <b>{{ app_lang('text_job_my_hired')  }}</b></a></li>
-        <li><a class=\"{% if pasthired %} active {% endif %}\" href=\"pasthire\"><i class=\"fa fa-undo\" aria-hidden=\"true\"></i> <b>{{ app_lang('text_job_past_hired')  }}</b></a></li>
-        <li><a class=\"{% if offersent %} active {% endif %}\" href=\"offersent\"><i class=\"fa fa-gift\" aria-hidden=\"true\"></i> <b>{{ app_lang('text_job_offer_sent')  }}</b></a></li>
+        <li><a class=\"{% if mystaff %} active {% endif %}\" href=\"{{ site_url('jobs/my-freelancers') }}\"><i class=\"fa fa-briefcase\" aria-hidden=\"true\"></i> <b>{{ app_lang('text_job_my_hired')  }}</b></a></li>
+        <li><a class=\"{% if pasthired %} active {% endif %}\" href=\"{{ site_url('jobs/past-hires') }}\"><i class=\"fa fa-undo\" aria-hidden=\"true\"></i> <b>{{ app_lang('text_job_past_hired')  }}</b></a></li>
+        <li><a class=\"{% if offersent %} active {% endif %}\" href=\"{{ site_url('jobs/offers-sent') }}\"><i class=\"fa fa-gift\" aria-hidden=\"true\"></i> <b>{{ app_lang('text_job_offer_sent')  }}</b></a></li>
     </ul>
 </nav>", "webview/jobs/partials/job-client-left-menu.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\jobs\\partials\\job-client-left-menu.twig");
     }

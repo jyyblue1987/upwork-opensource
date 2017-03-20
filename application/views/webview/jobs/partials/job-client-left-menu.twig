@@ -1,7 +1,7 @@
 <nav class="staff-navbar freelancer-navbar ms_navbar ">
     <ul>
-        <li><a class="{% if mystaff %} active {% endif %}" href="mystaff"><i class="fa fa-briefcase" aria-hidden="true"></i> <b>{{ app_lang('text_job_my_hired')  }}</b></a></li>
-        <li><a class="{% if pasthired %} active {% endif %}" href="pasthire"><i class="fa fa-undo" aria-hidden="true"></i> <b>{{ app_lang('text_job_past_hired')  }}</b></a></li>
-        <li><a class="{% if offersent %} active {% endif %}" href="offersent"><i class="fa fa-gift" aria-hidden="true"></i> <b>{{ app_lang('text_job_offer_sent')  }}</b></a></li>
+        <li><a class="{% if mystaff %} active {% endif %}" href="{{ site_url('jobs/my-freelancers') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> <b>{{ app_lang('text_job_my_hired')  }}</b></a></li>
+        <li><a class="{% if pasthired %} active {% endif %}" href="{{ site_url('jobs/past-hires') }}"><i class="fa fa-undo" aria-hidden="true"></i> <b>{{ app_lang('text_job_past_hired')  }}</b></a></li>
+        <li><a class="{% if offersent %} active {% endif %}" href="{{ site_url('jobs/offers-sent') }}"><i class="fa fa-gift" aria-hidden="true"></i> <b>{{ app_lang('text_job_offer_sent')  }}</b></a></li>
     </ul>
 </nav>

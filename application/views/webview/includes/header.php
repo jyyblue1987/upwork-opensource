@@ -16,7 +16,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="<?php echo base_url() ?>find-jobs"><i class="fa fa-briefcase" aria-hidden="true"></i> Find Job  </a></li>
-                    <li><a href="<?php echo site_url('winsjob') ?>">  <img src="<?php echo base_url() ?>assets/img/version1/cup.png" style="height:20px; width:10px; margin-top:0px;"> Win Jobs  </a></li> 
+                    <li><a href="<?php echo site_url('win-jobs') ?>">  <img src="<?php echo base_url() ?>assets/img/version1/cup.png" style="height:20px; width:10px; margin-top:0px;"> Win Jobs  </a></li> 
                     <li><a href="#"><i class="fa fa-cc-discover" aria-hidden="true"></i>  Balance </a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

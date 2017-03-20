@@ -44,8 +44,8 @@
                     <div class="col-md-10 ">
                         <nav style="padding-left: 13px;" class="staff-navbar">
                             <ul style="margin-top: 8px;">
-                                <li><a class="active" href="winsjob"><i style="margin-right: 5px;" class="fa fa-trophy"></i><b>Win Jobs</b></a></li>
-                                <li><a href="endjobs"><i style="margin-right: 5px;" class="fa fa-briefcase"></i><b>Ended Jobs</b></a></li>
+                                <li><a class="active" href="win-jobs"><i style="margin-right: 5px;" class="fa fa-trophy"></i><b>Win Jobs</b></a></li>
+                                <li><a href="ended-jobs"><i style="margin-right: 5px;" class="fa fa-briefcase"></i><b>Ended Jobs</b></a></li>
                             </ul>
                         </nav>
                     </div>

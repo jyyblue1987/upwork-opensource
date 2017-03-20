@@ -138,32 +138,20 @@ class __TwigTemplate_741244517b97b4d1da809d76c249cdf8c5760b477989c8a2e793bec777a
                 echo "                                
                                 ";
                 // line 46
-                if (($this->getAttribute($context["job"], "job_type", array()) == "hourly")) {
-                    // line 47
-                    echo "                                    ";
-                    $context["job_detail_link"] = ((((base_url() . "feedback/hourly_client?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&fuser=") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
-                    // line 48
-                    echo "                                ";
-                } else {
-                    // line 49
-                    echo "                                    ";
-                    $context["job_detail_link"] = ((((base_url() . "feedback/fixed_client?fmJob=") . (isset($context["job_id_encoded"]) ? $context["job_id_encoded"] : null)) . "&fuser=") . (isset($context["fuser_id_encoded"]) ? $context["fuser_id_encoded"] : null));
-                    // line 50
-                    echo "                                ";
-                }
-                // line 51
+                $context["job_detail_link"] = ((base_url() . "contracts?fmJob=") . (isset($context["bid_id_encoded"]) ? $context["bid_id_encoded"] : null));
+                // line 47
                 echo "                                
                                 ";
-                // line 53
+                // line 49
                 echo "                                ";
                 $context["specific_btn_template"] = "webview/jobs/partials/job-hire-button.twig";
-                // line 54
+                // line 50
                 echo "                                ";
                 $context["options_dropdown"] = "webview/jobs/partials/job-hire-dropdown.twig";
-                // line 55
+                // line 51
                 echo "
                                 ";
-                // line 56
+                // line 52
                 echo twig_include($this->env, $context, "webview/jobs/partials/job-item.twig");
                 echo "
                              ";
@@ -179,10 +167,10 @@ class __TwigTemplate_741244517b97b4d1da809d76c249cdf8c5760b477989c8a2e793bec777a
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['job'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 58
+            // line 54
             echo "                        ";
         }
-        // line 59
+        // line 55
         echo "                   </div>
                 </div>
             </div>
@@ -190,23 +178,23 @@ class __TwigTemplate_741244517b97b4d1da809d76c249cdf8c5760b477989c8a2e793bec777a
     </section>
                         
     ";
-        // line 65
+        // line 61
         echo twig_include($this->env, $context, "webview/modals/message-conversion-modal.twig");
         echo "
 ";
     }
 
-    // line 68
+    // line 64
     public function block_js($context, array $blocks = array())
     {
-        // line 69
+        // line 65
         echo "    
     ";
-        // line 71
+        // line 67
         echo "    <script> var page = 'pasthire'; </script>
     
     <script data-main=\"";
-        // line 73
+        // line 69
         echo twig_escape_filter($this->env, app_modular_js("winjob"), "html", null, true);
         echo "\" src=\"";
         echo twig_escape_filter($this->env, app_modular_js("lib/require.dev.js"), "html", null, true);
@@ -226,7 +214,7 @@ class __TwigTemplate_741244517b97b4d1da809d76c249cdf8c5760b477989c8a2e793bec777a
 
     public function getDebugInfo()
     {
-        return array (  210 => 73,  206 => 71,  203 => 69,  200 => 68,  194 => 65,  186 => 59,  183 => 58,  167 => 56,  164 => 55,  161 => 54,  158 => 53,  155 => 51,  152 => 50,  149 => 49,  146 => 48,  143 => 47,  141 => 46,  138 => 45,  135 => 44,  132 => 43,  129 => 42,  126 => 41,  123 => 39,  120 => 38,  117 => 36,  114 => 35,  111 => 33,  93 => 32,  91 => 31,  85 => 29,  82 => 28,  79 => 27,  69 => 19,  61 => 13,  58 => 12,  52 => 9,  48 => 8,  42 => 6,  39 => 5,  31 => 3,  11 => 1,);
+        return array (  198 => 69,  194 => 67,  191 => 65,  188 => 64,  182 => 61,  174 => 55,  171 => 54,  155 => 52,  152 => 51,  149 => 50,  146 => 49,  143 => 47,  141 => 46,  138 => 45,  135 => 44,  132 => 43,  129 => 42,  126 => 41,  123 => 39,  120 => 38,  117 => 36,  114 => 35,  111 => 33,  93 => 32,  91 => 31,  85 => 29,  82 => 28,  79 => 27,  69 => 19,  61 => 13,  58 => 12,  52 => 9,  48 => 8,  42 => 6,  39 => 5,  31 => 3,  11 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -284,11 +272,7 @@ class __TwigTemplate_741244517b97b4d1da809d76c249cdf8c5760b477989c8a2e793bec777a
                                 {% set bid_id_encoded        = base64_encode(job.bid_id) %}
                                 {% set profil_link           = base_url() ~ \"interview?user_id=\" ~ fuser_id_encoded ~ \"&job_id=\" ~ job_id_encoded ~ \"&bid_id=\" ~ bid_id_encoded %}
                                 
-                                {% if job.job_type == 'hourly' %}
-                                    {% set job_detail_link       = base_url() ~ \"feedback/hourly_client?fmJob=\" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
-                                {% else %}
-                                    {% set job_detail_link       = base_url() ~ \"feedback/fixed_client?fmJob=\" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}
-                                {% endif %}
+                                {% set job_detail_link   = base_url() ~ \"contracts?fmJob=\" ~ bid_id_encoded %}
                                 
                                 {# Specifics partials #}
                                 {% set specific_btn_template = 'webview/jobs/partials/job-hire-button.twig' %}

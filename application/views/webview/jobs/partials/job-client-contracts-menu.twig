@@ -1,6 +1,6 @@
 <nav class="staff-navbar freelancer-navbar ms_navbar ">
     <ul>
-        <li><a class="{% if active %} active {% endif %}" href="{{ site_url('jobs/activecontracts') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> <b>{{ app_lang('text_job_menu_active_contracts')  }}</b></a></li>
-        <li><a class="{% if ended %} active {% endif %}" href="{{ site_url('jobs/endedcontracts') }}"><i class="fa fa-undo" aria-hidden="true"></i> <b>{{ app_lang('text_job_menu_ended_contracts')  }}</b></a></li>
+        <li><a class="{% if active %} active {% endif %}" href="{{ site_url('jobs/my-contracts') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> <b>{{ app_lang('text_job_menu_active_contracts')  }}</b></a></li>
+        <li><a class="{% if ended %} active {% endif %}" href="{{ site_url('jobs/ended-contracts') }}"><i class="fa fa-undo" aria-hidden="true"></i> <b>{{ app_lang('text_job_menu_ended_contracts')  }}</b></a></li>
     </ul>
 </nav>

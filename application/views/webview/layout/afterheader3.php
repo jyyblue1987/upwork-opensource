@@ -42,12 +42,12 @@ if ($this->session->userdata('loggedx')) {
     if ($this->session->userdata('type') == '1') {
         ?>
                                 <li><a href="<?php echo site_url('jobs-home'); ?>"><i class="fa fa-briefcase" aria-hidden="true"></i> Hire </a></li>
-                                <li><a href="<?php echo site_url('jobs/mystaff'); ?>">  <img src="/assets/img/version1/cup.png"  style="height:20px; width:10px; margin-top:0px;"/> My Freelancers  </a></li> 
+                                <li><a href="<?php echo site_url('jobs/my-freelancers'); ?>">  <img src="/assets/img/version1/cup.png"  style="height:20px; width:10px; margin-top:0px;"/> My Freelancers  </a></li> 
                                 <li><a href="<?php echo site_url('pay/clientpay'); ?>"><i class="fa fa-cc-discover" aria-hidden="true"></i>  Pay </a></li>
 
     <?php } else if ($this->session->userdata('type') == '2') { ?>
                                 <li><a href="<?php echo site_url('find-jobs'); ?>"><i class="fa fa-briefcase" aria-hidden="true"></i> Find Job  </a></li>
-                                <li><a href="<?php echo site_url('winsjob'); ?>">  <img src="/assets/img/version1/cup.png"  style="height:20px; width:10px; margin-top:0px;"/> Win Jobs  </a></li> 
+                                <li><a href="<?php echo site_url('win-jobs'); ?>">  <img src="/assets/img/version1/cup.png"  style="height:20px; width:10px; margin-top:0px;"/> Win Jobs  </a></li> 
                                 <li><a href="<?php echo site_url('pay/freelancerbalance'); ?>"><i class="fa fa-cc-discover" aria-hidden="true"></i>  Balance </a></li>
 
     <?php } ?>
@@ -217,7 +217,7 @@ if ($this->session->userdata('loggedx')) {
                             <div class="bottom-list">
                                 <ul>  
                                     <li><a href="<?php echo site_url("post-job/") ?>" class="current">Post a Job</a></li>      
-                                    <li><a href="<?php echo site_url("jobs/activecontracts") ?>"> My Contracts </a></li>			
+                                    <li><a href="<?php echo site_url('jobs/my-contracts') ?>"> My Contracts </a></li>			
                                     <li><a href="#"> Work History</a></li>
 
                                 </ul>

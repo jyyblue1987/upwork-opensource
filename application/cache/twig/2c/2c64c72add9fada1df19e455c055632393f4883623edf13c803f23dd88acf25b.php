@@ -24,7 +24,7 @@ class __TwigTemplate_d3e9baab3e97924009f8e566177c62f49457137ff30d13ef998f1c2b0bb
             echo " active ";
         }
         echo "\" href=\"";
-        echo twig_escape_filter($this->env, site_url("jobs/activecontracts"), "html", null, true);
+        echo twig_escape_filter($this->env, site_url("jobs/my-contracts"), "html", null, true);
         echo "\"><i class=\"fa fa-briefcase\" aria-hidden=\"true\"></i> <b>";
         echo twig_escape_filter($this->env, app_lang("text_job_menu_active_contracts"), "html", null, true);
         echo "</b></a></li>
@@ -34,7 +34,7 @@ class __TwigTemplate_d3e9baab3e97924009f8e566177c62f49457137ff30d13ef998f1c2b0bb
             echo " active ";
         }
         echo "\" href=\"";
-        echo twig_escape_filter($this->env, site_url("jobs/endedcontracts"), "html", null, true);
+        echo twig_escape_filter($this->env, site_url("jobs/ended-contracts"), "html", null, true);
         echo "\"><i class=\"fa fa-undo\" aria-hidden=\"true\"></i> <b>";
         echo twig_escape_filter($this->env, app_lang("text_job_menu_ended_contracts"), "html", null, true);
         echo "</b></a></li>
@@ -69,8 +69,8 @@ class __TwigTemplate_d3e9baab3e97924009f8e566177c62f49457137ff30d13ef998f1c2b0bb
     {
         return new Twig_Source("<nav class=\"staff-navbar freelancer-navbar ms_navbar \">
     <ul>
-        <li><a class=\"{% if active %} active {% endif %}\" href=\"{{ site_url('jobs/activecontracts') }}\"><i class=\"fa fa-briefcase\" aria-hidden=\"true\"></i> <b>{{ app_lang('text_job_menu_active_contracts')  }}</b></a></li>
-        <li><a class=\"{% if ended %} active {% endif %}\" href=\"{{ site_url('jobs/endedcontracts') }}\"><i class=\"fa fa-undo\" aria-hidden=\"true\"></i> <b>{{ app_lang('text_job_menu_ended_contracts')  }}</b></a></li>
+        <li><a class=\"{% if active %} active {% endif %}\" href=\"{{ site_url('jobs/my-contracts') }}\"><i class=\"fa fa-briefcase\" aria-hidden=\"true\"></i> <b>{{ app_lang('text_job_menu_active_contracts')  }}</b></a></li>
+        <li><a class=\"{% if ended %} active {% endif %}\" href=\"{{ site_url('jobs/ended-contracts') }}\"><i class=\"fa fa-undo\" aria-hidden=\"true\"></i> <b>{{ app_lang('text_job_menu_ended_contracts')  }}</b></a></li>
     </ul>
 </nav>", "webview/jobs/partials/job-client-contracts-menu.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\jobs\\partials\\job-client-contracts-menu.twig");
     }

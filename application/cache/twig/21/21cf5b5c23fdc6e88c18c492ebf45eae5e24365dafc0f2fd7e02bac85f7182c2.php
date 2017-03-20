@@ -23,7 +23,7 @@ class __TwigTemplate_516350c97656f2509f118c19650652cfa31c27ec10aca40d007c9159937
         if ((isset($context["winjobs"]) ? $context["winjobs"] : null)) {
             echo " active ";
         }
-        echo "\" href=\"winsjob\"><i class=\"fa fa-briefcase\" aria-hidden=\"true\"></i> <b>";
+        echo "\" href=\"win-jobs\"><i class=\"fa fa-briefcase\" aria-hidden=\"true\"></i> <b>";
         echo twig_escape_filter($this->env, app_lang("text_job_menu_win_jobs"), "html", null, true);
         echo "</b></a></li>
         <li><a class=\"";
@@ -31,7 +31,7 @@ class __TwigTemplate_516350c97656f2509f118c19650652cfa31c27ec10aca40d007c9159937
         if ((isset($context["endedjobs"]) ? $context["endedjobs"] : null)) {
             echo " active ";
         }
-        echo "\" href=\"endjobs\"><i class=\"fa fa-undo\" aria-hidden=\"true\"></i> <b>";
+        echo "\" href=\"ended-jobs\"><i class=\"fa fa-undo\" aria-hidden=\"true\"></i> <b>";
         echo twig_escape_filter($this->env, app_lang("text_job_menu_ended_jobs"), "html", null, true);
         echo "</b></a></li> 
     </ul>
@@ -65,8 +65,8 @@ class __TwigTemplate_516350c97656f2509f118c19650652cfa31c27ec10aca40d007c9159937
     {
         return new Twig_Source("<nav class=\"staff-navbar freelancer-navbar ms_navbar \">
     <ul>
-        <li><a class=\"{% if winjobs %} active {% endif %}\" href=\"winsjob\"><i class=\"fa fa-briefcase\" aria-hidden=\"true\"></i> <b>{{ app_lang('text_job_menu_win_jobs')  }}</b></a></li>
-        <li><a class=\"{% if endedjobs %} active {% endif %}\" href=\"endjobs\"><i class=\"fa fa-undo\" aria-hidden=\"true\"></i> <b>{{ app_lang('text_job_menu_ended_jobs')  }}</b></a></li> 
+        <li><a class=\"{% if winjobs %} active {% endif %}\" href=\"win-jobs\"><i class=\"fa fa-briefcase\" aria-hidden=\"true\"></i> <b>{{ app_lang('text_job_menu_win_jobs')  }}</b></a></li>
+        <li><a class=\"{% if endedjobs %} active {% endif %}\" href=\"ended-jobs\"><i class=\"fa fa-undo\" aria-hidden=\"true\"></i> <b>{{ app_lang('text_job_menu_ended_jobs')  }}</b></a></li> 
     </ul>
 </nav>", "webview/jobs/partials/job-freelancer-left-menu.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\jobs\\partials\\job-freelancer-left-menu.twig");
     }

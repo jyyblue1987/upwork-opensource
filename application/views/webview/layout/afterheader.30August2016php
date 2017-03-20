@@ -36,7 +36,7 @@
                             {
                                 ?>
                                 <li><a href="<?php echo site_url('jobs-home'); ?>"><i class="fa fa-briefcase" aria-hidden="true"></i> Hire </a></li>
-                                <li><a href="<?php echo site_url('jobs/mystaff'); ?>">  <img src="/assets/img/version1/cup.png"  style="height:20px; width:10px; margin-top:0px;"/> Manage My Staff  </a></li> 
+                                <li><a href="<?php echo site_url('jobs/my-freelancers'); ?>">  <img src="/assets/img/version1/cup.png"  style="height:20px; width:10px; margin-top:0px;"/> Manage My Staff  </a></li> 
                                 <li><a href="#"><i class="fa fa-cc-discover" aria-hidden="true"></i>  Pay </a></li>
 
                                 <?php

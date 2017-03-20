@@ -44,8 +44,8 @@
 					<div class="col-md-10 nopadding">
 						<nav class="staff-navbar ec_navbar">
 							<ul style="margin-top: 6px;">
-								<li><a href="activecontracts"><i style="margin-right: 5px;" class="fa fa-briefcase"></i><b>Active Contracts</b></a></li>
-								<li><a class ="active" href="endedcontracts"><i style="margin-right: 5px;" class="fa fa-undo"></i><b>Ended Contracts</b></a></li>
+								<li><a href="<?php echo site_url('jobs/my-contracts') ?>"><i style="margin-right: 5px;" class="fa fa-briefcase"></i><b>Active Contracts</b></a></li>
+								<li><a class ="active" href="<?php echo site_url('jobs/ended-contracts') ?>"><i style="margin-right: 5px;" class="fa fa-undo"></i><b>Ended Contracts</b></a></li>
 							</ul>
 						</nav>
 					</div>

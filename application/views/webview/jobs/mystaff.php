@@ -62,9 +62,9 @@
 					<div class="col-md-10 nopadding">
 						<nav class="staff-navbar freelancer-navbar ms_navbar ">
 							<ul>
-								<li><a class="active" href="mystaff"><i class="fa fa-briefcase" aria-hidden="true"></i> <b>My Hired</b></a></li>
-								<li><a href="pasthire"><i class="fa fa-undo" aria-hidden="true"></i> <b>Past Hires</b></a></li>
-								<li><a href="offersent"><i class="fa fa-gift" aria-hidden="true"></i> <b>Offers Sent</b></a></li>
+								<li><a class="active" href="<?php echo site_url('jobs/my-freelancers') ?>"><i class="fa fa-briefcase" aria-hidden="true"></i> <b>My Hired</b></a></li>
+								<li><a href="<?php echo site_url('jobs/past-hires') ?>"><i class="fa fa-undo" aria-hidden="true"></i> <b>Past Hires</b></a></li>
+								<li><a href="<?php echo site_url('jobs/offers-sent') ?>"><i class="fa fa-gift" aria-hidden="true"></i> <b>Offers Sent</b></a></li>
 							</ul>
 						</nav>
 					</div>

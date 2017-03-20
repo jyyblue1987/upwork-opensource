@@ -47,8 +47,8 @@
                                 <div class="col-md-10 ">
 				<nav style="padding-left: 13px;" class="staff-navbar ej-navbar">
 					<ul style="margin-top: 8px;">
-						<li><a  href="winsjob"><i style="margin-right: 5px;" class="fa fa-briefcase"></i><b>Winjobs</b></a></li>
-						<li><a class="active" href="endjobs"><i style="margin-right: 5px;" class="fa fa-undo"></i><b>End Jobs</b> </a></li>
+						<li><a  href="win-jobs"><i style="margin-right: 5px;" class="fa fa-briefcase"></i><b>Winjobs</b></a></li>
+						<li><a class="active" href="ended-jobs"><i style="margin-right: 5px;" class="fa fa-undo"></i><b>End Jobs</b> </a></li>
 					</ul>
 				</nav>
                             </div>

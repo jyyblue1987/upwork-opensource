@@ -89,7 +89,7 @@
 					$('.form-loader').hide();
 					$('.result-msg').html('You have successfully accept the offer');
 					$(".result-msg").show().delay(5000).fadeOut();
-					setTimeout(function(){ window.location = "<?php echo base_url();?>winsjob"; }, 5000);
+					setTimeout(function(){ window.location = "<?php echo base_url();?>win-jobs"; }, 5000);
 					
 				}
 				else{

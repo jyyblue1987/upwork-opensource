@@ -250,7 +250,7 @@ $jobfeedback= $query->row();
 													</a>
 												   </li>
                                                    <li>
-														<a href="<?php echo base_url() ?>endjobs">
+														<a href="<?php echo base_url() ?>ended-jobs">
 															<i class="fa fa-suitcase" aria-hidden="true"></i>&nbsp;
 															<?php
 															if(!empty($accepted_jobs)){ 
