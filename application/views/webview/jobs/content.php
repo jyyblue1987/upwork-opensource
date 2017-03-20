@@ -201,7 +201,7 @@ $accepted_jobs = $query->result();
 				
 				<div class="custom_user_skills custom_user_skills_find">
                 <?php
-                if (isset($value->skills) && !empty($value->skills))
+                if (isset($value->skills) && !empty($value->skills) && is_string($value->skills))
                 {
                     $skills = explode(' ', $value->skills);
                     if(!empty($skills)){

@@ -1,0 +1,92 @@
+{% extends "webview/layout/twig/layout.twig" %}
+                                    
+{% block title %}  {{ app_lang('text_job_notification_contracts') }} - Winjob  {% endblock %}
+
+{% block styles %}
+    {{ parent() }}
+    
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/job-common.css") }}">
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/notifications-contract.css") }}">
+{% endblock %}
+
+{% block content %}
+
+    <section id="big_header" class="custom_end_job">
+        <div class="container white-box-feed">
+            <div class="row">
+                <div class="col-md-9 bottom-blue-border padding-2">
+                    <span><b>{{ app_lang('text_job_notification_ended_jobs') }}</b></span>
+                </div>
+                <div class="col-md-9 text-center bordered-alert margin-top">
+                    {{ app_lang('text_job_notification_nb_contracts')|format( nb_contracts ) }}			
+                </div>
+            </div>
+                
+            <div class="row margin-top-3 margin-top-15">
+                <div class="col-md-2">
+                    <label>{{ app_lang('text_job_notification_ended_date') }}</label>
+                </div>
+
+                <div style="margin-left: -38px;" class="col-md-8">
+                    <label>{{ app_lang('text_job_notification_job_title') }}</label>
+                </div>
+            </div>
+                
+            {% if contracts is empty %}
+            <div class="row">
+                <div class="col-md-9 text-center bordered margin-top">
+                    {{ app_lang('text_job_notification_no_contracts') }}
+                </div>
+            </div>
+            {% else %}
+            <div class="row">
+                <div class="col-md-9 margin-top-15">
+                    {% for contract in contracts %}
+                        
+                        {% if contract.hire_title is empty %}
+                            {% set contract_title = contract.title %}
+                        {% else %}
+                            {% set contract_title = contract.hire_title %}
+                        {% endif  %}
+                        
+                        <div class="row">
+                            <div class="col-md-12 custom_bids_list_border">
+                                <div class="row">
+                                    <div class="col-md-2">{{ app_date( contract.end_date, 'M d, Y') }}</div>
+                                    <div class="col-md-10 blue-text">
+                                        <a href="{{ base_url('contracts') }}?fmJob={{ base64_encode( contract.bid_id ) }}">
+                                        {{ contract_title|capitalize }}
+                                        </a>
+                                    </div>
+                                </div>
+                                        
+                                <div class="row margin-top-1">
+                                    <div class="col-md-2">
+                                        {% set dataInLocal = app_date(contract.end_date, "Y-m-d H:i:s") %} 
+                                        {{ app_time_elapsed_string(strtotime(dataInLocal)) }}
+                                    </div>
+                                    <div class="col-md-10 ">
+                                        {{ contract.webuser_company|upper }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
+
+{% block js %}
+    
+    {# this variable defines the asset/modular/pages file to load #}
+    <script> var page = 'notifications-contract'; </script>
+    
+    <script data-main="{{ app_modular_js("winjob") }}" src="{{ app_modular_js("lib/require.dev.js") }}"></script>
+    <script src="{{ site_url("assets/js/vendor/modernizr-2.8.3.min.js") }}"></script>
+    
+{% endblock %}
+

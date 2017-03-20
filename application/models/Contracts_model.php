@@ -52,4 +52,49 @@ class Contracts_model extends CI_Model {
         $query = $this->db->get();
         return $query->row();
     }
+    
+    public function get_feedback_notification( $user_id, $is_client = false) {
+        
+        $fields = array(
+            'hire_title',
+            'title',
+            'end_date',
+            'job_bids.id as bid_id',
+        );
+        
+        if( ! $is_client ){
+            $fields[] = 'webuser_company';
+        }
+        
+        $this->db->select($fields)
+            ->from('job_feedback')
+            ->join('job_bids', 'job_feedback.feedback_job_id = job_bids.job_id', 'inner');
+        
+        
+        if( ! $is_client )
+            $this->db->join('webuser', 'webuser.webuser_id = job_feedback.feedback_clientid', 'inner');
+        
+        $this->db->join('jobs', 'job_bids.job_id=jobs.id', 'inner');
+        
+        if($is_client){
+            
+            $this->db
+                ->where('job_feedback.feedback_clientid', $user_id)
+                ->where('job_feedback.sender_id !=', $user_id);
+            
+        }else{
+            $this->db
+                ->where('job_feedback.feedback_userid', $user_id)
+                ->where('job_bids.user_id', $user_id)
+                ->where('job_feedback.sender_id !=', $user_id);
+        }
+        
+        $this->db
+            ->where('job_bids.jobstatus', '1')
+            ->where('job_feedback.haveseen', 1)
+            ->group_by("job_feedback.feedback_id");
+        
+        $query = $this->db->get();
+        return $query->result();
+    }
 }

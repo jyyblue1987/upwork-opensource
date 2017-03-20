@@ -2748,6 +2748,24 @@ class Jobs extends Winjob_Controller {
 
        // echo json_encode($response);
     }
+    
+    public function notifications(){
+        
+        $this->authorized();
+        
+        $this->load->model('contracts_model');
+        
+        $user_id = $this->session->userdata('id');
+        
+        if($this->session->userdata('type') == FREELANCER){
+            $contracts = $this->contracts_model->get_feedback_notification( $user_id );
+        }else{
+            $contracts = $this->contracts_model->get_feedback_notification( $user_id, true );
+        }
+        
+        $nb_contracts = count($contracts);
+        $this->twig->display('webview/jobs/twig/notifications-contract', compact('contracts', 'nb_contracts'));
+    }
 
     public function freelancer_endjobnotification() {
         if ($this->Adminlogincheck->checkx()) {

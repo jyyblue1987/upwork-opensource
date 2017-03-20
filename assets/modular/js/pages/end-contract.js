@@ -64,14 +64,10 @@ define(function (require) {
             $loading.addClass('fa-spin').show();
             
             var action = $that.attr('action');
-            console.log(action);
-            return;
-            
+                   
             var jqXhr = $.post(action, { form: $that.serialize(), csrf_test_name: $csrf.val() },  $.noop, 'json');
             
-            jqXhr.done(function( data ){
-                console.log(data);
-                
+            jqXhr.done(function( data ){                
                 if(data.success){
                     $reporting.removeClass('hide');
                     if(data.success == "insufficient"){

@@ -58,10 +58,17 @@
                                                 <a href="{{ base_url("interview?user_id=") ~ user_id_encoded ~ "&job_id=" ~ job_id_encoded ~ "&bid_id=" ~ bid_id_encoded }}">
                                                     <span class="blue-text">{{ contract.webuser_fname ~ ' ' ~ contract.webuser_lname }}</span>
                                                 </a>
-                                                {% if contract.webuser_company is not empty %}
-                                                    <br>
-                                                    <span class="user-country">{{ contract.webuser_company }}</span>
-                                                {% endif %}    
+                                                {% if app_user_data()['type'] == constant('EMPLOYER') %}
+                                                    {% if contract.tagline is not empty %}
+                                                        <br>
+                                                        <span class="user-country">{{ app_substr(contract.tagline, constant('LIST_JOB_TITLE_MAX'), '...') }}</span>
+                                                    {% endif %}
+                                                {% else %}
+                                                    {% if contract.webuser_company is not empty %}
+                                                        <br>
+                                                        <span class="user-country">{{ app_substr(contract.webuser_company, constant('LIST_JOB_TITLE_MAX'), '...') }}</span>
+                                                    {% endif %}
+                                                {% endif %}
                                             </h3>
                                         </div>
                                     </div>
@@ -100,9 +107,9 @@
                             </div>
                         </div>
                     </fieldset>
-
+                    <div class="clear clearfix"></div>
                     {# FEEDBACK INFO #}
-                    <fieldset class="col-xs-12 col-md-6">
+                    <fieldset class="feedback-end-container col-xs-12 col-md-6">
                         <legend>{{ app_lang('text_job_feedback_infos') }}</legend>
                         <div class="row">
                             <div class="col-xs-12 contract-info feedback-info">
@@ -158,16 +165,22 @@
                             </div>
                         </div>
                     </fieldset>
-                    <div class="col-xs-12 text-center">
-                        <button type="submit" class="btn btn-default btn-lg btn-default_activv" id="end_contract_btn">
-                        {% if contract.contract_status == 1 %}
-                            {{ app_lang("text_job_give_feedback") }}
-                        {% else %}
-                            {{ app_lang("text_job_end_btn_confirmation") }}
-                        {% endif %}
-                        <i class="fa fa-circle-o-notch form-loader" style="display: none;"></i>
-                        </button>
-                        <button type="button" class="btn btn-default btn-lg btn-cancel">{{ app_lang('text_job_transaction_cancelled') }}</button>
+                    <div class="clear clearfix"></div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <span class="info-label col-xs-4">&nbsp;</span>
+                            <div class="col-xs-8">
+                                <button type="submit" class="btn btn-default btn-default_activv" id="end_contract_btn">
+                                {% if contract.contract_status == 1 %}
+                                    {{ app_lang("text_job_give_feedback") }}
+                                {% else %}
+                                    {{ app_lang("text_job_end_btn_confirmation") }}
+                                {% endif %}
+                                <i class="fa fa-circle-o-notch form-loader" style="display: none;"></i>
+                                </button>
+                                <button type="button" class="btn btn-default btn-cancel">{{ app_lang('text_job_transaction_cancelled') }}</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <input name="job_id" type="hidden" id="job_id"  value="{{ contract.job_id }}"  />

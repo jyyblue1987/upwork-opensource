@@ -21,6 +21,8 @@ and open the template in the editor.
 
 .end_contract legend{ font-weight: 800; }
 
+fieldset legend { margin: 0; }
+fieldset.feedback-end-container { margin-top: 30px; }
 
 #end_contact_form{
     padding: 20px;
@@ -32,12 +34,12 @@ and open the template in the editor.
     color: #666;
 }
 
-#end_contact_form .btn-cancel{
-    margin-left: 10px
+#end_contact_form .btn{
+    margin-left: 15px;
 }
 
-#end_contact_form .btn{
-    border-radius: 0;
+#end_contact_form .btn-cancel{
+    margin-left: 10px
 }
 
 .user-info h3{

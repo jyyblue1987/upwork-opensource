@@ -41,8 +41,8 @@ $route['endjobs'] = 'Winsjob/endjobs';
 $route['contract/ended'] = 'jobs/ended_contract';
 $route['contract/restart'] = 'jobs/restart';
 $route['contract/paused'] = 'jobs/paused';
+$route['notifications/contracts'] = 'jobs/notifications';
 $route['contracts'] = 'jobs/contracts';
-
 
 
 $route['profile/manageaccount'] = "profile/manageaccount";
