@@ -1,6 +1,22 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/************************************
+ * USER FRIENDLY URL FOR FREELANCER
+ ************************************/
+$route['win-jobs']       = 'win_jobs';
+$route['ended-jobs']     = 'ended_jobs';
+
+
+/****************************************
+ * USER FRIENDLY URL FOR CLIENT/EMPLOYER
+ ****************************************/
+$route['jobs/my-freelancers']  = 'job/my_freelancers'; 
+$route['jobs/past-hires']      = 'job/past_hires';
+$route['jobs/offers-sent']     = 'job/offers_sent';
+$route['jobs/my-contracts']    = 'job/my_contracts';
+$route['jobs/ended-contracts'] = 'job/ended_contracts';
+
 
 $route['default_controller'] = 'home';
 $route['404_override'] = '';
@@ -86,19 +102,3 @@ $route['feedback'] = 'footerPages/feedback';
 $route['freelance-jobs'] = 'jobs/jobs_no_auth';
 $route['freelance-jobs/(:any)'] = 'jobs/jobs_no_auth/($1)';
 $route['freelance-jobs/(:any)/(:any)'] = 'jobs/jobs_no_auth/($1)/($2)';
-
-/************************************
- * USER FRIENDLY URL FOR FREELANCER
- ************************************/
-$route['win-jobs']       = 'winsjob';
-$route['ended-jobs']     = 'Winsjob/endjobs';
-
-
-/****************************************
- * USER FRIENDLY URL FOR CLIENT/EMPLOYER
- ****************************************/
-$route['jobs/my-freelancers']  = 'jobs/mystaff'; 
-$route['jobs/past-hires']      = 'jobs/pasthire';
-$route['jobs/offers-sent']     = 'jobs/offersent';
-$route['jobs/my-contracts']    = 'jobs/activecontracts';
-$route['jobs/ended-contracts'] = 'jobs/endedcontracts';
