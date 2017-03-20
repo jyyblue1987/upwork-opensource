@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     $('#jobCreate').formValidation({
         framework: 'bootstrap',
         excluded: ':disabled',
@@ -51,10 +52,12 @@ $(document).ready(function () {
             {
                 $('.form-loader').show();
                 $('input:submit').removeAttr('disabled');
+                window.location = base_url() + 'jobs-home';
             }
         },
         success: function (rs) {
             var data = JSON.parse(rs);
+            
             if ($.trim(data.code) == '1')
             {
                 if ($("input[name=job_type]:checked").val() == 'hourly')

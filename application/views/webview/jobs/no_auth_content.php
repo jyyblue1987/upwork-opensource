@@ -98,17 +98,9 @@ if (count($records) > 0)
 ?>
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>-->
-            <div align="center">
-              <?php $this->load->view('webview/signin') ?>
-            </div>
-<!--            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>-->
-<!--        </div>-->
+        <div align="center">
+            <?php $this->load->view('webview/signup') ?>
+        </div>
     </div>
 </div>
         <div style="margin-top: 0px;" class="row" id="all-jobs">
