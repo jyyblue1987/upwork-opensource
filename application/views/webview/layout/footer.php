@@ -5,7 +5,7 @@
 <!-- End main_Div-->
 <div class="clear"> </div>
 <section class="big_footer">
-<div id="find-jobs_container" class="container">
+<div class="container">
     <div class="row">
 	 <div class="col-sm-6 col-md-6 col-lg-3">
 	    <div class="footer-menu">  
@@ -65,7 +65,7 @@
 
 <!-- End big_footer---->
 <div class="footer">
-  <div id="find-jobs_container" class="container">
+  <div class="container">
      <div class="row">
 	    <div class="col-sm-6 col-md-6"><h1><b>WINJOB</b></h1></div>
 	    <div class="col-sm-6 col-md-6"><p>© 2016 WINJOB</p></div>

@@ -1269,7 +1269,7 @@ h1.job-title{
     border: 1px solid #3db0db;
     border-radius: 0;
     height: 46px;
-    width: 80%!important;
+    width: 100%!important;
     float:left;
 }
 
@@ -1278,6 +1278,8 @@ h1.job-title{
     color: #fff;
     display: table-cell;
     padding: 11px 16px 10px;
+    margin-left:-49px;
+    z-index: 9999999999999!important
 }
 
 .blue-text {
@@ -4241,8 +4243,8 @@ span.cc_normal_txt{font-weight: normal;}
 .custom_invite .hire_sms_btn{padding: 0px 0px 10px 5px;}
 .custom_invite .hire_me_btn{padding: 0px 0px 10px 23px;}
 
-.custom_home .bordered-alert{width: 970px;}
-.custom_home .bordered-client{width: 97.1%;}
+.custom_home .bordered-alert{width: 100%;}
+.custom_home .bordered-client{width: 100%;}
 
 .ccc_sms_send_btn a{border-radius:4px;}
 .ccc_sms_send_btn a:hover{background: #008ACB !important;}
@@ -4406,3 +4408,106 @@ margin-top: 14px !important;}
     }
 
 }
+ .container {
+     margin-right: auto;
+      margin-left: auto;
+  
+   }
+
+    @media (max-width: 280px){
+
+    }
+
+
+    @media (max-width: 320px){
+      client-job-activity{
+      	float:left; 
+      }
+
+      .client-job-activity li{
+    	float:left!important;
+      		width: 100%!important;
+      		padding-left:0px;
+      		margin-top:10px;
+		}
+		.client-job-activity li a{
+			text-decoration: none;
+			padding: 5px 20px 5px 20px;
+			background: white;
+			border: 2px solid #e0e0e0;
+			font-weight: 900;
+			font-size: 18px;
+		}
+		.bordered-alert h4, .show_notification{
+    		font-size:12px;
+    	}
+    }
+
+    @media (min-width: 321px) and (max-width: 480px){
+    	
+      .bordered-alert h4, .show_notification{
+    		font-size:13px;
+    	}
+      .search-field{
+      	width: 98%!important;
+      	float:left;
+      }
+      .search-btn{
+      	margin-left:-40px;
+      }
+      client-job-activity{
+      	float:left; 
+      }
+
+      .client-job-activity li{
+    	float:left!important;
+      		width: 100%!important;
+      		padding-left:0px;
+      		margin-top:10px;
+		}
+		.client-job-activity li a{
+			text-decoration: none;
+			padding: 5px 20px 5px 20px;
+			background: white;
+			border: 2px solid #e0e0e0;
+			font-weight: 900;
+			font-size: 18px;
+			width: 100%!important;
+		}
+    }
+
+    @media (min-width: 768px) {
+     .container {
+        width: 740px;
+      }
+
+    }
+
+    @media (min-width: 992px) {
+     .container {
+        width: 960px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+     .container {
+        width: 1000px;
+      }
+    }
+
+    @media (min-width: 1200px) {
+     .container {
+        width: 1000px;
+      }
+      .search-field{
+      	width: 95%!important;
+      }
+      .search-btn{
+      	margin-left:-45px;
+      }
+    }
+
+    .no-pad{
+    	padding-left:0px;
+    	padding-right:0px;
+    }
