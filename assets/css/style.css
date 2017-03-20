@@ -4493,6 +4493,11 @@ margin-top: 14px !important;}
      .container {
         width: 1000px;
       }
+      
+      #big_header{
+      	padding-left:15px!important;
+      	padding-right:15px!important;
+      }
     }
 
     @media (min-width: 1200px) {
@@ -4504,6 +4509,10 @@ margin-top: 14px !important;}
       }
       .search-btn{
       	margin-left:-45px;
+      }
+      #big_header{
+      	padding-left:15px!important;
+      	padding-right:15px!important;
       }
     }
 
