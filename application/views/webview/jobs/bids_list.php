@@ -35,7 +35,7 @@ function time_elapsed_string($ptime)
 }
 ?>
 <section id="big_header" class="custom_bids_list" style="margin-top: 40px; margin-bottom: 40px; height: auto;">
-    <div class="container white-box-feed">
+    <div class="container white-box-feed" style="max-width: 960px;">
         <?php if ($this->session->flashdata('msg'))
         { ?>
             <div class="row alert alert-success"><?php echo $this->session->flashdata('msg'); ?></div>
@@ -46,7 +46,7 @@ function time_elapsed_string($ptime)
             </div>
         </div>
             <div class="row margin-top-1" >
-			<div class="col-md-9 bordered-alert text-center ack-box" style="background: rgb(240, 240, 240) none repeat scroll 0% 0%; padding: 10px 0px; width: 779px;">
+			<div class="col-md-9 bordered-alert text-center ack-box" style="background: rgb(240, 240, 240) none repeat scroll 0% 0%; padding: 0px 0px;">
                 <?php if ($proposals < 30): ?>
 				    <h4>! You have sent  <?= $proposals; ?> proposals</h4>
                 <?php else: ?>
@@ -55,11 +55,11 @@ function time_elapsed_string($ptime)
 			 </div>
 		</div>
         <div class="row margin-top-3 margin-top-15">
-            <div class="col-md-2 ">
+            <div class="col-md-2 col-sm-6 col-xs-6">
                 <label>Applied Date</label>
             </div>
 
-            <div style="margin-left: -38px;" class="col-md-8">
+            <div style="margin-left: -38px;" class="col-md-10 col-sm-6 col-xs-6">
                 <label>Job Title</label>
             </div>
         </div>
@@ -72,13 +72,12 @@ function time_elapsed_string($ptime)
 <?php } else {?>
 
         <div class="row">
-            <div class="col-md-9  margin-top-15">
+            <div class="col-md-12 margin-top-15">
                 <?php foreach($records as $value) { ?>
-                <div class="row">
-                    <div class="col-md-12 custom_bids_list_border">
+                    <div class="custom_bids_list_border">
                         <div class="row">
-                            <div class="col-md-2"><?php echo date('M d, Y',  strtotime($value->created));?></div>
-                            <div class="col-md-10 blue-text">
+                            <div class="col-md-2 col-sm-6 col-xs-6"><?php echo date('M d, Y',  strtotime($value->created));?></div>
+                            <div class="col-md-10 col-sm-6 col-xs-6 blue-text">
                                 <a href='<?php echo site_url("jobs/withdraw_system/".  base64_encode($value->id))?>'>
                                     <?php echo ucfirst($value->title); ?>
                                 </a>
@@ -86,20 +85,18 @@ function time_elapsed_string($ptime)
                         </div>
 
                         <div class="row margin-top-1">
-                            <div class="col-md-2"><?php
+                            <div class="col-md-2 col-sm-6 col-xs-6"><?php
                             
                             $timeDate = strtotime($value->created);
                             $dateInLocal = date("Y-m-d H:i:s", $timeDate);
                             
                             echo time_elapsed_string(strtotime($dateInLocal)); ?></div>
-                            <div class="col-md-10 ">
+                            <div class="col-md-10 col-lg-10 col-sm-6 col-xs-6">
                                 <?php echo ucfirst($value->company); ?><br/>
                                 
                             </div>
                         </div>
-
                     </div>
-                </div>
                 <?php } ?>
             </div>
         </div>
