@@ -161,7 +161,7 @@ $accepted_jobs = $query->result();
 
 ?>
         <div style="margin-top: -15px;" class="row" id="all-jobs">
-            <div style="margin-bottom: 5px;" class="col-md-12 col-md-offset-0 page-jobs ">
+            <div style="margin-bottom: 5px;" class="col-md-12 col-md-offset-0 page-jobs no-pad">
                 <h1 style="margin-bottom: 12px;"><a style="font-family: 'Calibri';font-size: 22px;color: rgb(2, 143, 204);" href="<?php echo site_url("jobs/view/". url_title($value->title).'/'.  base64_encode($value->id)); ?>"><?php echo ucfirst($value->title) ?></a></h1>			
                 <div class="custom_find_job">
 						<h5><b><?php echo ucfirst($value->job_type) ?></b></h5>
@@ -202,10 +202,10 @@ $accepted_jobs = $query->result();
 						<h5><b><?php echo $Proposals_count; ?></b> quotes</h5>
 					</div>
             </div>
-            <div style="margin-bottom: -3px;" class="col-md-12 col-md-offset-0 page-jobs ">
-                <h6 class="more" style="color: #494949;"><?php echo ucfirst($value->job_description) ?></h6>
+            <div style="margin-bottom: -3px;" class="page-jobs ">
+                <h6 class="more no-pad" style="color: #494949;"><?php echo ucfirst($value->job_description) ?></h6>
             </div>
-            <div class="col-md-12 col-md-offset-0 page-jobs " style=" margin-bottom: 2px;">
+            <div class="col-md-12 col-md-offset-0 page-jobs no-pad" style=" margin-bottom: 2px;">
 
                 <h6 style="float:left;font-size: 14px;margin: 0;margin-top: 3px;margin-right: -8px;" class="page-sub-title">Skills</h6>
 				
