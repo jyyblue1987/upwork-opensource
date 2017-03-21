@@ -1,5 +1,5 @@
 <?php
-
+//error_reporting(0);
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Jobs extends Winjob_Controller {
@@ -12,8 +12,8 @@ class Jobs extends Winjob_Controller {
         $this->load_language();
         // added by (Donfack Zeufack Hermann) end
         
-        
-        $this->load->model(array('Category', 'Common_mod'));
+        //$this->load->model('Employer');
+        $this->load->model(array('Category', 'Common_mod', 'Webuser_model'));
         $this->load->library('paypal_lib');
 		/* check profile info is okay start */
         if ($this->Adminlogincheck->checkx()) {
@@ -2532,12 +2532,6 @@ class Jobs extends Winjob_Controller {
     }
 
     public function confirm_hired() {
-//        parse_str($_POST, $form);
-//		print_r($_POST);
-//        die;
-//
-        //die();
-        // var_dump($_POST);die();
         $buser_id = $this->session->userdata('id');
         $response['success'] = false;
         $applier_id = $_POST['applier_id'];
@@ -2557,8 +2551,6 @@ class Jobs extends Winjob_Controller {
             $this->db->update('job_bids', $jobs_data);
         }
 
-
-
         $this->db->select('*');
         $this->db->from('job_bids');
         $this->db->where('job_bids.user_id', $applier_id);
@@ -2566,7 +2558,7 @@ class Jobs extends Winjob_Controller {
         $query_bids = $this->db->get();
         $result3_bid = $query_bids->row();
         $bid_id = $result3_bid->id;
-        $job_id = $result3_bid->job_id;
+
 
         if (isset($_POST['budget']) && isset($_POST['budget_type']) && $_POST['budget_type'] == 1) {
             $budget = $_POST['budget'];
@@ -2588,133 +2580,13 @@ class Jobs extends Winjob_Controller {
             }
         }
 
-
-
-
-
- // addded by jahid start 
+        // addded by jahid start 
         if (isset($_POST['budget']) && isset($_POST['budget_type'])) {
             $sql = "UPDATE  job_bids set job_progres_status=2,hired = '1', hire_title = '" . $title . "', hire_message = '" . $message . "',fixedpay_amount = '" . $budget . "',fixed_pay_status= '" . $budget_type . "', payment_status = 0,  start_date = '" . $start_date . "' WHERE user_id ='" . $applier_id . "' AND job_id = '" . $job_id . "'";
-            $this->db->select('*');
-                $this->db->from('webuser');
-                $this->db->where('webuser_id', $applier_id);
-                $query = $this->db->get();
-                $result = $query->row();
-            
-                if ($query->num_rows() > 0) {
-                    $fname_freelancer = $result->webuser_fname;
-                    $email_freelancer = $result->webuser_email;
-                    $name_freelancer = $result->webuser_fname.' '.$result->webuser_lname;
-                }
-                
-                //get job owner
-                $this->db->select('*');
-                $this->db->from('jobs');
-                $this->db->join('webuser', 'user_id = webuser_id');
-                $this->db->where('id', $job_id);
-                $query = $this->db->get();
-                $result = $query->row();
-            
-                if ($query->num_rows() > 0) {
-                    $fname_post = $result->webuser_fname;
-                    $fname_poster = $result->webuser_fname. ' '.$result->webuser_lname;
-                    $email_poster = $result->webuser_email;
-                    $title = $result->title;
-                    $job_desc = $result->job_description;
-                    $job_type = $result->job_type;
-                    $duration = $result->job_duration;
-                    $exp_level = $result->experience_level;
-                    $budget = $result->budget;
-                    $hrs_per_week = $result->hours_per_week;
-                    $company = $result->webuser_company;
-                    $skills = $result->skills;
-                    $thisid = $result->id;
-                }
-
-                $subject = "Pending Job Offer from $company";
-                $details = array(
-                    'fname' => ucfirst($fname_freelancer),
-                    'company' => 'Winjob',
-                    'verification' => site_url()."jobs/view/" . $title . "/" . base64_encode($job_id),
-                    'slogan' => 'Hire Talented Freelancers For a Low Cost',
-                    'para1' => 'You have a job offer from '.$company.', please review the job post below.',
-                    'para2' => '<div><strong style="color: #000;">Job Title:</strong> '.ucwords($title).'</div><strong style="color: #000;">Posted By: </strong>'.ucwords($fname_poster).'<br><br><strong style="color: #000;">Message: </strong><br><br>'.$message.'<br><br><strong style="color: #000;">Skills: </strong>'.$skills.''
-                );
-
-                $subject_client = "You have Sent a Job Offer";
-                $details_client = array(
-                    'fname' => ucfirst($fname_post),
-                    'company' => 'Winjob',
-                    'verification' => site_url()."jobs/view/" . $title . "/" . base64_encode($job_id),
-                    'slogan' => 'Hire Talented Freelancers For a Low Cost',
-                    'para1' => 'You have sent a job offer to '.$company.', please review the job post below.',
-                    'para2' => '<div><strong style="color: #000;">Job Title:</strong> '.ucwords($title).'</div><strong style="color: #000;">Posted By: </strong>'.ucwords($fname_poster).'<br><br><strong style="color: #000;">Message: </strong><br><br>'.$message.'<br><br><strong style="color: #000;">Skills: </strong>'.$skills.''
-                );
-
-                $response = $this->Sesmailer->sesemail($email_freelancer, $subject, $this->Emailtemplate->emailview('job_offer', $details));
-                $response = $this->Sesmailer->sesemail($email_poster, $subject_client, $this->Emailtemplate->emailview('job_offer', $details_client));
         } else {
             $sql = "UPDATE  job_bids set job_progres_status=2,hired = '1', hire_title = '" . $title . "', hire_message = '" . $message . "', weekly_limit = '" . $weekly_limit . "', allow_freelancer = '" . $allow_freelancer . "', weekly_amount = '" . $weekly_limit_amount . "', payment_status = 0, start_date = '" . $start_date . "' WHERE user_id ='" . $applier_id . "' AND job_id = '" . $job_id . "'";
-        
-                $this->db->select('*');
-                $this->db->from('webuser');
-                $this->db->where('webuser_id', $applier_id);
-                $query = $this->db->get();
-                $result = $query->row();
-            
-                if ($query->num_rows() > 0) {
-                    $fname_freelancer = $result->webuser_fname;
-                    $email_freelancer = $result->webuser_email;
-                }
-                
-                //get job owner
-                $this->db->select('*');
-                $this->db->from('jobs');
-                $this->db->join('webuser', 'user_id = webuser_id');
-                $this->db->where('id', $job_id);
-                $query = $this->db->get();
-                $result = $query->row();
-            
-                if ($query->num_rows() > 0) {
-                    $fname_poster = $result->webuser_fname. ' '.$result->webuser_lname;
-                    $email_poster = $result->webuser_email;
-                    $title = $result->title;
-                    $job_desc = $result->job_description;
-                    $job_type = $result->job_type;
-                    $duration = $result->job_duration;
-                    $exp_level = $result->experience_level;
-                    $budget = $result->budget;
-                    $hrs_per_week = $result->hours_per_week;
-                    $company = $result->webuser_company;
-                    $skills = $result->skills;
-                    $thisid = $result->id;
-                }
-
-                $subject = "Pending Job Offer from $company";
-                $details = array(
-                    'fname' => ucfirst($fname_freelancer),
-                    'company' => 'Winjob',
-                    'verification' => site_url()."jobs/view/" . $title . "/" . base64_encode($job_id),
-                    'slogan' => 'Hire Talented Freelancers For a Low Cost',
-                    'para1' => 'You have a job offer from '.$company.', please review the job post below.',
-                    'para2' => '<div><strong style="color: #000;">Job Title:</strong> '.ucwords($title).'</div><strong style="color: #000;">Posted By: </strong>'.ucwords($fname_poster).'<br><br><strong style="color: #000;">Message: </strong><br><br>'.$message.'<br><br><strong style="color: #000;">Skills: </strong>'.$skills.''
-                );
-                
-                $subject_client = "You have Sent a Job Offer";
-                $details_client = array(
-                    'fname' => ucfirst($fname_post),
-                    'company' => 'Winjob',
-                    'verification' => site_url()."jobs/view/" . $title . "/" . base64_encode($job_id),
-                    'slogan' => 'Hire Talented Freelancers For a Low Cost',
-                    'para1' => 'You have sent a job offer to '.$company.', please review the job post below.',
-                    'para2' => '<div><strong style="color: #000;">Job Title:</strong> '.ucwords($title).'</div><strong style="color: #000;">Posted By: </strong>'.ucwords($fname_poster).'<br><br><strong style="color: #000;">Message: </strong><br><br>'.$message.'<br><br><strong style="color: #000;">Skills: </strong>'.$skills.''
-                );
-                
-                $response = $this->Sesmailer->sesemail($email_freelancer, $subject, $this->Emailtemplate->emailview('job_offer', $details));
-                $response = $this->Sesmailer->sesemail($email_poster, $subject_client, $this->Emailtemplate->emailview('job_offer', $details_client));
-
-                }
-   // addded by jahid end
+        }
+        // addded by jahid end      
 
         if ($this->db->query($sql)) {
             if (isset($_POST['budget']) && isset($_POST['budget_type'])) {
@@ -2728,12 +2600,11 @@ class Jobs extends Winjob_Controller {
                     $response['success'] = true;
                     $response['message'] = 'Successfull';
 					
-					/* adding data at report start */
+                    /* adding data at report start */
 					
-					$data_payment['job_id'] = (int) $job_id;
+                    $data_payment['job_id'] = (int) $job_id;
                     $data_payment['user_id'] = (int) $applier_id;
                     $data_payment['buser_id'] = (int) $user_id ;
-;
 
 
                     if ($budget_type == 1) {
@@ -2745,9 +2616,8 @@ class Jobs extends Winjob_Controller {
 
                     $this->db->insert('payments', $data_payment);
 		redirect(site_url().'offer?job_id='.base64_encode($job_id));			
-					/* adding data at report end */		
+					/* adding data at report end */
                 }
-                
                 //updates by haseeburrehman.com ends     
             }
             redirect(site_url().'offer?job_id='.base64_encode($job_id));
