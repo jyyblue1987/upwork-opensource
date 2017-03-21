@@ -1,5 +1,5 @@
 <?php
-//error_reporting(0);
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Jobs extends Winjob_Controller {

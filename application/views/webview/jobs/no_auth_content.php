@@ -99,7 +99,7 @@ if (count($records) > 0)
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div align="center">
-            <?php $this->load->view('webview/signup') ?>
+            <?php $this->load->view('webview/freelancersignup') ?>
         </div>
     </div>
 </div>
