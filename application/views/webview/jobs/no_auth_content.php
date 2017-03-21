@@ -45,6 +45,16 @@ font-size: 19px;}
     color: #fff;
     text-decoration: none;
 }
+a.morelink {
+	text-decoration:none;
+	outline: none;
+}
+.morecontent span {
+	display: none;
+        font-family: calibri;
+        font-size: 16px;
+        color: #494949;
+}
 </style>
 
 <?php
@@ -104,7 +114,7 @@ if (count($records) > 0)
 </div>
         <div style="margin-top: 0px;" class="row" id="all-jobs">
             <div style="margin-bottom: 5px;" class="col-md-12 col-md-offset-0 page-jobs ">
-                <h1 style="margin-bottom: 12px;"><a style="font-family: 'Calibri';font-size: 22px;color: rgb(2, 143, 204);" href="<?php echo site_url("jobs/view/". url_title($value->title).'/'.  base64_encode($value->id)); ?>"><?php echo ucfirst($value->title) ?></a><a href="#" class="btn btn-info btn-lg" id="place_bid" data-toggle="modal" data-target="#myModal" >Place Bid</a></h1>
+                <h1 style="margin-bottom: 12px;"><a style="font-family: 'Calibri';font-size: 22px;color: rgb(2, 143, 204);" href="<?php echo site_url("jobs/view/". url_title($value->title).'/'.  base64_encode($value->id)); ?>"><?php echo ucfirst($value->title).' '.$value->id ?></a><a href="#" class="btn btn-info btn-lg" id="place_bid" data-toggle="modal" data-target="#myModal" >Place Bid</a></h1>
                 	<div class="custom_find_job">
 						<h5><b><?php echo ucfirst($value->job_type) ?></b></h5>
 						<h5><b>-</b></h5>
@@ -137,7 +147,7 @@ if (count($records) > 0)
 					</div>
             </div>
             <div style="margin-bottom: -3px;" class="col-md-12 col-md-offset-0 page-jobs ">
-                <h6 style="color: #494949;"><?php echo ucfirst($value->job_description) ?></h6>
+                <h6 class="more" style="color: #494949;"><?php echo ucfirst($value->job_description) ?></h6>
             </div>
             <div class="col-md-12 col-md-offset-0 page-jobs " style=" margin-bottom: 2px;">
 
@@ -221,3 +231,5 @@ else{
     <?php
 }?>
 <script type="text/javascript" src="<?= site_url() ?>assets/js/internal/popup_register.js"></script>
+<script type="text/javascript" src="<?= site_url() ?>assets/js/dynamic_shorten.js"></script>
+<script type="text/javascript" src="<?= site_url() ?>assets/js/internal/show_moretext.js"></script>
