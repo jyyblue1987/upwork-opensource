@@ -149,11 +149,11 @@ ul.cus_main_side_nav_bar li a i{}
                                         }
                                         ?>
                                         
-                                        <span style="margin-left: 6px;margin-bottom: -2px;font-size:10px;margin-top: 2px;" class="rating-badge"><?=number_format((float)$totalscore,1,'.','');?></span>
+                                        <span style="margin-left: 6px;margin-bottom: -2px;font-size:10px;margin-top: 2px;" class="rating-badge"><?= $current_user_rating ?></span>
                                         
-                                        <div title="Rated <?= $totalscore; ?> out of 5" class="star-rating profile_star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left: 39%;margin-top: 3%;position: absolute;">
-                                            <span style="width:<?= $rating_feedback; ?>%;top: -8px;left: -2px;">
-                                                <strong itemprop="ratingValue"><?= $totalscore; ?></strong> out of 5
+                                        <div title="Rated <?= $current_user_rating; ?> out of 5" class="star-rating profile_star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left: 39%;margin-top: 3%;position: absolute;">
+                                            <span style="width:<?= ( ( $current_user_rating / 5 ) * 100); ?>%;top: -8px;left: -2px;">
+                                                <strong itemprop="ratingValue"><?= $current_user_rating; ?></strong> out of 5
                                             </span>
                                         </div>
                                     </div>
@@ -220,10 +220,10 @@ ul.cus_main_side_nav_bar li a i{}
                                                 $totalscore = ($total_feedbackScore / $total_budget);
                                                 $rating_feedback = ($totalscore/5)*100;
                                                ?>
-                                               <span style="margin-right: 3px;" class="rating-badge"><?=number_format((float)$totalscore,1,'.','');?></span>
-                                              <div title="Rated <?=$totalscore;?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em;margin-top:-5px;width:105px; color:#DEDEDE;">
-                                               <span style="width:<?=$rating_feedback;?>% ;margin-top:0px;">
-                                                   <strong itemprop="ratingValue"><?=$totalscore;?></strong> out of 5
+                                               <span style="margin-right: 3px;" class="rating-badge"><?= $current_user_rating ?></span>
+                                              <div title="Rated <?= $current_user_rating ?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em;margin-top:-5px;width:105px; color:#DEDEDE;">
+                                               <span style="width:<?= ( ( $current_user_rating / 5 ) * 100 )?>% ;margin-top:0px;">
+                                                   <strong itemprop="ratingValue"><?= $current_user_rating ?></strong> out of 5
                                                </span>
                                                </div>
                                            <?php  }else{ ?>

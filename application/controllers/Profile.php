@@ -15,7 +15,9 @@ class Profile extends CI_Controller {
             if ($this->session->userdata('type') != 2) {
                 redirect(site_url("jobs-home"));
             }
-
+            
+            $this->load->model('webuser_model');
+            
             $user_id = $this->session->userdata('id');
 
             $sql = "SELECT cropped_image FROM webuser WHERE webuser_id =  " . $user_id;
@@ -37,7 +39,8 @@ class Profile extends CI_Controller {
             $query = $this->db->get();
             $params['accepted_jobs'] = $query->result();
 
-
+            $params['current_user_rating'] = $this->webuser_model->get_total_rating( $user_id );
+                    
             //get webuser info//
             $cols = array("webuser_fname", "webuser_lname", "webuser_picture", "webuser_country");
             $condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
