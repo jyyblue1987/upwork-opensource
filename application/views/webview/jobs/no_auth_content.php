@@ -98,14 +98,13 @@ if (count($records) > 0)
 ?>
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
-        <div align="center">
-            <?php $this->load->view('webview/freelancersignup') ?>
+        <div class="modal-content">
         </div>
     </div>
 </div>
         <div style="margin-top: 0px;" class="row" id="all-jobs">
             <div style="margin-bottom: 5px;" class="col-md-12 col-md-offset-0 page-jobs ">
-                <h1 style="margin-bottom: 12px;"><a style="font-family: 'Calibri';font-size: 22px;color: rgb(2, 143, 204);" href="<?php echo site_url("jobs/view/". url_title($value->title).'/'.  base64_encode($value->id)); ?>"><?php echo ucfirst($value->title) ?></a><a href="" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="place_bid">Place Bid</a></h1>
+                <h1 style="margin-bottom: 12px;"><a style="font-family: 'Calibri';font-size: 22px;color: rgb(2, 143, 204);" href="<?php echo site_url("jobs/view/". url_title($value->title).'/'.  base64_encode($value->id)); ?>"><?php echo ucfirst($value->title) ?></a><a href="#" class="btn btn-info btn-lg" id="place_bid" data-toggle="modal" data-target="#myModal" >Place Bid</a></h1>
                 	<div class="custom_find_job">
 						<h5><b><?php echo ucfirst($value->job_type) ?></b></h5>
 						<h5><b>-</b></h5>
@@ -221,3 +220,4 @@ else{
             <h3 style="text-align: center; padding-bottom: 35px;" class="no-result-container">No Results Found</h3>
     <?php
 }?>
+<script type="text/javascript" src="<?= site_url() ?>assets/js/internal/popup_register.js"></script>
