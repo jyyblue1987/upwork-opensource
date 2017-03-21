@@ -88,8 +88,8 @@ $clientend = $Conversation->clientend();
         <div style=" margin-bottom: 23px;<?php  if(!empty($clientend)) {echo "margin-top: 35px";} ?>">
                 <div class="row">
                     <form id="freelacer-search" action="profile/find-freelancer" method="post">
-                        <div class="col-md-10 col-lg-10 col-sm-10 col-xs-12 no-pad">
-                            <input type="text" name="keywords" class="form-control search-field" placeholder="Find freelancers" value="" style="width: 91%;" /> 
+                        <div class="col-md-10 col-lg-10 col-sm-10 col-xs-12 no-pad search-cont">
+                            <input type="text" name="keywords" class="form-control search-field" placeholder="Find freelancers" value=""/> 
                             <i aria-hidden="true" class="fa fa-search search-btn search-freelancer custom_btn"></i>
                         </div>
                         <div class="col-md-2 col-lg-2 col-sm-2 col-xs-12 no-pad">
