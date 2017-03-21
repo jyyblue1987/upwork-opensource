@@ -2967,46 +2967,33 @@ class Jobs extends Winjob_Controller {
     }
     
     public function jobs_no_auth($url_rewrite = null, $sort = 1){
-        session_destroy();
-        $url_rewrite = substr($url_rewrite, 1, -1);
-        $this->db->select('*');
-        $this->db->from('job_subcategories');
-        $this->db->where('url_rewrite', "mobile-development");
-        $query = $this->db->get();
-        $result = $query->row();
+        $jobCat = $this->uri->segment(2);
+        $jobCatPage = false;
+        $limit = 25;
+        $records = array();
 
-        if ($result != null) {
-            $offsetId = $result->subcat_id;
-        } else {
-            $offsetId = $url_rewrite;
-        }
-
-            $jobCat = $this->uri->segment(2);
-            $jobCatPage = false;
-            $limit = 25;
-            $records = array();
-
-            if ($this->input->is_ajax_request()) {
-                $category = array();
-                $jobCat = $this->input->post('jobCat');
-                $jobType = $this->input->post('jobtype');
-                $jobDuration = $this->input->post('jobduratin');
-                $jobHours = $this->input->post('jobweekhour');
-                $offsetId = $this->input->post('limit');
-                $keywords = $this->input->post('keywords');
-                if (intval($offsetId) >= 0 == false) {
-                    $offsetId = 0;
-                }
-                if (strlen($jobCat) > 0) {
-                    $catIds = explode(",", $jobCat);
-                    if (sizeof($catIds) > 0) {
-                        foreach ($catIds as $cat) {
-                            if (intval($cat) > 0) {
-                                $category[] = $cat;
-                            }
+        if ($this->input->is_ajax_request()) {
+            $category = array();
+            $jobCat = $this->input->post('jobCat');
+            $jobType = $this->input->post('jobtype');
+            $jobDuration = $this->input->post('jobduratin');
+            $jobHours = $this->input->post('jobweekhour');
+            $offsetId = $this->input->post('limit');
+            $keywords = $this->input->post('jobsearchbykeywords');
+            
+            if (intval($offsetId) >= 0 == false) {
+                $offsetId = 0;
+            }
+            if (strlen($jobCat) > 0) {
+                $catIds = explode(",", $jobCat);
+                if (sizeof($catIds) > 0) {
+                    foreach ($catIds as $cat) {
+                        if (intval($cat) > 0) {
+                            $category[] = $cat;
                         }
                     }
                 }
+            }
 
                 if (!empty($jobType)) {
                     $jobType = explode(",", $jobType);
@@ -3032,8 +3019,8 @@ class Jobs extends Winjob_Controller {
                     '1' => '1',
                 );
                 $offset = $limit * $offsetId;
-                $keywords = $this->input->post('keywords');
-
+                $keywords = $this->input->post('jobsearchbykeywords');
+                
                 if (!empty($category)) {
                     $jobTypeQuery = '';
                     if (!empty($jobType)) {
@@ -3104,12 +3091,19 @@ class Jobs extends Winjob_Controller {
                     $keywords = "";
                     if (!empty($_POST)) {
                         $keywords = $this->input->post("jobsearchbykeywords");
+                        $query = $this->db->query(""
+                            . "SELECT * FROM jobs "
+                            . "WHERE jobs.status = 1 "
+                            . "AND (jobs.title like '%" . $keywords . "%' "
+                            . "OR jobs.job_description like '%" . $keywords . "%') "
+                            . "LIMIT " . $offset . ',' . $limit);
+                    }else{
+                        $val = array(
+                            'status' => 1
+                        );
+                        $query = $this->db->get_where('jobs', $val, $limit, $offset);
                     }
-                            $val = array(
-                                'status' => 1
-                            );
-                            $query = $this->db->get_where('jobs', $val, $limit, $offset);
-                    }
+                    
                 }
                 if (is_object($query) && $query->num_rows() > 0) {
                     $records = $query->result();
@@ -3156,5 +3150,6 @@ class Jobs extends Winjob_Controller {
                     $this->Admintheme->webview("jobs/freelance-jobs", $data);
                 }
             }
+}
 }
 

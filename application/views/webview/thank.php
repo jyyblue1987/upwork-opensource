@@ -6,7 +6,7 @@
 		<h1 class="text-center"><?php echo $message; ?></h1>
 		<br>
 		<div class="text-center">
-		<a class="btn btn-success"  href="<?php echo site_url("signin/") ?>">Sign In</a>
+		<a class="btn btn-success"  href="<?php echo site_url("signin/").(isset($_GET['redirect']) ? '?redirect='.$_GET['redirect'] : '' ) ?>">Sign In</a>
 		</div>
 		
 </section><!-- big_header-->

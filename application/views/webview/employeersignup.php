@@ -27,12 +27,6 @@
             <div class="form-group">
                 <input type="text" class="form-control" name="lname" value="" id="lastname" placeholder="Last Name">
             </div>
-            <div class="form-group">
-                <input type="text" name="fname" value="" class="form-control" id="firstname" autocomplete="false" placeholder="First Name">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" name="lname" value="" id="lastname" placeholder="Last Name">
-            </div>
             <?php           
 
             $this->Adminforms->selectdbnewxgdcv("Country","country","Select Country","country","id","name","index","asc","",true,array("all","All Country"));
