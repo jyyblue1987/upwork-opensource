@@ -25,6 +25,7 @@
 					</div>
 		   			<div class="col-md-6 col-lg-4 col-sm-6 col-xs-12">
                         <input type="text" class="form-control" name="username" value="" id="username" placeholder="Username or Email">
+                        <input type="hidden" name="redirect" value="<?= isset($_GET['redirect']) ? '?redirect='.$_GET['redirect'] : '0' ?>">
 		   			</div>
 					<div class="col-md-3 col-lg-4 col-sm-3 hidden-xs">
 					</div>

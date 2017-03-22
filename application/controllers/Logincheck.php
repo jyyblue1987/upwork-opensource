@@ -3,7 +3,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Logincheck extends CI_Controller {
-
+    
     function generateRandomString($length = 16) {
         $characters = '0123456789';
         $charactersLength = strlen($characters);
@@ -17,6 +17,10 @@ class Logincheck extends CI_Controller {
 
     public function index() {
 
+        if(isset($_POST['redirect']) && $_POST['redirect'] !=0){
+            $this->session->set_redirect($_POST['redirect']);
+        }
+        
         $username = $_POST['username'];
         $password = $_POST['password'];
 
@@ -62,10 +66,19 @@ class Logincheck extends CI_Controller {
                 $this->session->set_userdata('webuser_picture', $stud->webuser_picture);
                 
                  
-                if ($this->session->userdata('type') == '1')
+                if ($this->session->userdata('type') == '1'){
                     redirect(site_url("jobs-home"));
-                else
-                    redirect(site_url("find-jobs"));
+                }
+                    
+                else{
+                    if(isset($this->session->redirect)){
+                        redirect($this->session->redirect);
+                    }else{
+                        redirect(site_url("find-jobs"));
+                    }
+                    
+                }
+                    
             }
         }else {
 

@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Jobs extends Winjob_Controller {
@@ -12,8 +12,8 @@ class Jobs extends Winjob_Controller {
         $this->load_language();
         // added by (Donfack Zeufack Hermann) end
         
-        
-        $this->load->model(array('Category', 'Common_mod'));
+        //$this->load->model('Employer');
+        $this->load->model(array('Category', 'Common_mod', 'Webuser_model'));
         $this->load->library('paypal_lib');
 		/* check profile info is okay start */
         if ($this->Adminlogincheck->checkx()) {
@@ -2532,12 +2532,6 @@ class Jobs extends Winjob_Controller {
     }
 
     public function confirm_hired() {
-//        parse_str($_POST, $form);
-//		print_r($_POST);
-//        die;
-//
-        //die();
-        // var_dump($_POST);die();
         $buser_id = $this->session->userdata('id');
         $response['success'] = false;
         $applier_id = $_POST['applier_id'];
@@ -2557,8 +2551,6 @@ class Jobs extends Winjob_Controller {
             $this->db->update('job_bids', $jobs_data);
         }
 
-
-
         $this->db->select('*');
         $this->db->from('job_bids');
         $this->db->where('job_bids.user_id', $applier_id);
@@ -2566,7 +2558,7 @@ class Jobs extends Winjob_Controller {
         $query_bids = $this->db->get();
         $result3_bid = $query_bids->row();
         $bid_id = $result3_bid->id;
-        $job_id = $result3_bid->job_id;
+
 
         if (isset($_POST['budget']) && isset($_POST['budget_type']) && $_POST['budget_type'] == 1) {
             $budget = $_POST['budget'];
@@ -2588,133 +2580,13 @@ class Jobs extends Winjob_Controller {
             }
         }
 
-
-
-
-
- // addded by jahid start 
+        // addded by jahid start 
         if (isset($_POST['budget']) && isset($_POST['budget_type'])) {
             $sql = "UPDATE  job_bids set job_progres_status=2,hired = '1', hire_title = '" . $title . "', hire_message = '" . $message . "',fixedpay_amount = '" . $budget . "',fixed_pay_status= '" . $budget_type . "', payment_status = 0,  start_date = '" . $start_date . "' WHERE user_id ='" . $applier_id . "' AND job_id = '" . $job_id . "'";
-            $this->db->select('*');
-                $this->db->from('webuser');
-                $this->db->where('webuser_id', $applier_id);
-                $query = $this->db->get();
-                $result = $query->row();
-            
-                if ($query->num_rows() > 0) {
-                    $fname_freelancer = $result->webuser_fname;
-                    $email_freelancer = $result->webuser_email;
-                    $name_freelancer = $result->webuser_fname.' '.$result->webuser_lname;
-                }
-                
-                //get job owner
-                $this->db->select('*');
-                $this->db->from('jobs');
-                $this->db->join('webuser', 'user_id = webuser_id');
-                $this->db->where('id', $job_id);
-                $query = $this->db->get();
-                $result = $query->row();
-            
-                if ($query->num_rows() > 0) {
-                    $fname_post = $result->webuser_fname;
-                    $fname_poster = $result->webuser_fname. ' '.$result->webuser_lname;
-                    $email_poster = $result->webuser_email;
-                    $title = $result->title;
-                    $job_desc = $result->job_description;
-                    $job_type = $result->job_type;
-                    $duration = $result->job_duration;
-                    $exp_level = $result->experience_level;
-                    $budget = $result->budget;
-                    $hrs_per_week = $result->hours_per_week;
-                    $company = $result->webuser_company;
-                    $skills = $result->skills;
-                    $thisid = $result->id;
-                }
-
-                $subject = "Pending Job Offer from $company";
-                $details = array(
-                    'fname' => ucfirst($fname_freelancer),
-                    'company' => 'Winjob',
-                    'verification' => site_url()."jobs/view/" . $title . "/" . base64_encode($job_id),
-                    'slogan' => 'Hire Talented Freelancers For a Low Cost',
-                    'para1' => 'You have a job offer from '.$company.', please review the job post below.',
-                    'para2' => '<div><strong style="color: #000;">Job Title:</strong> '.ucwords($title).'</div><strong style="color: #000;">Posted By: </strong>'.ucwords($fname_poster).'<br><br><strong style="color: #000;">Message: </strong><br><br>'.$message.'<br><br><strong style="color: #000;">Skills: </strong>'.$skills.''
-                );
-
-                $subject_client = "You have Sent a Job Offer";
-                $details_client = array(
-                    'fname' => ucfirst($fname_post),
-                    'company' => 'Winjob',
-                    'verification' => site_url()."jobs/view/" . $title . "/" . base64_encode($job_id),
-                    'slogan' => 'Hire Talented Freelancers For a Low Cost',
-                    'para1' => 'You have sent a job offer to '.$company.', please review the job post below.',
-                    'para2' => '<div><strong style="color: #000;">Job Title:</strong> '.ucwords($title).'</div><strong style="color: #000;">Posted By: </strong>'.ucwords($fname_poster).'<br><br><strong style="color: #000;">Message: </strong><br><br>'.$message.'<br><br><strong style="color: #000;">Skills: </strong>'.$skills.''
-                );
-
-                $response = $this->Sesmailer->sesemail($email_freelancer, $subject, $this->Emailtemplate->emailview('job_offer', $details));
-                $response = $this->Sesmailer->sesemail($email_poster, $subject_client, $this->Emailtemplate->emailview('job_offer', $details_client));
         } else {
             $sql = "UPDATE  job_bids set job_progres_status=2,hired = '1', hire_title = '" . $title . "', hire_message = '" . $message . "', weekly_limit = '" . $weekly_limit . "', allow_freelancer = '" . $allow_freelancer . "', weekly_amount = '" . $weekly_limit_amount . "', payment_status = 0, start_date = '" . $start_date . "' WHERE user_id ='" . $applier_id . "' AND job_id = '" . $job_id . "'";
-        
-                $this->db->select('*');
-                $this->db->from('webuser');
-                $this->db->where('webuser_id', $applier_id);
-                $query = $this->db->get();
-                $result = $query->row();
-            
-                if ($query->num_rows() > 0) {
-                    $fname_freelancer = $result->webuser_fname;
-                    $email_freelancer = $result->webuser_email;
-                }
-                
-                //get job owner
-                $this->db->select('*');
-                $this->db->from('jobs');
-                $this->db->join('webuser', 'user_id = webuser_id');
-                $this->db->where('id', $job_id);
-                $query = $this->db->get();
-                $result = $query->row();
-            
-                if ($query->num_rows() > 0) {
-                    $fname_poster = $result->webuser_fname. ' '.$result->webuser_lname;
-                    $email_poster = $result->webuser_email;
-                    $title = $result->title;
-                    $job_desc = $result->job_description;
-                    $job_type = $result->job_type;
-                    $duration = $result->job_duration;
-                    $exp_level = $result->experience_level;
-                    $budget = $result->budget;
-                    $hrs_per_week = $result->hours_per_week;
-                    $company = $result->webuser_company;
-                    $skills = $result->skills;
-                    $thisid = $result->id;
-                }
-
-                $subject = "Pending Job Offer from $company";
-                $details = array(
-                    'fname' => ucfirst($fname_freelancer),
-                    'company' => 'Winjob',
-                    'verification' => site_url()."jobs/view/" . $title . "/" . base64_encode($job_id),
-                    'slogan' => 'Hire Talented Freelancers For a Low Cost',
-                    'para1' => 'You have a job offer from '.$company.', please review the job post below.',
-                    'para2' => '<div><strong style="color: #000;">Job Title:</strong> '.ucwords($title).'</div><strong style="color: #000;">Posted By: </strong>'.ucwords($fname_poster).'<br><br><strong style="color: #000;">Message: </strong><br><br>'.$message.'<br><br><strong style="color: #000;">Skills: </strong>'.$skills.''
-                );
-                
-                $subject_client = "You have Sent a Job Offer";
-                $details_client = array(
-                    'fname' => ucfirst($fname_post),
-                    'company' => 'Winjob',
-                    'verification' => site_url()."jobs/view/" . $title . "/" . base64_encode($job_id),
-                    'slogan' => 'Hire Talented Freelancers For a Low Cost',
-                    'para1' => 'You have sent a job offer to '.$company.', please review the job post below.',
-                    'para2' => '<div><strong style="color: #000;">Job Title:</strong> '.ucwords($title).'</div><strong style="color: #000;">Posted By: </strong>'.ucwords($fname_poster).'<br><br><strong style="color: #000;">Message: </strong><br><br>'.$message.'<br><br><strong style="color: #000;">Skills: </strong>'.$skills.''
-                );
-                
-                $response = $this->Sesmailer->sesemail($email_freelancer, $subject, $this->Emailtemplate->emailview('job_offer', $details));
-                $response = $this->Sesmailer->sesemail($email_poster, $subject_client, $this->Emailtemplate->emailview('job_offer', $details_client));
-
-                }
-   // addded by jahid end
+        }
+        // addded by jahid end      
 
         if ($this->db->query($sql)) {
             if (isset($_POST['budget']) && isset($_POST['budget_type'])) {
@@ -2728,12 +2600,11 @@ class Jobs extends Winjob_Controller {
                     $response['success'] = true;
                     $response['message'] = 'Successfull';
 					
-					/* adding data at report start */
+                    /* adding data at report start */
 					
-					$data_payment['job_id'] = (int) $job_id;
+                    $data_payment['job_id'] = (int) $job_id;
                     $data_payment['user_id'] = (int) $applier_id;
                     $data_payment['buser_id'] = (int) $user_id ;
-;
 
 
                     if ($budget_type == 1) {
@@ -2745,9 +2616,8 @@ class Jobs extends Winjob_Controller {
 
                     $this->db->insert('payments', $data_payment);
 		redirect(site_url().'offer?job_id='.base64_encode($job_id));			
-					/* adding data at report end */		
+					/* adding data at report end */
                 }
-                
                 //updates by haseeburrehman.com ends     
             }
             redirect(site_url().'offer?job_id='.base64_encode($job_id));
@@ -3095,31 +2965,32 @@ class Jobs extends Winjob_Controller {
     }
     
     public function jobs_no_auth($url_rewrite = null, $sort = 1){
-        session_destroy();
-        $url_rewrite = substr($url_rewrite, 1, -1);
-        $this->db->select('*');
-        $this->db->from('job_subcategories');
-        $this->db->where('url_rewrite', "mobile-development");
-        $query = $this->db->get();
-        $result = $query->row();
-
-        if ($result != null) {
-            $offsetId = $result->subcat_id;
-        } else {
-            $offsetId = $url_rewrite;
-        }
-
             $jobCat = $this->uri->segment(2);
+
             $jobCatPage = false;
+            $user_categories = $this->Category->get_user_subcategories();
+
+            if (sizeof($user_categories) > 0) {
+                $sql = "";
+                foreach ($user_categories as $sub) {
+                    $sql .= $sub->subcat_id . ",";
+                }
+                $sql = substr($sql, 0, strlen($sql) - 1);
+                $sqlIn = " AND subcat_id IN ( " . $sql . " ) ";
+                $subCateList = $this->Common_mod->get(SUBCATEGORY_TABLE, null, $sqlIn);
+            }
+
             $limit = 25;
             $records = array();
 
             if ($this->input->is_ajax_request()) {
                 $category = array();
                 $jobCat = $this->input->post('jobCat');
+
                 $jobType = $this->input->post('jobtype');
                 $jobDuration = $this->input->post('jobduratin');
                 $jobHours = $this->input->post('jobweekhour');
+
                 $offsetId = $this->input->post('limit');
                 $keywords = $this->input->post('keywords');
                 if (intval($offsetId) >= 0 == false) {
@@ -3139,54 +3010,97 @@ class Jobs extends Winjob_Controller {
                 if (!empty($jobType)) {
                     $jobType = explode(",", $jobType);
                     foreach ($jobType as $type) {
-                        $this->db->or_where('jobs.job_type', $type);
+                        $this->db->or_where('r.job_type', $type);
                     }
                 }
                 if (!empty($jobDuration)) {
                     $jobDuration = explode(",", $jobDuration);
                     foreach ($jobDuration as $duretion) {
-                        $this->db->or_where('jobs.job_duration', $duretion);
+                        $this->db->or_where('r.job_duration', $duretion);
                     }
                 }
                 if (!empty($jobHours)) {
 
                     $jobHours = explode(",", $jobHours);
                     foreach ($jobHours as $hour) {
-                        $this->db->or_where('jobs.hours_per_week', $hour);
+                        $this->db->or_where('r.hours_per_week', $hour);
                     }
                 }
 
                 $val = array(
                     '1' => '1',
+                    'status' => 1
                 );
                 $offset = $limit * $offsetId;
                 $keywords = $this->input->post('keywords');
 
-                if (!empty($category)) {
+                if (empty($category)) {
+                    if ($sql != "" && strlen($sql) >= 1) {
+                            $val = array(
+                                '1' => '1',
+                                'status' => 1
+                            );
+                            $this->db->select('r.*');
+                            $this->db->where_in('r.category', $sql, FALSE);
+                            if (strlen($keywords) > 0) {
+                                $this->db->like("r.title", $keywords);
+                                $this->db->or_like("r.job_description", $keywords);
+                            }
+                            $this->db->order_by('r.category ASC, RAND()');
+                            $query = $this->db->get_where('jobs r', $val, $limit, $offset);
+
+                            $jobTypeQuery = '';
+                            if (!empty($jobType)) {
+                                $jobTypeQuery = implode(',', array_map(function($arr){
+                                    return "'" . $arr . "'";
+                                }, $jobType));
+
+                                $jobTypeQuery = ' AND (r.job_type IN (' . $jobTypeQuery . '))';
+                            }
+                            
+                            $sortQuery = " ORDER BY r.created DESC ";
+                            if($sort == 0){
+                                $sortQuery = " ORDER BY r.created ASC ";
+                            }
+                            
+                            $query = $this->db->query(
+                                    "SELECT r.* FROM jobs r "
+                                    . "WHERE (SELECT COUNT(*) FROM jobs r1
+                                      WHERE r.category = r1.category AND r.id < r1.id
+                                    ) <= 1 "
+                                    . "AND r.status = 1 "
+                                    . "AND r.category in(" . $sql . ") "
+                                    . "AND (r.title like '%" . $keywords . "%' "
+                                    . "OR r.job_description like '%" . $keywords . "%') {$jobTypeQuery} "
+                                    . $sortQuery
+                                    . "LIMIT " . $offset . ',' . $limit);
+                    }
+                } else {
+
                     $jobTypeQuery = '';
                     if (!empty($jobType)) {
                         $jobTypeQuery = implode(',', array_map(function($arr){
                             return "'" . $arr . "'";
                         }, $jobType));
 
-                        $jobTypeQuery = ' AND (jobs.job_type IN (' . $jobTypeQuery . '))';
+                        $jobTypeQuery = ' AND (r.job_type IN (' . $jobTypeQuery . '))';
+
                     }
                     
-                    $sortQuery = " ORDER BY jobs.created DESC ";
+                    $sortQuery = " ORDER BY r.created DESC, r.category ASC, RAND() ";
                             if($sort == 0){
-                                $sortQuery = " ORDER BY jobs.created ASC ";
+                                $sortQuery = " ORDER BY r.created ASC, r.category ASC, RAND() ";
                             }
 
                     $query = $this->db->query(""
-                            . "SELECT * FROM jobs "
-                            . "WHERE jobs.status = 1 "
-                            . "AND jobs.category in(" . implode(',', $category) . ") "
-                            . "AND (jobs.title like '%" . $keywords . "%' "
-                            . "OR jobs.job_description like '%" . $keywords . "%') {$jobTypeQuery} "
+                            . "SELECT r.* FROM jobs r "
+                            . "WHERE r.status = 1 "
+                            . "AND r.category in(" . implode(',', $category) . ") "
+                            . "AND (r.title like '%" . $keywords . "%' "
+                            . "OR r.job_description like '%" . $keywords . "%') {$jobTypeQuery} "
                             . $sortQuery
                             . "LIMIT " . $offset . ',' . $limit);
                 }
-
 
                 if ($query->num_rows() > 0 && is_object($query)){
 
@@ -3207,7 +3121,6 @@ class Jobs extends Winjob_Controller {
                         $record->skills=$s;
                         $s=[];
                         }
-                
                 }
 
                 $data = array('records' => $records, 'limit' => $limit);
@@ -3217,7 +3130,6 @@ class Jobs extends Winjob_Controller {
                     'result' => $content,
                     'count' => count($records)
                 ]));
-
             } else {
 
                 $offset = 0;
@@ -3233,10 +3145,24 @@ class Jobs extends Winjob_Controller {
                     if (!empty($_POST)) {
                         $keywords = $this->input->post("jobsearchbykeywords");
                     }
+
+                    if (isset($sql) && $sql != "" && strlen($sql) >= 1) {
                             $val = array(
+                                '1' => '1',
                                 'status' => 1
                             );
-                            $query = $this->db->get_where('jobs', $val, $limit, $offset);
+                            $this->db->select('r.*');
+                            if (strlen($keywords) > 0) {
+                                $jobCatPage = true;
+                                $this->db->like("r.title", $keywords);
+                            } else {
+                                $this->db->where('(SELECT COUNT(*) FROM jobs r1
+                                                      WHERE r.category = r1.category AND r.id < r1.id
+                                                    ) <= 1');
+                                $this->db->where_in('r.category', $sql, FALSE);
+                            }
+                            $this->db->order_by('r.category ASC, RAND()');
+                            $query = $this->db->get_where('jobs r', $val, $limit, $offset);
                     }
                 }
                 if (is_object($query) && $query->num_rows() > 0) {
@@ -3260,7 +3186,7 @@ class Jobs extends Winjob_Controller {
                 } else {
                     $records = null;
                 }
-
+                
                 $data = array('js' => array('internal/find_job.js'), 'records' => $records, 'limit' => $limit);
 
                 if (isset($subCateList) && !empty($subCateList)) {
@@ -3278,11 +3204,13 @@ class Jobs extends Winjob_Controller {
                     } else {
                         $data['checkAll'] = false;
                     }
-                    $this->Admintheme->webview("jobs/category-jobs", $data);
+                    $data['categories'] = $this->Category->get_categories();
+                    $this->Admintheme->webview("jobs/freelance-jobs", $data);
                 } else {
                     $data['categories'] = $this->Category->get_categories();
                     $this->Admintheme->webview("jobs/freelance-jobs", $data);
                 }
             }
+    }
 }
 

@@ -6,10 +6,15 @@ class Signin extends CI_Controller {
 
     public function index() {
         if ($this->Adminlogincheck->checkx()) {
-            if ($this->session->userdata('type') == '1')
+            if ($this->session->userdata('type') == '1'){
                 redirect(site_url("jobs-home"));
-            else
-                redirect(site_url("find-jobs"));
+            }else{
+                if(isset($_GET['redirect'])){
+                    redirect(site_url("profile-settings").'?redirect='.$_GET['redirect']);
+                }else{
+                    redirect(site_url("find-jobs"));
+                }
+            }
         }else {
             $data = array(
                 'title' => "Log In - Winjob",

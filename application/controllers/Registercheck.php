@@ -21,9 +21,9 @@ class Registercheck extends CI_Controller {
         $type=$_POST['type'];
         $country=$_POST['country'];
         $password=$_POST['password'];
-
+        
 	$token = self::generateRandomString(30);
-
+        
         $this->db->select('webuser_id');
         $this->db->from('webuser');
         $this->db->where('webuser_email', $email);
@@ -57,7 +57,14 @@ class Registercheck extends CI_Controller {
             'webuser_status' => "1",
         );
 
-	$resetlink=site_url()."verifyemail?token=".$token;
+        $redirect_url = '';
+        if($this->input->post('job_id') != NULL && $this->input->post('job_id') != 0){
+            $job_id = base64_encode($this->input->post('job_id'));
+            $title = $this->str_to_url($this->input->post('title'));
+            $redirect_url = '&redirect='.site_url().'jobs/apply/'.$title.'/'.$job_id; //temp placeholder
+        }
+        
+	$resetlink=site_url()."verifyemail?token=".$token.$redirect_url;
 
         $this->db->insert('webuser', $add_data);
         $id=$this->db->insert_id();
@@ -79,5 +86,11 @@ class Registercheck extends CI_Controller {
 
         $response = $this->Sesmailer->sesemail($email,$subject,$this->Emailtemplate->emailview('verify_email', $data));
         redirect(site_url('thanks'));
+    }
+    
+    private function str_to_url($title){
+        $result = strtolower($title);
+        $result = str_replace(' ', '-', $result);
+        return $result;
     }
 }
