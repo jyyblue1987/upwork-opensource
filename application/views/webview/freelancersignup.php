@@ -20,20 +20,16 @@
         <?php } ?>
         </center>
             <form id="basic" method="post" action="<?php echo site_url("registercheck"); ?>">
-            <input type="hidden" name="type" value="1">
+            <input type="hidden" name="type" value="2">
             <div class="form-group">
                 <input type="text" name="fname" value="" class="form-control" id="firstname" autocomplete="false" placeholder="First Name">
             </div>
             <div class="form-group">
                 <input type="text" class="form-control" name="lname" value="" id="lastname" placeholder="Last Name">
+                <input type="hidden" name="job_id" id="job_id" value="0">
+                <input type="hidden" name="title" id="title" value="">
             </div>
-            <div class="form-group">
-                <input type="text" name="fname" value="" class="form-control" id="firstname" autocomplete="false" placeholder="First Name">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" name="lname" value="" id="lastname" placeholder="Last Name">
-            </div>
-            <?php           
+            <?php
 
             $this->Adminforms->selectdbnewxgdcv("Country","country","Select Country","country","id","name","index","asc","",true,array("all","All Country"));
 
