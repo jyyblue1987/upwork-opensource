@@ -53,6 +53,127 @@ class Contracts_model extends CI_Model {
         return $query->row();
     }
     
+    public function get_all_hourly_freelancer_contracts( $freelancer_id ){
+        
+        $this->db->select('bid_id, title')
+                ->from('job_accepted')
+                ->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner')
+                ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
+                ->where('job_bids.user_id', $freelancer_id)
+                ->where('job_bids.jobstatus', 0)
+                ->where('jobs.job_type', HOURLY_JOB_TYPE);
+        
+        $query = $this->db->get();
+        
+        return $query->result();
+    }
+    
+    public function load_all_details( $contract_id ){
+     
+        $fields = "jobs.*, " 
+                . "job_bids.*,"
+                . "jobs.user_id AS offerduser_id,"
+                . "job_bids.status AS bid_status,"
+                . "jobs.job_duration AS jobduration,"
+                . "job_bids.id AS bid_id,"
+                . "job_bids.created AS bid_created";
+        
+        $this->db->select( $fields )
+                ->join('job_bids', 'jobs.id=job_bids.job_id', 'inner')
+                ->where('job_bids.id', $contract_id)
+                ->where('job_bids.status', BID_STATE_APPLIED)
+                ->or_where('job_bids.status', BID_STATE_PAUSED);
+        
+        $query = $this->db->get('jobs');
+        return $query->row();
+        
+    }
+    
+    public function get_total_hour_worked_at( $contract_id, $date ){
+        
+        $query = $this->db->select('SUM(total_hour) as total_hour')
+                    ->from('job_workdairy')
+                    ->where('bid_id', $contract_id)
+                    ->where('working_date', $date)
+                    ->get();
+        
+        $row = $query->row();
+        
+        if(!empty($row))
+            return (int) $row->total_hour;
+        
+        return 0;
+    }
+    
+    public function get_hours_worked_this_week( $contract_id ){
+        
+        $time = strtotime('monday this week 00:00 UCT');
+        $cweek = date('Y-m-d', $time);
+        $nweek = date('Y-m-d', strtotime($cweek . ' + 1 weeks'));
+
+        $query = $this->db->select('SUM(total_hour) as total_hour')
+                    ->from('job_workdairy')
+                    ->where('bid_id', $contract_id)
+                    ->where('working_date >=', $cweek)
+                    ->where('working_date <=', $nweek)
+                    ->get();
+        
+        $result = $query->row();
+        
+        if( ! empty($result))
+            return $result->total_hour;
+        return 0;
+    }
+    
+    public function get_work_diary( $contract_id, $date ){
+        
+        $query = $this->db->select('DISTINCT(starting_hour), total_hour, jobid, fuser_id')
+                    ->from('job_workdairy')
+                    ->where('bid_id', $contract_id)
+                    ->where('working_date', $date)
+                    ->get();
+        
+        $diaries =  $query->result();
+        $result  = array();
+        
+        if(!empty($diaries)){
+            
+            $count = 0;
+            
+            foreach($diaries as $key => $working){
+
+                for ($hourshown = 0; $hourshown < $working->total_hour; $hourshown ++) {
+
+                    $hourdiff    = '+' . $hourshown . ' hour';
+                    $currentHour = date('H A ', strtotime($hourdiff, strtotime($working->starting_hour)));
+                    $presenthour = date('Y-m-d H:i:s', strtotime($hourdiff, strtotime($working->starting_hour)));
+                    $nexthour    = date('Y-m-d H:i:s', strtotime('+1 hour', strtotime($presenthour)));
+                    $date        = date('Y-m-d');
+                    
+                    $query = $this->db->select('cpture_image as capture_image, capture_time')
+                                ->from('workdairy_tracker')
+                                ->where('fuser_id', $working->fuser_id)
+                                ->where('jobid', $working->jobid)
+                                ->where('working_date', $date)
+                                ->where('capture_time >=', $presenthour)
+                                ->where('capture_time <=', $nexthour)
+                                ->get();
+                    
+                    $tracker_infos = $query->result();
+                    
+                    $count += 1;
+                    $result[$count]['current_hour'] = $currentHour;
+                    
+                    if( ! empty( $tracker_infos )){
+                        $result[$count]['captures'] = $tracker_infos;
+                    }
+                }
+            }
+        }
+        
+        return $result;
+    }
+    
     public function get_feedback_notification( $user_id, $is_client = false) {
         
         $fields = array(

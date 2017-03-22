@@ -1,0 +1,77 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 21 mars 2017, 19:37:39
+    Author     : Hermannovich <donfack.hermann@gmail.com>
+*/
+
+.big_header{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+#searchfilter, #top-bottom{
+    margin: 12px 0;
+}
+
+.custom_workdairy_freelancer select, 
+.custom_workdairy_freelancer input{
+    width: 100% !important;
+}
+
+.txt-hour{
+    font-family: calobri;
+    font-weight: bold;
+    margin-top: 2px;
+}
+
+#manual_time .modal-header{
+    background-color: #028fcc;
+    color: #fff;
+    margin-top: 0;
+}
+
+.modal-title{
+   font-weight: bold;
+   margin: 5px 0;
+   text-transform: uppercase
+}
+
+#manual_time h4{ font-weight: bold; }
+#manual_time .close{ font-size: 40px; color: #fff; font-weight: 800; }
+
+#manual_time .end_error,
+#manual_time .start_error{
+    margin-bottom: 5px;
+}
+
+#hourly_workcalculetor{ padding: 10px; margin-bottom: 0; margin-top: 5px; }
+
+.modal .modal-content{ padding: 0; border: none; }
+.modal .modal-body{ padding: 0; }
+
+.modal button, .modal button:hover{
+    background: #1fa7da !important;
+    border: #1fa7da;
+    color: #fff;
+    font-family: 'calibri';
+    padding: 5px;
+    border-radius: 0;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.modal button.btn-danger{
+    background: #d9534f !important;
+}
+
+.work_diary_header{
+    padding-bottom: 10px;
+    padding-top: 15px;
+    font-size: 18px;
+    font-weight: 600;
+}

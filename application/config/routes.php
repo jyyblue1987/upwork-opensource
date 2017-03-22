@@ -16,6 +16,7 @@ $route['jobs/past-hires']      = 'job/past_hires';
 $route['jobs/offers-sent']     = 'job/offers_sent';
 $route['jobs/my-contracts']    = 'job/my_contracts';
 $route['jobs/ended-contracts'] = 'job/ended_contracts';
+$route['jobs/work-diary']      = 'job/work_diary';
 
 
 $route['default_controller'] = 'home';

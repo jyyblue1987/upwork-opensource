@@ -184,6 +184,21 @@ if( ! function_exists('app_lang')){
     }
 }
 
+if( !function_exists('app_workdiary_capture')){
+    
+    function app_workdiary_capture( $img_url ){
+        
+        if (check_base64_image($img_url))
+            return $img_url;
+        
+        if(!empty( $img_url ) && file_exists( $img_url )){
+            return base_url($img_url);
+        }else{
+            return site_url("assets/img/BOTTOM_HEADER.png");
+        }
+    }
+}
+
 if( ! function_exists('app_user_img') ){
     
     /**

@@ -2993,12 +2993,10 @@ class Jobs extends Winjob_Controller {
 
             date_default_timezone_set("UTC");
 
-            $date = date('Y/m/d');
+            $date = date('Y-m-d');
 
             $starttime = date('Y-m-d H:i:s', strtotime($form['staring_hour']));
             $endtime = date('Y-m-d H:i:s', strtotime($form['end_hour']));
-
-
 
             $job_workdairy = array(
                 'jobid' => $form['job_id'],

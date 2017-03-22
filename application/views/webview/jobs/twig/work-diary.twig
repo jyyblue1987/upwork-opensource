@@ -1,0 +1,122 @@
+{% extends "webview/layout/twig/layout.twig" %}
+
+{% block title %}  {{ app_lang('text_job_work_diary_contracts') }} - Winjob  {% endblock %}
+
+{% block styles %}
+    {{ parent() }}
+    <link href="{{ site_url("assets/range/jquery-ui.css") }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ base_url("assets/css/jquery.datetimepicker.min.css") }}">
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/work-diary.css") }}">
+{% endblock %}
+
+{% block content %}
+    <section id="big_header" class="my_staff">
+        <div class="row work_dairy">
+            <div id="wrapper">
+                <div class="mian-head">
+                    <h1 class="work_diary_header">
+                        {{ app_lang('text_job_work_diary')|format( contract_details.title ) }}
+                    </h1>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="main-headtwo">
+                                {% if app_user_data()['type'] == constant('FREELANCER') %}
+                                    {% set form_class = 'col-xs-9' %}
+                                    {% set is_freelancer = true %}
+                                {% else %}
+                                    {% set form_class = 'col-xs-12' %}
+                                    {% set is_freelancer = false %}
+                                {% endif %}
+                                <form class="custom_workdairy_freelancer {{ form_class }}" action="" method="get" id="searchfilter">
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-3">
+                                            <select class="form-control" id="jobchanges" name="fmJob">
+                                                {% for contract in hourly_contracts %}
+                                                    {% set bid_id = base64_encode(contract_details.bid_id) %}
+                                                    <option value="{{ bid_id }}" {% if contract.bid_id == current_contract_id %}selected{% endif %} >{{ contract.title }}</option>
+                                                {% endfor %}    
+                                            </select> 
+                                        </div>
+
+                                        <div class="col-md-3 col-sm-3">
+                                            <input id="datepicker" 
+                                                   class="form-control datepicker"  
+                                                   name="date" 
+                                                   value="{{ current_date }}" >
+                                        </div>
+                                        <div class="col-md-3 col-sm-3">
+                                            <h3 class="txt-hour">
+                                                <span>{{ app_lang('text_job_today_worked')|format(total_hour_worked) }}</span>
+                                            </h3>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3">
+                                            <h3 class="txt-hour">
+                                                <span>{{ app_lang('text_job_total_hour_worked')|format(total_hours_week) }}</span>
+                                                <input id="total_work_time" type="hidden" value="{{ total_hours_week }}">
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </form>
+                                {% if is_freelancer %}
+                                    <div  class="col-md-3 col-sm-3">
+                                        {% if employer_is_not_active %}
+                                            <button data-toggle="modal"  id="top-bottom">
+                                                {{ app_lang('text_job_request_manual_hour_hold') }}
+                                            </button>
+                                        {% elseif contract_details.bid_status == constant('BID_STATE_PAUSED') %}
+                                            <button data-toggle="modal"  id="top-bottom">
+                                                {{ app_lang('text_job_request_manual_hour_paused') }}Request Manual Hour Paused
+                                            </button>
+                                        {% else %}
+                                            <button data-toggle="modal" data-target="#manual_time" id="top-bottom">
+                                                {{ app_lang('text_job_request_manual_hour') }}
+                                            </button>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                                <div style="clear:both"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="clear:both"></div>
+                <div style="min-height: 281px;" class="imgaes">
+                    <div class="container-fluid">
+                        <div class="row">
+                            {% for infos in captures %}
+                                <div class="col-md-1 col-sm-1">
+                                    <h4 class="custom_time">{{ infos['current_hour'] }}</h4>
+                                </div>
+                                <div style="margin-left: -24px;" class="col-md-11 col-sm-11">
+                                    {% for capture in infos['captures'] %}
+                                        <div class="col-md-2 col-sm-2">
+                                            <div class="imgdivison">
+                                                <img src="{{ app_workdiary_capture(capture['capture_image']) }}"/>
+                                                <p>{{ capture['capture_time'] }}</p>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="workdairy_freelancer_last_border" style="border-top: 10px solid transparent;  clear: both;  margin-bottom: 25px;border-bottom: 1px solid #ccc;"></div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    {% if is_freelancer %}
+        {{ include('webview/modals/work-diary.twig') }}
+    {% endif %}
+    
+{% endblock %}
+
+{% block js %}
+    
+    {# this variable defines the asset/modular/pages file to load #}
+    <script> var page = 'work-diary'; </script>
+    
+    <script data-main="{{ app_modular_js("winjob") }}" src="{{ app_modular_js("lib/require.dev.js") }}"></script>
+    
+{% endblock %}

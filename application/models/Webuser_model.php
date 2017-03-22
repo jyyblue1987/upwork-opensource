@@ -18,22 +18,31 @@ class Webuser_model extends CI_Model {
         return $query_status->row();
     }
     
-    public function get_username($id){
+    public function get_status( $user_id ){
+        return $this->get_field( 'isactive', $user_id );
+    }
+    
+    public function get_field( $field_name, $user_id ){
         
         $query = $this->db
-                    ->select('webuser_username')
+                    ->select( $field_name )
                     ->from('webuser')
-                    ->where('webuser.webuser_id', $id)
+                    ->where('webuser.webuser_id', $user_id)
                     ->get();
         
         $webuser  = $query->row();
         $username = '';
         
         if(isset($webuser)){
-            $username = $webuser->webuser_username;
+            $username = $webuser->{$field_name};
         }
         
         return $username;
+        
+    }
+    
+    public function get_username( $user_id ){
+        return $this->get_field('webuser_username', $user_id);
     }
     
     public function get_total_rating( $user_id ){

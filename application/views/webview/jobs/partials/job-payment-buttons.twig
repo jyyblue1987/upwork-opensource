@@ -1,7 +1,7 @@
 {% if job.job_type == 'hourly' %}
     <div class="ms_hr_work_diary">
         <div class="mystaff_work_diary hour_btn work_diary_btn">
-            <a href="{{ base_url() }}jobs/workdairy_client?fmJob={{ job_id_encoded }}&fuser={{ fuser_id_encoded }}">
+            <a href="{{ base_url() }}jobs/work-diary?fmJob={{ bid_id_encoded }}">
                 <input style="margin-right: -1px;" type="button" class="btn btn-primary form-btn" value="{{ app_lang('text_job_btn_work_diary') }}" />
             </a>
         </div>

@@ -1,0 +1,72 @@
+<div id="manual_time" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title text-center">
+                     {{ app_lang('text_job_work_diary_sent_work') }}
+                     <span type="button" class="close pull-right" data-dismiss="modal">&times;</span>
+                </h2>
+                <div class="container-fluid">
+                    <h4 class="pull-left">{{ app_lang('text_job_hourly_weekly_limit_time')|format(contract_details.weekly_limit) }}</h4>
+                    {% set lang_id = 'text_job_total_weekly_work' %}
+                    {% if total_hours_week > 1 %}
+                        {% set lang_id = 'text_job_total_weekly_works' %}
+                    {% endif %}
+                    <h4 class="pull-right">{{ app_lang( lang_id )|format(total_hours_week) }}</h4>
+                </div>
+                <div class="text-center">
+                    {% set remain_hour = contract_details.weekly_limit - total_hours_week %}
+                     {% set lang_id = 'text_job_remain_hour' %}
+                    {% if remain_hour > 1 %}
+                        {% set lang_id = 'text_job_remain_hours' %}
+                    {% endif %}
+                    <h4>{{ app_lang( lang_id )|format(remain_hour) }}</h4>
+                </div>
+            </div>
+            <div class="modal-body">
+                <p class="result-msg" style="text-align: center;color: green;font-size: 20px;display: none;"></p>
+                <p class="result-hour" style="text-align: center;color: green;font-size: 20px;display: none;"></p>
+                <form id="hourly_workcalculetor" class="col-xs-8 col-xs-offset-2">
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-4 col-form-label">Start Date</label>
+                        <div class="col-sm-8" id="staring_hour_container">
+                            <input type="text" id="staring_hour" name="staring_hour" class="form-control" required="" placeholder="Start Time">
+                            <p class="start_error"></p>
+                        </div>
+                    </div>
+                    <div class="form-group row" id="end_hour_container">
+                        <label for="inputPassword3" class="col-sm-4 col-form-label">End Date</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="end_hour" name="end_hour" class="form-control" required="" placeholder="End Time">
+                            <p class="end_error"></p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-4 col-form-label">Total hour</label>
+                        <div class="col-sm-8">
+                            <input disabled type="text" class="form-control" id="total_hour" name="total_hour" placeholder="Total hour">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <input name="weeklywork" type="hidden" id="weeklywork"  value="{{ total_hours_week }}"  />
+                            <input name="job_id" type="hidden" id="job_id"  value="{{ contract_details.job_id }}"  />
+                            <input name="user_id" type="hidden" id="user_id"  value="{{ contract_details.user_id }}"  />
+                            <input name="clientid" type="hidden" id="clientid"  value="{{ contract_details.buser_id }}"  />
+                            <input name="bid_id" type="hidden" id="bid_id"  value="{{ contract_details.bid_id }}"  />
+                            <input name="weeklylimit" type="hidden" id="weeklylimit"  value="{{ contract_details.weekly_limit }}"  />
+                            <button type="button" id="submitbutton" class="btn btn-primary btn-xs">
+                                {{ app_lang('text_job_modal_btn_submit') }}
+                                <i class="fa fa-circle-o-notch form-loader hide"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">{{ app_lang('text_job_modal_btn_close') }}</button>
+                            
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
