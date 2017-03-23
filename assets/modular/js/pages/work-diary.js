@@ -22,7 +22,7 @@ define(function (require) {
                 $(".result-hour").show().delay(5000).fadeOut();
             }
             
-            $("#total_hour").val( difference  );
+            $("#total_hour").val( difference );
         }
         else{
             $("#total_hour").val('');
@@ -125,11 +125,6 @@ define(function (require) {
     $('#submitbutton').on('click', function (e) {
         
         if(is_submitting_work) return;
-        
-        var end_hour     = $end_hour.val();
-        var staring_hour = $staring_hour.val();
-        var weeklywork   = $weeklywork.val();
-        var weeklylimit  = $weeklylimit.val();
         
         if ($staring_hour.val().trim() === "") {
             $('.start_error').html("enter some value");

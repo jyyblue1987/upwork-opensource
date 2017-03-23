@@ -14,7 +14,7 @@ if ($_SERVER['SERVER_NAME']=='localhost'){
 switch (ENVIRONMENT)
 {
 	case 'development':
-		error_reporting(E_ALL);
+		error_reporting(1);
 		ini_set('display_errors', 1);
 	break;
 

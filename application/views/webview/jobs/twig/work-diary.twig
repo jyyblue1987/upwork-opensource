@@ -27,12 +27,12 @@
                                     {% set form_class = 'col-xs-12' %}
                                     {% set is_freelancer = false %}
                                 {% endif %}
-                                <form class="custom_workdairy_freelancer {{ form_class }}" action="" method="get" id="searchfilter">
+                                <form class="custom_workdairy_freelancer {{ form_class }}" action="{{ base_url('jobs/work-diary') }}" method="get" id="searchfilter">
                                     <div class="row">
                                         <div class="col-md-3 col-sm-3">
                                             <select class="form-control" id="jobchanges" name="fmJob">
                                                 {% for contract in hourly_contracts %}
-                                                    {% set bid_id = base64_encode(contract_details.bid_id) %}
+                                                    {% set bid_id = base64_encode(contract.bid_id) %}
                                                     <option value="{{ bid_id }}" {% if contract.bid_id == current_contract_id %}selected{% endif %} >{{ contract.title }}</option>
                                                 {% endfor %}    
                                             </select> 

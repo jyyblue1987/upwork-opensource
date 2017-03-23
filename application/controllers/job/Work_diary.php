@@ -12,17 +12,13 @@ class Work_diary extends Winjob_Controller{
     
     public function __construct() {
         parent::__construct();
-        // added by (Donfack Zeufack Hermann) start 
-        // load the default language for the current user.
         $this->load_language();
-        // added by (Donfack Zeufack Hermann) end
     }
+    
     protected function load_language(){
         parent::load_language();
         $this->lang->load('job', $this->get_default_lang());
     }
-    
-    
     
     private function _freelancer_work_diary( $contract_id ){
         
@@ -53,6 +49,10 @@ class Work_diary extends Winjob_Controller{
         );
     }
     
+    public function _client_work_diary(){
+        
+    }
+    
     
     public function index() {
         
@@ -78,7 +78,7 @@ class Work_diary extends Winjob_Controller{
         if ( $user_type == FREELANCER ) {
             $this->_freelancer_work_diary( $contract_id );
         }elseif( $user_type == EMPLOYER ){
-            $this->_freelancer_work_diary( $contract_id );
+            $this->_client_work_diary( $contract_id );
         }else{
             redirect( home_url() );
         }
