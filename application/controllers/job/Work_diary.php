@@ -87,4 +87,33 @@ class Work_diary extends Winjob_Controller{
         
         date_default_timezone_set($default_timezone);
     }
+    
+    public function save_worked_hour(){
+        
+        if($this->input->is_ajax_request()){
+            if(  $this->Adminlogincheck->checkx() ){
+                
+                date_default_timezone_set("UTC");
+                
+                parse_str($this->input->post('form'), $data);
+                
+                //validate data
+                if(empty($data['staring_hour']) || verify_date($data['staring_hour'])){
+                    
+                }
+                
+                $date       = date('Y-m-d');
+                $start_time = date('Y-m-d H:i:s', strtotime($data['staring_hour']));
+                $end_time   = date('Y-m-d H:i:s', strtotime($data['end_hour']));
+                
+            }else{
+                $result = array('message' => 'Not allowed', 'code' => _AJAX_ERROR_NOT_CONNECTED);
+            }
+        }else{
+            $result = array('message' => 'Only ajax request is accepted for this action', 'code' => _AJAX_ERROR_NOT_CONNECTED);
+        }
+        
+        echo json_encode( $result );
+        die;
+    }
 }

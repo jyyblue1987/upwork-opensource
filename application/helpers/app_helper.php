@@ -348,4 +348,19 @@ if( ! function_exists('app_time_elapsed_string') ){
     
 }
 
+if( ! function_exists('verify_date') ){
+    
+    function verify_date($date, $strict = true)
+    {
+        $dateTime = DateTime::createFromFormat('m/d/Y', $date);
+        if ($strict) {
+            $errors = DateTime::getLastErrors();
+            if (!empty($errors['warning_count'])) {
+                return false;
+            }
+        }
+        return $dateTime !== false;
+    }
+}
+
 // added by (Donfack Zeufack Hermann) end

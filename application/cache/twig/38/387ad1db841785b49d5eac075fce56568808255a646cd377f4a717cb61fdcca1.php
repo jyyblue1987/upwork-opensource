@@ -18,7 +18,7 @@ class __TwigTemplate_e750bc871773f2127b318ecdcb3c44b382f82506f02ba81e0488601dda2
         // line 1
         echo "<div class=\"clear\"> </div>
 <section class=\"big_footer\">
-    <div id=\"find-jobs_container\" class=\"container\">
+    <div class=\"container\">
         <div class=\"row\">
 \t    <div class=\"col-sm-6 col-md-6 col-lg-3\">
 \t        <div class=\"footer-menu\">  
@@ -138,7 +138,7 @@ class __TwigTemplate_e750bc871773f2127b318ecdcb3c44b382f82506f02ba81e0488601dda2
     </div>
                          
     <div class=\"footer\">
-        <div id=\"find-jobs_container\" class=\"container\">
+        <div class=\"container\">
             <div class=\"row\">
                 <div class=\"col-sm-6 col-md-6\"><h1><b>WINJOB</b></h1></div>
                 <div class=\"col-sm-6 col-md-6\"><p>© 2016 WINJOB</p></div>
@@ -175,7 +175,7 @@ class __TwigTemplate_e750bc871773f2127b318ecdcb3c44b382f82506f02ba81e0488601dda2
     {
         return new Twig_Source("<div class=\"clear\"> </div>
 <section class=\"big_footer\">
-    <div id=\"find-jobs_container\" class=\"container\">
+    <div class=\"container\">
         <div class=\"row\">
 \t    <div class=\"col-sm-6 col-md-6 col-lg-3\">
 \t        <div class=\"footer-menu\">  
@@ -227,7 +227,7 @@ class __TwigTemplate_e750bc871773f2127b318ecdcb3c44b382f82506f02ba81e0488601dda2
     </div>
                          
     <div class=\"footer\">
-        <div id=\"find-jobs_container\" class=\"container\">
+        <div class=\"container\">
             <div class=\"row\">
                 <div class=\"col-sm-6 col-md-6\"><h1><b>WINJOB</b></h1></div>
                 <div class=\"col-sm-6 col-md-6\"><p>© 2016 WINJOB</p></div>
