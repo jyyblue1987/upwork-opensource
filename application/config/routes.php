@@ -92,7 +92,35 @@ $route['desktop-app'] = 'footerPages/desktop_app';
 $route['enterprise-solution'] = 'footerPages/enterprise';
 $route['fees-charges'] = 'footerPages/fees';
 $route['getwork-done'] = 'footerPages/getwork_done';
-$route['help'] = 'footerPages/help';
+
+//added by Ralfh 3/23/2017
+$route['employer-help'] = 'footerPages/employer_help';
+$route['freelancer-help'] = 'footerPages/freelancer_help';
+
+$route['employer-help/registering-account'] = 'footerPages/registering_account';
+$route['employer-help/costs-to-use'] = 'footerPages/costs_to_use';
+$route['employer-help/understanding-account-settings'] = 'footerPages/understanding_account_settings';
+$route['employer-help/verified-payments'] = 'footerPages/verified_payments';
+
+$route['employer-help/posting-jobs'] = 'footerPages/posting_jobs';
+$route['employer-help/jobs-description'] = 'footerPages/jobs_description';
+$route['employer-help/featuring-jobs'] = 'footerPages/featuring_jobs';
+$route['employer-help/job-status'] = 'footerPages/job_status';
+$route['employer-help/posting-restrictions'] = 'footerPages/posting_restrictions';
+
+$route['employer-help/finding-freelancers'] = 'footerPages/finding_freelancers';
+$route['employer-help/viewing-quotes'] = 'footerPages/viewing_quotes';
+$route['employer-help/awarding-job'] = 'footerPages/awarding_job';
+$route['employer-help/deciding-agreement'] = 'footerPages/deciding_agreement';
+
+
+$route['employer-help/communicating-with-freelancers'] = 'footerPages/communicating_with_freelancers';
+$route['employer-help/adding-files'] = 'footerPages/adding_files';
+$route['employer-help/managing-team'] = 'footerPages/managing_team';
+$route['employer-help/understanding-time-tracker'] = 'footerPages/understanding_time_tracker';
+$route['employer-help/understanding-workroom'] = 'footerPages/understanding_workroom';
+//end
+
 $route['how-to-join'] = 'footerPages/join';
 $route['make-better'] = 'footerPages/make_better';
 $route['press'] = 'footerPages/press';

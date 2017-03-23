@@ -110,6 +110,31 @@ class Admintheme extends CI_Model {
         $this->load->view('admin/homepage/dashboardf.php');
         $this->load->view('admin/layout/e.php');
     }
+
+    //added by Ralfh 3/23/2017 start 
+    function employer_help_webview($page,$data){
+        $text = $this->siteconfig->text();
+        $data['text']=$text;
+
+        $this->load->view('webview/layout/header.php',$data, false);
+        $this->load->view('webview/layout/afterheader.php',$data, false);
+        $this->load->view('webview/layout/employer-help-menu.php',$data, false);
+        $this->load->view('webview/'.$page,$data, false);
+        $this->load->view('webview/layout/footer.php',$data, false);
+     }       
+
+    function freelancer_help_webview($page,$data){
+        $text = $this->siteconfig->text();
+        $data['text']=$text;
+
+        $this->load->view('webview/layout/header.php',$data, false);
+        $this->load->view('webview/layout/afterheader.php',$data, false);
+        $this->load->view('webview/layout/freelancer-help-menu.php',$data, false);
+        $this->load->view('webview/'.$page,$data, false);
+        $this->load->view('webview/layout/footer.php',$data, false);
+     } 
+
+    //added by Ralfh 3/23/2017 end
 }
 
 ?>
