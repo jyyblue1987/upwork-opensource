@@ -112,7 +112,9 @@ body{
  .main_area_div_sub_div1{
 	padding:70px 0px 0px 0px;
  }
- 
+ .main_area_div_sub_div1 .input{
+ 	margin-left:0!important;
+ }
  .main_area_div_sub_div1 h1{
 	color:#262525;
 	font-family: 'Roboto';
@@ -4433,12 +4435,70 @@ margin-top: 14px !important;}
   
    }
 
+
+#big_header{
+	position: absolute;
+	left:0;
+	width: 100%;
+	margin-left: 0px!important;
+	margin-right: 0!important;
+	background-image:url(../img/help-banner.jpg);
+	background-repeat:no-repeat;
+	-webkit-background-size:cover;
+	-moz-background-size:cover;
+	-o-background-size:cover;
+	background-size:cover;
+	background-position:center top;
+	text-align:center;
+	height:70vh;
+	font-family: 'Roboto'
+}
+
+#big_header div.form_center{
+	position: relative;
+	color: #DDD;
+	width: 60%;
+	margin:0  auto;
+	font-family: 'Roboto';
+	padding-top:50px;
+	padding-bottom:50px;
+}
+
+#big_header div button{
+	width: 100%;
+	background-color: #ffffff;
+	color: #000;
+	height:60px;
+}
+
+#big_header div.form_center div p{
+	font-size: 50px;
+	color:#fff;
+	margin-bottom:20px;
+}
+
+#big_header div.form_center div span{
+	font-size: 20px;
+	color:#fff;
+	margin-bottom:20px;
+}
+
+#big_header div.form_center input.form-control{
+	height: 50px;
+}
     @media (max-width: 280px){
 
     }
 
-
     @media (max-width: 320px){
+
+	#big_header div button{
+		width: 100%;
+		background-color: #ffffff;
+		color: #000;
+		height:60px;
+		margin-bottom: 10px;
+	}    	
 		.table-responsive {
 			width: 100%!important;
 			margin-bottom: 15px!important;
@@ -4487,9 +4547,27 @@ margin-top: 14px !important;}
 		#maintable td{
 		font-size: 12px!important;
 		}
+      .help-home{
+      	margin-top: 420px;
+      }
+		#big_header div.form_center div p{
+			font-size: 20px;
+			color:#fff;
+			margin-bottom:20px;
+		}
     }
 
     @media (min-width: 321px) and (max-width: 480px){
+		#big_header div.form_center{
+			position: relative;
+			color: #DDD;
+			width: 60%;
+			margin:0  auto;
+			font-family: 'Roboto';
+			padding-top:10px;
+			padding-bottom:10px;
+		}
+
 		.table-responsive {
 			width: 100%!important;
 			margin-bottom: 15px!important;
@@ -4543,6 +4621,7 @@ margin-top: 14px !important;}
 		#cancelbutton{
 			margin-top:10px;
 		}
+
     }
 
     @media (min-width: 768px) {
@@ -4560,12 +4639,14 @@ margin-top: 14px !important;}
 			border: 1px solid #DDD;
 		}
 
+
     }
 
     @media (min-width: 992px) {
      .container {
         width: 960px;
       }
+
     }
 
     @media (min-width: 1024px) {
@@ -4577,6 +4658,7 @@ margin-top: 14px !important;}
       	padding-left:15px!important;
       	padding-right:15px!important;
       }
+
     }
 
     @media (min-width: 1200px) {
@@ -4597,6 +4679,9 @@ margin-top: 14px !important;}
       	padding-left:15px!important;
       	padding-right:15px!important;
       }
+      .help-home{
+      	margin-top: 440px;
+      }
     }
 
 	}
@@ -4608,7 +4693,7 @@ margin-top: 14px !important;}
 	.text-left{
 		text-align: :left;
 	}
-	
+
 	.top-border{
 		border-top:1px solid #DDDDDD;
 	}
