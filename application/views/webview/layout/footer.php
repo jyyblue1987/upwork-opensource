@@ -23,7 +23,7 @@
 	       <div class="footer-menu">  
 			 <ul>
 			  <li><p><b>Contact Support</b></p></li>
-			 <li><a href="<?php echo site_url("help"); ?>">Help & Support</a></li>
+			 <li><a href="<?php echo site_url("employer-help"); ?>">Help & Support</a></li>
                          <li><a href="<?php echo site_url("trust-safety"); ?>">Trust and Safety</a></li>
 			 <li><a href="<?php echo site_url("make-better"); ?>">Help Make Winjob better</a></li>
 			</ul>
