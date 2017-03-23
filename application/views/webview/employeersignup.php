@@ -8,7 +8,7 @@
     <div class="row">
     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 hidden-xs">
     </div>
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 no-pad" >
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
         <div class="main_area_div_sub_div1">
         <center><h1>Create a Free Employer Account </h1>
         <p>Looking for work? <a href="<?php echo site_url("freelancersignup/") ?>">Sign up as a Freelancer</a> </p>
@@ -69,7 +69,7 @@
 
 
             <br><br>
-                <input style="padding: 11px 100px;margin-top: 15px;margin-left:10px!important;" type="submit" value="Get Started" id="next" class="btn btn-success">
+                <input style="padding: 11px 100px;margin-top: 15px;" type="submit" value="Get Started" id="next" class="btn btn-success">
             <!--<button type="submit" class="btn btn-primary pull-right">Next</button>--> 
                 <h2>By creating an account, you agree to our</h2>
                 <h3><a href="#">Winjob Marketplace User Agreement</a> <span>and</span> <a href="#">Privacy policy</a></h3>

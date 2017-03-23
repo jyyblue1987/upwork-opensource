@@ -310,7 +310,7 @@ class Adminforms extends CI_Model {
  	 ?>
 
 
-									 <div class="col-md-10 col-xs-12 form-group">
+									 <div class="form-group">
 							
                        <select data-placeholder="<?php echo $placeholder; ?>"  class="form-control" name="<?php echo $name; ?>" <?php if($required){ echo "required";} ?> >
  					  <?php 
