@@ -4436,7 +4436,7 @@ margin-top: 14px !important;}
    }
 
 
-#big_header{
+#help_big_header{
 	position: absolute;
 	left:0;
 	width: 100%;
@@ -4454,7 +4454,7 @@ margin-top: 14px !important;}
 	font-family: 'Roboto'
 }
 
-#big_header div.form_center{
+#help_big_header div.form_center{
 	position: relative;
 	color: #DDD;
 	width: 60%;
@@ -4464,26 +4464,26 @@ margin-top: 14px !important;}
 	padding-bottom:50px;
 }
 
-#big_header div button{
+#help_big_header div button{
 	width: 100%;
 	background-color: #ffffff;
 	color: #000;
 	height:60px;
 }
 
-#big_header div.form_center div p{
+#help_big_header div.form_center div p{
 	font-size: 50px;
 	color:#fff;
 	margin-bottom:20px;
 }
 
-#big_header div.form_center div span{
+#help_big_header div.form_center div span{
 	font-size: 20px;
 	color:#fff;
 	margin-bottom:20px;
 }
 
-#big_header div.form_center input.form-control{
+#help_big_header div.form_center input.form-control{
 	height: 50px;
 }
     @media (max-width: 280px){
@@ -4492,7 +4492,7 @@ margin-top: 14px !important;}
 
     @media (max-width: 320px){
 
-	#big_header div button{
+	#help_big_header div button{
 		width: 100%;
 		background-color: #ffffff;
 		color: #000;
@@ -4550,7 +4550,7 @@ margin-top: 14px !important;}
       .help-home{
       	margin-top: 420px;
       }
-		#big_header div.form_center div p{
+		#help_big_header div.form_center div p{
 			font-size: 20px;
 			color:#fff;
 			margin-bottom:20px;
@@ -4558,7 +4558,7 @@ margin-top: 14px !important;}
     }
 
     @media (min-width: 321px) and (max-width: 480px){
-		#big_header div.form_center{
+		#help_big_header div.form_center{
 			position: relative;
 			color: #DDD;
 			width: 60%;
