@@ -106,7 +106,7 @@
 				</tr>
 				<tr>
 					<td>Awarded</td>
-					<td>The project has been closed and awarded to another guru. Closed jobs will not be listed on the search pages. You will see this status for jobs listed on your Proposals, Watch List, Job Matches and Job Invitations pages.</td>	
+					<td>The project has been closed and awarded to another freelancer. Closed jobs will not be listed on the search pages. You will see this status for jobs listed on your Proposals, Watch List, Job Matches and Job Invitations pages.</td>	
 				</tr>
 				<tr>
 					<td>Award Canceled</td>

@@ -33,52 +33,51 @@
 		<div class="col-md-4 col-sm-4 col-xs-12 right-border help-pad">
 			<p class="help-header">Getting Started</p>
 			<a href="employer-help/registering-account">Registering an Account</a><br> 								
-			<a href="employer-help/costs-to-use">Costs to Use Guru.com</a><br>
+			<a href="employer-help/costs-to-use">Costs to Use Winjobs.com</a><br>
 			<a href="employer-help/verified-payments">Verified Payments</a><br>
 			<a href="employer-help/understanding-account-settings">Understanding Account Settings</a><br><br>
 		</div>
 		<div class="col-md-4 col-sm-4 col-xs-12 help-pad">
 			<p class="help-header">Posting Jobs</p>
 			<a href="employer-help/posting-jobs">How to Post a Job</a><br> 								
-			<a href="#">Your Job Description</a><br>
-			<a href="#">Featuring Your Job</a><br>
-			<a href="#">Your Job Status</a><br>
-			<a href="#">Posting Restrictions</a>
+			<a href="employer-help/jobs-description">Your Job Description</a><br>
+			<a href="employer-help/featuring-jobs">Featuring Your Job</a><br>
+			<a href="employer-help/job-status">Your Job Status</a><br>
+			<a href="employer-help/posting-restrictions">Posting Restrictions</a>
 		</div>
 		<div class="col-md-4 col-sm-4 col-xs-12 left-border help-pad">
-			<p class="help-header">Hiring a Guru</p>
-			<a href="#">Finding a Guru</a><br> 								
-			<a href="#">Viewing Quotes</a><br>
-			<a href="#">Awarding a Job </a><br>
-			<a href="#">Deciding on An</a><br>
-			<a href="#">Agreement</a>
+			<p class="help-header">Hiring a freelancer</p>
+			<a href="employer-help/finding-freelancers">Finding a freelancer</a><br> 								
+			<a href="employer-help/viewing-quotes">Viewing Quotes</a><br>
+			<a href="employer-help/awarding-job">Awarding a Job </a><br>
+			<a href="employer-help/deciding-agreement">Deciding on An Agreement</a><br>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-4 col-sm-4 col-xs-12 top-border right-border help-pad">
 			<p class="help-header">Managing Your Job</p>
-			<a href="#">Communicating with freelancers</a><br> 								
-			<a href="#">Adding Files to the Workroom</a><br>
-			<a href="#">Managing Your Team</a><br>
-			<a href="#">Understanding Time Tracker</a><br>
-			<a href="#">Understanding the Workroom</a>
+			<a href="employer-help/communicating-with-freelancers">Communicating with freelancers</a><br> 	
+			<a href="employer-help/understanding-workroom">Understanding the Workroom</a>		
+			<a href="employer-help/adding-files">Adding Files to the Workroom</a><br>
+			<a href="employer-help/managing-team">Managing Your Team</a><br>
+			<a href="employer-help/understanding-time-tracker">Understanding Time Tracker</a><br>
 		</div>
 		<div class="col-md-4 col-sm-4 col-xs-12 top-border help-pad">
-			<p class="help-header">Paying a Guru</p>
-			<a href="#">Understanding Invoices and SafePay</a><br> 
-			<a href="#">Paying an Invoice</a><br>	
-			<a href="#">Adding Funds to SafePay</a><br>
-			<a href="#">Understanding Auto-Pay</a><br>
-			<a href="#">Adding and Verifying Payment Methods </a><br>
-			<a href="#">Our 1099 Service</a><br>
-			<a href="#">Managing Feedback</a>
+			<p class="help-header">Paying a freelancer</p>
+			<a href="employer-help/understanding-invoce-safepay">Understanding Invoices and SafePay</a><br> 
+			<a href="employer-help/paying-invoice">Paying an Invoice</a><br>	
+			<a href="employer-help/adding-funds">Adding Funds to SafePay</a><br>
+			<a href="employer-help/understanding-autopay">Understanding Auto-Pay</a><br>
+			<a href="employer-help/managing-feedback">Managing Feedback</a><br>
+			<a href="employer-help/adding-payment-methods">Adding and Verifying Payment Methods </a><br>
+			<a href="employer-help/our-service">Our 1099 Service</a>
 		</div>
 		<div class="col-md-4 col-sm-4 col-xs-12 top-border left-border help-pad">
-			<p class="help-header">Disputes with Guru</p>
-			<a href="#">Requesting a SafePay Refund</a><br> 								
-			<a href="#">Requesting an Invoice Refund</a><br>
-			<a href="#">Entering Negotiation </a><br>
-			<a href="#">Escalating a Dispute to Arbitration</a>
+			<p class="help-header">Disputes with freelancer</p>
+			<a href="employer-help/requesting-safepay-refund">Requesting a SafePay Refund</a><br> 		
+			<a href="employer-help/requesting-invoice-refund">Requesting an Invoice Refund</a><br>
+			<a href="employer-help/entering-negotiation">Entering Negotiation </a><br>
+			<a href="employer-help/escalating-dispute">Escalating a Dispute to Arbitration</a>
 		</div>
 	</div>
 

@@ -15,15 +15,15 @@
 
 			<p><u>Security Questions:</u></p>
 
-			<p>Set up and manage your security questions here. If you ever forget the answer to one or more questions you can change them here as long as you know your Guru.com password.</p>
+			<p>Set up and manage your security questions here. If you ever forget the answer to one or more questions you can change them here as long as you know your Winjobs.com password.</p>
 
 			<p><u>Username:</u></p>
 
-			<p>You can change your username here. Your username is the primary method to login to Guru.com</p>
+			<p>You can change your username here. Your username is the primary method to login to Winjobs.com</p>
 
 			<p><u>Password:</u></p>
 
-			<p>You can change your Guru.com password here.</p>
+			<p>You can change your Winjobs.com password here.</p>
 
 			<p><u>Delete Account:</u></p>
 
@@ -31,7 +31,7 @@
 
 			<p><u>Social Networks:</u></p>
 
-			<p>Set up and manage what social networks you use to login to Guru.com.</p>
+			<p>Set up and manage what social networks you use to login to Winjobs.com.</p>
 			</div>
 		</div>
 </div>

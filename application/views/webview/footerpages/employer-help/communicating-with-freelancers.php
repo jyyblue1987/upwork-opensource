@@ -1,11 +1,11 @@
 
 			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 			<h3><?=$title?></h3>
-			<p>Once you’ve hired a guru, the system will create a workroom for your job. This will be the place for you to communicate with your guru.</p>
+			<p>Once you’ve hired a freelancer, the system will create a workroom for your job. This will be the place for you to communicate with your freelancer.</p>
 
-			<p><u>Communicating with all gurus you’ve hired at once:</u></p>
+			<p><u>Communicating with all Winjobs.com you’ve hired at once:</u></p>
 
-			<p>You can communicate via the “Discussions” page. This communication is shared among gurus that were also hired for this job.</p>
+			<p>You can communicate via the “Discussions” page. This communication is shared among Winjobs.com that were also hired for this job.</p>
 			    <p>
 			    	<ol class="help-list">
 			    		<li>Navigate to the job in question.</li>
@@ -35,15 +35,15 @@
 
 			<p>Direct communication such as Skype or email is also an option.  Use whatever you feel most comfortable with and best fits the needs of your business.</p>
 
-			<p><u>Communicating privately with a guru:</u></p>
+			<p><u>Communicating privately with a freelancer:</u></p>
 
-			<p>You can communicate privately with gurus using private messaging. Messages will be listed at the bottom of each job’s workroom or from the “Messages” tab.</p>
+			<p>You can communicate privately with Winjobs.com using private messaging. Messages will be listed at the bottom of each job’s workroom or from the “Messages” tab.</p>
 
 			<p><u>Initiating a private message:</u></p>
 			        <p>
 			    		<ol class="help-list">
 			    			<li>From the dashboard, click on a job underneath the “Quotes” tile.</li>
-			   				<li>Find a guru you’d like to send a message to.</li>
+			   				<li>Find a freelancer you’d like to send a message to.</li>
 			    			<li>Click “Reply” at the top right of their quote.</li>
 						</ol>
 					</p>
@@ -83,7 +83,7 @@
 
 			<p><u>Private message terms of use:</u></p>
 
-			<p>Guru.com reserves the right to bypass warnings and disable access at any time.<p>
+			<p>Winjobs.com reserves the right to bypass warnings and disable access at any time.<p>
 					<p>
 			    		<ul class="help-list">
 			    			<li>First offense - Message content blocked. Warning issued.</li>
@@ -104,7 +104,7 @@
 
 			<p><u>Questions and Answers terms of use:</u></p>
 
-			<p>In order to maintain the quality of service on Guru.com, postings to this section are reviewed by our quality assurance team. Employers and gurus who abuse communication tools are in violation of its Terms of Use and will be penalized.</p>
+			<p>In order to maintain the quality of service on Winjobs.com, postings to this section are reviewed by our quality assurance team. Employers and Winjobs.com who abuse communication tools are in violation of its Terms of Use and will be penalized.</p>
 
 			<p><u>Questions and answers that include the following are considered abusive:</u></p>
 					<p>
@@ -113,7 +113,7 @@
 						    <li>Self-promotional content (resumes, proposals, professional background, an indication of your willingness or ability to do the job, mock-ups or samples)</li>
 						    <li>Questions that ask if the Employer will accept applications outside of the project scope or location.</li>
 						    <li>Message board abuse warnings and penalties</li>
-						    <li>Guru.com reserves the right to bypass warnings and disable access at any time.</li>
+						    <li>Winjobs.com reserves the right to bypass warnings and disable access at any time.</li>
 						</ul>
 					</p>
 					<p>
@@ -128,9 +128,9 @@
 
 			<p><u>Announcements:</u></p>
 
-			<p>Announcements are simply bulletin board-like messages you can send to broadcast information about a job. Gurus cannot respond to these messages.</p>
+			<p>Announcements are simply bulletin board-like messages you can send to broadcast information about a job. Winjobs.com cannot respond to these messages.</p>
 
-			<p>Announcements are listed in your Guru.com Inbox and are denoted with a megaphone icon.</p>
+			<p>Announcements are listed in your Winjobs.com Inbox and are denoted with a megaphone icon.</p>
 			</div>
 		</div>
 </div>
