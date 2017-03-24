@@ -659,8 +659,8 @@ CREATE TABLE `job_bids` (
   `bid_earning` float(10,2) DEFAULT NULL,
   `job_duration` varchar(100) DEFAULT NULL,
   `cover_latter` text,
-  `status` tinyint(4) NOT NULL DEFAULT '0'COMMENT
-) ;
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT ''
+);
 
 --
 -- Contenu de la table `job_bids`

@@ -1,0 +1,8 @@
+
+default:
+    suites:
+        test:
+            paths:    [ %paths.base%/features ]
+            contexts: [ TestContext ]
+            bootstrap: 
+                - %paths.base%/index.php

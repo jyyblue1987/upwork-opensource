@@ -145,3 +145,5 @@ defined('EMPLOYER') || define('EMPLOYER', 1);
 defined('FREELANCER') || define('FREELANCER', 2);
 
 defined('JOB_ENDED') || define('JOB_ENDED', 1);
+
+defined('_AJAX_ERROR_NOT_CONNECTED') || define('_AJAX_ERROR_NOT_CONNECTED', 403);
