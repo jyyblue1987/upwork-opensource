@@ -97,6 +97,7 @@ $route['getwork-done'] = 'footerPages/getwork_done';
 $route['employer-help'] = 'footerPages/employer_help';
 $route['freelancer-help'] = 'footerPages/freelancer_help';
 
+//employer help pages start
 $route['employer-help/registering-account'] = 'footerPages/registering_account';
 $route['employer-help/costs-to-use'] = 'footerPages/costs_to_use';
 $route['employer-help/understanding-account-settings'] = 'footerPages/understanding_account_settings';
@@ -119,7 +120,56 @@ $route['employer-help/adding-files'] = 'footerPages/adding_files';
 $route['employer-help/managing-team'] = 'footerPages/managing_team';
 $route['employer-help/understanding-time-tracker'] = 'footerPages/understanding_time_tracker';
 $route['employer-help/understanding-workroom'] = 'footerPages/understanding_workroom';
-//end
+
+$route['employer-help/understanding-invoce-safepay'] = 'footerPages/understanding_invoce_safepay';
+$route['employer-help/paying-invoice'] = 'footerPages/paying_invoice';
+$route['employer-help/adding-funds'] = 'footerPages/adding_funds';
+$route['employer-help/understanding-autopay'] = 'footerPages/understanding_autopay';
+$route['employer-help/managing-feedback'] = 'footerPages/managing_feedback';
+$route['employer-help/adding-payment-methods'] = 'footerPages/adding_payment_methods';
+$route['employer-help/our-service'] = 'footerPages/our_service';
+
+$route['employer-help/requesting-safepay-refund'] = 'footerPages/requesting_safepay_refund';
+$route['employer-help/requesting-invoice-refund'] = 'footerPages/requesting_invoice_refund';
+$route['employer-help/entering-negotiation'] = 'footerPages/entering_negotiation';
+$route['employer-help/escalating-dispute'] = 'footerPages/escalating_dispute';
+//employer help pages end
+
+//freelancer help start
+$route['freelancer-help/registering-account'] = 'footerPages/f_registering_account';
+$route['freelancer-help/costs-to-use'] = 'footerPages/f_costs_to_use';
+$route['freelancer-help/editing-account'] = 'footerPages/f_editing_account';
+
+$route['freelancer-help/understanding-profile'] = 'footerPages/f_understanding_profile';
+$route['freelancer-help/adding-portfolio-services'] = 'footerPages/f_adding_portfolio_services';
+$route['freelancer-help/taking-skill-tests'] = 'footerPages/f_taking_skill_tests';
+$route['freelancer-help/purchasing-membership'] = 'footerPages/f_purchasing_membership';
+
+$route['freelancer-help/searching-jobs'] = 'footerPages/f_searching_jobs';
+$route['freelancer-help/receiving-invitations'] = 'footerPages/f_receiving_invitations';
+$route['freelancer-help/receiving-job-matches'] = 'footerPages/f_receiving_job_matches';
+$route['freelancer-help/adding-jobs-to-wishlist'] = 'footerPages/f_adding_jobs_to_wishlist';
+$route['freelancer-help/submitting-quotes'] = 'footerPages/f_submitting_quotes';
+$route['freelancer-help/understanding-quotes-terms'] = 'footerPages/f_understanding_quotes_terms';
+
+$route['freelancer-help/communicating-with-employers'] = 'footerPages/f_communicating_with_employers';
+$route['freelancer-help/sending-agreement'] = 'footerPages/f_sending_agreement';
+$route['freelancer-help/adding-files-to-workroom'] = 'footerPages/f_adding_files_to_workroom';
+$route['freelancer-help/using-timetracker'] = 'footerPages/f_using_timetracker';
+$route['freelancer-help/managing-team'] = 'footerPages/f_managing_team';
+	
+$route['freelancer-help/understanding-payment'] = 'footerPages/f_understanding_payment';
+$route['freelancer-help/sending-invoices'] = 'footerPages/f_sending_invoices';
+$route['freelancer-help/payment-schedule'] = 'footerPages/f_payment_schedule';
+$route['freelancer-help/verified-payment-methods'] = 'footerPages/f_verified_payment_methods';
+$route['freelancer-help/adding-transfer-method'] = 'footerPages/f_adding_transfer_method';
+$route['freelancer-help/managing-feedback'] = 'footerPages/f_managing_feedback';
+
+$route['freelancer-help/issuing-safepay-refund'] = 'footerPages/f_issuing_safepay_refund';
+$route['freelancer-help/issuing-invoice-refund'] = 'footerPages/f_issuing_invoice_refund';
+$route['freelancer-help/entering-negotiation'] = 'footerPages/f_entering_negotiation';
+$route['freelancer-help/escalating-dispute-arbitration'] = 'footerPages/f_escalating_dispute_arbitration';
+//Ralfh -- end
 
 $route['how-to-join'] = 'footerPages/join';
 $route['make-better'] = 'footerPages/make_better';

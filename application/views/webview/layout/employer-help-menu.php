@@ -43,7 +43,7 @@
 								<li><a href="finding-freelancers" class="<?=$page == 'finding-freelancers' ? 'actived' : ''?>">Finding a Freelancer</li>
 								<li><a href="viewing-quotes" class="<?=$page == 'viewing-quotes' ? 'actived' : ''?>">Viewing Quotes</a></li>
 								<li><a href="awarding-job" class="<?=$page == 'awarding-job' ? 'actived' : ''?>">Awarding a Job</a></li>
-								<li><a href="deciding-agreement" class="<?=$page == 'deciding-aggreement' ? 'actived' : ''?>">Deciding on An Agreement</a></li>
+								<li><a href="deciding-agreement" class="<?=$page == 'deciding-agreement' ? 'actived' : ''?>">Deciding on An Agreement</a></li>
 							</ul>
 							<?}?>
 						</li>
@@ -58,14 +58,27 @@
 							</ul>
 							<?}?>
 						</li>
-						<li class="main-nav"><a href="paying-jobs" class="<?=$type == 'fifth' ? 'actived' : ''?>">Paying in Winjobs</a>
+						<li class="main-nav"><a href="understanding-invoce-safepay" class="<?=$type == 'fifth' ? 'actived' : ''?>">Paying a Freelancer</a>
 							<?if($type == "fifth"){?>
-
+							<ul class="sub-nav">
+								<li><a href="understanding-invoce-safepay" class="<?=$page == 'understanding-invoce-safepay' ? 'actived' : ''?>">Understanding Invoices and SafePay</a></li>
+								<li><a href="paying-invoice" class="<?=$page == 'paying-invoice' ? 'actived' : ''?>">Paying an Invoice</a></li>
+								<li><a href="adding-funds" class="<?=$page == 'adding-funds' ? 'actived' : ''?>">Adding Funds to SafePay</a></li>
+								<li><a href="understanding-autopay" class="<?=$page == 'understanding-autopay' ? 'actived' : ''?>">Understanding Auto-Pay</a></li>
+								<li><a href="managing-feedback" class="<?=$page == 'managing-feedback' ? 'actived' : ''?>">Managing Feedback</a></li>
+								<li><a href="adding-payment-methods" class="<?=$page == 'adding-payment-methods' ? 'actived' : ''?>">Adding and Verifying Payment Methods</a></li>
+								<li><a href="our-service" class="<?=$page == 'our-service' ? 'actived' : ''?>">Our 1099 Service</a></li>
+							</ul>
 							<?}?>
 						</li>
-						<li class="main-nav"><a href="disputes-winjobs" class="<?=$type == 'sixth' ? 'actived' : ''?>">Disputes with Winjobs</a>
+						<li class="main-nav"><a href="requesting-safepay-refund" class="<?=$type == 'sixth' ? 'actived' : ''?>">Disputes with Freelancers</a>
 							<?if($type == "sixth"){?>
-
+							<ul class="sub-nav">
+								<li><a href="requesting-safepay-refund" class="<?=$page == 'requesting-safepay-refund' ? 'actived' : ''?>">Requesting a SafePay Refund</a></li>
+								<li><a href="requesting-invoice-refund" class="<?=$page == 'requesting-invoice-refund' ? 'actived' : ''?>">Requesting an Invoice Refund</a></li>
+								<li><a href="entering-negotiation" class="<?=$page == 'entering-negotiation' ? 'actived' : ''?>">Entering Negotiation</a></li>
+								<li><a href="escalating-dispute" class="<?=$page == 'escalating-dispute' ? 'actived' : ''?>">Escalating a Dispute to Arbitration</a></li>
+							</ul>
 							<?}?>
 						</li>	
 					</ul>
