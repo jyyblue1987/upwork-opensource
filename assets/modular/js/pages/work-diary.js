@@ -5,7 +5,8 @@ define(function (require) {
      */
     var $               = require('jquery'),
         bootstrap       = require('bootstrap'),
-        datetimepicker  = require('jquery_datetime_picker');
+        datetimepicker  = require('jquery_datetime_picker')
+        moment          = require('moment');
     
     function calculated_total_hour(){
         
@@ -32,24 +33,31 @@ define(function (require) {
     function on_select_end_hour_change(time, input, event){
         $(".end_error").hide();
         event.stopPropagation();
-        conf_start_datetime.maxTime = time;
+        
+        var hour = moment(time).get('hour');
+        
+        conf_start_datetime.maxTime = moment().set('hour', hour).toDate();
         $staring_hour.data('xdsoft_datetimepicker').setOptions( conf_start_datetime );
     }
     
     function on_select_staring_hour_change(time, input, event ){
         $(".start_error").hide();
-        event.stopPropagation();        
-        conf_end_datetime.minTime = time;
+        event.stopPropagation();  
+            
+        var hour = moment(time).get('hour');
+        
+        conf_end_datetime.minTime = moment().set('hour', hour).toDate();
         $end_hour.data('xdsoft_datetimepicker').setOptions( conf_end_datetime );
     }
     
     
     function on_change_date(time, input, event){
+        
         event.stopPropagation();
         
-        end_datetimepicker   = $('#' + $(input).attr('id')).data('xdsoft_datetimepicker');
+        input_datetimepicker   = $('#' + $(input).attr('id')).data('xdsoft_datetimepicker');
         popup_datetimepicker = $(input).data('xdsoft_datetimepicker');
-        var current_value    = end_datetimepicker.getValue();
+        var current_value    = input_datetimepicker.getValue();
         
         if(!current_value) return;
         
@@ -59,7 +67,7 @@ define(function (require) {
            valid_hours.push($(this).data('hour')); 
         });
         
-        current_hour = current_value.getHours();
+        current_hour = current_value.getHours();        
         if( $.inArray(current_hour, valid_hours) !== -1 ){
             return calculated_total_hour();
         }
@@ -84,8 +92,8 @@ define(function (require) {
             autoclose: true,
             datepicker: false,
             disabledMinTime: true,
-            maxTime: new Date(),
-            maxDate: new Date(),
+            maxTime: moment().toDate(),
+            maxDate: moment().toDate(),
             onSelectTime: on_select_end_hour_change,
             onChangeDateTime: on_change_date
         },
@@ -96,8 +104,8 @@ define(function (require) {
             autoclose: true,
             datepicker: false,
             disabledMaxTime: true,
-            maxTime: new Date(),
-            maxDate: new Date(),
+            maxTime: moment().subtract(1, 'hours').toDate(),
+            maxDate: moment().subtract(1, 'hours').toDate(),
             onSelectTime: on_select_staring_hour_change,
             onChangeDateTime: on_change_date
         };
@@ -143,16 +151,17 @@ define(function (require) {
         $loading.removeClass('hide').addClass('fa-spin');
         is_submitting_work = true;
         
-        var jqXhr    = $.post(site_url + "jobs/work_hour", { form: $form.serialize() + '&total_hour=' + parseInt($("#total_hour").val()) }, $.noop, 'json');
+        var jqXhr    = $.post(site_url + "job/work_diary/save_worked_hour", { form: $form.serialize() + '&total_hour=' + parseInt($("#total_hour").val()), csrf_test_name: csrf_token}, $.noop, 'json');
         
         jqXhr.done(function( data ){
-            
-            if (data.success) {
+            console.log( data );
+            /*if (data.success) {
                 
                 $form[0].reset();
                 $('.result-msg').html(data.message);
                 $(".result-msg").show().delay(5000).fadeOut();
                 var total = $('#total_work_time').val();
+                
                 $(".show_totlaworktime").html(parseFloat(data.todaywork) + parseFloat(total));
 
                 var $option = $select_contract.find('option').filter(':selected');
@@ -160,7 +169,7 @@ define(function (require) {
             } else {
                 $('.result-msg').html(data.message);
                 $(".result-msg").show().delay(5000).fadeOut();
-            }
+            }*/
             
         });
         

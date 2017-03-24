@@ -32,24 +32,20 @@ class __TwigTemplate_0c7259eeb07a60d5b219a05d0d54e2eb4ea90c62d6550451510a9b118b4
         // line 7
         echo twig_escape_filter($this->env, site_url("jobs/my-freelancers"), "html", null, true);
         echo "\">  
-        <img src=\"";
+        <i class=\"fa fa-users\" aria-hidden=\"true\"></i> ";
         // line 8
-        echo twig_escape_filter($this->env, site_url("assets/img/version1/cup.png"), "html", null, true);
-        echo "\"  style=\"height:20px; width:10px; margin-top:0px;\"/> 
-        ";
-        // line 9
         echo twig_escape_filter($this->env, app_lang("text_app_my_freelancers"), "html", null, true);
         echo "
     </a>
 </li> 
 <li>
     <a href=\"";
-        // line 13
+        // line 12
         echo twig_escape_filter($this->env, site_url("pay/clientpay"), "html", null, true);
         echo "\">
-        <i class=\"fa fa-cc-discover\" aria-hidden=\"true\"></i>  
+        <i class=\"fa fa-credit-card\" aria-hidden=\"true\"></i>
         ";
-        // line 15
+        // line 14
         echo twig_escape_filter($this->env, app_lang("text_app_clientpay"), "html", null, true);
         echo "
     </a>
@@ -69,7 +65,7 @@ class __TwigTemplate_0c7259eeb07a60d5b219a05d0d54e2eb4ea90c62d6550451510a9b118b4
 
     public function getDebugInfo()
     {
-        return array (  53 => 15,  48 => 13,  41 => 9,  37 => 8,  33 => 7,  26 => 3,  22 => 2,  19 => 1,);
+        return array (  49 => 14,  44 => 12,  37 => 8,  33 => 7,  26 => 3,  22 => 2,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -89,13 +85,12 @@ class __TwigTemplate_0c7259eeb07a60d5b219a05d0d54e2eb4ea90c62d6550451510a9b118b4
 </li>
 <li>
     <a href=\"{{ site_url('jobs/my-freelancers') }}\">  
-        <img src=\"{{ site_url('assets/img/version1/cup.png') }}\"  style=\"height:20px; width:10px; margin-top:0px;\"/> 
-        {{ app_lang('text_app_my_freelancers') }}
+        <i class=\"fa fa-users\" aria-hidden=\"true\"></i> {{ app_lang('text_app_my_freelancers') }}
     </a>
 </li> 
 <li>
     <a href=\"{{ site_url('pay/clientpay') }}\">
-        <i class=\"fa fa-cc-discover\" aria-hidden=\"true\"></i>  
+        <i class=\"fa fa-credit-card\" aria-hidden=\"true\"></i>
         {{ app_lang('text_app_clientpay') }}
     </a>
 </li>

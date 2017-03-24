@@ -107,4 +107,12 @@ class Winjob_Controller extends CI_Controller {
         if ( ! $this->Adminlogincheck->checkx() )
            redirect(home_url());  
     }
+    
+    protected function ajax_response( $data ){
+        
+        if(is_array($data))
+            $data = json_encode ($data);
+        
+        echo $data; die; 
+    }
 }

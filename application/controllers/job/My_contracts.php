@@ -63,7 +63,7 @@ class My_contracts extends Winjob_Controller {
 
 
             $data = array('all_data' => $result, 'offer_count' => $offer_count, 'past_hire' => $past_hire, 'nb_item' => count($result) );
-            //$this->Admintheme->webview("jobs/active-contracts", $data);
+            
             $this->twig->display('webview/jobs/twig/my-contracts', $data);
         }
     }

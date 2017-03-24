@@ -98,22 +98,77 @@ class Work_diary extends Winjob_Controller{
                 parse_str($this->input->post('form'), $data);
                 
                 //validate data
-                if(empty($data['staring_hour']) || verify_date($data['staring_hour'])){
-                    $result = array('message' => 'Not allowed', 'code' => _AJAX_ERROR_NOT_CONNECTED);
+                $start_time = date_create($data['staring_hour']);
+                $end_time     = date_create($data['end_hour']);
+                
+                if($start_time == false ) {
+                    $this->ajax_response( array('message' => $this->lang->line('text_job_invalid_start_time'), 'status' => 'error') );
                 }
                 
+                if($end_time == false){
+                    $this->ajax_response( array('message' => $this->lang->line('text_job_invalid_end_time'), 'status' => 'error') );
+                }
+                                
                 $date       = date('Y-m-d');
-                $start_time = date('Y-m-d H:i:s', strtotime($data['staring_hour']));
-                $end_time   = date('Y-m-d H:i:s', strtotime($data['end_hour']));
+                $start_time = $start_time->format('Y-m-d H:i:s');
+                $end_time   = $end_time->format('Y-m-d H:i:s');
+                
+                //validate identifiers value
+                extract($data);
+                                
+                if(  empty($job_id)   || !is_numeric($job_id) || 
+                     empty($bid_id)   || !is_numeric($bid_id) || 
+                     empty($clientid) || !is_numeric($clientid) || 
+                     empty($user_id)  || !is_numeric($user_id) ) {
+                    $this->ajax_response( array('message' => $this->lang->line('text_job_work_diary_missing_data'), 'status' => 'error') );
+                }
+                
+                $this->load->model(array('job_work_diary_model', 'contracts_model'));
+                
+                if( $this->job_work_diary_model->exits($bid_id, $start_time, $end_time) ){
+                    $this->ajax_response( array('message' => sprintf($this->lang->line('text_job_work_diary_time_already_provide'), $start_time, $end_time), 'status' => 'error') );
+                }
+                
+                $this->ajax_response( 'job work diary do not exist yet.' );
+                
+                //load contract 
+                $contract = $this->contracts_model->find( $bid_id );
+                
+                if( empty($contract ) || 
+                        $contract->fuser_id != $user_id  || 
+                        $contract->buser_id != $clientid || 
+                        $contract->job_id   != $job_id   ){
+                    $this->ajax_response( array('message' => $this->lang->line('text_job_work_diary_missing_data'), 'status' => 'error') );
+                }
+                
+                $job_work_diary_data = array(
+                    'jobid'         => $job_id,
+                    'bid_id'        => $bid_id,
+                    'cuser_id'      => $clientid,
+                    'fuser_id'      => $user_id,
+                    'starting_hour' => $start_time,
+                    'ending_hour'   => $end_time,
+                    'total_hour'    => $total_hour,
+                    'working_date'  => $date,
+                    'end_work'      => $end_time,
+                );
+                
+                $this->job_work_diary_model->insert( $job_work_diary_data );
+                $this->job_work_diary_model->update_work_tracker( $job_work_diary_data );
+                
+                $this->ajax_response( array(
+                    'status' => 'success', 
+                    'message' => $this->lang->item('text_job_work_diary_hour_added'), 
+                    'todaywork' => $total_hour 
+                ) );                
                 
             }else{
-                $result = array('message' => 'Not allowed', 'code' => _AJAX_ERROR_NOT_CONNECTED);
+                $result = array('message' => $this->lang->item('text_job_work_diary_not_allowed'), 'status' => 'error');
             }
         }else{
-            $result = array('message' => 'Only ajax request is accepted for this action', 'code' => _AJAX_ERROR_NOT_CONNECTED);
+            $result = array('message' => $this->lang->item('text_job_work_diary_only_ajax'), 'status' => 'error');
         }
         
-        echo json_encode( $result );
-        die;
+        $this->ajax_response( $result );
     }
 }

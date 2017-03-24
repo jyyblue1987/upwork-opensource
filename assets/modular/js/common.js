@@ -22,6 +22,7 @@ requirejs.config({
         payment: '../modules/payment',
         bootstrap_datepicker: 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min',
         jquery_datetime_picker: '../lib/jquery.datetimepicker.full.min',
-        "jquery-mousewheel": '../lib/jquery.mousewheel.min'
+        "jquery-mousewheel": '../lib/jquery.mousewheel.min',
+        moment: '../lib/moment' 
     }
 });

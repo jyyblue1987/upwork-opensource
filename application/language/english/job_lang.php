@@ -134,3 +134,11 @@ $lang['text_job_total_weekly_works'] = 'Total weekly worked : %d hrs';
 $lang['text_job_total_weekly_work'] = 'Total weekly worked : %d hr';
 $lang['text_job_remain_hours'] = 'Remaining  : %s hrs';
 $lang['text_job_total_hour_worked'] = 'Week\'s hours: %d';
+
+$lang['text_job_invalid_start_time'] = 'Invalid start time';
+$lang['text_job_invalid_end_time']   = 'Invalid end time';
+$lang['text_job_work_diary_time_already_provide'] = "You have already add a time between %s and %s";
+$lang['text_job_work_diary_hour_added'] = 'You have successfully add the hour.';
+$lang['text_job_work_diary_not_allowed'] = 'Not allowed';
+$lang['text_job_work_diary_only_ajax'] = 'Only ajax request is accepted for this action';
+$lang['text_job_work_diary_missing_data'] = 'Please refresh your page and try again. You have missed some datas.';
