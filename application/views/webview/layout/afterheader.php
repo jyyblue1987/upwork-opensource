@@ -192,7 +192,11 @@ $notif_count = count($result);
                                         foreach($result as $notif){
                                             $date = date("M j", strtotime($notif->date)).' at '.date("g:i a", strtotime($notif->date)); ?>
                                             <li style="padding: 5px 5px 5px;">
-                                                <a style="text-decoration: none; color: #333;" href="<?php echo site_url('notification/check/'.$notif->id_notification); ?>"><?php echo ucwords($notif->description); ?></a><span class="date-li"><?= $date ?></span>
+                                                <a style="text-decoration: none; color: #333;" 
+                                                   href="<?php echo site_url('notification/check/'.$notif->id_notification); ?>">
+                                                       <?php echo ucwords($notif->description); ?>
+                                                </a>
+                                                <span class="date-li"><?= $date ?></span>
                                             </li>
                                     <?php }
                                             echo '<li style="padding: 10px 0px 0px; position: absolute; list-style-type: none;">';

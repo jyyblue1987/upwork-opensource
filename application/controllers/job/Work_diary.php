@@ -99,7 +99,7 @@ class Work_diary extends Winjob_Controller{
                 
                 //validate data
                 if(empty($data['staring_hour']) || verify_date($data['staring_hour'])){
-                    
+                    $result = array('message' => 'Not allowed', 'code' => _AJAX_ERROR_NOT_CONNECTED);
                 }
                 
                 $date       = date('Y-m-d');

@@ -78,3 +78,7 @@ $lang['text_job_feedback_deadline'] = 'Deadline';
 $lang['text_job_feedback_communication'] = 'Communication';
 $lang['text_job_feedback_score'] = 'Score';
 $lang['text_job_feedback_comment'] = 'Feedback comment';
+
+$lang['text_app_notification_header_title']  = 'Notifications';
+$lang['text_app_notification_mark_all_read'] = 'Mark All as Read';
+$lang['text_app_notification_see_all'] = 'See All';
