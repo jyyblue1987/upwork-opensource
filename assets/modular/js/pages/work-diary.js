@@ -85,6 +85,10 @@ define(function (require) {
         $form            = $("#hourly_workcalculetor"),
         weeklywork       = $weeklywork.val(),
         weeklylimit      = $weeklylimit.val(),
+        $start_error     = $('.start_error'),
+        $end_error       = $('.end_error'),
+        $message_container = $('.result-msg'),
+        $message_content   = $message_container.find('.content'),
         conf_end_datetime = {
             formatTime: "H:i",
             format: "H:i",
@@ -135,12 +139,14 @@ define(function (require) {
         if(is_submitting_work) return;
         
         if ($staring_hour.val().trim() === "") {
-            $('.start_error').html("enter some value");
+            $start_error.html("enter some value");
+            $start_error.show();
             return false;
         }
         
         if ($end_hour.val().trim() === "") {
-            $('.end_error').html("enter some value");
+            $end_error.html("enter some value");
+            $end_error.show();
             return false;
         }
         
@@ -154,12 +160,12 @@ define(function (require) {
         var jqXhr    = $.post(site_url + "job/work_diary/save_worked_hour", { form: $form.serialize() + '&total_hour=' + parseInt($("#total_hour").val()), csrf_test_name: csrf_token}, $.noop, 'json');
         
         jqXhr.done(function( data ){
-            console.log( data );
-            /*if (data.success) {
+            
+            if (data.status == 'success') {
                 
                 $form[0].reset();
-                $('.result-msg').html(data.message);
-                $(".result-msg").show().delay(5000).fadeOut();
+                $message_container.removeClass('alert-danger').addClass('alert-success');
+                $message_content.html(data.message);
                 var total = $('#total_work_time').val();
                 
                 $(".show_totlaworktime").html(parseFloat(data.todaywork) + parseFloat(total));
@@ -167,9 +173,11 @@ define(function (require) {
                 var $option = $select_contract.find('option').filter(':selected');
                 window.location = site_url + "jobs/work-diary?fmJob=" + $option.val();
             } else {
-                $('.result-msg').html(data.message);
-                $(".result-msg").show().delay(5000).fadeOut();
-            }*/
+                $message_container.removeClass('alert-success').addClass('alert-danger');
+                $message_content.html(data.message);
+            }
+            
+            $message_container.show();
             
         });
         
@@ -184,5 +192,11 @@ define(function (require) {
         });
         
     });
+    
+    $message_container.find('.close').on('click', function(event){
+        event.preventDefault();
+        $message_content.html('');
+        $message_container.hide();
+    })
     
 });

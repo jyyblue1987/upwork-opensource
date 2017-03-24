@@ -75,3 +75,22 @@ and open the template in the editor.
     font-size: 18px;
     font-weight: 600;
 }
+
+.start_error, .end_error{
+    color: #a94442;
+}
+
+.alert.result-msg{
+    text-align: center;
+    font-size: 20px;
+    display: none;
+    border-radius: 0;
+}
+
+.alert-danger.result-msg span {
+    color: #a94442;
+}
+
+.alert-success.result-msg span {
+    color: #3c763d;
+}

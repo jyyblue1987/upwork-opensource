@@ -11,11 +11,7 @@ class My_freelancers extends Winjob_Controller {
     
     public function __construct() {
         parent::__construct();
-        
-        // added by (Donfack Zeufack Hermann) start 
-        // load the default language for the current user.
         $this->load_language();
-        // added by (Donfack Zeufack Hermann) end
     }
     
     protected function load_language(){

@@ -53,6 +53,20 @@ class Contracts_model extends CI_Model {
         return $query->row();
     }
     
+    public function get_all_freelancer_in_hourly_contract( $job_id ){
+        
+        $query = $this->db
+                    ->select('webuser.webuser_id, webuser.webuser_fname, webuser.webuser_lname, job_bids.id as bid_id')
+                    ->from('job_accepted')    
+                    ->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner')
+                    ->join('webuser', 'webuser.webuser_id=job_bids.user_id', 'inner')
+                    ->where('job_accepted.job_id', $job_id)
+                    ->where('job_bids.jobstatus !=', JOB_ENDED)
+                    ->get();
+        
+        return $query->result();
+    }
+    
     public function get_all_hourly_freelancer_contracts( $freelancer_id ){
         
         $this->db->select('bid_id, title')
@@ -60,7 +74,7 @@ class Contracts_model extends CI_Model {
                 ->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner')
                 ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
                 ->where('job_bids.user_id', $freelancer_id)
-                ->where('job_bids.jobstatus', 0)
+                ->where('job_bids.jobstatus !=', JOB_ENDED)
                 ->where('jobs.job_type', HOURLY_JOB_TYPE);
         
         $query = $this->db->get();
@@ -89,6 +103,22 @@ class Contracts_model extends CI_Model {
         
     }
     
+    
+    public function get_total_hour( $contract_id ){
+        
+        $query = $this->db->select('SUM(total_hour) as total_hour')
+                    ->from('job_workdairy')
+                    ->where('bid_id', $contract_id)
+                    ->get();
+        
+        $row = $query->row();
+        
+        if(!empty($row))
+            return (int) $row->total_hour;
+        
+        return 0;
+    }
+    
     public function get_total_hour_worked_at( $contract_id, $date ){
         
         $query = $this->db->select('SUM(total_hour) as total_hour')
@@ -107,7 +137,7 @@ class Contracts_model extends CI_Model {
     
     public function get_hours_worked_this_week( $contract_id ){
         
-        $time = strtotime('monday this week 00:00 UCT');
+        $time = strtotime('monday this week 00:00 UTC');
         $cweek = date('Y-m-d', $time);
         $nweek = date('Y-m-d', strtotime($cweek . ' + 1 weeks'));
 
@@ -125,13 +155,16 @@ class Contracts_model extends CI_Model {
         return 0;
     }
     
-    public function get_work_diary( $contract_id, $date ){
+    public function get_work_diary( $contract_id, $date = null ){
         
-        $query = $this->db->select('DISTINCT(starting_hour), total_hour, jobid, fuser_id')
-                    ->from('job_workdairy')
-                    ->where('bid_id', $contract_id)
-                    ->where('working_date', $date)
-                    ->get();
+        $this->db->select('DISTINCT(starting_hour), total_hour, jobid, fuser_id')
+            ->from('job_workdairy')
+            ->where('bid_id', $contract_id);
+        
+        if( date !== null)
+            $this->db->where('working_date', $date);
+        
+        $query = $this->db->order_by('starting_hour DESC')->get();
         
         $diaries =  $query->result();
         $result  = array();
@@ -160,7 +193,7 @@ class Contracts_model extends CI_Model {
                                 ->get();
                     
                     $tracker_infos = $query->result();
-                    
+                                        
                     $count += 1;
                     $result[$count]['current_hour'] = $currentHour;
                     

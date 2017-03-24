@@ -31,10 +31,19 @@
                                     <div class="row">
                                         <div class="col-md-3 col-sm-3">
                                             <select class="form-control" id="jobchanges" name="fmJob">
-                                                {% for contract in hourly_contracts %}
-                                                    {% set bid_id = base64_encode(contract.bid_id) %}
-                                                    <option value="{{ bid_id }}" {% if contract.bid_id == current_contract_id %}selected{% endif %} >{{ contract.title }}</option>
-                                                {% endfor %}    
+                                                {% if app_user_data()['type'] == constant('FREELANCER') %}
+                                                    {% for contract in hourly_contracts %}
+                                                        {% set bid_id = base64_encode(contract.bid_id) %}
+                                                        <option value="{{ bid_id }}" {% if contract.bid_id == current_contract_id %}selected{% endif %} >{{ contract.title }}</option>
+                                                    {% endfor %}
+                                                {% else %}
+                                                    {% for freelancer in user_lists %}
+                                                        {% set bid_id = base64_encode(freelancer.bid_id) %}
+                                                        <option value="{{ bid_id }}" {% if freelancer.bid_id == current_contract_id %}selected{% endif %} >
+                                                            {{ freelancer.webuser_fname }} {{ freelancer.webuser_lname }}
+                                                        </option>
+                                                    {% endfor %}
+                                                {% endif %}                                                    
                                             </select> 
                                         </div>
 
@@ -91,8 +100,8 @@
                                     {% for capture in infos['captures'] %}
                                         <div class="col-md-2 col-sm-2">
                                             <div class="imgdivison">
-                                                <img src="{{ app_workdiary_capture(capture['capture_image']) }}"/>
-                                                <p>{{ capture['capture_time'] }}</p>
+                                                <img src="{{ app_workdiary_capture(capture.capture_image) }}"/>
+                                                <p>{{ app_date( capture.capture_time, 'j F , Y H:i:s') }}</p>
                                             </div>
                                         </div>
                                     {% endfor %}

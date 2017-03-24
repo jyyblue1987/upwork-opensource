@@ -77,7 +77,7 @@ class Jobs_model extends CI_Model {
         $query = $this->db->get();
         $result = $query->result();
         
-        if( empty( $result ) )
+        if( ! empty( $result ) )
             return $result[0]->nb_freelancer_hired;
         
         return 0;
@@ -119,7 +119,7 @@ class Jobs_model extends CI_Model {
         $query  = $this->db->get();
         $result = $query->result();
         
-        if(empty( $result ))        
+        if( ! empty( $result ))        
             return $result[0]->number_offer;
         
         return 0;
@@ -140,7 +140,7 @@ class Jobs_model extends CI_Model {
         $query = $this->db->get();
         $result = $query->result();
                 
-        if(empty( $result ))        
+        if( ! empty( $result ))        
             return $result[0]->nb_pas_hired;
         
         return 0;
@@ -273,7 +273,10 @@ class Jobs_model extends CI_Model {
         $query = $this->db->get();
         $result = $query->result();
         
-        return round( ( $result[0]->amount + $job_amount ), 2);
+        if( !empty($result) )
+            return round( ( $result[0]->amount + $job_amount ), 2);
+        
+        return 0.0;
     }
     
     public function get_feedbacks($job_id, $sender_id, $receiver_id){

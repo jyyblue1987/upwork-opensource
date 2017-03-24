@@ -18,6 +18,10 @@ class Webuser_model extends CI_Model {
         return $query_status->row();
     }
     
+    public function is_active( $user_id ){
+        return $this->get_status($user_id) == 0;
+    }
+    
     public function get_status( $user_id ){
         return $this->get_field( 'isactive', $user_id );
     }

@@ -13,16 +13,25 @@
  */
 class Job_work_diary_model extends CI_Model {
     
-    public function exits($contract_id, $start_time, $end_time){
+    public function exits($contract_id, Datetime $start_time, Datetime $end_time){
+        
+        $starting_date = $start_time->format('Y-m-d H:i:s');
+        $ending_date   = $end_time->format('Y-m-d H:i:s');
         
         $query = $this->db->select('workdairy_id')
                     ->from('job_workdairy')
                     ->where('bid_id', $contract_id)
-                    ->where("starting_hour BETWEEN $start_time AND $end_time")
-                    ->or_where("ending_hour BETWEEN $start_time AND $end_time")
+                    ->where(" ( " . "starting_hour >= '" . $starting_date . "' AND starting_hour < '" . $ending_date . "' ) ")
+                    ->or_where(" ( " . "ending_hour > '" . $starting_date . "' AND ending_hour <= '" . $ending_date . "' ) ")
                     ->get();
         
-        return $query->result()->num_rows > 0;
+        
+        $result = $query->result_array();
+        
+        if( ! empty( $result ) ){
+            return true;
+        }
+        return false;
     }
     
     public function insert( $data ){
@@ -37,10 +46,10 @@ class Job_work_diary_model extends CI_Model {
         for ($i = 1; $i <= $nb_capture_screen; $i++) {
             $capturetime = date('Y-m-d H:i:s', strtotime("+6 minutes", strtotime($current_time)));
             $job_track = array(
-                'jobid'        => $data['job_id'],
+                'jobid'        => $data['jobid'],
                 'bid_id'       => $data['bid_id'],
-                'cuser_id'     => $data['clientid'],
-                'fuser_id'     => $data['user_id'],
+                'cuser_id'     => $data['cuser_id'],
+                'fuser_id'     => $data['fuser_id'],
                 'cpture_image' => ( ! empty($data['cpture_image']) ? $data['cpture_image'] : NULL ),
                 'capture_time' => $capturetime,
                 'working_date' => $data['working_date'],
