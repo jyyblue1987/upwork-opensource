@@ -1,30 +1,30 @@
 
 			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 				<h3><?=$title?></h3>
-				<p>Invoices are how money is transferred to your gurus.  There are three types of invoices you can receive.</p>
+				<p>Invoices are how money is transferred to your freelancers.  There are three types of invoices you can receive.</p>
 
-				<p>Milestone invoices are generated from the agreement of a fixed-price job and sent at your guru’s request.</p>
+				<p>Milestone invoices are generated from the agreement of a fixed-price job and sent at your freelancer’s request.</p>
 
 				<p>Hourly invoices are automatically sent the Tuesday after each billable week containing the hours tracked.</p>
 
-				<p>Miscellaneous invoices be used if you’re operating outside of an agreement or if any additional payment is needed.  Your guru can send these at any time.</p>
+				<p>Miscellaneous invoices be used if you’re operating outside of an agreement or if any additional payment is needed.  Your freelancer can send these at any time.</p>
 
 				<p><u>This is how it works:</u></p>
 
 				<p>
 					<ol class="help-list">
-						<li>You hire a guru for a job, and they accept.</li>
-						<li>Your guru starts and finishes the work.</li>
+						<li>You hire a freelancer for a job, and they accept.</li>
+						<li>Your freelancer starts and finishes the work.</li>
 						<li>You review the work.</li>
-						<li>Your guru sends you an invoice.</li>
+						<li>Your freelancer sends you an invoice.</li>
 						<li>You pay the invoice.</li>
-						<li>You and your guru leave feedback for each other.</li>
+						<li>You and your freelancer leave feedback for each other.</li>
 					</ol>
 				</p>
 
 				<p><u>Paying an Invoice</u></p>
 
-				<p>You can pay your guru’s invoice using SafePay funds, cash account balance, credit card, PayPal or e-check.</p>
+				<p>You can pay your freelancer’s invoice using SafePay funds, cash account balance, credit card, PayPal or e-check.</p>
 
 				<p>You can also send us a check or wired funds, but there’s a different process for that.</p>
 
@@ -62,9 +62,9 @@
 
 				<p><u>Paid Invoice Refunds</u></p>
 
-				<p>To get a refund from a paid invoice, you’ll have to contact your guru directly. When paying an invoice, you agree that the work has been completed to your satisfaction and the funds will be immediately transferred to your guru. Once you either make an invoice payment directly, or pay an invoice with SafePay funds, we no longer have the funds and cannot recover them for you. If the funds are still in your guru’s cash account, they can easily issue you a refund of your paid invoice, but the refund would need to be voluntary.</p>
+				<p>To get a refund from a paid invoice, you’ll have to contact your freelancer directly. When paying an invoice, you agree that the work has been completed to your satisfaction and the funds will be immediately transferred to your freelancer. Once you either make an invoice payment directly, or pay an invoice with SafePay funds, we no longer have the funds and cannot recover them for you. If the funds are still in your freelancer’s cash account, they can easily issue you a refund of your paid invoice, but the refund would need to be voluntary.</p>
 
-				<p>We do not recommend making up-front payments to gurus. If they do require an up-front payment, request that you use SafePay instead of paying their invoice alone. If they don’t comply, you can always hire someone else.</p>
+				<p>We do not recommend making up-front payments to freelancers. If they do require an up-front payment, request that you use SafePay instead of paying their invoice alone. If they don’t comply, you can always hire someone else.</p>
 
 				<p><u>Adding and Editing PO Numbers</u></p>
 
@@ -72,13 +72,13 @@
 
 				<p><u>Via the Workroom</u></p>
 
-				<p>If you add a PO via the workroom, all invoices sent for from that guru for that job will share the same PO number.  You can change it at any time but the change will only effect future invoices.  Any previous invoices would need to be changed on an individual basis if needed.</p>
+				<p>If you add a PO via the workroom, all invoices sent for from that freelancer for that job will share the same PO number.  You can change it at any time but the change will only effect future invoices.  Any previous invoices would need to be changed on an individual basis if needed.</p>
 
 				<p>
 					<ol class="help-list">
 						<li>Find your job on the dashboard under the “Work Rooms” tile.</li>
 						<li>Click on the job title to navigate to that job’s workroom.</li>
-						<li>Click “+ Purchase Order Number” under the Guru you’d like to add the PO for.</li>
+						<li>Click “+ Purchase Order Number” under the freelancer you’d like to add the PO for.</li>
 						<li>Add the PO number in the dialogue box that appears and attach files if needed.</li>
 						<li>Click “Save” when finished.</li>
 					</ol>

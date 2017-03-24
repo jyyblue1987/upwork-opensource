@@ -45,11 +45,11 @@
 			<table class="table table-bordered">
 			<tr>
 			<td>Owner</td>
-			<td>You are the owner of your Guru account. Only you can update account settings, including transfer methods and email preferences.</td>
+			<td>You are the owner of your freelancer account. Only you can update account settings, including transfer methods and email preferences.</td>
 			</tr>
 			<tr>
 			<td>Manager</td>
-			<td>Your Managers use Guru as you, except they cannot update your account. All actions except in the workroom will be considered as equivalent of being performed by you. Managers can add themselves to jobs you’ve been awarded, bid on jobs and manage the workroom.</td>
+			<td>Your Managers use freelancer as you, except they cannot update your account. All actions except in the workroom will be considered as equivalent of being performed by you. Managers can add themselves to jobs you’ve been awarded, bid on jobs and manage the workroom.</td>
 			</tr>
 			<tr>
 			<td>Consultant</td>

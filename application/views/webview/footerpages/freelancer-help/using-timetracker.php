@@ -23,9 +23,9 @@
 
 			<p>
 				<ol class="help-list">
-					<li>For Windows, from your “All Programs” menu, click “Guru Time Tracker”.</li>
+					<li>For Windows, from your “All Programs” menu, click “freelancer Time Tracker”.</li>
 					<li>For Linux, from your “bin” directly, execute the “run.sh” command.</li>
-					<li>For Mac, from your “Applications” folder, click “Guru Time Tracker”.</li>
+					<li>For Mac, from your “Applications” folder, click “freelancer Time Tracker”.</li>
 				</ol>
 			</p>
 

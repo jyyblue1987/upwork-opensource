@@ -47,7 +47,7 @@
 							</ul>
 							<?}?>
 						</li>
-						<li class="main-nav"><a href="communicating-with-employers" class="<?=$type == 'fifth' ? 'actived' : ''?>">Using the Workroom</a>
+						<li class="main-nav"><a href="communicating-with-employers" class="<?=$type == 'fourth' ? 'actived' : ''?>">Using the Workroom</a>
 							<?if($type == "fourth"){?>
 							<ul class="sub-nav">
 								<li><a href="communicating-with-employers" class="<?=$page == 'communicating-with-employers' ? 'actived' : ''?>">Communicating with Employers</a></li>
@@ -58,19 +58,19 @@
 							</ul>
 							<?}?>
 						</li>
-						<li class="main-nav"><a href="requesting-safepay-refund" class="<?=$type == 'sixth' ? 'actived' : ''?>">Getting Paid</a>
+						<li class="main-nav"><a href="understanding-payment" class="<?=$type == 'fifth' ? 'actived' : ''?>">Getting Paid</a>
 							<?if($type == "fifth"){?>
 							<ul class="sub-nav">
-								<li><a href="understanding-payment" class="<?=$page == 'requesting-safepay-refund' ? 'actived' : ''?>">Understanding Payment on Winjobs.com</a></li>
+								<li><a href="understanding-payment" class="<?=$page == 'understanding-payment' ? 'actived' : ''?>">Understanding Payment on Winjobs.com</a></li>
 								<li><a href="sending-invoices" class="<?=$page == 'sending-invoices' ? 'actived' : ''?>">Sending Invoices</a></li>
 								<li><a href="payment-schedule" class="<?=$page == 'payment-schedule' ? 'actived' : ''?>">Our Payment Schedules</a></li>
-								<li><a href="verified-payment-methods" class="<?=$page == 'escalating-dispute' ? 'actived' : ''?>">Verified Payment Methods</a></li>
+								<li><a href="verified-payment-methods" class="<?=$page == 'verified-payment-methods' ? 'actived' : ''?>">Verified Payment Methods</a></li>
 								<li><a href="adding-transfer-method" class="<?=$page == 'adding-transfer-method' ? 'actived' : ''?>">Adding a Transfer Method</a></li>
 								<li><a href="managing-feedback" class="<?=$page == 'managing-feedback' ? 'actived' : ''?>">Verified Managing Feedback</a></li>
 							</ul>
 							<?}?>
 						</li>	
-						<li class="main-nav"><a href="understanding-invoce-safepay" class="<?=$type == 'fifth' ? 'actived' : ''?>">Disputes with Employers</a>
+						<li class="main-nav"><a href="issuing-safepay-refund" class="<?=$type == 'sixth' ? 'actived' : ''?>">Disputes with Employers</a>
 							<?if($type == "sixth"){?>
 							<ul class="sub-nav">
 								<li><a href="issuing-safepay-refund" class="<?=$page == 'issuing-safepay-refund' ? 'actived' : ''?>">Issuing a SafePay Refund</a></li>

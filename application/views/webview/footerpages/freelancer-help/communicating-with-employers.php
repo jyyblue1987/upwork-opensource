@@ -8,7 +8,7 @@
 
 			<p>
 				<ol class="help-list">
-					<li>LNavigate to a job you've been hired for.</li>
+					<li>Navigate to a job you've been hired for.</li>
 					<li>Click the “Discussions” tab.</li>
 				</ol>
 			</p>

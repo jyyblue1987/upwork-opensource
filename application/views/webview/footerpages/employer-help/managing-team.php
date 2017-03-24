@@ -45,7 +45,7 @@
 <table class="table table-bordered">
 	<tr>
 		<td>Owner</td>
-		<td>You are the owner of your Guru account. Only you can update account settings, including transfer methods and email preferences.</td>
+		<td>You are the owner of your freelancer account. Only you can update account settings, including transfer methods and email preferences.</td>
 	</tr>
 	<tr>
 		<td>Administrator</td>

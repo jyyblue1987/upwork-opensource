@@ -5,7 +5,7 @@
 
 				<p>
 					<ul class="help-list">
-						<li>A guru disputes a SafePay refund request.</li>
+						<li>A freelancer disputes a SafePay refund request.</li>
 						<li>You dispute a Milestone invoice.</li>
 						<li>When in negotiation, communication will continue as normal via the dispute page.  It is up to the two parties to decide how to move forward or divide up the funds.</li>
 					</ul>
@@ -25,7 +25,7 @@
 
 				<p>Ending a dispute by proposing a resolution:</p>
 
-				<p>Your guru is the only one that can resolve a dispute since they disputed your refund request originally. However, you can convey to them a resolution via the dispute page. This is how they would propose the dispute:</p>
+				<p>Your freelancer is the only one that can resolve a dispute since they disputed your refund request originally. However, you can convey to them a resolution via the dispute page. This is how they would propose the dispute:</p>
 
 				<p>
 					<ol class="help-list">

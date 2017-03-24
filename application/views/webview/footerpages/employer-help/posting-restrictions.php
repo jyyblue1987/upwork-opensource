@@ -19,7 +19,7 @@
 			    <li>Job fair listings</li>
 			    <li>No payment or volunteer work</li>
 			    <li>Illegal or questionable actions</li>
-			    <li>Payment outside of Guru</li>
+			    <li>Payment outside of freelancer</li>
 			    <li>Unreasonable expectations or low success rate</li>
 		    </ul>
 

@@ -27,7 +27,7 @@
 					</ol>
 				</p>
 
-				<p>Once a ruling has been reached it will be posted to Guru.com and the funds will be disseminated according to the ruling provided by the arbitrators.  You will receive an email with the distribution of funds and a link to view the ruling.</p>
+				<p>Once a ruling has been reached it will be posted to Winjobs.com and the funds will be disseminated according to the ruling provided by the arbitrators.  You will receive an email with the distribution of funds and a link to view the ruling.</p>
 
 				<p><u>To see your arbitration ruling:</u></p>
 
@@ -36,7 +36,7 @@
 						<li>Click “Pay” in your navigation bar.</li>
 						<li>Find the disputed invoice.</li>
 						<li>Click “View Ruling” in the payment status column.</li>
-						<li>NOTE: Pursuant to Section 6(B)(2) of the Guru.com Terms of Service, the arbitrators’ decision is final, binding and cannot be appealed.</li>
+						<li>NOTE: Pursuant to Section 6(B)(2) of the Winjobs.com Terms of Service, the arbitrators’ decision is final, binding and cannot be appealed.</li>
 					</ol>
 				</p>
 			</div>
