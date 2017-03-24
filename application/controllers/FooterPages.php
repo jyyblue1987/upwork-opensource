@@ -68,7 +68,9 @@ class FooterPages extends CI_Controller{
         );
         $this->Admintheme->webview("footerpages/getworkdone", $data);
     }
-//Added by Ralfh 3/22/2017
+    
+    //Added by Ralfh 3/22/2017
+    //employer help start
     public function employer_help(){
         $data = array(
             'title' => "Employer Help",
@@ -137,7 +139,7 @@ class FooterPages extends CI_Controller{
         'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
         'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
         );
-        $this->Admintheme->employer_help_webview("footerpages/employer-help/verified_payments", $data);
+        $this->Admintheme->employer_help_webview("footerpages/employer-help/verified-payments", $data);
     }
     //end of first
 
@@ -247,9 +249,10 @@ class FooterPages extends CI_Controller{
     //end of third
 
     //fourth
+
     public function communicating_with_freelancers(){
         $data = array(
-        'title' => "Deciding on an Agreement",
+        'title' => "Communicating with Freelanners",
         'page' => "communicating-with-freelancers",
         'type' => "fourth",
         'js' => array(),
@@ -293,7 +296,7 @@ class FooterPages extends CI_Controller{
     }
     public function understanding_workroom(){
         $data = array(
-        'title' => "Undersating the Workroom",
+        'title' => "Understanding the Workroom",
         'page' => "understanding-workroom",
         'type' => "fourth",
         'js' => array(),
@@ -304,6 +307,466 @@ class FooterPages extends CI_Controller{
     }
 
     //end of fourth
+
+    //fifth
+    public function understanding_invoce_safepay(){
+        $data = array(
+        'title' => "Understanding Invoices and SafePay",
+        'page' => "understanding-invoce-safepay",
+        'type' => "fifth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->employer_help_webview("footerpages/employer-help/understanding-invoce-safepay", $data);
+    }
+    public function paying_invoice(){
+        $data = array(
+        'title' => "Paying an Invoice",
+        'page' => "paying-invoice",
+        'type' => "fifth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->employer_help_webview("footerpages/employer-help/paying-invoice", $data);
+    }
+    public function adding_funds(){
+        $data = array(
+        'title' => "Adding Funds to SafePay",
+        'page' => "adding-funds",
+        'type' => "fifth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->employer_help_webview("footerpages/employer-help/adding-funds", $data);
+    }
+    public function understanding_autopay(){
+        $data = array(
+        'title' => "Understanding AutoPay",
+        'page' => "understanding-autopay",
+        'type' => "fifth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->employer_help_webview("footerpages/employer-help/understanding-autopay", $data);
+    }
+    public function managing_feedback(){
+        $data = array(
+        'title' => "Managing Feedback",
+        'page' => "managing-feedback",
+        'type' => "fifth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->employer_help_webview("footerpages/employer-help/managing-feedback", $data);
+    }
+    public function adding_payment_methods(){
+        $data = array(
+        'title' => "Adding and Verifying Payment Methods",
+        'page' => "adding-payment-methods",
+        'type' => "fifth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->employer_help_webview("footerpages/employer-help/adding-payment-methods", $data);
+    }
+    public function our_service(){
+        $data = array(
+        'title' => "Our 1099 Service",
+        'page' => "our-service",
+        'type' => "fifth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->employer_help_webview("footerpages/employer-help/our-service", $data);
+    }
+    //end of fifth
+
+    //sixth
+
+    public function requesting_safepay_refund(){
+        $data = array(
+        'title' => "Requesting a SafePay Refund",
+        'page' => "requesting-safepay-refund",
+        'type' => "sixth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->employer_help_webview("footerpages/employer-help/requesting-safepay-refund", $data);
+    }
+    public function requesting_invoice_refund(){
+        $data = array(
+        'title' => "Requesting an Invoice Refund",
+        'page' => "requesting-invoice-refund",
+        'type' => "sixth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->employer_help_webview("footerpages/employer-help/requesting-invoice-refund", $data);
+    }
+    public function entering_negotiation(){
+        $data = array(
+        'title' => "Entering Negotiation",
+        'page' => "entering-negotiation",
+        'type' => "sixth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->employer_help_webview("footerpages/employer-help/entering-negotiation", $data);
+    }
+    public function escalating_dispute(){
+        $data = array(
+        'title' => "Escalating a Dispute to Arbitration",
+        'page' => "escalating-dispute",
+        'type' => "sixth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->employer_help_webview("footerpages/employer-help/escalating-dispute", $data);
+    }
+    //end of sixth
+    //employer help end
+
+    //freelancer help start
+    ///first
+    public function f_registering_account(){
+        $data = array(
+        'title' => "Registering an Account",
+        'page' => "registering-account",
+        'type' => "first",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/registering-account", $data);
+    }
+    public function f_costs_to_use(){
+        $data = array(
+        'title' => "Costs to Use Winjobs.com",
+        'page' => "costs-to-use",
+        'type' => "first",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/costs-to-use", $data);
+    }
+    public function f_editing_account(){
+        $data = array(
+        'title' => "Editing Your Account",
+        'page' => "editing-account",
+        'type' => "first",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/editing-account", $data);
+    }
+    //end of first
+
+    //second
+    public function f_understanding_profile(){
+        $data = array(
+        'title' => "Understanding Your Profile",
+        'page' => "understanding-profile",
+        'type' => "second",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/understanding-profile", $data);
+    }
+    public function f_adding_portfolio_services(){
+        $data = array(
+        'title' => "Adding Portfolios and Services",
+        'page' => "adding-portfolio-services",
+        'type' => "second",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/adding-portfolio-services", $data);
+    }
+    public function f_taking_skill_tests(){
+        $data = array(
+        'title' => "Taking Skill Tests",
+        'page' => "taking-skill-tests",
+        'type' => "second",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/taking-skill-tests", $data);
+    }
+    public function f_purchasing_membership(){
+        $data = array(
+        'title' => "Purchasing a Membership",
+        'page' => "purchasing-membership",
+        'type' => "second",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/purchasing-membership", $data);
+    }
+    //end of second
+
+    //third
+    public function f_searching_jobs(){
+        $data = array(
+        'title' => "Searching for Jobs",
+        'page' => "searching-jobs",
+        'type' => "third",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/searching-jobs", $data);
+    }
+    public function f_receiving_invitations(){
+        $data = array(
+        'title' => "Receiving Invitations",
+        'page' => "receiving-invitations",
+        'type' => "third",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/receiving-invitations", $data);
+    }
+    public function f_receiving_job_matches(){
+        $data = array(
+        'title' => "Receiving Jobs Matches",
+        'page' => "receiving-job-matches",
+        'type' => "third",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/receiving-job-matches", $data);
+    }
+    public function f_adding_jobs_to_wishlist(){
+        $data = array(
+        'title' => "Adding Jobs to Your Watch List",
+        'page' => "adding-jobs-to-wishlist",
+        'type' => "third",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/adding-jobs-to-wishlist", $data);
+    }
+    public function f_submitting_quotes(){
+        $data = array(
+        'title' => "Submitting Quotes",
+        'page' => "submitting-quotes",
+        'type' => "third",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/submitting-quotes", $data);
+    }
+    public function f_understanding_quotes_terms(){
+        $data = array(
+        'title' => "Understanding Quote Terms",
+        'page' => "understanding-quotes-terms",
+        'type' => "third",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/understanding-quotes-terms", $data);
+    }
+    //end of third
+    
+    //fourth
+    public function f_communicating_with_employers(){
+        $data = array(
+        'title' => "Communicating with Employers",
+        'page' => "communicating-with-employers",
+        'type' => "fourth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/communicating-with-employers", $data);
+    }
+    public function f_sending_agreement(){
+        $data = array(
+        'title' => "Sending an Agreement",
+        'page' => "sending-agreement",
+        'type' => "fourth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/sending-agreement", $data);
+    }
+    public function f_adding_files_to_workroom(){
+        $data = array(
+        'title' => "Adding Files to the Workroom",
+        'page' => "adding-files-to-workroom",
+        'type' => "fourth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/adding-files-to-workroom", $data);
+    }
+    public function f_using_timetracker(){
+        $data = array(
+        'title' => "Using Time Tracker",
+        'page' => "using-timetracker",
+        'type' => "fourth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/using-timetracker", $data);
+    }
+    public function f_managing_team(){
+        $data = array(
+        'title' => "Managing Your Team",
+        'page' => "managing-team",
+        'type' => "fourth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/managing-team", $data);
+    }
+    //end of fourth
+    //fifth
+    public function f_understanding_payment(){
+        $data = array(
+        'title' => "Understanding Payment on Winjobs.com",
+        'page' => "understanding-payment",
+        'type' => "fifth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/understanding-payment", $data);
+    }
+    public function f_sending_invoices(){
+        $data = array(
+        'title' => "Sending Invoices",
+        'page' => "sending-invoices",
+        'type' => "fifth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/sending-invoices", $data);
+    }
+    public function f_payment_schedule(){
+        $data = array(
+        'title' => "Our Payment Schedule",
+        'page' => "payment-schedule",
+        'type' => "fifth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/payment-schedule", $data);
+    }
+    public function f_verified_payment_methods(){
+        $data = array(
+        'title' => "Verified Payment Methods",
+        'page' => "verified-payment-methods",
+        'type' => "fifth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/verified-payment-methods", $data);
+    }
+    public function f_adding_transfer_method(){
+        $data = array(
+        'title' => "Adding a Transfer Method",
+        'page' => "adding-transfer-method",
+        'type' => "fifth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/adding-transfer-method", $data);
+    }
+    public function f_managing_feedback(){
+        $data = array(
+        'title' => "Managing Feedback",
+        'page' => "managing-feedback",
+        'type' => "fifth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/managing-feedback", $data);
+    }
+
+    //end of fifth
+
+    //sixth
+    public function f_issuing_safepay_refund(){
+        $data = array(
+        'title' => "Issuing a SafePay Refund",
+        'page' => "issuing-safepay-refund",
+        'type' => "sixth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/issuing-safepay-refund", $data);
+    }
+    public function f_issuing_invoice_refund(){
+        $data = array(
+        'title' => "Issuing an Invoice Refund",
+        'page' => "issuing-invoice-refund",
+        'type' => "sixth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/issuing-invoice-refund", $data);
+    }
+    public function f_entering_negotiation(){
+        $data = array(
+        'title' => "Entering Negotiation",
+        'page' => "entering-negotiation",
+        'type' => "sixth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/entering-negotiation", $data);
+    }
+    public function f_escalating_dispute_arbitration(){
+        $data = array(
+        'title' => "Escalating a Dispute to Arbitration",
+        'page' => "escalating-dispute-arbitration",
+        'type' => "sixth",
+        'js' => array(),
+        'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
+        'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
+        );
+        $this->Admintheme->freelancer_help_webview("footerpages/freelancer-help/escalating-dispute-arbitration", $data);
+    }
+
+    //end of sixth
+    //freelancer help end
+
+
 //Added by Ralfh 3/22/2017 -- end
     public function join(){
         $data = array(

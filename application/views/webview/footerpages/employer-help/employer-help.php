@@ -1,4 +1,4 @@
- <section id="big_header" class="hidden-xs">
+ <section id="help_big_header" class="hidden-xs">
 	<div class="form_center">
 		<input type="text" name="" class="form-control" placeholder="How can we help?">
 		<div>
