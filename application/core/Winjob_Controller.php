@@ -115,4 +115,75 @@ class Winjob_Controller extends CI_Controller {
         
         echo $data; die; 
     }
+    
+    protected  function isEmployer(){
+        if ($this->session->userdata('type') != EMPLOYER) {
+            redirect(site_url("find-jobs"));
+        }
+    }
+
+
+    public function checkForEmployer(){
+        $this->authorized() && $this->isEmployer();
+    }
+    
+    
+    protected function display_active_contracts( $is_active_contract_page = true ){
+        
+        $this->checkForEmployer();
+           
+        // load models
+        try{
+            $this->load->model(array('jobs_model', 'webuser_model'));
+        }catch(RuntimeException $e){
+            log_message('debug', $e->getMessage());
+            $this->session->set_flashdata('error', $this->lang->line('text_job_runtime_exception_message'));
+            redirect(site_url(home_url()));
+        }
+
+        // fetch employer staff data
+        $employer_id         = $this->session->userdata('id');
+        $nb_freelancer_hired = $this->jobs_model->number_freelancer_hired( $employer_id );
+        $jobs_accepted       = $this->jobs_model->load_all_jobs_freelancer_hired($employer_id);
+
+        date_default_timezone_set("UTC"); 
+        $today               = date('y-m-d', strtotime('today'));
+        $this_week_start     = date('y-m-d', strtotime('monday this week'));
+
+        $job_ids             = $this->extrat_all_job_ids( $jobs_accepted );
+        $freelancer_job_hour = $this->jobs_model->get_all_freelancer_total_hour($job_ids, $this_week_start, $today);
+
+        $nb_offer            = $this->jobs_model->number_offer( $employer_id );
+        $nb_past_hired       = $this->jobs_model->number_past_hired( $employer_id );
+        $webuser             = $this->webuser_model->load_informations( $employer_id );
+
+        $this->twig->display('webview/jobs/twig/my-freelancers', compact(
+                'nb_freelancer_hired', 'jobs_accepted', 
+                'freelancer_job_hour', 'nb_offer', 
+                'past_hired', 'webuser', 'is_active_contract_page'));
+        
+    }
+    
+    protected function display_ended_contracts( $is_ended_contracts_page = true ){
+        
+        $this->checkForEmployer();
+        
+        $user_id = $this->session->userdata('id');
+        
+        $this->load->model( array( 'contracts_model', 'jobs_model' ) );
+
+        $result              = $this->contracts_model->get_ended_of( $user_id );
+        $past_hire           = count( $result );
+        $job_ids             = $this->extrat_all_job_ids( $result );
+        $freelancer_job_hour = $this->jobs_model->get_all_freelancer_total_hour($job_ids);
+
+        $data = array(
+            'messages' => $result,
+            'past_hire' => $past_hire, 
+            'freelancer_job_hour' => $freelancer_job_hour,
+            'is_ended_contracts_page' => $is_ended_contracts_page
+        );
+
+        $this->twig->display( 'webview/jobs/twig/past-hires', $data );
+    }
 }

@@ -16,11 +16,15 @@ class __TwigTemplate_fc1c895651c1d916145902597584d743323c58ee5aec533a2e614602143
     protected function doDisplay(array $context, array $blocks = array())
     {
         // line 1
-        echo "<li><a href=\"#\">";
+        echo "<li><a href=\"";
+        echo twig_escape_filter($this->env, (isset($context["job_detail_link"]) ? $context["job_detail_link"] : null), "html", null, true);
+        echo "\">";
         echo twig_escape_filter($this->env, app_lang("text_job_btn_op_view_contract"), "html", null, true);
         echo "</a></li>
-<li><a href=\"#\">";
+<li><a href=\"";
         // line 2
+        echo twig_escape_filter($this->env, (isset($context["end_contract_link"]) ? $context["end_contract_link"] : null), "html", null, true);
+        echo "\">";
         echo twig_escape_filter($this->env, app_lang("text_job_btn_op_end_contract"), "html", null, true);
         echo "</a></li>";
     }
@@ -37,7 +41,7 @@ class __TwigTemplate_fc1c895651c1d916145902597584d743323c58ee5aec533a2e614602143
 
     public function getDebugInfo()
     {
-        return array (  24 => 2,  19 => 1,);
+        return array (  26 => 2,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -50,7 +54,7 @@ class __TwigTemplate_fc1c895651c1d916145902597584d743323c58ee5aec533a2e614602143
 
     public function getSourceContext()
     {
-        return new Twig_Source("<li><a href=\"#\">{{ app_lang('text_job_btn_op_view_contract') }}</a></li>
-<li><a href=\"#\">{{ app_lang('text_job_btn_op_end_contract') }}</a></li>", "webview/jobs/partials/job-winsjob-dropdown.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\jobs\\partials\\job-winsjob-dropdown.twig");
+        return new Twig_Source("<li><a href=\"{{ job_detail_link }}\">{{ app_lang('text_job_btn_op_view_contract') }}</a></li>
+<li><a href=\"{{ end_contract_link }}\">{{ app_lang('text_job_btn_op_end_contract') }}</a></li>", "webview/jobs/partials/job-winsjob-dropdown.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\jobs\\partials\\job-winsjob-dropdown.twig");
     }
 }

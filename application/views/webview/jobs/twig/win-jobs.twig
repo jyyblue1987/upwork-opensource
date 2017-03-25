@@ -45,7 +45,7 @@
                                 {% set buser_id_encoded      = base64_encode(job.buser_id) %}
                                 
                                 {% set job_detail_link       = base_url() ~ "contracts?fmJob=" ~ bid_id_encoded  %}
-                                {% set end_contract_link     = base_url() ~ "contract/ended?fmJob=" ~ bid_id_encoded %}
+                                {% set end_contract_link     = base_url() ~ "end-contract?fmJob=" ~ bid_id_encoded %}
                                 
                                 {#{% if job.job_type == "hourly" %}
                                     {% set end_contract_link = base_url() ~ "endhourlyfixed/hourly_client?fmJob=" ~ job_id_encoded ~ '&fuser=' ~ fuser_id_encoded %}

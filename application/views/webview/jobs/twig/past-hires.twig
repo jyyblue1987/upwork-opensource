@@ -1,6 +1,12 @@
 {% extends "webview/layout/twig/layout.twig" %}
 
-{% block title %}  {{ app_lang('text_job_pasthired') }} - Winjob  {% endblock %}
+{% block title %}  
+    {% if is_ended_contracts_page %}
+        {{ app_lang('text_job_title_ended_contracts') }} - Winjob
+    {% else %}
+        {{ app_lang('text_job_pasthired') }} - Winjob
+    {% endif %} 
+{% endblock %}
 
 {% block styles %}
     {{ parent() }}
@@ -16,7 +22,11 @@
 	        <div class="col-md-3">
                     <div class="row">
                         <div class="col-md-10 nopadding">
-                            {{ include('webview/jobs/partials/job-client-left-menu.twig', { pasthired: true }, with_context = false) }}
+                            {% if is_ended_contracts_page %}
+                                {{ include('webview/jobs/partials/job-client-contracts-menu.twig', { ended: true }, with_context = false) }}
+                            {% else %}
+                                {{ include('webview/jobs/partials/job-client-left-menu.twig', { pasthired: true }, with_context = false) }}
+                            {% endif %}
                         </div>
                     </div>
                 </div>

@@ -55,7 +55,7 @@ $route['search'] = "search";
 $route['homepage'] = "home/homepage";
 $route['json/(:any)'] = 'json/(:any)';
 
-$route['contract/ended'] = 'jobs/ended_contract';
+$route['end-contract'] = 'jobs/ended_contract';
 $route['contract/restart'] = 'jobs/restart';
 $route['contract/paused'] = 'jobs/paused';
 $route['notifications/contracts'] = 'jobs/notifications';

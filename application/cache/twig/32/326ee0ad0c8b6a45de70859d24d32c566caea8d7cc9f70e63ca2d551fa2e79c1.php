@@ -16,7 +16,9 @@ class __TwigTemplate_c028caf68c03df585413a43fa0112639462d2981bced01c586076e3da33
     protected function doDisplay(array $context, array $blocks = array())
     {
         // line 1
-        echo "<li><a href=\"#\">";
+        echo "<li><a href=\"";
+        echo twig_escape_filter($this->env, (isset($context["job_detail_link"]) ? $context["job_detail_link"] : null), "html", null, true);
+        echo "\">";
         echo twig_escape_filter($this->env, app_lang("text_job_btn_op_view_ended_contract"), "html", null, true);
         echo "</a></li>";
     }
@@ -46,6 +48,6 @@ class __TwigTemplate_c028caf68c03df585413a43fa0112639462d2981bced01c586076e3da33
 
     public function getSourceContext()
     {
-        return new Twig_Source("<li><a href=\"#\">{{ app_lang('text_job_btn_op_view_ended_contract') }}</a></li>", "webview/jobs/partials/job-hire-dropdown.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\jobs\\partials\\job-hire-dropdown.twig");
+        return new Twig_Source("<li><a href=\"{{ job_detail_link }}\">{{ app_lang('text_job_btn_op_view_ended_contract') }}</a></li>", "webview/jobs/partials/job-hire-dropdown.twig", "C:\\wamp\\www\\winjob\\application\\views\\webview\\jobs\\partials\\job-hire-dropdown.twig");
     }
 }

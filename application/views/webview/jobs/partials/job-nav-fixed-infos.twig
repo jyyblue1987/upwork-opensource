@@ -82,12 +82,12 @@
                         </div>
 
                         <div class="pull-right">
-                            {% if job_status.jobstatus == 1 %}
+                            {% if job_status.jobstatus == constant('JOB_ENDED') %}
                                 <a href="{{ base_url() }}feedback/fixed_{{ _action }}?fmJob={{ job_id_encoded }}&{{ _query }}={{ param_userid }}">
                                     <input style="float: right;margin-right: 0px;" type="button" class="btn my_btn btn-default_activv" value="{{ app_lang('text_job_btn_op_end_contract') }}" />
                                 </a>
                             {% else %}
-                                <a href="{{ base_url("contract/ended") }}?fmJob={{ bid_id_encoded }}">
+                                <a href="{{ base_url("end-contract") }}?fmJob={{ bid_id_encoded }}">
                                     <input style="float: right;margin-right: 0px;" type="submit" class="btn my_btn btn-default_activv" value="{{ app_lang('text_job_btn_op_end_contract') }}" />
                                 </a>
                             {% endif %}

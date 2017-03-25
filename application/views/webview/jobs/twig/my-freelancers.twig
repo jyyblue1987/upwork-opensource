@@ -1,6 +1,12 @@
 {% extends "webview/layout/twig/layout.twig" %}
 
-{% block title %}  {{ app_lang('text_job_my_staff') }} - Winjob  {% endblock %}
+{% block title %}
+    {% if is_active_contract_page %}
+        {{ app_lang('text_job_title_active_contracts') }} - Winjob
+    {% else %}
+        {{ app_lang('text_job_my_staff') }} - Winjob
+    {% endif %}  
+{% endblock %}
 
 {% block styles %}
     {{ parent() }}
@@ -16,7 +22,11 @@
 	        <div class="col-md-3">
                     <div class="row">
                         <div class="col-md-10 nopadding">
-                            {{ include('webview/jobs/partials/job-client-left-menu.twig', { mystaff: true }, with_context = false) }}
+                            {% if is_active_contract_page %}
+                                {{ include('webview/jobs/partials/job-client-contracts-menu.twig', { active: true }, with_context = false) }}
+                            {% else %}
+                                {{ include('webview/jobs/partials/job-client-left-menu.twig', { mystaff: true }, with_context = false) }}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -44,7 +54,7 @@
                                 
                                 {# set profil_link           = base_url() ~ "interview?user_id=" ~ fuser_id_encoded ~ "&job_id=" ~ job_id_encoded ~ "&bid_id=" ~ bid_id_encoded #}
                                 {% set job_detail_link   = base_url() ~ "contracts?fmJob=" ~ bid_id_encoded %}
-                                {% set end_contract_link = base_url() ~ "contract/ended?fmJob=" ~ bid_id_encoded %}
+                                {% set end_contract_link = base_url() ~ "end-contract?fmJob=" ~ bid_id_encoded %}
                                 
                                 {# Specifics partials #}
                                 {% set specific_btn_template = 'webview/jobs/partials/job-payment-buttons.twig' %}

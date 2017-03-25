@@ -138,12 +138,12 @@
                     <div class="row margin-top-3 cus_cancel_button"> 
                         <div class="col-md-6 pull-right">
                             <div class="hour_end_btn pull-right">
-                                {% if job_status.jobstatus == 1 %}
+                                {% if job_status.jobstatus == constant('JOB_ENDED') %}
                                 <a href="{{ base_url() }}feedback/hourly_{{ _action }}?fmJob={{ job_id_encoded }}&{{ _query }}={{ param_userid }}">
                                     <input type="button" class="btn my_btn btn-default_activv" value="{{ app_lang('text_job_btn_op_end_contract') }}" />
                                 </a>
                                 {% else %}
-                                <a href="{{ base_url() }}contract/ended?fmJob={{ bid_id_encoded }}">
+                                <a href="{{ base_url('end-contract') }}?fmJob={{ bid_id_encoded }}">
                                     <input type="button" class="btn  my_btn btn-default_activv" value="{{ app_lang('text_job_btn_op_end_contract') }}" />
                                 </a>
                                 {% endif %}

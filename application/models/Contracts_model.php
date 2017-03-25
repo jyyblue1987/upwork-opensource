@@ -53,6 +53,23 @@ class Contracts_model extends CI_Model {
         return $query->row();
     }
     
+    public function get_ended_of( $user_id, $is_employer = true ){
+        
+        $this->db->select('*');
+        $this->db->from('job_accepted');
+        $this->db->join('webuser', 'webuser.webuser_id=job_accepted.fuser_id', 'inner');
+        $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
+        $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
+        $this->db->join('country', 'country.country_id=webuser.webuser_country', 'inner');
+        $this->db->where('job_accepted.buser_id', $user_id);
+        $this->db->where('job_bids.hired', '0');
+        $this->db->where('job_bids.jobstatus', JOB_ENDED);
+        $query = $this->db->get();
+        return $query->result();
+        
+    }
+    
+    
     public function get_all_freelancer_in_hourly_contract( $job_id ){
         
         $query = $this->db
@@ -161,7 +178,7 @@ class Contracts_model extends CI_Model {
             ->from('job_workdairy')
             ->where('bid_id', $contract_id);
         
-        if( date !== null)
+        if( $date !== null)
             $this->db->where('working_date', $date);
         
         $query = $this->db->order_by('starting_hour DESC')->get();
@@ -181,7 +198,6 @@ class Contracts_model extends CI_Model {
                     $currentHour = date('H A ', strtotime($hourdiff, strtotime($working->starting_hour)));
                     $presenthour = date('Y-m-d H:i:s', strtotime($hourdiff, strtotime($working->starting_hour)));
                     $nexthour    = date('Y-m-d H:i:s', strtotime('+1 hour', strtotime($presenthour)));
-                    $date        = date('Y-m-d');
                     
                     $query = $this->db->select('cpture_image as capture_image, capture_time')
                                 ->from('workdairy_tracker')
@@ -193,12 +209,11 @@ class Contracts_model extends CI_Model {
                                 ->get();
                     
                     $tracker_infos = $query->result();
-                                        
-                    $count += 1;
-                    $result[$count]['current_hour'] = $currentHour;
                     
                     if( ! empty( $tracker_infos )){
-                        $result[$count]['captures'] = $tracker_infos;
+                        $count += 1;
+                        $result[$count]['current_hour'] = $currentHour;
+                        $result[$count]['captures']     = $tracker_infos;
                     }
                 }
             }
