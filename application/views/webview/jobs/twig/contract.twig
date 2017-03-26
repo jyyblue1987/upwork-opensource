@@ -135,7 +135,7 @@
     {{ include('webview/modals/message-conversion-modal.twig', {'webuser_fname': job_status.webuser_fname, 'webuser_lname': job_status.webuser_lname , 'job_title': job_title }) }}
      
     {# Only include modal for client contract page #}
-    {% if app_user_data()['type'] == constant('EMPLOYER') %}
+    {% if ( app_user_data()['type'] == constant('EMPLOYER') ) and ( job_status.jobstatus != constant('JOB_ENDED') ) %}
         {{ include("webview/modals/milestone-modal.twig") }}
         {{ include("webview/modals/payment-modal.twig") }}
     {% endif %}

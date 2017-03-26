@@ -332,7 +332,7 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
     ";
         // line 138
         echo "    ";
-        if (($this->getAttribute(app_user_data(), "type", array(), "array") == twig_constant("EMPLOYER"))) {
+        if ((($this->getAttribute(app_user_data(), "type", array(), "array") == twig_constant("EMPLOYER")) && ($this->getAttribute((isset($context["job_status"]) ? $context["job_status"] : null), "jobstatus", array()) != twig_constant("JOB_ENDED")))) {
             // line 139
             echo "        ";
             echo twig_include($this->env, $context, "webview/modals/milestone-modal.twig");
@@ -533,7 +533,7 @@ class __TwigTemplate_0e3ffd94f0d78bb3b0fba7b33a695e079c4f7e74868d1817d610c6a54cd
     {{ include('webview/modals/message-conversion-modal.twig', {'webuser_fname': job_status.webuser_fname, 'webuser_lname': job_status.webuser_lname , 'job_title': job_title }) }}
      
     {# Only include modal for client contract page #}
-    {% if app_user_data()['type'] == constant('EMPLOYER') %}
+    {% if ( app_user_data()['type'] == constant('EMPLOYER') ) and ( job_status.jobstatus != constant('JOB_ENDED') ) %}
         {{ include(\"webview/modals/milestone-modal.twig\") }}
         {{ include(\"webview/modals/payment-modal.twig\") }}
     {% endif %}

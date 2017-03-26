@@ -20,12 +20,12 @@ class Payment_model extends CI_Model {
         return $query->result();
     }
     
-    public function save_job_transaction($job_id, $fuser_id, $buser_id, $amount) {
+    public function save_job_transaction($job_id, $fuser_id, $buser_id, $amount, $action = 'payment') {
         $this->db->insert('payments', array(
             'job_id'        => $job_id,
             'user_id'       => $fuser_id,
             'buser_id'      => $buser_id,
-            'des'           => 'Payment',
+            'des'           => ( $action == 'payment' ? 'Payment' : 'Milestone' ),
             'payment_gross' => $amount,
         ));
     }

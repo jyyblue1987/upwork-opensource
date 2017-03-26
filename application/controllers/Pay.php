@@ -41,6 +41,11 @@ class Pay extends Winjob_Controller
         // added by (Donfack Zeufack Hermann) end
     }
     
+    protected function load_language(){
+        parent::load_language();
+        $this->lang->load('job', $this->get_default_lang());
+    }
+    
     
 
     public function index()
@@ -774,68 +779,6 @@ class Pay extends Winjob_Controller
         }
     }
 
-    public function add_milestone()
-    {
-        if ($this->Adminlogincheck->checkx()) {
-            if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
-            }
-            $data = array();
-            
-            if ($this->input->post('job_id') && $this->input->post('fuser_id') && $this->input->post('buser_id')) {
-                //  echo "hahah";
-                $data['job_id'] = $this->input->post('job_id');
-                $data['fuser_id'] = $this->input->post('fuser_id');
-                $data['buser_id'] = $this->input->post('buser_id');
-            }
-
-            if ($this->input->post('job_id') && $this->input->post('user_id') && $this->input->post('buser_id') && $this->input->post('amount')) {
-
-              //updates by haseeburrehman.com starts
-              $user_id = $this->session->userdata('id');
-                $chargeUser = chargePrimary($user_id, $this->input->post('amount'));
-                if ($chargeUser['status_code'] == 1) {
-                    echo "Failed payment for Insufficient funds";
-                    die();
-                }
-              //updates by haseeburrehman.com ends
-
-
-                $data['job_id'] = (int)$this->input->post('job_id');
-                $data['user_id'] = (int)$this->input->post('user_id');
-                $data['buser_id'] = (int)$this->input->post('buser_id');
-                $data['des'] = 'Milestone';
-                $data['payment_gross'] = $this->input->post('amount');
-
-                $this->db->insert('payments', $data);
-              //  print_r($data);die();
-
-                $this->db->select('*');
-                $this->db->from('job_bids');
-                $this->db->where('user_id', $this->input->post('user_id'));
-                $this->db->where('job_id', $this->input->post('job_id'));
-
-                $query = $this->db->get();
-                $result = $query->result();
-                $result = $result[0];
-
-                $updated_data['fixedpay_amount'] = $result->fixedpay_amount + (int) $this->input->post('amount');
-                $this->db->where('user_id', $this->input->post('user_id'));
-                $this->db->where('job_id', $this->input->post('job_id'));
-                $this->db->update('job_bids', $updated_data);
-
-                echo "done";
-                die();
-            }
-            if ($this->input->post('amount')) {
-                redirect(site_url("jobs-home"));
-            }
-
-
-            $this->load->view("webview/payment/add_milestone", $data);
-        }
-    }
-    
     // added by (Donfack Zeufack Hermann) start description
     private function hasValidJobPaymentDatas(){
         
@@ -854,57 +797,82 @@ class Pay extends Winjob_Controller
     }      
     // added by (Donfack Zeufack Hermann) end
     
-
-    public function full_milestone()
+    public function remaining( )
     {
-        if ($this->Adminlogincheck->checkx()) {
-            if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
+        if( $this->input->is_ajax_request())
+        {
+            $contract_id = $this->input->get('fmJob');
+            if( empty( $contract_id ) ){
+                $this->ajax_response( array('message' => $this->lang->line('text_job_work_diary_missing_data'), 'status' => 'error') );
             }
             
-            $data = array();
+            $this->load->model(array('job/bids_model', 'contracts_model'));
+            $contract_id = base64_decode($contract_id);
             
-           // added by (Donfack Zeufack Hermann) start enhance payment code to make more readable
-           if($this->hasValidJobPaymentDatas()){
-             
-              $this->load->model(array('job/bids_model', 'payment_model'));
+            $contract = $this->contracts_model->find( $contract_id );
             
-              //extract all job data value ($job_id, $fuser_id, $buser_id, $amount) 
-              extract($this->input->post());
-            
-              if(!empty($amount)){ // Process the payment
-                
-                $this->bids_model->remaing_to_pay($job_id, $fuser_id);
-                
-                $user_id    = $this->session->userdata('id');
-                $chargeUser = chargePrimary($user_id, $amount);
-
-                if ($chargeUser['status_code'] == 1) {
-                    echo "Failed payment for Insufficient funds";
-                    die();
-                }
-                
-                $this->payment_model->save_job_transaction($job_id, $fuser_id, $buser_id, $amount);
-                $this->bids_model->update_fixedpay_amount($job_id, $fuser_id, $amount);
-                
-                echo "done::" . base64_encode($job_id) . "::" . base64_encode($fuser_id);
-                die();
-                
-              }else{ // Load job payment interface
-                  
-                $remaining = $this->bids_model->remaing_to_pay($job_id, $fuser_id);
-                $this->load->view("webview/payment/full_payment", compact('remaining', 'job_id', 'fuser_id', 'buser_id'));
-                
-              }
-              
-            }else{
-                //TODO: Add message for allow client to understand when happenned
-                redirect(site_url("jobs-home"));
+            if( empty( $contract )){
+                $this->ajax_response(array('message' => $this->lang->line('text_job_contract_not_found'), 'status' => 'error'));
             }
-            // added by (Donfack Zeufack Hermann) end
+            
+            if( $contract->buser_id != $this->session->userdata('id')){
+                $this->ajax_response(array('message' => $this->lang->line('text_job_contract_not_authorized'), 'status' => 'error'));
+            }
+            
+            $title = empty( $contract->hire_title ) ? $contract->hire_title : $contract->title ;
+            $remaining = $this->bids_model->remaing_to_pay( $contract->job_id, $contract->fuser_id );
+            $this->ajax_response(array('remaining' => $remaining, 'title' => $title, 'status' => 'success'));
+        }
+        else
+        {
+            redirect( home_url() );
         }
     }
+    
+    public function  contract()
+    {   
+        if( $this->input->is_ajax_request())
+        {
+            if( ! $this->hasValidJobPaymentDatas() ){
+                $this->ajax_response(array('message' => $this->lang->line('text_job_invalid_payment_detail'), 'status' => 'error'));
+            }
+            
+            $this->load->model(array('job/bids_model', 'payment_model', 'contracts_model'));
+            
+            //extract all contract data value ($contract_id, $amount) 
+            extract($this->input->post());
+            
+            if( empty( $amount ) )
+                $this->ajax_response(array('message' => $this->lang->line('text_job_invalid_amount'), 'status' => 'error'));
+            
+            $contract_id = base64_decode($contract_id);
+            $contract = $this->contracts_model->find( $contract_id );
+            
+            if( empty( $contract )){
+                $this->ajax_response(array('message' => $this->lang->line('text_job_contract_not_found'), 'status' => 'error'));
+            }
+            
+            if( $contract->buser_id != $this->session->userdata('id')){
+                $this->ajax_response(array('message' => $this->lang->line('text_job_contract_not_authorized'), 'status' => 'error'));
+            }
+            
+            $chargeUser = chargePrimary($contract->buser_id, $amount);
 
+            if ($chargeUser['status_code'] == 1) {
+                $this->ajax_response(array('message' => $this->lang->line('text_job_payment_insuffisant_fund'), 'status' => 'error' )); 
+            }
+
+            $this->payment_model->save_job_transaction($contract->job_id, $contract->fuser_id, $contract->buser_id, $amount, $action);
+            $this->bids_model->update_fixedpay_amount($contract->job_id, $contract->fuser_id, $amount);
+
+            $this->ajax_response(array('message' => $this->lang->line('text_job_payment_success'), 'status' => 'success' ));
+        }
+        else
+        {
+            redirect( home_url( ));
+        }
+    }
+    
     public function clientpay()
     {
         if ($this->Adminlogincheck->checkx()) {
