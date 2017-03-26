@@ -45,8 +45,6 @@ class Pay extends Winjob_Controller
         parent::load_language();
         $this->lang->load('job', $this->get_default_lang());
     }
-    
-    
 
     public function index()
     {
@@ -779,48 +777,23 @@ class Pay extends Winjob_Controller
         }
     }
 
-    // added by (Donfack Zeufack Hermann) start description
-    private function hasValidJobPaymentDatas(){
-        
-        $this->load->library('form_validation');
-        
-        $this->form_validation->set_rules('job_id', 'Job', 'numeric', array('numeric' => 'Provide correct job\'s informations.'));
-        $this->form_validation->set_rules('fuser_id', 'Freelancer', 'numeric', array('numeric' => 'Provide a valid freelancer\'s informations.'));
-        $this->form_validation->set_rules('buser_id', 'Client', 'numeric', array('numeric' => 'Provide a valid client\'s informations.'));
-        
-        $amount = $this->input->post('amount');
-        if(! empty($amount)){
-          $this->form_validation->set_rules('amount', 'Amount', 'numeric', array('numeric' => 'Payment amount is not a valid. Please entre a valid value e.g: 12 or 12.5'));
-        } 
-        
-        return $this->form_validation->run();
-    }      
-    // added by (Donfack Zeufack Hermann) end
-    
     public function remaining( )
     {
         if( $this->input->is_ajax_request())
         {
+            $this->load->model('validators/contractValidator');
+            
             $contract_id = $this->input->get('fmJob');
-            if( empty( $contract_id ) ){
-                $this->ajax_response( array('message' => $this->lang->line('text_job_work_diary_missing_data'), 'status' => 'error') );
-            }
+            $contract    = $this->contractValidator->is_valid_contract( $contract_id );
             
-            $this->load->model(array('job/bids_model', 'contracts_model'));
-            $contract_id = base64_decode($contract_id);
+            if( $contract == false || ( ! $this->contractValidator->user_can_access_current_contract( $contract ) ) )
+                return $this->ajax_response(array('message' => $this->contractValidator->get_error_message(), 'status' => 'error'));
             
-            $contract = $this->contracts_model->find( $contract_id );
+            $this->load->model('job/bids_model');
             
-            if( empty( $contract )){
-                $this->ajax_response(array('message' => $this->lang->line('text_job_contract_not_found'), 'status' => 'error'));
-            }
-            
-            if( $contract->buser_id != $this->session->userdata('id')){
-                $this->ajax_response(array('message' => $this->lang->line('text_job_contract_not_authorized'), 'status' => 'error'));
-            }
-            
-            $title = empty( $contract->hire_title ) ? $contract->hire_title : $contract->title ;
+            $title     = empty( $contract->hire_title ) ? $contract->hire_title : $contract->title ;
             $remaining = $this->bids_model->remaing_to_pay( $contract->job_id, $contract->fuser_id );
+            
             $this->ajax_response(array('remaining' => $remaining, 'title' => $title, 'status' => 'success'));
         }
         else
@@ -833,28 +806,20 @@ class Pay extends Winjob_Controller
     {   
         if( $this->input->is_ajax_request())
         {
-            if( ! $this->hasValidJobPaymentDatas() ){
-                $this->ajax_response(array('message' => $this->lang->line('text_job_invalid_payment_detail'), 'status' => 'error'));
-            }
-            
-            $this->load->model(array('job/bids_model', 'payment_model', 'contracts_model'));
+            $this->load->model('validators/contractValidator');
             
             //extract all contract data value ($contract_id, $amount) 
             extract($this->input->post());
             
+            $contract    = $this->contractValidator->is_valid_contract( $contract_id );
+            
+            if( $contract == false || ( ! $this->contractValidator->user_can_access_current_contract( $contract ) ) )
+                return $this->ajax_response(array('message' => $this->contractValidator->get_error_message(), 'status' => 'error'));
+            
             if( empty( $amount ) )
                 $this->ajax_response(array('message' => $this->lang->line('text_job_invalid_amount'), 'status' => 'error'));
             
-            $contract_id = base64_decode($contract_id);
-            $contract = $this->contracts_model->find( $contract_id );
-            
-            if( empty( $contract )){
-                $this->ajax_response(array('message' => $this->lang->line('text_job_contract_not_found'), 'status' => 'error'));
-            }
-            
-            if( $contract->buser_id != $this->session->userdata('id')){
-                $this->ajax_response(array('message' => $this->lang->line('text_job_contract_not_authorized'), 'status' => 'error'));
-            }
+            $this->load->model(array('payment_model', 'contracts_model', 'job/bids_model'));
             
             $chargeUser = chargePrimary($contract->buser_id, $amount);
 

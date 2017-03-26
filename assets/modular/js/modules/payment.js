@@ -63,7 +63,6 @@ define(['jquery', 'bootstrap'], function ($) {
     Payment.prototype.bindEventsUI  = function(){        
         this.$element.on('click.wj.' + this.type, $.proxy(this.openPaymentModal, this))
         this.$modal.on('submit.wj.' + this.type, this.options.modalPaymentForm , $.proxy(this.makePayment, this))
-        
         this.$modal.find('.alert .close').on('click.wj.' + this.type, $.proxy(closeModal, this) )
     }
     
@@ -132,9 +131,9 @@ define(['jquery', 'bootstrap'], function ($) {
            csrf_test_name: csrf_token
        }
        
-       var that = this
-       
+       var that         = this
        var paymentModal = $(this.options.modalPaymentId)
+       var $submit      = $('#hr_btnpay')
        
        if(this.options.action == 'payment'){
            
@@ -148,9 +147,16 @@ define(['jquery', 'bootstrap'], function ($) {
                             type: "get",
                             success: function (response) {
                                 if(response.status == 'success'){
+                                    $submit.prop('disabled', false);
                                     paymentModal.find('input.amount').val( response.remaining );
+                                    paymentModal.find('.modal-header h4').show();
                                     paymentModal.find('.modal-header h4 span').text( response.title );
                                     paymentModal.modal('show');
+                                }else{
+                                    paymentModal.find('.modal-header h4').hide();
+                                    displayMessage(that.$modal, response.message, 'error');
+                                    paymentModal.modal('show');
+                                    $submit.prop('disabled', true);
                                 }
                             },
                             error: function (status, error, textStatus) {
