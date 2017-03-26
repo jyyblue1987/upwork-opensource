@@ -45,7 +45,7 @@ class __TwigTemplate_8c49a9fcb853b4be4f64fbab40cda1ba1c3e3a6fc014b266026472fbfd5
                     <input  class=\"form-control amount\" type=\"text\" name=\"amount\" value=\"\" />
                 </div>
                 <div class=\"text-center btn-container\">
-                    <button id=\"hr_btnpay\" class=\"btn-primary big_mass_active transparent-btn \">
+                    <button class=\"btn-primary big_mass_active transparent-btn \">
                         Pay Now
                         <i class=\"fa fa-circle-o-notch hide form-loader\"></i>
                     </button>
@@ -108,7 +108,7 @@ class __TwigTemplate_8c49a9fcb853b4be4f64fbab40cda1ba1c3e3a6fc014b266026472fbfd5
                     <input  class=\"form-control amount\" type=\"text\" name=\"amount\" value=\"\" />
                 </div>
                 <div class=\"text-center btn-container\">
-                    <button id=\"hr_btnpay\" class=\"btn-primary big_mass_active transparent-btn \">
+                    <button class=\"btn-primary big_mass_active transparent-btn \">
                         Pay Now
                         <i class=\"fa fa-circle-o-notch hide form-loader\"></i>
                     </button>

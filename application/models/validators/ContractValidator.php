@@ -1,10 +1,6 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Description of ContractValidator
@@ -13,6 +9,8 @@
  */
 class ContractValidator extends CI_Model {
       
+  private $error = null; 
+  
   public function __construct() 
   {
       $this->ci = get_instance(); 
@@ -20,6 +18,8 @@ class ContractValidator extends CI_Model {
    
   public function is_valid_contract( $contract_id )
   {    
+        $this->error = null;
+        
         if( empty( $contract_id ) || ! is_numeric( base64_decode($contract_id) )){
             $this->error = app_lang('text_job_invalid_contract_id');
             return false;

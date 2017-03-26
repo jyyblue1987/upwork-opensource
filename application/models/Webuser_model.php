@@ -19,7 +19,7 @@ class Webuser_model extends CI_Model {
     }
     
     public function is_active( $user_id ){
-        return $this->get_status($user_id) == 0;
+        return $this->get_status($user_id) == 1;
     }
     
     public function get_status( $user_id ){

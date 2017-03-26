@@ -61,102 +61,79 @@ class Jobs extends Winjob_Controller {
     }
 
     public function create() {
-        if ($this->Adminlogincheck->checkx()) {
-            if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
-            }
-			
-			/* check if account is suspend then redirect to payment start */
+        
+        $this->checkForEmployer();
+        
+        $this->load->model( array( 'webuser_model', 'skills_model', 'jobs_model' ) );
+        
+	// check if account is suspend then redirect to payment start 
+        $user_id = $this->session->userdata('id');
+        
+        if( ! $this->webuser_model->is_active( $user_id) )
+            redirect(site_url("pay/methods_card"));
+        
+        if( is_get() )//For get http method only load the form.
+        {   
+            $data = array(
+                'js'        => array(
+                    'vendor/jquery.form.js', 
+                    'internal/job_create.js'
+                ),
+                'skillList' => $this->skills_model->get_list()
+            );
             
-            $user_id = $this->session->userdata('id');
-            $this->db->select('*');            
-            $this->db->from('webuser');
-            $this->db->where('isactive', 1);
-            $this->db->where('webuser_id',$user_id);      
-            $query = $this->db->get();   
-            $accActive=0;
-                if (is_object($query)) {
-                    $accActive = $query->num_rows();
-                }
-                
-            if(!$accActive)    
-            {                    
-                redirect(site_url("pay/methods_card"));                
-            }
-            
-            /* check if account is suspend then redirect to payment end */
-            // Added by Armen
-            // Get all skills
-            $this->db->select("skill_name");
-            $this->db->from("skills");
-            $query_files = $this->db->get();
-            $skillList = $query_files->result();
-            // Added by Armen end
-            $data = array('js' => array('vendor/jquery.form.js', 'internal/job_create.js'),
-                'skillList' => $skillList);
             $this->Admintheme->webview("jobs/create_job", $data);
         }
-        if ($this->input->post('title')) {
-
-            if (isset($_FILES['userfile']['name']) && ($_FILES['userfile']['name'] != '')) {
-                $ext = pathinfo($_FILES['userfile']['name'], PATHINFO_EXTENSION);
-                $newFileName = time() . rand(0000, 9999) . $this->session->userdata('id') . '.' . $ext;
-                $source = $_FILES['userfile']['tmp_name'];
-                $dest = './uploads/' . $newFileName;
-                if (move_uploaded_file($source, $dest)) {
-                    $dbPath = '/uploads/' . $newFileName;
-                } else {
-                    $rs = array('code' => '0', 'msg' => '<div class="alert alert-danger">
-  <strong>Error!</strong> Error in uploading file.
-</div>');
-                    echo json_encode($rs);
-                    die;
+        else if($this->input->is_ajax_request() && is_post() && $this->input->post('title'))//Here we need to handle job creation
+        {
+            $db_path = false;
+                    
+            //call a service to handle uploaded image if necessary
+            if( isset($_FILES['userfile']['tmp_name']) && is_uploaded_file($_FILES['userfile']['tmp_name'])){
+                $upload_configs = $this->config->item('upload_library');
+                $upload_configs += array(
+                    'file_name'        => time() . rand(0000, 9999) . $this->session->userdata('id'),
+                    'file_ext_tolower' => true,
+                    'allowed_types'    => 'gif|jpg|png',
+                );
+                $this->load->library( 'upload', $upload_configs );
+                
+                if( $this->upload->do_upload() ){
+                    $finfo   = $this->upload->data();
+                    $db_path = '/uploads/' . $finfo['file_name'];
+                }else{
+                    $this->ajax_response( array( 'code' => '0', 'msg' => '<div class="alert alert-danger"><strong>Error!</strong> Error in uploading file.</div>' ) );
                 }
             }
-            if ($this->input->post('submitbtn') == '0') {
-                $data = $this->input->post();
-                if (isset($dbPath))
-                    $data['userfile'] = $dbPath;
-                $data['user_id'] = $this->session->userdata('id');
+            
+            $data             = $this->input->post();
+            $data['userfile'] = $db_path;
+            $data['user_id']  = $user_id;
+            
+            if ($this->input->post('submitbtn') == '0') //JOB PREVIEW
+            {
                 $this->session->set_userdata('preview', $data);
-                $rs = array('code' => '1', 'id' => '0');
-                echo json_encode($rs);
+                $this->ajax_response( array('code' => '1', 'id' => '0') );
             }
-            else {
-
-                //save
-                $data = $this->input->post();
-                $skills = $this->input->post('skills');
-
-                $skillNames = '';
-                if (isset($dbPath))
-                    $data['userfile'] = $dbPath;
-                $data['user_id'] = $this->session->userdata('id');
-                $data['skills'] = $skillNames;
-                $data['job_created'] = $data['created'];
-
-                unset($data['submitbtn']);
-                if ($this->db->insert('jobs', $data)) {
-                    $insert_id = $this->db->insert_id();
-                    // Added by Armen start
-                    foreach ($skills as $key => $value) {
-                        $this->db->insert('job_skills',array(
-                            'job_id' => $insert_id,
-                            'skill_name' => $value
-                        ));
-                        $ticketMessageID = $this->db->insert_id();
-                    }
-                    // Added by Armen End
-                    $rs = array('code' => '0', 'id' => base64_encode($insert_id), 'type' => $data['job_type']);
-                    echo json_encode($rs);
-                } else {
-                    $rs = array('code' => '0', 'msg' => '<div class="alert alert-danger">
-  <strong>Error!</strong> Error occured.Try again.
-</div>');
-                    echo json_encode($rs);
+            else // CREATE THE JOB
+            {
+                $skillNames               = '';
+                $skills                   = $data['skills'];
+                $data['skills']           = $skillNames;
+                $data['job_created']      = date('Y-m-d H:i:s');
+                unset( $data['submitbtn'] );
+                
+                $job_id  = $this->jobs_model->create( $data );
+                if( $job_id != null )
+                {
+                    $this->jobs_model->link_to_skills( $job_id, $skills);                    
+                    $this->ajax_response( array('code' => '0', 'id' => base64_encode($job_id), 'type' => $data['job_type']) );
+                }
+                else 
+                {
+                    $this->ajax_response( array('code' => '0', 'msg' => '<div class="alert alert-danger"><strong>Error!</strong> Error occured.Try again.</div>') );
                 }
             }
-            die();
         }
     }
 
