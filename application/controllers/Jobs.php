@@ -601,6 +601,7 @@ class Jobs extends Winjob_Controller {
                     }
                     $this->Admintheme->webview("jobs/category-jobs", $data);
                 } else {
+                    $data['page'] = "find-jobs";
                     $this->Admintheme->webview("jobs/find-jobs", $data);
                 }
             }
@@ -662,6 +663,7 @@ class Jobs extends Winjob_Controller {
             $ststus = $query_status->row();
 
             $data = array('records' => $records, 'ststus' => $ststus);
+            $data['page'] = 'job_status';
             $this->Admintheme->webview("jobs/job_status", $data);
         }
     }

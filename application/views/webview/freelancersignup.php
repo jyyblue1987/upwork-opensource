@@ -71,7 +71,7 @@
 
 
             <br><br>
-                <input style="padding: 11px 100px;margin-top: 15px;" type="submit" value="Get Started" id="next" class="btn btn-success">
+                <input style="" type="submit" value="Get Started get-started" id="next" class="btn btn-success">
             <!--<button type="submit" class="btn btn-primary pull-right">Next</button>--> 
                 <h2>By creating an account, you agree to our</h2>
                 <h3><a href="#">Winjob Marketplace User Agreement</a> <span>and</span> <a href="#">Privacy policy</a></h3>
