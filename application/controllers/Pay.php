@@ -475,6 +475,29 @@ class Pay extends Winjob_Controller
       //print_r($form_data);
     }
     //payment function by haseeburrehman.com ends
+    
+    public function balance(){
+        
+        $this->checkForFreelancer();
+        
+        $user_id = $this->session->userdata('id');
+        
+        //load all model
+        $this->load->model( array( 'payment_model' ) );
+        
+        //calculate $amount_in_progress (Only for Hourly job contract)
+        $amount_in_progress = $this->payment_model->get_amount_in_progress( $user_id );
+        
+        //calculate $amount_pending (hourly pending + fixed pending amount)
+        $amount_pending     = $this->payment_model->get_amount_pending( $user_id );
+        
+        //calculate $amount_available (hourly available amount + fixed available amount)
+        $amount_available   = $this->payment_model->get_amount_available( $user_id );
+        
+        $this->twig->display('webview/freelancer/balance', compact('amount_in_progress', 'amount_pending', 'amount_available'));
+        
+    }
+    
     public function freelancerbalance()
     {
         if ($this->Adminlogincheck->checkx()) {

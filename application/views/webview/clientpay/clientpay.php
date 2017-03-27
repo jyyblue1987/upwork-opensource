@@ -159,7 +159,7 @@
                              
                              ?>
                               <td>Hourly Price</td>
-                              <td>Invoice for Contract ID: <?php echo $payment->contact_id.' - '.$total_work_cweek.'hrs @$ '.$payment->offer_bid_amount.'/hr' ?></td>
+                              <td>Paid Invoice for Contract ID: <?php echo $payment->contact_id.' - '.$total_work_cweek.'hrs @$ '.$payment->offer_bid_amount.'/hr' ?></td>
                         <?php  } ?>
                         <td><?php echo $payment->webuser_fname.' ' . $payment->webuser_lname;?> </td>
                         <td class="txtRight">$<?php if($payment->job_type  =="fixed") echo $payment->payment_gross; else echo $total_work_cweek*$payment->offer_bid_amount; ?></small>

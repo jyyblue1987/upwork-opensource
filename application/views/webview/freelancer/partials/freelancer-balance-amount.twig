@@ -1,0 +1,27 @@
+<ul class="custom_freelancer_balance_tebel col-xs-8 col-xs-offset-2">
+    <li class="oDataNavBarTab col-xs-12 col-md-4">
+        <p class="remove-a">
+            <b class="oDataNavTitle">
+              {{ app_lang('text_job_freelancer_balance_in_progress') }}
+            </b>
+            <br />
+            <span class="bold_text"> ${{ amount_in_progress }}</span>
+        </p>
+    </li>
+    <li class="oDataNavBarTab oDataNavBarTab-middle col-xs-12 col-md-4">
+        <p class="remove-a">
+            <b class="oDataNavTitle"> {{ app_lang('text_job_freelancer_balance_pending') }}</b>
+            <br />
+            <span class="bold_text">${{ amount_pending }}</span>
+        </p>
+    </li>
+    <li class="oDataNavBarTab col-xs-12 col-md-4">
+        <p class="remove-a">
+            <a href="{{ site_url('withdraw') }}">
+                <b class="oDataNavTitle"> {{ app_lang('text_job_freelancer_balance_available') }}</b>
+                <br />
+                <span class="bold_text ">${{ amount_available }}</span>
+            </a>
+        </p>
+    </li>
+</ul>

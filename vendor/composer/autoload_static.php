@@ -34,6 +34,10 @@ class ComposerStaticInit76c7465780a2401a468a58af8983c36b
         array (
             'Interop\\Container\\' => 18,
         ),
+        'C' => 
+        array (
+            'Carbon\\' => 7,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -92,6 +96,10 @@ class ComposerStaticInit76c7465780a2401a468a58af8983c36b
         'Interop\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/container-interop/container-interop/src/Interop/Container',
+        ),
+        'Carbon\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
     );
 

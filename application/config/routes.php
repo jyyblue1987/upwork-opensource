@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  ************************************/
 $route['win-jobs']       = 'win_jobs';
 $route['ended-jobs']     = 'ended_jobs';
-
+$route['my-balance']     = 'pay/balance';
 
 /****************************************
  * USER FRIENDLY URL FOR CLIENT/EMPLOYER

@@ -1,0 +1,26 @@
+{% extends "webview/layout/twig/layout.twig" %}
+
+{% block title %}  {{ app_lang('text_job_title_my_balance') }} - Winjob  {% endblock %}
+
+{% block styles %}
+    {{ parent() }}
+    
+    <link rel="stylesheet" href="{{ base_url("assets/css/jquery.datetimepicker.min.css") }}">
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/freelancer-balance.css") }}">
+{% endblock %}
+
+{% block content %}
+    <section id="speciliser-section" class="speciliser-area row">
+        {# Resume amount ( in progress, pending and available ) #}
+        {{ include('webview/freelancer/partials/freelancer-balance-amount.twig') }}
+    </section>
+{% endblock %}
+
+{% block js %}
+    
+    {# this variable defines the asset/modular/pages file to load #}
+    <script> var page = 'freelancer-balance'; </script>
+    
+    <script data-main="{{ app_modular_js("winjob") }}" src="{{ app_modular_js("lib/require.dev.js") }}"></script>
+    
+{% endblock %}

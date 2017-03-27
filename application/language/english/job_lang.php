@@ -151,3 +151,8 @@ $lang['text_job_invalid_amount'] = 'Invalid amount. Please provide a correct val
 $lang['text_job_payment_insuffisant_fund'] = 'Failed payment for Insufficient funds';
 $lang['text_job_payment_success'] = 'Payment proceed with success.';
 $lang['text_job_invalid_contract_id'] = 'Invalid contract identifier. Please refresh the page and try again.';
+
+$lang['text_job_freelancer_balance_in_progress'] = 'Work In Progress';
+$lang['text_job_freelancer_balance_pending']     = 'Pending';
+$lang['text_job_freelancer_balance_available']   = 'Available';
+$lang['text_job_title_my_balance'] = 'My balance';

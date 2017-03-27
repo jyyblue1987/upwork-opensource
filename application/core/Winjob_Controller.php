@@ -118,15 +118,23 @@ class Winjob_Controller extends CI_Controller {
     
     protected  function isEmployer(){
         if ($this->session->userdata('type') != EMPLOYER) {
-            redirect(site_url("find-jobs"));
+            redirect( home_url() );
         }
     }
 
+    protected  function isFreelancer(){
+        if ($this->session->userdata('type') != FREELANCER) {
+            redirect( home_url() );
+        }
+    }
 
-    public function checkForEmployer(){
+    protected function checkForEmployer(){
         $this->authorized() && $this->isEmployer();
     }
     
+    protected function checkForFreelancer(){
+        $this->authorized() && $this->isFreelancer();
+    }
     
     protected function display_active_contracts( $is_active_contract_page = true ){
         
