@@ -33,6 +33,35 @@ function time_elapsed_string($ptime)
         }
     }
 }
+
+$this->db->select('*');
+$this->db->from('job_bids');
+$this->db->where(array('bid_reject' => 0, 'status!=1' => null));
+$this->db->where('user_id', $this->session->userdata(USER_ID));
+$this->db->where('job_progres_status', 0);
+$this->db->where(array('withdrawn' => NULL)); 
+
+$query_totalApplication = $this->db->get();
+$Application_count = $query_totalApplication->num_rows();
+if ($Application_count) {
+    $totalApplication = $Application_count;
+} else {
+    $totalApplication = 0;
+}
+
+
+$this->db->select('*');
+$this->db->from('job_bids');
+$this->db->where('user_id', $this->session->userdata(USER_ID));
+$this->db->where("(withdrawn=1 OR bid_reject=1)", NULL, FALSE);
+$query_totalreject = $this->db->get();
+$reject_count = $query_totalreject->num_rows();
+if ($reject_count) {
+    $totalrejact = $reject_count;
+} else {
+    $totalrejact = 0;
+}
+
 ?>
 <section id="big_header" class="custom_bids_list" style="margin-top: 40px; margin-bottom: 40px; height: auto;">
     <div class="container white-box-feed" style="max-width: 960px;">
@@ -42,7 +71,7 @@ function time_elapsed_string($ptime)
 <?php } ?>
         <div class="row">
             <div class="col-md-9 bottom-blue-border  padding-2">
-                <span><a href="<?php echo site_url('jobs/bids_list'); ?>"><b>My Bids</b></a></span>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <span><a href="<?php echo site_url('jobs/archived_bids_list'); ?>"><b>Archived</b></a></span>
+                <span style="margin-right: 50px;"><a href="<?php echo site_url('jobs/bids_list'); ?>"><b>My Bids (<?= $totalApplication ?>) </b></a></span> <span><a href="<?php echo site_url('jobs/archived_bids_list'); ?>"><b>Archived (<?= $totalrejact ?>)</b></a></span>
             </div>
         </div>
             <div class="row margin-top-1" >
