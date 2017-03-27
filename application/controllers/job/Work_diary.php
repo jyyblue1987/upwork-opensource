@@ -47,7 +47,7 @@ private function common_data( $contract ){
         
         $this->_view_data  += array(
             'hourly_contracts'         => $hourly_contracts,
-            'employer_is_not_active'   => $this->webuser_model->is_active( $contract->buser_id ),
+            'employer_is_not_active'   => ! $this->webuser_model->is_active( $contract->buser_id ),
         );
     }
     

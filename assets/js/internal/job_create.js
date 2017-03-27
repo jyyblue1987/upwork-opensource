@@ -52,7 +52,6 @@ $(document).ready(function () {
             {
                 $('.form-loader').show();
                 $('input:submit').removeAttr('disabled');
-                window.location = base_url() + 'jobs-home';
             }
         },
         success: function (rs) {

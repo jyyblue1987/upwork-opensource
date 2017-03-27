@@ -34,14 +34,11 @@ class Pay extends Winjob_Controller
     {
         parent::__construct();
         $this->load->model(array('common_mod'));
-        
-        // added by (Donfack Zeufack Hermann) start 
-        // load the default language for the current user.
         $this->load_language();
-        // added by (Donfack Zeufack Hermann) end
     }
     
-    protected function load_language(){
+    protected function load_language()
+    {
         parent::load_language();
         $this->lang->load('job', $this->get_default_lang());
     }

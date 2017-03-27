@@ -56,6 +56,7 @@ define(['jquery', 'bootstrap'], function ($) {
         this.type      = type
         this.$element  = $(element)
         this.$modal    = $( this.options.modalPaymentTransactionId )
+        this.$form     = $( this.options.modalPaymentForm )
         this.options   = options
         this.bindEventsUI()
     }
@@ -78,7 +79,7 @@ define(['jquery', 'bootstrap'], function ($) {
             return;
         }
         
-        var $submit = $('#hr_btnpay');
+        var $submit = this.$form.find('button.big_mass_active');
         var $loader = $submit.find('.form-loader');
        
         $submit.prop('disabled', true);

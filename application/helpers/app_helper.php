@@ -363,4 +363,20 @@ if( ! function_exists('verify_date') ){
     }
 }
 
+if( !function_exists('is_get')){
+    
+    function is_get(){
+        $input =& get_instance()->input;
+        return $input->method() == 'get';
+    }
+}
+
+if( !function_exists('is_post')){
+    
+    function is_post(){
+        $input =& get_instance()->input;
+        return $input->method() == 'post';
+    }
+}
+
 // added by (Donfack Zeufack Hermann) end

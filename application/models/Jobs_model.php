@@ -14,6 +14,27 @@ class Jobs_model extends CI_Model {
         parent::__construct();
     }
     
+    public function create( $data ){
+        if ($this->db->insert('jobs', $data)){
+            return $this->db->insert_id();
+        }
+        return null;
+    }
+    
+    public function link_to_skills( $job_id, $skills )
+    {
+        if( !empty($skills) && is_array($skills) )
+        {
+            foreach ($skills as $key => $value) 
+            {
+                $this->db->insert('job_skills',array(
+                    'job_id'     => $job_id,
+                    'skill_name' => $value
+                ));
+            }
+        }
+    }
+    
     public function get_type( $job_id ){
         $this->db
             ->select('job_type')
