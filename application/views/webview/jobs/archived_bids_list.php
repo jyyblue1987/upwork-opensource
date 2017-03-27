@@ -104,7 +104,7 @@ if ($reject_count) {
                             <div class="col-md-2"><?php echo date('M d, Y',  strtotime($value->created));?></div>
                             <div class="col-md-10 blue-text">
                                 <a href='<?php echo site_url("jobs/withdraw_system/".  base64_encode($value->id))?>'>
-                                    <?php echo ucfirst($value->title).' '.$value->id; ?>
+                                    <?php echo ucfirst($value->title); ?>
                                 </a>
                             </div>
                         </div>
