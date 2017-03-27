@@ -44,23 +44,22 @@ $job_alert_count = $Conversation->job_alert();
 $freelancerend = $Conversation->freelancerend();
 $clientend = $Conversation->clientend();
 ?>
-<style>.gray-text span{color:#337ab7}</style>
-<p class="result-msg" style="text-align: center;color: green;font-size: 20px;display: none;"></p>
-<section id="big_header" class="custom_home"  style="margin-top: 37px; margin-bottom: 40px; height: auto;">
+<p class="result-msg"></p>
+<section id="big_header" class="custom_home" >
         <?php   if ($this->session->userdata('type') == '1') { ?>
 				<? if(!empty($clientend)) { ?>				
-					<div style="margin-top: -17px;" class="row ">
-						<div style="height: 40px;margin-left: -1px;margin-top: 0;margin-bottom: 0;" class="bordered-alert text-center ack-box">
-							<h4 style="margin-top: -5px;">! You have  <a href="<?php echo base_url() ?>jobs/client_endjobnotification" class="show_notification" style="color: #28da28 !important;"> <?=count($clientend)?> ended contract - waiting for feedback</a>
+					<div class="row marg-neg ">
+						<div class="bordered-alert text-center ack-box top-alert">
+							<h4 class="h4negtop">! You have  <a href="<?php echo base_url() ?>jobs/client_endjobnotification" class="show_notification"> <?=count($clientend)?> ended contract - waiting for feedback</a>
 										 
 							</h4>
 						</div>
 					</div>                                                                         
 					<? } ?>
 					<?php if($ststus->isactive==0){ ?>
-					<div style="margin-top: 17px;" class="row">
-						<div style="height: 40px;margin-left: -1px;margin-top: 0;" class="col-md-10 bordered-alert text-center ack-box">
-							<h4 style="margin-top: -5px;color: red;">! Your Account has been Suspended</h4>
+					<div class="row marg-alert">
+						<div class="col-md-10 bordered-alert text-center ack-box mid-alert">
+							<h4 class="h4negtop-red">! Your Account has been Suspended</h4>
 						</div>
 					</div>
 					<?php } ?>
@@ -70,7 +69,7 @@ $clientend = $Conversation->clientend();
 					<?php  if(!empty($freelancerend)) { ?>
 						 <div class="row ">
 							<div class="col-md-10 bordered-alert text-center ack-box">
-								<h4>! You have  <a href="<?php echo base_url() ?>jobs/freelancer_endjobnotification" class="show_notification" style="color: #28da28 !important;"> <?=count($freelancerend)?> ended contract - waiting for feedback</a>										 
+								<h4>! You have  <a href="<?php echo base_url() ?>jobs/freelancer_endjobnotification" class="show_notification"> <?=count($freelancerend)?> ended contract - waiting for feedback</a>										 
 								</h4>
 							</div>
 						</div> 									
@@ -85,7 +84,7 @@ $clientend = $Conversation->clientend();
 				<?php }  ?>
 				
 				
-        <div style=" margin-bottom: 23px;<?php  if(!empty($clientend)) {echo "margin-top: 35px";} ?>">
+        <div class="search-top">
                 <div class="row">
                     <form id="freelacer-search" action="profile/find-freelancer" method="post">
                         <div class="col-md-10 col-lg-10 col-sm-10 col-xs-12 no-pad search-cont">
@@ -93,7 +92,7 @@ $clientend = $Conversation->clientend();
                             <i aria-hidden="true" class="fa fa-search search-btn search-freelancer custom_btn"></i>
                         </div>
                         <div class="col-md-2 col-lg-2 col-sm-2 col-xs-12 no-pad">
-                        <a style="background-color: rgb(2, 143, 204);margin-left:0px;color:#fff;padding: 13px 0px 13px 0px;font-size: 17px;" class="btn btn-block btn-primary" href="<?php echo site_url('post-job'); ?>">
+                        <a style="" class="btn btn-block btn-primary post-job" href="<?php echo site_url('post-job'); ?>">
                             Post a job
                             </a>
                     </div>
@@ -226,12 +225,12 @@ $clientend = $Conversation->clientend();
                     $rejectLink = site_url('reject?job_id=' . base64_encode($value->id));
                     ?>
                 
-        <div style="margin-bottom: -7px;"> 
+        <div class="marg-neg"> 
             <div class="bordered-client white-box">
                 <div class="row"> 
                     <div class="col-md-7 col-sm-6 col-xs-6">
-                        <div style="margin-left: -10px; class="job-activity-title">
-                            <label style="padding-bottom:0px;overflow: hidden;" class="jobTitle">
+                        <div class="job-activity-title margin-10">
+                            <label class="jobTitle">
                                 <a href="<?php echo $appliedLink; ?>"><?php echo ucfirst($value->job_type)." - ".ucfirst($value->title); ?></a></label>
 
                                 <p class="hidden-lg hidden-md"><?php echo time_elapsed_string($value->job_created); ?><br></p>
@@ -242,23 +241,23 @@ $clientend = $Conversation->clientend();
                             <div class="col-md-4 col-sm-4 col-xs-12 nopadding">
 
                                 <label class="gray-text">
-                                    <a href='<?php echo site_url('jobs/view/' . url_title($value->title) . '/' . base64_encode($value->id));?>'style="color: #37A000">View Job Posting <span class='glyphicon custom_client_icon glyphicon-info-sign' style="color: #37A000"></span></a>
+                                    <a href='<?php echo site_url('jobs/view/' . url_title($value->title) . '/' . base64_encode($value->id));?>' class="co">View Job Posting <span class='glyphicon custom_client_icon glyphicon-info-sign co'></span></a>
                                 </label>
                             </div>
 							
                             <div class="col-md-4 col-sm-4 col-xs-12 nopadding">
                                 <label class="gray-text">
-                                <span class="hidden-xs hidden-sm" style="margin-left:10px;">&nbsp;</span>
-                                    <a href='<?php echo site_url('jobs/edit/' . base64_encode($value->id));?>'style="color: #37A000">Edit Posting <span class='glyphicon custom_client_icon glyphicon-edit' style="color: #37A000"></span>
+                                <span class="hidden-xs hidden-sm margin-10-left">&nbsp;</span>
+                                    <a href='<?php echo site_url('jobs/edit/' . base64_encode($value->id));?>'style="color: #37A000">Edit Posting <span class='glyphicon custom_client_icon glyphicon-edit co'></span>
                                     </a>
                                 </label>
                             </div>
 							
                             <div class="col-md-4 col-sm-4 col-xs-12 nopadding">
 								<label class="gray-text"> 
-                                    <a href="javascript:void(0)" id="endpost" onclick="Confirmremove(<?php echo $value->id; ?>);" style="color: #37A000">
+                                    <a href="javascript:void(0)" id="endpost" onclick="Confirmremove(<?php echo $value->id; ?>);" class="co">
                                         Remove Posting
-                                        <span class='glyphicon custom_client_icon glyphicon-remove' style="color: #37A000"></span>
+                                        <span class='glyphicon custom_client_icon glyphicon-remove co'></span>
                                     </a>
                                 </label>
 							</div>                    
@@ -267,14 +266,14 @@ $clientend = $Conversation->clientend();
                 </div>
                 <div class="row"> 
                     <div class="col-md-3 hidden-xs hidden-sm">
-                        <div style="margin-left: -4px;">
+                        <div>
 							<?php echo time_elapsed_string($value->job_created); ?>
 						</div>
                     </div>
                     
                     
                     <div class="col-md-9 col-sm-12 col-xs-12">
-                        <ul style="margin-right: -4px;" class="client-job-activity pull-right" >
+                        <ul class="client-job-activity pull-right" >
                             <li>
                                 <a href="<?php echo $appliedLink; ?>">Application (<?php echo $totalApplication ?>)</a> 
                             </li>
