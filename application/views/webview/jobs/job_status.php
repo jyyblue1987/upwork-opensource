@@ -193,6 +193,7 @@ $clientend = $Conversation->clientend();
                     $this->db->select('*');
                     $this->db->from('job_bids');
                     $this->db->where(array('job_id' => $jobId));
+                    $this->db->where('hired', '0');
                      // added by jahid start                                     
                   $this->db->where("(withdrawn=1 OR bid_reject=1)", NULL, FALSE);
                     // added by jahid end
@@ -231,7 +232,7 @@ $clientend = $Conversation->clientend();
                     <div class="col-md-7 col-sm-6 col-xs-6">
                         <div class="job-activity-title margin-10">
                             <label class="jobTitle">
-                                <a href="<?php echo $appliedLink; ?>"><?php echo ucfirst($value->job_type)." - ".ucfirst($value->title); ?></a></label>
+                                <a href="<?php echo $appliedLink; ?>"><?php echo ucfirst($value->job_type)." - ".ucfirst($value->title) ?></a></label>
 
                                 <p class="hidden-lg hidden-md"><?php echo time_elapsed_string($value->job_created); ?><br></p>
                         </div>
