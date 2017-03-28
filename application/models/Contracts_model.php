@@ -70,16 +70,33 @@ class Contracts_model extends CI_Model {
     }
     
     
-    public function get_all_freelancer_in_hourly_contract( $job_id ){
+    public function get_all_freelancer_in_hourly_contract( $employer_id ){
         
         $query = $this->db
-                    ->select('webuser.webuser_id, webuser.webuser_fname, webuser.webuser_lname, job_bids.id as bid_id')
-                    ->from('job_accepted')    
+                    ->select('DISTINCT(webuser.webuser_id), webuser.webuser_fname, webuser.webuser_lname')
+                    ->from('job_accepted')
+                    ->join('jobs', 'jobs.id=job_accepted.job_id', 'inner')
                     ->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner')
-                    ->join('webuser', 'webuser.webuser_id=job_bids.user_id', 'inner')
-                    ->where('job_accepted.job_id', $job_id)
+                    ->join('webuser', 'webuser.webuser_id=job_accepted.fuser_id', 'inner')
+                    ->where('job_accepted.buser_id', $employer_id)
                     ->where('job_bids.jobstatus !=', JOB_ENDED)
+                    ->where('jobs.job_type =', HOURLY_JOB_TYPE)
                     ->get();
+        
+        return $query->result();
+    }
+    
+    public function get_hourly_contract_with_employer( $employer_id, $freelancer_id ){
+        $this->db->select('bid_id, title')
+                ->from('job_accepted')
+                ->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner')
+                ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
+                ->where('job_accepted.fuser_id', $freelancer_id)
+                ->where('job_accepted.buser_id', $employer_id)
+                ->where('job_bids.jobstatus !=', JOB_ENDED)
+                ->where('jobs.job_type', HOURLY_JOB_TYPE);
+        
+        $query = $this->db->get();
         
         return $query->result();
     }
@@ -90,7 +107,7 @@ class Contracts_model extends CI_Model {
                 ->from('job_accepted')
                 ->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner')
                 ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
-                ->where('job_bids.user_id', $freelancer_id)
+                ->where('job_accepted.fuser_id', $freelancer_id)
                 ->where('job_bids.jobstatus !=', JOB_ENDED)
                 ->where('jobs.job_type', HOURLY_JOB_TYPE);
         

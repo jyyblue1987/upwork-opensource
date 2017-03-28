@@ -1,0 +1,28 @@
+<div class="col-md-3 col-sm-3">
+    <select class="form-control" id="jobchanges" name="fmJob">
+        {% for contract in hourly_contracts %}
+            {% set bid_id = base64_encode(contract.bid_id) %}
+            <option value="{{ bid_id }}" {% if contract.bid_id == current_contract_id %}selected{% endif %} >{{ contract.title }}</option>
+        {% endfor %}                                           
+    </select> 
+</div>
+
+<div class="col-md-3 col-sm-3">
+    <input id="datepicker" 
+           class="form-control datepicker"  
+           name="date" 
+           value="{{ current_date }}" >
+</div>
+
+<div class="col-md-3 col-sm-3">
+    <h3 class="txt-hour">
+        <span>{{ app_lang('text_job_today_worked')|format(total_hour_worked) }}</span>
+    </h3>
+</div>
+    
+<div class="col-md-3 col-sm-3">
+    <h3 class="txt-hour">
+        <span>{{ app_lang('text_job_total_hour_worked')|format(total_hours_week) }}</span>
+        <input id="total_work_time" type="hidden" value="{{ total_hours_week }}">
+    </h3>
+</div>

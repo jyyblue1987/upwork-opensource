@@ -1,0 +1,28 @@
+<div class="col-md-4 col-sm-4">
+    <select class="form-control" id="freelancer-changes" name="fuser_id">
+        {% for freelancer in user_lists %}
+            {% set fuser_id = base64_encode(freelancer.webuser_id) %}
+            <option value="{{ fuser_id }}" {% if freelancer.webuser_id == current_freelancer_id %}selected{% endif %} >
+                {{ freelancer.webuser_fname }} {{ freelancer.webuser_lname }}
+            </option>
+        {% endfor %}                                                 
+    </select> 
+</div>
+    
+<div class="col-md-4 col-sm-4">
+    <select class="form-control" id="jobchanges" name="fmJob">
+        {% for contract in freelancer_contracts_lists %}
+            {% set bid_id = base64_encode(contract.bid_id) %}
+            <option value="{{ bid_id }}" {% if contract.bid_id == current_contract_id %}selected{% endif %} >
+                {{ contract.title }}
+            </option>
+        {% endfor %}                                                 
+    </select> 
+</div>
+
+<div class="col-md-4 col-sm-4">
+    <input id="datepicker" 
+           class="form-control datepicker"  
+           name="date" 
+           value="{{ current_date }}" >
+</div>

@@ -379,4 +379,27 @@ if( !function_exists('is_post')){
     }
 }
 
+if( !function_exists('array_key_value_exists'))
+{   
+    function array_key_value_exists($key_name, $key_value, $haystack)
+    {   
+        if(empty($haystack) || !is_array($haystack))
+            return false;
+        
+        foreach( $haystack as $key => $item)
+        {
+            if(is_object($item))
+            {
+                if( $item->{$key_name} == $key_value) return true;
+            }
+            else 
+            {
+                if( $item[$key_name] == $key_value) return true;
+            }
+        }
+        
+        return false;
+    }
+}
+
 // added by (Donfack Zeufack Hermann) end

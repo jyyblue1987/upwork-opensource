@@ -44,7 +44,7 @@ class Payment_model extends CI_Model {
         $start_of_week = date('Y-m-d H:i:s', $dt->startOfWeek()->timestamp);
         $end_of_week   = date('Y-m-d H:i:s', $dt->endOfWeek()->timestamp);
                 
-        return $this->hourly_amount_to_paid_in_a_week($user_id, $start_of_week, $end_of_week);
+        return $this->hourly_amount_to_paid($user_id, $start_of_week, $end_of_week);
     }
     
     /**
@@ -72,7 +72,7 @@ class Payment_model extends CI_Model {
         $now                = date('Y-m-d H:i:s', $dt->timestamp);
         
         
-        return $this->fixed_amount_paid_last_week($user_id, $last_paid_from_now, $now);
+        return $this->fixed_amount_to_paid($user_id, $last_paid_from_now, $now);
         
     }
     
@@ -90,32 +90,28 @@ class Payment_model extends CI_Model {
         $start_of_last_week = date('Y-m-d H:i:s', $last_week->startOfWeek()->timestamp);
         $end_of_last_week   = date('Y-m-d H:i:s', $last_week->endOfWeek()->timestamp);
         
-        return  $this->hourly_amount_to_paid_in_a_week($user_id, $start_of_last_week, $end_of_last_week);
+        return  $this->hourly_amount_to_paid($user_id, $start_of_last_week, $end_of_last_week);
     }
     
     
     public function get_amount_available( $user_id )
     {
-        return ( $this->hourly_amount_available( $user_id ) + $this->fixed_amount_available( $user_id ) ) - $this->get_week_withdraw();
+        return ( $this->hourly_amount_available( $user_id ) + $this->fixed_amount_available( $user_id ) ) - $this->get_withdraw( $user_id );
     }
     
-    public function hourly_amount_available( $user_id ){
+    public function hourly_amount_available( $user_id )
+    {
         $dt                 = Carbon::now();
         $dt->timezone       = new DateTimeZone('UTC');
         $two_week_before    = $dt->copy()->subWeeks(2);
         
-        $start_of_two_week_before = date('Y-m-d H:i:s', $two_week_before->startOfWeek()->timestamp);
-        $end_of_two_week_before   = date('Y-m-d H:i:s', $two_week_before->endOfWeek()->timestamp);
+        $end_of_two_week_before = date('Y-m-d H:i:s', $two_week_before->endOfWeek()->timestamp);
         
-        return  $this->hourly_amount_to_paid_in_a_week($user_id, $start_of_two_week_before, $end_of_two_week_before);
+        return  $this->hourly_amount_to_paid($user_id, null, $end_of_two_week_before);
     }
     
-    public function get_week_withdraw( $user_id ) {
-        return 0.0;
-    }
-    
-    public function fixed_amount_available( $user_id ){
-        
+    public function fixed_amount_available( $user_id )
+    {        
         $now                 = Carbon::now();
         $now->timezone       = new DateTimeZone('UTC');
         
@@ -123,7 +119,25 @@ class Payment_model extends CI_Model {
         $to   = date('Y-m-d H:i:s', $seven_day_from_now->timestamp);
         $from = date('Y-m-d H:i:s', $seven_day_from_now->hour(0)->minute(0)->second(0)->timestamp);
                 
-        return $this->fixed_amount_paid_last_week( $user_id, $from, $to);
+        return $this->fixed_amount_to_paid( $user_id, null, $to);
+    }
+    
+    public function get_withdraw( $user_id )
+    {        
+        $query = $this->db->select('SUM(amount) as amount, SUM(processingfees) as fees')
+                ->from('withdraw')
+                ->where('userid', $user_id)
+                ->group_by(array('userid'))
+                ->get();
+        
+        $withdraws_resume = $query->row();
+        
+        if( !empty($withdraws_resume) )
+            return ( $withdraws_resume->amount + $withdraws_resume->fees );
+        
+        return 0.0;
+        
+        
     }
     
     /**
@@ -134,16 +148,20 @@ class Payment_model extends CI_Model {
      * @param int $end_of_week
      * @return double
      */
-    private function fixed_amount_paid_last_week( $user_id, $begin, $end){
+    private function fixed_amount_to_paid( $user_id, $begin = null, $end = null){
         
-        $query = $this->db->select('SUM(payment_gross) as payment_gross')
+        $this->db->select('SUM(payment_gross) as payment_gross')
                     ->from('payments')
                     ->where('user_id', $user_id)
-                    ->where('buser_id > ', 0)
-                    ->where('payment_create >', $begin)
-                    ->where('payment_create <=', $end)
-                    ->group_by( array( 'bid_id' ) )
-                    ->get();
+                    ->where('buser_id > ', 0);
+        
+        if($begin !== null)
+            $this->db->where('payment_create >', $begin);
+        
+        if($end !== null)
+            $this->db->where('payment_create <=', $end);
+                
+        $query = $this->db->group_by( array( 'bid_id' ) )->get();
         
         $amount_infos = $query->row();
         
@@ -163,16 +181,21 @@ class Payment_model extends CI_Model {
      * @param type $end_of_week    end of a week Sunday 12:59:59
      * @return real                amount freelancer should receive.
      */
-    private function hourly_amount_to_paid_in_a_week( $user_id, $start_of_week, $end_of_week){
+    private function hourly_amount_to_paid( $user_id, $start_of_week = null, $end_of_week = null){
         
-        $query = $this->db->select('SUM(total_hour) as total_hour, offer_bid_amount, bid_amount')
-                    ->from('job_workdairy')
-                    ->join('job_bids', 'job_bids.id=job_workdairy.bid_id', 'inner')
-                    ->where('fuser_id', $user_id)
-                    ->where('working_date >=', $start_of_week)
-                    ->where('working_date <=', $end_of_week)
-                    ->group_by( array( 'job_bids.id' ) )
-                    ->get();
+        $this->db->select('SUM(total_hour) as total_hour, offer_bid_amount, bid_amount')
+            ->from('job_workdairy')
+            ->join('job_bids', 'job_bids.id=job_workdairy.bid_id', 'inner')
+            ->where('fuser_id', $user_id);
+        
+        if($start_of_week !== null)
+            $this->db->where('working_date >=', $start_of_week);
+        
+        if($end_of_week !== null)
+            $this->db->where('working_date <=', $end_of_week);
+        
+                    
+        $query =  $this->db->group_by( array( 'job_bids.id' ) )->get();
         
         $amount_infos = $query->result();
         

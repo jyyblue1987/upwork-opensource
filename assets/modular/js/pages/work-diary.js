@@ -78,6 +78,7 @@ define(function (require) {
         $datepicker      = $("#datepicker"),
         $formFilter      = $("#searchfilter"),
         $select_contract = $("#jobchanges"),
+        $freel_list      = $("#freelancer-changes"),
         $end_hour        = $('#end_hour'),
         $staring_hour    = $('#staring_hour'),
         $weeklywork      = $('#weeklywork'),
@@ -118,6 +119,12 @@ define(function (require) {
     $staring_hour.datetimepicker( conf_start_datetime );
     
     $select_contract.change(function () {
+        $formFilter.submit();
+    });
+    
+    $freel_list.change(function () {
+        //empty the contract list before to submit
+        $select_contract.find('option').remove();
         $formFilter.submit();
     });
         

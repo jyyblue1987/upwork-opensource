@@ -29,41 +29,11 @@
                                 {% endif %}
                                 <form class="custom_workdairy_freelancer {{ form_class }}" action="{{ base_url('jobs/work-diary') }}" method="get" id="searchfilter">
                                     <div class="row">
-                                        <div class="col-md-3 col-sm-3">
-                                            <select class="form-control" id="jobchanges" name="fmJob">
-                                                {% if app_user_data()['type'] == constant('FREELANCER') %}
-                                                    {% for contract in hourly_contracts %}
-                                                        {% set bid_id = base64_encode(contract.bid_id) %}
-                                                        <option value="{{ bid_id }}" {% if contract.bid_id == current_contract_id %}selected{% endif %} >{{ contract.title }}</option>
-                                                    {% endfor %}
-                                                {% else %}
-                                                    {% for freelancer in user_lists %}
-                                                        {% set bid_id = base64_encode(freelancer.bid_id) %}
-                                                        <option value="{{ bid_id }}" {% if freelancer.bid_id == current_contract_id %}selected{% endif %} >
-                                                            {{ freelancer.webuser_fname }} {{ freelancer.webuser_lname }}
-                                                        </option>
-                                                    {% endfor %}
-                                                {% endif %}                                                    
-                                            </select> 
-                                        </div>
-
-                                        <div class="col-md-3 col-sm-3">
-                                            <input id="datepicker" 
-                                                   class="form-control datepicker"  
-                                                   name="date" 
-                                                   value="{{ current_date }}" >
-                                        </div>
-                                        <div class="col-md-3 col-sm-3">
-                                            <h3 class="txt-hour">
-                                                <span>{{ app_lang('text_job_today_worked')|format(total_hour_worked) }}</span>
-                                            </h3>
-                                        </div>
-                                        <div class="col-md-3 col-sm-3">
-                                            <h3 class="txt-hour">
-                                                <span>{{ app_lang('text_job_total_hour_worked')|format(total_hours_week) }}</span>
-                                                <input id="total_work_time" type="hidden" value="{{ total_hours_week }}">
-                                            </h3>
-                                        </div>
+                                        {% if is_freelancer %}
+                                            {{ include('webview/jobs/partials/freelancer-work-diary-header.twig') }}
+                                        {% else %}
+                                            {{ include('webview/jobs/partials/employer-work-diary-header.twig') }}
+                                        {% endif %}
                                     </div>
                                 </form>
                                 {% if is_freelancer %}
@@ -81,6 +51,20 @@
                                                 {{ app_lang('text_job_request_manual_hour') }}
                                             </button>
                                         {% endif %}
+                                    </div>
+                                {% else %}
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6">
+                                            <h3 class="txt-hour text-center">
+                                                <span>{{ app_lang('text_job_current_day_worked')|format(total_hour_worked) }}</span>
+                                            </h3>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <h3 class="txt-hour text-center">
+                                                <span>{{ app_lang('text_job_total_hour_worked')|format(total_hours_week) }}</span>
+                                                <input id="total_work_time" type="hidden" value="{{ total_hours_week }}">
+                                            </h3>
+                                        </div>
                                     </div>
                                 {% endif %}
                                 <div style="clear:both"></div>
