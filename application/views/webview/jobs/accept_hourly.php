@@ -376,7 +376,7 @@
 					$(".result-msg").show().delay(4000).fadeOut('slow');
 					$("html, body").animate({ scrollTop: 0 }, "slow");
 					window.setTimeout(function() {
-						window.location.href = '/jobs-home';
+						window.location.href = base_url() + 'jobs-home';
 					}, 5000);
 			}
 		}, 'json');
