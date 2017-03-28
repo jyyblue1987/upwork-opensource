@@ -26,14 +26,14 @@ $clientend = $Conversation->clientend();
 			<?php if(!empty($clientend)) { ?>
 			<div class="row margin-top-1">
 				<div class="bordered-alert text-center ack-box ended">
-					<h4 class="h4">! You have  <a href="<?php echo base_url() ?>jobs/client_endjobnotification" class="show_notification" style=""> <?=count($clientend)?> ended contract - waiting for feedback</a>
+					<h4 class="h4">! You have  <a href="<?php echo base_url() ?>jobs/client_endjobnotification" class="show_notification" > <?=count($clientend)?> ended contract - waiting for feedback</a>
 					</h4>
 				</div>
 			</div>
 			<?php } ?>
 			<?php if($ststus->isactive==0){ ?>
 				<div class="row ">
-					<div class="bordered-alert text-center ack-box finance" style="">
+					<div class="bordered-alert text-center ack-box finance" >
 						<h4 class="h4red">! Your financial Account has been Suspended.</h4>
 					</div>
 				</div>
@@ -71,22 +71,22 @@ $clientend = $Conversation->clientend();
         </div>
 
                 <div class="row">
-                    <div class="col-md-2 no-pad-xs mar-bot-20" style="">
+                    <div class="col-md-2 no-pad-xs mar-bot-20" >
                         <div class="row">
-                            <div style="" class="col-md-12 borderedx white-box divtop">
+                            <div  class="col-md-12 borderedx white-box divtop">
                                 <div class="row">
-                                    <div style="" class="col-md-12 catcont"><span class="text-center catspan" style="">CATEGORIES</span></div>
+                                    <div  class="col-md-12 catcont"><span class="text-center catspan" >CATEGORIES</span></div>
                                     <?php
                                     if (isset($subCateList) && sizeof($subCateList) > 0 && $subCateList != "") {
                                         foreach ($subCateList as $sub) {
                                             ?>
-                                            <div style="" class="col-md-12 blue-text catscont">
+                                            <div  class="col-md-12 blue-text catscont">
                                                 <label> <a href="<?php echo site_url('find-jobs/' . $sub['subcat_id']) ?>"> <?php echo $sub['subcategory_name'] ?> </a> </label>
                                             </div>
                                             <?php
                                         }
                                         ?>
-                                        <div class="col-md-12 blue-text addcat" style="">
+                                        <div class="col-md-12 blue-text addcat" >
                                             <label> <a href="<?php echo site_url("categories/choose") ?>"> <b><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Category </b></a> </label>
                                         </div>
                                         <?php
@@ -104,7 +104,7 @@ $clientend = $Conversation->clientend();
                         </div>
 
                        <div class="row">
-                            <div style="" class="col-md-12 borderedx white-box margin-top-space catbot">
+                            <div  class="col-md-12 borderedx white-box margin-top-space catbot">
                                 <div class="row">
                                     <div class="nav-side-menu">
                                          <div class="menu-list">
@@ -153,9 +153,9 @@ $clientend = $Conversation->clientend();
 
                         <section id="big_header" style="height: auto;">
                             <div class="job-data white-box-feed">
-                                <div style="" class="job-searching col-md-3 col-sm-3 no-padding job-feed-title">My Job Feed</div>
+                                <div  class="job-searching col-md-3 col-sm-3 no-padding job-feed-title">My Job Feed</div>
                                 <div class="clearfix"></div>
-                                <div class="line custon_line mar-left-neg-5"></div>
+                                <div class="line custon_line"></div>
                                 <br/>
                                 <div class="white-box" id="all-jobs">
                                     <?php include 'content.php'; ?>
@@ -168,7 +168,7 @@ $clientend = $Conversation->clientend();
                     </div>
                     <div class="col-md-2">
                         <div class="row side">
-                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                            <div class="col-md-12 col-sm-12 col-xs-12 white-box text-center side-content    ">
                                 <?php
                                 if (! empty($croppedImage->cropped_image)) {
                                     ?>
@@ -183,7 +183,7 @@ $clientend = $Conversation->clientend();
                             </div>
 
                         </div>
-                        <div style="" class="row white-box text-center side-content">
+                        <div  class="row white-box text-center side-content margin-top-space">
                             <?php
                             $user_id = $this->session->userdata('id');
                             // var_dump($user_id);die();
@@ -202,7 +202,7 @@ $clientend = $Conversation->clientend();
 
                         <div class="row">
                             <div class="col-md-12 margin-top-space proposal-boxn no-pad no-pad-xs">
-                                <div style="" class='white-box side-menu-j-cont'>
+                                <div  class='white-box side-menu-j-cont'>
                                         <div class="no-padding no-pad side-mar-bot">
                                             <a class="side-menu-j" href="<?php echo base_url() ?>Active_interview">Active Interview <p style="float: right;margin: 0;"><?= $no_of_interview ?></p></a>
                                         </div>

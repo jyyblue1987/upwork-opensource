@@ -48,38 +48,38 @@ $clientend = $Conversation->clientend();
 <section id="big_header" class="custom_home" >
         <?php   if ($this->session->userdata('type') == '1') { ?>
 				<? if(!empty($clientend)) { ?>				
-					<div class="row marg-neg ">
-						<div class="bordered-alert text-center ack-box top-alert">
-							<h4 class="h4negtop">! You have  <a href="<?php echo base_url() ?>jobs/client_endjobnotification" class="show_notification"> <?=count($clientend)?> ended contract - waiting for feedback</a>
-										 
-							</h4>
-						</div>
-					</div>                                                                         
+                    <div class="row marg-neg ">
+                        <div class="bordered-alert text-center ack-box top-alert">
+                            <h4 class="h4negtop">! You have  <a href="<?php echo base_url() ?>jobs/client_endjobnotification" class="show_notification"> <?=count($clientend)?> ended contract - waiting for feedback</a>
+                                         
+                            </h4>
+                        </div>
+                    </div>                                                                        
 					<? } ?>
 					<?php if($ststus->isactive==0){ ?>
-					<div class="row marg-alert">
-						<div class="col-md-10 bordered-alert text-center ack-box mid-alert">
-							<h4 class="h4negtop-red">! Your Account has been Suspended</h4>
-						</div>
-					</div>
+                    <div class="row marg-alert">
+                        <div class="col-md-10 bordered-alert text-center ack-box mid-alert">
+                            <h4 class="h4negtop-red">! Your Account has been Suspended</h4>
+                        </div>
+                    </div>
 					<?php } ?>
 					
 						
 				<?php  } else if ($this->session->userdata('type') == '2'){  ?>
 					<?php  if(!empty($freelancerend)) { ?>
-						 <div class="row ">
-							<div class="col-md-10 bordered-alert text-center ack-box">
-								<h4>! You have  <a href="<?php echo base_url() ?>jobs/freelancer_endjobnotification" class="show_notification"> <?=count($freelancerend)?> ended contract - waiting for feedback</a>										 
-								</h4>
-							</div>
-						</div> 									
+                         <div class="row ">
+                            <div class="col-md-10 bordered-alert text-center ack-box top-alert">
+                                <h4 class="h4negtop">! You have  <a href="<?php echo base_url() ?>jobs/freelancer_endjobnotification" class="show_notification"> <?=count($freelancerend)?> ended contract - waiting for feedback</a>                                        
+                                </h4>
+                            </div>
+                        </div> 								
 						<?php } ?>
 						<?php if($ststus->isactive==0){ ?>
-							<div class="row ">
-								<div class="col-md-10 bordered-alert text-center ack-box">
-									<h4>! Your Account has been Suspended</h4>
-								</div>
-							</div>
+                    <div class="row marg-alert">
+                        <div class="col-md-10 bordered-alert text-center ack-box mid-alert">
+                            <h4 class="h4negtop-red">! Your Account has been Suspended</h4>
+                        </div>
+                    </div>
 						<?php } ?>
 				<?php }  ?>
 				
