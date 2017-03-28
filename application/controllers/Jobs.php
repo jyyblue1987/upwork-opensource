@@ -932,7 +932,7 @@ class Jobs extends Winjob_Controller {
             
             // added by jahid start 
              $this->db->where('job_bids.job_progres_status', 0);
-             $this->db->where(array('job_bids.withdrawn' => 1)); 
+             $this->db->where('job_bids.withdrawn = 1 OR job_bids.withdrawn IS NULL'); 
              // added by jahid end 
             
             $this->db->order_by("job_bids.id", "desc");
