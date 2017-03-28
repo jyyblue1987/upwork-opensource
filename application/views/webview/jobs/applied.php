@@ -121,7 +121,7 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
             <div class="col-md-12 nopadding" >
                 <div>
                  <ul class="client-job-activity-current">
-                     <li><a class="active-link" href='<?php echo $appliedLink; ?>'>Application (<?php echo $totalApplication?>)</a> </li>
+                     <li><a class="active-link" href='<?php echo $appliedLink; ?>'>Application (<?php echo $totalApplication ?>)</a></li>
                      <li><a href='<?php echo $interviewsLink; ?>'>Interview (<?=$interview?>)</a> </li>
                      <li><a href='<?php echo $offerLink; ?>'>Offers (<?=$totalOffer;?>) </a>  </li>
                      <li><a href='<?php echo $hireLink; ?>'>Hires (<?=$hire;?>)</a> </li>
