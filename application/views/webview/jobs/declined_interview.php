@@ -32,6 +32,56 @@ function time_elapsed_string($ptime){
         }
     }
 }
+
+if(!empty($active_interview)){
+    foreach($active_interview AS $interview){
+        if($interview->jbid_id != " "){
+            continue;
+        }
+        $a++;
+    }
+    if(count($active_interview) > 0){
+        $declined = count($active_interview);
+        $msg_declined = $declined." Declined Jobs";
+    } else {
+        $declined = count($active_interview);
+        $msg_declined = "No Declined Jobs";
+    }
+}
+
+
+if(!empty($active_offer)){
+    $aoffer = 0;
+    foreach($active_offer as $offer){
+            $aoffer++;
+    }
+    $_offers = $aoffer;
+    $msg_offers = $_offers." Pending Job Offers";
+}else{
+    $_offers = 0;
+    $msg_offers = "No Pending Job Offers";
+}
+
+if(!empty($active_interview)){
+    $a = 1;
+    foreach($active_interview as $interview){
+        if($interview->jbid_id !=""){
+                continue;
+        }
+        $a++;
+    }
+    if($a != 1){
+            $interview_cnt = $a;
+            $msg = $a." Interview Available";
+    } else {
+            $interview_cnt = 0;
+            $msg = "No Interview Available";
+    }
+}else{
+    $interview_cnt = 0;
+    $msg = "No Interview Available";
+}
+
 ?>
 
 
@@ -46,24 +96,10 @@ function time_elapsed_string($ptime){
 <?php } ?>
         <div class="row">
             <div class="col-md-9 bottom-blue-border padding-2">
-                <span><b>My Offers</b></span>
+                <span><b>My Offers (<?= $_offers; ?>)</b></span>
             </div>
             <div class="col-md-9 text-center bordered-alert margin-top" style="background: rgb(240, 240, 240) none repeat scroll 0% 0%; padding: 10px 0px; width: 779px;">
-               <?php
-			if(!empty($active_offer)){
-			$aoffer = 0;
-			foreach($active_offer as $offer){
-				$aoffer++;
-			}
-			if($aoffer != 1){
-				echo $aoffer." Offers Available";
-			} else {
-				echo "No Offers Available";
-			}
-                        }else{
-                            echo "No Offers Available";
-                        }
-			?>
+               <?= $msg_offers  ?>
             </div>
         </div>
         <div class="row margin-top-15">
@@ -113,27 +149,11 @@ function time_elapsed_string($ptime){
         <div class="row"  style="margin-top: 22px;">
             <div class="col-md-9 bottom-blue-border  padding-2">
                 
-                <span style="margin-right: 45px;"><a href="<?php echo site_url('Active_interview'); ?>"><b>Active Interview</b></a></span>&nbsp <span><a href="<?php echo site_url('Active_interview/declined_interview'); ?>"><b>Declined</b></a></span>
+                <span style="margin-right: 45px;"><a href="<?php echo site_url('Active_interview'); ?>"><b>Active Interview (<?= $interview_cnt ?>)</b></a></span>&nbsp <span><a href="<?php echo site_url('Active_interview/declined_interview'); ?>"><b>Declined (<?= $declined ?>)</b></a></span>
 
             </div>
             <div class="col-md-9 text-center bordered-alert margin-top" style="background: rgb(240, 240, 240) none repeat scroll 0% 0%; padding: 10px 0px; width: 779px;">
-				No Declined Available
-				<?php
-				if(!empty($active_interview)){
-				$a = 1;
-				foreach($active_interview as $interview){
-					if($interview->jbid_id !=""){
-						continue;
-					}
-					$a++;
-				}
-				if($a != 1){
-					echo $a." Interview Available";
-				} else {
-					echo "No Interview Available";
-				}
-				}
-				?> 
+                <?= $msg_declined; ?>
             </div>
         </div>
         <div class="row margin-top-3">
