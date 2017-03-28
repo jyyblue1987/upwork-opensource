@@ -76,7 +76,7 @@ body {
            <b><?php   echo ucfirst($jobDetails->job_type)." - ".ucfirst($jobDetails->title); ?><br/><br/></b>
        </div>
      </div>
-      <div class="row ">
+      <div class="row">
 <?php
 $jobId = base64_decode($_GET['job_id']);
 if($interview_count){	$interview = $interview_count;} else {	$interview = 0;}
@@ -327,16 +327,15 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
                                     </div>
    <div class="hire_me_btn">
 		<?php //if($ststus->isactive==1){ ?>
-		<a class="btn btn-primary form-btn" href="<?php if ($jobDetails->job_type == 'hourly') { echo site_url("jobs/confirm_hired_hourly?user_id=".base64_encode($value->freelancer_id)."&job_id=".base64_encode($value->job_id));} else { echo site_url("jobs/confirm_hired_fixed?user_id=".base64_encode($value->freelancer_id)."&job_id=".base64_encode($value->job_id));} ?>">Hire Me</a><?php } ?>
+		<a class="btn btn-primary form-btn" href="<?php if ($jobDetails->job_type == 'hourly') { echo site_url("jobs/confirm_hired_hourly?user_id=".base64_encode($value->freelancer_id)."&job_id=".base64_encode($value->job_id));} else { echo site_url("jobs/confirm_hired_fixed?user_id=".base64_encode($value->freelancer_id)."&job_id=".base64_encode($value->job_id));} ?>">Hire Me</a>
 
                                </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                </div>  
-            <?php //} ?>
+                </div>
+            <?php } ?>
     </div>
 
 </section>
