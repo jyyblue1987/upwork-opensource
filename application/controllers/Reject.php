@@ -31,7 +31,7 @@ class Reject extends CI_Controller {
                 $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
                 $this->db->where('job_bids.job_id', $job_id);
                 $this->db->where('job_bids.hired', '0');
-                $this->db->where("(job_bids.withdrawn=1 OR job_bids.bid_reject=1 OR job_bids.withdrawn IS NULL)", NULL, FALSE);
+                $this->db->where("(job_bids.withdrawn=1 OR job_bids.bid_reject=1)", NULL, FALSE);
                 $query = $this->db->get();
                 $records1 = $query->result();
                  

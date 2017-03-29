@@ -932,7 +932,7 @@ class Jobs extends Winjob_Controller {
             
             // added by jahid start 
              $this->db->where('job_bids.job_progres_status', '0');
-             $this->db->where('job_bids.withdrawn = 1 OR job_bids.withdrawn IS NULL OR job_bids.bid_reject = 1'); 
+             $this->db->where('job_bids.withdrawn = 1 OR job_bids.bid_reject = 1'); 
              // added by jahid end 
             
             $this->db->order_by("job_bids.id", "desc");
@@ -947,7 +947,7 @@ class Jobs extends Winjob_Controller {
             
              // added by jahid start 
              $this->db->where('job_bids.job_progres_status', 0);
-             $this->db->where('job_bids.withdrawn = 1 OR job_bids.withdrawn IS NULL OR job_bids.bid_reject = 1'); 
+             $this->db->where('job_bids.withdrawn = 1 OR job_bids.bid_reject = 1'); 
              // added by jahid end 
             
             $this->db->order_by("job_bids.id", "desc");
@@ -1615,7 +1615,7 @@ class Jobs extends Winjob_Controller {
             $this->db->from('job_bids');
              // added by jahid start 
             $this->db->where(array('job_id' => $jobId));  
-	    $this->db->where("(withdrawn=1 OR bid_reject=1 OR withdrawn IS NULL)", NULL, FALSE); 
+	    $this->db->where("(withdrawn=1 OR bid_reject=1)", NULL, FALSE); 
              // added by jahid end 
             
             $query_totalreject = $this->db->get();

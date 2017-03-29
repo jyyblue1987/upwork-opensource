@@ -54,6 +54,7 @@ $this->db->select('*');
 $this->db->from('job_bids');
 $this->db->where('user_id', $this->session->userdata(USER_ID));
 $this->db->where("(withdrawn=1 OR bid_reject=1 OR withdrawn IS NULL)", NULL, FALSE);
+
 $query_totalreject = $this->db->get();
 $reject_count = $query_totalreject->num_rows();
 if ($reject_count) {

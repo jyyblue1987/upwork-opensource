@@ -195,7 +195,7 @@ $clientend = $Conversation->clientend();
                     $this->db->where(array('job_id' => $jobId));
                     $this->db->where('hired', '0');
                      // added by jahid start                                     
-                  $this->db->where("(withdrawn=1 OR bid_reject=1 OR withdrawn IS NULL)", NULL, FALSE);
+                  $this->db->where("(withdrawn=1 OR bid_reject=1)", NULL, FALSE);
                     // added by jahid end
                   
                     $query_totalreject = $this->db->get();

@@ -370,7 +370,7 @@ if ($value->isactive && $paymentSet) {
                                     </div>
 
                                 </div>
- <?php //if($value->status!='1')
+ <?php if($value->status!='1')
  {?>
                                 <div class="row margin-top-2">
                                     <div class="col-md-12">
