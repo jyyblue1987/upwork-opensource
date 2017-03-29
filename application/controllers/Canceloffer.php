@@ -50,7 +50,7 @@ class Canceloffer extends CI_Controller {
 				
 				
 			} else {	
-				redirect('/jobs-home');
+				redirect(site_url().'jobs-home');
 			}		
              $this->Admintheme->webview("cancel-offer", $data);	
         }

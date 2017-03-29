@@ -48,11 +48,11 @@ class Offer extends CI_Controller {
                 $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
                 $this->db->where('job_bids.job_id', $job_id);
                 $this->db->where('job_bids.hired', '1');
-                $this->db->where('job_bids.bid_reject', 0);
+                //$this->db->where('job_bids.bid_reject', 0);
                 
                               // added by jahid start 
              $this->db->where('job_bids.job_progres_status', 2);
-             $this->db->where(array('job_bids.withdrawn' => NULL)); 
+             //$this->db->where(array('job_bids.withdrawn' => NULL)); 
              // added by jahid end 
                 
                 $this->db->group_by('bid_id');
@@ -92,7 +92,7 @@ class Offer extends CI_Controller {
                 $this->db->from('job_bids');
                                               // added by jahid start 
              $this->db->where('job_bids.job_progres_status', 2);
-             $this->db->where(array('job_bids.withdrawn' => NULL)); 
+             //$this->db->where(array('job_bids.withdrawn' => NULL)); 
              // added by jahid end 
                 $this->db->where(array('job_id' => $job_id, 'hired' => '1'));
                 $query_totaloffer = $this->db->get();
@@ -120,6 +120,7 @@ class Offer extends CI_Controller {
                 // added by Jahid start 
                 $this->db->where(array('job_id' => $job_id));
                 $this->db->where("(withdrawn=1 OR bid_reject=1)", NULL, FALSE);
+                $this->db->where('hired', '0');
                 // added by Jahid end 
                 $query_totalreject = $this->db->get();
                 $reject_count = $query_totalreject->num_rows();

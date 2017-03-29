@@ -48,38 +48,38 @@ $clientend = $Conversation->clientend();
 <section id="big_header" class="custom_home" >
         <?php   if ($this->session->userdata('type') == '1') { ?>
 				<? if(!empty($clientend)) { ?>				
-					<div class="row marg-neg ">
-						<div class="bordered-alert text-center ack-box top-alert">
-							<h4 class="h4negtop">! You have  <a href="<?php echo base_url() ?>jobs/client_endjobnotification" class="show_notification"> <?=count($clientend)?> ended contract - waiting for feedback</a>
-										 
-							</h4>
-						</div>
-					</div>                                                                         
+                    <div class="row marg-neg ">
+                        <div class="bordered-alert text-center ack-box top-alert">
+                            <h4 class="h4negtop">! You have  <a href="<?php echo base_url() ?>jobs/client_endjobnotification" class="show_notification"> <?=count($clientend)?> ended contract - waiting for feedback</a>
+                                         
+                            </h4>
+                        </div>
+                    </div>                                                                        
 					<? } ?>
 					<?php if($ststus->isactive==0){ ?>
-					<div class="row marg-alert">
-						<div class="col-md-10 bordered-alert text-center ack-box mid-alert">
-							<h4 class="h4negtop-red">! Your Account has been Suspended</h4>
-						</div>
-					</div>
+                    <div class="row marg-alert">
+                        <div class="col-md-10 bordered-alert text-center ack-box mid-alert">
+                            <h4 class="h4negtop-red">! Your Account has been Suspended</h4>
+                        </div>
+                    </div>
 					<?php } ?>
 					
 						
 				<?php  } else if ($this->session->userdata('type') == '2'){  ?>
 					<?php  if(!empty($freelancerend)) { ?>
-						 <div class="row ">
-							<div class="col-md-10 bordered-alert text-center ack-box">
-								<h4>! You have  <a href="<?php echo base_url() ?>jobs/freelancer_endjobnotification" class="show_notification"> <?=count($freelancerend)?> ended contract - waiting for feedback</a>										 
-								</h4>
-							</div>
-						</div> 									
+                         <div class="row ">
+                            <div class="col-md-10 bordered-alert text-center ack-box top-alert">
+                                <h4 class="h4negtop">! You have  <a href="<?php echo base_url() ?>jobs/freelancer_endjobnotification" class="show_notification"> <?=count($freelancerend)?> ended contract - waiting for feedback</a>                                        
+                                </h4>
+                            </div>
+                        </div> 								
 						<?php } ?>
 						<?php if($ststus->isactive==0){ ?>
-							<div class="row ">
-								<div class="col-md-10 bordered-alert text-center ack-box">
-									<h4>! Your Account has been Suspended</h4>
-								</div>
-							</div>
+                    <div class="row marg-alert">
+                        <div class="col-md-10 bordered-alert text-center ack-box mid-alert">
+                            <h4 class="h4negtop-red">! Your Account has been Suspended</h4>
+                        </div>
+                    </div>
 						<?php } ?>
 				<?php }  ?>
 				
@@ -193,8 +193,9 @@ $clientend = $Conversation->clientend();
                     $this->db->select('*');
                     $this->db->from('job_bids');
                     $this->db->where(array('job_id' => $jobId));
+                    $this->db->where('hired', '0');
                      // added by jahid start                                     
-                  $this->db->where("(withdrawn=1 OR bid_reject=1)", NULL, FALSE);
+                  $this->db->where("(withdrawn=1 OR bid_reject=1 OR withdrawn IS NULL)", NULL, FALSE);
                     // added by jahid end
                   
                     $query_totalreject = $this->db->get();
@@ -231,7 +232,7 @@ $clientend = $Conversation->clientend();
                     <div class="col-md-7 col-sm-6 col-xs-6">
                         <div class="job-activity-title margin-10">
                             <label class="jobTitle">
-                                <a href="<?php echo $appliedLink; ?>"><?php echo ucfirst($value->job_type)." - ".ucfirst($value->title); ?></a></label>
+                                <a href="<?php echo $appliedLink; ?>"><?php echo ucfirst($value->job_type)." - ".ucfirst($value->title) ?></a></label>
 
                                 <p class="hidden-lg hidden-md"><?php echo time_elapsed_string($value->job_created); ?><br></p>
                         </div>
