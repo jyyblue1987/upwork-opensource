@@ -18,4 +18,23 @@ class Payment_methods_model extends CI_Model
     else
       return array();
   }
+  
+  /**
+   * Check if a client has a primary method payment setted.
+   * 
+   * @param int $user_id employer identifier
+   * @return bool
+   */
+    public function get_primary_method_payment( $user_id )
+    {
+        $query = $this->db->select('paymentMethod')
+                    ->from('billingmethodlist')
+                    ->where('billingmethodlist.belongsTo', $user_id)
+                    ->where('billingmethodlist.isPrimary', "1")
+                    ->get();
+        
+        $method = $query->row();
+        
+        return ! empty( $method ) ? $method->paymentMethod : null;
+    }
 }

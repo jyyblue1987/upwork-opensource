@@ -18,6 +18,18 @@ class Webuser_model extends CI_Model {
         return $query_status->row();
     }
     
+    public function desactived( $user_id, $reason = null ){
+        
+        $data = array(
+                    'isactive'       => 0,
+                    'suspend_reason' => $reason
+                );
+        
+        $this->db
+            ->where('webuser_id', $user_id )
+            ->update('webuser', $data );
+    }
+    
     public function is_active( $user_id ){
         return $this->get_status($user_id) == 1;
     }

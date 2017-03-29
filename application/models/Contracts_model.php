@@ -283,4 +283,30 @@ class Contracts_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+    
+    public function get_all_work_diary_of( $working_date )
+    {
+        $fields = array(
+            'job_bids.offer_bid_amount',
+            'job_bids.bid_amount',
+            'sum(job_workdairy.total_hour) as total_hour',
+            'job_workdairy.cuser_id',
+            'job_workdairy.fuser_id',
+            'job_accepted.contact_id'
+        );
+        
+        $query = $this->db->select( $fields )
+                    ->from('job_workdairy')
+                    ->join('job_accepted', 'job_accepted.job_id = job_workdairy.jobid', 'inner')
+                    ->join('job_bids', 'job_bids.job_id = job_workdairy.jobid', 'inner')
+                    ->join('webuser', 'webuser.webuser_id = job_workdairy.cuser_id', 'inner')
+                    ->where("working_date ='{$working_date}'")
+                    ->where("job_bids.user_id = job_workdairy.fuser_id")
+                    ->where("webuser.isactive !=", 0)
+                    ->where("job_bids.jobstatus !=", JOB_ENDED)
+                    ->group_by('jobid,fuser_id')
+                    ->get();
+        
+        return $query->result();
+    }
 }

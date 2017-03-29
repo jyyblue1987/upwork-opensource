@@ -214,4 +214,8 @@ class Payment_model extends CI_Model {
         return 0.0;
         
     }
+    
+    public function save_transaction( $transaction ){
+        
+    }
 }
