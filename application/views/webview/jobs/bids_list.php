@@ -77,7 +77,7 @@ if ($reject_count) {
             <div class="row margin-top-1" >
 			<div class="col-md-9 bordered-alert text-center ack-box" style="background: rgb(240, 240, 240) none repeat scroll 0% 0%; padding: 0px 0px;">
                 <?php if ($proposals < 30): ?>
-				    <h4>! You have sent  <?= $proposals; ?> proposals</h4>
+				    <h4>! You have sent  <?= $totalApplication; ?> proposals</h4>
                 <?php else: ?>
                     <h4>! You reach your monthly proposals limit</h4>
                 <?php endif; ?>
