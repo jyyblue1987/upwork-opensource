@@ -582,7 +582,6 @@ margin-top: 2px;
     top: 0;
 }
 
-
 .oField, [type="text"], .oInvisibleInput:hover, .oInvisibleInput:focus, [type="password"], [type="search"], textarea, .oTagsField {
   background: #fff none no-repeat scroll center center;
   border: 2px solid #e0e0e0;
