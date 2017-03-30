@@ -19,7 +19,50 @@
 	 margin-top:50px;
          margin-bottom: 50px;
  }
+ div#next_header{
+ 	margin-bottom: 20px;
+ }
+.menu ul {
+    list-style:none;
+    margin: 0;
+    padding:0;
+}
+ .menu li {
+  
+    margin: 0;
+    padding: 0px;
+    float:left;
+}
+ .menu ul li  a {
+    font-family:'Arial';
+    display: block;
+    color: #35a7d6;
+    text-decoration:none;
+     font-size:16px; 
+     padding: 0px 28px;
+	 margin-top:14px;
+	 border:none;
+	
+}
+.menu ul li  a.first-menu {
+    font-family:'Arial';
+    display: block;
+    color: #35a7d6;
+    text-decoration:none;
+     font-size:16px; 
+     padding: 0px 28px 0px 6px;
+	 margin-top:14px;
+	 border:none;
+	
+}
+ .menu  a:hover {
+    color: #e84c3d;
+	-webkit-transition:1s;
+	-moz-transition:1s;
+	-o-transition:1s;
+	transition:1s;
 
+}
 .white-box{
     background-color:white;
     border-radius: 4px;

@@ -608,7 +608,8 @@ class Jobs extends Winjob_Controller {
                     $this->Admintheme->webview("jobs/category-jobs", $data);
                 } else {
                     $data['page'] = "find-jobs";
-                    $this->Admintheme->webview("jobs/find-jobs", $data);
+                    $data['css'] = array("","","","assets/css/pages/find-jobs.css");
+                    $this->Admintheme->custom_webview("jobs/find-jobs", $data);
                 }
             }
         } else {
@@ -658,74 +659,15 @@ class Jobs extends Winjob_Controller {
 
             $jobs = $this->process->get_posted_jobs($this->user_id);
             $emp = $this->employer->is_active();
-            $records = array();
 
-            foreach($jobs['data'] AS $_jobs){
-                $applicants = $this->process->get_applications($_jobs->id);
-                $rejects = $this->process->get_rejected($_jobs->id);
-                $offers = $this->process->get_offers($_jobs->id);
-                $hires = $this->process->get_hires($this->user_id, $_jobs->id);
-                $interviews = $this->process->get_interviews($this->user_id, $_jobs->id);
-
-                $records[] = array(
-                    'applicants' => $applicants['rows'],
-                    'rejects' => $rejects['rows'],
-                    'offers' => $offers['rows'],
-                    'hires' => $hires['rows'],
-                    'interviews' => $interviews['rows'],
-                    'job_id' => base64_encode($_jobs->id),
-                    'job_type' => ucfirst($_jobs->job_type),
-                    'title' => ucwords($_jobs->title),
-                    'job_created' => $this->time_elapsed_string($_jobs->job_created)
-                );
-            }
-
-            $conversation = new Conversation();
             $data = array(
-                'records' => $records,
-                'status' => $emp,
-                'page' => 'job_status',
-                'notification' => $conversation->index(),
-                'notification_details' => $conversation->details(),
-                'job_alert_count' => $conversation->job_alert(),
-                'freelancerend' => $conversation->freelancerend(),
-                'clientend' => $conversation->clientend()
-            );
+                    'records' => $jobs['data'],
+                    'status' => $emp,
+                    'page' => 'job_status',
+                    'css'   => array("", "", "", "assets/css/pages/job_status.css")
+                );
 
-            $this->Admintheme->webview("jobs/job_status", $data);
-        }
-    }
-    
-    private function time_elapsed_string($_ptime){
-        $ptime = strtotime($_ptime);
-        $etime = time() - $ptime;
-
-        if ($etime < 1){
-            return '0 seconds';
-        }
-
-        $a = array(365 * 24 * 60 * 60 => 'year',
-            30 * 24 * 60 * 60 => 'month',
-            24 * 60 * 60 => 'day',
-            60 * 60 => 'hour',
-            60 => 'minute',
-            1 => 'second'
-        );
-
-        $a_plural = array('year' => 'years',
-            'month' => 'months',
-            'day' => 'days',
-            'hour' => 'hours',
-            'minute' => 'minutes',
-            'second' => 'seconds'
-        );
-
-        foreach ($a as $secs => $str){
-            $d = $etime / $secs;
-            if ($d >= 1){
-                $r = round($d);
-                return $r . ' ' . ($r > 1 ? $a_plural[$str] : $str) . ' ago';
-            }
+            $this->Admintheme->custom_webview("jobs/job_status", $data);
         }
     }
 

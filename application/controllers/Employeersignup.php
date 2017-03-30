@@ -11,9 +11,9 @@ class Employeersignup extends CI_Controller {
 				       'page' => "employeersignup",
 							 'js' =>array(),
 							 'jsf' =>array("assets/js/layerslider.transitions.js","assets/js/layerslider.kreaturamedia.jquery.js","assets/js/owl.carousel.min.js","assets/js/homepage.js"),
-							 'css' =>array("assets/css/layerslider.css","assets/css/owl.carousel.css","assets/css/owl.theme.css"),
+							 'css' =>array("assets/css/layerslider.css","assets/css/owl.carousel.css","assets/css/owl.theme.css", "assets/css/pages/employeersignup.css"),
           );
-            	$this->Admintheme->webview("employeersignup",$data);
+            	$this->Admintheme->custom_webview("employeersignup",$data);
 
 
 	}
