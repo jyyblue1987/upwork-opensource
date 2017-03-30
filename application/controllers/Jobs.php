@@ -21,7 +21,7 @@ class Jobs extends Winjob_Controller {
         $this->process = new Process();
         $this->user_id = $this->session->userdata('id');
         $this->employer = new Employer($this->user_id);
-		/* check profile info is okay start */
+        /* check profile info is okay start */
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
                 // redirect(site_url("find-jobs"));
@@ -72,7 +72,7 @@ class Jobs extends Winjob_Controller {
         
         $this->load->model( array( 'webuser_model', 'skills_model', 'jobs_model' ) );
         
-	// check if account is suspend then redirect to payment start 
+    // check if account is suspend then redirect to payment start 
         $user_id = $this->session->userdata('id');
         
         if( ! $this->webuser_model->is_active( $user_id) )
@@ -444,7 +444,7 @@ class Jobs extends Winjob_Controller {
                             continue;
                         }
                         $record->skills=$s;
-			$s=[];
+            $s=[];
                     }
                 } else {
                     $records = null;
@@ -608,7 +608,7 @@ class Jobs extends Winjob_Controller {
                     $this->Admintheme->webview("jobs/category-jobs", $data);
                 } else {
                     $data['page'] = "find-jobs";
-                    $data['css'] = array("","","","assets/css/pages/find-jobs.css");
+                    $data['css']  = array("", "", "", "assets/css/pages/find-jobs.css");
                     $this->Admintheme->custom_webview("jobs/find-jobs", $data);
                 }
             }
@@ -659,15 +659,75 @@ class Jobs extends Winjob_Controller {
 
             $jobs = $this->process->get_posted_jobs($this->user_id);
             $emp = $this->employer->is_active();
+            $records = array();
 
-            $data = array(
-                    'records' => $jobs['data'],
-                    'status' => $emp,
-                    'page' => 'job_status',
-                    'css'   => array("", "", "", "assets/css/pages/job_status.css")
+            foreach($jobs['data'] AS $_jobs){
+                $applicants = $this->process->get_applications($_jobs->id);
+                $rejects = $this->process->get_rejected($_jobs->id);
+                $offers = $this->process->get_offers($_jobs->id);
+                $hires = $this->process->get_hires($this->user_id, $_jobs->id);
+                $interviews = $this->process->get_interviews($this->user_id, $_jobs->id);
+
+                $records[] = array(
+                    'applicants' => $applicants['rows'],
+                    'rejects' => $rejects['rows'],
+                    'offers' => $offers['rows'],
+                    'hires' => $hires['rows'],
+                    'interviews' => $interviews['rows'],
+                    'job_id' => base64_encode($_jobs->id),
+                    'job_type' => ucfirst($_jobs->job_type),
+                    'title' => ucwords($_jobs->title),
+                    'job_created' => $this->time_elapsed_string($_jobs->job_created)
                 );
+            }
+
+            $conversation = new Conversation();
+            $data = array(
+                'records' => $records,
+                'status' => $emp,
+                'page' => 'job_status',
+                'notification' => $conversation->index(),
+                'notification_details' => $conversation->details(),
+                'job_alert_count' => $conversation->job_alert(),
+                'freelancerend' => $conversation->freelancerend(),
+                'clientend' => $conversation->clientend(),
+                'css'       => array("", "", "", "assets/css/pages/job_status.css")
+            );
 
             $this->Admintheme->custom_webview("jobs/job_status", $data);
+        }
+    }
+    
+    private function time_elapsed_string($_ptime){
+        $ptime = strtotime($_ptime);
+        $etime = time() - $ptime;
+
+        if ($etime < 1){
+            return '0 seconds';
+        }
+
+        $a = array(365 * 24 * 60 * 60 => 'year',
+            30 * 24 * 60 * 60 => 'month',
+            24 * 60 * 60 => 'day',
+            60 * 60 => 'hour',
+            60 => 'minute',
+            1 => 'second'
+        );
+
+        $a_plural = array('year' => 'years',
+            'month' => 'months',
+            'day' => 'days',
+            'hour' => 'hours',
+            'minute' => 'minutes',
+            'second' => 'seconds'
+        );
+
+        foreach ($a as $secs => $str){
+            $d = $etime / $secs;
+            if ($d >= 1){
+                $r = round($d);
+                return $r . ' ' . ($r > 1 ? $a_plural[$str] : $str) . ' ago';
+            }
         }
     }
 
@@ -1618,7 +1678,7 @@ class Jobs extends Winjob_Controller {
             $this->db->from('job_bids');
              // added by jahid start 
             $this->db->where(array('job_id' => $jobId));  
-	    $this->db->where("(withdrawn=1 OR bid_reject=1)", NULL, FALSE); 
+        $this->db->where("(withdrawn=1 OR bid_reject=1)", NULL, FALSE); 
              // added by jahid end 
             
             $query_totalreject = $this->db->get();
@@ -2330,8 +2390,8 @@ class Jobs extends Winjob_Controller {
             if ($this->session->userdata('type') != 1) {
                 redirect(site_url("find-jobs"));
             }
-			
-	
+            
+    
 
             /* check if account is suspend then redirect to payment */
             
@@ -2581,9 +2641,9 @@ class Jobs extends Winjob_Controller {
                 }else{
                     $response['success'] = true;
                     $response['message'] = 'Successfull';
-					
+                    
                     /* adding data at report start */
-					
+                    
                     $data_payment['job_id'] = (int) $job_id;
                     $data_payment['user_id'] = (int) $applier_id;
                     $data_payment['buser_id'] = (int) $user_id ;
@@ -2597,8 +2657,8 @@ class Jobs extends Winjob_Controller {
                     $data_payment['payment_gross'] = $budget;
 
                     $this->db->insert('payments', $data_payment);
-		redirect(site_url().'offer?job_id='.base64_encode($job_id));			
-					/* adding data at report end */
+        redirect(site_url().'offer?job_id='.base64_encode($job_id));            
+                    /* adding data at report end */
                 }
                 //updates by haseeburrehman.com ends     
             }
@@ -3163,7 +3223,7 @@ class Jobs extends Winjob_Controller {
                             continue;
                         }
                         $record->skills=$s;
-			$s=[];
+            $s=[];
                     }
                 } else {
                     $records = null;
@@ -3195,4 +3255,3 @@ class Jobs extends Winjob_Controller {
             }
     }
 }
-
