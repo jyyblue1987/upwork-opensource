@@ -1,0 +1,153 @@
+{% extends "webview/layout/twig/layout.twig" %}
+
+{% block title %}  
+    {{ app_lang('text_app_title_add_credit_card') }} - Winjob
+{% endblock %}
+
+{% block styles %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/add-credit-card.css") }}">
+{% endblock %}
+
+{% block content %}
+
+    {{ include('webview/payment/partials/header.twig') }}
+
+    <div class="custom_content">
+        <h2 style="text-align: center; margin-bottom: 35px; margin-top: 2px;">
+            {{ app_lang("text_app_add_credit_card") }}
+            <i class="fa fa-credit-card-alt"></i> 
+            <i class="fa fa-cc-visa"></i> 
+            <i class="fa fa-cc-mastercard "></i>
+        </h2>
+
+        <section class="form_area custom_mpayment_may">
+            <form class="form-horizontal" id="add-credit-card-form" action="" method="post">
+                <div class="col-xs-12">
+
+                    {# Used to display form errors #}
+                    <div id="card-errors"></div>
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="control-label col-xs-2">
+                            {{ app_lang('text_app_cc_name_on_card') }}
+                        </label>
+                        <div class="col-xs-8">
+                            <div class="row">
+                                <input type="text" class="form-control col-xs-6"
+                                       placeholder="{{ app_lang('text_app_cc_first_name') }}" 
+                                       name="fname" 
+                                       required="" value="">
+                                <input type="text" 
+                                       class="form-control col-xs-6"
+                                       placeholder="{{ app_lang('text_app_cc_last_name') }}" 
+                                       name="lname" 
+                                       required="" value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">
+                            {{ app_lang('text_app_cc_country') }}
+                        </label>
+                        <div class="col-xs-8">
+                            <div class="row">
+                                <select class="form-control" required="" name="country">
+                                    {{ country }}
+                                    <optgroup label="Countries">
+                                        <option>Pakistan</option>
+                                        <option>Bangladesh</option>
+                                        <option>Armenia</option>
+                                        <option>Azerbaijan</option>
+                                        <option>Russia</option>
+                                        <option>Bhutan</option>
+                                    </optgroup>
+                                </select>  
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">
+                            {{ app_lang('text_app_cc_infos') }}
+                        </label>
+                        <div id="card-element" class="col-xs-8">
+                            {# a Stripe Element will be inserted here. #}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">
+                            {{ app_lang('text_app_cc_address') }}
+                        </label>
+                        <div class="col-xs-8">
+                            <div class="row">
+                                <input type="text" class="form-control" placeholder="{{ app_lang('text_app_cc_address_line_1') }}" name="address" required="">
+                                <input type="text" class="form-control" placeholder="{{ app_lang('text_app_cc_address_line_2') }}" name="address2" required="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">
+                            {{ app_lang('text_app_cc_city') }}
+                        </label>
+                        <div class="col-xs-4">
+                            <div class="row">
+                                <input type="text" class="form-control" placeholder="{{ app_lang('text_app_cc_city') }}" name="city" required="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">
+                            {{ app_lang('text_app_cc_zip') }}
+                        </label>
+                        <div class="col-xs-4">
+                            <div class="row">
+                                <input type="text" class="form-control" placeholder="{{ app_lang('text_app_cc_zip_code') }}" name="zip" required="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">&nbsp;</label>
+                        <p class="pull-left"style="font-size: 17px; font-weight: normal;">
+                            In order to verify your card we will make 2 temporary charges totaling $10 <br />
+                            These charge will be refunded to your card within 7 days
+                        </p>
+                    </div>
+
+                    <div class="form-group btn_center">
+                        <div class="col-xs-2"></div>
+                        <div style="margin-left: -38px;" class="col-xs-3">
+                            <button style="border: 1px;" type="submit" class="btn-primary transparent-btn big_mass_button" name="addccstripe">
+                                {{ app_lang('text_app_btn_add_cc') }}
+                            </button>
+                        </div>
+                        <div style="margin-left: -20px;" class="col-xs-2">
+                            <button style="float: left;margin-left: 5px;" type="submit" class="btn-primary transparent-btn big_mass_button">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear clearfix"></div>
+            </form>
+        </section>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="{{ site_url("assets/js/vendor/jquery-2.2.3.min.js") }}"></script>
+    <script src="{{ site_url("assets/js/bootstrap.min.js") }}"></script>
+    <script src="https://js.stripe.com/v2/"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="text/javascript">
+        var public_stripe_key = '{{ constant('STRIPE_PK') }}';
+    </script>
+    <script src="{{ app_modular_js("pages/add-credit-card.js") }}"></script>
+{% endblock %}

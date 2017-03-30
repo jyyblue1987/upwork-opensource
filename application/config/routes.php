@@ -17,6 +17,7 @@ $route['jobs/offers-sent']     = 'job/offers_sent';
 $route['jobs/my-contracts']    = 'job/my_contracts';
 $route['jobs/ended-contracts'] = 'job/ended_contracts';
 $route['jobs/work-diary']      = 'job/work_diary';
+$route['pay/add-credit-card']  = 'pay/add_credit_card';
 
 
 $route['default_controller'] = 'home';

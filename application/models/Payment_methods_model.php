@@ -22,19 +22,23 @@ class Payment_methods_model extends CI_Model
   /**
    * Check if a client has a primary method payment setted.
    * 
-   * @param int $user_id employer identifier
-   * @return bool
+   * @param  int   $user_id employer identifier
+   * @return mixed payment method or null
    */
     public function get_primary_method_payment( $user_id )
     {
-        $query = $this->db->select('paymentMethod')
-                    ->from('billingmethodlist')
-                    ->where('billingmethodlist.belongsTo', $user_id)
-                    ->where('billingmethodlist.isPrimary', "1")
+        $query = $this->db->select('service_name')
+                    ->from('payment_services')
+                    ->where('user_id', $user_id)
+                    ->where('is_primary', true)
                     ->get();
         
         $method = $query->row();
         
-        return ! empty( $method ) ? $method->paymentMethod : null;
+        return ! empty( $method ) ? $method->service_name : null;
+    }
+    
+    public function save_method(  $service_datas ){
+        return $this->db->insert('payment_services', $service_datas);
     }
 }

@@ -6121,6 +6121,17 @@ INSERT INTO `workdairy_tracker` (`worktracker_id`, `jobid`, `bid_id`, `cuser_id`
 
 ALTER TABLE `job_workdairy` CHANGE `starting_hour` `starting_hour` DATETIME NOT NULL, CHANGE `ending_hour` `ending_hour` DATETIME NOT NULL;
 
+CREATE TABLE `payment_services` 
+( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT , 
+ `user_id` INT NOT NULL , 
+ `service_name` VARCHAR(255) NOT NULL , 
+ `is_primary` BOOLEAN NOT NULL , 
+ `is_deleted` BOOLEAN NOT NULL , 
+ `service_payer_id` VARCHAR(255) NOT NULL,
+ PRIMARY KEY (`id`),
+ KEY `id` (`id`)
+) ENGINE = InnoDB;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

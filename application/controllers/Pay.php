@@ -48,6 +48,67 @@ class Pay extends Winjob_Controller
         $data = array();
         $this->Admintheme->webview("clientpay/index", $data);
     }
+    
+    public function add_credit_card(){
+        
+        if(is_get())//Display stripe credit card.
+        {
+            $this->twig->display('webview/payment/twig/add_credit_card', compact('user_id'));
+        }
+        else//Create a stripe customer account for charge its CC later.
+        {
+            $form_data = $this->input->post();
+            $token     = $form_data['stripeToken'];
+            $user_id   = $this->session->userdata('id');
+            
+            try {
+                // Create a Customer
+                $customer = \Stripe\Customer::create(array(
+                    "source"      => $token,
+                    "description" => $form_data['fname'] . " ". $form_data['lname'] ." - " . $user_id
+                ));
+            } catch (Exception $e) {
+                log_message('error', "Error when creating stripe customer...");
+                $this->session->set_flashdata('error', $this->lang->line('text_app_stripe_error_customer_creation'));
+                redirect(home_url());
+            }
+            
+            $this->load->model('payment_methods_model');
+            $defaultPrimaryMethod = $this->payment_methods_model->get_primary_method_payment( $user_id );
+            
+            $isPrimary = ( ( $defaultPrimaryMethod ) == null ? 1 : 0 );
+            
+            $webuser_payment_service = array(
+                'user_id'             => $user_id,
+                'service'             => 'stripe',
+                'is_primary'          => $isPrimary,
+                'is_deleted'          => 0,
+                'service_payer_id'    => $customer->id
+            );
+            
+            if( $this->payment_methods_model->save_method( $webuser_payment_service ) ){
+                
+                $webuser = $this->webuser_model->load_informations( $user_id );
+                $subject = "Successfully Added Payment Method";
+                $details = array(
+                    'fname'   => ucfirst( $webuser->webuser_fname ),
+                    'company' => 'Winjob',
+                    'slogan'  => 'Hire Talented Freelancers For a Low Cost',
+                    'para1'   => 'Your new payment method has been add for your account. If you did not make this change, please <a href="' . site_url() . 'contact" style="color: #0061A7; text-decoration: none;">contact us</a>.'
+                );
+                
+                $this->Sesmailer->sesemail($webuser->webuser_email, $subject, $this->Emailtemplate->emailview('set_primary_payment', $details));
+                $this->session->set_flashdata('error', $this->lang->line('text_app_stripe_error_customer_creation'));
+                redirect( base_url('pay/billing') );
+                
+            }else{
+                log_message('error', "Error when registering stripe customer identifier into database...");
+                $this->session->set_flashdata('error', $this->lang->line('text_app_stripe_error_customer_creation'));
+                redirect(home_url());
+            }
+        }
+    }
+
     //payment function by haseeburrehman.com starts
     public function addCC($sub = null)
     {

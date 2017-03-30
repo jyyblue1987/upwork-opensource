@@ -21,15 +21,18 @@ class Charge extends CI_Controller {
     
     public function daily()
     {
-        log_message("INFO", 'Daily payment process launched.');
-        
-        $now                 = Carbon::now();
-        $now->timezone       = new DateTimeZone('UTC');
-        $working_date        = date('Y-m-d' , $now->timestamp ); 
-        
-        $this->_charge_failed_transaction( $working_date );
-        
-        $this->_daily_charge( $working_date );        
+        if(is_cli())
+        {
+            log_message("INFO", 'Daily payment process launched.');
+
+            $now                 = Carbon::now();
+            $now->timezone       = new DateTimeZone('UTC');
+            $working_date        = date('Y-m-d' , $now->timestamp ); 
+
+            $this->_charge_failed_transaction( $working_date );
+
+            $this->_daily_charge( $working_date );    
+        }                
     }
     
     private function _charge_failed_transaction( $working_date )
