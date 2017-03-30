@@ -608,7 +608,7 @@ class Jobs extends Winjob_Controller {
                     $this->Admintheme->webview("jobs/category-jobs", $data);
                 } else {
                     $data['page'] = "find-jobs";
-                    $data['css']  = array("", "", "", "assets/css/pages/find-jobs.css");
+                    $data['css']  = array("","","","assets/css/pages/find-jobs.css");
                     $this->Admintheme->custom_webview("jobs/find-jobs", $data);
                 }
             }
@@ -691,7 +691,7 @@ class Jobs extends Winjob_Controller {
                 'job_alert_count' => $conversation->job_alert(),
                 'freelancerend' => $conversation->freelancerend(),
                 'clientend' => $conversation->clientend(),
-                'css'       => array("", "", "", "assets/css/pages/job_status.css")
+                'css'       => array("","","","assets/css/pages/job_status.css")
             );
 
             $this->Admintheme->custom_webview("jobs/job_status", $data);
