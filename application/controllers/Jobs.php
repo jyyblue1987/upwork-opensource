@@ -658,12 +658,29 @@ class Jobs extends Winjob_Controller {
 
             $jobs = $this->process->get_posted_jobs($this->user_id);
             $emp = $this->employer->is_active();
+            $counts = array();
+
+            foreach($jobs['data'] AS $_jobs){
+                $applicants = $this->process->get_applications($_jobs->id);
+                $rejects = $this->process->get_rejected($_jobs->id);
+                $offers = $this->process->get_offers($_jobs->id);
+                $hires = $this->process->get_hires($this->user_id, $_jobs->id);
+                $interviews = $this->process->get_interviews($this->user_id, $_jobs->id);
+
+                $counts[] = array(
+                    'applicants' => $applicants['rows'],
+                    'rejects' => $rejects['rows'],
+                    'offers' => $offers['rows'],
+                    'hires' => $hires['rows'],
+                    'inteviews' => $interviews['rows']
+                );
+            }
 
             $data = array(
-                    'records' => $jobs['data'],
-                    'status' => $emp,
-                    'page' => 'job_status'
-                );
+                'records' => $jobs['data'],
+                'status' => $emp,
+                'page' => 'job_status'
+            );
 
             $this->Admintheme->webview("jobs/job_status", $data);
         }
