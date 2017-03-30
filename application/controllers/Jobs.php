@@ -4,6 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Jobs extends Winjob_Controller {
     
+    private $process;
+    private $user_id;
+    private $employer;
+    
     public function __construct() {
         parent::__construct();
         
@@ -12,9 +16,11 @@ class Jobs extends Winjob_Controller {
         $this->load_language();
         // added by (Donfack Zeufack Hermann) end
         
-        //$this->load->model('Employer');
-        $this->load->model(array('Category', 'Common_mod', 'Webuser_model'));
+        $this->load->model(array('Category', 'Common_mod', 'Webuser_model', 'Process', 'Employer'));
         $this->load->library('paypal_lib');
+        $this->process = new Process();
+        $this->user_id = $this->session->userdata('id');
+        $this->employer = new Employer($this->user_id);
 		/* check profile info is okay start */
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
@@ -650,20 +656,15 @@ class Jobs extends Winjob_Controller {
                 redirect(site_url("find-jobs"));
             }
 
-            $id = $this->session->userdata('id');
-            $this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
-            $this->db->order_by("jobs.id", "desc");
-            $query = $this->db->get_where('jobs', array('user_id' => $id, 'status' => 1));
-            $records = $query->result();
+            $jobs = $this->process->get_posted_jobs($this->user_id);
+            $emp = $this->employer->is_active();
 
-            $this->db->select('*');
-            $this->db->from('webuser');
-            $this->db->where('webuser.webuser_id', $id);
-            $query_status = $this->db->get();
-            $ststus = $query_status->row();
+            $data = array(
+                    'records' => $jobs['data'],
+                    'status' => $emp,
+                    'page' => 'job_status'
+                );
 
-            $data = array('records' => $records, 'ststus' => $ststus);
-            $data['page'] = 'job_status';
             $this->Admintheme->webview("jobs/job_status", $data);
         }
     }

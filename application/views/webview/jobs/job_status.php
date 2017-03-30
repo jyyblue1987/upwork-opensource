@@ -56,7 +56,7 @@ $clientend = $Conversation->clientend();
                         </div>
                     </div>                                                                        
 					<? } ?>
-					<?php if($ststus->isactive==0){ ?>
+					<?php if($status ==0 ){ ?>
                     <div class="row marg-alert">
                         <div class="col-md-10 bordered-alert text-center ack-box mid-alert">
                             <h4 class="h4negtop-red">! Your Account has been Suspended</h4>
@@ -74,7 +74,7 @@ $clientend = $Conversation->clientend();
                             </div>
                         </div> 								
 						<?php } ?>
-						<?php if($ststus->isactive==0){ ?>
+						<?php if($status == 0){ ?>
                     <div class="row marg-alert">
                         <div class="col-md-10 bordered-alert text-center ack-box mid-alert">
                             <h4 class="h4negtop-red">! Your Account has been Suspended</h4>

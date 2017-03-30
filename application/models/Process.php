@@ -99,5 +99,18 @@ class Process extends CI_Model {
         }
         return $return_array;
     }
-
+    
+    function get_posted_jobs($user_id){
+        $this->db
+                ->join('webuser', 'webuser.webuser_id = jobs.user_id', 'left')
+                ->order_by('jobs.id', 'desc');
+        $query = $this->db->get_where('jobs', array('user_id' => $user_id, 'status' => 1));
+        
+        $return_array = array();
+        $return_array['rows'] = $query->num_rows();
+        if ($return_array['rows'] > 0) {
+            $return_array['data'] = $query->result();
+        }
+        return $return_array;
+    }
 }
