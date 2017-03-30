@@ -350,10 +350,10 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
                          $bid_reject=$conversation_msg_count[0]->bid_reject;
                          $withdrawn_by=$conversation_msg_count[0]->withdrawn_by;
                        
-                                            if ($job_progres_status==0 && !($withdrawn==1 ||bid_reject==1) ) {
+                                            if ($job_progres_status==0 && !($withdrawn==1 || $bid_reject==1) ) {
                                             echo "<br>";
                                             }
-                                            else if($withdrawn==1 ||bid_reject==1)
+                                            else if($withdrawn==1 || $bid_reject==1)
                                             {
                                             if($withdrawn_by==1)
                                             {
@@ -368,10 +368,19 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
                                             else 
                                             {
                                                 ?>
-                        <div style="margin-bottom: 11px;" class="col-md-12 col-sm-12 decline-line">
+                        <?php
+                        
+                        if($withdrawn_by == 1){
+                            echo "<small>Declined by Freelancer </small>";
+                        }else{
+                            echo "<small>Declined by You </small>";
+                        }
+                        
+                        ?>
+<!--                        <div style="margin-bottom: 11px;" class="col-md-12 col-sm-12 decline-line">
                             <i class="fa fa-times-circle" aria-hidden="true"></i> 
-                            <small><a href="javascript:void(0)" onclick="Confirmdecline(<?php echo $job_info[0]->id;?>);">Decline Candidate </a></small>
-                        </div>
+                            <small><a href="javascript:void(0)" onclick="Confirmdecline(<?php echo $job_info[0]->id;?>);">test </a></small>
+                        </div>-->
                         <?php }  ?>
                     </div>
                            </div>
@@ -590,7 +599,7 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
 		$.post("<?php echo site_url('jobs/bid_decline');?>", { form : id },  function(data) {
 			if(data.success){
 				$('.result-msg').html('You have successfully Decline the Post');
-					window.location = "<?php echo base_url();?>jobs/applied/<?=base64_encode($job_info[0]->job_id)?>";
+					window.location = "<?php echo base_url();?>reject?<?=base64_encode($job_info[0]->job_id)?>";
 					
 			} else{
 					alert('Opps!! Something went wrong.');

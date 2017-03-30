@@ -54,6 +54,7 @@ $this->db->select('*');
 $this->db->from('job_bids');
 $this->db->where('user_id', $this->session->userdata(USER_ID));
 $this->db->where("(withdrawn=1 OR bid_reject=1 OR withdrawn IS NULL)", NULL, FALSE);
+
 $query_totalreject = $this->db->get();
 $reject_count = $query_totalreject->num_rows();
 if ($reject_count) {
@@ -75,7 +76,7 @@ if ($reject_count) {
         </div>
             <div class="row margin-top-1" >
 			<div class="col-md-9 bordered-alert text-center ack-box" style="background: rgb(240, 240, 240) none repeat scroll 0% 0%; padding: 10px 0px; width: 779px;">
-				 <h4>! You have withdrawn 1 proposals</h4>
+				 <h4>! You have withdrawn <?= $totalrejact ?> proposals</h4>
 			 </div>
 		</div>
         <div class="row margin-top-3 margin-top-15">

@@ -1,11 +1,12 @@
 <?php
+
 /**
- * Description of Employer of a Job
+ * Description of Employers
  *
  * @author avillanueva
  */
-class Employer extends CI_Model{
-    
+class Employer extends CI_Model {
+
     private $user_uid;
     private $fname;
     private $lname;
@@ -21,22 +22,19 @@ class Employer extends CI_Model{
     private $website;
     private $date_registered;
     private $is_active;
-    
-    function __construct($job_id){
+
+    function __construct($user_id) {
         parent::__construct();
-        if (is_numeric($job_id)) {
-                return $this->init($job_id);
-        }
+        return $this->init($user_id);
     }
 
-    function init($job_id){
+    function init($user_id) {
         $result = $this->db
                 ->select('*')
-                ->from('jobs')
-                ->join('webuser', 'user_id = webuser_id')
-                ->where('id', $job_id)
+                ->from('webuser')
+                ->where('webuser_id', $user_id)
                 ->get();
-        
+
         if ($result->num_rows() > 0) {
             $employer = $result->row_array();
             $this->user_uid = $employer['user_id'];
@@ -52,74 +50,75 @@ class Employer extends CI_Model{
             $this->phone = $employer['webuser_phone'];
             $this->title = $employer['webuser_title'];
             $this->website = $employer['webuser_site'];
-            $this->date_registered =  $employer['created'];
+            $this->date_registered = $employer['created'];
             $this->is_active = $employer['isactive'];
-        }else{
+        } else {
             return FALSE;
         }
     }
 
-    function get_userid(){
+    function get_userid() {
         return $this->user_uid;
     }
 
-    function get_fname(){
+    function get_fname() {
         return $this->fname;
     }
 
-    function get_lname(){
+    function get_lname() {
         return $this->lname;
     }
 
-    function get_fullname(){
+    function get_fullname() {
         return $this->fname . ' ' . $this->lname;
     }
 
-    function get_email(){
+    function get_email() {
         return $this->email;
     }
 
-    function get_username(){
+    function get_username() {
         return $this->username;
     }
 
-    function get_type(){
+    function get_type() {
         return $this->type;
     }
 
-    function get_company(){
+    function get_company() {
         return $this->company;
     }
 
-    function get_status(){
+    function get_status() {
         return $this->status;
     }
 
-    function get_position(){
+    function get_position() {
         return $this->position;
     }
 
-    function get_country(){
+    function get_country() {
         return $this->country;
     }
 
-    function get_phone(){
+    function get_phone() {
         return $this->phone;
     }
 
-    function get_title(){
+    function get_title() {
         return $this->title;
     }
 
-    function get_site(){
+    function get_site() {
         return $this->website;
     }
 
-    function get_date_reg(){
+    function get_date_reg() {
         return $this->date_registered;
     }
-    
-    function is_active(){
+
+    function is_active() {
         return $this->is_active;
     }
+
 }

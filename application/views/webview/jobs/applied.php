@@ -434,7 +434,7 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
 		$.post("<?php echo site_url('jobs/bid_decline');?>", { form : id },  function(data) {
 			if(data.success){
 				$('.result-msg').html('You have successfully Decline the Post');
-					window.location = "<?php echo base_url();?>jobs/applied/<?=base64_encode($value->job_id)?>";
+					window.location = "<?php echo base_url();?>reject?job_id=<?=base64_encode($value->job_id)?>";
 					
 			} else{
 					alert('Opps!! Something went wrong.');

@@ -41,7 +41,7 @@ if(!empty($active_interview)){
         }
     }
     $interview_cnt = count($active_interview);
-    $msg = $a." Interview Available";
+    $msg = $interview_cnt." Interview Available";
     
 }else{
     $interview_cnt = 0;
