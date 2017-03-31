@@ -1608,90 +1608,31 @@ class Jobs extends Winjob_Controller {
                 redirect(site_url("find-jobs"));
             }
 
-            $jobId = base64_decode($jobId);
-
-            $sender_id = $this->session->userdata(USER_ID);
-            $this->db->select('*');
-            $this->db->from('job_conversation');
-            $this->db->join('job_bids', 'job_conversation.bid_id=job_bids.id', 'inner');
-            $this->db->where('job_conversation.sender_id', $sender_id);
-            $this->db->where('job_conversation.job_id', $jobId);
-            $this->db->where('job_bids.bid_reject', 0);
-            
-              // added by jahid start 
-             $this->db->where('job_bids.job_progres_status', 1);
-             $this->db->where(array('job_bids.withdrawn' => NULL)); 
-             // added by jahid end 
-            
-            $this->db->group_by('job_conversation.bid_id');
-            $query = $this->db->get();
-            $conversation_count = $query->num_rows();
-            //  echo $this->db->last_query();
-
             $records = array();
-            $this->db->join('webuser', 'webuser.webuser_id=job_bids.user_id', 'left');
-            $this->db->order_by("job_bids.id", "desc");
-             // added by jahid start 
-             $this->db->where('job_bids.job_progres_status', 0);
-             $this->db->where(array('job_bids.withdrawn' => NULL)); 
-             // added by jahid end 
-            $query = $this->db->get_where('job_bids', array('job_id' => $jobId, 'bid_reject' => 0, 'status!=1' => null));
-                         
-            if ($query->num_rows() > 0)
-                $records = $query->result();            
-            $this->db->where('id', $jobId);
-            $q = $this->db->get('jobs');
-            $jobDetails = $q->row();
+            $job_id = base64_decode($jobId);
+            $bids = $this->process->get_bids($job_id);
+            $emp = $this->employer->is_active();
+            $job_details = $this->process->get_job_details($job_id);
 
+            $applicants = $this->process->get_applications($job_id);
+            $rejects = $this->process->get_rejected($job_id);
+            $offers = $this->process->get_offers($job_id);
+            $hires = $this->process->get_hires($this->user_id, $job_id);
+            $interviews = $this->process->get_interviews($this->user_id, $job_id);
 
-
-            //Offer count
-            $this->db->select('*');
-            $this->db->from('job_bids');
-            $this->db->where(array('job_id' => $jobId, 'hired' => '1'));
-            
-              // added by jahid start 
-             $this->db->where('job_progres_status', 2);
-             $this->db->where(array('withdrawn' => NULL)); 
-             // added by jahid end 
-            
-            $query_totaloffer = $this->db->get();
-            $Offer_count = $query_totaloffer->num_rows();
-
-            //hire
-
-            $this->db->select('*');
-            $this->db->from('job_accepted');
-            $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-            $this->db->where('job_accepted.buser_id', $sender_id);
-            $this->db->where('job_accepted.job_id', $jobId);
-            $this->db->where('job_bids.jobstatus', '0');
-                          // added by jahid start 
-             $this->db->where('job_bids.job_progres_status', 3);
-             $this->db->where(array('job_bids.withdrawn' => NULL)); 
-             // added by jahid end 
-            $query = $this->db->get();
-            $hire_count = $query->num_rows();
-
-            // reject count
-            $this->db->select('*');
-            $this->db->from('job_bids');
-             // added by jahid start 
-            $this->db->where(array('job_id' => $jobId));  
-        $this->db->where("(withdrawn=1 OR bid_reject=1)", NULL, FALSE); 
-             // added by jahid end 
-            
-            $query_totalreject = $this->db->get();
-            $reject_count = $query_totalreject->num_rows();
-
-            $this->db->select('*');
-            $this->db->from('webuser');
-            $this->db->where('webuser.webuser_id', $sender_id);
-            $query_status = $this->db->get();
-            $ststus = $query_status->row();
-
-
-            $data = array('jobId' => $jobId, 'Offer_count' => $Offer_count, 'hire_count' => $hire_count, 'records' => $records, 'jobDetails' => $jobDetails, 'interview_count' => $conversation_count, 'reject_count' => $reject_count, 'ststus' => $ststus, 'title' => 'Applications - Winjob');
+            $data = array(
+                'records' => $bids['data'],
+                'jobId' => base64_encode($job_id),
+                'status' => $emp,
+                'applicants' => $applicants['rows'],
+                'rejects' => $rejects['rows'],
+                'offers' => $offers['rows'],
+                'hires' => $hires['rows'],
+                'interviews' => $interviews['rows'],
+                'job_type' => ucfirst($job_details['job_type']),
+                'job_title' => ucwords($job_details['title']),
+                'title' => 'Applications - Winjob'
+            );
             $this->Admintheme->webview("jobs/applied", $data);
         }
     }

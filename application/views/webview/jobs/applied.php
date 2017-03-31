@@ -79,53 +79,18 @@ span.rating-badge {
     <div class="container">
         <div class="row"> 
           <div class="main_job_titie">
-            <b>  <?php echo ucfirst($jobDetails->job_type)." - ".ucfirst($jobDetails->title); ?></b><br/><br/> 
+            <b>  <?= $job_type." - ".$job_title; ?></b><br/><br/> 
           </div>
        </div>
         <div class="row">
-            <?php
-            $jobId = $jobId;
-if($interview_count){	$interview = $interview_count;} else {	$interview = 0;}
-if($hire_count){	$hire = $hire_count;} else {	$hire = 0;}
-if($Offer_count){	$totalOffer = $Offer_count;} else {	$totalOffer = 0;}
-if($reject_count){ $totalrejact = $reject_count; } else { $totalrejact = 0; }
-
-$appliedLink=site_url('jobs/applied/' . base64_encode($jobId));
-$interviewsLink=site_url('jobs/interviews/' . base64_encode($jobId));
-$offerLink=site_url('offer?job_id=' . base64_encode($jobId));
-$hireLink=site_url('hires?job_id=' . base64_encode($jobId));
-$rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
-
-// total number of job
- // $totalApplication = $this->db->count_all_results();
-            
-            $this->db->select('*');
-            $this->db->from('job_bids');
-            $this->db->where(array('job_id' => $jobId, 'bid_reject' => 0, 'status!=1' => null));
-
-            // added by jahid start 
-            $this->db->where('job_progres_status', 0);
-            $this->db->where(array('withdrawn' => NULL));
-            // added by jahid end
-            
-            $query_totalApplication = $this->db->get();
-                    $Application_count = $query_totalApplication->num_rows();
-                    if ($Application_count) {
-                        $totalApplication = $Application_count;
-                    } else {
-                        $totalApplication = 0;
-                    }
-
-            ?>
-            
             <div class="col-md-12 nopadding" >
                 <div>
                  <ul class="client-job-activity-current">
-                     <li><a class="active-link" href='<?php echo $appliedLink; ?>'>Application (<?php echo $totalApplication ?>)</a></li>
-                     <li><a href='<?php echo $interviewsLink; ?>'>Interview (<?=$interview?>)</a> </li>
-                     <li><a href='<?php echo $offerLink; ?>'>Offers (<?=$totalOffer;?>) </a>  </li>
-                     <li><a href='<?php echo $hireLink; ?>'>Hires (<?=$hire;?>)</a> </li>
-                     <li><a href='<?php echo $rejectLink; ?>'>Rejected (<?=$totalrejact;?>)</a></li>
+                     <li><a class="active-link" href='<?= site_url('jobs/applied/' . $jobId) ?>'>Application (<?= $applicants ?>)</a></li>
+                     <li><a href='<?= site_url('jobs/interviews/' . $jobId) ?>'>Interview (<?=$interviews?>)</a> </li>
+                     <li><a href='<?= site_url('offer?job_id=' . $jobId) ?>'>Offers (<?=$offers;?>) </a>  </li>
+                     <li><a href='<?= site_url('hires?job_id=' . $jobId) ?>'>Hires (<?=$hires;?>)</a> </li>
+                     <li><a href='<?= site_url('reject?job_id=' . $jobId) ?>'>Rejected (<?=$rejects;?>)</a></li>
                     <li class="drop_btn">
 						<div class="dropdown hour_btnx custom-application_drop_down">
 							<button style="margin-left: -14px;" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
@@ -301,7 +266,7 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
                                            $this->db->where('jobstatus',1);
                                            $querydone = $this->db->get();
                                          $jobends = $querydone->num_rows();
-                                          echo $jobends." ";   
+                                          echo $jobends." ";
                                         ?></b>jobs
                                         </div>
 
