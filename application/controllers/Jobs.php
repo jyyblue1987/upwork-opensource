@@ -1691,7 +1691,7 @@ class Jobs extends Winjob_Controller {
             $ststus = $query_status->row();
 
 
-            $data = array('jobId' => $jobId, 'Offer_count' => $Offer_count, 'hire_count' => $hire_count, 'records' => $records, 'jobDetails' => $jobDetails, 'interview_count' => $conversation_count, 'reject_count' => $reject_count, 'ststus' => $ststus, 'title' => 'Job Offer - Winjob');
+            $data = array('jobId' => $jobId, 'Offer_count' => $Offer_count, 'hire_count' => $hire_count, 'records' => $records, 'jobDetails' => $jobDetails, 'interview_count' => $conversation_count, 'reject_count' => $reject_count, 'ststus' => $ststus, 'title' => 'Applications - Winjob');
             $this->Admintheme->webview("jobs/applied", $data);
         }
     }
@@ -1789,7 +1789,7 @@ class Jobs extends Winjob_Controller {
 
 
 
-            $data = array('jobId' => $jobId, 'records' => $records, 'jobDetails' => $jobDetails, 'interview_count' => $conversation_count, 'hire_count' => $hire_count, 'Application_count' => $Application_count, 'Offer_count' => $Offer_count, 'reject_count' => $reject_count, 'ststus' => $ststus);
+            $data = array('jobId' => $jobId, 'records' => $records, 'jobDetails' => $jobDetails, 'interview_count' => $conversation_count, 'hire_count' => $hire_count, 'Application_count' => $Application_count, 'Offer_count' => $Offer_count, 'reject_count' => $reject_count, 'ststus' => $ststus, 'title' => 'Interviews - Winjob');
             $this->Admintheme->webview("jobs/interviews", $data);
         }
     }
