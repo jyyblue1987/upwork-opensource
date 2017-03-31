@@ -854,9 +854,9 @@ class Jobs extends Winjob_Controller {
             $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id));
             $proposals = $query->num_rows();
 
-            $data = array('value' => $record, 'proposals' => $proposals, 'applied' => $is_applied, 'conversations' => $conversation, 'conversation_count' => $conversation_count, 'bid_details' => $bids_details, 'accepted_jobs' => $accepted_jobs, 'record_sidebar' => $record_sidebar, 'hire' => $record_hire, 'workedhours' => $workedhours, 'ststus' => $ststus);
+            $data = array('value' => $record, 'proposals' => $proposals, 'applied' => $is_applied, 'conversations' => $conversation, 'conversation_count' => $conversation_count, 'bid_details' => $bids_details, 'accepted_jobs' => $accepted_jobs, 'record_sidebar' => $record_sidebar, 'hire' => $record_hire, 'workedhours' => $workedhours, 'ststus' => $ststus,'css' => array("","","","assets/css/pages/view.css"));
             // Davit end
-            $this->Admintheme->webview("jobs/view", $data);
+            $this->Admintheme->custom_webview("jobs/view", $data);
         }
     }
 
@@ -936,9 +936,9 @@ class Jobs extends Winjob_Controller {
             //echo $this->db->last_query();
             $record = $query->row();
             // Davit start
-            $data = array('value' => $record, 'proposals' => $proposals, 'js' => array('dropzone.js', 'vendor/jquery.form.js', 'internal/job_apply.js'));
+            $data = array('value' => $record, 'proposals' => $proposals, 'js' => array('dropzone.js', 'vendor/jquery.form.js', 'internal/job_apply.js'), 'css' => array("","","","assets/css/pages/apply.css"));
             // Davit end
-            $this->Admintheme->webview("jobs/apply", $data);
+            $this->Admintheme->custom_webview("jobs/apply", $data);
         }
     }
 
