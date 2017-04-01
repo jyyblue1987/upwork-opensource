@@ -60,4 +60,14 @@ class Job_work_diary_model extends CI_Model {
         }
                 
     }
+    
+    public function get_work_diary($fuser_id, $job_id){
+        $this->db
+                ->select('*')
+                ->from('job_workdairy')
+                ->where('fuser_id', $fuser_id)
+                ->where('jobid', $job_id);
+        $query = $this->db->get();
+        return $query->result();
+    }
 }

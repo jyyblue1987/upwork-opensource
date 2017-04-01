@@ -15,8 +15,7 @@ class Jobs extends Winjob_Controller {
         // load the default language for the current user.
         $this->load_language();
         // added by (Donfack Zeufack Hermann) end
-        
-        $this->load->model(array('Category', 'Common_mod', 'Webuser_model', 'Process', 'Employer'));
+        $this->load->model(array('Category', 'Common_mod', 'Webuser_model', 'Process', 'Employer', 'profile/ProfileModel', 'Job_work_diary_model'));
         $this->load->library('paypal_lib');
         $this->process = new Process();
         $this->user_id = $this->session->userdata('id');
@@ -1608,7 +1607,14 @@ class Jobs extends Winjob_Controller {
                 redirect(site_url("find-jobs"));
             }
 
+            $budget = 0;
+            $total_work = 0;
+            $feedbackScore = 0;
+
             $records = array();
+            $_price = array();
+            $_freelancer = array();
+            
             $job_id = base64_decode($jobId);
             $bids = $this->process->get_bids($job_id);
             $emp = $this->employer->is_active();
@@ -1620,8 +1626,71 @@ class Jobs extends Winjob_Controller {
             $hires = $this->process->get_hires($this->user_id, $job_id);
             $interviews = $this->process->get_interviews($this->user_id, $job_id);
 
+            //var_dump($bids['data']);
+            
+            foreach($bids['data'] AS $_bids){
+               $ended_jobs = $this->process->cnt_ended_jobs($_bids->user_id);
+               $freelancer_profile = $this->ProfileModel->get_profile($_bids->user_id);
+               $accepted_jobs = $this->process->accepted_jobs($_bids->user_id);
+               $pic = $this->Adminforms->getdatax("picture", "webuser", $_bids->user_id);
+               $country = $this->ProfileModel->get_country($_bids->webuser_country);
+               $_pic = $pic != "" ? $pic : "assets/user.png";
+               
+               foreach($accepted_jobs AS $a_jobs){
+                   $feedbacks = $this->process->get_feedbacks($a_jobs->fuser_id, $a_jobs->job_id);
+                   $diary = $this->Job_work_diary_model->get_work_diary($a_jobs->fuser_id, $a_jobs->job_id);
+
+                    foreach($diary AS $_diary){
+                        $total_work += $_diary->total_hour;
+                    }
+                    
+                   if($a_jobs->jobstatus == 1){
+                       if(!empty($feedbacks)){
+                            if($a_jobs->job_type == 'fixed'){
+                                $price = $a_jobs->fixedpay_amount;
+                                $feedbackScore += ($feedbacks['feedback_score'] * $price);
+                                $budget += $price;
+                            }else{
+                                
+                                if($a_jobs['offer_bid_amount']){
+                                    $amount = $a_jobs->offer_bid_amount;
+                                }else{
+                                    $amount = $a_jobs->bid_amount;
+                                }
+
+                                $price = $a_jobs->fixedpay_amount * $amount;
+                                $feedbackScore += ($feedbacks['feedback_score'] * $price);
+                                $budget += $price;
+                            }
+                        }
+                    }
+                }
+
+                $records[] = array(
+                   'ended_jobs' => $ended_jobs,
+                   'tagline' => ucfirst($freelancer_profile['tagline']),
+                   'budget' => $budget,
+                   'feedback_score' => $feedbackScore,
+                   'total_work' => $total_work,
+                   'pic' => $_pic,
+                   'fname' => $_bids->webuser_fname,
+                   'lname' => $_bids->webuser_lname,
+                   'user_id' => $_bids->user_id,
+                   'job_id' => $_bids->job_id,
+                   'bid_id' => $_bids->id,
+                   'bid_amount' => $_bids->bid_amount,
+                   'country' => ucfirst($country['country_name']),
+                   'letter' => $_bids->cover_latter,
+                   //'skills' => $_bids->wuser_skills
+                );
+            }
+            
+//            echo '<pre>';
+//            var_dump($records);
+//            echo '</pre>';
+
             $data = array(
-                'records' => $bids['data'],
+                'records' => $records,
                 'jobId' => base64_encode($job_id),
                 'status' => $emp,
                 'applicants' => $applicants['rows'],

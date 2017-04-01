@@ -82,6 +82,18 @@ class ProfileModel extends CI_Model{
 
         return true;
     }
+    
+    public function get_profile($user_id){
+        $this->db->where('webuser_id', $user_id);
+        $query = $this->db->get('webuser_basic_profile');
+        return $query->row_array();
+    }
+    
+    public function get_country($country){
+        $this->db->where('country_id', $country);
+	$query = $this->db->get('country');
+        return $query->row_array();
+    }
 }
 
 ?>

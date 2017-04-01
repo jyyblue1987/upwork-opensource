@@ -140,4 +140,37 @@ class Process extends CI_Model {
         $query = $this->db->get('jobs');
         return $query->row_array();
     }
+
+    function cnt_ended_jobs($user_id){
+        $this->db
+                ->select('*')
+                ->from('job_bids')
+                ->where('user_id', $user_id)
+                ->where('jobstatus',1) ;
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    function accepted_jobs($user_id){
+        $this->db
+                ->select('*')
+                ->from('job_accepted')
+                ->join('job_bids', 'job_bids.id = job_accepted.bid_id', 'inner')
+                ->join('jobs', 'jobs.id = job_bids.job_id', 'inner')
+                ->where('job_accepted.fuser_id', $user_id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    
+    function get_feedbacks($fuser_id, $job_id){
+        $this->db
+                ->select('*')
+                ->from('job_feedback')
+                ->where('feedback_userid', $fuser_id)
+                ->where('sender_id !=', $fuser_id)
+                ->where('feedback_job_id', $job_id);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
 }

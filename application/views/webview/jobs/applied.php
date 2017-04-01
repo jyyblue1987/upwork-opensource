@@ -110,62 +110,12 @@ span.rating-badge {
             </div>
             <div style="padding:40px;"></div>
             <?php
-           // echo "<pre>"; print_r($records); exit;
-            foreach ($records as $value) {
-                $this->db->select('*');
-                $this->db->from('job_accepted');
-                $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-                $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
-                $this->db->where('job_accepted.fuser_id',$value->user_id);
-                $query=$this->db->get();
-                $accepted_jobs = $query->result();
-                $total_feedbackScore=0 ;
-                $total_budget=0 ;
-             if(!empty($accepted_jobs)){
-                foreach($accepted_jobs as $job_data){
-                    $this->db->select('*');
-                    $this->db->from('job_feedback');
-                    $this->db->where('job_feedback.feedback_userid',$job_data->fuser_id);
-                    $this->db->where('job_feedback.sender_id !=',$job_data->fuser_id);
-                    $this->db->where('job_feedback.feedback_job_id',$job_data->job_id);
-                    $query=$this->db->get();
-                    $jobfeedback= $query->row();
-                    
-                    if($job_data->jobstatus == 1){
-                        if(!empty($jobfeedback)){
-                            if($job_data->job_type == "fixed"){
-                                $total_price_fixed=$job_data->fixedpay_amount;
-                                $total_feedbackScore += ($jobfeedback->feedback_score *$total_price_fixed);
-                                $total_budget += $total_price_fixed;
-                            }else{
-                                $this->db->select('*');
-                                $this->db->from('job_workdairy');
-                                $this->db->where('fuser_id',$job_data->fuser_id);
-                                $this->db->where('jobid',$job_data->job_id);
-                                $query_done = $this->db->get();
-                                $job_done = $query_done->result();
-                                $total_work = 0;
-                                foreach($job_done as $work){
-                                    $total_work +=$work->total_hour;
-                                }
-                                
-                                if($job_data->offer_bid_amount) {
-                                $amount = $job_data->offer_bid_amount;
-                                } else {$amount =  $job_data->bid_amount;} 
-                                 $total_price= $total_work *$amount;
-                                $total_budget += $total_price ;
-                                $total_feedbackScore += ($jobfeedback->feedback_score *$total_price);
-                            }
-                        }
-                    }
-                }
-             }
-          ?>
+            foreach ($records as $value) { ?>
                 <div class="col-md-12 white-box candidate-list">                
                     <div class="row">
                         <div class="col-md-12">
                             <div class="decline" style="position:absolute;right: 23px;top: -10px;">
-                                <a href="javascript:void(0)" style="color:#35a535;font-size: 26px;" id="endpost" onclick="Confirmdecline(<?php echo $value->id;?>);">X</a>
+                                <a href="javascript:void(0)" style="color:#35a535;font-size: 26px;" id="endpost" onclick="Confirmdecline(<?php echo $value['bid_id']?>);">X</a>
 							</div>
                            
                             <div class="row margin-top-1">
@@ -173,14 +123,14 @@ span.rating-badge {
                                    <div class="st_img">
                                         <?php
                                    
-                                    $pic = $this->Adminforms->getdatax("picture", "webuser", $value->user_id);
-                                    if ($pic == "") {
+                                
+                                    if ($value['pic'] == "") {
                                         ?>
-                                        <img src="<?php echo site_url("assets/user.png"); ?>" width="64" height="64" >
+                                        <img src="<?php echo site_url($value['pic']); ?>" width="64" height="64" >
                                         <?php
                                     } else {
                                         ?>
-                                        <img src="<?php echo site_url($pic); ?>" width="64" height="64" >
+                                        <img src="<?php echo site_url($value['pic']); ?>" width="64" height="64" >
                                         <?php
                                     }
                                     ?>
@@ -188,19 +138,11 @@ span.rating-badge {
                                 </div>
                                 <div class="col-md-8 text-left margin-left-1" style="margin-top:-4px;">
                                    <div class="aplicant_identity">
-                                        <label class="aplicant_name"><a href="<?php echo base_url() ?>Interview?user_id=<?=base64_encode($value->user_id)?>&job_id=<?=base64_encode($value->job_id)?>&bid_id=<?=base64_encode($value->id)?>"><?php echo ucfirst($value->webuser_fname) . " " . ucfirst($value->webuser_lname) ?></a></label> 
+                                        <label class="aplicant_name"><a href="<?php echo base_url() ?>Interview?user_id=<?=base64_encode($value['user_id'])?>&job_id=<?=base64_encode($value['job_id'])?>&bid_id=<?=base64_encode($value['bid_id'])?>"><?php echo ucfirst($value['fname']) . " " . ucfirst($value['lname']) ?></a></label> 
                                     <br/> 
                                     <span>
                                         <b>
-                                        <?php
-                                    $profile=array();
-                                    $this->db->where('webuser_id', $value->webuser_id);
-                                    $q = $this->db->get('webuser_basic_profile');
-                                    if ($q->num_rows() > 0) {
-                                        $profile = $q->row();
-                                        echo ucfirst($profile->tagline);
-                                    }
-                                    ?>
+                                        <?= $value['tagline']; ?>
 
                                     </b>
                                     </span>
@@ -208,16 +150,16 @@ span.rating-badge {
                                     <div class="row margin-top-2">
                                         <div class="col-md-1" style="font-size:16px;">
                                            <b>$<?php
-                                            echo round($value->bid_amount, 2);
-                                            if ($jobDetails->job_type == 'hourly')
+                                            echo round($value['bid_amount'], 2);
+                                            if ($job_type == 'hourly')
                                               echo '<span class="cc_normal_txt">/hr</span>';
                                             ?></b>
                                         </div>
 
                                         <div class="col-md-4">
                                           <div class="review_ratting">
-                                              <?php if($total_feedbackScore !=0 && $total_budget!=0){
-                                                $totalscore = ($total_feedbackScore / $total_budget);
+                                              <?php if($value['feedback_score'] !=0 && $value['budget']!=0){
+                                                $totalscore = ($value['feedback_score'] / $value['budget']);
                                                 $rating_feedback = ($totalscore/5)*100;
                                                ?>
                                                <span class="rating-badge"><?=number_format((float)$totalscore,1,'.','');?></span>
@@ -240,17 +182,9 @@ span.rating-badge {
 
                                         <div class="col-md-2 text-right"  style="font-size:16px;">
                                             <b><?php
-                                           $this->db->select('*');
-                                           $this->db->from('job_workdairy');
-                                           $this->db->where('fuser_id',$value->user_id);
-                                           $query_done = $this->db->get();
-                                           $job_done = $query_done->result();
-                                             $total_work = 0;
-                                               if(!empty($job_done)){
-                                                   foreach($job_done as $work){
-                                                       $total_work +=$work->total_hour;
-                                                   }
-                                                   echo $total_work."<span class='cc_normal_txt'>hrs</span>";
+
+                                               if($value['total_work']){
+                                                   echo $value['total_work']."<span class='cc_normal_txt'>hrs</span>";
                                                }else{
                                                    echo "0.00 <span class='cc_normal_txt'>hrs</span>";
                                                }
@@ -260,27 +194,15 @@ span.rating-badge {
 
                                         <div class="col-md-2 text-right" style="font-size:16px;">
                                            <b><?php
-                                            $this->db->select('*');
-                                           $this->db->from('job_bids');
-                                           $this->db->where('user_id',$value->user_id);
-                                           $this->db->where('jobstatus',1);
-                                           $querydone = $this->db->get();
-                                         $jobends = $querydone->num_rows();
-                                          echo $jobends." ";
+                                            
+                                          echo $value['ended_jobs'];
                                         ?></b>jobs
                                         </div>
 
                                         <div class="col-md-3 text-right">
                                             <i style="font-size: 15px;" class="fa fa-map-marker"></i> 
 												 
-											 <b> <?php
-											 $this->db->where('country_id', $value->webuser_country);
-											 $q = $this->db->get('country');
-											 if ($q->num_rows() > 0)
-											 {
-												 $country = $q->row();
-												 echo ucfirst($country->country_name);
-											 }
+											 <b> <?= $value['country'];
 											 ?></b>
                                         </div> 
                                     </div>
@@ -290,7 +212,7 @@ span.rating-badge {
                                           <div class="hire_cover_letter">
                                               <span>
                                                   <?php 
-                                        echo substr($value->cover_latter, 0, 100); ?>
+                                        echo substr($value['letter'], 0, 100); ?>
                                               </span>
                                           </div>
                                         </div>
@@ -313,8 +235,8 @@ span.rating-badge {
                                 </div>
 
                                 <div class="col-md-2 margin-top-5 text-right msg-buttons">
-                                    <!--<a href="javascript:void(0)" onclick="loadmessage(<?=$value->id?>,<?=$value->user_id?>,<?=$value->job_id?>)">Message</a>-->
-                                    <div class="hire_sms_btn"><a class="btn btn-primary form-btn" href="<?php echo base_url() ?>interview?user_id=<?=base64_encode($value->user_id)?>&job_id=<?=base64_encode($value->job_id)?>&bid_id=<?=base64_encode($value->id)?>">Message</a>  
+                                    <!--<a href="javascript:void(0)" onclick="loadmessage(<?=$value['bid_id']?>,<?=$value['user_id']?>,<?=$value['job_id']?>)">Message</a>-->
+                                    <div class="hire_sms_btn"><a class="btn btn-primary form-btn" href="<?php echo base_url() ?>interview?user_id=<?=base64_encode($value['user_id'])?>&job_id=<?=base64_encode($value['job_id'])?>&bid_id=<?=base64_encode($value['bid_id'])?>">Message</a>  
                                     </div>
                                     
                                     
@@ -325,16 +247,16 @@ span.rating-badge {
                                   
                                   
                                   
-                                   <?php if($jobDetails->job_type == 'hourly') 	
+                                   <?php if($job_type == 'hourly') 	
 {
 ?> 
-		 <a class="btn btn-primary form-btn" href="<?php echo base_url()?>jobs/confirm_hired_hourly?user_id=<?=base64_encode($value->user_id)?>&job_id=<?=base64_encode($value->job_id)?>;">Hire Me</a>                			  
+		 <a class="btn btn-primary form-btn" href="<?php echo base_url()?>jobs/confirm_hired_hourly?user_id=<?=base64_encode($value['user_id'])?>&job_id=<?=base64_encode($value['job_id'])?>;">Hire Me</a>                			  
               <?php 			  
 			  }
 			   else 
 			   {
 			   ?>
-			    <a class="btn btn-primary form-btn" href="<?php echo base_url() ?>jobs/confirm_hired_fixed?user_id=<?=base64_encode($value->user_id)?>&job_id=<?=base64_encode($value->job_id); ?>">Hire Me</a>                              
+			    <a class="btn btn-primary form-btn" href="<?php echo base_url() ?>jobs/confirm_hired_fixed?user_id=<?=base64_encode($value['user_id'])?>&job_id=<?=base64_encode($value['job_id']); ?>">Hire Me</a>                              
 			  
 			  <?php }
                                    
@@ -399,7 +321,7 @@ span.rating-badge {
 		$.post("<?php echo site_url('jobs/bid_decline');?>", { form : id },  function(data) {
 			if(data.success){
 				$('.result-msg').html('You have successfully Decline the Post');
-					window.location = "<?php echo base_url();?>reject?job_id=<?=base64_encode($value->job_id)?>";
+					window.location = "<?php echo base_url();?>reject?job_id=<?=base64_encode($value['job_id'])?>";
 					
 			} else{
 					alert('Opps!! Something went wrong.');
