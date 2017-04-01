@@ -61,9 +61,9 @@ class Job_work_diary_model extends CI_Model {
                 
     }
     
-    public function get_work_diary($fuser_id, $job_id){
+    public function get_work_hours($fuser_id, $job_id){
         $this->db
-                ->select('*')
+                ->select('total_hour')
                 ->from('job_workdairy')
                 ->where('fuser_id', $fuser_id)
                 ->where('jobid', $job_id);

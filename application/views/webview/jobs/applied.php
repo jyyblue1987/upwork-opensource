@@ -162,10 +162,10 @@ span.rating-badge {
                                                 $totalscore = ($value['feedback_score'] / $value['budget']);
                                                 $rating_feedback = ($totalscore/5)*100;
                                                ?>
-                                               <span class="rating-badge"><?=number_format((float)$totalscore,1,'.','');?></span>
-                                              <div title="Rated <?=$totalscore;?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em;margin-top:-5px;width:105px; color:#DEDEDE;">
-                                               <span style="width:<?=$rating_feedback;?>% ;margin-top:0px;">
-                                                   <strong itemprop="ratingValue"><?=$totalscore;?></strong> out of 5
+                                               <span class="rating-badge"><?= $value['rating'] ?></span>
+                                              <div title="Rated <?=$value['rating'];?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em;margin-top:-5px;color:#DEDEDE; width: 4.2em">
+                                               <span style="width:<?= (( $value['rating'] / 5) * 100) ?>% ; margin-top:0px;">
+                                                   <strong itemprop="ratingValue"><?=$value['rating'];?></strong> out of 5
                                                </span>
                                                </div>
                                            <?php  }else{ ?>
@@ -221,15 +221,12 @@ span.rating-badge {
                                     <div class="row margin-top-1">
                                         <div class="col-md-1">
                                         <span class="gray-text" style="font-size:14px;">Skills</span></div>
-                                        <div class="col-md-11 text-left skills">                                                                             <div class="user_skills">
-                                            <?php if (!empty($value->wuser_skills)) {
-                                                $skills = explode(',', $value->wuser_skills);
+                                        <div class="col-md-11 text-left skills">  
+                                            <?php foreach($value['skills'] AS $skills){
+                                                echo '<span>'.$skills["skill_name"].'</span>';
+                                            }
 
-                                                foreach ($skills as $skill) {
-                                                  echo "<span>$skill</span>";
-                                                }
-                                            } ?>
-                                        </div>         
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -238,15 +235,9 @@ span.rating-badge {
                                     <!--<a href="javascript:void(0)" onclick="loadmessage(<?=$value['bid_id']?>,<?=$value['user_id']?>,<?=$value['job_id']?>)">Message</a>-->
                                     <div class="hire_sms_btn"><a class="btn btn-primary form-btn" href="<?php echo base_url() ?>interview?user_id=<?=base64_encode($value['user_id'])?>&job_id=<?=base64_encode($value['job_id'])?>&bid_id=<?=base64_encode($value['bid_id'])?>">Message</a>  
                                     </div>
-                                    
-                                    
-                                 
-                                  
+
                                    <div class="hire_me_btn">
-                                   
-                                  
-                                  
-                                  
+
                                    <?php if($job_type == 'hourly') 	
 {
 ?> 

@@ -1625,8 +1625,6 @@ class Jobs extends Winjob_Controller {
             $offers = $this->process->get_offers($job_id);
             $hires = $this->process->get_hires($this->user_id, $job_id);
             $interviews = $this->process->get_interviews($this->user_id, $job_id);
-
-            //var_dump($bids['data']);
             
             foreach($bids['data'] AS $_bids){
                $ended_jobs = $this->process->cnt_ended_jobs($_bids->user_id);
@@ -1634,11 +1632,13 @@ class Jobs extends Winjob_Controller {
                $accepted_jobs = $this->process->accepted_jobs($_bids->user_id);
                $pic = $this->Adminforms->getdatax("picture", "webuser", $_bids->user_id);
                $country = $this->ProfileModel->get_country($_bids->webuser_country);
+               $skills = $this->ProfileModel->get_skills($_bids->user_id);
+               $user_rating = $this->Webuser_model->get_total_rating($_bids->user_id);
                $_pic = $pic != "" ? $pic : "assets/user.png";
-               
+
                foreach($accepted_jobs AS $a_jobs){
                    $feedbacks = $this->process->get_feedbacks($a_jobs->fuser_id, $a_jobs->job_id);
-                   $diary = $this->Job_work_diary_model->get_work_diary($a_jobs->fuser_id, $a_jobs->job_id);
+                   $diary = $this->Job_work_diary_model->get_work_hours($a_jobs->fuser_id, $a_jobs->job_id);
 
                     foreach($diary AS $_diary){
                         $total_work += $_diary->total_hour;
@@ -1681,13 +1681,10 @@ class Jobs extends Winjob_Controller {
                    'bid_amount' => $_bids->bid_amount,
                    'country' => ucfirst($country['country_name']),
                    'letter' => $_bids->cover_latter,
-                   //'skills' => $_bids->wuser_skills
+                   'skills' => $skills,
+                   'rating' => $user_rating
                 );
             }
-            
-//            echo '<pre>';
-//            var_dump($records);
-//            echo '</pre>';
 
             $data = array(
                 'records' => $records,

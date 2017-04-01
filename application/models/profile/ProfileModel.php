@@ -94,6 +94,15 @@ class ProfileModel extends CI_Model{
 	$query = $this->db->get('country');
         return $query->row_array();
     }
+    
+    public function get_skills($user_id){
+        $this->db
+                ->select("skill_name")
+                ->from("webuser_skills")
+                ->where("webuser_id = ", $user_id);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }
 
 ?>
