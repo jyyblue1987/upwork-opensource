@@ -118,7 +118,8 @@ $sender_id = $this->session->userdata(USER_ID);
                 'hire_count' => $hire_count,
                 'reject_count' => $reject_count,
                 'Offer_count' => $Offer_count,
-                'jobDetails' => $jobDetails
+                'jobDetails' => $jobDetails,
+                'title' => 'Hired - Winjob'
                     );
 
 

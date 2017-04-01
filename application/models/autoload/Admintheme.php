@@ -26,6 +26,17 @@ class Admintheme extends CI_Model {
         $this->load->view('webview/layout/menu.php',$data, false);
         $this->load->view('webview/'.$page,$data, false);
         $this->load->view('webview/layout/footer.php',$data, false);
+     }     
+
+    function custom_webview($page,$data){
+        $text = $this->siteconfig->text();
+        $data['text']=$text;
+
+        $this->load->view('webview/layout/header4.php',$data);
+        $this->load->view('webview/layout/afterheader.php',$data, false);
+        $this->load->view('webview/layout/menu.php',$data, false);
+        $this->load->view('webview/'.$page,$data, false);
+        $this->load->view('webview/layout/footer.php',$data, false);
      }
      
      function no_auth_view($page,$data){

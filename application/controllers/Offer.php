@@ -133,7 +133,7 @@ class Offer extends CI_Controller {
             }
 
 
-            $data = array('jobDetails' => $jobDetails,'messages' => $result, 'hire_count' => $hire_count, 'interview_count' => $interview_count, 'Application_count' => $Application_count, 'Offer_count' => $Offer_count, 'reject_count' => $reject_count);
+            $data = array('jobDetails' => $jobDetails,'messages' => $result, 'hire_count' => $hire_count, 'interview_count' => $interview_count, 'Application_count' => $Application_count, 'Offer_count' => $Offer_count, 'reject_count' => $reject_count, 'title' => 'Job Offers - Winjob');
             $this->Admintheme->webview("offer", $data);
         }
     }

@@ -15,13 +15,12 @@ class Jobs extends Winjob_Controller {
         // load the default language for the current user.
         $this->load_language();
         // added by (Donfack Zeufack Hermann) end
-        
-        $this->load->model(array('Category', 'Common_mod', 'Webuser_model', 'Process', 'Employer'));
+        $this->load->model(array('Category', 'Common_mod', 'Webuser_model', 'Process', 'Employer', 'profile/ProfileModel', 'Job_work_diary_model'));
         $this->load->library('paypal_lib');
         $this->process = new Process();
         $this->user_id = $this->session->userdata('id');
         $this->employer = new Employer($this->user_id);
-		/* check profile info is okay start */
+        /* check profile info is okay start */
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
                 // redirect(site_url("find-jobs"));
@@ -72,7 +71,7 @@ class Jobs extends Winjob_Controller {
         
         $this->load->model( array( 'webuser_model', 'skills_model', 'jobs_model' ) );
         
-	// check if account is suspend then redirect to payment start 
+    // check if account is suspend then redirect to payment start 
         $user_id = $this->session->userdata('id');
         
         if( ! $this->webuser_model->is_active( $user_id) )
@@ -444,7 +443,7 @@ class Jobs extends Winjob_Controller {
                             continue;
                         }
                         $record->skills=$s;
-			$s=[];
+            $s=[];
                     }
                 } else {
                     $records = null;
@@ -608,7 +607,8 @@ class Jobs extends Winjob_Controller {
                     $this->Admintheme->webview("jobs/category-jobs", $data);
                 } else {
                     $data['page'] = "find-jobs";
-                    $this->Admintheme->webview("jobs/find-jobs", $data);
+                    $data['css']  = array("","","","assets/css/pages/find-jobs.css");
+                    $this->Admintheme->custom_webview("jobs/find-jobs", $data);
                 }
             }
         } else {
@@ -689,10 +689,11 @@ class Jobs extends Winjob_Controller {
                 'notification_details' => $conversation->details(),
                 'job_alert_count' => $conversation->job_alert(),
                 'freelancerend' => $conversation->freelancerend(),
-                'clientend' => $conversation->clientend()
+                'clientend' => $conversation->clientend(),
+                'css'       => array("","","","assets/css/pages/job_status.css")
             );
 
-            $this->Admintheme->webview("jobs/job_status", $data);
+            $this->Admintheme->custom_webview("jobs/job_status", $data);
         }
     }
     
@@ -852,9 +853,9 @@ class Jobs extends Winjob_Controller {
             $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id));
             $proposals = $query->num_rows();
 
-            $data = array('value' => $record, 'proposals' => $proposals, 'applied' => $is_applied, 'conversations' => $conversation, 'conversation_count' => $conversation_count, 'bid_details' => $bids_details, 'accepted_jobs' => $accepted_jobs, 'record_sidebar' => $record_sidebar, 'hire' => $record_hire, 'workedhours' => $workedhours, 'ststus' => $ststus);
+            $data = array('value' => $record, 'proposals' => $proposals, 'applied' => $is_applied, 'conversations' => $conversation, 'conversation_count' => $conversation_count, 'bid_details' => $bids_details, 'accepted_jobs' => $accepted_jobs, 'record_sidebar' => $record_sidebar, 'hire' => $record_hire, 'workedhours' => $workedhours, 'ststus' => $ststus,'css' => array("","","","assets/css/pages/view.css"));
             // Davit end
-            $this->Admintheme->webview("jobs/view", $data);
+            $this->Admintheme->custom_webview("jobs/view", $data);
         }
     }
 
@@ -934,9 +935,9 @@ class Jobs extends Winjob_Controller {
             //echo $this->db->last_query();
             $record = $query->row();
             // Davit start
-            $data = array('value' => $record, 'proposals' => $proposals, 'js' => array('dropzone.js', 'vendor/jquery.form.js', 'internal/job_apply.js'));
+            $data = array('value' => $record, 'proposals' => $proposals, 'js' => array('dropzone.js', 'vendor/jquery.form.js', 'internal/job_apply.js'), 'css' => array("","","","assets/css/pages/apply.css"));
             // Davit end
-            $this->Admintheme->webview("jobs/apply", $data);
+            $this->Admintheme->custom_webview("jobs/apply", $data);
         }
     }
 
@@ -1606,90 +1607,98 @@ class Jobs extends Winjob_Controller {
                 redirect(site_url("find-jobs"));
             }
 
-            $jobId = base64_decode($jobId);
-
-            $sender_id = $this->session->userdata(USER_ID);
-            $this->db->select('*');
-            $this->db->from('job_conversation');
-            $this->db->join('job_bids', 'job_conversation.bid_id=job_bids.id', 'inner');
-            $this->db->where('job_conversation.sender_id', $sender_id);
-            $this->db->where('job_conversation.job_id', $jobId);
-            $this->db->where('job_bids.bid_reject', 0);
-            
-              // added by jahid start 
-             $this->db->where('job_bids.job_progres_status', 1);
-             $this->db->where(array('job_bids.withdrawn' => NULL)); 
-             // added by jahid end 
-            
-            $this->db->group_by('job_conversation.bid_id');
-            $query = $this->db->get();
-            $conversation_count = $query->num_rows();
-            //  echo $this->db->last_query();
+            $budget = 0;
+            $total_work = 0;
+            $feedbackScore = 0;
 
             $records = array();
-            $this->db->join('webuser', 'webuser.webuser_id=job_bids.user_id', 'left');
-            $this->db->order_by("job_bids.id", "desc");
-             // added by jahid start 
-             $this->db->where('job_bids.job_progres_status', 0);
-             $this->db->where(array('job_bids.withdrawn' => NULL)); 
-             // added by jahid end 
-            $query = $this->db->get_where('job_bids', array('job_id' => $jobId, 'bid_reject' => 0, 'status!=1' => null));
-                         
-            if ($query->num_rows() > 0)
-                $records = $query->result();            
-            $this->db->where('id', $jobId);
-            $q = $this->db->get('jobs');
-            $jobDetails = $q->row();
-
-
-
-            //Offer count
-            $this->db->select('*');
-            $this->db->from('job_bids');
-            $this->db->where(array('job_id' => $jobId, 'hired' => '1'));
+            $_price = array();
+            $_freelancer = array();
             
-              // added by jahid start 
-             $this->db->where('job_progres_status', 2);
-             $this->db->where(array('withdrawn' => NULL)); 
-             // added by jahid end 
+            $job_id = base64_decode($jobId);
+            $bids = $this->process->get_bids($job_id);
+            $emp = $this->employer->is_active();
+            $job_details = $this->process->get_job_details($job_id);
+
+            $applicants = $this->process->get_applications($job_id);
+            $rejects = $this->process->get_rejected($job_id);
+            $offers = $this->process->get_offers($job_id);
+            $hires = $this->process->get_hires($this->user_id, $job_id);
+            $interviews = $this->process->get_interviews($this->user_id, $job_id);
             
-            $query_totaloffer = $this->db->get();
-            $Offer_count = $query_totaloffer->num_rows();
+            foreach($bids['data'] AS $_bids){
+               $ended_jobs = $this->process->cnt_ended_jobs($_bids->user_id);
+               $freelancer_profile = $this->ProfileModel->get_profile($_bids->user_id);
+               $accepted_jobs = $this->process->accepted_jobs($_bids->user_id);
+               $pic = $this->Adminforms->getdatax("picture", "webuser", $_bids->user_id);
+               $country = $this->ProfileModel->get_country($_bids->webuser_country);
+               $skills = $this->ProfileModel->get_skills($_bids->user_id);
+               $user_rating = $this->Webuser_model->get_total_rating($_bids->user_id);
+               $_pic = $pic != "" ? $pic : "assets/user.png";
 
-            //hire
+               foreach($accepted_jobs AS $a_jobs){
+                   $feedbacks = $this->process->get_feedbacks($a_jobs->fuser_id, $a_jobs->job_id);
+                   $diary = $this->Job_work_diary_model->get_work_hours($a_jobs->fuser_id, $a_jobs->job_id);
 
-            $this->db->select('*');
-            $this->db->from('job_accepted');
-            $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-            $this->db->where('job_accepted.buser_id', $sender_id);
-            $this->db->where('job_accepted.job_id', $jobId);
-            $this->db->where('job_bids.jobstatus', '0');
-                          // added by jahid start 
-             $this->db->where('job_bids.job_progres_status', 3);
-             $this->db->where(array('job_bids.withdrawn' => NULL)); 
-             // added by jahid end 
-            $query = $this->db->get();
-            $hire_count = $query->num_rows();
+                    foreach($diary AS $_diary){
+                        $total_work += $_diary->total_hour;
+                    }
+                    
+                   if($a_jobs->jobstatus == 1){
+                       if(!empty($feedbacks)){
+                            if($a_jobs->job_type == 'fixed'){
+                                $price = $a_jobs->fixedpay_amount;
+                                $feedbackScore += ($feedbacks['feedback_score'] * $price);
+                                $budget += $price;
+                            }else{
+                                
+                                if($a_jobs['offer_bid_amount']){
+                                    $amount = $a_jobs->offer_bid_amount;
+                                }else{
+                                    $amount = $a_jobs->bid_amount;
+                                }
 
-            // reject count
-            $this->db->select('*');
-            $this->db->from('job_bids');
-             // added by jahid start 
-            $this->db->where(array('job_id' => $jobId));  
-	    $this->db->where("(withdrawn=1 OR bid_reject=1)", NULL, FALSE); 
-             // added by jahid end 
-            
-            $query_totalreject = $this->db->get();
-            $reject_count = $query_totalreject->num_rows();
+                                $price = $a_jobs->fixedpay_amount * $amount;
+                                $feedbackScore += ($feedbacks['feedback_score'] * $price);
+                                $budget += $price;
+                            }
+                        }
+                    }
+                }
 
-            $this->db->select('*');
-            $this->db->from('webuser');
-            $this->db->where('webuser.webuser_id', $sender_id);
-            $query_status = $this->db->get();
-            $ststus = $query_status->row();
+                $records[] = array(
+                   'ended_jobs' => $ended_jobs,
+                   'tagline' => ucfirst($freelancer_profile['tagline']),
+                   'budget' => $budget,
+                   'feedback_score' => $feedbackScore,
+                   'total_work' => $total_work,
+                   'pic' => $_pic,
+                   'fname' => $_bids->webuser_fname,
+                   'lname' => $_bids->webuser_lname,
+                   'user_id' => $_bids->user_id,
+                   'job_id' => $_bids->job_id,
+                   'bid_id' => $_bids->id,
+                   'bid_amount' => $_bids->bid_amount,
+                   'country' => ucfirst($country['country_name']),
+                   'letter' => $_bids->cover_latter,
+                   'skills' => $skills,
+                   'rating' => $user_rating
+                );
+            }
 
-
-            $data = array('jobId' => $jobId, 'Offer_count' => $Offer_count, 'hire_count' => $hire_count, 'records' => $records, 'jobDetails' => $jobDetails, 'interview_count' => $conversation_count, 'reject_count' => $reject_count, 'ststus' => $ststus, 'title' => 'Job Offer - Winjob');
+            $data = array(
+                'records' => $records,
+                'jobId' => base64_encode($job_id),
+                'status' => $emp,
+                'applicants' => $applicants['rows'],
+                'rejects' => $rejects['rows'],
+                'offers' => $offers['rows'],
+                'hires' => $hires['rows'],
+                'interviews' => $interviews['rows'],
+                'job_type' => ucfirst($job_details['job_type']),
+                'job_title' => ucwords($job_details['title']),
+                'title' => 'Applications - Winjob'
+            );
             $this->Admintheme->webview("jobs/applied", $data);
         }
     }
@@ -1787,7 +1796,7 @@ class Jobs extends Winjob_Controller {
 
 
 
-            $data = array('jobId' => $jobId, 'records' => $records, 'jobDetails' => $jobDetails, 'interview_count' => $conversation_count, 'hire_count' => $hire_count, 'Application_count' => $Application_count, 'Offer_count' => $Offer_count, 'reject_count' => $reject_count, 'ststus' => $ststus);
+            $data = array('jobId' => $jobId, 'records' => $records, 'jobDetails' => $jobDetails, 'interview_count' => $conversation_count, 'hire_count' => $hire_count, 'Application_count' => $Application_count, 'Offer_count' => $Offer_count, 'reject_count' => $reject_count, 'ststus' => $ststus, 'title' => 'Interviews - Winjob');
             $this->Admintheme->webview("jobs/interviews", $data);
         }
     }
@@ -2388,8 +2397,8 @@ class Jobs extends Winjob_Controller {
             if ($this->session->userdata('type') != 1) {
                 redirect(site_url("find-jobs"));
             }
-			
-	
+            
+    
 
             /* check if account is suspend then redirect to payment */
             
@@ -2639,9 +2648,9 @@ class Jobs extends Winjob_Controller {
                 }else{
                     $response['success'] = true;
                     $response['message'] = 'Successfull';
-					
+                    
                     /* adding data at report start */
-					
+                    
                     $data_payment['job_id'] = (int) $job_id;
                     $data_payment['user_id'] = (int) $applier_id;
                     $data_payment['buser_id'] = (int) $user_id ;
@@ -2655,8 +2664,8 @@ class Jobs extends Winjob_Controller {
                     $data_payment['payment_gross'] = $budget;
 
                     $this->db->insert('payments', $data_payment);
-		redirect(site_url().'offer?job_id='.base64_encode($job_id));			
-					/* adding data at report end */
+        redirect(site_url().'offer?job_id='.base64_encode($job_id));            
+                    /* adding data at report end */
                 }
                 //updates by haseeburrehman.com ends     
             }
@@ -3221,7 +3230,7 @@ class Jobs extends Winjob_Controller {
                             continue;
                         }
                         $record->skills=$s;
-			$s=[];
+            $s=[];
                     }
                 } else {
                     $records = null;
@@ -3253,4 +3262,3 @@ class Jobs extends Winjob_Controller {
             }
     }
 }
-

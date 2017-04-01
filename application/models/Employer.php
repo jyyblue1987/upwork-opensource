@@ -7,7 +7,7 @@
  */
 class Employer extends CI_Model {
 
-    private $user_uid;
+    private $webuser_uid;
     private $fname;
     private $lname;
     private $email;
@@ -22,10 +22,12 @@ class Employer extends CI_Model {
     private $website;
     private $date_registered;
     private $is_active;
-
-    function __construct($user_id) {
+    
+    function __construct($user_id = FALSE) {
         parent::__construct();
-        return $this->init($user_id);
+        if(isset($user_id)){
+            return $this->init($user_id);
+        }
     }
 
     function init($user_id) {
@@ -37,7 +39,7 @@ class Employer extends CI_Model {
 
         if ($result->num_rows() > 0) {
             $employer = $result->row_array();
-            $this->user_uid = $employer['user_id'];
+            $this->webuser_uid = $employer['webuser_id'];
             $this->fname = $employer['webuser_fname'];
             $this->lname = $employer['webuser_lname'];
             $this->email = $employer['webuser_email'];
@@ -58,7 +60,7 @@ class Employer extends CI_Model {
     }
 
     function get_userid() {
-        return $this->user_uid;
+        return $this->webuser_uid;
     }
 
     function get_fname() {

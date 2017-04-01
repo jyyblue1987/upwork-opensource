@@ -1,0 +1,193 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,300italic,500,400italic,600,500italic,700italic,700,600italic);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800);
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+body {color: #333;font-family: "Roboto" !important;font-size: 14px;line-height: 1.42857;}
+html {color: #222;font-size: 1em;line-height: 1.4;}
+#buttonfirst {background: #eba705 none repeat scroll 0 0;border: medium none;border-radius: 5px;color: #fff;float: left;font-family: "Arial";font-size: 17.5px;margin-top: 2px;padding: 5px 7px;}
+*{margin:0px;padding:0px;}
+.h4, .h5, .h6, h4, h5, h6 {margin-top:0px;margin-bottom:0px;}
+.row.chat-box { min-height: 400px; border: 1px solid; padding: 16px;}
+.chat-screen { border: 2px solid #2cabda; padding: 0; min-height: 430px; margin-top: 25px;}
+.chat-details-topbar { min-height: 100px; position: absolute; top: 0; background: #fff; width: 100%; z-index: 99; border-bottom: 2px solid #1ca7db;}
+.chat-details { width: 100%; z-index: 1; bottom: 0; min-height: 190px; height: 190px; position: absolute; background: #fff; overflow-x: hidden; overflow-y: scroll;top: 100px;}
+.chat-details ul li { list-style-type: none; padding: 10px 0;}
+.chat-details ul li span img { width: 50px; border-radius: 50%; margin: 0 15px 0 0;}
+.chat-details-topbar h3 { padding: 6px 10px; font-weight: bold;}
+.chat-details-topbar h5 { padding: 0 10px;}
+.chat-details-topbar p { padding: 24px 0 0px 10px; margin: 0;  color: #757575;}
+.chat-details ul li span.details { display: block; margin-left: 53px;  font-size: 14px;  color: #757474;}
+textarea#chat-input { width: 95%; height: 100px; margin: 0 0 0 15px;  border: 2px solid #1ca7db;}
+.active { border: 2px solid #1ca7db;  color: #1ca7db;}
+.chat-sidebar a { color: #000;}
+.chat-bar { width: 100%; z-index: 1; bottom: 0; min-height: 100px; height: 100px; position: absolute; background: #fff; top: 300px; }
+form#chat_form a {  display: inline-block; background: #1ca7db; color: #fff; text-align: center;  font-size: 25px;  padding: 11px 25px;  margin: 20px 0;    text-decoration: none;}
+span.chat-date { font-size: 13px; padding: 0 0 0 15px; color: #949494;}
+span.group-date { display: block; text-align: center; font-size: 16px; color: #7d7b7b;}
+span.name { text-transform: capitalize;}
+span.text1 {text-transform: capitalize;}
+.buttonsidethreeright.pull-left {  margin-left: 45%;}
+#buttonfirst {  background: #eba705 none repeat scroll 0 0;  border: medium none;  border-radius: 5px;  color: #fff;  float: left;  font-family: "Arial";  font-size: 17.5px;  margin-top: 2px;  padding: 5px 7px;}
+.star-rating {  height: 1.2em;}
+.star-rating::before {  color: #b8b8ba; }
+.custon_send_pro:hover{background:#286090;}
+.custom_user_skills span{background:#ccc !important;}
+.custom_user_skills span:hover{background:#008329 !important;}
+.message_lists{max-height: 250px;overflow-y: scroll;overflow-x: hidden;}
+.menu ul {list-style:none;margin: 0;padding:0;}.menu li {margin: 0;padding: 0px;float:left;}
+.menu ul li  a {font-family:'Arial';display: block;color: #35a7d6;text-decoration:none;font-size:16px; padding: 0px 28px;margin-top:14px;border:none;	}
+.menu ul li  a.first-menu {font-family:'Arial';display: block;color: #35a7d6;text-decoration:none;font-size:16px; padding: 0px 28px 0px 6px;margin-top:14px;border:none;	}
+.menu  a:hover {color: #e84c3d;-webkit-transition:1s;-moz-transition:1s;-o-transition:1s;transition:1s;}
+#mid_contant{width:100%;float:left;background-color: #f0f0f0;min-height: 483px;margin-top:10px;}
+.white-box{background-color:white;border-radius: 4px;padding: 10px;}
+.margin-top {margin-top: 30px;}
+.page-label label , .page-label{color: #333 !important;}
+h1.job-title{font-family: calibri;font-weight: 700;}
+.cos_job-title{font-size: 24px;margin-bottom: 8px;margin-top: -7px;}
+.jobdes-bordered-wrapper {padding: 11px;padding-left:26px;padding-right:26px;margin-top: 5px;border: 1px solid #DEDEDE;margin-bottom: -3px;position: relative;background: #F7F7F7;box-shadow: none;box-sizing: border-box;border-radius: 4px;}
+.jobdes-bordered{box-sizing: border-box;background: #FFF;border-radius: 4px;border: #DEDEDE solid 1px;}
+.jobdes-bordered .single{padding-left:20px;}
+.jobdes-bordered div{padding: 0px 0px 5px 0px;padding: 0px 0px 5px 0px;margin: 7px 0px 7px 0px;border-right: 1px solid #CCC;}
+.jobdes-bordered-client{box-sizing: border-box;background: #FFF;border-radius: 4px;border: #DEDEDE solid 1px;}
+.jobdes-bordered-client div{padding: 0px 0px 5px 0px;padding: 0px 0px 5px 0px;margin: 7px 0px 7px 0px; }
+.jobdes-bordered-client label{ background: #F3EAEA;border-radius: 4px;padding:5px 20px 5px 20px;}
+.jobdes-bordered .last-div{border-right: 0px;}
+.jobdes-bordered span{margin: 6px 0 5px;font-size: 18px;line-height: 18px;font-weight: 700;color: #008bcb!important;}
+.jobdes-bordered label{margin: 0 0 9px;font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;font-size: 14px;line-height: 18px;font-weight: 400;}
+.req-skills label{padding-top: 6px;}
+.skills span {background: #ccc none repeat scroll 0 0;border: 1px solid #ccc;border-radius: 5px;color: #fff;display: inline-block;font-size: 15px;margin-bottom: 4px;padding: 1px 5px 1px 5px;margin-right: 2px;}
+.custom_user_skills span{background-color: #e6e7e7;border-radius: 4px;color: #535353;font-family: "Calibri";font-size: 10.5px;padding: 2px 6px;}
+.custom_user_skills span:hover{background: #008329 none repeat scroll 0 0;color: #fff;}
+.buttonsidethree {margin-top: 16px;}
+.buttonsidethreeleft p {color: #000000;font-family: "Calibri";font-size: 20px;font-weight: 800;color: #1CA7DB;margin-bottom: -10px;}
+.buttonsidethreeleft h3 {color: #6b6b6b;font-family: "Calibri";font-size: 17.5px;}
+.buttonsidethreeright {float: right;}
+.buttonsidethreeright h6 {color: #494949;display: inline-block;font-family: "Calibri";font-size: 20px;padding-bottom: 5px;width: 100%;font-weight: 800;}
+.buttonsidethreeright h3 {color: #494949;font-family: "Calibri";font-size: 18px;}
+.buttonsidethreeright h4 {color: #6b6b6b;font-family: "ArialRegular";font-size: 18px;padding-top: 5px;}
+.buttonsidethreeright span.rate {float: left;font-size: 1.5em;padding-left: 10px;width: auto;}
+.buttonsidethreeright {margin-right: 30px;}
+.buttonsidethreeright h6, h3 {margin-top: 10px;}
+.buttonsidethreeright span, h3, h6 {padding-bottom: 10px;}
+.buttonsidethree {border-bottom: 1px solid #ddd;}
+.star-rating {background: #eba705 none repeat scroll 0 0;border-radius: 4px;color: #fff;float: left;font-size: 11px;font-weight: bold;padding: 5px;}
+.star-rating {font-family: 'star';font-size: 20px;height: 1em;overflow: hidden;position: relative;width: 4.2em;background: none !important;}
+.star-rating::before {color: #b8b8ba;content: "\2605\2605\2605\2605\2605";float: left;left: 0;position: absolute;top: 0;}
+.star-rating span,#feedbackbutton h4 span {color: #F77D0E ;float: left;font-size: 20px !important;left: 0;margin-left: 0 !important;overflow: hidden;padding-top: 1.5em !important;position: absolute;top: 0;}
+.star-rating span::before {color: #F77D0E ;content: "\2605\2605\2605\2605\2605";left: 0;position: absolute;top: 0;}
+.right-section {background: white none repeat scroll 0 0;margin-top: 0px;padding: 0px 30px 20px 30px;border: 1px solid #ccc;padding: 0 30px 9px;border-radius: 4px;}
+.margin-top-2{margin-top: 20px;}
+.client-activity label{color: #616161;}
+.result-message{text-align: center;color: green;font-size: 20px;display: none;}
+#big_header{margin-top: 40px; margin-bottom: 40px; height: auto;}
+.job-cont{padding: 20px 30px;border: 1px solid #ccc;}
+.marg-top-neg{margin-top: -15px!important;}
+.lab-res{font-family: 'calibri'!important;font-size: 17px!important;}
+.job-cat{font-family: 'calibri'!important;font-size: 16px!important;}
+.margin-top-15{margin-top: 15px;}
+.margin-top-4{margin-top: 4px;}
+.margin-top-1{margin-top: 10px;}
+.marg-top-neg-2{margin-top: -2px;}
+.lab-skills{font-family: 'calibri'; font-size: 16px; color: rgb(51, 51, 51);margin-top: -7px;}
+.margin-top-5{margin-top: 5px;}
+.lab-details{font-family: 'calibri';font-size: 16px;margin-top: 9px;}
+.div-details{font-family: 'calibri'; font-size: 16px; margin-bottom: 17px; margin-top: 8px;}
+h2.job-his{margin-top: 5px; font-family: 'calibri';}
+p.title-job-p{margin: 0px 0px -7px;margin-top: 10px;}
+h3.job-det{margin-bottom: -15px;margin-top: 8px;}
+p.job-comment{font-style: italic; font-size: 17.5px; font-weight: normal; color: rgb(73, 73, 73);margin-bottom: 40px;}
+p.job-feedback{color:#ddd;font-size:17.5px;font-style: italic;font-width:bold;}
+.pad-0-margin-0{padding: 0px!important; margin: 0px!important;}
+.margin-right-none{margin-right:0!important;}
+span.width0{width:0%;}
+span.rate-amount{font-size: 20px!important; margin-bottom: -11px!important;}
+h3.paid{margin-top: 7px; font-family: "Calibri"; font-size: 20px; font-weight: 800;}
+.margin-top-8{margin-top: 8px!important;}
+span.job-data{margin-top: -8px;margin-bottom: 20px;}
+a.pad-left{padding-left: 38px!important;}
+button.send-pro{margin: 20px 0 !important;width: 170px;height: 40px;font-size: 18px;background: #028FCC;color: #fff;}
+i.circ-check{margin-top: -10px; margin-left: -4px; font-size: 25px; color: rgb(2, 143, 204);position: absolute;top: 8px;}
+i.circ-min{margin-top: -10px; margin-left: -4px; font-size: 25px; color: rgb(187, 187, 187);position: absolute;top: 8px;}
+label.pad-25{margin-left: 25px;}
+.right-cont{margin-top: 10px!important;margin-left: -19px!important;}
+.totscore{font-size: 10px!important;background:#F77D0E!important;padding: 2px 4px!important;border-radius: 2px!important;}
+.revrat{right: -8%;margin-top: -3%;position: absolute;}
+.rats{right: -45%!important;margin-top: 2!important%;position: absolute!important;}
+.hired{margin-top: 4px;margin-left: -19px;}
+.job-posted{margin-top: 14px;margin-left: -19px;}
+label.label-side{font-family: 'Calibri';font-size: 20.26px;color: #494949;margin-top: -29px;}
+span.span-side{font-size: 14px;color: #494949;font-family: 'calibri';}
+.total-work{margin-top: 2px;margin-left: -19px;}
+span.total-works{font-size: 14px;color: #494949;font-family: 'calibri';}
+.maste{font-family: 'Calibri';font-size: 18px;margin-left: 12px;margin-top: -15px;margin-bottom: 5px;}
+.transparent-btn {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #CED0D4;
+    color: #1ca7db;
+    font-family: "calibri";
+    src: url(../fonts/Calibri.ttf);
+    padding: 4px 30px 4px 30px;
+    font-weight: 600;
+}
+.job-attachment {
+    background: #f1f1f1 none repeat scroll 0 0;
+    border: 2px dashed;
+    cursor: pointer;
+    padding: 7px;
+    text-align: center;
+}
+.big_mass_active{background:#028cc9;color:#fff;border: 1px solid transparent;}
+.big_mass_button {
+	font-size: 15px;
+	padding: 2px 15px;
+	border-radius: 2px;
+	height:28px!important;
+}
+.job-desc{font-family: 'calibri'; font-size: 16px; margin-bottom: 17px; margin-top: 8px;}
+.proposed{padding:35px 20px 20px;padding-left: 0;padding-right: 0;}
+h1.pro-text{font-family: "calibri"; font-size: 25px; margin-bottom: 22px;}
+.neg-35{margin-left: -35px;}
+input.pro-input{width: 80px!important;font-size: 17px!important;border-radius: 4px;}
+.font-17{font-size:17px;margin-right: 10px;}
+label.pro-label{margin-left: 2px;margin-top: 6px;position: absolute!i;}
+textarea.cover-text{font-size: 17px;line-height: 26px;font-family: "Calibri";}
+.att-cont{margin-top: 25px; padding: 0px 15px;}
+label.lbl-att{margin-bottom: 10px;margin-left: -15px;}
+table tr td{padding-bottom:18px!important;}
+.margin-left-15{margin-left: 15px;}
+b.perh{
+	margin-left: 10px;
+}
+#withdrawbutton{
+	float:right;
+	position: block;
+}
+#cancelbutton{
+	float:left;
+}
+.big_mass_button:hover{background:#286090;color:#fff;}
+.cancel-button{
+	margin-right: 0px;
+}
+
+.submit-button{}
+.no-pad{padding-left: 0px;padding-right: 0px;}
+@media only screen and (max-width : 480px){
+	.no-pad{margin-top:20px;padding-right: 0px;padding-left: 0px;}
+	i.circ-min{margin-top: 0px;font-size: 25px; color: rgb(187, 187, 187);position: absolute;top: 8px;}
+	.totscore{font-size: 10px!important;background:#F77D0E!important;padding: 2px 4px!important;border-radius: 2px!important;margin-left: 15px;}
+	.right-section{padding:0px 20px 0px 20px;}
+	.revrat{right: -8%;margin-top:-1px;position: relative;}
+}
+@media (min-width: 481px) and (max-width: 768px) {
+	.container {width: 740px;}
+	.no-pad{margin-top:20px;padding-right: 0px;padding-left: 0px;margin-left: 15px;margin-right: 15px;}
+	i.circ-min{margin-bottom: 10px;font-size: 25px; color: rgb(187, 187, 187);position: absolute;top: 8px;}
+	.right-section{padding:0px 20px 0px 20px;margin-right: 10px;margin-left: 0px;}
+	.revrat{right: -8%;margin-top:-1px;position: relative;}
+}
+@media (min-width: 1200px) {
+	.container {width: 1000px;}
+}
+@media (min-width: 1024px) {
+	.container {width: 1000px;}
+}

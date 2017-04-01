@@ -115,4 +115,62 @@ class Process extends CI_Model {
         }
         return $return_array;
     }
+    
+    function get_bids($job_id){
+        $this->db
+                ->join('webuser', 'webuser.webuser_id = job_bids.user_id', 'left')
+                ->order_by('job_bids.id', 'desc')
+                ->where('job_bids.job_progres_status', 0)
+                ->where('job_bids.withdrawn',  NULL)
+                ->where('job_id', $job_id)
+                ->where('bid_reject', 0)
+                ->where('status != 1');
+        $query = $this->db->get('job_bids');
+        
+        $return_array = array();
+        $return_array['rows'] = $query->num_rows();
+        if ($return_array['rows'] > 0) {
+            $return_array['data'] = $query->result();
+        }
+        return $return_array;
+    }
+    
+    function get_job_details($job_id){
+        $this->db->where('id', $job_id);
+        $query = $this->db->get('jobs');
+        return $query->row_array();
+    }
+
+    function cnt_ended_jobs($user_id){
+        $this->db
+                ->select('*')
+                ->from('job_bids')
+                ->where('user_id', $user_id)
+                ->where('jobstatus',1) ;
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    function accepted_jobs($user_id){
+        $this->db
+                ->select('*')
+                ->from('job_accepted')
+                ->join('job_bids', 'job_bids.id = job_accepted.bid_id', 'inner')
+                ->join('jobs', 'jobs.id = job_bids.job_id', 'inner')
+                ->where('job_accepted.fuser_id', $user_id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    
+    function get_feedbacks($fuser_id, $job_id){
+        $this->db
+                ->select('*')
+                ->from('job_feedback')
+                ->where('feedback_userid', $fuser_id)
+                ->where('sender_id !=', $fuser_id)
+                ->where('feedback_job_id', $job_id);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
 }

@@ -120,7 +120,7 @@ class Reject extends CI_Controller {
             $query_status = $this->db->get();
 			$ststus = $query_status->row();
 
-            $data = array('messages' => $records, 'Application_count' => $Application_count, 'interview_count' => $interview_count, 'Offer_count' => $Offer_count, 'hire_count' => $hire_count, 'jobDetails' => $jobDetails,'ststus'=>$ststus);
+            $data = array('messages' => $records, 'Application_count' => $Application_count, 'interview_count' => $interview_count, 'Offer_count' => $Offer_count, 'hire_count' => $hire_count, 'jobDetails' => $jobDetails,'ststus'=>$ststus, 'title' => 'Rejected - Winjob');
             $this->Admintheme->webview("reject", $data);
         }
     }
