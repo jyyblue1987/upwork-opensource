@@ -1,0 +1,91 @@
+<div class="columns" >
+    <ul class="price">
+        <div class="heeed tab-profile">
+            {{ app_lang('text_app_profile_my_account') }}
+            <i class="fa {% if account_opened is defined %} fa-angle-down {% else %} fa-angle-right {% endif %} pull-right" id="faqicon1" aria-hidden="true"></i>
+        </div>
+        <div class="faqa tab-profile-links {% if account_opened is not defined %} soft-hide {% endif %}">
+            <div class="grey {% if profile_active is defined %} active_setting {% endif %}">
+                <a class="{% if profile_link is defined %}  active-anchor  {% endif %}" href="{{ site_url("profile-settings") }}">
+                    {{ app_lang('text_app_profile_personal_info') }}
+                </a> 
+            </div>
+                
+            {% if app_user_data()['type'] == constant('FREELANCER') %}
+            <div class="grey {% if account_active is defined %} active_setting {% endif %}">
+                <a class="{% if account_link is defined %}  active-anchor {% endif %}" href="{{ site_url("profile/manageaccount") }}">
+                    {{ app_lang('text_app_profile_manage_account') }}
+                </a> 
+            </div>
+            {% endif %}
+        </div>
+        {% if app_user_data()['type'] == constant('FREELANCER') %}
+            <div class="heeed tab-profile">
+                {{ app_lang('text_app_profile_freelancer') }}
+                <i class="fa {% if profile_opened is defined %} fa-angle-down {% else %} fa-angle-right {% endif %} pull-right" aria-hidden="true"></i>
+            </div>
+            <div class="faqa tab-profile-links {% if profile_opened is not defined %} soft-hide {% endif %}">
+                <div class="grey {% if basic_profile_active is defined %} active_setting {% endif %}">
+                    <a class="{% if basic_profile_link is defined %}  active-anchor {% endif %}" href="{{ site_url("/profile/basic") }}">
+                        {{ app_lang('text_app_profile_basic') }}
+                    </a>
+                </div>
+                <div class="grey {% if profile_bio_active is defined %} active_setting {% endif %}">
+                    <a class="{% if profile_bio_link is defined %}  active-anchor {% endif %}" href="{{ site_url("/profile/basic_bio") }}">
+                        {{ app_lang('text_app_profile_professional_bio') }}
+                    </a>
+                </div>
+                <div class="grey {% if manage_cat_active is defined %} active_setting {% endif %}">
+                    <a class="{% if manage_cat_link is defined %}  active-anchor {% endif %}" href="{{ site_url("categories/choose") }}">
+                        {{ app_lang('text_app_profile_manage_category') }}
+                    </a>
+                </div>
+                <div class="grey {% if view_profile_active is defined %} active_setting {% endif %}">
+                    <a class="{% if view_profile_link is defined %}  active-anchor {% endif %}" href="{{ site_url("/profile/" ~ app_user_data()['username']) }}">
+                        {{ app_lang('text_app_profile_view') }}
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+        <div class="heeed tab-profile">
+            {{ app_lang('text_app_profile_financial') }}
+            <i class="fa {% if financial_opened is defined %} fa-angle-down {% else %} fa-angle-down {% endif %} pull-right" aria-hidden="true"></i>
+        </div>
+        <div class="faqa tab-profile-links {% if financial_opened is not defined %} soft-hide {% endif %}" id="faqa3">
+            {% if app_user_data()['type'] == constant('FREELANCER') %}
+                <div class="grey {% if tax_info_active is defined %} active_setting {% endif %}">
+                    <a href="{{ site_url('payment/tax-information') }}">
+                        {{ app_lang('text_app_profile_tax_information') }}
+                    </a>
+                </div>
+                <div class="grey {% if payment_methods_active is defined %} active_setting {% endif %}">
+                    <a href="{{ site_url('payment/methods') }}">
+                        {{ app_lang('text_app_profile_payment_method') }}
+                    </a>
+                </div> 
+            {% else %}
+                <div class="grey {% if billing_methods_active is defined %} active_setting {% endif %}">
+                    <a href="{{ site_url("pay/billing") }}">
+                       {{ app_lang('text_app_profile_billing_method') }}
+                    </a>
+                </div> 
+            {% endif %}
+        </div>
+        <div class="heeed tab-profile">
+            {{ app_lang('text_app_profile_security_settings') }}
+            <i class="fa {% if security_opened is defined %} fa-angle-down {% else %} fa-angle-right {% endif %} pull-right" aria-hidden="true"></i>
+        </div>
+        <div class="faqa tab-profile-links {% if security_opened is not defined %} soft-hide {% endif %}">
+            <div class="grey {% if change_pass_active is defined %} active_setting {% endif %}">
+                <a href="{{ site_url("changepassword") }}">
+                   {{ app_lang('text_app_profile_change_password') }}
+                </a>
+            </div>
+            <div class="grey {% if change_email_active is defined %} active_setting {% endif %}">
+                <a href="{{ site_url("changeemail") }}">
+                   {{ app_lang('text_app_profile_change_email') }}
+                </a>
+            </div>        
+        </div>
+    </ul>
+</div>

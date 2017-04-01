@@ -91,19 +91,23 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 //haseeburrehman.com's stripe module's API setting
 define('STRIPE_PK', "pk_test_Wio5VP1sClhcPWSBz0g5Jaso");//define('STRIPE_PK', "pk_test_STFZOvi67NhV0ydVERCLBByh");
 define('STRIPE_SK', "sk_test_kdRIBeicKrJLaTboAAjehFED");//define('STRIPE_SK', "sk_test_mEvbbHFxresUiBbeyKl6bmum");
-//define('PAYPAL_CID',"ASzZR7bLe3U74WzmsQPGhQt70dDZ4CzpgAx25LhH2EqZjvc_9rti3uUPZ3YQcDCez-VcTh0-EJts4ZpZ");
-//define('PAYPAL_CIDS', "EA8iTLT9vq1klRn_H629gvhOtfNTttOTRwQBu_bf6Agsi4ny5DuTJyHTboNt4q3xihACzO-AMF6meNcY");
+
+defined('PAYPAL_CLIENT_ID')     || define('PAYPAL_CLIENT_ID',"AaCqfMPsmVaeU0OhsTpAh__ZuEJTBcVEA0wV-hQezHP0Ezpd0VOr0PNdQYxMrgfWmqG3KtkpCdQ3eoLz");
+defined('PAYPAL_CLIENT_SECRET') || define('PAYPAL_CLIENT_SECRET', "EAIWEBhehKwDNfCDzOUwU0aenkj4zL3Kk86j2S9wrJ-igeqzzdBL0TgVAEwhSg0ofiUMWwcI50de9QPp");
+
 define('PAYPAL_BASE_URL',"http://www.winjob.com/pay/addPP");
 define('PAYPAL_URL',"https://www.sandbox.paypal.com/webscr&cmd=_ap-preapproval&preapprovalkey=");
-define('PAYPAL_PAYMENT_RECEIVER',"seller.test@haseeburrehman.com");
-
+define('PAYPAL_PAYMENT_RECEIVER',"seller.test@haseeburrehman.com"); 
 define('PAYPAL_API_USER', "seller.test_api1.haseeburrehman.com");
 define('PAYPAL_API_PASS', "HY6ENM7SA5SNFQNA");
 define('PAYPAL_API_SIGN', "AFcWxV21C7fd0v3bYYYRCpSSRl31AnJosL9DcfX40xgafuxK5ReHIdQB");
-
 define('PAYPAL_BILLING_API_URL',"https://api-3t.sandbox.paypal.com/nvp");
 define('PAYPAL_USER_AUTH_URL',"https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=");
 
+/**
+ * PAYPAL SDK CONFIGURATION FILE.
+ */
+//defined('PP_CONFIG_PATH') || define('PP_CONFIG_PATH', __DIR__ . DIRECTORY_SEPARATOR . 'paypal' . DIRECTORY_SEPARATOR);
 
 /*
  * Some constant for using severall place to avoid typing mistake
@@ -125,6 +129,7 @@ define('WEB_USER_BASIC_PROFILE_TABLE', "webuser_basic_profile");
 define('WEB_USER_PORTFOLIO_TABLE', "webuser_portfolio");
 define('WEB_USER_TABLE', "webuser");
 define('COUNTEY_TABLE', "country");
+define('COUNTRY_TABLE', "country");
 define('SUBCATEGORY_TABLE', "job_subcategories");
 define('WEB_USER_ADDRESS', "webuseraddresses");
 define('WB_PAYMENT_METHODS', "webuser_payment_methods");
@@ -145,3 +150,5 @@ defined('EMPLOYER') || define('EMPLOYER', 1);
 defined('FREELANCER') || define('FREELANCER', 2);
 
 defined('JOB_ENDED') || define('JOB_ENDED', 1);
+
+defined('PAYMENT_HOURLY_CONTRACT_PLAN') || define('PAYMENT_HOURLY_CONTRACT_PLAN', 'pay-hourly-contracts');

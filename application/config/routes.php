@@ -11,13 +11,14 @@ $route['my-balance']     = 'pay/balance';
 /****************************************
  * USER FRIENDLY URL FOR CLIENT/EMPLOYER
  ****************************************/
-$route['jobs/my-freelancers']  = 'job/my_freelancers'; 
-$route['jobs/past-hires']      = 'job/past_hires';
-$route['jobs/offers-sent']     = 'job/offers_sent';
-$route['jobs/my-contracts']    = 'job/my_contracts';
-$route['jobs/ended-contracts'] = 'job/ended_contracts';
-$route['jobs/work-diary']      = 'job/work_diary';
-$route['pay/add-credit-card']  = 'pay/add_credit_card';
+$route['jobs/my-freelancers']     = 'job/my_freelancers'; 
+$route['jobs/past-hires']         = 'job/past_hires';
+$route['jobs/offers-sent']        = 'job/offers_sent';
+$route['jobs/my-contracts']       = 'job/my_contracts';
+$route['jobs/ended-contracts']    = 'job/ended_contracts';
+$route['jobs/work-diary']         = 'job/work_diary';
+$route['pay/add-card']            = 'pay/add_card';
+$route['pay/add-paypal-account']  = 'pay/add_paypal_account';
 
 
 $route['default_controller'] = 'home';

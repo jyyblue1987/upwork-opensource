@@ -41,6 +41,11 @@
                     {{ include('webview/layout/twig/partials/flash-errors.twig')  }}
                 {% endif %}
                 
+                {# display flash success if exists. #}
+                {% if has_flash('success') %}
+                    {{ include('webview/layout/twig/partials/flash-success.twig')  }}
+                {% endif %}
+                
                 {# Block to load content page #}
                 {% block content %}{% endblock %}
                 

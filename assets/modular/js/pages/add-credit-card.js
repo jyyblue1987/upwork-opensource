@@ -46,29 +46,41 @@
     // Add an instance of the card Element into the `card-element` <div>
     card.mount('#card-element');
     
+    var $alert_error = $('#add-credit-card-form').find('.alert.alert-danger');
+    
     // Handle real-time validation errors from the card Element.
     card.addEventListener('change', function(event) {
       var displayError = document.getElementById('card-errors');
       if (event.error) {
-        displayError.textContent = event.error.message;
+          $alert_error.removeClass('hide');
+          displayError.textContent = event.error.message;
       } else {
-        displayError.textContent = '';
+          $alert_error.addClass('hide');
+          displayError.textContent = '';
       }
     });
     
     // Handle form submission
     var form = document.getElementById('add-credit-card-form');
     
+    var formSubmit = false;
+    
     form.addEventListener('submit', function(event) {
       event.preventDefault();
 
+      if( formSubmit ) return; 
+      
+      formSubmit = true; 
+      
       var extraDetails = {
-        name: form.querySelector('input[name=cardholder-name]').value,
+        name: form.querySelector('input[name=fname]').value + " " + form.querySelector('input[name=lname]').value,
+        fname: form.querySelector('input[name=fname]').value,
+        lname: form.querySelector('input[name=lname]').value,
         address_line1: form.querySelector('input[name=address]').value,
         address_line2: form.querySelector('input[name=address2]').value,
         address_city: form.querySelector('input[name=city]').value,
         address_zip: form.querySelector('input[name=zip]').value,
-        address_country: form.querySelector('input[name=country]').value
+        address_country: $('select[name=country] option').filter(':selected').val()
       };
       
       stripe.createToken(card, extraDetails).then(function(result) {
@@ -80,6 +92,7 @@
           // Send the token to your server
           stripeTokenHandler(result.token);
         }
+        formSubmit = false;
       });
     });
     

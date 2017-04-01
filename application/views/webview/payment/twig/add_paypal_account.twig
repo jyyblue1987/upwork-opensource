@@ -1,0 +1,38 @@
+{% extends "webview/layout/twig/layout.twig" %}
+
+{% block title %}  
+    {{ app_lang('text_app_title_add_paypal_account') }} - Winjob
+{% endblock %}
+
+{% block styles %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    {{ include('webview/payment/partials/header.twig') }}
+
+    <div class="custom_content">
+        <section>
+            <h2 style="margin: 35px 0;" class="text-center">
+                {{ app_lang('text_app_add_verified_paypal_account') }}
+                <i class="fa fa-paypal "></i>
+            </h2>
+            <form action="" method="POST" class="text-center">
+                <input type='hidden' name='{{ csrf_name() }}' value='{{ csrf_token() }}'>
+                <input type="hidden" name="paypal_agreement" value="yes" />
+                <button  type="submit" class="btn-primary transparent-btn">
+                    {{ app_lang('text_app_add_btn_paypal') }}
+                </button>
+            </form>
+          <div class="clear clearfix"></div>
+        </section>
+    </div>
+    
+                            
+{% endblock %}
+
+{% block js %}
+    <script src="{{ site_url("assets/js/vendor/jquery-2.2.3.min.js") }}"></script>
+    <script src="{{ site_url("assets/js/bootstrap.min.js") }}"></script>
+{% endblock %}

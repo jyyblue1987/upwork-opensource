@@ -1,0 +1,36 @@
+<tr>
+
+    <td style="font-size: 17px;font-family: calibri;"><strong style="font-size: 17px;font-family: calibri;font-weight: bold;">Paypal</strong> - <?php echo $paypal->pp_email; ?></td>
+    <td class="nowrap">
+        <?php
+        if ($paypal->isPrimary == '1') {
+        echo "Primary";
+        } else {
+        ?>
+        <div class="btn-group">
+            <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-minus"></i> <i class="fa fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-menu">
+                <form action="makePrimary" method="post" style="margin-bottom:0px;">
+                    <input type="hidden" value="yes" name="makePrimary" />
+                    <input type="hidden" value="paypal" name="method" />
+                    <input type="hidden" value="<?php echo $paypal->attachedTo; ?>" name="id" />
+                    <button class="dropdown-item btn btn-link" href="#">Make Primary</button>
+                </form>
+            </div>
+        </div>
+        <?php
+        //echo '<i class="fa fa-minus"></i> <i class="fa fa-chevron-down"></i>';
+        }
+        ?>
+    </td>
+    <td class="txtCenter">
+        <form style="margin:0px;display:inline;" method="post" action="removePaymentMethod">
+            <input type="hidden" name="remove" value="yes">
+            <input type="hidden" name="type" value="paypal">
+            <input type="hidden" name="id" value="<?php echo $paypal->attachedTo; ?>" />
+            <button style="font-size: 17px;font-family: calibri;" class="btn btn-link" type="submit">Remove</button>
+        </form>
+    </td>
+</tr>

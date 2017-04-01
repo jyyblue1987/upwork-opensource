@@ -1,29 +1,8 @@
 <?php
+
 \Stripe\Stripe::setApiKey(STRIPE_SK);
-use PayPal\Api\Agreement;
-use PayPal\Api\Payer;
-use PayPal\Api\Plan;
-use PayPal\Api\ShippingAddress;
-use PayPal\Api\ChargeModel;
-use PayPal\Api\Currency;
-use PayPal\Api\MerchantPreferences;
-use PayPal\Api\PaymentDefinition;
 
-use PayPal\Core\PayPalConfigManager;
-use PayPal\Core\PayPalCredentialManager;
-
-use PayPal\Service\AdaptivePaymentsService;
-use PayPal\Types\AP\PreapprovalDetailsRequest;
-use PayPal\Types\Common\RequestEnvelope;
-
-use PayPal\Types\AP\FundingConstraint;
-use PayPal\Types\AP\FundingTypeInfo;
-use PayPal\Types\AP\FundingTypeList;
-use PayPal\Types\AP\PayRequest;
-use PayPal\Types\AP\Receiver;
-use PayPal\Types\AP\ReceiverList;
-use PayPal\Types\AP\SenderIdentifier;
-use PayPal\Types\Common\PhoneNumberType;
+use PayPal\PayPalAPI\CreateBillingAgreementResponseType; 
 
 class Pay extends Winjob_Controller
 {
@@ -49,11 +28,15 @@ class Pay extends Winjob_Controller
         $this->Admintheme->webview("clientpay/index", $data);
     }
     
-    public function add_credit_card(){
+    public function add_card(){
+        
+        $this->isEmployer();
         
         if(is_get())//Display stripe credit card.
         {
-            $this->twig->display('webview/payment/twig/add_credit_card', compact('user_id'));
+            $this->load->model('common_mod');
+            $countries = $this->common_mod->load_countries();
+            $this->twig->display('webview/payment/twig/add_credit_card', compact('user_id', 'countries'));
         }
         else//Create a stripe customer account for charge its CC later.
         {
@@ -65,7 +48,8 @@ class Pay extends Winjob_Controller
                 // Create a Customer
                 $customer = \Stripe\Customer::create(array(
                     "source"      => $token,
-                    "description" => $form_data['fname'] . " ". $form_data['lname'] ." - " . $user_id
+                    "description" => $form_data['fname'] . " ". $form_data['lname'] ." - " . $user_id,
+                    "email"       => $this->session->userdata('email')
                 ));
             } catch (Exception $e) {
                 log_message('error', "Error when creating stripe customer...");
@@ -73,33 +57,24 @@ class Pay extends Winjob_Controller
                 redirect(home_url());
             }
             
-            $this->load->model('payment_methods_model');
+            $this->load->model(array('payment_methods_model'));
             $defaultPrimaryMethod = $this->payment_methods_model->get_primary_method_payment( $user_id );
             
             $isPrimary = ( ( $defaultPrimaryMethod ) == null ? 1 : 0 );
             
+            $card_data = $customer->sources->data[0];
             $webuser_payment_service = array(
                 'user_id'             => $user_id,
-                'service'             => 'stripe',
+                'service_name'        => 'stripe',
+                'service_description' => sprintf( $this->lang->line('text_app_card_ending_in'), $card_data->brand, $card_data->last4 ),
                 'is_primary'          => $isPrimary,
                 'is_deleted'          => 0,
                 'service_payer_id'    => $customer->id
             );
             
-            if( $this->payment_methods_model->save_method( $webuser_payment_service ) ){
-                
-                $webuser = $this->webuser_model->load_informations( $user_id );
-                $subject = "Successfully Added Payment Method";
-                $details = array(
-                    'fname'   => ucfirst( $webuser->webuser_fname ),
-                    'company' => 'Winjob',
-                    'slogan'  => 'Hire Talented Freelancers For a Low Cost',
-                    'para1'   => 'Your new payment method has been add for your account. If you did not make this change, please <a href="' . site_url() . 'contact" style="color: #0061A7; text-decoration: none;">contact us</a>.'
-                );
-                
-                $this->Sesmailer->sesemail($webuser->webuser_email, $subject, $this->Emailtemplate->emailview('set_primary_payment', $details));
-                $this->session->set_flashdata('error', $this->lang->line('text_app_stripe_error_customer_creation'));
-                redirect( base_url('pay/billing') );
+            if( $this->payment_methods_model->save_method( $webuser_payment_service ) )
+            {
+                $this->_payment_method_added();
                 
             }else{
                 log_message('error', "Error when registering stripe customer identifier into database...");
@@ -108,434 +83,272 @@ class Pay extends Winjob_Controller
             }
         }
     }
-
-    //payment function by haseeburrehman.com starts
-    public function addCC($sub = null)
+    
+    public function add_paypal_account()
     {
+        if( is_get() )
+        {
+            $this->twig->display('webview/payment/twig/add_paypal_account');
+        }
+        else
+        {   
+            $this->load->library(array('winjob_paypal'));
+            
+            try
+            {
+                $response = $this->winjob_paypal->init_billing_agreement_without_charge();
+                
+                if( strtolower($response->Ack) =='success')
+                {
+                    redirect( PAYPAL_USER_AUTH_URL . $response->Token);
+                }
+                else
+                {
+                    $this->session->set_flashdata('error', $this->lang->line('text_app_network_paypal_connection_error'));
+                }
+            }
+            catch(PayPal\Exception\PPConnectionException $e)
+            {
+                log_message('error', "Error when setting up the billing agreements for referent transaction... " . $e->getMessage());
+                $this->session->set_flashdata('error', $this->lang->line('text_app_error_when_adding_paypal_account'));
+            }
+            redirect(back());
+        }
+    }
+    
+    public function get_paypal_express_checkout(){
+        
+        $token = $this->input->get('token');
+        
+        if( ! empty($token) )
+        {
+            $this->load->library(array('winjob_paypal'));
+            
+            try
+            {
+                $response      = $this->winjob_paypal->create_billing_agreement_without_charge( $token );
+                $client_detail = $this->winjob_paypal->get_billing_agreement_customer_detail( $token );
+                
+                if( strtolower($response->Ack) =='success')
+                {         
+                    $user_id   = $this->session->userdata('id');
+                    $this->load->model(array('payment_methods_model'));
+                    $defaultPrimaryMethod = $this->payment_methods_model->get_primary_method_payment( $user_id );
+
+                    $isPrimary = ( ( $defaultPrimaryMethod ) == null ? 1 : 0 );
+                    
+                    $webuser_payment_service = array(
+                        'user_id'             => $user_id,
+                        'service_name'        => 'paypal',
+                        'service_description' => $client_detail->PayerInfo->Payer,
+                        'is_primary'          => $isPrimary,
+                        'is_deleted'          => 0,
+                        'service_payer_id'    => $response->BillingAgreementID
+                    );
+                    
+                    if( $this->payment_methods_model->save_method( $webuser_payment_service ) )
+                    {
+                        $this->_payment_method_added();
+                    }
+                }
+                else
+                {
+                    $this->session->set_flashdata('error', $this->lang->line('text_app_network_paypal_connection_error'));
+                }
+            }
+            catch(PayPal\Exception\PPConnectionException $e)
+            {
+                log_message('error', "Error when creating a billing agreements for referent transaction... " . $e->getMessage());
+                $this->session->set_flashdata('error', $this->lang->line('text_app_error_when_adding_paypal_account'));
+            }
+        }
+        else
+        {
+            $this->session->set_flashdata('error', $this->lang->line('text_app_need_to_authorized_billing_frist'));
+        }   
+        
+        redirect( site_url('pay/add_paypal_account') );
+    }
+    
+    private function _payment_method_added()
+    {
+        $this->load->model(array('webuser_model'));
+        
         $user_id = $this->session->userdata('id');
-        if (empty($sub)) {
-            $this->load->view('MasterCardSelection/index');
-        } elseif ($sub == "edit") {
-            $form_data = $this->input->post();
-            try {
-                $qdata = array();
-                $cu = \Stripe\Customer::retrieve($form_data['scid']);
-                $cu->source = $form_data['stripeToken'];
-                $cu->save();
-                $success = "Your card details have been updated!";
-            //get cc ref data from db
-            $this->db->select('*');
-                $this->db->from('stripe_customerdetail');
-                $this->db->where('stripe_customerdetail.stripeCustomerID', $form_data['scid']);
-                $qdata['scr'] = $this->db->get()->result();
-            //updating cc data in db
-            $this->db->where('ccdetails.sr', $qdata['scr'][0]->attachedTo);
-                $this->db->update('ccdetails', $form_data);
-            } catch (\Stripe\Error\Card $e) {
+        $webuser = $this->webuser_model->load_informations( $user_id );
+        
+        if(!empty($webuser))
+        {
+            $subject = "Successfully Added Payment Method";
+            $details = array(
+                'fname'   => ucfirst( $webuser->webuser_fname ),
+                'company' => 'Winjob',
+                'slogan'  => 'Hire Talented Freelancers For a Low Cost',
+                'para1'   => 'Your new payment method has been add for your account. If you did not make this change, please <a href="' . site_url() . 'contact" style="color: #0061A7; text-decoration: none;">contact us</a>.'
+            );
+
+            $this->Sesmailer->sesemail($webuser->webuser_email, $subject, $this->Emailtemplate->emailview('set_primary_payment', $details));
+        }
+        
+        $this->session->set_flashdata('success', $this->lang->line('text_app_payment_method_added'));
+        redirect( base_url('pay/billing') );
+    }
+    
+    public function set_paypal_express_checkout(){
+       //TODO: Implement this function to handle cancellation from an employer.
+    }
+    
+    public function set_primary()
+    {
+        $this->isEmployer(); 
+        
+        $user_id   = $this->session->userdata('id');
+        $form_data = $this->input->post();
+        
+        if(empty( $form_data['service_payer_id'] ))
+        {
+            $this->session->set_flashdata('error', $this->lang->line('text_app_provide_a_valid_method'));
+            redirect(back());
+        }
+        
+        $this->load->model(array('payment_methods_model', 'webuser_model'));
+        $method = $this->payment_methods_model->get_method_payment( $user_id, $form_data['service_payer_id'] );
+        
+        if( !empty($method) )
+        {
+            $this->payment_methods_model->reset_primary_method_payment( $user_id );
+
+            $this->payment_methods_model->set_primary_method_payment( $user_id, $form_data['service_payer_id'] );
+            
+            $this->session->set_flashdata('success', $this->lang->line('text_app_payment_primary_setted'));
+            
+            $webuser = $this->webuser_model->load_informations( $user_id );
+            
+            if(!empty($webuser))
+            {
+                $subject = "Updated Primary Payment Method";
+                $details = array(
+                    'fname'   => ucfirst( $webuser->webuser_fname ),
+                    'company' => 'Winjob',
+                    'slogan'  => 'Hire Talented Freelancers For a Low Cost',
+                    'para1'   => 'Your payment method has been updated for your account. If you did not make this change, please <a href="' . site_url() . 'contact" style="color: #0061A7; text-decoration: none;">contact us</a>.'
+                );
+                $this->Sesmailer->sesemail($result->webuser_email, $subject, $this->Emailtemplate->emailview('set_primary_payment', $details));
+            }
+        }
+        else
+        {
+            $this->session->set_flashdata('error', $this->lang->line('text_app_payment_method_not_found'));
+        }
+        
+        redirect(site_url("pay/billing"));
+    }
+    
+    
+    public function remove_method()
+    {
+        $this->isEmployer();
+        
+        $user_id   = $this->session->userdata('id');
+        $form_data = $this->input->post();
+        
+        $this->load->model(array('payment_methods_model'));
+        $method = $this->payment_methods_model->get_method_payment( $user_id, $form_data['service_payer_id'] );
+        
+        if( !empty($method) )
+        {
+            if($method->is_primary)
+            {
+                $this->session->set_flashdata('error', $this->lang->line('text_app_primary_payment_method_deletionçnot_allowed'));
+            }
+            else
+            {
+                $method = $this->payment_methods_model->soft_delete_payment_method( $user_id, $form_data['service_payer_id'] );
+                $this->session->set_flashdata('success', $this->lang->line('text_app_payment_method_deleted'));
+            }
+        }
+        else
+        {
+            $this->session->set_flashdata('error', $this->lang->line('text_app_payment_method_not_found'));
+        }
+        
+        redirect(site_url("pay/billing"));
+    }
+    
+    public function edit_card()
+    {
+        $this->isEmployer(); 
+        
+        $user_id   = $this->session->userdata('id');
+        $form_data = $this->input->post();
+        
+        $this->load->model(array('payment_methods_model'));
+        $method = $this->payment_methods_model->get_method_payment( $user_id, $form_data['service_payer_id'] );
+        
+        if( !empty($method) )
+        {
+            try
+            {
+                $this->load->model('common_mod');
+                $countries        = $this->common_mod->load_countries();
+                $service_payer_id = $form_data['service_payer_id'];
+                
+                $customer = \Stripe\Customer::retrieve( $service_payer_id );
+                $card     = $customer->sources->retrieve( $customer->default_source );
+                
+                return $this->twig->display('webview/payment/twig/update_credit_card', compact('user_id', 'countries', 'service_payer_id', 'card'));
+                
+            } catch (Exception $e) {
+                log_message('error', "Error when retreiving stripe customer... #" . $form_data['service_payer_id']);
+                $this->session->set_flashdata('error', $this->lang->line('text_app_stripe_error_customer_retreiving'));
+            }
+        }
+        else
+        {
+         $this->session->set_flashdata('error', $this->lang->line('text_app_payment_method_not_found'));
+        }
+        
+        redirect(site_url("pay/billing"));
+    }
+    
+    public function update_card_details(){
+        
+        $stripe_token = $this->input->post('stripeToken');
+        
+        if (!empty($stripe_token))
+        {
+            $customer_id = $this->input->post('customer_id');
+            $user_id     = $this->session->userdata('id'); 
+            
+            try 
+            {
+                $customer         = \Stripe\Customer::retrieve($customer_id); // stored in your application
+                $customer->source = $stripe_token;                            // obtained with Checkout
+                $customer->save();
+                $card_data        = $customer->sources->data[0];
+                
+                $webuser_payment_service = array(
+                    'service_description' => sprintf( $this->lang->line('text_app_card_ending_in'), $card_data->brand, $card_data->last4 ),
+                );
+                
+                $this->load->model(array('payment_methods_model'));
+                $this->payment_methods_model->update_method( $user_id, $customer_id, $webuser_payment_service );
+            
+                $this->session->set_flashdata('success', $this->lang->line('text_app_payment_method_updated'));
+            }
+            catch(\Stripe\Error\Card $e) 
+            {
                 $body = $e->getJsonBody();
                 $err  = $body['error'];
                 $error = $err['message'];
+                log_message('error', "Error when retreiving stripe customer... #" . $form_data['service_payer_id']);
+                $this->session->set_flashdata('error', $this->lang->line('text_app_payment_method_error_in_updating'));
+              
             }
-        } elseif ($sub == "add") {
-            $form_data = $this->input->post();
-            $token = $form_data['stripeToken'];
-            try {
-                // Create a Customer
-            $customer = \Stripe\Customer::create(array(
-              "source" => $token,
-              "description" => $form_data['fname']." ".$form_data['lname']." - ".$user_id)
-            );
-            } catch (Exception $e) {
-                echo $e->getMessage();
-                die();
-            }
-
-
-            $query = ("INSERT INTO ccdetails VALUES(NULL,".$this->db->escape($form_data['fname']).",".$this->db->escape($form_data['lname']).",".$this->db->escape(substr($form_data['cardNumber'], -4)).",".$this->db->escape($form_data['cvv']).",".$this->db->escape($form_data['month']).",".$this->db->escape($form_data['year']).",".$this->db->escape($form_data['country']).",".$this->db->escape($form_data['address']).",".$this->db->escape($form_data['address2']).",".$this->db->escape($form_data['city']).",".$this->db->escape($form_data['zip']).",".$this->db->escape(time()).",".$this->db->escape(time()).",".$this->db->escape($user_id).",'0')");
-            if ($this->db->query($query)) {
-                $insert_id = $this->db->insert_id();
-                $isPrimary = "";
-                if (primaryPaymentMethodExistance($user_id)) {
-                    $isPrimary = "0";
-                } else {
-                    $isPrimary = "1";
-                }
-                $bml_insert = array(
-              'belongsTo' => $user_id,
-              'paymentMethod' => 'stripe',
-              'attachedTo' => $insert_id,
-              'isPrimary' => $isPrimary,
-              'isDeleted' => 0
-            );
-
-                if ($this->db->insert('billingmethodlist', $bml_insert)) {
-                    if ($customer->id) {
-                        $query2 = ("INSERT INTO stripe_customerdetail VALUES(NULL, ".$this->db->escape($user_id).", ".$this->db->escape($customer).", ".$this->db->escape($customer->id).",".$this->db->escape($insert_id).")");
-                        if ($this->db->query($query2)) {
-                            header('Location: /pay/billing?addCard=success');
-                        }
-                    }
-                }
-            
-            //added by arjay
-            //get email and name of employer
-            $this->db->select('*');
-            $this->db->from('webuser');
-            $this->db->where('webuser_id', $user_id);
-            $query = $this->db->get();
-            $result = $query->row();
-
-            if ($query->num_rows() > 0) {
-                $fname = $result->webuser_fname;
-                $email = $result->webuser_email;
-            }
-
-            $subject = "Successfully Added Payment Method";
-            $details = array(
-                    'fname' => ucfirst($fname),
-                    'company' => 'Winjob',
-                    'slogan' => 'Hire Talented Freelancers For a Low Cost',
-                    'para1' => 'Your new payment method has been add for your account. If you did not make this change, please <a href="' . site_url() . 'contact" style="color: #0061A7; text-decoration: none;">contact us</a>.'
-                );
-                $response = $this->Sesmailer->sesemail($email, $subject, $this->Emailtemplate->emailview('set_primary_payment', $details));
-                
-            } else {
-                echo "error";
-            }
-          //print_r($form_data);
-          //$this->load->view('welcome_message');
-        } else {
-            header('Location: ../../Billing?from=addCC');
         }
+        
+        redirect(site_url("pay/billing"));
     }
-    public function addPP($sub = "")
-    {
-        if (empty($sub)) {
-            $form_data = $this->input->post();
-            if ($form_data['paypal_agreement'] == "yes") {
-                $user_id = $this->session->userdata('id');
-                $agreementPA = ppCreateInitialAgreement("USD");
-                if ($agreementPA['TOKEN'] != "") {
-                    header("Location: ".PAYPAL_USER_AUTH_URL.$agreementPA['TOKEN']);
-                } else {
-                    echo "error_agAP";
-                }
-            } else {
-                header("location: ../../");
-            }
-
-        //$token = $agreementPA->preapprovalKey;
-        //$payPalURL = PAYPAL_URL.$token;
-        //$insert_data = array('belongsTo' => $user_id,'PA_key' => $token,'dateadded' => time(), 'isActive' => "1");
-        //if($this->db->insert('paypal_PAkey', $insert_data)){
-        //  header('Location: '.$payPalURL);
-        //}else{
-        //  echo "here";
-        //}
-        } elseif ($sub == "ExecuteAgreement") {
-            if (isset($_GET['return']) && isset($_GET['token'])) {
-                $user_id = $this->session->userdata('id');
-                $url = PAYPAL_BILLING_API_URL;
-            //create Agreement HR
-            $fields = array(
-              'USER' => PAYPAL_API_USER,
-              'PWD' => PAYPAL_API_PASS,
-              'SIGNATURE' => PAYPAL_API_SIGN,
-              'METHOD' => 'CreateBillingAgreement',
-              'TOKEN' => $_GET['token'],
-              'VERSION' => 86
-            );
-                $result = hr_curl_post($url, $fields);
-                $bag = array();
-                parse_str($result, $bag);
-                if ($bag['BILLINGAGREEMENTID'] != "" && $bag['ACK'] == "Success") {
-                    //get payer's Data HR
-              $fields = array(
-                'USER' => PAYPAL_API_USER,
-                'PWD' => PAYPAL_API_PASS,
-                'SIGNATURE' => PAYPAL_API_SIGN,
-                'METHOD' => 'GetExpressCheckoutDetails',
-                'TOKEN' => $_GET['token'],
-                'VERSION' => 86
-              );
-                    $result = hr_curl_post($url, $fields);
-                    $details = array();
-                    parse_str($result, $details);
-                    if ($details['EMAIL'] != "") {
-                        $insert_data = array(
-                  'pp_fname' => $details['FIRSTNAME'],
-                  'pp_lname' => $details['LASTNAME'],
-                  'pp_email' => $details['EMAIL'],
-                  'agreement_id' => $bag['BILLINGAGREEMENTID'],
-                  'agreement_state' => $details['BILLINGAGREEMENTACCEPTEDSTATUS'],
-                  'payer_id' => $details['PAYERID'],
-                  'belongsTo' => $user_id,
-                  'dateadded' => time(),
-                  'completeObject' => serialize($details)
-                );
-                        if ($this->db->insert('paypal_object', $insert_data)) {
-                            $isPrimary = "";
-                            if (primaryPaymentMethodExistance($user_id)) {
-                                $isPrimary = "1";
-                            } else {
-                                $isPrimary = "1";
-                            }
-                            $insert_id2 = $this->db->insert_id();
-                            $insert_data2 = array(
-                    'belongsTo' => $user_id,
-                    'paymentMethod' => 'paypal',
-                    'attachedTo' => $insert_id2,
-                    'isPrimary' => $isPrimary,
-                    'isDeleted' => '0'
-                  );
-                            if ($this->db->insert('billingmethodlist', $insert_data2)) {
-                                header('Location: /pay/billing?addPP=success');
-                            }
-                        }
-                    }
-                }
-            } elseif (isset($_GET['cancel'])) {
-                echo "canceled";
-            }
-
-
-/*
-        //print_r($_GET);
-        //$form_data = $this->input->post();
-        //print_r($form_data);
-        $user_id = $this->session->userdata('id');
-        if(isset($_GET['success']) && $_GET['success'] == "true"){
-          $this->db->select('*');
-          $this->db->from('paypal_PAkey');
-          $this->db->where('paypal_PAkey.belongsTo',$user_id);
-          $this->db->where('paypal_PAkey.isActive', "1");
-          $query_getPA = $this->db->get()->result();
-          //print_r($query_getPA[0]->PA_key);
-          if($query_getPA[0]->PA_key != NULL){
-            $requestEnvelope = new RequestEnvelope("en_US");
-            $preapprovalDetailsRequest = new PreapprovalDetailsRequest($requestEnvelope, $query_getPA[0]->PA_key);
-            $service = new AdaptivePaymentsService(Configuration::getAcctAndConfig());
-            try{
-              $response = $service->PreapprovalDetails($preapprovalDetailsRequest);
-              //header("Content-Type: text/plain");
-              //print_r($response);die();
-              $insert_data5 = array(
-                'email' => $response->senderEmail,
-                'paypal_accID' => $response->sender->accountId,
-                'dateadded' => time(),
-                'completeObject' => serialize($response),
-                'belongsTo' => $user_id,
-                'PA_key' => $query_getPA[0]->PA_key
-              );
-
-              if($this->db->insert('paypal_PA_object', $insert_data5)){
-                $insert_id2 = $this->db->insert_id();
-                $insert_data2 = array(
-                  'belongsTo' => $user_id,
-                  'paymentMethod' => 'paypal',
-                  'attachedTo' => $insert_id2,
-                  'isPrimary' => '0',
-                  'isDeleted' => '0'
-                );
-                if($this->db->insert('billingmethodlist', $insert_data2)){
-                  header('Location: /pay/billing?addPP=success');
-                }else{
-                  echo 'error_bml';
-                }
-
-              }else{
-                echo 'error_2';
-              }
-
-            }catch(Exception $ex){
-              echo $ex;
-            }
-          }else{
-            echo "error_invalid";
-          }
-        }else{
-          echo 'error_s';
-        }
-*/
-        } elseif ($sub == "chargePP") {
-        }
-
-
-/*
-      $apiContext = new \PayPal\Rest\ApiContext(
-          new \PayPal\Auth\OAuthTokenCredential(PAYPAL_CID,PAYPAL_CIDS)
-      );
-      if(empty($sub)){
-          $form_data = $this->input->post();
-
-          $updatedPlan = ppCreateInitialPlan();
-          //header('content-type: text/plain');
-          //print_r($updatedPlan);
-
-          $agreement = new Agreement();
-          $agreement->setName('Base Agreement')
-            ->setDescription('Basic Agreement')
-            ->setStartDate(gmdate("Y-m-d\TH:i:s\Z", time()+20));
-
-
-          $plan = new Plan();
-          $plan->setId($updatedPlan->getId());
-
-          $agreement->setPlan($plan);
-          $payer = new Payer();
-          $payer->setPaymentMethod('paypal');
-          $agreement->setPayer($payer);
-
-          try{
-            $agreement = $agreement->create($apiContext);
-            $approvalUrl = $agreement->getApprovalLink();
-            header('Location: '.$approvalUrl);
-          }catch(Exception $ex){
-            echo $ex->getCode(); // Prints the Error Code
-            echo $ex->getData(); // Prints the detailed error message
-            die($ex);
-          }
-
-      }elseif($sub = "ExecuteAgreement"){
-          if (isset($_GET['success']) && $_GET['success'] == 'true') {
-            $token = $_GET['token'];
-            $agreement = new \PayPal\Api\Agreement();
-
-            try{
-              $agreement->execute($token, $apiContext);
-              $insert_data = array(
-                'pp_fname' => $agreement->payer->payer_info->first_name,
-                'pp_lname' => $agreement->payer->payer_info->last_name,
-                'pp_email' => $agreement->payer->payer_info->email,
-                'agreement_id' => $agreement->id,
-                'agreement_state' => $agreement->state,
-                'payer_id' => $agreement->payer->payer_info->payer_id,
-                'belongsTo' => $user_id,
-                'dateadded' => time(),
-                'completeObject' => $agreement
-              );
-              if($this->db->insert('paypal_object', $insert_data)){
-                $insert_id2 = $this->db->insert_id();
-                $insert_data2 = array(
-                  'belongsTo' => $user_id,
-                  'paymentMethod' => 'paypal',
-                  'attachedTo' => $insert_id2,
-                  'isPrimary' => '0',
-                  'isDeleted' => '0'
-                );
-                if($this->db->insert('billingmethodlist', $insert_data2)){
-                  header('Location: /pay/billing?addPP=success');
-                  //header('content-type: text/plain');
-                  //echo $agreement."\n\n";
-                  //print_r($apiContext);
-                  //updateOutstandingAgreementAmmount('a','a','a');
-                  //echo "done";
-                }else{
-                  echo "error: 47-pp-ins";
-                }
-              }else{
-                echo "error";
-              }
-
-            }catch (Exception $ex){
-              echo $ex;
-            }
-
-
-          }
-      }
-*/
-    }
-    public function makePrimary()
-    {
-        $user_id = $this->session->userdata('id');
-        $form_data = $this->input->post();
-        if ($form_data['makePrimary'] == "yes") {
-            $method = $form_data['method'];
-            $id = $form_data['id'];
-            $type = '';
-            switch ($form_data['method']) {
-          case 'card':
-            $type = "stripe";
-            break;
-          case 'paypal':
-            $type = "paypal";
-            break;
-        }
-            $this->db->select('*');
-            $this->db->from('billingmethodlist');
-            $this->db->where("billingmethodlist.belongsTo", $user_id);
-            $this->db->where("billingmethodlist.isPrimary", "1");
-            $query_getPrimary = $this->db->get()->result();
-            if (count($query_getPrimary) > 0) {
-                $updateArray['isPrimary'] = "0";
-                $this->db->where("billingmethodlist.belongsTo", $user_id);
-                $this->db->where("billingmethodlist.sr", $query_getPrimary[0]->sr);
-                $this->db->update("billingmethodlist", $updateArray);
-          //print_r($query_getPrimary[0]->sr);die();
-            }
-            $updateArray['isPrimary'] = "1";
-            $this->db->where("billingmethodlist.belongsTo", $user_id);
-            $this->db->where("billingmethodlist.paymentMethod", $type);
-            $this->db->where("billingmethodlist.attachedTo", $id);
-            $this->db->update("billingmethodlist", $updateArray);
-            
-            //added by arjay
-            //get email and name of employer
-            $this->db->select('*');
-            $this->db->from('webuser');
-            $this->db->where('webuser_id', $user_id);
-            $query = $this->db->get();
-            $result = $query->row();
-
-            if ($query->num_rows() > 0) {
-                $fname = $result->webuser_fname;
-                $email = $result->webuser_email;
-            }
-
-            $subject = "Updated Primary Payment Method";
-            $details = array(
-                    'fname' => ucfirst($fname),
-                    'company' => 'Winjob',
-                    'slogan' => 'Hire Talented Freelancers For a Low Cost',
-                    'para1' => 'Your payment method has been updated for your account. If you did not make this change, please <a href="' . site_url() . 'contact" style="color: #0061A7; text-decoration: none;">contact us</a>.'
-                );
-                $response = $this->Sesmailer->sesemail($email, $subject, $this->Emailtemplate->emailview('set_primary_payment', $details));
-
-            header('Location: ../pay/billing?primary=changed');
-        }
-    }
-    public function removePaymentMethod()
-    {
-        $user_id = $this->session->userdata('id');
-        $form_data = $this->input->post();
-        if ($form_data['remove'] == "yes") {
-            $type = '';
-            switch ($form_data['type']) {
-          case 'card':
-            $type = "stripe";
-            break;
-          case 'paypal':
-            $type = "paypal";
-            break;
-        }
-            $id = $form_data['id'];
-            $updateArray['isDeleted'] = "1";//array('isDeleted' => 1);
-        $this->db->where("billingmethodlist.belongsTo", $user_id);
-            $this->db->where("billingmethodlist.paymentMethod", $type);
-            $this->db->where("billingmethodlist.attachedTo", $id);
-            $this->db->where("billingmethodlist.isPrimary", "0");
-            $this->db->update("billingmethodlist", $updateArray);
-            $this->db->trans_complete();
-            if ($this->db->affected_rows() == '1') {
-                header('Location: ../pay/billing?delete=true');
-            } else {
-                header('Location: ../pay/billing?delete=false');
-            }
-        }
-      //print_r($form_data);
-    }
-    //payment function by haseeburrehman.com ends
     
     public function balance(){
         
@@ -773,90 +586,13 @@ class Pay extends Winjob_Controller
 
     public function billing()
     {
-        if ($this->Adminlogincheck->checkx()) {
-            if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
-            }
-            $data = array();
-            $data = array(
-                'page' => "profilesetting",
-                'name' => $this->session->userdata('fname') . " " . $this->session->userdata('lname'),
-                'id' => $this->session->userdata('id'),
-                'js' => array(),
-                'jsf' => array(
-                    "assets/js/layerslider.transitions.js",
-                    "assets/js/layerslider.kreaturamedia.jquery.js",
-                    "assets/js/owl.carousel.min.js",
-                    "assets/js/homepage.js",
-                    "assets/js/jqiery-ui.js"
-                ),
-                'css' => array(
-                    "assets/css/layerslider.css",
-                    "assets/css/owl.carousel.css",
-                    "assets/css/owl.theme.css"
-                ),
-                'open' => "profile",
-                'openSub' => "profile-bio",
-                'skillList' => array(
-                    "Java", "PHP", "HTML", "CSS", "Javascript", "Jquery"
-                ),
-               // 'projectCateList' => $value['projectCateList'],
-            );
-            $user_id = $this->session->userdata('id');
-            $this->db->select('*');
-            //updated by haseeburrehman.com starts -
-            $this->db->from('billingmethodlist');
-            $this->db->where('billingmethodlist.belongsTo', $user_id);
-            $this->db->where('billingmethodlist.paymentMethod', "stripe");
-            $this->db->where('billingmethodlist.isDeleted', "0");
-            $this->db->join('ccdetails', 'ccdetails.sr = billingmethodlist.attachedTo', 'inner');
-            $this->db->join('stripe_customerdetail', 'stripe_customerdetail.attachedTo = billingmethodlist.attachedTo', 'left');
-            //updated by haseeburrehman.com ends
-            $query = $this->db->get();
-            $result = $query->result();
-            $data['cards'] = $result;
-
-            //updated by haseeburrehman.com starts -
-            $this->db->select('*');
-            $this->db->from('billingmethodlist');
-            $this->db->where('billingmethodlist.belongsTo', $user_id);
-            $this->db->where('billingmethodlist.paymentMethod', "paypal");
-            $this->db->where('billingmethodlist.isDeleted', "0");
-            $this->db->join('paypal_object', 'paypal_object.sr = billingmethodlist.attachedTo', 'inner');
-            $query = $this->db->get();
-            $result = $query->result();
-            $data['paypals'] = $result;
-            //updated by haseeburrehman.com ends
-
-
-
-            $this->Admintheme->webview("payment/billing", $data);
-        }
+        $this->isEmployer();
+        
+        $this->load->model(array('payment_methods_model'));
+        $all_payment_methods = $this->payment_methods_model->get_all( $this->session->userdata("id") );
+        $this->twig->display('webview/payment/twig/billing', compact('all_payment_methods'));
     }
 
-    public function methods_paypal()
-    {
-        if ($this->Adminlogincheck->checkx()) {
-            if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
-            }
-            $data = array();
-
-            $this->Admintheme->webview("payment/methods-paypal", $data);
-        }
-    }
-
-    public function methods_card()
-    {
-        if ($this->Adminlogincheck->checkx()) {
-            if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
-            }
-            $data = array();
-
-            $this->Admintheme->webview("payment/methods-card", $data);
-        }
-    }
 
     public function remaining( )
     {

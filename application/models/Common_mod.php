@@ -195,6 +195,14 @@ class Common_mod extends CI_Model{
         }
         return $query;
     }
+    
+    public function load_countries(){
+        return $this->db
+                    ->select(array('country_id', 'country_name', 'country_shortcode'))
+                    ->from('country')
+                    ->where('country_status', 1)
+                    ->order_by('country_name asc')
+                    ->get()
+                    ->result();
+    }
 }
-
-?>

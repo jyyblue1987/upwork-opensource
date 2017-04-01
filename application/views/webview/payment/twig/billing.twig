@@ -1,0 +1,66 @@
+{% extends "webview/layout/twig/layout.twig" %}
+
+{% block title %}  
+    {{ app_lang('text_app_billing') }} - Winjob
+{% endblock %}
+
+{% block styles %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/billing.css") }}">
+{% endblock %}
+
+{% block content %}
+
+    <section id="mid_content">
+        <div class="container white-box" style="margin-top: 40px;margin-bottom: 40px;padding:10px; border:1px solid #ccc;width: 970px !important;min-height: 403px;">
+            <div class="row  ">  
+                <div class="col-xs-12 col-sm-3 col-md-3 ">
+                    {{ include("webview/profile/partials/left-sidebar.twig", { financial_opened: true, billing_methods_active: true }) }}
+                </div>
+                
+                <div style="padding-left: 30px;" class="col-xs-12 col-sm-9 col-md-9 align-left ">
+                    <div style="margin-bottom: 32px;" class="row title-line">
+                        <div class="abc" style="padding-bottom: 10px;">
+                            <h3 style="margin-bottom: -1px;">{{ app_lang('text_app_billing_payment_processing') }}</h3>
+                        </div> 
+                        <div class="abd" style="padding:7px;padding-right: 0;"> 
+                             <a style="border: 1px;" class="btn btn-default cus_add_billing_method" href="{{ site_url("pay/add-card") }}">
+                                {{ app_lang('text_app_add_billing_payment_method') }}
+                             </a> 
+                        </div>
+                    </div>
+                             
+                    <div class="row">
+                        <div class="oMain">
+                            <div class="jsPaymentListWidget">
+                                <table style="width: 97.5%;" class="oTable">
+                                    <thead>
+                                        <tr>
+                                            <th class="col1of5 th-head">Billing Method</th>
+                                            <th class="th-head"> AutoPay Status</th>
+                                            <th class="txtCenter th-head">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for method in all_payment_methods %}
+                                            {{ include("webview/payment/partials/method.twig") }}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                <div class="jsChangePrimaryText oHidden"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+                            
+{% endblock %}
+
+{% block js %}
+    <script src="{{ site_url("assets/js/vendor/jquery-2.2.3.min.js") }}"></script>
+    <script src="{{ site_url("assets/js/bootstrap.min.js") }}"></script>
+    <script src="{{ app_modular_js("pages/billing.js") }}"></script>
+{% endblock %}

@@ -18,7 +18,7 @@
                         <h3 style="margin-bottom: -1px;">Billing &amp; Payment Processing</h3>
                     </div> 
                     <div class="abd" style="padding:7px;padding-right: 0;"> 
-                         <a style="border: 1px;" class="btn btn-default cus_add_billing_method" href="<?php echo site_url("pay/methods_card"); ?>">Add Billing Method </a> 
+                         <a style="border: 1px;" class="btn btn-default cus_add_billing_method" href="<?php echo site_url("pay/add-card"); ?>">Add Billing Method </a> 
                     </div>
                 </div> 
                 <div class="row">

@@ -1,0 +1,53 @@
+{% extends "webview/layout/twig/layout.twig" %}
+
+{% block title %}  
+    {{ app_lang('text_app_title_update_credit_card') }} - Winjob
+{% endblock %}
+
+{% block styles %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/add-credit-card.css") }}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="custom_content" style="margin-top: 40px;">
+        <h2 style="text-align: center; margin-bottom: 35px; margin-top: 2px;">
+            {{ app_lang("text_app_update_credit_card_detail")|format(card.brand,  card.last4) }}
+        </h2>
+
+        <section class="form_area custom_mpayment_may">
+            <form class="form-horizontal text-center" id="add-credit-card-form" action="{{ site_url('pay/update_card_details') }}" method="post">
+                <input type='hidden' name='{{ csrf_name() }}' value='{{ csrf_token() }}'>
+                <input type='hidden' name='customer_id' value='{{ service_payer_id }}'>
+                <div class="col-xs-12">
+                    
+                    <script
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="{{ constant('STRIPE_PK') }}"
+                    data-name="WINJOB"
+                    data-panel-label="Update Card Details"
+                    data-label="Update Card Details"
+                    data-allow-remember-me=false
+                    data-email=""
+                    data-locale="auto">
+                    </script>
+                    
+                </div>
+                <div class="clear clearfix"></div>
+            </form>
+        </section>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="{{ site_url("assets/js/vendor/jquery-2.2.3.min.js") }}"></script>
+    <script src="{{ site_url("assets/js/bootstrap.min.js") }}"></script>
+    <script src="https://js.stripe.com/v2/"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="text/javascript">
+        var public_stripe_key = '{{ constant('STRIPE_PK') }}';
+    </script>
+    <script src="{{ app_modular_js("pages/update-credit-card.js") }}"></script>
+{% endblock %}
