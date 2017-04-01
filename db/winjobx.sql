@@ -6121,16 +6121,45 @@ INSERT INTO `workdairy_tracker` (`worktracker_id`, `jobid`, `bid_id`, `cuser_id`
 
 ALTER TABLE `job_workdairy` CHANGE `starting_hour` `starting_hour` DATETIME NOT NULL, CHANGE `ending_hour` `ending_hour` DATETIME NOT NULL;
 
-CREATE TABLE `payment_services` 
-( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT , 
- `user_id` INT NOT NULL , 
- `service_name` VARCHAR(255) NOT NULL , 
- `is_primary` BOOLEAN NOT NULL , 
- `is_deleted` BOOLEAN NOT NULL , 
- `service_payer_id` VARCHAR(255) NOT NULL,
- PRIMARY KEY (`id`),
- KEY `id` (`id`)
-) ENGINE = InnoDB;
+DROP TABLE IF EXISTS `payment_services`;
+CREATE TABLE `payment_services` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `service_description` varchar(255) NOT NULL,
+  `service_name` varchar(255) NOT NULL,
+  `is_primary` tinyint(1) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `service_payer_id` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `payment_services`
+--
+
+INSERT INTO `payment_services` (`id`, `user_id`, `service_description`, `service_name`, `is_primary`, `is_deleted`, `service_payer_id`) VALUES
+(4, 18, 'personal@winjob.com', 'paypal', 1, 0, 'B-4KM10611LT757154G'),
+(5, 18, 'Diners Club ending in 3237', 'stripe', 0, 0, 'cus_AOcBX5xN4zByCc');
+
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `payment_services`
+--
+ALTER TABLE `payment_services`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id` (`id`);
+
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
+
+--
+-- AUTO_INCREMENT pour la table `payment_services`
+--
+ALTER TABLE `payment_services`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
