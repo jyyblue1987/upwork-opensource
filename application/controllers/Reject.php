@@ -93,7 +93,7 @@ class Reject extends CI_Controller {
                    'lname' => $_rejects->webuser_lname,
                    'user_id' => $_rejects->webuser_id,
                    'job_id' => $_rejects->job_id,
-                   'bid_id' => $_rejects->id,
+                   'bid_id' => $_rejects->bid_id,
                    'bid_amount' => $_rejects->bid_amount,
                    'country' => ucfirst($country['country_name']),
                    'letter' => $_rejects->cover_latter,

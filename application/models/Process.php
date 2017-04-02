@@ -28,7 +28,7 @@ class Process extends CI_Model {
 
     function get_rejected($job_id) {
         $this->db
-                ->select('*')
+                ->select('*, job_bids.id as bid_id')
                 ->from('job_bids')
                 ->join('webuser', 'webuser.webuser_id = job_bids.user_id', 'inner')
                 ->join('country', 'country.country_id = webuser.webuser_country', 'inner')
