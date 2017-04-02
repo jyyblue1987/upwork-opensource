@@ -91,7 +91,7 @@ class Reject extends CI_Controller {
                    'pic' => $_pic,
                    'fname' => $_rejects->webuser_fname,
                    'lname' => $_rejects->webuser_lname,
-                   'user_id' => $_rejects->user_id,
+                   'user_id' => $_rejects->webuser_id,
                    'job_id' => $_rejects->job_id,
                    'bid_id' => $_rejects->id,
                    'bid_amount' => $_rejects->bid_amount,
