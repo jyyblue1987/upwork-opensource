@@ -33,21 +33,21 @@ span.rating-badge {
 .review_ratting {
 	margin-left: 49px;
 }
- .user_skills span {
-	background: #ccc none repeat scroll 0 0;
-	border: 1px solid #ccc;
-	border-radius: 3px;
-	color: #494949;
-	display: inline-block;
-	font-size: 12px;
-	margin-bottom: 4px;
-	padding: 1px 5px 1px 5px;
-	margin-right: 2px;
+.user_skills span {
+    background: #ccc none repeat scroll 0 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: #494949;
+    display: inline-block;
+    font-size: 12px;
+    margin-bottom: 4px;
+    padding: 1px 5px 1px 5px;
+    margin-right: 2px;
 }
-    .user_skills span:hover {
-    background: #008329;
-    color: #fff;
-    }  
+.user_skills span:hover {
+background: #008329;
+color: #fff;
+}
 .client-job-activity-current li, .last-element {
 	padding-top: 20px;
 	padding-bottom: 21px;
@@ -221,12 +221,15 @@ span.rating-badge {
                                     <div class="row margin-top-1">
                                         <div class="col-md-1">
                                         <span class="gray-text" style="font-size:14px;">Skills</span></div>
-                                        <div class="col-md-11 text-left skills">  
+                                        <div class="col-md-11 text-left skills">
+                                            
+                                       <div class="user_skills">
                                             <?php foreach($value['skills'] AS $skills){
                                                 echo '<span>'.$skills["skill_name"].'</span>';
                                             }
 
                                             ?>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>

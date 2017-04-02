@@ -30,9 +30,12 @@ class Process extends CI_Model {
         $this->db
                 ->select('*')
                 ->from('job_bids')
-                ->where('job_id', $job_id)
-                ->where('hired', '0')
-                ->where('(withdrawn = 1 OR bid_reject = 1)');
+                ->join('webuser', 'webuser.webuser_id = job_bids.user_id', 'inner')
+                ->join('country', 'country.country_id = webuser.webuser_country', 'inner')
+                ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
+                ->where('job_bids.job_id', $job_id)
+                ->where('job_bids.hired', '0')
+                ->where('(job_bids.withdrawn = 1 OR job_bids.bid_reject = 1)');
         $query = $this->db->get();
 
         $return_array = array();
@@ -48,6 +51,7 @@ class Process extends CI_Model {
                 ->select('*')
                 ->from('job_conversation')
                 ->join('job_bids', 'job_conversation.bid_id = job_bids.id', 'inner')
+                ->join('webuser', 'webuser.webuser_id=job_bids.user_id', 'left')
                 ->where('job_conversation.sender_id', $user_id)
                 ->where('job_conversation.job_id', $job_id)
                 ->where('job_bids.bid_reject', 0)
@@ -119,12 +123,12 @@ class Process extends CI_Model {
     function get_bids($job_id){
         $this->db
                 ->join('webuser', 'webuser.webuser_id = job_bids.user_id', 'left')
-                ->order_by('job_bids.id', 'desc')
                 ->where('job_bids.job_progres_status', 0)
                 ->where('job_bids.withdrawn',  NULL)
                 ->where('job_id', $job_id)
                 ->where('bid_reject', 0)
-                ->where('status != 1');
+                ->where('status != 1')
+                ->order_by('job_bids.id', 'desc');
         $query = $this->db->get('job_bids');
         
         $return_array = array();
