@@ -63,20 +63,14 @@ if(!empty($active_offer)){
 }
 
 if(!empty($active_interview)){
-    $a = 1;
     foreach($active_interview as $interview){
         if($interview->jbid_id !=""){
                 continue;
         }
-        $a++;
     }
-    if($a != 1){
-            $interview_cnt = $a;
-            $msg = $a." Interview Available";
-    } else {
-            $interview_cnt = 0;
-            $msg = "No Interview Available";
-    }
+    $interview_cnt = count($active_interview);
+    $msg = $interview_cnt." Interview Available";
+    
 }else{
     $interview_cnt = 0;
     $msg = "No Interview Available";

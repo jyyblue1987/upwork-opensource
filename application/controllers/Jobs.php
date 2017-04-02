@@ -1709,94 +1709,98 @@ class Jobs extends Winjob_Controller {
                 redirect(site_url("find-jobs"));
             }
 
-            $jobId = base64_decode($jobId);
-            $sender_id = $this->session->userdata(USER_ID);
+            $budget = 0;
+            $total_work = 0;
+            $feedbackScore = 0;
 
+            $records = array();
+            $_price = array();
+            $_freelancer = array();
+            
+            $job_id = base64_decode($jobId);
+            $bids = $this->process->get_bids($job_id);
+            $emp = $this->employer->is_active();
+            $job_details = $this->process->get_job_details($job_id);
 
+            $applicants = $this->process->get_applications($job_id);
+            $rejects = $this->process->get_rejected($job_id);
+            $offers = $this->process->get_offers($job_id);
+            $hires = $this->process->get_hires($this->user_id, $job_id);
+            $interviews = $this->process->get_interviews($this->user_id, $job_id);
+            
+            foreach($interviews['data'] AS $_interviews){
+               $ended_jobs = $this->process->cnt_ended_jobs($_interviews->user_id);
+               $freelancer_profile = $this->ProfileModel->get_profile($_interviews->user_id);
+               $accepted_jobs = $this->process->accepted_jobs($_interviews->user_id);
+               $pic = $this->Adminforms->getdatax("picture", "webuser", $_interviews->user_id);
+               $country = $this->ProfileModel->get_country($_interviews->webuser_country);
+               $skills = $this->ProfileModel->get_skills($_interviews->user_id);
+               $user_rating = $this->Webuser_model->get_total_rating($_interviews->user_id);
+               $_pic = $pic != "" ? $pic : "assets/user.png";
 
-            $this->db->join('webuser', 'webuser.webuser_id=job_bids.user_id', 'left');
-            $this->db->join('job_conversation', 'job_conversation.bid_id=job_bids.id', 'inner');
-            $this->db->group_by('job_conversation.bid_id');
-            $this->db->order_by("job_bids.id", "desc");
-            // added by jahid start 
-            $query = $this->db->get_where('job_bids', array('job_bids.job_id' => $jobId, 'bid_reject' => 0, 'job_bids.status!=1' => null,'job_bids.job_progres_status'=>1,'job_bids.withdrawn'=>NULL));
-             // added by jahid end 
-            //$this->db->last_query();
-            $records = $query->result();
+               foreach($accepted_jobs AS $a_jobs){
+                   $feedbacks = $this->process->get_feedbacks($a_jobs->fuser_id, $a_jobs->job_id);
+                   $diary = $this->Job_work_diary_model->get_work_hours($a_jobs->fuser_id, $a_jobs->job_id);
 
-            $this->db->select('*');
-            $this->db->from('job_conversation');
-            $this->db->join('job_bids', 'job_conversation.bid_id=job_bids.id', 'inner');
-            $this->db->where('job_conversation.sender_id', $sender_id);
-            $this->db->where('job_conversation.job_id', $jobId);
-            $this->db->where('job_bids.bid_reject', 0);
-                          // added by jahid start 
-             $this->db->where('job_bids.job_progres_status', 1);
-             $this->db->where(array('job_bids.withdrawn' => NULL)); 
-             // added by jahid end 
-            $this->db->group_by('job_conversation.bid_id');
-            $query = $this->db->get();
-            $conversation_count = $query->num_rows();
+                    foreach($diary AS $_diary){
+                        $total_work += $_diary->total_hour;
+                    }
+                    
+                   if($a_jobs->jobstatus == 1){
+                       if(!empty($feedbacks)){
+                            if($a_jobs->job_type == 'fixed'){
+                                $price = $a_jobs->fixedpay_amount;
+                                $feedbackScore += ($feedbacks['feedback_score'] * $price);
+                                $budget += $price;
+                            }else{
+                                
+                                if($a_jobs['offer_bid_amount']){
+                                    $amount = $a_jobs->offer_bid_amount;
+                                }else{
+                                    $amount = $a_jobs->bid_amount;
+                                }
 
-            $this->db->where('id', $jobId);
-            $q = $this->db->get('jobs');
-            $jobDetails = $q->row();
+                                $price = $a_jobs->fixedpay_amount * $amount;
+                                $feedbackScore += ($feedbacks['feedback_score'] * $price);
+                                $budget += $price;
+                            }
+                        }
+                    }
+                }
 
-            // total number of job
-            $this->db->select('*');
-            $this->db->from('job_bids');
-                          // added by jahid start  
-             // added by jahid end 
-              $this->db->where(array('job_id' => $jobId, 'bid_reject' => 0, 'status!=1' => null,'job_progres_status'=>0,'withdrawn'=>NULL));
-            $query_totalApplication = $this->db->get();
-            $Application_count = $query_totalApplication->num_rows();
-            //echo $Application_count; exit;
+                $records[] = array(
+                   'ended_jobs' => $ended_jobs,
+                   'tagline' => ucfirst($freelancer_profile['tagline']),
+                   'budget' => $budget,
+                   'feedback_score' => $feedbackScore,
+                   'total_work' => $total_work,
+                   'pic' => $_pic,
+                   'fname' => $_interviews->webuser_fname,
+                   'lname' => $_interviews->webuser_lname,
+                   'user_id' => $_interviews->user_id,
+                   'job_id' => $_interviews->job_id,
+                   'bid_id' => $_interviews->id,
+                   'bid_amount' => $_interviews->bid_amount,
+                   'country' => ucfirst($country['country_name']),
+                   'letter' => $_interviews->cover_latter,
+                   'skills' => $skills,
+                   'rating' => $user_rating
+                );
+            }
 
-            //Offer count
-            $this->db->select('*');
-            $this->db->from('job_bids');
-              // added by jahid start 
-             $this->db->where('job_bids.job_progres_status', 2);
-             $this->db->where(array('job_bids.withdrawn' => NULL)); 
-             // added by jahid end 
-            $this->db->where(array('job_id' => $jobId, 'hired' => '1'));
-            $query_totaloffer = $this->db->get();
-            $Offer_count = $query_totaloffer->num_rows();
-
-            //hire
-            $this->db->select('*');
-            $this->db->from('job_accepted');
-            $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-            $this->db->where('job_accepted.buser_id', $sender_id);
-            $this->db->where('job_accepted.job_id', $jobId);
-            $this->db->where('job_bids.jobstatus', '0');
-                          // added by jahid start 
-             $this->db->where('job_bids.job_progres_status', 3);
-             $this->db->where(array('job_bids.withdrawn' => NULL)); 
-             // added by jahid end 
-            $query = $this->db->get();
-            $hire_count = $query->num_rows();
-
-
-            // reject count
-            $this->db->select('*');
-            $this->db->from('job_bids');
-            // added by Jahid start 
-            $this->db->where(array('job_id' => $jobId));
-             $this->db->where("(job_bids.withdrawn=1 OR job_bids.bid_reject=1)", NULL, FALSE);
-             // added by Jahid end 
-            $query_totalreject = $this->db->get();
-            $reject_count = $query_totalreject->num_rows();
-
-            $this->db->select('*');
-            $this->db->from('webuser');
-            $this->db->where('webuser.webuser_id', $sender_id);
-            $query_status = $this->db->get();
-            $ststus = $query_status->row();
-
-
-
-            $data = array('jobId' => $jobId, 'records' => $records, 'jobDetails' => $jobDetails, 'interview_count' => $conversation_count, 'hire_count' => $hire_count, 'Application_count' => $Application_count, 'Offer_count' => $Offer_count, 'reject_count' => $reject_count, 'ststus' => $ststus, 'title' => 'Interviews - Winjob');
+            $data = array(
+                'records' => $records,
+                'jobId' => base64_encode($job_id),
+                'status' => $emp,
+                'applicants' => $applicants['rows'],
+                'rejects' => $rejects['rows'],
+                'offers' => $offers['rows'],
+                'hires' => $hires['rows'],
+                'interviews' => $interviews['rows'],
+                'job_type' => ucfirst($job_details['job_type']),
+                'job_title' => ucwords($job_details['title']),
+                'title' => 'Interviews - Winjob'
+            );
             $this->Admintheme->webview("jobs/interviews", $data);
         }
     }

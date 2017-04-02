@@ -349,14 +349,14 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
                          $withdrawn=$conversation_msg_count[0]->withdrawn;
                          $bid_reject=$conversation_msg_count[0]->bid_reject;
                          $withdrawn_by=$conversation_msg_count[0]->withdrawn_by;
-                       
-                                            if ($job_progres_status==0 && !($withdrawn==1 ||bid_reject==1) ) { ?>
+
+                                            if ($job_progres_status==0 && !($withdrawn==1 ||$bid_reject==1) ) { ?>
                                             <div style="margin-bottom: 11px;" class="col-md-12 col-sm-12 decline-line">
                                                 <i class="fa fa-times-circle" aria-hidden="true"></i> 
                                                 <small><a href="javascript:void(0)" onclick="Confirmdecline(<?php echo $job_info[0]->id;?>);">Decline Candidate </a></small>
                                             </div>
                                             <?php }
-                                            else if($withdrawn==1 ||bid_reject==1)
+                                            else if($withdrawn==1 || $bid_reject==1)
                                             {
                                             if($withdrawn_by==1)
                                             {
