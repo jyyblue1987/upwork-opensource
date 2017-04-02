@@ -339,9 +339,7 @@ class Pay extends Winjob_Controller
             catch(\Stripe\Error\Card $e) 
             {
                 $body = $e->getJsonBody();
-                $err  = $body['error'];
-                $error = $err['message'];
-                log_message('error', "Error when retreiving stripe customer... #" . $form_data['service_payer_id']);
+                log_message('error', "Error when retreiving stripe customer... #" . $form_data['service_payer_id'] . PHP_EOL . json_encode($body, JSON_PRETTY_PRINT, 512));
                 $this->session->set_flashdata('error', $this->lang->line('text_app_payment_method_error_in_updating'));
               
             }
