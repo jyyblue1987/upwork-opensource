@@ -161,8 +161,29 @@ class Work_diary extends Winjob_Controller{
                 
                 $job_work_diary_data = $this->_ajax_data_validation();
                 
-                $this->job_work_diary_model->insert( $job_work_diary_data );
-                $this->job_work_diary_model->update_work_tracker( $job_work_diary_data );
+                //$this->job_work_diary_model->insert( $job_work_diary_data );
+                //$this->job_work_diary_model->update_work_tracker( $job_work_diary_data );
+                
+                //create or update an invoice.
+                $this->load->library('winjob_payment');
+                $this->load->model(array('payment_methods_model', 'invoice_model'));
+                
+                //Load winjob payment library related to the primary payment service of current user.
+                // 1. fetch primary service and build the related library name.
+                // 2. and load the corresponding library.
+                $primary_service = $this->payment_methods_model->get_primary_method_payment( $job_work_diary_data['cuser_id'] );
+                $payment_service = 'winjob_' . strtolower($primary_service);
+                $this->load->library( $payment_service );
+                
+                //set the primary payment service for the payment library
+                $this->winjob_payment->set_payment_service( $this->{$payment_service} );
+                
+                //load invoice of the current contract for the current week
+                $invoice = $this->invoice_model->make_invoice( $contract_id );
+                
+                $this->ajax_response( array( $invoice ) );
+                
+                $this->winjob_payment->invoice( $job_work_diary_data['bid_id'], $invoice );
                 
                 $this->ajax_response( array(
                     'status'    => 'success', 
