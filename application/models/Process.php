@@ -92,7 +92,11 @@ class Process extends CI_Model {
         $this->db
                 ->select('*')
                 ->from('job_accepted')
+                ->join('webuser', 'webuser.webuser_id=job_accepted.fuser_id', 'inner')
+                ->join('webuser_basic_profile', 'webuser_basic_profile.webuser_id=webuser.webuser_id', 'inner')
                 ->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner')
+                ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
+                ->join('country', 'country.country_id=webuser.webuser_country', 'inner')
                 ->where('job_accepted.buser_id', $user_id)
                 ->where('job_accepted.job_id', $job_id)
                 ->where('job_bids.hired', '0')

@@ -68,7 +68,7 @@ class Reject extends CI_Controller {
                                 $budget += $price;
                             }else{
                                 
-                                if($a_jobs['offer_bid_amount']){
+                                if($a_jobs->offer_bid_amount){
                                     $amount = $a_jobs->offer_bid_amount;
                                 }else{
                                     $amount = $a_jobs->bid_amount;
