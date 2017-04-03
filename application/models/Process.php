@@ -70,8 +70,11 @@ class Process extends CI_Model {
 
     function get_offers($job_id) {
         $this->db
-                ->select('*')
+                ->select('*, job_bids.id as bid_id')
                 ->from('job_bids')
+                ->join('webuser', 'webuser.webuser_id = job_bids.user_id', 'inner')
+                ->join('country', 'country.country_id = webuser.webuser_country', 'inner')
+                ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
                 ->where('job_progres_status', 2)
                 ->where('withdrawn',  NULL)
                 ->where(array('job_id' => $job_id, 'hired' => '1'));

@@ -80,34 +80,18 @@ body {
     <div class="container">
     <div class="row"> 
       <div style="margin-top: -6px;margin-bottom: -5px;" class="main_job_titie">
-           <b> <?php echo ucfirst($jobDetails->job_type)." - ".ucfirst($jobDetails->title); ?><br/><br/></b> 
+           <b> <?= $job_type." - ".$job_title; ?><br/><br/></b> 
       </div>
       </div>
         <div class="row "> 
-<?php
-$jobId = base64_decode($_GET['job_id']);
-if($interview_count){	$interview = $interview_count;} else {	$interview = 0;}
-if($hire_count){	$hire = $hire_count;} else {	$hire = 0;}
-if($Application_count){	$totalApplication = $Application_count;} else {	$totalApplication = 0;}
-if($Offer_count){	$totalOffer = $Offer_count;} else {	$totalOffer = 0;}
-if($reject_count){ $totalrejact = $reject_count; } else { $totalrejact = 0; }
 
-$appliedLink=site_url('jobs/applied/' . base64_encode($jobId));
-$interviewsLink=site_url('jobs/interviews/' . base64_encode($jobId));
-$offerLink=site_url('offer?job_id=' . base64_encode($jobId));
-$hireLink=site_url('hires?job_id=' . base64_encode($jobId));
-$rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
-
-?>
-			
-			
               <div class="col-md-12 nopadding" >
                 <ul class="client-job-activity-current">
-                     <li><a  href='<?php echo $appliedLink; ?>'>Application (<?php echo $totalApplication?>)</a> </li>
-                     <li><a href='<?php echo $interviewsLink; ?>'>Interview (<?=$interview?>)</a> </li>
-                     <li><a class="active-link" href='<?php echo $offerLink; ?>'>Offers (<?=$totalOffer;?>) </a>  </li>
-                     <li><a href='<?php echo $hireLink; ?>'>Hires (<?=$hire;?>)</a> </li>
-                     <li><a href='<?php echo $rejectLink; ?>'>Rejected (<?=$totalrejact;?>)</a></li>
+                     <li><a class="active-link" href='<?= site_url('jobs/applied/' . $jobId) ?>'>Application (<?= $applicants ?>)</a></li>
+                     <li><a href='<?= site_url('jobs/interviews/' . $jobId) ?>'>Interview (<?=$interviews?>)</a> </li>
+                     <li><a class="active-link" href='<?= site_url('offer?job_id=' . $jobId) ?>'>Offers (<?=$offers;?>) </a>  </li>
+                     <li><a href='<?= site_url('hires?job_id=' . $jobId) ?>'>Hires (<?=$hires;?>)</a> </li>
+                     <li><a href='<?= site_url('reject?job_id=' . $jobId) ?>'>Rejected (<?=$rejects;?>)</a></li>
                    <li class="drop_btn">
 				   <div class="dropdown hour_btnx custom-application_drop_down">
 						<button style="margin-left: -14px;" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
@@ -124,7 +108,7 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
                  </ul>
             </div>
             <div style="padding:30px;"></div>
-		<?php foreach($messages as $message){ ?>
+		<?php foreach($records as $value){ ?>
 		
 		
 		<div class="row" style="margin:0px;"> 
@@ -134,16 +118,16 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
 						<div class="row">
 							<div class="col-md-5">
 								<div style="margin-bottom: 17px;" class="offer_st_img">
-								    <img src="<?php echo base_url().$message->webuser_picture; ?>" width="90" height="68">
+								    <img src="<?= site_url($value['pic']); ?>" width="90" height="68">
 								</div>
 							</div>
 							<div class="col-md-7 nopadding" style="padding-left: 20px !important">
 								<div style="margin-bottom: 10px;" class="aplicant_name">
-								    <?=$message->webuser_fname?> <?=$message->webuser_lname?>
+								    <?php echo ucfirst($value['fname']) . " " . ucfirst($value['lname']) ?>
 								</div>
 								<div>
 								<i style="font-size: 15px;" class="fa fa-map-marker"></i> 
-								<b><?=$message->country_name?></b>
+								<b><?= $value['country'] ?></b>
 								</div>
 							</div>
 						</div>
@@ -158,12 +142,12 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
 						<div class="row">
 						<div class="col-md-4 col-md-offset-2">
 						<div class="offer_sms_btn">
-						    <input type="button" class="btn btn-primary form-btn"  onclick="loadmessage(<?=$message->bid_id?>,<?=$message->user_id?>,<?=$message->job_id?>)" value="Message"> 
+						    <input type="button" class="btn btn-primary form-btn"  onclick="loadmessage(<?=$value['bid_id'] ?>,<?= $value['user_id'] ?>,<?=$value['job_id']?>)" value="Message"> 
 						</div>
 					</div>
 							<div class="col-md-4 text-right">
 								<div class="cancel_offer_btn">
-								    <a href="<?php echo base_url();?>canceloffer?bid_id=<?=base64_encode($message->bid_id)?>&job_id=<?=base64_encode($message->job_id)?>" class="btn btn-primary form-btn my-btn">Cancel Offer</a>
+								    <a href="<?php echo base_url();?>canceloffer?bid_id=<?=base64_encode($value['bid_id'])?>&job_id=<?=base64_encode($value['job_id'])?>" class="btn btn-primary form-btn my-btn">Cancel Offer</a>
 								</div>
 							</div>
 
@@ -191,7 +175,7 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
 				<div class="row">
 					<div class="col-md-2">
 					  <div class="view_pro_btn">
-					      <a href="<?php echo base_url()."interview?user_id=".base64_encode($message->webuser_id)."&job_id=".base64_encode($message->job_id)."&bid_id=".base64_encode($message->bid_id);?>">View Profile</a>
+					      <a href="<?php echo base_url()."interview?user_id=".base64_encode($value['user_id'])."&job_id=".base64_encode($value['job_id'])."&bid_id=".base64_encode($value['bid_id']);?>">View Profile</a>
 					  </div>
 					</div>
 					<div class="col-md-8">
@@ -199,12 +183,12 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
 						<div class="offer_job_details">
 						<!--<a href="<?php echo base_url() ?>jobs/view/<?php echo str_replace(' ', '-', $message->title) ?>/<?php echo base64_encode($message->job_id);?>">-->
 						
-						<?php if($message->hire_title !=""){
-							$job_title = $message->hire_title;
+						<?php if($value['hire_title'] !=""){
+							$job_title = $value['hire_title'];
 						}else{
-							$job_title = $message->title;
+							$job_title = $value['title'];
 						}?>
-						<a href="<?php echo base_url();?>canceloffer?bid_id=<?=base64_encode($message->bid_id)?>&job_id=<?=base64_encode($message->job_id)?>">Job Details </a>- <b><span style="font-family:'calibri';font-size:17px;"><?=$job_title;?></span></b>
+						<a href="<?php echo base_url();?>canceloffer?bid_id=<?=base64_encode($value['bid_id'])?>&job_id=<?=base64_encode($value['job_id'])?>">Job Details </a>- <b><span style="font-family:'calibri';font-size:17px;"><?=$job_title;?></span></b>
 						</div>
 					</div>
 				</div>
