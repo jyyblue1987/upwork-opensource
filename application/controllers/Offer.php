@@ -4,13 +4,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Offer extends CI_Controller {
 
+    private $process;
+    private $user_id;
+    private $employer;
+    
     public function __construct() {
         parent::__construct();
-        $this->load->model(array('Category', 'Common_mod'));
+        $this->load->model(array('Category', 'Common_mod', 'Webuser_model', 'Process', 'Employer', 'profile/ProfileModel'));
+
+        $this->process = new Process();
+        $this->user_id = $this->session->userdata('id');
+        $this->employer = new Employer($this->user_id);
     }
 
     public function index() {
-
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
                 redirect(site_url("find-jobs"));
@@ -19,121 +26,68 @@ class Offer extends CI_Controller {
             $paypalInfo = $this->input->post();
             if (!empty($paypalInfo)) {
 
-                $data['user_id'] = $paypalInfo['custom'];
-                $data['buser_id'] = base64_decode($_GET['buser_id']);
-                $data['job_id'] = $paypalInfo["item_number"];
-                $data['bid_id'] = base64_decode($_GET['fbid_id']);
-                $data['txn_id'] = $paypalInfo["txn_id"];
-                $data['payment_gross'] = $paypalInfo["payment_gross"];
-                $data['currency_code'] = $paypalInfo["mc_currency"];
-                $data['payer_email'] = $paypalInfo["payer_email"];
-                //$data['payment_status']    = $paypalInfo["payment_status"];
+                $data = array(
+                    'user_id' => $paypalInfo['custom'],
+                    'buser_id' => base64_decode($_GET['buser_id']),
+                    'job_id' => $paypalInfo["item_number"],
+                    'bid_id' => base64_decode($_GET['fbid_id']),
+                    'txn_id' => $paypalInfo["txn_id"],
+                    'payment_gross' => $paypalInfo["payment_gross"],
+                    'currency_code' => $paypalInfo["mc_currency"],
+                    'payer_email' => $paypalInfo["payer_email"]
+                );
 
                 $this->db->insert('payments', $data);
             }
 
-
-
-
             if (isset($_GET['job_id'])) {
-
-                //$user_id = $this->session->userdata('id');
+                $records = array();
                 $job_id = base64_decode($_GET['job_id']);
-                $sender_id = $this->session->userdata('id');
+                $bids = $this->process->get_bids($job_id);
+                $emp = $this->employer->is_active();
+                $job_details = $this->process->get_job_details($job_id);
 
-                $this->db->select('*,job_bids.id as bid_id');
-                $this->db->from('job_bids');
-                $this->db->join('webuser', 'webuser.webuser_id = job_bids.user_id', 'inner');
-                $this->db->join('country', 'country.country_id = webuser.webuser_country', 'inner');
-                $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
-                $this->db->where('job_bids.job_id', $job_id);
-                $this->db->where('job_bids.hired', '1');
-                //$this->db->where('job_bids.bid_reject', 0);
-                
-                              // added by jahid start 
-             $this->db->where('job_bids.job_progres_status', 2);
-             //$this->db->where(array('job_bids.withdrawn' => NULL)); 
-             // added by jahid end 
-                
-                $this->db->group_by('bid_id');
-                $query = $this->db->get();
-                $conversation_count = $query->num_rows();
-                $result = $query->result();
+                $applicants = $this->process->get_applications($job_id);
+                $rejects = $this->process->get_rejected($job_id);
+                $offers = $this->process->get_offers($job_id);
+                $hires = $this->process->get_hires($this->user_id, $job_id);
+                $interviews = $this->process->get_interviews($this->user_id, $job_id);
 
+                foreach($offers['data'] AS $_offers){
+                   $accepted_jobs = $this->process->accepted_jobs($_offers->webuser_id);
+                   $pic = $this->Adminforms->getdatax("picture", "webuser", $_offers->webuser_id);
+                   $country = $this->ProfileModel->get_country($_offers->webuser_country);
+                   $_pic = $pic != "" ? $pic : "assets/user.png";
 
-                //total number of interview
-                $this->db->select('*');
-                $this->db->from('job_conversation');
-                $this->db->join('job_bids', 'job_conversation.bid_id=job_bids.id', 'inner');
-                $this->db->where('job_conversation.sender_id', $sender_id);
-                $this->db->where('job_conversation.job_id', $job_id);
-                $this->db->where('job_bids.bid_reject', 0);
-                    // added by jahid start 
-             $this->db->where('job_bids.job_progres_status', 1);
-             $this->db->where(array('job_bids.withdrawn' => NULL)); 
-             // added by jahid end 
-                $this->db->group_by('job_conversation.bid_id');
-                $query = $this->db->get();
-                $interview_count = $query->num_rows();
+                    $records[] = array(
+                       'pic' => $_pic,
+                       'fname' => $_offers->webuser_fname,
+                       'lname' => $_offers->webuser_lname,
+                       'user_id' => $_offers->webuser_id,
+                       'job_id' => $_offers->job_id,
+                       'bid_id' => $_offers->bid_id,
+                       'bid_amount' => $_offers->bid_amount,
+                       'country' => ucfirst($country['country_name']),
+                       'hire_title' => ucwords($_offers->hire_title),
+                       'title' => ucwords($_offers->title)
+                    );
+                }
 
-                // total number of job
-                $this->db->select('*');
-                $this->db->from('job_bids');
-                $this->db->where(array('job_id' => $job_id, 'bid_reject' => 0, 'status!=1' => null));
-                                              // added by jahid start 
-             $this->db->where('job_bids.job_progres_status', 0);
-             $this->db->where(array('job_bids.withdrawn' => NULL)); 
-             // added by jahid end 
-                $query_totalApplication = $this->db->get();
-                $Application_count = $query_totalApplication->num_rows();
-
-                //Offer count
-                $this->db->select('*');
-                $this->db->from('job_bids');
-                                              // added by jahid start 
-             $this->db->where('job_bids.job_progres_status', 2);
-             //$this->db->where(array('job_bids.withdrawn' => NULL)); 
-             // added by jahid end 
-                $this->db->where(array('job_id' => $job_id, 'hired' => '1'));
-                $query_totaloffer = $this->db->get();
-                $Offer_count = $query_totaloffer->num_rows();
-
-
-
-                $this->db->select('*');
-                $this->db->from('job_accepted');
-                $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-                $this->db->where('job_accepted.buser_id', $sender_id);
-                $this->db->where('job_accepted.job_id', $job_id);
-                $this->db->where('job_bids.jobstatus', '0');
-                                              // added by jahid start 
-             $this->db->where('job_bids.job_progres_status', 3);
-             $this->db->where(array('job_bids.withdrawn' => NULL)); 
-             // added by jahid end 
-                $query = $this->db->get();
-                $hire_count = $query->num_rows();
-
-
-                // reject count
-                $this->db->select('*');
-                $this->db->from('job_bids');
-                // added by Jahid start 
-                $this->db->where(array('job_id' => $job_id));
-                $this->db->where("(withdrawn=1 OR bid_reject=1)", NULL, FALSE);
-                $this->db->where('hired', '0');
-                // added by Jahid end 
-                $query_totalreject = $this->db->get();
-                $reject_count = $query_totalreject->num_rows();
-                
-                
-               $this->db->where('id', $job_id);
-               $q = $this->db->get('jobs');
-               $jobDetails = $q->row();
-               
+                $data = array(
+                    'records' => $records,
+                    'jobId' => base64_encode($job_id),
+                    'status' => $emp,
+                    'applicants' => $applicants['rows'],
+                    'rejects' => $rejects['rows'],
+                    'offers' => $offers['rows'],
+                    'hires' => $hires['rows'],
+                    'interviews' => $interviews['rows'],
+                    'job_type' => ucfirst($job_details['job_type']),
+                    'job_title' => ucwords($job_details['title']),
+                    'title' => 'Offers - Winjob'
+                );
             }
 
-
-            $data = array('jobDetails' => $jobDetails,'messages' => $result, 'hire_count' => $hire_count, 'interview_count' => $interview_count, 'Application_count' => $Application_count, 'Offer_count' => $Offer_count, 'reject_count' => $reject_count, 'title' => 'Job Offers - Winjob');
             $this->Admintheme->webview("offer", $data);
         }
     }
