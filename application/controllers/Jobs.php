@@ -749,12 +749,6 @@ class Jobs extends Winjob_Controller {
             $postId = base64_decode($postId);
             $id = $this->session->userdata('id');
 
-
-//            $this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
-//            $this->db->order_by("jobs.id", "desc");
-//            $query = $this->db->get_where('jobs', array('id' => $postId));
-//            $record = $query->row();
-
             $this->db->select('*');
             $this->db->from('webuser w');
             $this->db->join('jobs j', 'j.user_id=w.webuser_id', 'left');
@@ -825,13 +819,14 @@ class Jobs extends Winjob_Controller {
             }
             $jobids = implode(",", $jobids);
 
-
+            $_jobids = array_map('intval',$jobids);
+            
             $this->db->select('*');
             $this->db->from('job_bids');
-            $this->db->where_in('job_id', $jobids);
+            $this->db->where_in('job_id', $_jobids);
             $this->db->where('hired', 1);
             $query_hire = $this->db->get();
-            $record_hire = $query_hire->result();
+            $record_hire = $query_hire->num_rows();
 
             $this->db->select('*');
             $this->db->from('job_workdairy');
@@ -839,6 +834,18 @@ class Jobs extends Winjob_Controller {
             $queryhour = $this->db->get();
             $workedhours = $queryhour->result();
 
+            $this->db->select('*');            
+            $this->db->from('jobs');
+            $this->db->join('billingmethodlist', 'billingmethodlist.belongsTo = jobs.user_id', 'inner');
+            $this->db->where('billingmethodlist.belongsTo', $record->user_id);
+            $this->db->where('billingmethodlist.isDeleted', "0");
+            $this->db->where('jobs.status', 1);
+            $query = $this->db->get();   
+            $paymentSet=0;
+                if (is_object($query)) {
+                    $paymentSet = $query->num_rows();
+                }
+            
             $this->db->select('*');
             $this->db->from('webuser');
             $this->db->where('webuser.webuser_id', $id);
@@ -853,8 +860,29 @@ class Jobs extends Winjob_Controller {
             $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id));
             $proposals = $query->num_rows();
 
-            $data = array('value' => $record, 'proposals' => $proposals, 'applied' => $is_applied, 'conversations' => $conversation, 'conversation_count' => $conversation_count, 'bid_details' => $bids_details, 'accepted_jobs' => $accepted_jobs, 'record_sidebar' => $record_sidebar, 'hire' => $record_hire, 'workedhours' => $workedhours, 'ststus' => $ststus,'css' => array("","","","assets/css/pages/view.css"));
-            // Davit end
+            $client_id=$value->webuser_id;
+            $query_spent = $this->db->query("SELECT SUM(payment_gross) as total_spent FROM `payments` INNER JOIN `webuser` ON `webuser`.`webuser_id` = `payments`.`user_id` INNER JOIN `jobs` ON `jobs`.`id` = `payments`.`job_id` INNER JOIN `job_accepted` ON `job_accepted`.`job_id` = `payments`.`job_id` INNER JOIN `job_bids` ON `job_bids`.`job_id` = `payments`.`job_id` WHERE `job_accepted`.`fuser_id` = `payments`.`user_id` AND
+                `job_bids`.`user_id` = `payments`.`user_id` AND `payments`.`buser_id` = $record->user_id");
+            $row_spent = $query_spent->row();
+            $total_spent=$row_spent->total_spent;
+            
+            $data = array(
+                'value' => $record, 
+                'proposals' => $proposals, 
+                'applied' => $is_applied, 
+                'conversations' => $conversation, 
+                'conversation_count' => $conversation_count, 
+                'bid_details' => $bids_details, 
+                'accepted_jobs' => $accepted_jobs, 
+                'record_sidebar' => $record_sidebar, 
+                'hire' => $record_hire, 
+                'workedhours' => $workedhours, 
+                'ststus' => $ststus,
+                'css' => array("","","","assets/css/pages/view.css"),
+                'payment_set' => $paymentSet,
+                'total_spent' => $total_spent
+             );
+
             $this->Admintheme->custom_webview("jobs/view", $data);
         }
     }
