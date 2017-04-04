@@ -183,5 +183,54 @@ class Process extends CI_Model {
         $query = $this->db->get();
         return $query->row_array();
     }
+    
+    function get_withdrawn_by($user_id, $bid_id, $job_id){
+        $this->db
+                ->select('job_progres_status, withdrawn, bid_reject, withdrawn_by')
+                ->from('job_bids')
+                ->where('job_bids.id', $bid_id)
+                ->where('job_bids.user_id', $user_id)
+                ->where('job_bids.job_id', $job_id);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+    
+    function get_conversation($job_id, $bid_id){
+        $this->db
+                ->select('job_conversation.*,job_conversation.created as conversation_date,webuser.*,jobs.title')
+                ->from('job_conversation')
+                ->join('webuser', 'job_conversation.sender_id = webuser.webuser_id', 'inner')
+                ->join('jobs', 'jobs.id = job_conversation.job_id', 'inner')
+                ->where('job_conversation.job_id', $job_id)
+                ->where('job_conversation.bid_id', $bid_id);
+        $query = $this->db->get();
+        
+        $return_array = array();
+        $return_array['rows'] = $query->num_rows();
+        if ($return_array['rows'] > 0) {
+            $return_array['data'] = $query->result();
+        }
+        return $return_array;
+    }
+    
+    function get_convo_images($id){
+        $this->db
+                ->select('*')
+                ->from('job_conversation_files')
+                ->where('job_conversation_id', $id);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+    
+    function get_job_info($user_id, $job_id){
+        $this->db
+                ->select('job_bids.*, jobs.job_type, jobs.title, job_bids.id AS bid_id')
+                ->from('job_bids')
+                ->join('jobs', 'jobs.id = job_bids.job_id', 'inner')
+                ->where('job_bids.user_id', $user_id)
+                ->where('job_bids.job_id', $job_id); 
+        $query = $this->db->get();
+        return $query->row_array();
+    }
 
 }
