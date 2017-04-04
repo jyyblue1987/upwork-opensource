@@ -214,9 +214,6 @@ class Work_diary extends Winjob_Controller{
                 
                 //$invoice_id = $this->winjob_payment->invoice( $invoice, $total_hour, $contract_amount );
                 
-                if( ! empty( $invoice['invoice_id'] ) )
-                        $invoice['invoice_id'] = $invoice_id;
-                
                 if( empty( $invoice['id'] ) )
                 {
                     $this->invoice_model->create( $invoice );
