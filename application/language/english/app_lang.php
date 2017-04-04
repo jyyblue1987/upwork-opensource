@@ -140,3 +140,5 @@ $lang['text_app_title_update_credit_card'] = 'Update credit card';
 $lang['text_app_update_credit_card_detail'] = 'Update your %s card details ending in %s';
 $lang['text_app_payment_method_updated'] = "Your card informations has been updated with success.";
 $lang['text_app_payment_method_error_in_updating'] = "Your card's informations has not been upudated. Please refresh and try again.";
+
+$lang['text_app_payment_for'] = 'Invoice for %s';

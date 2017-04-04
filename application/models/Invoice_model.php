@@ -9,7 +9,9 @@ use Carbon\Carbon;
  */
 class invoice_model extends CI_Model 
 {
-    public function make_invoice( $contract_id ) 
+    private $table = 'hourly_invoices'; 
+    
+    public function get_invoice( $contract_id ) 
     {
         $dt         = Carbon::now();
         $start_week = $dt->copy()->startOfWeek();
@@ -17,22 +19,25 @@ class invoice_model extends CI_Model
         
         $query = $this->db
                     ->select('*')
-                    ->from('hourly_invoices')
-                    ->join('job_workdiary', '', 'inner')
-                    ->where('created_at >= ',  $start_week->timestamp )
-                    ->where('updated_at <= ',  $end_week->timestamp )
+                    ->from( $this->table )
+                    ->where('created_at >= ',  date('Y-m-d H:i:s', $start_week->timestamp ) )
+                    ->where('updated_at <= ',  date('Y-m-d H:i:s', $end_week->timestamp) )
+                    ->where('bid_id',  $contract_id )
                     ->get();
         
-        $invoice = $query->row();
+        return $query->row_array();
+    }
+    
+    public function create( $data )
+    {
+        $this->db->insert( $this->table, $data);
+    }
+    
+    public function update( $data )
+    {
+        $this->db->where('id', $data['id']);
+        unset( $data['id'] );
         
-        if(empty($invoice))//draft an invoice
-        {
-            $invoice = new stdClass();
-            //$invoice->
-        }
-        else//update the current invoice.
-        {
-            
-        }
+        return $this->db->update( $this->table, $data ); 
     }
 }

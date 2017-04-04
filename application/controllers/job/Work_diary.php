@@ -1,6 +1,9 @@
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
+
+use Carbon\Carbon; 
+
 /**
  * Description of Work_diary
  *
@@ -161,29 +164,67 @@ class Work_diary extends Winjob_Controller{
                 
                 $job_work_diary_data = $this->_ajax_data_validation();
                 
-                //$this->job_work_diary_model->insert( $job_work_diary_data );
-                //$this->job_work_diary_model->update_work_tracker( $job_work_diary_data );
+                $contract_title      = $job_work_diary_data['contract_title'];
+                $contract_amount     = $job_work_diary_data['contract_amount'];
+                $total_hour          = $job_work_diary_data['total_hour'];
+                unset($job_work_diary_data['contract_title']);
+                unset($job_work_diary_data['contract_amount']);
+                        
+                $this->job_work_diary_model->insert( $job_work_diary_data );
+                $this->job_work_diary_model->update_work_tracker( $job_work_diary_data );
                 
-                //create or update an invoice.
-                $this->load->library('winjob_payment');
-                $this->load->model(array('payment_methods_model', 'invoice_model'));
+                //create or update an invoice on payment service.
+                $this->load->library( 'winjob_payment' );
+                $this->load->model( array( 'payment_methods_model', 'invoice_model' ) );
                 
                 //Load winjob payment library related to the primary payment service of current user.
                 // 1. fetch primary service and build the related library name.
                 // 2. and load the corresponding library.
                 $primary_service = $this->payment_methods_model->get_primary_method_payment( $job_work_diary_data['cuser_id'] );
-                $payment_service = 'winjob_' . strtolower($primary_service);
+                $primary_service = strtolower($primary_service);
+                $payment_service = 'winjob_' . $primary_service;
                 $this->load->library( $payment_service );
                 
                 //set the primary payment service for the payment library
                 $this->winjob_payment->set_payment_service( $this->{$payment_service} );
                 
-                //load invoice of the current contract for the current week
-                $invoice = $this->invoice_model->make_invoice( $contract_id );
+                //get the invoice of the current contract for the current week
+                $invoice    = $this->invoice_model->get_invoice( $job_work_diary_data['bid_id'] );
+                $amount_due = $contract_amount * $total_hour;
+                $now        = Carbon::now()->timezone( new DateTimeZone( DateTimeZone::UTC ) ); 
                 
-                $this->ajax_response( array( $invoice ) );
+                if(empty($invoice))
+                {
+                    $invoice = array(
+                        'description' => sprintf($this->lang->line('text_app_payment_for'), $contract_title),
+                        'amount_due'  => $amount_due,
+                        'bid_id'      => $job_work_diary_data['bid_id'],
+                        'status'      => INVOICE_UNPAID,
+                        'created_at'  => date('Y-m-d H:i:s', $now->timestamp),
+                        'updated_at'  => date('Y-m-d H:i:s',$now->timestamp),
+                        'payment_service_name' => $primary_service,
+                    );
+                }
+                else
+                {
+                    $invoice['amount_due']          += $amount_due;
+                    $invoice['payment_service_name'] = $primary_service;
+                    $invoice['updated_at']           = date('Y-m-d H:i:s',$now->timestamp);
+                }
                 
-                $this->winjob_payment->invoice( $job_work_diary_data['bid_id'], $invoice );
+                //$invoice_id = $this->winjob_payment->invoice( $invoice, $total_hour, $contract_amount );
+                
+                if( ! empty( $invoice['invoice_id'] ) )
+                        $invoice['invoice_id'] = $invoice_id;
+                
+                if( empty( $invoice['id'] ) )
+                {
+                    $this->invoice_model->create( $invoice );
+                }
+                else
+                {                    
+                    $this->invoice_model->update( $invoice );
+                }
                 
                 $this->ajax_response( array(
                     'status'    => 'success', 
@@ -194,6 +235,7 @@ class Work_diary extends Winjob_Controller{
             }else{
                 $result = array('message' => $this->lang->line('text_job_work_diary_not_allowed'), 'status' => 'error');
             }
+            
         }else{
             redirect( home_url() );
         }
@@ -246,15 +288,17 @@ class Work_diary extends Winjob_Controller{
         $endind_time = $end_time->format('Y-m-d H:i:s');
         
         return array(
-            'jobid'         => $job_id,
-            'bid_id'        => $bid_id,
-            'cuser_id'      => $clientid,
-            'fuser_id'      => $user_id,
-            'starting_hour' => $start_time->format('Y-m-d H:i:s'),
-            'ending_hour'   => $endind_time,
-            'total_hour'    => $total_hour,
-            'working_date'  => date('Y-m-d'),
-            'end_work'      => $endind_time,
+            'jobid'           => $job_id,
+            'bid_id'          => $bid_id,
+            'cuser_id'        => $clientid,
+            'fuser_id'        => $user_id,
+            'starting_hour'   => $start_time->format('Y-m-d H:i:s'),
+            'ending_hour'     => $endind_time,
+            'total_hour'      => $total_hour,
+            'working_date'    => date('Y-m-d'),
+            'end_work'        => $endind_time,
+            'contract_title'  => ( ! empty( $contract->hire_title ) ? $contract->hire_title : $contract->title  ),
+            'contract_amount' => ( ! empty( $contract->offer_bid_amount) ? $contract->offer_bid_amount : $contract->bid_amount )
         );
                 
     }

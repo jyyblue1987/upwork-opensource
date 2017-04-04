@@ -104,10 +104,9 @@ define('PAYPAL_API_SIGN', "AFcWxV21C7fd0v3bYYYRCpSSRl31AnJosL9DcfX40xgafuxK5ReHI
 define('PAYPAL_BILLING_API_URL',"https://api-3t.sandbox.paypal.com/nvp");
 define('PAYPAL_USER_AUTH_URL',"https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=");
 
-/**
- * PAYPAL SDK CONFIGURATION FILE.
- */
-//defined('PP_CONFIG_PATH') || define('PP_CONFIG_PATH', __DIR__ . DIRECTORY_SEPARATOR . 'paypal' . DIRECTORY_SEPARATOR);
+defined('PAYPAL_MERCHANT_EMAIL') || define('PAYPAL_MERCHANT_EMAIL', 'business@winjob.com');
+defined('PAYPAL_APP_ID') || define('PAYPAL_APP_ID', 'APP-80W284485P519543T');
+defined('PAYPAL_BUSINESS_NAME') || define('PAYPAL_BUSINESS_NAME', 'WINJOB, LLC');
 
 /*
  * Some constant for using severall place to avoid typing mistake
@@ -152,3 +151,8 @@ defined('FREELANCER') || define('FREELANCER', 2);
 defined('JOB_ENDED') || define('JOB_ENDED', 1);
 
 defined('PAYMENT_HOURLY_CONTRACT_PLAN') || define('PAYMENT_HOURLY_CONTRACT_PLAN', 'pay-hourly-contracts');
+
+
+defined('INVOICE_UNPAID') || define('INVOICE_UNPAID', 'UNPAID');
+defined('INVOICE_PAID') || define('INVOICE_PAID', 'PAID');
+defined('INVOICE_PROCESSING_PAID') || define('INVOICE_PROCESSING_PAID', 'PROCESSING_PAID');

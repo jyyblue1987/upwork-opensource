@@ -12,5 +12,12 @@
  * @author Hermannovich <donfack.hermann@gmail.com>
  */
 class Winjob_stripe {
-    //put your code here
+    
+    public function create_invoice( $invoice ){
+        dump( $invoice, true);
+    }
+    
+    public function update_invoice( $invoice ){
+        dump( $invoice, true);
+    }
 }

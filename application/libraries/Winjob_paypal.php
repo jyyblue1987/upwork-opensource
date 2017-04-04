@@ -11,6 +11,16 @@ use PayPal\PayPalAPI\CreateBillingAgreementRequestType;
 use PayPal\PayPalAPI\GetExpressCheckoutDetailsReq;
 use PayPal\PayPalAPI\GetExpressCheckoutDetailsRequestType;
 
+use PayPal\Rest\ApiContext;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Api\Invoice;
+use PayPal\Api\MerchantInfo;
+use PayPal\Api\BillingInfo;
+use PayPal\Api\PaymentTerm;
+use PayPal\Api\ShippingInfo;
+use PayPal\Api\InvoiceItem;
+use PayPal\Api\Currency;
+
 /**
  * Library for handle paypall transaction for winjob.
  *
@@ -65,7 +75,7 @@ class Winjob_paypal {
     
     public function get_paypal_service()
     {   
-        //\PayPal\Core\PPHttpConfig::$DEFAULT_CURL_OPTS[CURLOPT_SSLVERSION] = 1;
+        \PayPal\Core\PPHttpConfig::$DEFAULT_CURL_OPTS[CURLOPT_SSLVERSION] = 1;
         
         $config = array(
             "acct1.UserName"    =>  "seller.test_api1.haseeburrehman.com",
@@ -89,4 +99,74 @@ class Winjob_paypal {
         
     }
     
+    
+    public function create_invoice( $invoice, $total_hour, $contract_amount  )
+    {
+        $paypal_invoice = $this->_build_empty_invoice( $invoice['description'] );
+        
+        // Merchant Info
+        $paypal_invoice->getMerchantInfo()
+            ->setEmail( PAYPAL_PAYMENT_RECEIVER )
+            ->setbusinessName( PAYPAL_BUSINESS_NAME );
+        
+        $item = new InvoiceItem();
+        $item
+            ->setName( $invoice['description'] )
+            ->setQuantity( $total_hour )
+            ->setUnitPrice(new Currency());
+
+        $item->getUnitPrice()
+            ->setCurrency("USD")
+            ->setValue( $contract_amount );
+        
+        $paypal_invoice->setItems( array( $item ) );
+        
+        try 
+        {
+            // ### Create Invoice
+            $paypal_invoice->create( $this->_get_api_rest_context() );
+            return $paypal_invoice->getId();
+        } 
+        catch (Exception $ex) 
+        {
+            log_message('error', 'Error when creating an invoice ' . $ex->getMessage());
+        }
+    }
+    
+    private function _build_empty_invoice( $note )
+    {
+        $invoice = new Invoice();
+        
+        $invoice
+            ->setMerchantInfo(new MerchantInfo())
+            ->setNote($note);
+        
+        return $invoice;
+    }
+    
+    public function update_invoice( $invoice ){
+        dump( $invoice, true);
+    }
+    
+    private function _get_api_rest_context()
+    {
+        $apiContext = new ApiContext(
+            new OAuthTokenCredential(
+                PAYPAL_CLIENT_ID,
+                PAYPAL_CLIENT_SECRET
+            )
+        );
+
+        $apiContext->setConfig(
+            array(
+                'mode'           => 'sandbox',
+                'log.LogEnabled' => true,
+                'log.FileName'   => APPPATH . 'logs/paypal.log',
+                'log.LogLevel'   => 'DEBUG', // PLEASE USE `INFO` LEVEL FOR LOGGING IN LIVE ENVIRONMENTS
+                'cache.enabled'  => true,
+            )
+        );
+        
+        return $apiContext;
+    }
 }

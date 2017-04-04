@@ -15,26 +15,26 @@ class Winjob_payment
 {   
     private $payment_service;
     
-    public function invoice( $contract_id, $invoice )
+    public function invoice( $invoice, $total_hour, $contract_amount  )
     {
-        if( ! empty( $invoice->id ) )
+        if( ! empty( $invoice['id'] ) &&   ! empty( $invoice['invoice_id'] ) )
         {
-            $this->update_invoice( $invoice->id, $invoice->invoice_infos  );
+            $this->update_invoice( $invoice, $total_hour, $contract_amount   );
         }
         else
         {
-            $this->create_invoice( $invoice->invoice_infos );
+            $this->create_invoice( $invoice, $total_hour, $contract_amount  );
         }
     }
     
-    public function update_invoice( $invoice_id, $invoice_infos )
+    public function update_invoice( $invoice, $total_hour, $contract_amount  )
     {
-        $this->get_payment_service()->update_invoice( $invoice_id, $invoice_infos );
+        $this->get_payment_service()->update_invoice( $invoice, $total_hour, $contract_amount  );
     }
     
-    public function create_invoice()
+    public function create_invoice( $invoice, $total_hour, $contract_amount  )
     {
-        $this->get_payment_service()->create_invoice( $invoice_infos );
+        $this->get_payment_service()->create_invoice( $invoice, $total_hour, $contract_amount  );
     }
     
     public function set_payment_service( $payment_service )
