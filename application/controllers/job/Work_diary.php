@@ -177,17 +177,6 @@ class Work_diary extends Winjob_Controller{
                 $this->load->library( 'winjob_payment' );
                 $this->load->model( array( 'payment_methods_model', 'invoice_model' ) );
                 
-                //Load winjob payment library related to the primary payment service of current user.
-                // 1. fetch primary service and build the related library name.
-                // 2. and load the corresponding library.
-                $primary_service = $this->payment_methods_model->get_primary_method_payment( $job_work_diary_data['cuser_id'] );
-                $primary_service = strtolower($primary_service);
-                $payment_service = 'winjob_' . $primary_service;
-                $this->load->library( $payment_service );
-                
-                //set the primary payment service for the payment library
-                $this->winjob_payment->set_payment_service( $this->{$payment_service} );
-                
                 //get the invoice of the current contract for the current week
                 $invoice    = $this->invoice_model->get_invoice( $job_work_diary_data['bid_id'] );
                 $amount_due = $contract_amount * $total_hour;
@@ -201,18 +190,14 @@ class Work_diary extends Winjob_Controller{
                         'bid_id'      => $job_work_diary_data['bid_id'],
                         'status'      => INVOICE_UNPAID,
                         'created_at'  => date('Y-m-d H:i:s', $now->timestamp),
-                        'updated_at'  => date('Y-m-d H:i:s',$now->timestamp),
-                        'payment_service_name' => $primary_service,
+                        'updated_at'  => date('Y-m-d H:i:s',$now->timestamp)
                     );
                 }
                 else
                 {
                     $invoice['amount_due']          += $amount_due;
-                    $invoice['payment_service_name'] = $primary_service;
-                    $invoice['updated_at']           = date('Y-m-d H:i:s',$now->timestamp);
+                    $invoice['updated_at']           = date('Y-m-d H:i:s', $now->timestamp);
                 }
-                
-                //$invoice_id = $this->winjob_payment->invoice( $invoice, $total_hour, $contract_amount );
                 
                 if( empty( $invoice['id'] ) )
                 {
