@@ -173,14 +173,13 @@ class Work_diary extends Winjob_Controller{
                 $this->job_work_diary_model->insert( $job_work_diary_data );
                 $this->job_work_diary_model->update_work_tracker( $job_work_diary_data );
                 
-                //create or update an invoice on payment service.
-                $this->load->library( 'winjob_payment' );
+                //create or update an invoice.
                 $this->load->model( array( 'payment_methods_model', 'invoice_model' ) );
                 
                 //get the invoice of the current contract for the current week
                 $invoice    = $this->invoice_model->get_invoice( $job_work_diary_data['bid_id'] );
                 $amount_due = $contract_amount * $total_hour;
-                $now        = Carbon::now()->timezone( new DateTimeZone( DateTimeZone::UTC ) ); 
+                $now        = Carbon::now()->timezone( new DateTimeZone( 'UTC' ) ); 
                 
                 if(empty($invoice))
                 {

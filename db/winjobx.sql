@@ -6161,6 +6161,49 @@ ALTER TABLE `payment_services`
 ALTER TABLE `payment_services`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
+
+DROP TABLE IF EXISTS `hourly_invoices`;
+CREATE TABLE `hourly_invoices` (
+  `id` int(11) NOT NULL,
+  `bid_id` int(11) NOT NULL,
+  `amount_due` double NOT NULL,
+  `description` text NOT NULL,
+  `payment_service_name` varchar(255) DEFAULT NULL,
+  `status` enum('UNPAID','PAID','PROCESSING_FAILED','') NOT NULL DEFAULT 'UNPAID',
+  `unpaid_reason` text,
+  `invoice_id` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `hourly_invoices`
+--
+
+INSERT INTO `hourly_invoices` (`id`, `bid_id`, `amount_due`, `description`, `payment_service_name`, `status`, `unpaid_reason`, `invoice_id`, `created_at`, `updated_at`) VALUES
+(7, 210, 10, 'Invoice for testing hourly payment', NULL, 'UNPAID', NULL, NULL, '2017-04-04 09:33:19', '2017-04-04 09:33:52');
+
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `hourly_invoices`
+--
+ALTER TABLE `hourly_invoices`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `index_bid_id` (`bid_id`);
+
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
+
+--
+-- AUTO_INCREMENT pour la table `hourly_invoices`
+--
+ALTER TABLE `hourly_invoices`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
