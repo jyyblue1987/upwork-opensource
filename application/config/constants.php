@@ -145,14 +145,13 @@ defined('BID_STATE_APPLIED') || define('BID_STATE_APPLIED', 0);
 defined('BID_STATE_PAUSED') || define('BID_STATE_PAUSED', 2);
 
 
-defined('EMPLOYER') || define('EMPLOYER', 1);
+defined('EMPLOYER')   || define('EMPLOYER', 1);
 defined('FREELANCER') || define('FREELANCER', 2);
 
-defined('JOB_ENDED') || define('JOB_ENDED', 1);
+defined('JOB_ENDED')  || define('JOB_ENDED', 1);
 
 defined('PAYMENT_HOURLY_CONTRACT_PLAN') || define('PAYMENT_HOURLY_CONTRACT_PLAN', 'pay-hourly-contracts');
 
-
-defined('INVOICE_UNPAID') || define('INVOICE_UNPAID', 'UNPAID');
-defined('INVOICE_PAID') || define('INVOICE_PAID', 'PAID');
-defined('INVOICE_PROCESSING_PAID') || define('INVOICE_PROCESSING_PAID', 'PROCESSING_PAID');
+defined('INVOICE_UNPAID')          || define('INVOICE_UNPAID', 'UNPAID');
+defined('INVOICE_PAID')            || define('INVOICE_PAID', 'PAID');
+defined('INVOICE_PROCESSING_PAID') || define('INVOICE_PROCESSING_PAID', 'PROCESSING_FAILED');

@@ -71,7 +71,6 @@ class Payment_model extends CI_Model {
         $last_paid_from_now = date('Y-m-d H:i:s', $dt->copy()->subDays(7)->timestamp);
         $now                = date('Y-m-d H:i:s', $dt->timestamp);
         
-        
         return $this->fixed_amount_to_paid($user_id, $last_paid_from_now, $now);
         
     }
@@ -87,10 +86,9 @@ class Payment_model extends CI_Model {
         $dt                 = Carbon::now();
         $dt->timezone       = new DateTimeZone('UTC');
         $last_week          = $dt->copy()->subWeek();
-        $start_of_last_week = date('Y-m-d H:i:s', $last_week->startOfWeek()->timestamp);
         $end_of_last_week   = date('Y-m-d H:i:s', $last_week->endOfWeek()->timestamp);
         
-        return  $this->hourly_amount_to_paid($user_id, $start_of_last_week, $end_of_last_week);
+        return  $this->hourly_amount_to_paid($user_id, null, $end_of_last_week, array(INVOICE_PROCESSING_PAID, INVOICE_UNPAID));
     }
     
     
@@ -103,11 +101,11 @@ class Payment_model extends CI_Model {
     {
         $dt                 = Carbon::now();
         $dt->timezone       = new DateTimeZone('UTC');
-        $two_week_before    = $dt->copy()->subWeeks(2);
+        $last_week          = $dt->copy()->subWeek();
         
-        $end_of_two_week_before = date('Y-m-d H:i:s', $two_week_before->endOfWeek()->timestamp);
+        $end_of_last_week   = date('Y-m-d H:i:s', $last_week->endOfWeek()->timestamp);
         
-        return  $this->hourly_amount_to_paid($user_id, null, $end_of_two_week_before);
+        return  $this->hourly_amount_to_paid($user_id, null, $end_of_last_week, INVOICE_PAID);
     }
     
     public function fixed_amount_available( $user_id )
@@ -136,8 +134,6 @@ class Payment_model extends CI_Model {
             return ( $withdraws_resume->amount + $withdraws_resume->fees );
         
         return 0.0;
-        
-        
     }
     
     /**
@@ -153,7 +149,7 @@ class Payment_model extends CI_Model {
         $this->db->select('SUM(payment_gross) as payment_gross')
                     ->from('payments')
                     ->where('user_id', $user_id)
-                    ->where('buser_id > ', 0);
+                    ->where('buser_id != ', 0);
         
         if($begin !== null)
             $this->db->where('payment_create >', $begin);
@@ -181,18 +177,23 @@ class Payment_model extends CI_Model {
      * @param type $end_of_week    end of a week Sunday 12:59:59
      * @return real                amount freelancer should receive.
      */
-    private function hourly_amount_to_paid( $user_id, $start_of_week = null, $end_of_week = null){
+    private function hourly_amount_to_paid( $user_id, $start_of_week = null, $end_of_week = null, $invoice_state = INVOICE_UNPAID){
         
-        $this->db->select('SUM(total_hour) as total_hour, offer_bid_amount, bid_amount')
-            ->from('job_workdairy')
-            ->join('job_bids', 'job_bids.id=job_workdairy.bid_id', 'inner')
-            ->where('fuser_id', $user_id);
+        $this->db->select('SUM(amount_due) as amount')
+            ->from('hourly_invoices')
+            ->join('job_bids', 'job_bids.id=hourly_invoices.bid_id', 'inner')
+            ->where('user_id', $user_id);
         
-        if($start_of_week !== null)
-            $this->db->where('working_date >=', $start_of_week);
+        if( is_array( $invoice_state ) )
+            $this->db->where_in('hourly_invoices.status ', $invoice_state);
+        else
+            $this->db->where('hourly_invoices.status', $invoice_state);
+                
+        if($start_of_week != null)
+            $this->db->where('created_at >=', $start_of_week);
         
-        if($end_of_week !== null)
-            $this->db->where('working_date <=', $end_of_week);
+        if($end_of_week != null)
+            $this->db->where('created_at <=', $end_of_week);
         
                     
         $query =  $this->db->group_by( array( 'job_bids.id' ) )->get();
@@ -205,17 +206,105 @@ class Payment_model extends CI_Model {
             
             foreach( $amount_infos as $key => $info)
             {
-                $amount += ( (double) $info->total_hour * ( ! empty( $info->offer_bid_amount ) ? $info->offer_bid_amount : $info->bid_amount) );
+                $amount += (double) $info->amount;
             }
             
             return $amount;
         }
         
         return 0.0;
-        
     }
     
-    public function save_transaction( $transaction ){
+    public function all_employers_who_paid_or_will( $freelancer_id )
+    {
+        $employer_ids =  array();
         
+        $query = $this->db->select('webuser.webuser_id')
+                    ->from('webuser')
+                    ->join('payments', 'payments.buser_id = webuser.webuser_id', 'inner')
+                    ->where('payments.user_id', $freelancer_id)
+                    ->group_by('buser_id')
+                    ->get();
+        
+        $result1 = $query->result();
+        
+        if( ! empty( $result1 ))
+        {
+            foreach( $result1 as $employer )
+            {
+                $employer_ids[$employer->webuser_id] = $employer->webuser_id;
+            }
+        }
+        
+        $query = $this->db->select('webuser.webuser_id')
+                    ->from('job_accepted')
+                    ->join('webuser', 'webuser.webuser_id = job_accepted.buser_id', 'inner')
+                    ->join('hourly_invoices', 'hourly_invoices.bid_id = job_accepted.bid_id', 'inner')
+                    ->where('job_accepted.fuser_id', $freelancer_id)
+                    ->group_by('buser_id')
+                    ->get();
+        
+        $result2 = $query->result();
+        
+        if( ! empty( $result2 ))
+        {
+            foreach( $result2 as $empployer )
+            {
+                $employer_ids[$employer->webuser_id] = $employer->webuser_id;
+            }
+        }
+        
+        $query = $this->db->select('webuser.webuser_id, webuser.webuser_fname, webuser.webuser_lname ')
+                    ->from('webuser')
+                    ->where_in('webuser_id', $employer_ids)
+                    ->order_by('webuser_fname asc, webuser_lname asc')
+                    ->get();
+        
+        return $query->result();
+    }
+    
+    public function get_payment_list( $user_id )
+    {
+        
+        $fixed_fields = 
+                "jobs.job_type, "
+                . "payments.payment_create,"
+                . "jobs.title,"
+                . "payments.des,"
+                . "webuser.webuser_fname,"
+                . "webuser.webuser_lname,"
+                . "payments.payment_gross ";
+
+
+        $hourly_fields = 
+                "'" . HOURLY_JOB_TYPE . "' AS job_type, "
+                . "invx.created_at as payment_create, "
+                . "'' as title, "
+                . "invx.description as des,"
+                . "u.webuser_fname,"
+                . "u.webuser_lname,"
+                . "invx.amount_due as payment_gross ";
+        
+        $sql = 
+           "SELECT $fixed_fields
+            FROM payments
+            JOIN webuser ON webuser.webuser_id = payments.buser_id
+            JOIN jobs ON jobs.id = payments.job_id
+            JOIN job_accepted ON job_accepted.job_id = payments.job_id
+            JOIN job_bids ON job_bids.job_id = payments.job_id
+            WHERE job_bids.user_id = payments.user_id
+            AND job_accepted.fuser_id = payments.user_id
+            AND payments.user_id = $user_id
+
+            UNION ALL SELECT  $hourly_fields 
+            FROM hourly_invoices as invx
+            INNER JOIN job_accepted as ja ON ja.bid_id = invx.bid_id 
+            INNER JOIN webuser u ON u.webuser_id = ja.buser_id 
+            WHERE ja.fuser_id = $user_id AND invx.status = '" .  INVOICE_PAID ."'" 
+         . "ORDER BY payment_create DESC";
+        
+        $query = $this->db->query($sql);
+        
+        return $query->result();
     }
 }

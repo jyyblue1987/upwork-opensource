@@ -160,3 +160,13 @@ $lang['text_job_contract_not_own_by_current_freelancer'] = 'The current contract
 $lang['text_job_invalid_freelancer_with_hourly_contract'] = 'The current freelancer has not hourly contract with you.';
 $lang['text_job_employer_no_hourly_contract'] = 'The current employer do not have hourly contract';
 $lang['text_job_current_day_worked'] = "Selected day's hours worked: %s";
+
+$lang['text_job_type_hourly_price'] = 'Hourly price';
+$lang['text_job_type_fixed_price'] = 'Fixed price';
+$lang['text_job_statement_period'] = 'Statement Period';
+
+$lang['text_job_statement_beginning_balance'] = 'Beginning Balance';
+$lang['text_job_statement_total_debits'] = 'Total Debits';
+$lang['text_job_statement_total_credits'] = 'Total Credits';
+$lang['text_job_statement_total_charges'] = 'Total Charges';
+$lang['text_job_statement_ending_balance'] = 'Ending Balance';

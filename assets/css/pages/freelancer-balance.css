@@ -18,10 +18,39 @@ and open the template in the editor.
     padding-top: 25px;
 }
 
+.custom_freelancer_balance_tebel_cx{
+    border: 2px solid #ccc;
+    text-align: center;
+    border-radius: 4px;
+}
+
+#pageTitle{
+    font-size: 22px;
+    font-family: calibri;
+    color: #494949;
+    margin-bottom: 9px;
+}
+
+#accountingHistoryFilter .datepicker{
+    margin-left: 0;
+}
+
+#accountingHistoryFilter.oFilterBar{
+    margin-bottom: 0;
+}
+
+#searchpaymentfilter{
+    margin-bottom: 5px;
+}
+
 @media (min-width: 992px){
     .oDataNavBarTab-middle{
         border-left: 2px solid #ccc;
         border-right: 2px solid #ccc;
+    }
+    
+    #searchpaymentfilter .text-center{
+        padding-left: 0;
     }
 }
 

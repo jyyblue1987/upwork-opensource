@@ -164,10 +164,10 @@ class Work_diary extends Winjob_Controller{
                 
                 $job_work_diary_data = $this->_ajax_data_validation();
                 
-                $contract_title      = $job_work_diary_data['contract_title'];
+                $contract_id         = $job_work_diary_data['contract_id'];
                 $contract_amount     = $job_work_diary_data['contract_amount'];
                 $total_hour          = $job_work_diary_data['total_hour'];
-                unset($job_work_diary_data['contract_title']);
+                unset($job_work_diary_data['contract_id']);
                 unset($job_work_diary_data['contract_amount']);
                         
                 $this->job_work_diary_model->insert( $job_work_diary_data );
@@ -177,35 +177,19 @@ class Work_diary extends Winjob_Controller{
                 $this->load->model( array( 'payment_methods_model', 'invoice_model' ) );
                 
                 //get the invoice of the current contract for the current week
-                $invoice    = $this->invoice_model->get_invoice( $job_work_diary_data['bid_id'] );
                 $amount_due = $contract_amount * $total_hour;
                 $now        = Carbon::now()->timezone( new DateTimeZone( 'UTC' ) ); 
+                $desc       = ( $total_hour > 1 ? 'text_app_payment_fors' : 'text_app_payment_for' );
+                $invoice    = array(
+                    'description' => sprintf($this->lang->line( $desc ), $contract_id, $total_hour, $contract_amount),
+                    'amount_due'  => $amount_due,
+                    'bid_id'      => $job_work_diary_data['bid_id'],
+                    'status'      => INVOICE_UNPAID,
+                    'created_at'  => date('Y-m-d H:i:s', $now->timestamp),
+                    'updated_at'  => date('Y-m-d H:i:s',$now->timestamp)
+                );
                 
-                if(empty($invoice))
-                {
-                    $invoice = array(
-                        'description' => sprintf($this->lang->line('text_app_payment_for'), $contract_title),
-                        'amount_due'  => $amount_due,
-                        'bid_id'      => $job_work_diary_data['bid_id'],
-                        'status'      => INVOICE_UNPAID,
-                        'created_at'  => date('Y-m-d H:i:s', $now->timestamp),
-                        'updated_at'  => date('Y-m-d H:i:s',$now->timestamp)
-                    );
-                }
-                else
-                {
-                    $invoice['amount_due']          += $amount_due;
-                    $invoice['updated_at']           = date('Y-m-d H:i:s', $now->timestamp);
-                }
-                
-                if( empty( $invoice['id'] ) )
-                {
-                    $this->invoice_model->create( $invoice );
-                }
-                else
-                {                    
-                    $this->invoice_model->update( $invoice );
-                }
+                $this->invoice_model->create( $invoice );
                 
                 $this->ajax_response( array(
                     'status'    => 'success', 
@@ -278,7 +262,7 @@ class Work_diary extends Winjob_Controller{
             'total_hour'      => $total_hour,
             'working_date'    => date('Y-m-d'),
             'end_work'        => $endind_time,
-            'contract_title'  => ( ! empty( $contract->hire_title ) ? $contract->hire_title : $contract->title  ),
+            'contract_id'     => $contract->contact_id,
             'contract_amount' => ( ! empty( $contract->offer_bid_amount) ? $contract->offer_bid_amount : $contract->bid_amount )
         );
                 

@@ -1,0 +1,51 @@
+<div id="accountingHistoryFilter" class="oFilterBar">
+    <div class="row">
+        <form action="" method="get" id="searchpaymentfilter" class="col-xs-12">
+            <div class="row">
+                <div class="col-sm-12 col-md-11">
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <label class="oLabelInline oLabelDatePicker" for="from">
+                            {{ app_lang('text_app_transaction_filter_from') }}
+                        </label>
+                        <input id="datepicker-from" 
+                            class="form-control datepicker"  
+                            name="from" 
+                            value="{{ from_date }}" >
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <label class="oLabelInline oLabelDatePicker" for="to">
+                            {{ app_lang('text_app_transaction_filter_to') }}
+                        </label>
+                        <input id="datepicker-to" 
+                            class="form-control datepicker"  
+                            name="to" 
+                            value="{{ to_date }}" >
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <label class="oLabelInline oLabelDatePicker" for="to">&nbsp;</label>
+                        <select class="form-control" id="trx_type" name="trx_type">
+                            <option {% if trx_type == 'ALL' %}selected{% endif %}      value="ALL" label="{{ app_lang('text_app_transaction_all_type') }}">{{ app_lang('text_app_transaction_all_type') }}</option>
+                            <option {% if trx_type == 'CREDITES' %}selected{% endif %} value="CREDITES" label="{{ app_lang('text_app_transaction_type_credits') }}">{{ app_lang('text_app_transaction_type_credits') }}</option>
+                            <option {% if trx_type == 'HOURLY' %}selected{% endif %}   value="HOURLY" label="{{ app_lang('text_app_transaction_type_hourly') }}">{{ app_lang('text_app_transaction_type_hourly') }}</option>
+                            <option {% if trx_type == 'FIXED' %}selected{% endif %}    value="FIXED" label="{{ app_lang('text_app_transaction_type_fixed') }}">{{ app_lang('text_app_transaction_type_fixed') }}</option>
+                        </select> 
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <label class="oLabelInline oLabelDatePicker">&nbsp;</label>
+                        <select class="form-control" id="employers" name="employer">
+                            <option value="">{{ app_lang('text_app_transaction_employers') }}</option>
+                            {% for emp in employers %}
+                                {% set employer_id = base64_encode(emp.webuser_id) %}
+                               <option {% if employer == employer_id %}selected{% endif %} value="{{ employer_id }}">{{ emp.webuser_fname }} {{ emp.webuser_lname }}</option>
+                            {% endfor %}
+                        </select> 
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-1 text-center">
+                    <label class="oLabelInline oLabelDatePicker col-xs-12">&nbsp;</label>
+                    <button class="oBtn oBtnSecondary oBtnInline" id="payfilter" type="submit">{{ app_lang('text_app_transaction_btn_go') }}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -141,4 +141,22 @@ $lang['text_app_update_credit_card_detail'] = 'Update your %s card details endin
 $lang['text_app_payment_method_updated'] = "Your card informations has been updated with success.";
 $lang['text_app_payment_method_error_in_updating'] = "Your card's informations has not been upudated. Please refresh and try again.";
 
-$lang['text_app_payment_for'] = 'Invoice for %s';
+$lang['text_app_payment_for']         = 'Invoice for Contract ID: %s - %dhr*$%.2f/hr';
+$lang['text_app_payment_fors']        = 'Invoice for Contract ID: %s - %dhrs*$%.2f/hr';
+
+
+$lang['text_app_transaction_history']       = 'Transaction History';
+$lang['text_app_transaction_filter_from']   = 'From';
+$lang['text_app_transaction_filter_to']     = 'To';
+$lang['text_app_transaction_all_type']      = 'All Transactions';
+$lang['text_app_transaction_type_credits']  = 'Credits';
+$lang['text_app_transaction_type_hourly']   = 'Hourly';
+$lang['text_app_transaction_type_fixed']    = 'Fixed Price';
+$lang['text_app_transaction_employers']     = 'All Clients';
+$lang['text_app_transaction_btn_go']        = 'Go';
+
+$lang['text_app_transaction_history_date']      = 'Date';
+$lang['text_app_transaction_history_type']      = 'Type';
+$lang['text_app_transaction_history_desc']      = 'Description';
+$lang['text_app_transaction_history_employer']  = 'Client';
+$lang['text_app_transaction_history_amount']    = 'Amount';

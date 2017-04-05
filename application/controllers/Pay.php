@@ -348,15 +348,38 @@ class Pay extends Winjob_Controller
         redirect(site_url("pay/billing"));
     }
     
+    private function _filters_values()
+    {
+        $from          = $this->input->get('from');
+        $from_internal = ( ! empty( $from ) ) ? date('Y-m-d', strtotime( $from ) ) : null;
+        $from_date     = ( ! empty( $from ) ) ? date('D, M j, Y', strtotime( $from ) ) : null; 
+        
+        $to            = $this->input->get('to');
+        $to_internal   = ( ! empty( $to ) ) ? date('Y-m-d', strtotime( $to ) ) : null;
+        $to_date       = ( ! empty( $to ) ) ? date('D, M j, Y', strtotime( $to ) ) : null; 
+        
+        $employer          = $this->input->get('employer');
+        $employer_internal = ! empty( $employer ) ? base64_decode($employer) : null;
+        $trx_type          = $this->input->get('trx_type');
+        
+        return compact('from', 'from_date', 'to', 'to_date', 'trx_type', 'employer', 'employer_internal');
+    }
+    
     public function balance(){
         
         $this->checkForFreelancer();
         
         $user_id = $this->session->userdata('id');
         
+        //extract filters values ( from_internal, from_date, to_internal, to_date, trx_type, employer, employer_internal )
+        extract( $this->_filters_values() );
+        
         //load all model
         $this->load->model( array( 'payment_model' ) );
         
+        //get all employer who has sent current freelancer money
+        $employers = $this->payment_model->all_employers_who_paid_or_will( $user_id );
+                    
         //calculate $amount_in_progress (Only for Hourly job contract)
         $amount_in_progress = $this->payment_model->get_amount_in_progress( $user_id );
         
@@ -364,9 +387,15 @@ class Pay extends Winjob_Controller
         $amount_pending     = $this->payment_model->get_amount_pending( $user_id );
         
         //calculate $amount_available (hourly available amount + fixed available amount)
-        $amount_available   = $this->payment_model->get_amount_available( $user_id );
+        $amount_available   = $this->payment_model->get_amount_available( $user_id);
         
-        $this->twig->display('webview/freelancer/balance', compact('amount_in_progress', 'amount_pending', 'amount_available'));
+        //get all payment transaction
+        $payment_txns       = $this->payment_model->get_payment_list( $user_id );
+        
+        $this->twig->display('webview/freelancer/balance', compact(
+            'amount_in_progress', 'amount_pending', 'amount_available',
+            'from_date', 'to_date', 'trx_type', 'employer', 'employers', 'payment_txns'
+        ));
         
     }
     
@@ -489,7 +518,7 @@ class Pay extends Winjob_Controller
 
             FROM payments
 
-            JOIN webuser ON webuser.webuser_id = payments.user_id
+            JOIN webuser ON webuser.webuser_id = payments.buser_id
 
             JOIN jobs ON jobs.id = payments.job_id
 
@@ -509,7 +538,7 @@ class Pay extends Winjob_Controller
 
             LEFT JOIN job_accepted ja ON ja.contact_id = dt.contract_id
 
-            LEFT JOIN webuser u ON u.webuser_id = dt.fuser_id
+            LEFT JOIN webuser u ON u.webuser_id = dt.cuser_id
 
             WHERE dt.fuser_id = $user_id ORDER BY payment_create DESC");
             $query = $this->db->query($sql);
