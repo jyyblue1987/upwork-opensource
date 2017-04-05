@@ -1008,7 +1008,7 @@ class Jobs extends Winjob_Controller {
             $record_hire = $query_hire->num_rows();
             $applicants = $this->process->get_applications($postId);
             $interviews = $this->process->get_interviews($record->user_id, $postId);
-            $hires = $this->process->get_hires($record->user_id, $_jobs->id);
+            $hires = $this->process->get_hires($record->user_id, $postId);
             // Davit start
             $data = array('value' => $record, 'applicants' => $applicants['rows'], 'hires' => $hires['rows'], 'interviews' => $interviews['rows'], 'workedhours' => $workedhours, 'hire' => $record_hire,   'record_sidebar' => $record_sidebar, 'skills' => $job_skills, 'proposals' => $proposals, 'js' => array('dropzone.js', 'vendor/jquery.form.js', 'internal/job_apply.js'), 'css' => array("","","","assets/css/pages/apply.css"));
             // Davit end
