@@ -881,13 +881,14 @@ class Jobs extends Winjob_Controller {
                 'record_sidebar' => $record_sidebar,
                 'applicants' => $applicants['rows'],
                 'hires' => $hires['rows'],
-                    'interviews' => $interviews['rows'],
+                'interviews' => $interviews['rows'],
                 'hire' => $record_hire, 
                 'workedhours' => $workedhours, 
                 'ststus' => $ststus,
                 'css' => array("","","","assets/css/pages/view.css"),
                 'payment_set' => $paymentSet,
-                'total_spent' => $total_spent
+                'total_spent' => $total_spent,
+                'job_id' => $postId
              );
 
             $this->Admintheme->custom_webview("jobs/view", $data);

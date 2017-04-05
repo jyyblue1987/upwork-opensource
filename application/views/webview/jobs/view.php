@@ -56,6 +56,7 @@ $accepted_jobs = $query->result();
  }
             
             if($value->status=='0'){?>
+            
                 <div class="alert alert-warning">
                     <strong>Warning!</strong> The job does not exist.
                 </div>
@@ -71,10 +72,33 @@ $accepted_jobs = $query->result();
                     $marginClass = 'margin-top';
                 }
                 ?>
+                <?php if($value->user_id == $this->session->userdata('id')){ ?>
+                <div class="col-md-3 col-sm-6 col-xs-6" style="float: right; font-size: 11px; width: 300px;">
+                            <div class="row"> 
+                                <div class="col-md-5 col-sm-5 col-xs-12">
+                                    <label class="gray-text">
+                                        <span class="hidden-xs hidden-sm margin-10-left">&nbsp;</span>
+                                        <a href='<?= site_url('jobs/edit/' . base64_encode($job_id)); ?>'style="color: #37A000">Edit Posting <span class='glyphicon custom_client_icon glyphicon-edit co'></span>
+                                        </a>
+                                    </label>
+                                </div>
+
+                                <div class="col-md-5 col-sm-4 col-xs-12">
+                                    <label class="gray-text"> 
+                                        <a href="javascript:void(0)" id="endpost" onclick="Confirmremove(<?= base64_encode($job_id) ?>);" class="co">
+                                            Remove Posting
+                                            <span class='glyphicon custom_client_icon glyphicon-remove co'></span>
+                                        </a>
+                                    </label>
+                                </div>                    
+                            </div>
+                        </div>
+                <?php } ?>
                 <div class="row <?php echo $marginClass; ?>">
                     <div class="col-md-10 col-xs-6 page-label">
                         <h1 class="job-title cos_job-title"><?php echo ucfirst($value->title) ?></h1>
                     </div>
+                    
                     <div class="col-md-2 col-xs-6 page-label">
                         
                         <span class="pull-right marg-top-neg"><?php
@@ -91,7 +115,6 @@ $accepted_jobs = $query->result();
                     <div class="col-md-3 text-center">
                         <label class="lab-res">Job Type</label> <br /> <span><?php echo ucfirst($value->job_type) ?></span>
                     </div>
-
                     <div class="col-md-3 text-center page-label">
                         <label class="lab-res">  
                             <?php
