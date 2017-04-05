@@ -2414,12 +2414,75 @@ class Jobs extends Winjob_Controller {
             $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'left');
             $this->db->order_by("job_bids.id", "desc");
             $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id, 'job_bids.id' => $bidId));
-            if ($query->num_rows() > 0)
-                $value = $query->row();
-            else
-                redirect(site_url().'bids_list');
 
-            $data = array('value' => $value, 'js' => array('vendor/jquery.form.js', 'internal/job_withdraw.js'));
+            if ($query->num_rows() > 0){
+                $value = $query->row();
+            }else{
+                redirect(site_url().'bids_list');
+            }
+            
+                    $this->db->select('*');
+                    $this->db->from('jobs');
+                    $this->db->where('user_id', $value->clientid);
+                    $query_sidebar = $this->db->get();
+                    $record_sidebar = $query_sidebar->num_rows();
+                    $records = $query_sidebar->result();
+
+                    $jobids = array();
+            foreach ($records as $jobs) {
+                $jobids[] = $jobs->id;
+            }
+            $jobids = implode(",", $jobids);
+
+            $_jobids = array_map('intval',$jobids);
+            
+            $this->db->select('*');
+            $this->db->from('job_bids');
+            $this->db->where_in('job_id', $_jobids);
+            $this->db->where('hired', 1);
+            $query_hire = $this->db->get();
+            $record_hire = $query_hire->num_rows();
+
+            $this->db->select('*');
+            $this->db->from('job_workdairy');
+            $this->db->where_in('cuser_id', $value->clientid);
+            $queryhour = $this->db->get();
+            $workedhours = $queryhour->result();
+            
+            $query_spent = $this->db->query("SELECT SUM(payment_gross) as total_spent FROM `payments` INNER JOIN `webuser` ON `webuser`.`webuser_id` = `payments`.`user_id` INNER JOIN `jobs` ON `jobs`.`id` = `payments`.`job_id` INNER JOIN `job_accepted` ON `job_accepted`.`job_id` = `payments`.`job_id` INNER JOIN `job_bids` ON `job_bids`.`job_id` = `payments`.`job_id` WHERE `job_accepted`.`fuser_id` = `payments`.`user_id` AND
+                `job_bids`.`user_id` = `payments`.`user_id` AND `payments`.`buser_id` = $value->clientid");
+            $row_spent = $query_spent->row();
+            $total_spent=$row_spent->total_spent;
+            $emp = new Employer($value->clientid);
+            
+            $this->db->where('country_id', $emp->get_country());
+            $q = $this->db->get('country');
+            $country = $q->row_array();
+            
+            $this->db->select('*');            
+            $this->db->from('jobs');
+            $this->db->join('billingmethodlist', 'billingmethodlist.belongsTo = jobs.user_id', 'inner');
+            $this->db->where('billingmethodlist.belongsTo', $value->clientid);
+            $this->db->where('billingmethodlist.isDeleted', "0");
+            $this->db->where('jobs.status', 1);
+            $query = $this->db->get();   
+            $paymentSet=0;
+                if (is_object($query)) {
+                    $paymentSet = $query->num_rows();
+                }
+
+            $data = array('value' => $value,
+                'record_sidebar' => $record_sidebar,
+                'hire' => $record_hire,
+                'workedhours' => $workedhours,
+                'total_spent' => $total_spent,
+                'country' => ucwords($country['country_name']),
+                'fname' => ucwords($emp->get_fname()),
+                'status' => $emp->get_status(),
+                'payment_set' => $paymentSet,
+                'user_id' => $value->clientid,
+                'js' => array('vendor/jquery.form.js',
+                    'internal/job_withdraw.js'));
             $this->Admintheme->webview("jobs/withdraw_system", $data);
         }
     }

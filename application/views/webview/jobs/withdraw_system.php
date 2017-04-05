@@ -48,6 +48,59 @@ function time_elapsed_string($ptime)
         }
     }
 }
+
+$this->db->select('*');
+$this->db->from('job_accepted');
+$this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
+$this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
+$this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
+$this->db->where('job_accepted.buser_id',$user_id);
+
+$query=$this->db->get();
+
+$accepted_jobs = $query->result();
+  $total_feedbackScore=0 ;
+    $total_budget=0 ;
+ if(!empty($accepted_jobs)){
+    foreach($accepted_jobs as $job_data){
+        $this->db->select('*');
+        $this->db->from('job_feedback');
+        $this->db->where('job_feedback.feedback_userid',$job_data->fuser_id);
+        $this->db->where('job_feedback.sender_id !=',$job_data->fuser_id);
+        $this->db->where('job_feedback.feedback_job_id',$job_data->job_id);
+        $query=$this->db->get();
+        $jobfeedback= $query->row();
+        
+        if($job_data->jobstatus == 1){
+            if(!empty($jobfeedback)){
+                if($job_data->job_type == "fixed"){
+                    $total_price_fixed=$job_data->fixedpay_amount;
+                    $total_feedbackScore += ($jobfeedback->feedback_score *$total_price_fixed);
+                    $total_budget += $total_price_fixed;
+                }else{
+                    $this->db->select('*');
+                    $this->db->from('job_workdairy');
+                    $this->db->where('fuser_id',$job_data->fuser_id);
+                    $this->db->where('jobid',$job_data->job_id);
+                    $query_done = $this->db->get();
+                    $job_done = $query_done->result();
+                    $total_work = 0;
+                    foreach($job_done as $work){
+                        $total_work +=$work->total_hour;
+                    }
+                    
+                    if($job_data->offer_bid_amount) {
+                    $amount = $job_data->offer_bid_amount;
+                    } else {$amount =  $job_data->bid_amount;} 
+                     $total_price= $total_work *$amount;
+                    $total_budget += $total_price ;
+                    $total_feedbackScore += ($jobfeedback->feedback_score *$total_price);
+                }
+            }
+        }
+    }
+ }
+
 ?>
 
 
@@ -202,12 +255,12 @@ $hire_count = $query->num_rows();
 			
             <div style="margin-left: -2px;margin-top: 20px;" class="col-md-3" >
                 <div class="row client-activity">
-                    <div style="padding: 0 30px 9px;border-radius: 4px;width: 210px;" class="col-md-10 col-md-offset-2 right-section ">
+                    <div style="" class="col-md-10 col-md-offset-2 right-section">
                         <div class="row margin-top-2">
                             <div class="col-md-12">
                                 
                                 <?php
-if ($value->isactive && $paymentSet) {
+if ($status && $payment_set) {
     ?>
 										<i style="margin-top: -10px; margin-left: -4px; font-size: 25px; color: rgb(2, 143, 204);position: absolute;top: 8px;" class="fa fa-check-circle"></i>
                                         <?php
@@ -217,7 +270,7 @@ if ($value->isactive && $paymentSet) {
                                         <?php
                                     }
                                     ?>
-                                <label style="margin-left: 25px;"><?php echo ucfirst($value->webuser_fname) ?></label>
+                                <label style="margin-left: 25px;"><?php echo $fname ?></label>
                                 
                                 
                             </div>
@@ -245,11 +298,12 @@ if ($value->isactive && $paymentSet) {
                                
                             </div>
                         </div>
+
                         <div style="margin-top: 14px;margin-left: -19px;" class="row margin-top-2 border-bottom">
                             <div class="col-md-12">
                                 <label style="font-family: Calibri;font-size: 20.26px;color: #494949;margin-top: -29px;">
                                    <?php if(!empty($record_sidebar)){
-                                        echo count($record_sidebar);
+                                        echo $record_sidebar;
                                     }else{
                                         echo "0";
                                     } ?>
@@ -276,7 +330,7 @@ if ($value->isactive && $paymentSet) {
                                         echo $total_work." <span style='font-size: 14px;color: #494949;font-family: calibri;'>Hours</span>";
                                     }else{
                                         echo " 0 <span style='font-size: 14px;color: #494949;font-family: calibri;'>Hours Worked</span>";
-                                    }?>
+                                    } ?>
 								</label>
                             </div>
                         </div>
@@ -296,16 +350,14 @@ if ($value->isactive && $paymentSet) {
 								
 								<label style="font-family: Calibri;font-size: 20.26px;color: #494949;margin-top: -29px;">
 								<span style="font-size: 14px;color: #494949;font-family: calibri;"><?php
-                                $this->db->where('country_id', $value->webuser_country);
-                                $q = $this->db->get('country');
-                                $record = $q->row();
-                                echo ucfirst($record->country_name);
+                                
+                                echo $country;
                                 ?></span>
 								</label>
                             </div>
                         </div>
 
-                    </div>
+                    
                 </div>
 
             </div>
