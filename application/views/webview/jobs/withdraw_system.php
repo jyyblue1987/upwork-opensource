@@ -185,12 +185,14 @@ $accepted_jobs = $query->result();
                     <div class="col-md-10 skills page-label">
                     <div class="custom_user_skills">
                         <?php
-                        if (isset($value->skills) && !empty($value->skills))
-                        {
-                            $skills = explode(' ', $value->skills);
-                            foreach ($skills as $skill)
-                                echo "<span> $skill</span> ";
-                        }
+                        if (isset($skills) && !empty($skills))
+                            {
+                                
+                                foreach($skills AS $key => $_skills){
+                                    foreach($_skills AS $skill)
+                                    echo "<span style='font-family: Calibri; font-size: 10.5px; padding-right: 5px;'>".ucwords($skill)."</span> ";
+                                }
+                            }
                         ?>
                     </div>
                     </div>
@@ -214,7 +216,7 @@ $query =$this->db->get();
 $Proposals_count = $query->num_rows();
 $jobfeedback= $query->result();
 ?>
-                        <label style="font-family: calibri;font-size: 17px;">Proposals</label> <br /> <span><?=$Proposals_count;?></span>
+                        <label style="font-family: calibri;font-size: 17px;">Proposals</label> <br /> <span><?=$applicants;?></span>
                     </div>
 
                     <div class="col-md-4 text-center page-label">
@@ -229,7 +231,7 @@ $this->db->group_by('bid_id');
 $query=$this->db->get();
 $interview_count = $query->num_rows();
 ?>
-                        <label style="font-family: calibri;font-size: 17px;">Interviewing</label><br /> <span><?=$interview_count;?></span>
+                        <label style="font-family: calibri;font-size: 17px;">Interviewing</label><br /> <span><?=$interviews;?></span>
                     </div>
 
                     <div class="col-md-4 last-div text-center page-label">
@@ -245,15 +247,110 @@ $query=$this->db->get();
 $hire_count = $query->num_rows();
 ?>
                         <label style="font-family: calibri;font-size: 17px;">Hired</label><br /> <span>
-                            <?php echo $hire_count;?>
+                            <?php echo $hires;?>
                         </span>
                     </div>
 
                 </div>
                 </div>
             </div>
-			
-            <div style="margin-left: -2px;margin-top: 20px;" class="col-md-3" >
+    </div>
+
+    <div class="container">
+        <div style="background: #fff;width: 750px;border: 1px solid #ccc;border-top: 0;border-radius: 0 0 4px 4px;" class="row">
+            <div class="col-md-9" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; padding-left: 45px;">
+                <div class='form-msg'></div>            
+                <div class="row">
+                    <div style="border: 1px solid rgb(204, 204, 204); width: 698px;border-radius: 4px;margin-top: 20px;" class="col-md-12">
+                        <div class="row">
+								<?php
+							   // print_r($value);
+								
+								if($value->status=='1'){?>
+									<div class="alert custom-alert-warning">
+										<strong>Warning!</strong> You have withdraw with this job.
+									</div>
+									<?php }else{
+										// added by jahid start 
+									 /*
+									?>
+								 <div class="alert alert-warning">
+										<strong>Warning!</strong> The job does not exist.
+									</div>
+								<?php 
+									*/
+										// added by jahid end 
+									}
+								?>
+                            <div style="text-align: center;" class="col-md-7 col-centered custom_sp">
+								
+								<div class="row">
+                                    <div class="col-md-12">
+                                        <label style="margin-bottom: -3px;">Submitted Proposal</label>
+                                    </div>
+                                </div>
+
+                                <div class="row margin-top-2">
+                                    <div class="col-md-12">
+                                        <label>Your proposed terms</label>
+                                    </div>
+                                </div>
+
+                                <div class="row margin-top-2">
+                                    <div class="col-md-12">
+                                        <label>Rate : </label>
+									
+									<?php
+                                    $perHrs = '';
+                                    if ($value->job_type == 'hourly')
+                                    {
+                                        $perHrs = '/hr';
+                                    }
+                                    ?>
+                                        <label>$<amt id='bid_earning_read'><?php echo round($value->bid_earning, 2); ?></amt><?php echo $perHrs ?></label> ($<amt id='bid_amount_read'><?php echo round($value->bid_amount, 2); ?></amt><?php echo $perHrs ?> charge to client)
+                                    </div>
+
+                                </div>
+ <?php if($value->status!='1')
+ {?>
+                                <div class="row margin-top-2">
+                                    <div class="col-md-12">
+                                        <input style="margin-left: 15px;" type="button" class="btn btn-primary form-btn" value="Propose Different Terms" data-toggle="modal" data-target="#myModal2"/>
+                                    </div>
+                                </div>
+
+                                <div class="row margin-top-2">
+                                    <div class="col-md-12 text-center">
+                                        <a href="#" data-toggle="modal" data-target="#myModal">Withdraw Proposal</a>
+                                    </div>
+                                </div>
+ <?php }?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="row">
+                            <div style="margin-top: 30px;" class="col-md-11 margin-left-2 margin-top-2">
+                                <p class="custom_cover-letter">Cover Letter</p>
+                            </div>
+                        </div>
+
+                        <div class="row margin-top-2">
+                            <div class="col-md-11 margin-left-2">
+                                <p style="margin-bottom: 32px;" style="margin-bottom: 10px; color: rgb(73, 73, 73);" class="custom_cover-letter-text"><?php echo ucfirst($value->cover_latter) ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+        </div>
+    </div>
+                       <div style="margin-left: -2px;margin-top: 20px;" class="col-md-3" >
                 <div class="row client-activity">
                     <div style="" class="col-md-10 col-md-offset-2 right-section">
                         <div class="row margin-top-2">
@@ -365,100 +462,6 @@ if ($status && $payment_set) {
 
         </div>
 
-    </div>
-
-    <div class="container">
-        <div style="background: #fff;width: 750px;border: 1px solid #ccc;border-top: 0;border-radius: 0 0 4px 4px;" class="row">
-            <div class="col-md-9" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; padding-left: 45px;">
-                <div class='form-msg'></div>            
-                <div class="row">
-                    <div style="border: 1px solid rgb(204, 204, 204); width: 698px;border-radius: 4px;margin-top: 20px;" class="col-md-12">
-                        <div class="row">
-								<?php
-							   // print_r($value);
-								
-								if($value->status=='1'){?>
-									<div class="alert custom-alert-warning">
-										<strong>Warning!</strong> You have withdraw with this job.
-									</div>
-									<?php }else{
-										// added by jahid start 
-									 /*
-									?>
-								 <div class="alert alert-warning">
-										<strong>Warning!</strong> The job does not exist.
-									</div>
-								<?php 
-									*/
-										// added by jahid end 
-									}
-								?>
-                            <div style="text-align: center;" class="col-md-7 col-centered custom_sp">
-								
-								<div class="row">
-                                    <div class="col-md-12">
-                                        <label style="margin-bottom: -3px;">Submitted Proposal</label>
-                                    </div>
-                                </div>
-
-                                <div class="row margin-top-2">
-                                    <div class="col-md-12">
-                                        <label>Your proposed terms</label>
-                                    </div>
-                                </div>
-
-                                <div class="row margin-top-2">
-                                    <div class="col-md-12">
-                                        <label>Rate : </label>
-									
-									<?php
-                                    $perHrs = '';
-                                    if ($value->job_type == 'hourly')
-                                    {
-                                        $perHrs = '/hr';
-                                    }
-                                    ?>
-                                        <label>$<amt id='bid_earning_read'><?php echo round($value->bid_earning, 2); ?></amt><?php echo $perHrs ?></label> ($<amt id='bid_amount_read'><?php echo round($value->bid_amount, 2); ?></amt><?php echo $perHrs ?> charge to client)
-                                    </div>
-
-                                </div>
- <?php if($value->status!='1')
- {?>
-                                <div class="row margin-top-2">
-                                    <div class="col-md-12">
-                                        <input style="margin-left: 15px;" type="button" class="btn btn-primary form-btn" value="Propose Different Terms" data-toggle="modal" data-target="#myModal2"/>
-                                    </div>
-                                </div>
-
-                                <div class="row margin-top-2">
-                                    <div class="col-md-12 text-center">
-                                        <a href="#" data-toggle="modal" data-target="#myModal">Withdraw Proposal</a>
-                                    </div>
-                                </div>
- <?php }?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class="row">
-                    <div class="col-md-11">
-                        <div class="row">
-                            <div style="margin-top: 30px;" class="col-md-11 margin-left-2 margin-top-2">
-                                <p class="custom_cover-letter">Cover Letter</p>
-                            </div>
-                        </div>
-
-                        <div class="row margin-top-2">
-                            <div class="col-md-11 margin-left-2">
-                                <p style="margin-bottom: 32px;" style="margin-bottom: 10px; color: rgb(73, 73, 73);" class="custom_cover-letter-text"><?php echo ucfirst($value->cover_latter) ?></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
 
                 <!-- Modal -->
                 <div id="myModal" class="modal fade" role="dialog">
@@ -486,9 +489,6 @@ if ($status && $payment_set) {
 
                     </div>
                 </div>
-
-
-
 
 
 

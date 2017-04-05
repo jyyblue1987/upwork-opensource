@@ -2455,8 +2455,8 @@ class Jobs extends Winjob_Controller {
             }
             $bidId = base64_decode($bidId);
             $id = $this->session->userdata('id');
-            $this->db->select(array('job_bids.*', 'jobs.title', 'jobs.job_type',
-                'jobs.budget', 'jobs.hours_per_week', 'jobs.job_duration',
+            $this->db->select(array('job_bids.*', 'jobs.title', 'jobs.job_type', 'jobs.id as jobid',
+                'jobs.budget', 'jobs.hours_per_week', 'jobs.job_duration', 'jobs.category',
                 'jobs.experience_level', 'jobs.skills', 'jobs.job_description', 'jobs.user_id as clientid'));
             $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'left');
             $this->db->order_by("job_bids.id", "desc");
@@ -2517,7 +2517,18 @@ class Jobs extends Winjob_Controller {
                 if (is_object($query)) {
                     $paymentSet = $query->num_rows();
                 }
-
+                
+                $this->db->select("skill_name");
+            $this->db->from("job_skills");
+            $this->db->where("job_id = ", $value->jobid);
+            $query = $this->db->get();
+            $job_skills = $query->result_array();
+            $record->job_skills = $job_skills;
+            
+            $applicants = $this->process->get_applications($value->jobid);
+            $interviews = $this->process->get_interviews($value->clientid, $value->jobid);
+            $hires = $this->process->get_hires($value->clientid, $value->jobid);
+            
             $data = array('value' => $value,
                 'record_sidebar' => $record_sidebar,
                 'hire' => $record_hire,
@@ -2527,6 +2538,10 @@ class Jobs extends Winjob_Controller {
                 'fname' => ucwords($emp->get_fname()),
                 'status' => $emp->get_status(),
                 'payment_set' => $paymentSet,
+                'applicants' => $applicants['rows'], 
+                'hires' => $hires['rows'], 
+                'interviews' => $interviews['rows'], 
+                'skills' => $job_skills,
                 'user_id' => $value->clientid,
                 'js' => array('vendor/jquery.form.js',
                     'internal/job_withdraw.js'));
