@@ -40,33 +40,16 @@ function time_elapsed_string($ptime)
 ?>
 
 <?php
-
 /* find client payment set status start */
-
 $this->db->select('*');
-$this->db->from('billingmethodlist');
-$this->db->where('billingmethodlist.belongsTo', $value->webuser_id);
-// $this->db->where('billingmethodlist.paymentMethod', "stripe");
-$this->db->where('billingmethodlist.isDeleted', "0");
-$query = $this->db->get();
-$paymentSet = 0;
-if (is_object($query)) {
-    $paymentSet = $query->num_rows();
-}
-/* find client payment set status end */
+$this->db->from('job_accepted');
+$this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
+$this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
+$this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
+$this->db->where('job_accepted.buser_id',$value->webuser_id);
 
-
-/* find total spent by client start */
-$client_id=$value->webuser_id;
-$query_spent = $this->db->query("SELECT SUM(payment_gross) as total_spent FROM `payments` INNER JOIN `webuser` ON `webuser`.`webuser_id` = `payments`.`user_id` INNER JOIN `jobs` ON `jobs`.`id` = `payments`.`job_id` INNER JOIN `job_accepted` ON `job_accepted`.`job_id` = `payments`.`job_id` INNER JOIN `job_bids` ON `job_bids`.`job_id` = `payments`.`job_id` WHERE `job_accepted`.`fuser_id` = `payments`.`user_id` AND
-    `job_bids`.`user_id` = `payments`.`user_id` AND `payments`.`buser_id` = $client_id");
-$row_spent = $query_spent->row();
-$total_spent=$row_spent->total_spent;
-/* find total soent by client end */
-
-
-
-
+$query=$this->db->get();
+$accepted_jobs = $query->result();
 $total_feedbackScore=0 ;
 $total_budget=0 ;
 if (count($accepted_jobs) > 0) {
@@ -108,6 +91,28 @@ if (count($accepted_jobs) > 0) {
         }
     }
 }
+
+$this->db->select('*');
+$this->db->from('billingmethodlist');
+$this->db->where('billingmethodlist.belongsTo', $value->webuser_id);
+// $this->db->where('billingmethodlist.paymentMethod', "stripe");
+$this->db->where('billingmethodlist.isDeleted', "0");
+$query = $this->db->get();
+$paymentSet = 0;
+if (is_object($query)) {
+    $paymentSet = $query->num_rows();
+}
+/* find client payment set status end */
+
+
+/* find total spent by client start */
+$client_id=$value->webuser_id;
+$query_spent = $this->db->query("SELECT SUM(payment_gross) as total_spent FROM `payments` INNER JOIN `webuser` ON `webuser`.`webuser_id` = `payments`.`user_id` INNER JOIN `jobs` ON `jobs`.`id` = `payments`.`job_id` INNER JOIN `job_accepted` ON `job_accepted`.`job_id` = `payments`.`job_id` INNER JOIN `job_bids` ON `job_bids`.`job_id` = `payments`.`job_id` WHERE `job_accepted`.`fuser_id` = `payments`.`user_id` AND
+    `job_bids`.`user_id` = `payments`.`user_id` AND `payments`.`buser_id` = $client_id");
+$row_spent = $query_spent->row();
+$total_spent=$row_spent->total_spent;
+/* find total soent by client end */
+
 ?>
 
 <section id="big_header">
@@ -192,11 +197,13 @@ if (count($accepted_jobs) > 0) {
                     <div class="col-md-10 skills page-label margin-top-neg-2">
                         <div class="custom_user_skills">
                             <?php
-                            if (isset($value->skills) && !empty($value->skills))
+                            if (isset($skills) && !empty($skills))
                             {
-                                $skills = explode(' ', $value->skills);
-                                foreach ($skills as $skill)
-                                    echo "<span> $skill</span> ";
+                                
+                                foreach($skills AS $key => $_skills){
+                                    foreach($_skills AS $skill)
+                                    echo "<span style='font-family: Calibri; font-size: 10.5px; padding-right: 5px;'>".ucwords($skill)."</span> ";
+                                }
                             }
                             ?>
                         </div>
@@ -227,7 +234,7 @@ $Proposals_count = $query->num_rows();
 $jobfeedback= $query->result();
 ?>
                         <label class="lab-res">Proposals</label> <br /> <span>
-                       <?=$Proposals_count;?>
+                       <?=$applicants;?>
                         </span>
                     </div>
 
@@ -243,7 +250,7 @@ $this->db->group_by('bid_id');
 $query=$this->db->get();
 $interview_count = $query->num_rows();
 ?>
-                        <label class="lab-res">Interviewing</label><br /> <span><?=$interview_count;?> </span>
+                        <label class="lab-res">Interviewing</label><br /> <span><?=$interviews;?> </span>
                     </div>
 
                     <div class=" last-div col-md-4 text-center page-label">
@@ -259,7 +266,7 @@ $query=$this->db->get();
 $hire_count = $query->num_rows();
 ?>
                         <label class="lab-res">Hired</label><br /> <span>
-                            <?php echo $hire_count;?>
+                            <?php echo $hires;?>
                         </span>
                     </div>
                 </div>
@@ -437,23 +444,23 @@ if ($value->isactive && $paymentSet) {
                         </div>
                         <div style="" class="row margin-top-2 border-bottom right-cont">
                             <div class="col-md-8 ">
-                                <?php if($total_feedbackScore !=0 && $total_budget!=0){
+								<?php if($total_feedbackScore !=0 && $total_budget!=0){
                                 $totalscore = ($total_feedbackScore / $total_budget);
                                 $rating_feedback = ($totalscore/5)*100;
                                ?>
                                 <button style="" class="totscore" id="buttonfirst"><?=number_format((float)$totalscore,1,'.','');?></button>
-                                <div title="Rated <?=$totalscore;?> out of 5" class="star-rating revrat" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
-                                <span style="width:<?=$rating_feedback;?>%">
-                                    <strong itemprop="ratingValue"><?=$totalscore;?></strong> out of 5
-                                </span>
-                                </div>
-                            <?php  }else{ ?>
+								<div title="Rated <?=$totalscore;?> out of 5" class="star-rating revrat" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+								<span style="width:<?=$rating_feedback;?>%">
+									<strong itemprop="ratingValue"><?=$totalscore;?></strong> out of 5
+								</span>
+								</div>
+							<?php  }else{ ?>
                              <button style="" class="totscore"  id="buttonfirst">0.0</button>
-                                <div style="" title="Rated 0 out of 5" class="star-rating revrat" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
-                                <span class="width0">
-                                    <strong itemprop="ratingValue">0</strong> out of 5
-                                </span>
-                                </div>
+								<div style="" title="Rated 0 out of 5" class="star-rating revrat" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+								<span class="width0">
+									<strong itemprop="ratingValue">0</strong> out of 5
+								</span>
+								</div>
                           <?php   } ?>
                                
                             </div>
@@ -462,7 +469,7 @@ if ($value->isactive && $paymentSet) {
                             <div class="col-md-12">
                                 <label style="" class="label-side">
                                    <?php if(!empty($record_sidebar)){
-                                        echo count($record_sidebar);
+                                        echo $record_sidebar;
                                     }else{
                                         echo "0";
                                     } ?>
