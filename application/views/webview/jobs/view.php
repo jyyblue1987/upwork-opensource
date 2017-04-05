@@ -174,17 +174,17 @@ $accepted_jobs = $query->result();
                     <div class="row jobdes-bordered page-label">
                         <div class="col-md-4 text-center">
                             <label class="lab-res">Proposals</label> <br /> <span>
-                                <?=$Proposals_count;?>
+                                <?=$applicants;?>
                             </span>
                         </div>
 
                         <div class="col-md-4 text-center page-label">
-                            <label class="lab-res">Interviewing</label><br /> <span><?=$interview_count;?> </span>
+                            <label class="lab-res">Interviewing</label><br /> <span><?=$interviews;?> </span>
                         </div>
 
                         <div class=" last-div col-md-4 text-center page-label">
                             <label class="lab-res">Hired</label><br /> <span>
-                                <?php echo $hire ;?>
+                                <?php echo $hires ;?>
                             </span>
                         </div>
 

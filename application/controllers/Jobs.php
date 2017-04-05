@@ -866,6 +866,10 @@ class Jobs extends Winjob_Controller {
             $row_spent = $query_spent->row();
             $total_spent=$row_spent->total_spent;
             
+            $applicants = $this->process->get_applications($postId);
+            $interviews = $this->process->get_interviews($record->user_id, $postId);
+            $hires = $this->process->get_hires($record->user_id, $postId);
+            
             $data = array(
                 'value' => $record, 
                 'proposals' => $proposals, 
@@ -874,7 +878,10 @@ class Jobs extends Winjob_Controller {
                 'conversation_count' => $conversation_count, 
                 'bid_details' => $bids_details, 
                 'accepted_jobs' => $accepted_jobs, 
-                'record_sidebar' => $record_sidebar, 
+                'record_sidebar' => $record_sidebar,
+                'applicants' => $applicants['rows'],
+                'hires' => $hires['rows'],
+                    'interviews' => $interviews['rows'],
                 'hire' => $record_hire, 
                 'workedhours' => $workedhours, 
                 'ststus' => $ststus,
@@ -942,6 +949,7 @@ class Jobs extends Winjob_Controller {
                             $this->db->insert('job_bid_attachments', $dataAttach);
                         }
                     }
+
                     $rs = array('code' => '1', 'msg' => '');
                     $this->session->set_flashdata('msg', 'You have successfully submitted proposal for ' . $title);
                     echo json_encode($rs);
@@ -962,8 +970,46 @@ class Jobs extends Winjob_Controller {
             $query = $this->db->get_where('jobs', array('jobs.id' => $postId));
             //echo $this->db->last_query();
             $record = $query->row();
+            
+            $this->db->select("skill_name");
+            $this->db->from("job_skills");
+            $this->db->where("job_id = ", $postId);
+            $query = $this->db->get();
+            $job_skills = $query->result_array();
+            $record->job_skills = $job_skills;
+            
+            $this->db->select('*');
+            $this->db->from('jobs');
+            $this->db->where('user_id', $record->user_id);
+            $query_sidebar = $this->db->get();
+            $record_sidebar = $query_sidebar->num_rows();
+            $records = $query_sidebar->result();
+            
+            $this->db->select('*');
+            $this->db->from('job_workdairy');
+            $this->db->where_in('cuser_id', $record->user_id);
+            $queryhour = $this->db->get();
+            $workedhours = $queryhour->result();
+            
+            $jobids = array();
+            foreach ($records as $jobs) {
+                $jobids[] = $jobs->id;
+            }
+            $jobids = implode(",", $jobids);
+
+            $_jobids = array_map('intval',$jobids);
+            
+            $this->db->select('*');
+            $this->db->from('job_bids');
+            $this->db->where_in('job_id', $_jobids);
+            $this->db->where('hired', 1);
+            $query_hire = $this->db->get();
+            $record_hire = $query_hire->num_rows();
+            $applicants = $this->process->get_applications($postId);
+            $interviews = $this->process->get_interviews($record->user_id, $postId);
+            $hires = $this->process->get_hires($record->user_id, $_jobs->id);
             // Davit start
-            $data = array('value' => $record, 'proposals' => $proposals, 'js' => array('dropzone.js', 'vendor/jquery.form.js', 'internal/job_apply.js'), 'css' => array("","","","assets/css/pages/apply.css"));
+            $data = array('value' => $record, 'applicants' => $applicants['rows'], 'hires' => $hires['rows'], 'interviews' => $interviews['rows'], 'workedhours' => $workedhours, 'hire' => $record_hire,   'record_sidebar' => $record_sidebar, 'skills' => $job_skills, 'proposals' => $proposals, 'js' => array('dropzone.js', 'vendor/jquery.form.js', 'internal/job_apply.js'), 'css' => array("","","","assets/css/pages/apply.css"));
             // Davit end
             $this->Admintheme->custom_webview("jobs/apply", $data);
         }
