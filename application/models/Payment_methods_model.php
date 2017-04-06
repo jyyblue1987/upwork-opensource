@@ -103,4 +103,53 @@ class Payment_methods_model extends CI_Model
         
         return $query->result();
     }
+    
+    public function get_freelancer_withdraw_method( $user_id )
+    {
+        $query = $this->db
+                    ->select('DISTINCT(payment_method_name) as payment_method_name')
+                    ->from(WB_PAYMENT_METHODS)
+                    ->where('webuser_id', $user_id)
+                    ->where('current_status', 'active')
+                    ->get();
+        
+        // 1 = paypal, 2 = skrill, 3 = payneer.
+        $methods = $query->result();
+        
+        if( ! empty( $methods ) )
+        {
+            $result = array(); 
+            
+            foreach($methods as $key => $method)
+            {
+                switch( strtolower($method->payment_method_name) )
+                {
+                    case WITHDRAW_PAYPAL:
+                        $result[] = array(
+                            'id' => 1, 
+                            'method' => $method->payment_method_name
+                        );
+                    break;
+                
+                    case WITHDRAW_SKRILL:
+                        $result[] = array(
+                            'id' => 2, 
+                            'method' => $method->payment_method_name
+                        );
+                    break;
+                
+                    case WITHDRAW_PAYONEER:
+                        $result[] = array(
+                            'id' => 3, 
+                            'method' => $method->payment_method_name
+                        );
+                    break;
+                }
+            }
+            
+            return $result;
+        }
+        
+        return null;
+    }
 }

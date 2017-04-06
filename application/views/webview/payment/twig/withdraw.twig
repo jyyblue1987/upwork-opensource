@@ -1,0 +1,129 @@
+{% extends "webview/layout/twig/layout.twig" %}
+
+{% block title %}  
+    {{ app_lang('text_app_withdraw_funds') }} - Winjob
+{% endblock %}
+
+{% block styles %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/withdraw.css") }}">
+{% endblock %}
+
+{% block content %}
+
+    <section id="mid_content" class="withdraw">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 white-box-feed">
+                    <p class="result-msg"></p>
+                    <form id="withdraw_from">
+                        <input type="hidden" value="{{ tax_status }}" name="tax_status" id="tax_status">
+                        <div class="wrapper-top">
+                            <div id="alert-msg" class="alert alert-danger" style="display: none;"></div>
+                            <div style="font-size: 21px;font-family: calibri;" class="header-title"> 
+                                {% set link = "<a href='#'>" ~ app_lang('text_app_withdraw_click_here')  ~ "</a>" %}
+                                {{ app_lang('text_app_withdraw_page_explanation')|format(link)|raw }}    
+                            </div>
+                            <h5 class="h5-title">
+                                {{ app_lang('text_app_withdraw_method') }}
+                            </h5>
+                            <select class="custom-select selectoption form-control" id="payment_type" name="payment_type">
+                                <option value="">- Select -</option>
+                                {% if withdraw_methods_available is not empty %}
+                                    {% for method in withdraw_methods_available %}
+                                        <option value="{{ method.id }}">{{ method.method|capitalize }}</option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                        </div>
+                        <table style="width: 800px;" class="table table-condensed" id="maintable">
+                            <tbody style="border-top: 2px solid transparent;">
+                                <tr class="abailone">
+                                    <td>{{ app_lang('text_app_withdraw_available_balance') }}</td>
+                                    <td>US $</td>
+                                    <td> <span id="available_bal">{{ amount_available }}</span></td>
+                                </tr>
+                                <tr class="abailbanfle">
+                                    <td> {{ app_lang('text_app_withdraw_balance') }} </td>
+                                    <td>US $</td>
+                                    <td style=" min-width: 382px;">
+                                        <input style="font-size: 17px;font-family: calibri;width: 80px;margin-right: 3px;" type="text" value="" name="bal_withdraw" id="bal_withdraw" placeholder="">
+                                        <span style="font-size: 17px;font-family: calibri;" id="erreo"></span>
+                                    </td>
+                                </tr>
+                                <tr class="abailone">
+                                    <td>{{ app_lang('text_app_withdraw_processing_fee') }}</td>
+                                    <td> US $</td>
+                                    <td>
+                                        <span id="processfees">0.00</span>
+                                        <input type="hidden" value="" name="bal_processfees" id="bal_processfees" placeholder="">
+                                    </td>
+                                </tr>
+                                <tr class="abailone">
+                                    <td>{{ app_lang('text_app_withdraw_new_balance') }}</td>
+                                    <td> US $ </td>
+                                    <td> <span id="new_available">0.00</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-2 col-sm-offset-4">
+                                <button type="submit" class=" btn-primary big_mass_active transparent-btn big_mass_button" id="Withdrawbutton">Withdraw</button>
+                            </div>
+                            <div class="col-xs-12 col-sm-2">
+                                <button type="submit" class=" btn-primary transparent-btn big_mass_button" id="cancelbutton">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="col-md-12 col-sm-12 nopadding">
+                        <div class="last ">
+                            <h3 style="font-size: 19px;font-family: calibri;font-weight: bold;">
+                                {{ app_lang('text_app_withdraw_requested') }}
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 latimptable nopadding">
+                        <div class="lasttable">
+                            <table class="table table-bordered" id="withdraw-table">
+                                <thead>
+                                    <tr class="bacvolor cus_bottom_menu">
+                                        <th>{{ app_lang('text_app_withdraw_processing_requested_at') }}</th>
+                                        <th>{{ app_lang('text_app_withdraw_porcessing_amount') }}</th>
+                                        <th>{{ app_lang('text_app_withdraw_processing_txn_type') }}</th>
+                                        <th>{{ app_lang('text_app_withdraw_processing_status') }}</th>
+                                        <th>{{ app_lang('text_app_withdraw_processing_data') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for processing in processings %}
+                                    <tr>
+                                        <td>{{ processing['email'] }}</td>
+                                        <td>{{ "$ " ~ processing['amount'] }}</td>
+                                        <td>{{ processing['payment_type'] }}</td>
+                                        <td>{{ processing['status']|capitalize }}</td>
+                                        <td>
+                                            {% if processing['operation_date'] is not empty %}
+                                                {{  processing['operation_date'] }}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                   {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+           </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block js %}
+    
+    {# this variable defines the asset/modular/pages file to load #}
+    <script> var page = 'withdraw'; </script>
+    
+    <script src="{{ site_url("assets/js/vendor/modernizr-2.8.3.min.js") }}"></script>
+    <script data-main="{{ app_modular_js("winjob") }}" src="{{ app_modular_js("lib/require.dev.js") }}"></script>
+    
+{% endblock %}

@@ -155,3 +155,8 @@ defined('PAYMENT_HOURLY_CONTRACT_PLAN') || define('PAYMENT_HOURLY_CONTRACT_PLAN'
 defined('INVOICE_UNPAID')          || define('INVOICE_UNPAID', 'UNPAID');
 defined('INVOICE_PAID')            || define('INVOICE_PAID', 'PAID');
 defined('INVOICE_PROCESSING_PAID') || define('INVOICE_PROCESSING_PAID', 'PROCESSING_FAILED');
+
+
+defined('WITHDRAW_PAYPAL')    || define('WITHDRAW_PAYPAL', 'paypal');
+defined('WITHDRAW_SKRILL')    || define('WITHDRAW_SKRILL', 'skrill');
+defined('WITHDRAW_PAYONEER')  || define('WITHDRAW_PAYONEER', 'payoneer');

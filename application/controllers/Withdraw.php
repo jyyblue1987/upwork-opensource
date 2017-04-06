@@ -2,16 +2,76 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Withdraw extends CI_Controller {
+use Carbon\Carbon;
 
-    public function __construct() {
+class Withdraw extends Winjob_Controller
+{
+    
+    private $job_payment_datas = array(); 
+    
+    public function __construct()
+    {
         parent::__construct();
-        $this->load->model(array('Category', 'Common_mod'));
-        $this->load->model(array('common_mod'));
-        $this->load->model('withdraw_model');
+        $this->load->model(array(
+            'Category', 'Common_mod', 'common_mod', 
+            'withdraw_model', 'payment_model', 'payment_methods_model'));
+        $this->load_language();
+    }
+    
+    protected function load_language()
+    {
+        parent::load_language();
+        $this->lang->load('job', $this->get_default_lang());
+    }
+    
+    public function index()
+    {
+        $this->checkForFreelancer();
+        
+        $user_id = $this->session->userdata('id');
+        
+        $now           = Carbon::now();
+        $current_week  = $now->copy()->startOfWeek();
+        $next_week     = $now->copy()->addWeek()->startOfWeek();
+        $prev_week     = $now->copy()->subWeek()->startOfWeek();
+        
+        //calculate $amount_available (hourly available amount + fixed available amount)
+        $amount_available           = $this->payment_model->get_amount_available( $user_id);
+        $withdraw_methods_available = $this->payment_methods_model->get_freelancer_withdraw_method( $user_id );
+        $processings                = $this->withdraw_model->get_all_by_user($user_id);
+        $webUserTaxdetails          = $this->common_mod->get(WB_TAX_INFO,null, " AND webuser_id=" . $user_id);
+        $tax_status                 = ! empty($webUserTaxdetails['rows']) ? 1 : 0 ;
+        
+        $this->twig->display('webview/payment/twig/withdraw', 
+                compact('amount_available', 'withdraw_methods_available', 'processings', 'tax_status'));
+    }
+    
+    public function retire(){
+        
+        $user_id = $this->session->userdata('id');
+        parse_str($_POST['form'], $form);
+        
+        //$payment_type, $bal_withdraw, $bal_processfees
+        extract($form);
+        
+        $jobendpay_end = array(
+            'userid'         => $user_id,
+            'amount'         => $bal_withdraw,
+            'payment_type'   => $payment_type,
+            'processingfees' => $bal_processfees,
+        );
+
+        $this->db->insert('withdraw', $jobendpay_end);
+        
+        $this->ajax_response(array(
+            'record'   => $this->withdraw_model->get_all_by_user($user_id, true),
+            'success'  => true,
+            'data'     => true,
+            'message'  => "Sucessfully Withdraw the amount"
+        ));
     }
 
-    public function index() {
+    public function index_old() {
         if ($this->Adminlogincheck->checkx()) {
 
             $user_id = $this->session->userdata('id');

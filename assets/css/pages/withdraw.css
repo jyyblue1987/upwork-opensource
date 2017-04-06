@@ -1,0 +1,53 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 5 avr. 2017, 23:41:11
+    Author     : Hermannovich <donfack.hermann@gmail.com>
+*/
+
+.withdraw .abailone span {
+    color: #000;
+    font-family: "calibri";
+    font-size: 17px;
+    font-weight: bold;
+}
+.disabled-input{
+    cursor: not-allowed !important;
+    background-color: #EEE;
+    color: #9E9999;
+}
+.disabled {
+    opacity: .5;
+    cursor: not-allowed !important;
+}
+
+.white-box-feed{
+    margin-top:40px; 
+    margin-bottom:40px;
+    border: 1px solid #ccc;
+    width: 970px;
+    padding-top: 30px;
+}
+
+.result-msg{
+    text-align: center;
+    color: green;
+    font-size: 20px;
+    display: none;
+}
+
+.h5-title{
+    font-size: 17px;
+    font-family: calibri;
+    font-weight: bold;
+}
+
+select#payment_type
+{
+    font-size: 17px;
+    font-family: calibri;
+    margin-bottom: 30px;
+}

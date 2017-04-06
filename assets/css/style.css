@@ -4808,3 +4808,7 @@ margin-top: 14px !important;}
  div#captchaContainer{
  	padding-left: 0;
  }
+ 
+ div#next_header {
+    margin-bottom: 20px;
+}
