@@ -7,9 +7,9 @@ define(function (require) {
         bootstrap   = require('bootstrap');
         
     var available_balance = $("#available_bal").text();
-    var tax_status        = $("#tax_status").val();
+    var tax_status        = parseInt( $("#tax_status").val() );
     var tax_url           = site_url + 'payment/tax-information';
-    var alert_msg         = "!Please submit your tax information to complete withdrawal or Before withdrawing funds, all freelancers must provide their  tax information. <a class='btn btn-primary' href='"+ tax_url +"'> Add Tax Info </a>";
+    var alert_msg         = "!Please submit your tax information to complete withdrawal or Before withdrawing funds, all freelancers must provide their  tax information. <a href='"+ tax_url +"'> Add Tax Info </a>";
     var $alert_container  = $("#alert-msg");
     var $paymentType      = $("#payment_type");
     var $withdraw         = $("#bal_withdraw");
@@ -108,14 +108,17 @@ define(function (require) {
     var is_sending_withdraw = false;
     
     $withdraw_btn.on('click', function (e) {
+        
         e.preventDefault();
         
         if(is_sending_withdraw) return; 
         
-        if ( tax_status == '0' ) {
-            $alert_container.html(alert_msg);
+        if ( tax_status == 0 ) {
+            $alert_container.html(alert_msg).show();
             return false;
         }
+        
+        $alert_container.hide();
         
         var paymentType = $paymentType.val();
         var withdraw    = $withdraw.val();
