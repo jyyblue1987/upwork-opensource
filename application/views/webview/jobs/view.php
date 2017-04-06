@@ -3,9 +3,60 @@
     <div class="container">
         <div class="row">
              <?php
-           // print_r($value);
+           $this->db->select('*');
+$this->db->from('job_accepted');
+$this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
+$this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
+$this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
+$this->db->where('job_accepted.buser_id',$value->user_id);
+
+$query=$this->db->get();
+
+$accepted_jobs = $query->result();
+  $total_feedbackScore=0 ;
+    $total_budget=0 ;
+ if(!empty($accepted_jobs)){
+    foreach($accepted_jobs as $job_data){
+        $this->db->select('*');
+        $this->db->from('job_feedback');
+        $this->db->where('job_feedback.feedback_userid',$job_data->fuser_id);
+        $this->db->where('job_feedback.sender_id !=',$job_data->fuser_id);
+        $this->db->where('job_feedback.feedback_job_id',$job_data->job_id);
+        $query=$this->db->get();
+        $jobfeedback= $query->row();
+        
+        if($job_data->jobstatus == 1){
+            if(!empty($jobfeedback)){
+                if($job_data->job_type == "fixed"){
+                    $total_price_fixed=$job_data->fixedpay_amount;
+                    $total_feedbackScore += ($jobfeedback->feedback_score *$total_price_fixed);
+                    $total_budget += $total_price_fixed;
+                }else{
+                    $this->db->select('*');
+                    $this->db->from('job_workdairy');
+                    $this->db->where('fuser_id',$job_data->fuser_id);
+                    $this->db->where('jobid',$job_data->job_id);
+                    $query_done = $this->db->get();
+                    $job_done = $query_done->result();
+                    $total_work = 0;
+                    foreach($job_done as $work){
+                        $total_work +=$work->total_hour;
+                    }
+                    
+                    if($job_data->offer_bid_amount) {
+                    $amount = $job_data->offer_bid_amount;
+                    } else {$amount =  $job_data->bid_amount;} 
+                     $total_price= $total_work *$amount;
+                    $total_budget += $total_price ;
+                    $total_feedbackScore += ($jobfeedback->feedback_score *$total_price);
+                }
+            }
+        }
+    }
+ }
             
             if($value->status=='0'){?>
+            
                 <div class="alert alert-warning">
                     <strong>Warning!</strong> The job does not exist.
                 </div>
@@ -21,10 +72,33 @@
                     $marginClass = 'margin-top';
                 }
                 ?>
+                <?php if($value->user_id == $this->session->userdata('id')){ ?>
+                <div class="col-md-3 col-sm-6 col-xs-6" style="float: right; font-size: 11px; width: 300px;">
+                            <div class="row"> 
+                                <div class="col-md-5 col-sm-5 col-xs-12">
+                                    <label class="gray-text">
+                                        <span class="hidden-xs hidden-sm margin-10-left">&nbsp;</span>
+                                        <a href='<?= site_url('jobs/edit/' . base64_encode($job_id)); ?>'style="color: #37A000">Edit Posting <span class='glyphicon custom_client_icon glyphicon-edit co'></span>
+                                        </a>
+                                    </label>
+                                </div>
+
+                                <div class="col-md-5 col-sm-4 col-xs-12">
+                                    <label class="gray-text"> 
+                                        <a href="javascript:void(0)" id="endpost" onclick="Confirmremove(<?= base64_encode($job_id) ?>);" class="co">
+                                            Remove Posting
+                                            <span class='glyphicon custom_client_icon glyphicon-remove co'></span>
+                                        </a>
+                                    </label>
+                                </div>                    
+                            </div>
+                        </div>
+                <?php } ?>
                 <div class="row <?php echo $marginClass; ?>">
                     <div class="col-md-10 col-xs-6 page-label">
                         <h1 class="job-title cos_job-title"><?php echo ucfirst($value->title) ?></h1>
                     </div>
+                    
                     <div class="col-md-2 col-xs-6 page-label">
                         
                         <span class="pull-right marg-top-neg"><?php
@@ -41,7 +115,6 @@
                     <div class="col-md-3 text-center">
                         <label class="lab-res">Job Type</label> <br /> <span><?php echo ucfirst($value->job_type) ?></span>
                     </div>
-
                     <div class="col-md-3 text-center page-label">
                         <label class="lab-res">  
                             <?php
@@ -124,17 +197,17 @@
                     <div class="row jobdes-bordered page-label">
                         <div class="col-md-4 text-center">
                             <label class="lab-res">Proposals</label> <br /> <span>
-                                <?=$Proposals_count;?>
+                                <?=$applicants;?>
                             </span>
                         </div>
 
                         <div class="col-md-4 text-center page-label">
-                            <label class="lab-res">Interviewing</label><br /> <span><?=$interview_count;?> </span>
+                            <label class="lab-res">Interviewing</label><br /> <span><?=$interviews;?> </span>
                         </div>
 
                         <div class=" last-div col-md-4 text-center page-label">
                             <label class="lab-res">Hired</label><br /> <span>
-                                <?php echo $hire_count;?>
+                                <?php echo $hires ;?>
                             </span>
                         </div>
 
@@ -410,7 +483,7 @@
                             <div class="col-md-12">
                                 
                                 <?php
-if ($value->isactive && $paymentSet) {
+if ($value->isactive && $payment_set) {
     ?>
 										<i style="" class="fa fa-check-circle circ-check"></i>
                                         <?php

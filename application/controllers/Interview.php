@@ -1,245 +1,128 @@
 <?php
-
+//error_reporting(E_ALL);
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Interview extends CI_Controller{
 
-    public function __construct()
-
-    {
-
+    private $process;
+    private $user_id;
+    private $employer;
+    
+    public function __construct(){
         parent::__construct();
-
-        $this->load->model(array('common_mod','Category'));
-        $this->load->model(array('common_mod', 'Category', 'profile/ProfileModel'));
-        $this->load->model(array('timezone'));
-
+        $this->load->model(array('common_mod', 'Category', 'profile/ProfileModel', 'timezone', 'Webuser_model', 'Process', 'Employer', 'Job_work_diary_model'));
+        $this->process = new Process();
+        $this->user_id = $this->session->userdata('id');
+        $this->employer = new Employer($this->user_id);
     }
 
-    public function index()
-
-    {
-
+    public function index(){
         if ($this->Adminlogincheck->checkx()) {
-
-			
-
-			if(isset($_GET['user_id'])){
-
-				$user_id = base64_decode($_GET['user_id']);
-
-			} else {
-
-				$user_id = $this->session->userdata(USER_ID);
-
-			}
-
-			
-
-			if(isset($_GET['job_id'])){
-
-				$job_id = base64_decode($_GET['job_id']);
-
-			}
-
-			if(isset($_GET['bid_id'])){
-
-				$bid_id = base64_decode($_GET['bid_id']);
-
-			}
-
-			//print_r($job_id); die;
-			
-			/* added by Jahid start */
-        	$this->db->select('*');
-            $this->db->from('job_bids');
-            $this->db->where('job_bids.id', $bid_id);
-            $this->db->where('job_bids.user_id', $user_id);
-            $this->db->where('job_bids.job_id', $job_id);
-            $query = $this->db->get();
-            $result = $query->result();
-            // echo $this->db->last_query(); exit;
-            $params['conversation_msg_count'] = $result;
-           /*
-            $sender_id = $this->session->userdata(USER_ID);
-            $this->db->select('*');
-            $this->db->from('job_conversation');
-            $this->db->join('job_bids', 'job_conversation.bid_id=job_bids.id', 'inner');
-            $this->db->where('job_conversation.sender_id', $sender_id);
-            $this->db->where('job_conversation.job_id', $job_id);
-            $this->db->where('job_bids.bid_reject', 0);
-     
-            $this->db->where('job_conversation.receiver_id', $user_id);
-            $this->db->where('job_bids.id', $bid_id);
-            $this->db->where('job_bids.job_progres_status', 1);
-            $this->db->where(array('job_bids.withdrawn' => NULL));
-
-          
-           
-            $query = $this->db->get();
-            $conversation_msg_count = $query->num_rows();          
-            $params['conversation_msg_count'] = $conversation_msg_count;
-            */
-           // echo  $conversation_msg_count; exit;
-         //  echo $this->db->last_query(); exit;
-            /* added by Jahid end */
-
-				
-
-			$this->db->select('job_conversation.*,job_conversation.created as conversation_date,webuser.*,jobs.title');
-
-			$this->db->from('job_conversation');
-
-			$this->db->join('webuser', 'job_conversation.sender_id = webuser.webuser_id', 'inner');
-
-			$this->db->join('jobs', 'jobs.id = job_conversation.job_id', 'inner');
-
-			$this->db->where('job_conversation.job_id', $job_id);
-
-			$this->db->where('job_conversation.bid_id', $bid_id);			
-
-			//$this->db->where('job_conversation.have_seen', 1);
-
-			//$this->db->order_by("job_conversation.id", "desc");
-
-			//$this->db->group_by('bid_id'); 
-
-			$query=$this->db->get();
-
-			$conversation_count = $query->num_rows();
-
-			$result = $query->result();
-
-			foreach ($result as $key => $value) {
-					$this->db->select('*');
-					$this->db->from('job_conversation_files');
-					$this->db->where('job_conversation_id', $value->id);
-					$query = $this->db->get();
-					$images = $query->result();
-					$result[$key]->images_array = $images;
-				}
-
-			$params['messages'] = $result;
-
-
-			/*print_r($result); die;*/
-
-			$condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
-			$webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
-            $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
-            $params['timezone'] = $timezone;
-			
-
-			$job_info = array();
-
-			if(isset($_GET['job_id'])){
-
-				$job_id = base64_decode($_GET['job_id']);
-
-			//get job info//
-
-			$this->db->select('job_bids.*,jobs.job_type,jobs.title');
-
-			$this->db->from('job_bids');
-
-			$this->db->join('jobs', 'jobs.id = job_bids.job_id', 'inner');
-
-			$this->db->where('job_bids.user_id', $user_id);
-
-			$this->db->where('job_bids.job_id', $job_id); 
-
-			$query=$this->db->get();
-
-			$conversation_count = $query->num_rows();
-
-			$job_info = $query->result();
-
-            //get webuser info//
-
-			} 
-
-            $cols = array("webuser_id","webuser_fname","webuser_lname","cropped_image","webuser_country");
-
-            $condition = " AND webuser_id=". $user_id ;
-
-            $data = $this->common_mod->getColsVal(WEB_USER_TABLE,$cols,$condition);
-
-			
-
-			$this->db->select('*');
-
-			$this->db->from('webuser');
-
-            $this->db->where('webuser.webuser_id', $this->session->userdata(USER_ID));
-
-            $query_status = $this->db->get();
-
-			$ststus = $query_status->row();
-
-			
-
-			
-
-			
-
-			
-
-            if(!empty($data['rows'][0])){
-
-                //get country//
-
-                $sql = " AND country_id = ".$data['rows'][0]['webuser_country']." ";
-
-                $data['rows'][0]['webuser_country_name'] = $this->common_mod->getSpecificColVal(COUNTEY_TABLE,"country_name",$sql);
-
-                $params['webUserInfo'] = $data['rows'][0];
-
-
-
-                //get basic information//
-
-                $data2 = $this->common_mod->get(WEB_USER_BASIC_PROFILE_TABLE,null,$condition);
-
-                if(!empty($data2['rows'][0])){
-
-                    $title = "";
-
-                    if(strlen($data['rows'][0]["webuser_fname"]) > 0){
-
-                        $title = $data['rows'][0]["webuser_fname"];
-
-                    }
-
-                    if(strlen($data2['rows'][0]["tagline"]) > 0){
-
-                        $title .= " | ".$data2['rows'][0]["tagline"];
-
-                    }
-
-                    $params['title'] = $title;
-
-                    $params['basicDetails'] = $data2['rows'][0];
-
-					$params['job_info'] = $job_info;
-
-					$params['ststus'] = $ststus;
-
-					$this->Admintheme->webview2("interview",$params);
-
-                }else{
-
-                    redirect(site_url("profile/basic"));
-
-                }
-
+            if(isset($_GET['user_id'])){
+                $user_id = base64_decode($_GET['user_id']);
+            } else {
+                $user_id = $this->session->userdata(USER_ID);
             }
 
+            if(isset($_GET['job_id'])){
+                $job_id = base64_decode($_GET['job_id']);
+            }
+
+            if(isset($_GET['bid_id'])){
+                $bid_id = base64_decode($_GET['bid_id']);
+            }
+
+            $budget = 0;
+            $total_work = 0;
+            $feedbackScore = 0;
+            
+            $ended_jobs = $this->process->cnt_ended_jobs($user_id);
+            $withdrawn = $this->process->get_withdrawn_by($user_id, $bid_id, $job_id);
+            $freelancer_profile = $this->ProfileModel->get_profile($user_id);
+            $accepted_jobs = $this->process->accepted_jobs($user_id);
+            $freelancer = $this->Webuser_model->load_informations($user_id);
+            $pic = $this->Adminforms->getdatax("picture", "webuser", $user_id);
+            $country = $this->ProfileModel->get_country($freelancer->webuser_country);
+            $skills = $this->ProfileModel->get_skills($user_id);
+            $user_rating = $this->Webuser_model->get_total_rating($user_id);
+            $_pic = $pic != "" ? $pic : "assets/user.png";
+            $conversation = $this->process->get_conversation($job_id, $bid_id);
+            $status = $this->Webuser_model->is_active($user_id);
+
+            foreach($conversation['data'] AS $_convo){
+                $images = $this->process->get_convo_images($_convo->id);
+            }
+
+            foreach($accepted_jobs AS $a_jobs){
+                $feedbacks = $this->process->get_feedbacks($a_jobs->fuser_id, $a_jobs->job_id);
+                $diary = $this->Job_work_diary_model->get_work_hours($a_jobs->fuser_id, $a_jobs->job_id);
+
+                foreach($diary AS $_diary){
+                    $total_work += $_diary->total_hour;
+                }
+
+                if($a_jobs->jobstatus == 1){
+                    if(!empty($feedbacks)){
+                        if($a_jobs->job_type == 'fixed'){
+                            $price = $a_jobs->fixedpay_amount;
+                            $feedbackScore += ($feedbacks['feedback_score'] * $price);
+                            $budget += $price;
+                        }else{
+
+                            if($a_jobs->offer_bid_amount){
+                                $amount = $a_jobs->offer_bid_amount;
+                            }else{
+                                $amount = $a_jobs->bid_amount;
+                            }
+
+                            $price = $a_jobs->fixedpay_amount * $amount;
+                            $feedbackScore += ($feedbacks['feedback_score'] * $price);
+                            $budget += $price;
+                        }
+                    }
+                }
+            }
+
+            $condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
+            $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
+            $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
+            $params['timezone'] = $timezone;
+
+            if(isset($_GET['job_id'])){
+                $job_info = $this->process->get_job_info($user_id, $job_id);
+            }
+
+            if(!empty($freelancer)){
+                if(!empty($freelancer_profile)){
+                    $params = array(
+                        'ended_jobs' => $ended_jobs,
+                        'budget' => $budget,
+                        'feedback_score' => $feedbackScore,
+                        'total_work' => $total_work,
+                        'tagline' => ucfirst($freelancer_profile['tagline']),
+                        'country' => ucfirst($country['country_name']),
+                        'status' => $status,
+                        'title' => 'Interviews - Winjob',
+                        'slag' => strtolower(str_replace(' ', '-', $freelancer->webuser_fname .'-'. $freelancer->webuser_lname)),
+                        'fname' => $freelancer->webuser_fname,
+                        'lname' => $freelancer->webuser_lname,
+                        'cropped_img' => $freelancer->cropped_image,
+                        'skills' => $skills,
+                        'job_info' => $job_info,
+                        'rating' => $user_rating,
+                        'conversation' => $conversation,
+                        'hourly_rate' => $freelancer_profile['hourly_rate'],
+                        'exp' => $freelancer_profile['work_experience_year']
+                    );
+
+                    $this->Admintheme->webview2("interview", $params);
+                }else{
+                    redirect(site_url("profile/basic"));
+                }
+            }
         }else{
-
             redirect(site_url("signin"));
-
         }
-
     }
 
 	

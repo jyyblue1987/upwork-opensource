@@ -749,12 +749,6 @@ class Jobs extends Winjob_Controller {
             $postId = base64_decode($postId);
             $id = $this->session->userdata('id');
 
-
-//            $this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
-//            $this->db->order_by("jobs.id", "desc");
-//            $query = $this->db->get_where('jobs', array('id' => $postId));
-//            $record = $query->row();
-
             $this->db->select('*');
             $this->db->from('webuser w');
             $this->db->join('jobs j', 'j.user_id=w.webuser_id', 'left');
@@ -825,13 +819,14 @@ class Jobs extends Winjob_Controller {
             }
             $jobids = implode(",", $jobids);
 
-
+            $_jobids = array_map('intval',$jobids);
+            
             $this->db->select('*');
             $this->db->from('job_bids');
-            $this->db->where_in('job_id', $jobids);
+            $this->db->where_in('job_id', $_jobids);
             $this->db->where('hired', 1);
             $query_hire = $this->db->get();
-            $record_hire = $query_hire->result();
+            $record_hire = $query_hire->num_rows();
 
             $this->db->select('*');
             $this->db->from('job_workdairy');
@@ -839,6 +834,18 @@ class Jobs extends Winjob_Controller {
             $queryhour = $this->db->get();
             $workedhours = $queryhour->result();
 
+            $this->db->select('*');            
+            $this->db->from('jobs');
+            $this->db->join('billingmethodlist', 'billingmethodlist.belongsTo = jobs.user_id', 'inner');
+            $this->db->where('billingmethodlist.belongsTo', $record->user_id);
+            $this->db->where('billingmethodlist.isDeleted', "0");
+            $this->db->where('jobs.status', 1);
+            $query = $this->db->get();   
+            $paymentSet=0;
+                if (is_object($query)) {
+                    $paymentSet = $query->num_rows();
+                }
+            
             $this->db->select('*');
             $this->db->from('webuser');
             $this->db->where('webuser.webuser_id', $id);
@@ -853,8 +860,37 @@ class Jobs extends Winjob_Controller {
             $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id));
             $proposals = $query->num_rows();
 
-            $data = array('value' => $record, 'proposals' => $proposals, 'applied' => $is_applied, 'conversations' => $conversation, 'conversation_count' => $conversation_count, 'bid_details' => $bids_details, 'accepted_jobs' => $accepted_jobs, 'record_sidebar' => $record_sidebar, 'hire' => $record_hire, 'workedhours' => $workedhours, 'ststus' => $ststus,'css' => array("","","","assets/css/pages/view.css"));
-            // Davit end
+            $client_id=$value->webuser_id;
+            $query_spent = $this->db->query("SELECT SUM(payment_gross) as total_spent FROM `payments` INNER JOIN `webuser` ON `webuser`.`webuser_id` = `payments`.`user_id` INNER JOIN `jobs` ON `jobs`.`id` = `payments`.`job_id` INNER JOIN `job_accepted` ON `job_accepted`.`job_id` = `payments`.`job_id` INNER JOIN `job_bids` ON `job_bids`.`job_id` = `payments`.`job_id` WHERE `job_accepted`.`fuser_id` = `payments`.`user_id` AND
+                `job_bids`.`user_id` = `payments`.`user_id` AND `payments`.`buser_id` = $record->user_id");
+            $row_spent = $query_spent->row();
+            $total_spent=$row_spent->total_spent;
+            
+            $applicants = $this->process->get_applications($postId);
+            $interviews = $this->process->get_interviews($record->user_id, $postId);
+            $hires = $this->process->get_hires($record->user_id, $postId);
+            
+            $data = array(
+                'value' => $record, 
+                'proposals' => $proposals, 
+                'applied' => $is_applied, 
+                'conversations' => $conversation, 
+                'conversation_count' => $conversation_count, 
+                'bid_details' => $bids_details, 
+                'accepted_jobs' => $accepted_jobs, 
+                'record_sidebar' => $record_sidebar,
+                'applicants' => $applicants['rows'],
+                'hires' => $hires['rows'],
+                'interviews' => $interviews['rows'],
+                'hire' => $record_hire, 
+                'workedhours' => $workedhours, 
+                'ststus' => $ststus,
+                'css' => array("","","","assets/css/pages/view.css"),
+                'payment_set' => $paymentSet,
+                'total_spent' => $total_spent,
+                'job_id' => $postId
+             );
+
             $this->Admintheme->custom_webview("jobs/view", $data);
         }
     }
@@ -914,6 +950,7 @@ class Jobs extends Winjob_Controller {
                             $this->db->insert('job_bid_attachments', $dataAttach);
                         }
                     }
+
                     $rs = array('code' => '1', 'msg' => '');
                     $this->session->set_flashdata('msg', 'You have successfully submitted proposal for ' . $title);
                     echo json_encode($rs);
@@ -934,8 +971,46 @@ class Jobs extends Winjob_Controller {
             $query = $this->db->get_where('jobs', array('jobs.id' => $postId));
             //echo $this->db->last_query();
             $record = $query->row();
+            
+            $this->db->select("skill_name");
+            $this->db->from("job_skills");
+            $this->db->where("job_id = ", $postId);
+            $query = $this->db->get();
+            $job_skills = $query->result_array();
+            $record->job_skills = $job_skills;
+            
+            $this->db->select('*');
+            $this->db->from('jobs');
+            $this->db->where('user_id', $record->user_id);
+            $query_sidebar = $this->db->get();
+            $record_sidebar = $query_sidebar->num_rows();
+            $records = $query_sidebar->result();
+            
+            $this->db->select('*');
+            $this->db->from('job_workdairy');
+            $this->db->where_in('cuser_id', $record->user_id);
+            $queryhour = $this->db->get();
+            $workedhours = $queryhour->result();
+            
+            $jobids = array();
+            foreach ($records as $jobs) {
+                $jobids[] = $jobs->id;
+            }
+            $jobids = implode(",", $jobids);
+
+            $_jobids = array_map('intval',$jobids);
+            
+            $this->db->select('*');
+            $this->db->from('job_bids');
+            $this->db->where_in('job_id', $_jobids);
+            $this->db->where('hired', 1);
+            $query_hire = $this->db->get();
+            $record_hire = $query_hire->num_rows();
+            $applicants = $this->process->get_applications($postId);
+            $interviews = $this->process->get_interviews($record->user_id, $postId);
+            $hires = $this->process->get_hires($record->user_id, $postId);
             // Davit start
-            $data = array('value' => $record, 'proposals' => $proposals, 'js' => array('dropzone.js', 'vendor/jquery.form.js', 'internal/job_apply.js'), 'css' => array("","","","assets/css/pages/apply.css"));
+            $data = array('value' => $record, 'applicants' => $applicants['rows'], 'hires' => $hires['rows'], 'interviews' => $interviews['rows'], 'workedhours' => $workedhours, 'hire' => $record_hire,   'record_sidebar' => $record_sidebar, 'skills' => $job_skills, 'proposals' => $proposals, 'js' => array('dropzone.js', 'vendor/jquery.form.js', 'internal/job_apply.js'), 'css' => array("","","","assets/css/pages/apply.css"));
             // Davit end
             $this->Admintheme->custom_webview("jobs/apply", $data);
         }
@@ -1652,7 +1727,7 @@ class Jobs extends Winjob_Controller {
                                 $budget += $price;
                             }else{
                                 
-                                if($a_jobs['offer_bid_amount']){
+                                if($a_jobs->offer_bid_amount){
                                     $amount = $a_jobs->offer_bid_amount;
                                 }else{
                                     $amount = $a_jobs->bid_amount;
@@ -1754,7 +1829,7 @@ class Jobs extends Winjob_Controller {
                                 $budget += $price;
                             }else{
                                 
-                                if($a_jobs['offer_bid_amount']){
+                                if($a_jobs->offer_bid_amount){
                                     $amount = $a_jobs->offer_bid_amount;
                                 }else{
                                     $amount = $a_jobs->bid_amount;
@@ -2380,18 +2455,96 @@ class Jobs extends Winjob_Controller {
             }
             $bidId = base64_decode($bidId);
             $id = $this->session->userdata('id');
-            $this->db->select(array('job_bids.*', 'jobs.title', 'jobs.job_type',
-                'jobs.budget', 'jobs.hours_per_week', 'jobs.job_duration',
+            $this->db->select(array('job_bids.*', 'jobs.title', 'jobs.job_type', 'jobs.id as jobid',
+                'jobs.budget', 'jobs.hours_per_week', 'jobs.job_duration', 'jobs.category',
                 'jobs.experience_level', 'jobs.skills', 'jobs.job_description', 'jobs.user_id as clientid'));
             $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'left');
             $this->db->order_by("job_bids.id", "desc");
             $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id, 'job_bids.id' => $bidId));
-            if ($query->num_rows() > 0)
-                $value = $query->row();
-            else
-                redirect(site_url().'bids_list');
 
-            $data = array('value' => $value, 'js' => array('vendor/jquery.form.js', 'internal/job_withdraw.js'));
+            if ($query->num_rows() > 0){
+                $value = $query->row();
+            }else{
+                redirect(site_url().'bids_list');
+            }
+            
+                    $this->db->select('*');
+                    $this->db->from('jobs');
+                    $this->db->where('user_id', $value->clientid);
+                    $query_sidebar = $this->db->get();
+                    $record_sidebar = $query_sidebar->num_rows();
+                    $records = $query_sidebar->result();
+
+                    $jobids = array();
+            foreach ($records as $jobs) {
+                $jobids[] = $jobs->id;
+            }
+            $jobids = implode(",", $jobids);
+
+            $_jobids = array_map('intval',$jobids);
+            
+            $this->db->select('*');
+            $this->db->from('job_bids');
+            $this->db->where_in('job_id', $_jobids);
+            $this->db->where('hired', 1);
+            $query_hire = $this->db->get();
+            $record_hire = $query_hire->num_rows();
+
+            $this->db->select('*');
+            $this->db->from('job_workdairy');
+            $this->db->where_in('cuser_id', $value->clientid);
+            $queryhour = $this->db->get();
+            $workedhours = $queryhour->result();
+            
+            $query_spent = $this->db->query("SELECT SUM(payment_gross) as total_spent FROM `payments` INNER JOIN `webuser` ON `webuser`.`webuser_id` = `payments`.`user_id` INNER JOIN `jobs` ON `jobs`.`id` = `payments`.`job_id` INNER JOIN `job_accepted` ON `job_accepted`.`job_id` = `payments`.`job_id` INNER JOIN `job_bids` ON `job_bids`.`job_id` = `payments`.`job_id` WHERE `job_accepted`.`fuser_id` = `payments`.`user_id` AND
+                `job_bids`.`user_id` = `payments`.`user_id` AND `payments`.`buser_id` = $value->clientid");
+            $row_spent = $query_spent->row();
+            $total_spent=$row_spent->total_spent;
+            $emp = new Employer($value->clientid);
+            
+            $this->db->where('country_id', $emp->get_country());
+            $q = $this->db->get('country');
+            $country = $q->row_array();
+            
+            $this->db->select('*');            
+            $this->db->from('jobs');
+            $this->db->join('billingmethodlist', 'billingmethodlist.belongsTo = jobs.user_id', 'inner');
+            $this->db->where('billingmethodlist.belongsTo', $value->clientid);
+            $this->db->where('billingmethodlist.isDeleted', "0");
+            $this->db->where('jobs.status', 1);
+            $query = $this->db->get();   
+            $paymentSet=0;
+                if (is_object($query)) {
+                    $paymentSet = $query->num_rows();
+                }
+                
+                $this->db->select("skill_name");
+            $this->db->from("job_skills");
+            $this->db->where("job_id = ", $value->jobid);
+            $query = $this->db->get();
+            $job_skills = $query->result_array();
+            $record->job_skills = $job_skills;
+            
+            $applicants = $this->process->get_applications($value->jobid);
+            $interviews = $this->process->get_interviews($value->clientid, $value->jobid);
+            $hires = $this->process->get_hires($value->clientid, $value->jobid);
+            
+            $data = array('value' => $value,
+                'record_sidebar' => $record_sidebar,
+                'hire' => $record_hire,
+                'workedhours' => $workedhours,
+                'total_spent' => $total_spent,
+                'country' => ucwords($country['country_name']),
+                'fname' => ucwords($emp->get_fname()),
+                'status' => $emp->get_status(),
+                'payment_set' => $paymentSet,
+                'applicants' => $applicants['rows'], 
+                'hires' => $hires['rows'], 
+                'interviews' => $interviews['rows'], 
+                'skills' => $job_skills,
+                'user_id' => $value->clientid,
+                'js' => array('vendor/jquery.form.js',
+                    'internal/job_withdraw.js'));
             $this->Admintheme->webview("jobs/withdraw_system", $data);
         }
     }

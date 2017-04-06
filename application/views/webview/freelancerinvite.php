@@ -254,13 +254,21 @@ foreach($accepted_jobs as $job_data){
                     <div class="col-md-10 skills page-label">
 						<div class="custom_user_skills">
 							<?php
-							if (isset($value->skills) && !empty($value->skills))
+                                                        
+                                                        if (isset($value->job_skills) && !empty($value->job_skills))
 							{
-								$skills = explode(' ', $value->skills);
-								foreach ($skills as $skill)
-									echo "<span> $skill</span> ";
+								$skills =$value->job_skills;
+							 
+								if(count($skills)<=1){
+									echo "<span> ".$skills[0]['skill_name']."</span> ";
+								}else{
+									foreach ($skills as $skill)
+										echo "<span> ".$skill['skill_name']."</span> ";
+								}
+								
 							}
-							?>
+                                                        
+                                                        ?>
 						</div>
                     </div>
                 </div>
@@ -283,7 +291,7 @@ $Proposals_count = $query->num_rows();
 $jobfeedback= $query->result();
 ?>
                         <label style="font-family: calibri;font-size: 17px;">Proposals</label> <br /> <span>
-                       <?=$Proposals_count;?>
+                       <?=$applicants;?>
                         </span>
                     </div>
 
@@ -299,7 +307,7 @@ $this->db->group_by('bid_id');
 $query=$this->db->get();
 $interview_count = $query->num_rows();
 ?>
-                        <label style="font-family: calibri;font-size: 17px;">Interviewing</label><br /> <span><?=$interview_count;?> </span>
+                        <label style="font-family: calibri;font-size: 17px;">Interviewing</label><br /> <span><?=$interviews;?> </span>
                     </div>
 
                     <div class="col-md-4 text-center last-div page-label">
@@ -315,7 +323,7 @@ $query=$this->db->get();
 $hire_count = $query->num_rows();
 ?>
                         <label style="font-family: calibri;font-size: 17px;">Hired</label><br /> <span>
-                            <?php echo $hire_count;?>
+                            <?php echo $hires;?>
                         </span>
                     </div>
 
@@ -700,8 +708,8 @@ if ($value->isactive && $paymentSet) {
                         <div style="margin-top: 4px;" class="row margin-top-2 border-bottom">
                             <div class="col-md-12">
                                 <label style="font-family: Calibri;font-size: 20.26px;color: #494949;margin-top: -29px;">
-								<?=count($hire);?> 
-								<span style="font-size: 14px;color: #494949;font-family: calibri;">Hired</span>
+								
+								<span style="font-size: 20.26px;color: #494949;font-family: calibri;"><?= $hire ?> Hired</span>
 								</label>
                             </div>
                         </div>
@@ -755,7 +763,12 @@ if ($value->isactive && $paymentSet) {
                       <div class="row">
                           <div style="border-radius: 4px;text-align: center; font-size: 20px; padding: 6px 0px 10px;margin-top: 20px;" class="col-md-10 col-md-offset-2 right-section ">
                               <small><a href="<?php echo site_url('jobs/bid_decline/'.$value->id); ?>" onclick="">Decline Job </a></small>
-                              <br /><small>Decline by you</small>
+                              <br />
+                              
+                              <?php if($interviews == 0){ ?>
+                              <small>Decline by you</small>
+                              
+                              <?php } ?>
                          </div>
                       </div>
                       <?php

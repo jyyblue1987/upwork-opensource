@@ -92,7 +92,11 @@ class Process extends CI_Model {
         $this->db
                 ->select('*')
                 ->from('job_accepted')
+                ->join('webuser', 'webuser.webuser_id=job_accepted.fuser_id', 'inner')
+                ->join('webuser_basic_profile', 'webuser_basic_profile.webuser_id=webuser.webuser_id', 'inner')
                 ->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner')
+                ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
+                ->join('country', 'country.country_id=webuser.webuser_country', 'inner')
                 ->where('job_accepted.buser_id', $user_id)
                 ->where('job_accepted.job_id', $job_id)
                 ->where('job_bids.hired', '0')
@@ -176,6 +180,55 @@ class Process extends CI_Model {
                 ->where('feedback_userid', $fuser_id)
                 ->where('sender_id !=', $fuser_id)
                 ->where('feedback_job_id', $job_id);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+    
+    function get_withdrawn_by($user_id, $bid_id, $job_id){
+        $this->db
+                ->select('job_progres_status, withdrawn, bid_reject, withdrawn_by')
+                ->from('job_bids')
+                ->where('job_bids.id', $bid_id)
+                ->where('job_bids.user_id', $user_id)
+                ->where('job_bids.job_id', $job_id);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+    
+    function get_conversation($job_id, $bid_id){
+        $this->db
+                ->select('job_conversation.*,job_conversation.created as conversation_date,webuser.*,jobs.title')
+                ->from('job_conversation')
+                ->join('webuser', 'job_conversation.sender_id = webuser.webuser_id', 'inner')
+                ->join('jobs', 'jobs.id = job_conversation.job_id', 'inner')
+                ->where('job_conversation.job_id', $job_id)
+                ->where('job_conversation.bid_id', $bid_id);
+        $query = $this->db->get();
+        
+        $return_array = array();
+        $return_array['rows'] = $query->num_rows();
+        if ($return_array['rows'] > 0) {
+            $return_array['data'] = $query->result();
+        }
+        return $return_array;
+    }
+    
+    function get_convo_images($id){
+        $this->db
+                ->select('*')
+                ->from('job_conversation_files')
+                ->where('job_conversation_id', $id);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+    
+    function get_job_info($user_id, $job_id){
+        $this->db
+                ->select('job_bids.*, jobs.job_type, jobs.title, job_bids.id AS bid_id')
+                ->from('job_bids')
+                ->join('jobs', 'jobs.id = job_bids.job_id', 'inner')
+                ->where('job_bids.user_id', $user_id)
+                ->where('job_bids.job_id', $job_id); 
         $query = $this->db->get();
         return $query->row_array();
     }

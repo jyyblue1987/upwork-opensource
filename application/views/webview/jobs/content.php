@@ -209,18 +209,13 @@ $accepted_jobs = $query->result();
 
                 <h6 style="float:left;font-size: 14px;margin: 0;margin-top: 3px;margin-right: -8px;" class="page-sub-title more">Skills</h6>
 				
-				<div class="custom_user_skills custom_user_skills_find">
+				<div class="custom_user_skills">
                 <?php
-                if (isset($value->skills) && !empty($value->skills) && is_string($value->skills))
+                
+                if (isset($value->skills) && !empty($value->skills))
                 {
-                    $skills = explode(' ', $value->skills);
-                    if(!empty($skills)){
-                        foreach ($skills as $skill)
-                            echo '<span>' . $skill . '</span>';
-                    }
-                    else{
-                        foreach ($value->skills as $skill)
-                            echo '<span>' . $skill . '</span>';
+                    foreach($value->skills AS $key => $skills){
+                        echo "<span style='font-family: Calibri; font-size: 10.5px; padding-right: 5px;'>".ucwords($skills)."</span> ";
                     }
                 }
                 ?><br>
