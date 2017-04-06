@@ -6180,8 +6180,9 @@ CREATE TABLE `hourly_invoices` (
 -- Contenu de la table `hourly_invoices`
 --
 
-INSERT INTO `hourly_invoices` (`id`, `bid_id`, `amount_due`, `description`, `payment_service_name`, `status`, `unpaid_reason`, `invoice_id`, `created_at`, `updated_at`) VALUES
-(7, 210, 10, 'Invoice for testing hourly payment', NULL, 'UNPAID', NULL, NULL, '2017-04-04 09:33:19', '2017-04-04 09:33:52');
+INSERT INTO `hourly_invoices` VALUES
+(10, 210, 10, 'Invoice for Contract ID: 13_NYVK5HQ3QP - 2hrs*$5.00/hr', NULL, 'UNPAID', NULL, NULL, '2017-04-05 19:00:16', '2017-04-05 19:00:16'),
+(9, 210, 15, 'Invoice for Contract ID: 13_NYVK5HQ3QP - 3hrs*$5.00/hr', NULL, 'PAID', NULL, NULL, '2017-04-05 18:56:33', '2017-04-05 18:56:33');
 
 --
 -- Index pour les tables exportées
@@ -6202,7 +6203,7 @@ ALTER TABLE `hourly_invoices`
 -- AUTO_INCREMENT pour la table `hourly_invoices`
 --
 ALTER TABLE `hourly_invoices`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
