@@ -13,23 +13,14 @@ define(function (require) {
         
         
     $from_datepicker.datetimepicker({
-        onSelectDate: function () {
-            //update to date
-        },
         timepicker: false,
         formatDate: 'D, M j, Y',
-        format:	'D, M j, Y',
-        maxDate: $to_datepicker.val()
+        format:	'D, M j, Y'
     });
     
     $to_datepicker.datetimepicker({
-        onSelectDate: function () {
-            //Update from date
-        },
         timepicker: false,
         formatDate: 'D, M j, Y',
-        format:	'D, M j, Y',
-        startDate:  $from_datepicker.val(),
-        maxDate: current_date
+        format:	'D, M j, Y'
     });
 });

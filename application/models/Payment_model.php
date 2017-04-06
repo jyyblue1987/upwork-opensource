@@ -279,8 +279,11 @@ class Payment_model extends CI_Model {
         return null;
     }
     
-    public function get_payment_list( $user_id )
-    {
+    public function get_payment_list( $user_id, $filters )
+    {   
+        //extract filters values ( from_internal, from_date, to_internal, to_date, trx_type, employer, employer_internal )
+        extract($filters);
+        
         $fixed_fields = 
                 "jobs.job_type, "
                 . "payments.payment_create,"
@@ -292,7 +295,7 @@ class Payment_model extends CI_Model {
 
 
         $hourly_fields = 
-                "'" . HOURLY_JOB_TYPE . "' AS job_type, "
+                "jobs.job_type, "
                 . "invx.created_at as payment_create, "
                 . "'' as title, "
                 . "invx.description as des,"
@@ -300,23 +303,57 @@ class Payment_model extends CI_Model {
                 . "u.webuser_lname,"
                 . "invx.amount_due as payment_gross ";
         
+        //Add another join criteria if filter criteria user id provide (for freelancer or employer)
+        $ja_join_criteria = '';
+        $payments_join_criteria = '';
+        if( ! empty( $employer_internal ) ){
+            $payments_join_criteria = " AND payments.buser_id = " . $employer_internal;
+            $ja_join_criteria = " AND ja.buser_id = " . $employer_internal;
+        }
+        
         $sql = 
            "SELECT $fixed_fields
             FROM payments
-            JOIN webuser ON webuser.webuser_id = payments.buser_id
+            JOIN webuser ON ( webuser.webuser_id = payments.buser_id $payments_join_criteria ) 
             JOIN jobs ON jobs.id = payments.job_id
             JOIN job_accepted ON job_accepted.job_id = payments.job_id
             JOIN job_bids ON job_bids.job_id = payments.job_id
             WHERE job_bids.user_id = payments.user_id
             AND job_accepted.fuser_id = payments.user_id
-            AND payments.user_id = $user_id
+            AND payments.user_id = $user_id ";
+        
+        if( ! empty( $trx_type ) ){
+            $sql .= " AND job_type = '" . $trx_type . "' ";
+        }
+        
+        if( ! empty( $from_internal ) ){
+            $sql .= " AND payment_create >= '" . $from_internal . "' ";
+        }
+        
+        if( ! empty( $to_internal ) ){
+            $sql .= " AND payment_create <= '" . $to_internal . "' ";
+        }
 
-            UNION ALL SELECT  $hourly_fields 
+        $sql = $sql . "  UNION ALL SELECT  $hourly_fields 
             FROM hourly_invoices as invx
             INNER JOIN job_accepted as ja ON ja.bid_id = invx.bid_id 
-            INNER JOIN webuser u ON u.webuser_id = ja.buser_id 
-            WHERE ja.fuser_id = $user_id AND invx.status = '" .  INVOICE_PAID ."'" 
-         . "ORDER BY payment_create DESC";
+            INNER JOIN jobs ON jobs.id = ja.job_id 
+            INNER JOIN webuser u ON ( u.webuser_id = ja.buser_id $ja_join_criteria)
+            WHERE ja.fuser_id = $user_id AND invx.status = '" .  INVOICE_PAID ."'";
+        
+        if( ! empty( $trx_type ) ){
+            $sql .= " AND job_type = '" . $trx_type . "' ";
+        }
+        
+        if( ! empty( $from_internal ) ){
+            $sql .= " AND created_at >= '" . $from_internal . "' ";
+        }
+        
+        if( ! empty( $to_internal ) ){
+            $sql .= " AND created_at <= '" . $to_internal . "' ";
+        }
+        
+        $sql = $sql . "ORDER BY payment_create DESC";
         
         $query = $this->db->query($sql);
         
@@ -324,11 +361,13 @@ class Payment_model extends CI_Model {
     }
     
     
-    public function get_payment_list_of_employer( $user_id )
-    {
+    public function get_payment_list_of_employer( $user_id, $filters )
+    {   
+        //extract filters values ( from_internal, from_date, to_internal, to_date, trx_type, employer, employer_internal )
+        extract($filters);
         
         $fixed_fields = 
-                "jobs.job_type, "
+                "jobs.job_type as job_type, "
                 . "payments.payment_create,"
                 . "jobs.title,"
                 . "payments.des,"
@@ -338,7 +377,7 @@ class Payment_model extends CI_Model {
 
 
         $hourly_fields = 
-                "'" . HOURLY_JOB_TYPE . "' AS job_type, "
+                "jobs.job_type, "
                 . "invx.created_at as payment_create, "
                 . "'' as title, "
                 . "invx.description as des,"
@@ -346,24 +385,60 @@ class Payment_model extends CI_Model {
                 . "u.webuser_lname,"
                 . "invx.amount_due as payment_gross ";
         
+        //Add another join criteria if filter criteria user id provide (for freelancer or employer)
+        $ja_join_criteria = '';
+        $payments_join_criteria = '';
+        if( ! empty( $employer_internal ) ){
+            $payments_join_criteria = " AND payments.user_id = " . $employer_internal;
+            $ja_join_criteria = " AND ja.fuser_id = " . $employer_internal;
+        }
         
         $sql = 
            "SELECT $fixed_fields
             FROM payments
-            JOIN webuser ON webuser.webuser_id = payments.user_id
-            JOIN jobs ON jobs.id = payments.job_id
-            JOIN job_accepted ON job_accepted.job_id = payments.job_id
-            JOIN job_bids ON job_bids.job_id = payments.job_id
+            INNER JOIN webuser ON ( webuser.webuser_id = payments.user_id $payments_join_criteria )
+            INNER JOIN jobs ON jobs.id = payments.job_id
+            INNER JOIN job_accepted ON job_accepted.job_id = payments.job_id
+            INNER JOIN job_bids ON job_bids.job_id = payments.job_id
             WHERE 
             job_accepted.buser_id = payments.buser_id
-            AND payments.buser_id = $user_id
+            AND payments.buser_id = $user_id ";
+        
+        if( ! empty( $trx_type ) ){
+            $sql .= " AND job_type = '" . $trx_type . "' ";
+        }
+        
+        if( ! empty( $from_internal ) ){
+            $sql .= " AND payment_create >= '" . $from_internal . "' ";
+        }
+        
+        if( ! empty( $to_internal ) ){
+            $sql .= " AND payment_create <= '" . $to_internal . "' ";
+        }
 
-            UNION ALL SELECT  $hourly_fields 
+        $sql = $sql . "  UNION ALL SELECT  $hourly_fields 
             FROM hourly_invoices as invx
-            INNER JOIN job_accepted as ja ON ja.bid_id = invx.bid_id 
+            INNER JOIN job_accepted as ja ON ( ja.bid_id = invx.bid_id $ja_join_criteria ) 
+            INNER JOIN jobs ON jobs.id = ja.job_id
             INNER JOIN webuser u ON u.webuser_id = ja.fuser_id 
-            WHERE ja.buser_id = $user_id AND invx.status = '" .  INVOICE_PAID ."'" 
-         . "ORDER BY payment_create DESC";
+            WHERE ja.buser_id = $user_id AND invx.status = '" .  INVOICE_PAID ."'";
+        
+        if( ! empty( $trx_type ) ){
+            $sql .= " AND job_type = '" . $trx_type . "' ";
+        }
+        
+        if( ! empty( $from_internal ) ){
+            $sql .= " AND created_at >= '" . $from_internal . "' ";
+        }
+        
+        if( ! empty( $to_internal ) ){
+            $sql .= " AND created_at <= '" . $to_internal . "' ";
+        }
+        
+        $sql = $sql . " ORDER BY payment_create DESC";
+        
+        
+        //dump( $sql, true );
         
         $query = $this->db->query($sql);
         

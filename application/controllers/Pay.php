@@ -35,8 +35,7 @@ class Pay extends Winjob_Controller
         
         $client_id = $this->session->userdata('id');
         
-        //extract filters values ( from_internal, from_date, to_internal, to_date, trx_type, employer, employer_internal )
-        extract( $this->_filters_values() );
+        $filters =  $this->_filters_values();
         
         //load all model
         $this->load->model( array( 'payment_model' ) );
@@ -45,8 +44,10 @@ class Pay extends Winjob_Controller
         $employers = $this->payment_model->all_user_involved_in_txn( $client_id, true );
         
         //get all payment transaction
-        $payment_txns       = $this->payment_model->get_payment_list_of_employer( $client_id, true );
+        $payment_txns       = $this->payment_model->get_payment_list_of_employer( $client_id, $filters );
         
+        //extract filters values ( from_internal, from_date, to_internal, to_date, trx_type, employer, employer_internal )
+        extract( $filters );
         $this->twig->display('webview/employer/pay', compact(
             'from_date', 'to_date', 'trx_type', 'employer', 'employers', 'payment_txns'
         ));
@@ -469,7 +470,7 @@ class Pay extends Winjob_Controller
         $employer_internal = ! empty( $employer ) ? base64_decode($employer) : null;
         $trx_type          = $this->input->get('trx_type');
         
-        return compact('from', 'from_date', 'to', 'to_date', 'trx_type', 'employer', 'employer_internal');
+        return compact('from_internal', 'from_date', 'to_internal', 'to_date', 'trx_type', 'employer', 'employer_internal');
     }
     
     public function balance(){
@@ -478,8 +479,7 @@ class Pay extends Winjob_Controller
         
         $user_id = $this->session->userdata('id');
         
-        //extract filters values ( from_internal, from_date, to_internal, to_date, trx_type, employer, employer_internal )
-        extract( $this->_filters_values() );
+        $filters =  $this->_filters_values();
         
         //load all model
         $this->load->model( array( 'payment_model' ) );
@@ -497,7 +497,10 @@ class Pay extends Winjob_Controller
         $amount_available   = $this->payment_model->get_amount_available( $user_id);
         
         //get all payment transaction
-        $payment_txns       = $this->payment_model->get_payment_list( $user_id );
+        $payment_txns       = $this->payment_model->get_payment_list( $user_id, $filters );
+        
+        //extract filters values ( from_internal, from_date, to_internal, to_date, trx_type, employer, employer_internal )
+        extract( $filters );
         
         $this->twig->display('webview/freelancer/balance', compact(
             'amount_in_progress', 'amount_pending', 'amount_available',

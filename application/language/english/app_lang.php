@@ -179,3 +179,4 @@ $lang['text_app_withdraw_processing_data']         = 'Processing Data';
 
 $lang['text_app_transaction_freelancers'] = 'All Freelancers';
 $lang['text_app_transaction_history_freelancer'] = 'Freelancer';
+$lang['text_job_title_client_pay'] = 'Client Pay';
