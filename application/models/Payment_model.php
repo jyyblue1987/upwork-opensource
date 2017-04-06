@@ -215,57 +215,72 @@ class Payment_model extends CI_Model {
         return 0.0;
     }
     
-    public function all_employers_who_paid_or_will( $freelancer_id )
+    public function all_user_involved_in_txn( $user_id, $get_freelancer = false )
     {
-        $employer_ids =  array();
+        $user_ids =  array();
         
-        $query = $this->db->select('webuser.webuser_id')
+        $payment_field       = 'buser_id';
+        $payment_field_where = 'user_id';
+        $invoice_field       = 'buser_id';
+        $invoice_field_where = 'fuser_id';
+            
+        if($get_freelancer)
+        {
+            $payment_field       = 'user_id';
+            $payment_field_where = 'buser_id';
+            $invoice_field       = 'fuser_id';
+            $invoice_field_where = 'buser_id';
+        }
+        
+        $query = $this->db->select('DISTINCT(webuser.webuser_id) as webuser_id')
                     ->from('webuser')
-                    ->join('payments', 'payments.buser_id = webuser.webuser_id', 'inner')
-                    ->where('payments.user_id', $freelancer_id)
-                    ->group_by('buser_id')
+                    ->join('payments', "payments.{$payment_field} = webuser.webuser_id", 'inner')
+                    ->where("payments.{$payment_field_where}", $user_id)
                     ->get();
         
         $result1 = $query->result();
         
         if( ! empty( $result1 ))
         {
-            foreach( $result1 as $employer )
+            foreach( $result1 as $user )
             {
-                $employer_ids[$employer->webuser_id] = $employer->webuser_id;
+                $user_ids[$user->webuser_id] = $user->webuser_id;
             }
         }
         
-        $query = $this->db->select('webuser.webuser_id')
+        $query = $this->db->select('DISTINCT(webuser.webuser_id) as webuser_id')
                     ->from('job_accepted')
-                    ->join('webuser', 'webuser.webuser_id = job_accepted.buser_id', 'inner')
+                    ->join('webuser', "webuser.webuser_id = job_accepted.{$invoice_field}", 'inner')
                     ->join('hourly_invoices', 'hourly_invoices.bid_id = job_accepted.bid_id', 'inner')
-                    ->where('job_accepted.fuser_id', $freelancer_id)
-                    ->group_by('buser_id')
+                    ->where("job_accepted.{$invoice_field_where}", $user_id)
                     ->get();
         
         $result2 = $query->result();
         
         if( ! empty( $result2 ))
         {
-            foreach( $result2 as $empployer )
+            foreach( $result2 as $user )
             {
-                $employer_ids[$employer->webuser_id] = $employer->webuser_id;
+                $user_ids[$user->webuser_id] = $user->webuser_id;
             }
         }
         
-        $query = $this->db->select('webuser.webuser_id, webuser.webuser_fname, webuser.webuser_lname ')
+        if( ! empty( $user_ids ) )
+        {
+            $query = $this->db->select('webuser.webuser_id, webuser.webuser_fname, webuser.webuser_lname ')
                     ->from('webuser')
-                    ->where_in('webuser_id', $employer_ids)
+                    ->where_in('webuser_id', $user_ids)
                     ->order_by('webuser_fname asc, webuser_lname asc')
                     ->get();
         
-        return $query->result();
+            return $query->result();
+        }
+        
+        return null;
     }
     
     public function get_payment_list( $user_id )
     {
-        
         $fixed_fields = 
                 "jobs.job_type, "
                 . "payments.payment_create,"
@@ -301,6 +316,53 @@ class Payment_model extends CI_Model {
             INNER JOIN job_accepted as ja ON ja.bid_id = invx.bid_id 
             INNER JOIN webuser u ON u.webuser_id = ja.buser_id 
             WHERE ja.fuser_id = $user_id AND invx.status = '" .  INVOICE_PAID ."'" 
+         . "ORDER BY payment_create DESC";
+        
+        $query = $this->db->query($sql);
+        
+        return $query->result();
+    }
+    
+    
+    public function get_payment_list_of_employer( $user_id )
+    {
+        
+        $fixed_fields = 
+                "jobs.job_type, "
+                . "payments.payment_create,"
+                . "jobs.title,"
+                . "payments.des,"
+                . "webuser.webuser_fname,"
+                . "webuser.webuser_lname,"
+                . "payments.payment_gross ";
+
+
+        $hourly_fields = 
+                "'" . HOURLY_JOB_TYPE . "' AS job_type, "
+                . "invx.created_at as payment_create, "
+                . "'' as title, "
+                . "invx.description as des,"
+                . "u.webuser_fname,"
+                . "u.webuser_lname,"
+                . "invx.amount_due as payment_gross ";
+        
+        
+        $sql = 
+           "SELECT $fixed_fields
+            FROM payments
+            JOIN webuser ON webuser.webuser_id = payments.user_id
+            JOIN jobs ON jobs.id = payments.job_id
+            JOIN job_accepted ON job_accepted.job_id = payments.job_id
+            JOIN job_bids ON job_bids.job_id = payments.job_id
+            WHERE 
+            job_accepted.buser_id = payments.buser_id
+            AND payments.buser_id = $user_id
+
+            UNION ALL SELECT  $hourly_fields 
+            FROM hourly_invoices as invx
+            INNER JOIN job_accepted as ja ON ja.bid_id = invx.bid_id 
+            INNER JOIN webuser u ON u.webuser_id = ja.fuser_id 
+            WHERE ja.buser_id = $user_id AND invx.status = '" .  INVOICE_PAID ."'" 
          . "ORDER BY payment_create DESC";
         
         $query = $this->db->query($sql);

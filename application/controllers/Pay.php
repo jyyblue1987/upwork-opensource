@@ -22,10 +22,117 @@ class Pay extends Winjob_Controller
         $this->lang->load('job', $this->get_default_lang());
     }
 
-    public function index()
+    /* TODO: To delete later */
+    public function index_old()
     {
         $data = array();
         $this->Admintheme->webview("clientpay/index", $data);
+    }
+    
+    public function index()
+    {
+        $this->checkForEmployer();
+        
+        $client_id = $this->session->userdata('id');
+        
+        //extract filters values ( from_internal, from_date, to_internal, to_date, trx_type, employer, employer_internal )
+        extract( $this->_filters_values() );
+        
+        //load all model
+        $this->load->model( array( 'payment_model' ) );
+        
+        //get all freelancers
+        $employers = $this->payment_model->all_user_involved_in_txn( $client_id, true );
+        
+        //get all payment transaction
+        $payment_txns       = $this->payment_model->get_payment_list_of_employer( $client_id, true );
+        
+        $this->twig->display('webview/employer/pay', compact(
+            'from_date', 'to_date', 'trx_type', 'employer', 'employers', 'payment_txns'
+        ));
+    }
+    
+    public function clientpay()
+    {
+        if ($this->Adminlogincheck->checkx()) {
+            if ($this->session->userdata('type') != 1) {
+                redirect(site_url("find-jobs"));
+            }
+
+            $client_id = $this->session->userdata('id');
+
+            $this->db->select('*');
+            $this->db->from('payments');
+            $this->db->join('webuser', 'webuser.webuser_id = payments.user_id', 'inner');
+            $this->db->where('payments.buser_id', $client_id);
+            $this->db->group_by('user_id');
+            $query_listuser = $this->db->get();
+            $list_users = $query_listuser->result();
+
+
+
+            $this->db->select('*');
+            $this->db->from('payments');
+            $this->db->join('webuser', 'webuser.webuser_id = payments.user_id', 'inner');
+            $this->db->join('jobs', 'jobs.id = payments.job_id', 'inner');
+            $this->db->join('job_accepted', 'job_accepted.job_id = payments.job_id', 'inner');
+            $this->db->where('job_accepted.fuser_id = payments.user_id');
+            $this->db->join('job_bids', 'job_bids.job_id = payments.job_id', 'inner');
+            $this->db->where('job_bids.user_id = payments.user_id');
+            /*$this->db->order_by("jobs.id", "DESC");*/
+            if (isset($_GET['startDate']) && $_GET['startDate'] != "") {
+                $this->db->where('payments.payment_create >=', date('Y-m-d', strtotime($_GET['startDate'])));
+            }
+            if (isset($_GET['endDate']) && $_GET['endDate'] != "") {
+                $this->db->or_where('payments.payment_create <=', date('Y-m-d', strtotime($_GET['endDate'])));
+            }
+            if (isset($_GET['trxTypes']) && $_GET['trxTypes'] != "") {
+                // $this->db->where('payments.buser_id', $client_id);
+            }
+            if (isset($_GET['employers']) && $_GET['employers'] != "") {
+                $this->db->where('payments.user_id', base64_decode($_GET['employers']));
+            }
+
+            $this->db->where('payments.buser_id', $client_id);
+            $this->db->order_by("payments.payment_create");
+            $query_payment = $this->db->get();
+            $list_payments = $query_payment->result();
+
+            /*------------NUEVA CONSULTA--------*/
+
+            $sql = ("SELECT jobs.job_type, job_accepted.id,payments.payment_create,payments.hire_end_id,jobs.title,payments.des,job_accepted.fuser_id,job_accepted.job_id,job_accepted.contact_id,job_bids.offer_bid_amount,webuser.webuser_fname,webuser.webuser_lname,payments.payment_gross,payments.txn_id, 'con_id' as con_id, 'amount' as amount, '1' as type
+
+            FROM payments
+
+            JOIN webuser ON webuser.webuser_id = payments.user_id
+
+            JOIN jobs ON jobs.id = payments.job_id
+
+            JOIN job_accepted ON job_accepted.job_id = payments.job_id
+
+            JOIN job_bids ON job_bids.job_id = payments.job_id
+
+            WHERE job_bids.user_id = payments.user_id
+
+            AND job_accepted.fuser_id = payments.user_id
+
+            AND payments.buser_id =$client_id
+
+            UNION ALL SELECT  'hourly' AS job_type, ja.id, dt.date as payment_create, 'hire' as hire_end_id, 'title' as title, dt.des as des,ja.fuser_id,ja.job_id,ja.contact_id, 'offer_bid_amount' as offer_bid_amount,u.webuser_fname,u.webuser_lname,'payment_gross' as payment_gross, 'txn_id' as txn_id,ja.contact_id as con_id,dt.amount as amount, '2' as type
+
+            FROM daily_hourly_transaction dt
+
+            LEFT JOIN job_accepted ja ON ja.contact_id = dt.contract_id
+
+            LEFT JOIN webuser u ON u.webuser_id = dt.fuser_id
+
+            WHERE dt.cuser_id = $client_id ORDER BY payment_create DESC");
+            $query = $this->db->query($sql);
+            $list_payments = $query->result();
+
+            $data = array('list_users' => $list_users, 'list_payments' => $list_payments);
+            $this->Admintheme->webview("clientpay/clientpay", $data);
+        }
     }
     
     public function add_card(){
@@ -378,7 +485,7 @@ class Pay extends Winjob_Controller
         $this->load->model( array( 'payment_model' ) );
         
         //get all employer who has sent current freelancer money
-        $employers = $this->payment_model->all_employers_who_paid_or_will( $user_id );
+        $employers = $this->payment_model->all_user_involved_in_txn( $user_id );
                     
         //calculate $amount_in_progress (Only for Hourly job contract)
         $amount_in_progress = $this->payment_model->get_amount_in_progress( $user_id );
@@ -399,6 +506,7 @@ class Pay extends Winjob_Controller
         
     }
     
+    /* TODO: Remove that code later. */
     public function freelancerbalance()
     {
         if ($this->Adminlogincheck->checkx()) {
@@ -682,86 +790,4 @@ class Pay extends Winjob_Controller
         }
     }
     
-    public function clientpay()
-    {
-        if ($this->Adminlogincheck->checkx()) {
-            if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
-            }
-
-            $client_id = $this->session->userdata('id');
-
-            $this->db->select('*');
-            $this->db->from('payments');
-            $this->db->join('webuser', 'webuser.webuser_id = payments.user_id', 'inner');
-            $this->db->where('payments.buser_id', $client_id);
-            $this->db->group_by('user_id');
-            $query_listuser = $this->db->get();
-            $list_users = $query_listuser->result();
-
-
-
-            $this->db->select('*');
-            $this->db->from('payments');
-            $this->db->join('webuser', 'webuser.webuser_id = payments.user_id', 'inner');
-            $this->db->join('jobs', 'jobs.id = payments.job_id', 'inner');
-            $this->db->join('job_accepted', 'job_accepted.job_id = payments.job_id', 'inner');
-            $this->db->where('job_accepted.fuser_id = payments.user_id');
-            $this->db->join('job_bids', 'job_bids.job_id = payments.job_id', 'inner');
-            $this->db->where('job_bids.user_id = payments.user_id');
-            /*$this->db->order_by("jobs.id", "DESC");*/
-            if (isset($_GET['startDate']) && $_GET['startDate'] != "") {
-                $this->db->where('payments.payment_create >=', date('Y-m-d', strtotime($_GET['startDate'])));
-            }
-            if (isset($_GET['endDate']) && $_GET['endDate'] != "") {
-                $this->db->or_where('payments.payment_create <=', date('Y-m-d', strtotime($_GET['endDate'])));
-            }
-            if (isset($_GET['trxTypes']) && $_GET['trxTypes'] != "") {
-                // $this->db->where('payments.buser_id', $client_id);
-            }
-            if (isset($_GET['employers']) && $_GET['employers'] != "") {
-                $this->db->where('payments.user_id', base64_decode($_GET['employers']));
-            }
-
-            $this->db->where('payments.buser_id', $client_id);
-            $this->db->order_by("payments.payment_create");
-            $query_payment = $this->db->get();
-            $list_payments = $query_payment->result();
-
-            /*------------NUEVA CONSULTA--------*/
-
-            $sql = ("SELECT jobs.job_type, job_accepted.id,payments.payment_create,payments.hire_end_id,jobs.title,payments.des,job_accepted.fuser_id,job_accepted.job_id,job_accepted.contact_id,job_bids.offer_bid_amount,webuser.webuser_fname,webuser.webuser_lname,payments.payment_gross,payments.txn_id, 'con_id' as con_id, 'amount' as amount, '1' as type
-
-            FROM payments
-
-            JOIN webuser ON webuser.webuser_id = payments.user_id
-
-            JOIN jobs ON jobs.id = payments.job_id
-
-            JOIN job_accepted ON job_accepted.job_id = payments.job_id
-
-            JOIN job_bids ON job_bids.job_id = payments.job_id
-
-            WHERE job_bids.user_id = payments.user_id
-
-            AND job_accepted.fuser_id = payments.user_id
-
-            AND payments.buser_id =$client_id
-
-            UNION ALL SELECT  'hourly' AS job_type, ja.id, dt.date as payment_create, 'hire' as hire_end_id, 'title' as title, dt.des as des,ja.fuser_id,ja.job_id,ja.contact_id, 'offer_bid_amount' as offer_bid_amount,u.webuser_fname,u.webuser_lname,'payment_gross' as payment_gross, 'txn_id' as txn_id,ja.contact_id as con_id,dt.amount as amount, '2' as type
-
-            FROM daily_hourly_transaction dt
-
-            LEFT JOIN job_accepted ja ON ja.contact_id = dt.contract_id
-
-            LEFT JOIN webuser u ON u.webuser_id = dt.fuser_id
-
-            WHERE dt.cuser_id = $client_id ORDER BY payment_create DESC");
-            $query = $this->db->query($sql);
-            $list_payments = $query->result();
-
-            $data = array('list_users' => $list_users, 'list_payments' => $list_payments);
-            $this->Admintheme->webview("clientpay/clientpay", $data);
-        }
-    }
 }

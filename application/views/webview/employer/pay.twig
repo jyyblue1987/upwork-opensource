@@ -11,8 +11,6 @@
 
 {% block content %}
     <section id="speciliser-section" class="speciliser-area row">
-        {# Resume amount ( in progress, pending and available ) #}
-        {{ include('webview/freelancer/partials/freelancer-balance-amount.twig') }}
         
         <h1 id="pageTitle" class="oHInline col-xs-12">
             {{ app_lang('text_app_transaction_history') }}
@@ -28,7 +26,7 @@
                         <th>{{ app_lang('text_app_transaction_history_date') }}</th>
                         <th>{{ app_lang('text_app_transaction_history_type') }}</th>
                         <th>{{ app_lang('text_app_transaction_history_desc') }}</th>
-                        <th>{{ app_lang('text_app_transaction_history_employer') }}</th>
+                        <th>{{ app_lang('text_app_transaction_history_freelancer') }}</th>
                         <th class="txtRight nowrap">{{ app_lang('text_app_transaction_history_amount') }}</th>
                     </tr>
                 </thead>

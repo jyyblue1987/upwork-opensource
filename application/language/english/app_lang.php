@@ -175,3 +175,7 @@ $lang['text_app_withdraw_porcessing_amount']       = 'Amount';
 $lang['text_app_withdraw_processing_txn_type']     = 'Transaction Type';
 $lang['text_app_withdraw_processing_status']       = 'Status';
 $lang['text_app_withdraw_processing_data']         = 'Processing Data';
+
+
+$lang['text_app_transaction_freelancers'] = 'All Freelancers';
+$lang['text_app_transaction_history_freelancer'] = 'Freelancer';
