@@ -106,9 +106,9 @@ $accepted_jobs = $query->result();
 
 
 <section id="big_header" style="margin-top: 40px; margin-bottom: 40px; height: auto; overflow: hidden; margin-left: 4px;border-radius: 4px;width: 1000px;">
-    <div class="">
+    <div class="container">
         <div class="row">
-            <div style="border: 1px solid #ccc;border-radius: 4px 4px 0 0;background: #fff;padding: 20px 30px;margin-left: 15px;width: 750px;margin-bottom: 0;border-bottom: 0;" class="col-md-9 col-md-offset-0 page-title">                
+            <div class="col-md-9 col-md-offset-0 white-box job-cont" style="padding: 30px;">                
                 <div class="row">					
                     <div class="col-md-10 page-label">
                         <h1 class="job-title cos_job-title"><?php echo ucfirst($value->title) ?></h1>
@@ -253,14 +253,11 @@ $hire_count = $query->num_rows();
 
                 </div>
                 </div>
-            </div>
-    </div>
-
-    <div class="container">
-        <div style="background: #fff;width: 750px;border: 1px solid #ccc;border-top: 0;border-radius: 0 0 4px 4px;" class="row">
-            <div class="col-md-9" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; padding-left: 45px;">
+            
+       
+            <div class="col-md-9" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; ">
                 <div class='form-msg'></div>            
-                <div class="row">
+               
                     <div style="border: 1px solid rgb(204, 204, 204); width: 698px;border-radius: 4px;margin-top: 20px;" class="col-md-12">
                         <div class="row">
 								<?php
@@ -328,7 +325,7 @@ $hire_count = $query->num_rows();
                             </div>
                         </div>
                     </div>
-                </div>
+              
 
 
 
@@ -348,17 +345,17 @@ $hire_count = $query->num_rows();
                     </div>
                 </div>
             </div>   
-        </div>
-    </div>
-                       <div style="margin-left: -2px;margin-top: 20px;" class="col-md-3" >
+
+            </div>
+            <div class="col-md-3 no-pad">
                 <div class="row client-activity">
-                    <div style="" class="col-md-10 col-md-offset-2 right-section">
+                    <div class="col-md-10 col-md-offset-2 right-section">
                         <div class="row margin-top-2">
                             <div class="col-md-12">
                                 
                                 <?php
-if ($status && $payment_set) {
-    ?>
+                                        if ($status && $payment_set) {
+                                            ?>
 										<i style="margin-top: -10px; margin-left: -4px; font-size: 25px; color: rgb(2, 143, 204);position: absolute;top: 8px;" class="fa fa-check-circle"></i>
                                         <?php
                                     } else {
@@ -372,7 +369,7 @@ if ($status && $payment_set) {
                                 
                             </div>
                         </div>
-                        <div style="margin-top: 10px;margin-left: -19px;" class="row margin-top-2 border-bottom">
+                        <div style="margin-top: 10px;" class="row margin-top-2 border-bottom">
                             <div class="col-md-8 ">
 								<?php if($total_feedbackScore !=0 && $total_budget!=0){
                                 $totalscore = ($total_feedbackScore / $total_budget);
@@ -411,7 +408,7 @@ if ($status && $payment_set) {
                         <div style="margin-top: 4px;margin-left: -19px;" class="row margin-top-2 border-bottom">
                             <div class="col-md-12">
                                 <label style="font-family: Calibri;font-size: 20.26px;color: #494949;margin-top: -29px;">
-								<?=count($hire);?> 
+								<?=$hire;?> 
 								<span style="font-size: 14px;color: #494949;font-family: calibri;">Hired</span>
 								</label>
                             </div>
@@ -453,14 +450,12 @@ if ($status && $payment_set) {
 								</label>
                             </div>
                         </div>
-
-                    
                 </div>
-
             </div>
-
-
+           
+    </div>
         </div>
+    </div>
 
 
                 <!-- Modal -->
