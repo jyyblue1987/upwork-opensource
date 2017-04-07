@@ -373,8 +373,10 @@ $hire_count = $query->num_rows();
  {?>
                                 <div class="row col-md-offset-4">
                                     <div style="margin-left: 12px;margin-top: 6px;margin-bottom: 8px;" class="col-md-12">
+                                        <?php if($withdrawn == 0){ ?>
                                         <input type="button" class="btn btn-primary form-btn"
                                                value="Propose Different Terms" data-toggle="modal" data-target="#myModal2"/>
+                                        <?php } ?>
                                     </div>
                                 </div>
 
@@ -382,7 +384,7 @@ $hire_count = $query->num_rows();
                                     <div class="col-md-10">
                                         <a href="#" data-toggle="modal" data-target="#myModal">Withdraw Proposal</a>
                                     </div>
-                                </div> -->
+                                </div> 
  <?php }?>
                             </div>
                         </div>
@@ -580,6 +582,7 @@ $hire_count = $query->num_rows();
 							<input type="hidden" id="bid_id" name="bid_id" value="<?=$bid_details->id?>">
 							<input type="hidden" name="job_id" id="job_id" value="<?=$value->id?>">
 							<input type="hidden" name="user_id" id="user_id" value="<?=$value->user_id?>">
+                                                        <input type="hidden" name="receiver_id" id="receiver_id" value="<?=$receiver?>">
 							<div style="width:80%;float: left;height: 100px;position: relative;">
                             <div class = "uploaded_files">
                             </div>
@@ -762,12 +765,17 @@ if ($value->isactive && $paymentSet) {
 				
                       <div class="row">
                           <div style="border-radius: 4px;text-align: center; font-size: 20px; padding: 6px 0px 10px;margin-top: 20px;" class="col-md-10 col-md-offset-2 right-section ">
-                              <small><a href="<?php echo site_url('jobs/bid_decline/'.$value->id); ?>" onclick="">Decline Job </a></small>
+                              <?php if($withdrawn == 0){ ?> <small><a href="<?php echo site_url('jobs/bid_decline/'.$value->id); ?>" onclick="">Decline Job </a></small><?php } ?>
                               <br />
-                              
-                              <?php if($interviews == 0){ ?>
-                              <small>Decline by you</small>
-                              
+
+                              <?php if($interviews == 0 || $withdrawn != 0){ ?>
+                              <?php
+                              if($withdrawn_by == 1){
+                                  echo '<small>Declined by Freelancer</small>';
+                              }else if($withdrawn_by == 2){
+                                  echo '<small>Decline by You</small>';
+                              }
+                              ?>
                               <?php } ?>
                          </div>
                       </div>
@@ -794,7 +802,7 @@ if ($value->isactive && $paymentSet) {
 </section>
 
 <script src="<?php echo base_url() ?>assets/js/dropzone.js"></script>
-<script src="<?php echo base_url() ?>assets/js/bootstrap.min.js"></script>
+<!--<script src="<?php echo base_url() ?>assets/js/bootstrap.min.js"></script>-->
 
                       
 <!-- Modal -->
@@ -887,6 +895,7 @@ if ($value->isactive && $paymentSet) {
     
     
     $("#conversion_message").on("submit", function(e) {
+        alert($('#receiver_id').val());
           e.preventDefault();
           var $form = $("#conversion_message");
           if ( $('#usermsg').val().trim().length > 0 ) {

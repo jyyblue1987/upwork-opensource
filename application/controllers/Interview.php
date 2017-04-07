@@ -107,6 +107,7 @@ class Interview extends CI_Controller{
                         'fname' => $freelancer->webuser_fname,
                         'lname' => $freelancer->webuser_lname,
                         'cropped_img' => $freelancer->cropped_image,
+                        'freelancer_id' => $freelancer->webuser_id,
                         'skills' => $skills,
                         'job_info' => $job_info,
                         'rating' => $user_rating,
@@ -138,7 +139,7 @@ class Interview extends CI_Controller{
 
 		$sender_id = $this->session->userdata(USER_ID);
 
-		$freelancer_id = $this->input->post('freelancer_id');
+		$freelancer_id = $this->input->post('receiver_id');
 
 		$job_id = $this->input->post('job_id');
 

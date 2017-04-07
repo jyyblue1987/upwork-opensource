@@ -22,6 +22,7 @@ class Employer extends CI_Model {
     private $website;
     private $date_registered;
     private $is_active;
+    private $emp_id;
     
     function __construct($user_id = FALSE) {
         parent::__construct();
@@ -54,6 +55,7 @@ class Employer extends CI_Model {
             $this->website = $employer['webuser_site'];
             $this->date_registered = $employer['created'];
             $this->is_active = $employer['isactive'];
+            $this->emp_id = $this->get_job_employer($user_id);
         } else {
             return FALSE;
         }
@@ -123,4 +125,14 @@ class Employer extends CI_Model {
         return $this->is_active;
     }
 
+    function get_job_employer($job_id){
+        $query = $this->db
+                    ->select('*')
+                    ->from('webuser')
+                    ->join('jobs', 'id = webuser_id', 'left')
+                    ->where('id', $job_id)
+                    ->get();
+        $employer = $query->row_array();
+        return $employer['webuser_id'];
+    }
 }

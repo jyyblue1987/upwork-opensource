@@ -15,7 +15,7 @@ class Jobs extends Winjob_Controller {
         // load the default language for the current user.
         $this->load_language();
         // added by (Donfack Zeufack Hermann) end
-        $this->load->model(array('Category', 'Common_mod', 'Webuser_model', 'Process', 'Employer', 'profile/ProfileModel', 'Job_work_diary_model'));
+        $this->load->model(array('Category', 'Common_mod', 'Webuser_model', 'Process', 'Employer', 'profile/ProfileModel', 'Job_work_diary_model', 'Skills_model'));
         $this->load->library('paypal_lib');
         $this->process = new Process();
         $this->user_id = $this->session->userdata('id');
@@ -747,7 +747,10 @@ class Jobs extends Winjob_Controller {
     public function view($title = null, $postId = null) {
         if ($this->Adminlogincheck->checkx()) {
             $postId = base64_decode($postId);
-            $id = $this->session->userdata('id');
+            //$employer = new Employer($postId);
+            //$emp_id = $employer->get_job_employer($postId);
+            
+            
 
             $this->db->select('*');
             $this->db->from('webuser w');
@@ -757,12 +760,7 @@ class Jobs extends Winjob_Controller {
             $query = $this->db->get();
             $record = $query->row();
             
-            $this->db->select("skill_name");
-            $this->db->from("job_skills");
-            $this->db->where("job_id = ", $postId);
-            $query = $this->db->get();
-            $job_skills = $query->result_array();
-            $record->job_skills = $job_skills;
+            $record->job_skills = $this->Skills_model->get_skills($postId);
 
             $query = $this->db->get_where('job_bids', array('job_id' => $postId, 'user_id' => $id, 'status!=1' => null));
             $bids_details = $query->row();
@@ -872,6 +870,7 @@ class Jobs extends Winjob_Controller {
             
             $data = array(
                 'value' => $record, 
+               // 'test' => $employer,
                 'proposals' => $proposals, 
                 'applied' => $is_applied, 
                 'conversations' => $conversation, 
