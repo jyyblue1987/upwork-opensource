@@ -53,6 +53,7 @@ if ($Application_count) {
 $this->db->select('*');
 $this->db->from('job_bids');
 $this->db->where('user_id', $this->session->userdata(USER_ID));
+$this->db->where('job_bids.status', '1');
 $this->db->where("(withdrawn=1 OR bid_reject=1)", NULL, FALSE);
 
 $query_totalreject = $this->db->get();
@@ -62,6 +63,7 @@ if ($reject_count) {
 } else {
     $totalrejact = 0;
 }
+
 ?>
 <section id="big_header" class="custom_archive_list" style="margin-top: 40px; margin-bottom: 40px; height: auto;">
     <div class="container white-box-feed">

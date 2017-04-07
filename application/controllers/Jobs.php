@@ -1046,7 +1046,16 @@ class Jobs extends Winjob_Controller {
             $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id));
 
             $proposals = $query->num_rows();
-            $data = array('records' => $records, 'proposals' => $proposals, 'title' => 'My Bids - Winjob' );
+            
+            $this->db->select('*');
+            $this->db->from('job_bids');
+            $this->db->where('user_id', $this->session->userdata(USER_ID));
+            $this->db->where('job_bids.job_progres_status', 0);
+            $this->db->where("(withdrawn=1 OR bid_reject=1)");
+            $query_totalreject = $this->db->get();
+            $reject_count = $query_totalreject->num_rows();
+            
+            $data = array('records' => $records, 'proposals' => $proposals, 'declined' => $declined, 'title' => 'My Bids - Winjob' );
             // Davit end
             $this->Admintheme->webview("jobs/bids_list", $data);
         }
@@ -1067,8 +1076,8 @@ class Jobs extends Winjob_Controller {
             $this->db->where('job_bids.status', '1');
             
             // added by jahid start 
-             $this->db->where('job_bids.job_progres_status', '0');
-             $this->db->where('job_bids.withdrawn = 1 OR job_bids.bid_reject = 1'); 
+             //$this->db->where('job_bids.job_progres_status', '0');
+             $this->db->where('(job_bids.withdrawn = 1 OR job_bids.bid_reject = 1)'); 
              // added by jahid end 
             
             $this->db->order_by("job_bids.id", "desc");
@@ -1091,7 +1100,7 @@ class Jobs extends Winjob_Controller {
             if ($query->num_rows() > 0)
                 $records2 = $query->result();
             $records = array_merge($records1, $records2);
-            $data = array('records' => $records, 'title' => 'Archived Jobs - Winjob');
+            $data = array('records' => $records1, 'title' => 'Archived Jobs - Winjob');
             $this->Admintheme->webview("jobs/archived_bids_list", $data);
         }
     }

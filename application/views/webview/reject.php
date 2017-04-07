@@ -162,17 +162,17 @@ color: #fff;
                                                 $totalscore = ($value['feedback_score'] / $value['budget']);
                                                 $rating_feedback = ($totalscore/5)*100;
                                                ?>
-                                               <span class="rating-badge"><?= $value['rating'] ?></span>
+                                               <span class="rating-badge"><?= number_format((float)$value['rating'], 1, '.', ''); ?> </span>
                                               <div title="Rated <?=$value['rating'];?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em;margin-top:-5px;color:#DEDEDE; width: 4em">
                                                <span style="width:<?= (( $value['rating'] / 5) * 100) ?>% ; margin-top:0px;">
-                                                   <strong itemprop="ratingValue"><?=$value['rating'];?></strong> out of 5
+                                                   <strong itemprop="ratingValue"><?= $value['rating'];?></strong> out of 5
                                                </span>
                                                </div>
                                            <?php  }else{ ?>
                                              <span class="rating-badge">0.0</span>
                                                <div title="Rated 0 out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em; margin-top:px;">
                                                <span style="width:0% ;margin-top:-5px;">
-                                                   <strong itemprop="ratingValue">0</strong> out of 5
+                                                   <strong itemprop="ratingValue">0.0</strong> out of 5
                                                </span>
                                                </div>
                                           <?php   } ?>

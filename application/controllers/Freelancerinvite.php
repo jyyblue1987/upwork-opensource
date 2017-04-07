@@ -128,7 +128,8 @@ class Freelancerinvite extends CI_Controller {
             $interviews = $this->process->get_interviews($record->user_id, $postId);
             $hires = $this->process->get_hires($record->user_id, $postId);
 
-            $data = array('value' => $record, 'hire' => $record_hire, 'receiver' => $record->user_id,  'applied' => $is_applied, 'conversations' => $conversation, 'conversation_count' => $conversation_count, 'withdrawn' =>$bids_details->withdrawn, 'withdrawn_by' =>$bids_details->withdrawn_by,  'bid_details'=>$bids_details,'js' => array('vendor/jquery.form.js', 'internal/job_withdraw.js'),'accepted_jobs'=>$accepted_jobs,'record_sidebar' => $record_sidebar,'hire'=>$record_hire,'workedhours'=>$workedhours, 'applicants' => $applicants['rows'], 'hires' => $hires['rows'], 'interviews' => $interviews['rows'], 'skills' => $job_skills,);
+            
+            $data = array('value' => $record, 'hire' => $record_hire, 'cover_letter' => $bids_details->cover_latter, 'receiver' => $record->user_id,  'applied' => $is_applied, 'conversations' => $conversation, 'conversation_count' => $conversation_count, 'withdrawn' =>$bids_details->withdrawn, 'withdrawn_by' =>$bids_details->withdrawn_by,  'bid_details'=>$bids_details,'js' => array('vendor/jquery.form.js', 'internal/job_withdraw.js'),'accepted_jobs'=>$accepted_jobs,'record_sidebar' => $record_sidebar,'hire'=>$record_hire,'workedhours'=>$workedhours, 'applicants' => $applicants['rows'], 'hires' => $hires['rows'], 'interviews' => $interviews['rows'], 'skills' => $job_skills,);
             $this->Admintheme->webview("freelancerinvite", $data);
         }
 

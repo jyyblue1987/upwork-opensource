@@ -143,7 +143,7 @@ if(!empty($active_interview)){
         <div class="row"  style="margin-top: 22px;">
             <div class="col-md-9 bottom-blue-border  padding-2">
                 
-                <span style="margin-right: 45px;"><a href="<?php echo site_url('Active_interview'); ?>"><b>Active Interview (<?= $interview_cnt ?>)</b></a></span>&nbsp <span><a href="<?php echo site_url('Active_interview/declined_interview'); ?>"><b>Declined (<?= $declined ?>)</b></a></span>
+                <span style="margin-right: 45px;"><a href="<?php echo site_url('Active_interview'); ?>"><b>Active Interview (<?= $count_interview ?>)</b></a></span>&nbsp <span><a href="<?php echo site_url('Active_interview/declined_interview'); ?>"><b>Declined (<?= $declined ?>)</b></a></span>
 
             </div>
             <div class="col-md-9 text-center bordered-alert margin-top" style="background: rgb(240, 240, 240) none repeat scroll 0% 0%; padding: 10px 0px; width: 779px;">
