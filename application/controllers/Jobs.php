@@ -747,10 +747,10 @@ class Jobs extends Winjob_Controller {
     public function view($title = null, $postId = null) {
         if ($this->Adminlogincheck->checkx()) {
             $postId = base64_decode($postId);
-            //$employer = new Employer($postId);
-            //$emp_id = $employer->get_job_employer($postId);
+            $employer = new Employer($postId);
+            $emp_id = $employer->get_job_employer($postId);
             
-            
+            $id = $this->session->userdata('id');
 
             $this->db->select('*');
             $this->db->from('webuser w');

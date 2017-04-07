@@ -162,13 +162,18 @@ class Process extends CI_Model {
         return $query->num_rows();
     }
 
-    function accepted_jobs($user_id){
-        $this->db
-                ->select('*')
-                ->from('job_accepted')
-                ->join('job_bids', 'job_bids.id = job_accepted.bid_id', 'inner')
-                ->join('jobs', 'jobs.id = job_bids.job_id', 'inner')
-                ->where('job_accepted.fuser_id', $user_id);
+    function accepted_jobs($user_id, $buser_id = false){
+        $this->db->select('*');
+        $this->db->from('job_accepted');
+        $this->db->join('job_bids', 'job_bids.id = job_accepted.bid_id', 'inner');
+        $this->db->join('jobs', 'jobs.id = job_bids.job_id', 'inner');
+
+        if($buser_id){
+            $this->db->where('job_accepted.buser_id', $user_id);
+        }else{
+            $this->db->where('job_accepted.fuser_id', $user_id);
+        }
+
         $query = $this->db->get();
         return $query->result();
     }
@@ -232,5 +237,62 @@ class Process extends CI_Model {
         $query = $this->db->get();
         return $query->row_array();
     }
+    
+    function get_job_ids($user_id){
+        $this->db
+                ->select('*')
+                ->from('jobs')
+                ->where('user_id', $user_id);
+        $query = $this->db->get();
 
+        $jobids = array();
+        foreach ($query->result() as $jobs) {
+            $jobids[] = $jobs->id;
+        }
+
+        return implode(",", $jobids);
+    }
+
+    function total_hired($jobids){
+        $this->db
+                ->select('*')
+                ->from('job_bids')
+                ->where_in('jobs_id', array_map('intval', $jobids))
+                ->where('hired', 1);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    function get_worked_hours($user_id){
+        $this->db
+                ->select('*')
+                ->from('job_workdairy')
+                ->where_in('cuser_id', $user_id);
+        $query = $this->db->get();
+
+        $total_work = 0;
+        if($query->num_rows()){
+            foreach($query->result() as $work){
+                $total_work += $work->total_hour;
+            }
+            return $total_work." hours";
+        }else{
+            return "0.00 hours";
+        }
+    }
+    
+    function get_jobs($emp_id){
+        $this->db
+                ->select('*')
+                ->from('jobs')
+                ->where('user_id', $emp_id);
+        $query = $this->db->get();
+
+        $return_array = array();
+        $return_array['rows'] = $query->num_rows();
+        if ($return_array['rows'] > 0) {
+            $return_array['data'] = $query->result();
+        }
+        return $return_array;
+    }
 }
