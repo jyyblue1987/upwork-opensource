@@ -404,6 +404,7 @@ span.text1 {text-transform: capitalize;}
 										<input type="hidden" id="bid_id" name="bid_id" value="<?=$job_info['bid_id']?>">
 										<input type="hidden" name="job_id" id="job_id" value="<?=$job_info['job_id']?>">
 										<input type="hidden" name="user_id" id="user_id" value="<?=$job_info['user_id']?>">
+                                                                                <input type="hidden" name="receiver_id" id="receiver_id" value="<?=$freelancer_id?>">
 										<div  class="chat_border" style="width:80%;float: left;height: 100px;">
                                         <div class = "uploaded_files">
                                         </div>

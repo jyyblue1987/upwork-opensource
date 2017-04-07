@@ -29,11 +29,10 @@ class Freelancerinvite extends CI_Controller {
             $this->db->order_by("jobs.id", "desc");
             $query = $this->db->get_where('jobs', array('id' => $postId));
             $record = $query->row();
-            $query = $this->db->get_where('job_bids', array('job_id' => $postId, 'user_id' => $id, 'status!=1' => null));
+            $query = $this->db->get_where('job_bids', array('job_id' => $postId, 'user_id' => $id));
             $bids_details = $query->row();
             $is_applied  = $query->num_rows();
-            
-            
+
             //conversation
             $conversation_count = 0;
             $conversation = array();
@@ -47,8 +46,8 @@ class Freelancerinvite extends CI_Controller {
                 
                 $query=$this->db->get();// assign to a variable
                 $conversation_count = $query->num_rows();// then use num rows
-     
-                
+
+                }
                
                 if( $conversation_count ){
                 
@@ -60,7 +59,9 @@ class Freelancerinvite extends CI_Controller {
                     $this->db->order_by("job_conversation.id", "ASC");
                     $query_conversation=$this->db->get();
                     $conversation =  $query_conversation->result();
-                }
+                
+                    
+                    
 
                 foreach ($conversation as $key => $value) {
                     $this->db->select('*');
@@ -126,8 +127,8 @@ class Freelancerinvite extends CI_Controller {
             $applicants = $this->process->get_applications($postId);
             $interviews = $this->process->get_interviews($record->user_id, $postId);
             $hires = $this->process->get_hires($record->user_id, $postId);
-			   
-            $data = array('value' => $record, 'hire' => $record_hire,  'applied' => $is_applied, 'conversations' => $conversation, 'conversation_count' => $conversation_count, 'bid_details'=>$bids_details,'js' => array('vendor/jquery.form.js', 'internal/job_withdraw.js'),'accepted_jobs'=>$accepted_jobs,'record_sidebar' => $record_sidebar,'hire'=>$record_hire,'workedhours'=>$workedhours, 'applicants' => $applicants['rows'], 'hires' => $hires['rows'], 'interviews' => $interviews['rows'], 'skills' => $job_skills,);
+
+            $data = array('value' => $record, 'hire' => $record_hire, 'receiver' => $record->user_id,  'applied' => $is_applied, 'conversations' => $conversation, 'conversation_count' => $conversation_count, 'withdrawn' =>$bids_details->withdrawn, 'withdrawn_by' =>$bids_details->withdrawn_by,  'bid_details'=>$bids_details,'js' => array('vendor/jquery.form.js', 'internal/job_withdraw.js'),'accepted_jobs'=>$accepted_jobs,'record_sidebar' => $record_sidebar,'hire'=>$record_hire,'workedhours'=>$workedhours, 'applicants' => $applicants['rows'], 'hires' => $hires['rows'], 'interviews' => $interviews['rows'], 'skills' => $job_skills,);
             $this->Admintheme->webview("freelancerinvite", $data);
         }
 

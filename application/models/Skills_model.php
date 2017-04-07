@@ -22,4 +22,14 @@ class Skills_model extends CI_Model{
                     
         return $query->result();
     }
+    
+    public function get_skills($job_id)
+    {
+        $query = $this->db
+                    ->select("skill_name")
+                    ->from("job_skills")
+                    ->where("job_id = ", $job_id)
+                    ->get();
+        return $query->result_array();
+    }
 }
