@@ -19,6 +19,7 @@ $route['jobs/ended-contracts']    = 'job/ended_contracts';
 $route['jobs/work-diary']         = 'job/work_diary';
 $route['pay/add-card']            = 'pay/add_card';
 $route['pay/add-paypal-account']  = 'pay/add_paypal_account';
+$route['billings']                = 'pay';
 
 
 $route['default_controller'] = 'home';

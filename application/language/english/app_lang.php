@@ -17,7 +17,7 @@ $lang['text_app_clientpay'] = 'Pay';
 
 $lang['text_app_post_a_job'] = 'Post a Job';
 $lang['text_app_my_contracts'] = 'My Contracts';
-$lang['text_app_work_history'] = 'Work History';
+$lang['text_app_work_history'] = 'Work Diary';
 
 $lang['text_app_find_job'] = 'Find Job';
 $lang['text_app_win_jobs'] = 'Win Jobs';
@@ -179,4 +179,4 @@ $lang['text_app_withdraw_processing_data']         = 'Processing Data';
 
 $lang['text_app_transaction_freelancers'] = 'All Freelancers';
 $lang['text_app_transaction_history_freelancer'] = 'Freelancer';
-$lang['text_job_title_client_pay'] = 'Client Pay';
+$lang['text_job_title_client_pay'] = 'Billings';

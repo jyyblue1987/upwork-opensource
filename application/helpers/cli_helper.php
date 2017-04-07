@@ -37,7 +37,7 @@ if( !function_exists('pl_array')){
     {
       if(!empty($input) && is_array($input)) {
         foreach($input as $key => $value) {
-          pl("[" .$key. "] => " . $value);
+          pl("[" .$key. "] => " . json_encode($value, JSON_PRETTY_PRINT, 512) );
         }
       }
     }    

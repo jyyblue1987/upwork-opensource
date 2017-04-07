@@ -326,9 +326,7 @@ class Payment_model extends CI_Model {
             $sql .= " AND job_type = '" . $trx_type . "' ";
         }
         
-        if( ! empty( $from_internal ) ){
-            $sql .= " AND payment_create >= '" . $from_internal . "' ";
-        }
+        $this->handle_to_date($sql, $from_internal, $to_internal);
         
         if( ! empty( $to_internal ) ){
             $sql .= " AND payment_create <= '" . $to_internal . "' ";
@@ -408,9 +406,7 @@ class Payment_model extends CI_Model {
             $sql .= " AND job_type = '" . $trx_type . "' ";
         }
         
-        if( ! empty( $from_internal ) ){
-            $sql .= " AND payment_create >= '" . $from_internal . "' ";
-        }
+        $this->handle_to_date($sql, $from_internal, $to_internal);
         
         if( ! empty( $to_internal ) ){
             $sql .= " AND payment_create <= '" . $to_internal . "' ";
@@ -436,12 +432,27 @@ class Payment_model extends CI_Model {
         }
         
         $sql = $sql . " ORDER BY payment_create DESC";
-        
-        
-        //dump( $sql, true );
-        
+                
         $query = $this->db->query($sql);
         
         return $query->result();
     }
+    
+    private function handle_to_date(&$sql, &$from_date, &$to_date, $field)
+    {
+        if( ! empty( $from_date ) ){
+            
+            if( ! empty($to_date) && ($from_date > $to_date) )
+            {   
+                $swap      = $from_date;
+                $from_date = $to_date;
+                $to_date   = $swap;
+            }
+            
+            $sql .= " AND payment_create >= '" . $from_date . "' ";
+        }
+        
+        return $sql;
+    }
+    
 }

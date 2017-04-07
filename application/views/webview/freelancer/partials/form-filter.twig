@@ -8,7 +8,7 @@
                             {{ app_lang('text_app_transaction_filter_from') }}
                         </label>
                         <input id="datepicker-from" 
-                            class="form-control datepicker"  
+                            class="form-control"  
                             name="from" 
                             value="{{ from_date }}" >
                     </div>
@@ -17,14 +17,14 @@
                             {{ app_lang('text_app_transaction_filter_to') }}
                         </label>
                         <input id="datepicker-to" 
-                            class="form-control datepicker"  
+                            class="form-control"  
                             name="to" 
                             value="{{ to_date }}" >
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-3">
                         <label class="oLabelInline oLabelDatePicker" for="to">&nbsp;</label>
                         <select class="form-control" id="trx_type" name="trx_type">
-                            <option {% if trx_type == 'ALL' %}selected{% endif %}      value="ALL" label="{{ app_lang('text_app_transaction_all_type') }}">{{ app_lang('text_app_transaction_all_type') }}</option>
+                            <option {% if trx_type is empty %}selected{% endif %}      value="" label="{{ app_lang('text_app_transaction_all_type') }}">{{ app_lang('text_app_transaction_all_type') }}</option>
                             <option {% if trx_type == 'CREDITES' %}selected{% endif %} value="CREDITES" label="{{ app_lang('text_app_transaction_type_credits') }}">{{ app_lang('text_app_transaction_type_credits') }}</option>
                             <option {% if trx_type == 'HOURLY' %}selected{% endif %}   value="HOURLY" label="{{ app_lang('text_app_transaction_type_hourly') }}">{{ app_lang('text_app_transaction_type_hourly') }}</option>
                             <option {% if trx_type == 'FIXED' %}selected{% endif %}    value="FIXED" label="{{ app_lang('text_app_transaction_type_fixed') }}">{{ app_lang('text_app_transaction_type_fixed') }}</option>

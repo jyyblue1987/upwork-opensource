@@ -31,8 +31,10 @@ and open the template in the editor.
     margin-bottom: 9px;
 }
 
-#accountingHistoryFilter .datepicker{
+#accountingHistoryFilter #datepicker-to,
+#accountingHistoryFilter #datepicker-from{
     margin-left: 0;
+    margin-bottom: 0;
 }
 
 #accountingHistoryFilter.oFilterBar{
