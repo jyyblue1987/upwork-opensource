@@ -180,14 +180,14 @@ class Payment_model extends CI_Model {
     private function hourly_amount_to_paid( $user_id, $start_of_week = null, $end_of_week = null, $invoice_state = INVOICE_UNPAID){
         
         $this->db->select('SUM(amount_due) as amount')
-            ->from('hourly_invoices')
-            ->join('job_bids', 'job_bids.id=hourly_invoices.bid_id', 'inner')
+            ->from('hourly_invoices_items')
+            ->join('job_bids', 'job_bids.id=hourly_invoices_items.bid_id', 'inner')
             ->where('user_id', $user_id);
         
         if( is_array( $invoice_state ) )
-            $this->db->where_in('hourly_invoices.status ', $invoice_state);
+            $this->db->where_in('hourly_invoices_items.status ', $invoice_state);
         else
-            $this->db->where('hourly_invoices.status', $invoice_state);
+            $this->db->where('hourly_invoices_items.status', $invoice_state);
                 
         if($start_of_week != null)
             $this->db->where('created_at >=', $start_of_week);
