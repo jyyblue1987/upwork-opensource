@@ -1,5 +1,20 @@
 <link rel="stylesheet" href="<?php echo site_url("assets/css/chosen.css"); ?>">
 <script src="<?php echo site_url("assets/js/chosen.jquery.js"); ?>"></script>
+<style>
+    input[type=file] {
+        display:block;
+        top: 0;
+        left: 0;
+        height:0;
+        width:0;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        font-size: 8pt;
+        z-index: 1;
+        visibility: hidden;
+        margin-left: -40px;
+    }
+</style>
 <section id="big_header" style="margin-top: 40px; margin-bottom: 40px; height: auto;">
     <div style="border:1px solid #ccc;" class="container white-box-feed">
         <div class="row">
@@ -99,11 +114,20 @@
                             <h4 class="main_title">Attach File</h4>
                         </div>
                         <div class="col-md-12">
-                          <div style="margin-bottom: 20px;margin-top: -2px;margin-left: -8px;" class="edit_title">
-                              <div class="upload_file">
-                                <input type="file" value="" name="userfile" class="upload"
-                                   id="user_file">
-                           </div>
+                          <div class="edit_title">
+                                <div class="upload_file">
+<!--                                <input type="file" value="" name="userfile" class="upload"
+                                   id="user_file">-->
+                                    <input type="file" name="files" id="files" />
+                                    <input type="button" id="uploader" value="Add files" style="margin-left: 0px;" class="btn my_btn" />
+                                    <div id="file_lists" style="margin: 0">
+                                        <ul id="lists">
+                                        </ul>
+                                    </div>
+                                    <input type="text" name="requestor" value="<?= $user_id ?>" />
+                                    <input type="hidden" name="tid" value="<?= $tid ?>" />
+                                    <input type="hidden" name="attachments" id="attachments" />
+                                </div>
                           </div>
                         </div>
                     </div>
@@ -347,3 +371,103 @@ margin-top: 5px;
 }
 .white-box-feed{padding-left:40px;}
 </style>
+<script>
+    var formSubmitted = false;
+    $(document).ready(function() {
+        clearForms();
+
+        $(window).unload(function(evt) {
+            if (!formSubmitted) {
+                $.ajax({
+                    url: "<?= base_url() . 'jobs/removefile' ?>",
+                    type: "POST",
+                    data: "formDiscard=<?= $user_id ?>/<?= $tid ?>",
+                    async: false
+                });
+            }
+        });
+
+        $('#uploader').click(function() {
+            $('input[type=file]').trigger('click');
+        });
+
+        $('input[type=file]').change(function() {
+            var formdata = false;
+            if (accepted_file($(this).val())) {
+                console.log(this.files[0]);
+                formdata = new FormData();
+                formdata.append("files", this.files[0]);
+                formdata.append("uid", <?= $user_id ?>);
+                formdata.append("ident", <?= $tid ?>);
+            } else {
+                alert('Executable files are NOT allowed!');
+                return false;
+            }
+            console.log(formdata);
+            if (formdata) {
+                $.ajax({
+                    url: "<?= base_url() ?>jobs/upload",
+                    type: "POST",
+                    data: formdata,
+                    processData: false,
+                    contentType: false,
+                    success: function(res) {
+                        console.log(res);
+                        switch (res) {
+                            case "0":
+                                alert('There was an error uploading the file, please try again!');
+                                break;
+                            case "1":
+                                alert('You have already added that file!');
+                                break;
+                            case "-1":
+                                alert('File size should NOT be greater than 15MB!');
+                                break;
+                            default:
+                                var fileWrapper = $("<li>");
+                                var removeButton = $("<img src=\"<?= base_url() ?>assets/img/delete_icon.gif\" alt=\"Remove\" title=\"Remove\" style=\"margin-left: 5px;\" />");
+                                removeButton.click(function() {
+                                    if (confirm("Are you sure you want to delete: \n" + $(this).parent().text() + " ?")) {
+                                        $.post("<?= base_url() . 'jobs/removefile' ?>", "file=" + $.trim($(this).parent().text()) + "&tid=<?= $user_id ?>/<?= $tid ?>");
+                                        $(this).parent().remove();
+                                    }
+                                });
+                                fileWrapper.html(res);
+                                fileWrapper.append(removeButton);
+                                $('#lists').append(fileWrapper);
+                                break;
+                        }
+                    }
+                });
+            }
+        });
+
+        $('#jobCreate').submit(function() {
+            var f = '"';
+            $('#lists').children().each(function() {
+                f = f + $.trim($(this).text()) + '","';
+            });
+            $('#attachments').val(f.substring(0, f.length - 2));
+            formSubmitted = true;
+        });
+    });
+    function form_valid(f) {
+        formSubmitted = f;
+    }
+
+    function accepted_file(filename) {
+        var ext = filename.split('.').pop().toLowerCase();
+        if (ext !== 'exe') {
+            return true;
+        } else
+            return false;
+    }
+
+    function clearForms()
+    {
+        var i;
+        for (i = 0; (i < document.forms.length); i++) {
+            document.forms[i].reset();
+        }
+    }
+</script>
