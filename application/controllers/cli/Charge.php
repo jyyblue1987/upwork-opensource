@@ -28,11 +28,9 @@ class Charge extends CI_Controller {
             $invoices_failures = $this->invoice_model->get_invoices_in_processing_failure();
         
             if(empty($invoices_failures)) return; 
-            
-            pl_array($invoices_failures);
 
             $account_to_activate = array(); 
-
+            
             foreach( $invoices_failures as $key => $invoice )
             {
                 $employer_id = $invoice->webuser_id; 
@@ -47,19 +45,21 @@ class Charge extends CI_Controller {
                 if( ! property_exists($this, $service_library) )
                     $this->load->library($service_library);
 
-                //process payment through primary service.
-                $transaction_id = $this->{$service_library}->paid_invoice( $invoice->invoice_service_id );
+                pl_array($invoice);
                 
-                if( $transaction_id )
+                //process payment through primary service.
+                $transaction_id = $this->{$service_library}->pay_invoice( $invoice->invoice_service_id, $primary );
+                
+                if( $transaction_id != null )
                 {
                     if( ! in_array( $user_id, $account_to_activate ) )
                         array_push ($account_to_activate, $employer_id);
-
-                    $this->invoice_model->set_status($invoice->invoice_service_id, $transaction_id, INVOICE_PAID);
+                    
+                    $this->invoice_model->set_status($invoice->id, $transaction_id, INVOICE_PAID);
                 }
                 else
                 {
-                    $this->invoice_model->set_status($invoice->invoice_service_id, INVOICE_PROCESSING_PAID);
+                    $this->invoice_model->set_status($invoice->id, null, INVOICE_PROCESSING_PAID);
 
                     $keys = array_keys($account_to_activate, $employer_id);
 

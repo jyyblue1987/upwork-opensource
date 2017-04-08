@@ -6162,8 +6162,34 @@ ALTER TABLE `payment_services`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 
+--
+-- Structure de la table `hourly_invoices`
+--
+
 DROP TABLE IF EXISTS `hourly_invoices`;
 CREATE TABLE `hourly_invoices` (
+  `id` int(11) NOT NULL,
+  `invoice_service_id` varchar(255) NOT NULL,
+  `service_name` varchar(255) NOT NULL,
+  `transaction_id` varchar(255) DEFAULT NULL,
+  `status` enum('PAID','PROCESSING_FAILED','UNPAID','') NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `hourly_invoices`
+--
+
+INSERT INTO `hourly_invoices` (`id`, `invoice_service_id`, `service_name`, `transaction_id`, `status`) VALUES
+(13, 'in_1A6LvzC3aXjEIlyVPmhwkSlb', 'stripe', 'txn_1A6LwKC3aXjEIlyVeHMd6hFH', 'PAID');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `hourly_invoices_items`
+--
+
+DROP TABLE IF EXISTS `hourly_invoices_items`;
+CREATE TABLE `hourly_invoices_items` (
   `id` int(11) NOT NULL,
   `bid_id` int(11) NOT NULL,
   `amount_due` double NOT NULL,
@@ -6177,12 +6203,12 @@ CREATE TABLE `hourly_invoices` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `hourly_invoices`
+-- Contenu de la table `hourly_invoices_items`
 --
 
-INSERT INTO `hourly_invoices` VALUES
-(10, 210, 10, 'Invoice for Contract ID: 13_NYVK5HQ3QP - 2hrs*$5.00/hr', NULL, 'UNPAID', NULL, NULL, '2017-04-05 19:00:16', '2017-04-05 19:00:16'),
-(9, 210, 15, 'Invoice for Contract ID: 13_NYVK5HQ3QP - 3hrs*$5.00/hr', NULL, 'PAID', NULL, NULL, '2017-04-05 18:56:33', '2017-04-05 18:56:33');
+INSERT INTO `hourly_invoices_items` (`id`, `bid_id`, `amount_due`, `description`, `payment_service_name`, `status`, `unpaid_reason`, `invoice_id`, `created_at`, `updated_at`) VALUES
+(10, 210, 10, 'Invoice for Contract ID: 13_NYVK5HQ3QP - 2hrs*$5.00/hr', NULL, 'PAID', NULL, '13', '2017-04-05 19:00:16', '2017-04-05 19:00:16'),
+(9, 210, 15, 'Invoice for Contract ID: 13_NYVK5HQ3QP - 3hrs*$5.00/hr', NULL, 'PAID', NULL, '13', '2017-04-05 18:56:33', '2017-04-05 18:56:33');
 
 --
 -- Index pour les tables exportées
@@ -6192,6 +6218,14 @@ INSERT INTO `hourly_invoices` VALUES
 -- Index pour la table `hourly_invoices`
 --
 ALTER TABLE `hourly_invoices`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `index_transaction_id` (`transaction_id`),
+  ADD KEY `invoice_service_id` (`invoice_service_id`);
+
+--
+-- Index pour la table `hourly_invoices_items`
+--
+ALTER TABLE `hourly_invoices_items`
   ADD PRIMARY KEY (`id`),
   ADD KEY `index_bid_id` (`bid_id`);
 
@@ -6203,6 +6237,11 @@ ALTER TABLE `hourly_invoices`
 -- AUTO_INCREMENT pour la table `hourly_invoices`
 --
 ALTER TABLE `hourly_invoices`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT pour la table `hourly_invoices_items`
+--
+ALTER TABLE `hourly_invoices_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

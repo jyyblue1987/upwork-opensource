@@ -22,14 +22,12 @@ class Webuser_model extends CI_Model {
     {
         if(empty($ids)) return;
         
-        $data = array(
-                    'isactive'       => true,
-                    'suspend_reason' => $reason
-                );
-        
         $this->db
             ->where_in('webuser_id', $ids )
-            ->update('webuser', $data );
+            ->update('webuser', array(
+                    'isactive'       => true,
+                    'suspend_reason' => $reason
+                ) );
     }
     
     public function deactivated_all( $user_ids )

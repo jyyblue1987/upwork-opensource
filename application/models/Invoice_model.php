@@ -54,14 +54,14 @@ class invoice_model extends CI_Model
         return $query->result();
     }
     
-    public function set_status($invoice_service_id, $transaction_id, $status)
+    public function set_status($id, $transaction_id, $status)
     {
         //set invoice status
-        $this->db->where('invoice_service_id', $invoice_service_id);
+        $this->db->where('id', $id);
         $this->db->update('hourly_invoices', array('status' => $status, 'transaction_id' => $transaction_id) ); 
         
         //set invoices item status
-        $this->db->where('invoice_id', $invoice_service_id);
+        $this->db->where('invoice_id', $id);
         $this->db->update('hourly_invoices_items', array('status' => $status) ); 
     }
     

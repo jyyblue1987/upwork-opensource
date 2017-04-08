@@ -60,10 +60,10 @@ class Winjob_stripe {
         try
         {
             $invoice = $this->get_invoice( $invoice_id );
-        
+                    
             if( $invoice == null ) //return null transaction
                 return null;
-
+            
             $now = Carbon::now(new DateTimeZone('UTC'));
 
             //charge stripe account. 
