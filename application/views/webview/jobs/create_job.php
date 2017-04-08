@@ -124,7 +124,7 @@
                                         <ul id="lists">
                                         </ul>
                                     </div>
-                                    <input type="text" name="requestor" value="<?= $user_id ?>" />
+                                    <input type="hidden" name="requestor" value="<?= $user_id ?>" />
                                     <input type="hidden" name="tid" value="<?= $tid ?>" />
                                     <input type="hidden" name="attachments" id="attachments" />
                                 </div>
