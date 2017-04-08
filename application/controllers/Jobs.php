@@ -154,6 +154,12 @@ class Jobs extends Winjob_Controller {
         }
         redirect($_SERVER['HTTP_REFERER']);
     }
+    
+    public function download($attachment){
+        $this->load->helper('download');
+        $data = file_get_contents(site_url() . 'uploads/'.$attachment); // Read the file's contents
+        force_download($attachment, $data);
+    }
 
     public function find($url_rewrite = null, $sort = 1) {
 
@@ -572,7 +578,6 @@ class Jobs extends Winjob_Controller {
                 $this->db->where('webuser.webuser_id', $id);
                 $query_status = $this->db->get();
                 $ststus = $query_status->row();
-
 
                 $data = array('js' => array('internal/find_job.js'), 'records' => $records, 'limit' => $limit, 'no_of_interview' => $intervier_no, 'proposal_no' => $proposal_no, 'profilecompleteness' => $profilecompleteness, 'ststus' => $ststus);
 
