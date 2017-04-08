@@ -1174,35 +1174,20 @@ class Jobs extends Winjob_Controller {
     public function edit($postId = null) {
         if ($this->Adminlogincheck->checkx() && $this->session->userdata('type') == '1') {
             if ($this->input->post('title')) {
-                if (isset($_FILES['userfile']['name']) && ($_FILES['userfile']['name'] != '')) {
-                    $ext = pathinfo($_FILES['userfile']['name'], PATHINFO_EXTENSION);
-                    $newFileName = time() . rand(0000, 9999) . $this->session->userdata('id') . '.' . $ext;
-                    $source = $_FILES['userfile']['tmp_name'];
-                    $dest = './uploads/' . $newFileName;
-                    if (move_uploaded_file($source, $dest)) {
-                        $dbPath = '/uploads/' . $newFileName;
-                        @unlink('/uploads/' . $this->input->post('oldUserFile'));
-                    } else {
-                        $rs = array('code' => '0', 'msg' => '<div class="alert alert-danger">
-                              <strong>Error!</strong> Error in uploading file.
-                            </div>');
-                        echo json_encode($rs);
-                        die;
-                    }
-                }
 
                 //save
-                $data = $this->input->post();
-                unset($data['userfile']);
-                if (isset($dbPath))
-                    $data['userfile'] = $dbPath;
-                $data['user_id'] = $this->session->userdata('id');
-                unset($data['oldUserFile']);
-                if ($data['job_type'] == 'hourly') {
-                    unset($data['budget']);
-                } else {
-                    unset($data['hours_per_week']);
-                }
+                //$data = $this->input->post();
+//                $data['userfile'] = $this->input->post('attachments');
+//                unset($data['userfile']);
+//                if (isset($dbPath))
+//                    $data['userfile'] = $dbPath;
+//                $data['user_id'] = $this->session->userdata('id');
+//                unset($data['oldUserFile']);
+//                if ($data['job_type'] == 'hourly') {
+//                    unset($data['budget']);
+//                } else {
+//                    unset($data['hours_per_week']);
+//                }
                 // Added by Armen start
                 // update skills
                 $this->db->where('job_id', $this->input->post('id'));
@@ -1214,7 +1199,16 @@ class Jobs extends Winjob_Controller {
                     $this->db->insert('job_skills', $skills);
                 }
 
-                // Added by Armen end
+                $data['title'] = $this->input->post('title');
+                $data['category'] = $this->input->post('category');
+                $data['job_description'] = $this->input->post('job_description');
+                $data['job_type'] = $this->input->post('job_type');
+                $data['job_duration'] = $this->input->post('job_duration');
+                $data['experience_level'] = $this->input->post('experience_level');
+                $data['budget'] = $this->input->post('budget');
+                $data['hours_per_week'] = $this->input->post('hours_per_week');
+                $data['userfile'] = $this->input->post('attachments');
+                
                 $data['skills'] = "";
                 $this->db->where('id', $this->input->post('id'));
                 if ($this->db->update('jobs', $data)) {
