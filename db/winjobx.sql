@@ -535,10 +535,11 @@ CREATE TABLE IF NOT EXISTS `jobs` (
   `experience_level` varchar(100) DEFAULT NULL,
   `budget` float(10,2) DEFAULT NULL,
   `hours_per_week` varchar(100) DEFAULT NULL,
-  `userfile` varchar(200) DEFAULT NULL,
+  `userfile` mediumtext,
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0=>close,open=>1',
   `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `job_created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `tid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=181 ;

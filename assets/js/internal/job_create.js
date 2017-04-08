@@ -55,8 +55,9 @@ $(document).ready(function () {
             }
         },
         success: function (rs) {
+            console.log(rs);
             var data = JSON.parse(rs);
-            
+            console.log(data);
             if ($.trim(data.code) == '1')
             {
                 if ($("input[name=job_type]:checked").val() == 'hourly')
@@ -79,10 +80,8 @@ $(document).ready(function () {
                     $('input:submit').removeAttr('disabled');
                 }
                 else
-                {               
+                {
                     window.location = base_url() + 'jobs-home';
-                    //window.location = '/jobs-home?success=1';
-                    //window.location = "/jobs/view_"+data.type+"/"+data.id+'?success=1';
                 }
 
             }

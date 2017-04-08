@@ -84,36 +84,17 @@ class Jobs extends Winjob_Controller {
                     'vendor/jquery.form.js', 
                     'internal/job_create.js'
                 ),
-                'skillList' => $this->skills_model->get_list()
+                'skillList' => $this->skills_model->get_list(),
+                'user_id' => $user_id,
+                'tid' => time()
             );
             
             $this->Admintheme->webview("jobs/create_job", $data);
         }
         else if($this->input->is_ajax_request() && is_post() && $this->input->post('title'))//Here we need to handle job creation
         {
-            $db_path = false;
-                    
-            //call a service to handle uploaded image if necessary
-            if( isset($_FILES['userfile']['tmp_name']) && is_uploaded_file($_FILES['userfile']['tmp_name'])){
-                $upload_configs = $this->config->item('upload_library');
-                $upload_configs += array(
-                    'file_name'        => time() . rand(0000, 9999) . $this->session->userdata('id'),
-                    'file_ext_tolower' => true,
-                    'allowed_types'    => 'gif|jpg|png',
-                );
-                $this->load->library( 'upload', $upload_configs );
-                
-                if( $this->upload->do_upload() ){
-                    $finfo   = $this->upload->data();
-                    $db_path = '/uploads/' . $finfo['file_name'];
-                }else{
-                    $this->ajax_response( array( 'code' => '0', 'msg' => '<div class="alert alert-danger"><strong>Error!</strong> Error in uploading file.</div>' ) );
-                }
-            }
+            //$data             = $this->input->post();
             
-            $data             = $this->input->post();
-            $data['userfile'] = $db_path;
-            $data['user_id']  = $user_id;
             
             if ($this->input->post('submitbtn') == '0') //JOB PREVIEW
             {
@@ -122,10 +103,24 @@ class Jobs extends Winjob_Controller {
             }
             else // CREATE THE JOB
             {
-                $skillNames               = '';
-                $skills                   = $data['skills'];
-                $data['skills']           = $skillNames;
-                $data['job_created']      = date('Y-m-d H:i:s');
+                $skillNames = '';
+                $skills = $this->input->post('skills');
+                $data['skills'] = $skillNames;
+                $data['title'] = $this->input->post('title');
+                $data['category'] = $this->input->post('category');
+                $data['job_description'] = $this->input->post('job_description');
+                $data['job_type'] = $this->input->post('job_type');
+                $data['job_duration'] = $this->input->post('job_duration');
+                $data['experience_level'] = $this->input->post('experience_level');
+                $data['budget'] = $this->input->post('budget');
+                $data['hours_per_week'] = $this->input->post('hours_per_week');
+                $data['userfile'] = $this->input->post('userfile');
+                $data['status'] = 1;
+                $data['job_created'] = date('Y-m-d H:i:s');
+                $data['userfile'] = $this->input->post('attachments');
+                $data['user_id']  = $user_id;
+                $data['tid']  = $this->input->post('tid');
+
                 unset( $data['submitbtn'] );
                 
                 $job_id  = $this->jobs_model->create( $data );
@@ -155,10 +150,76 @@ class Jobs extends Winjob_Controller {
         redirect($_SERVER['HTTP_REFERER']);
     }
     
-    public function download($attachment){
+    public function download(){
         $this->load->helper('download');
-        $data = file_get_contents(site_url() . 'uploads/'.$attachment); // Read the file's contents
-        force_download($attachment, $data);
+        $data = file_get_contents(FCPATH . "uploads/" . $this->input->get('dir') . "/" . $this->input->get('file')); // Read the file's contents
+        $name = $this->input->get('file');
+        force_download($name, $data);
+    }
+    
+    public function upload() {
+        
+        $target_path = FCPATH . "uploads/" . $this->input->post('uid') . "/";
+        if (!file_exists($target_path)) {
+            if (mkdir($target_path)) {
+                $target_path = $target_path . $this->input->post('ident') . "/";
+                $this->fileupload($_FILES, $target_path);
+            } else
+                echo "0";
+        } else {
+            $target_path = $target_path . $this->input->post('ident') . "/";
+            $this->fileupload($_FILES, $target_path);
+        }
+    }
+
+    public function removefile() {
+        $this->load->helper('file');
+        if ($this->input->post('formDiscard')) {
+            $dir = FCPATH . "uploads/" . $this->input->post('formDiscard');
+            if (file_exists($dir)) {
+                delete_files($dir);
+                rmdir($dir);
+            }
+        } else {
+            $dir = FCPATH . "uploads/" . $this->input->post('tid');
+            $path = FCPATH . "uploads/" . $this->input->post('tid') . "/" . $this->input->post('file');
+            unlink($path);
+            if (count(scandir($dir)) <= 2)
+                rmdir($dir);
+        }
+    }
+
+
+    private function fileupload(&$file, $path) {
+        if (!file_exists($path)) {
+            if (mkdir($path)) {
+                if (filesize($file['files']['tmp_name']) <= 15728640) {
+                    $new_file = preg_replace('/&/', '-', $file['files']['name']);
+                    $path = $path . basename($new_file);
+                    if (move_uploaded_file($file['files']['tmp_name'], $path)) {
+                        echo $new_file;
+                    } else {
+                        echo "0";
+                    }
+                } else
+                    echo "-1";
+            }
+        } else {
+            if (filesize($file['files']['tmp_name']) <= 15728640) {
+                $new_file = preg_replace('/&/', '-', $file['files']['name']);
+                $path = $path . basename($new_file);
+                if (file_exists($path)) {
+                    echo "1";
+                } else {
+                    if (move_uploaded_file($file['files']['tmp_name'], $path)) {
+                        echo $new_file;
+                    } else {
+                        echo "0";
+                    }
+                }
+            } else
+                echo "-1";
+        }
     }
 
     public function find($url_rewrite = null, $sort = 1) {

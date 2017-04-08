@@ -225,9 +225,13 @@ $accepted_jobs = $query->result();
             <div class="col-md-12 col-md-offset-0 page-jobs no-pad" style=" margin-bottom: 10px;">
                 <h6 style="float:left;font-size: 14px;margin: 0;margin-top: 3px;margin-right: -8px;" class="page-sub-title more">Attachment</h6>
                 <div class="attachments">
+                    <br>
                     <?php 
-                
-                echo '<a href="'.site_url().'jobs/download/'.substr(substr($value->userfile, 1), strpos(substr($value->userfile, 1), "/") + 1).' ">'.substr(substr($value->userfile, 1), strpos(substr($value->userfile, 1), "/") + 1).'</a>'; ?>
+                    $attachments = explode(",", $value->userfile);
+                    foreach($attachments AS $attachment){
+                        echo '<a href="'.site_url().'jobs/download?dir='.$value->user_id.'/'.$value->tid.'&file='.str_replace('"','', $attachment).' ">'.str_replace('"','', $attachment).'</a><br>'; 
+                    }
+                    ?>
                 </div>
             </div>
             
