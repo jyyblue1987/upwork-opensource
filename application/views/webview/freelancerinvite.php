@@ -492,6 +492,7 @@ $hire_count = $query->num_rows();
                                             </div>
                                         </div>
 
+                                        
                                     </div>
                                     <div class="modal-footer" style="text-align: center; border-top: none">
                                         <input type="submit" class="btn btn-primary form-btn" value="Done" />
@@ -601,9 +602,10 @@ $hire_count = $query->num_rows();
 						
 					</div>
 					</div>
+                                    
 				</div>
-            
                 </div>
+                    
 <!--end cover lette  -->
            
             <?php
@@ -785,7 +787,12 @@ if ($value->isactive && $paymentSet) {
                       ?>
             </div>
         </div>
-
+                <div class="col-md-9 white-box-feed" style="margin-left: -15px; width: 77%;margin-top:10px;border: 1px solid #ddd;" >
+                        <div style="padding: 0 15px;" class="cover_box">
+                            <div class="cover-letter" style="font-weight: bold; font-size:16px;">Cover Letter</div>
+                            <br><?= $cover_letter; ?>
+                        </div>
+                    </div>
     </div>
 
 </section>

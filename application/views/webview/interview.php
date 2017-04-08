@@ -229,7 +229,7 @@ span.text1 {text-transform: capitalize;}
                                                 $rating_feedback = ($totalscore/5)*100;
                                             
                         ?>
-                        <span class="rating-badge"><?= $rating ?></span>
+                        <span class="rating-badge"><?= number_format((float)$rating, 1, '.', ''); ?></span>
                                               <div title="Rated <?=$rating;?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em; margin-top:-5px; color:#DEDEDE; width: 4em">
                                                <span style="width:<?= (( $rating / 5) * 100) ?>% ; margin-top:0px;">
                                                    <strong itemprop="ratingValue"><?=$rating;?></strong> out of 5
@@ -451,11 +451,11 @@ span.text1 {text-transform: capitalize;}
 
 												?>
 												
-												<span style="font-size: 10px;margin-left: 4px;margin-right: 3px;" class="rating-badge"><?= $rating?></span>
+												<span style="font-size: 10px;margin-left: 4px;margin-right: 3px;" class="rating-badge"><?= number_format((float)$rating, 1, '.', ''); ?></span>
 												
-												<div title="Rated <?=$rating;?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em;margin-top:-5px;width:105px; color:#DEDEDE; width: 4em">
+												<div title="Rated <?= $rating;?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em;margin-top:-5px;width:105px; color:#DEDEDE; width: 4em">
 													<span style="width:<?=(( $rating / 5) * 100);?>%">
-													   <strong itemprop="ratingValue"><?= $rating ;?></strong> out of 5
+													   <strong itemprop="ratingValue"><?= number_format((float)$rating, 1, '.', '')  ;?></strong> out of 5
 													</span>
 												</div>
 												<?php  }else{ ?>
