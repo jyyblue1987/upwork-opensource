@@ -26,49 +26,45 @@ class Offers_sent extends Winjob_Controller {
     
     public function index() {
         
-        if ($this->Adminlogincheck->checkx()) {
-            if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
-            }
+        $this->checkForEmployer();
 
-            $user_id = $this->session->userdata('id');
+        $user_id = $this->session->userdata('id');
 
-            $this->db->select('*,job_bids.id as bid_id');
-            $this->db->from('job_bids');
-            $this->db->join('webuser', 'webuser.webuser_id = job_bids.user_id', 'inner');
-            $this->db->join('country', 'country.country_id = webuser.webuser_country', 'inner');
-            $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
-            $this->db->where('job_bids.status', 0);
-            $this->db->where('jobs.user_id', $user_id);
-            $this->db->where('job_bids.hired', '1');
-            $this->db->group_by('bid_id');
-            $query = $this->db->get();
-            $offer_count = $query->num_rows();
-            $result = $query->result();
+        $this->db->select('*,job_bids.id as bid_id');
+        $this->db->from('job_bids');
+        $this->db->join('webuser', 'webuser.webuser_id = job_bids.user_id', 'inner');
+        $this->db->join('country', 'country.country_id = webuser.webuser_country', 'inner');
+        $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
+        $this->db->where('job_bids.status', 0);
+        $this->db->where('jobs.user_id', $user_id);
+        $this->db->where('job_bids.hired', '1');
+        $this->db->group_by('bid_id');
+        $query = $this->db->get();
+        $offer_count = $query->num_rows();
+        $result = $query->result();
 
 
-            $this->db->select('*');
-            $this->db->from('job_accepted');
-            $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-            $this->db->where('job_accepted.buser_id', $user_id);
-            $this->db->where('job_bids.hired', '0');
-            $this->db->where('job_bids.jobstatus', '0');
-            $query_myhire = $this->db->get();
-            $myhire_count = $query_myhire->num_rows();
+        $this->db->select('*');
+        $this->db->from('job_accepted');
+        $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
+        $this->db->where('job_accepted.buser_id', $user_id);
+        $this->db->where('job_bids.hired', '0');
+        $this->db->where('job_bids.jobstatus', '0');
+        $query_myhire = $this->db->get();
+        $myhire_count = $query_myhire->num_rows();
 
-            $this->db->select('*');
-            $this->db->from('job_accepted');
-            $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-            $this->db->where('job_accepted.buser_id', $user_id);
-            $this->db->where('job_bids.hired', '0');
-            $this->db->where('job_bids.jobstatus', '1');
-            $query = $this->db->get();
-            $past_hire = $query->num_rows();
+        $this->db->select('*');
+        $this->db->from('job_accepted');
+        $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
+        $this->db->where('job_accepted.buser_id', $user_id);
+        $this->db->where('job_bids.hired', '0');
+        $this->db->where('job_bids.jobstatus', '1');
+        $query = $this->db->get();
+        $past_hire = $query->num_rows();
 
 
-            $data = array('messages' => $result, 'offer_count' => $offer_count, 'myhire_count' => $myhire_count, 'past_hire' => $past_hire);
-            //$this->Admintheme->webview("jobs/offersent", $data);
-            $this->twig->display('webview/jobs/twig/offers-sent', $data);
-        }
+        $data = array('messages' => $result, 'offer_count' => $offer_count, 'myhire_count' => $myhire_count, 'past_hire' => $past_hire);
+
+        $this->twig->display('webview/jobs/twig/offers-sent', $data);
     }
 }
