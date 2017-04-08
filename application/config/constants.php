@@ -107,6 +107,7 @@ define('PAYPAL_USER_AUTH_URL',"https://www.sandbox.paypal.com/cgi-bin/webscr?cmd
 defined('PAYPAL_MERCHANT_EMAIL') || define('PAYPAL_MERCHANT_EMAIL', 'business@winjob.com');
 defined('PAYPAL_APP_ID') || define('PAYPAL_APP_ID', 'APP-80W284485P519543T');
 defined('PAYPAL_BUSINESS_NAME') || define('PAYPAL_BUSINESS_NAME', 'WINJOB, LLC');
+defined('PAYPAL_IPN_NOTIFY_URL') || define('PAYPAL_IPN_NOTIFY_URL', "cli/charge/handle_paypal_ipn");
 
 /*
  * Some constant for using severall place to avoid typing mistake

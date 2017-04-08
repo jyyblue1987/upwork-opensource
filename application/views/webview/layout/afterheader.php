@@ -140,7 +140,7 @@ $notif_count = count($result);
                                 if ($this->session->userdata('type') == '1') { ?>
                                     <li><a href="<?php echo site_url('jobs-home'); ?>"><i class="fa fa-briefcase" aria-hidden="true"></i> Hire </a></li>
                                     <li><a href="<?php echo site_url('jobs/my-freelancers'); ?>">  <i class="fa fa-users" aria-hidden="true"></i> My Freelancers  </a></li> 
-                                    <li><a href="<?php echo site_url('billings'); ?>"><i class="fa fa-credit-card" aria-hidden="true"></i>  Pay </a></li>
+                                    <li><a href="<?php echo site_url('billing-history'); ?>"><i class="fa fa-credit-card" aria-hidden="true"></i>  Pay </a></li>
                             <?php } else if ($this->session->userdata('type') == '2') { ?>
                                     <li><a href="<?php echo site_url('find-jobs'); ?>"><i class="fa fa-briefcase" aria-hidden="true"></i> Find Job  </a></li>
                                     <li><a href="<?php echo site_url('win-jobs'); ?>">  <i class="fa fa-trophy" aria-hidden="true"></i> Win Jobs  </a></li> 

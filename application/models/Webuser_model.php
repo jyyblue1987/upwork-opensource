@@ -23,13 +23,18 @@ class Webuser_model extends CI_Model {
         if(empty($ids)) return;
         
         $data = array(
-                    'isactive'       => 0,
+                    'isactive'       => true,
                     'suspend_reason' => $reason
                 );
         
         $this->db
             ->where_in('webuser_id', $ids )
             ->update('webuser', $data );
+    }
+    
+    public function deactivated_all( $user_ids )
+    {
+        $this->set_field($user_ids, "isactive", false);
     }
     
     public function desactived( $user_id, $reason = null ){
@@ -42,6 +47,18 @@ class Webuser_model extends CI_Model {
         $this->db
             ->where('webuser_id', $user_id )
             ->update('webuser', $data );
+    }
+    
+    public function set_field($user_ids, $field, $value)
+    {
+        if(empty($user_ids)) return;
+                
+        if(is_array($user_ids))
+            $this->db->where_in('webuser_id', $user_ids );
+        else
+            $this->db->where('webuser_id', $user_ids );
+        
+        $this->db->update('webuser', array( $field => $value ) );
     }
     
     public function is_active( $user_id ){

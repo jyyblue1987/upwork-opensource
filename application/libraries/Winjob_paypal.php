@@ -1,7 +1,5 @@
 <?php
 
-defined('BASEPATH') || exit('No direct script access allowed'); 
-
 use PayPal\EBLBaseComponents\SetExpressCheckoutRequestDetailsType;
 use PayPal\EBLBaseComponents\BillingAgreementDetailsType;
 use PayPal\Service\PayPalAPIInterfaceServiceService; 
@@ -10,16 +8,23 @@ use PayPal\PayPalAPI\SetExpressCheckoutReq;
 use PayPal\PayPalAPI\CreateBillingAgreementRequestType;
 use PayPal\PayPalAPI\GetExpressCheckoutDetailsReq;
 use PayPal\PayPalAPI\GetExpressCheckoutDetailsRequestType;
+use PayPal\CoreComponentTypes\BasicAmountType;
+use PayPal\EBLBaseComponents\PaymentDetailsType;
+use PayPal\EBLBaseComponents\DoReferenceTransactionRequestDetailsType;
+use PayPal\PayPalAPI\DoReferenceTransactionRequestType;
+use PayPal\PayPalAPI\DoReferenceTransactionReq;
+
 
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Api\Invoice;
 use PayPal\Api\MerchantInfo;
 use PayPal\Api\BillingInfo;
-use PayPal\Api\PaymentTerm;
-use PayPal\Api\ShippingInfo;
 use PayPal\Api\InvoiceItem;
 use PayPal\Api\Currency;
+use PayPal\Api\PaymentDetail;
+
+use Carbon\Carbon;
 
 /**
  * Library for handle paypall transaction for winjob.
@@ -100,30 +105,45 @@ class Winjob_paypal {
     }
     
     
-    public function create_invoice( $invoice, $total_hour, $contract_amount  )
+    public function create_invoice( $invoices, $service  )
     {
-        $paypal_invoice = $this->_build_empty_invoice( $invoice['description'] );
+        if(empty($invoices) && ! is_array($invoices)) return null;
+        
+        $now = Carbon::now(new DateTimeZone('UTC'));
+        
+        $paypal_invoice = $this->_build_empty_invoice( "Weekly invoice for active hourly contracts - " . date("d-m-Y H:i:s", $now->timestamp) );
         
         // Merchant Info
         $paypal_invoice->getMerchantInfo()
-            ->setEmail( PAYPAL_PAYMENT_RECEIVER )
+            ->setEmail( PAYPAL_MERCHANT_EMAIL )
             ->setbusinessName( PAYPAL_BUSINESS_NAME );
+                
+        $billing = $paypal_invoice->getBillingInfo();
+        $billing[0]->setEmail( $service->service_description );
         
-        $item = new InvoiceItem();
-        $item
-            ->setName( $invoice['description'] )
-            ->setQuantity( $total_hour )
-            ->setUnitPrice(new Currency());
+        $all_items      = array();
+        
+        foreach( $invoices as $invoice)
+        {
+            $item = new InvoiceItem();
+            $item
+                ->setName( $invoice['description'] )
+                ->setDescription( $invoice['description'] )
+                ->setQuantity( 1 )
+                ->setUnitPrice(new Currency());
 
-        $item->getUnitPrice()
-            ->setCurrency("USD")
-            ->setValue( $contract_amount );
+            $item->getUnitPrice()
+                ->setCurrency("USD")
+                ->setValue( $invoice['amount'] );
+            
+            $all_items[] = $item;
+        }
         
-        $paypal_invoice->setItems( array( $item ) );
+        
+        $paypal_invoice->setItems( $all_items );
         
         try 
         {
-            // ### Create Invoice
             $paypal_invoice->create( $this->_get_api_rest_context() );
             return $paypal_invoice->getId();
         } 
@@ -131,6 +151,8 @@ class Winjob_paypal {
         {
             log_message('error', 'Error when creating an invoice ' . $ex->getMessage());
         }
+        
+        return null;
     }
     
     private function _build_empty_invoice( $note )
@@ -139,15 +161,95 @@ class Winjob_paypal {
         
         $invoice
             ->setMerchantInfo(new MerchantInfo())
+            ->setBillingInfo(array(new BillingInfo()))
             ->setNote($note);
         
         return $invoice;
     }
     
-    public function update_invoice( $invoice ){
-        dump( $invoice, true);
+    public function pay_invoice( $invoice_id, $service )
+    {
+        $invoice = $this->get_invoice( $invoice_id );
+        
+        if( $invoice == null ) //return null transaction
+            return null;
+        
+        $amount_to_paid = $invoice->getTotalAmount();
+        
+        //Process payment of the current invoice.
+        $amount = new BasicAmountType($amount_to_paid->getCurrency(), $amount_to_paid->getValue());
+        
+        // Information about the payment.
+        $paymentDetails                = new PaymentDetailsType();
+        $paymentDetails->OrderTotal    = $amount;
+        $paymentDetails->NotifyURL     = site_url( PAYPAL_IPN_NOTIFY_URL );
+        
+        $RTRequestDetails = new DoReferenceTransactionRequestDetailsType();
+        
+        $RTRequestDetails->PaymentDetails = $paymentDetails;
+        $RTRequestDetails->ReferenceID    = $service->service_payer_id;
+        $RTRequestDetails->PaymentAction  = 'Sale';
+        $RTRequestDetails->PaymentType    = 'Any';
+        
+        $RTRequest = new DoReferenceTransactionRequestType();
+        $RTRequest->DoReferenceTransactionRequestDetails  = $RTRequestDetails;
+
+        $RTReq = new DoReferenceTransactionReq();
+        $RTReq->DoReferenceTransactionRequest = $RTRequest;
+        
+        try 
+        {
+            $RTResponse = $this->get_paypal_service()->DoReferenceTransaction($RTReq);
+            
+            if( strtolower($RTResponse->Ack) == 'success' ){
+                
+                $transaction    = $RTResponse->DoReferenceTransactionResponseDetails;
+                $transaction    = $transaction->PaymentInfo;
+                
+                $transaction_id = $transaction->TransactionID;
+                if( strtolower($transaction->PaymentStatus) == "completed")
+                {
+                    //mark invoice as paid
+                    if($this->mark_invoice_as_paid($invoice, $transaction))
+                    {
+                        return $transaction_id;
+                    }
+                }
+            }
+        }
+        catch (Exception $ex) 
+        {   
+            log_message('error', 'Error when creating an invoice ' . $ex->getMessage());
+        }
+        return null;
     }
     
+    public function get_invoice( $invoice_id )
+    {
+        try {
+            return Invoice::get($invoice_id, $this->_get_api_rest_context());
+        } catch (Exception $ex) {
+            log_message('error', 'Error when retreiving an invoice ' . $ex->getMessage());
+        }
+        return null;
+    }
+    
+    public function mark_invoice_as_paid( $invoice, $payment_infos )
+    {        
+        try {
+            
+            $record       = new PaymentDetail();
+            $record->setMethod('PAYPAL');
+            $record->setDate(date("Y-m-d H:i:s T", strtotime($payment_infos->PaymentDate)));
+            $record->setNote("Successfull payment.");
+            
+            return $invoice->recordPayment($record, $this->_get_api_rest_context());
+            
+        } catch (Exception $ex) {
+            log_message('error', 'Error when marking an invoice ' . $invoice->getId() . ' as paid ' . $ex->getMessage());
+        }
+        return false;
+    }
     private function _get_api_rest_context()
     {
         $apiContext = new ApiContext(
@@ -162,7 +264,7 @@ class Winjob_paypal {
                 'mode'           => 'sandbox',
                 'log.LogEnabled' => true,
                 'log.FileName'   => APPPATH . 'logs/paypal.log',
-                'log.LogLevel'   => 'DEBUG', // PLEASE USE `INFO` LEVEL FOR LOGGING IN LIVE ENVIRONMENTS
+                'log.LogLevel'   => 'FINE', // PLEASE USE `INFO` LEVEL FOR LOGGING IN LIVE ENVIRONMENTS
                 'cache.enabled'  => true,
             )
         );

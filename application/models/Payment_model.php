@@ -251,7 +251,7 @@ class Payment_model extends CI_Model {
         $query = $this->db->select('DISTINCT(webuser.webuser_id) as webuser_id')
                     ->from('job_accepted')
                     ->join('webuser', "webuser.webuser_id = job_accepted.{$invoice_field}", 'inner')
-                    ->join('hourly_invoices', 'hourly_invoices.bid_id = job_accepted.bid_id', 'inner')
+                    ->join('hourly_invoices_items', 'hourly_invoices_items.bid_id = job_accepted.bid_id', 'inner')
                     ->where("job_accepted.{$invoice_field_where}", $user_id)
                     ->get();
         
@@ -333,7 +333,7 @@ class Payment_model extends CI_Model {
         }
 
         $sql = $sql . "  UNION ALL SELECT  $hourly_fields 
-            FROM hourly_invoices as invx
+            FROM hourly_invoices_items as invx
             INNER JOIN job_accepted as ja ON ja.bid_id = invx.bid_id 
             INNER JOIN jobs ON jobs.id = ja.job_id 
             INNER JOIN webuser u ON ( u.webuser_id = ja.buser_id $ja_join_criteria)
@@ -413,7 +413,7 @@ class Payment_model extends CI_Model {
         }
 
         $sql = $sql . "  UNION ALL SELECT  $hourly_fields 
-            FROM hourly_invoices as invx
+            FROM hourly_invoices_items as invx
             INNER JOIN job_accepted as ja ON ( ja.bid_id = invx.bid_id $ja_join_criteria ) 
             INNER JOIN jobs ON jobs.id = ja.job_id
             INNER JOIN webuser u ON u.webuser_id = ja.fuser_id 
