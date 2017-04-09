@@ -321,6 +321,8 @@ $hire_count = $query->num_rows();
                                             } else
                                                 $rateMsg = 1;
                                             $perHrs='/hr';
+                                        }else{
+                                            $bidAmt = $value->budget;
                                         }
                                         ?>
                                         <input type="text" class="form-control pro-input" name='bid_amount' id='bid_amount' value='<?php echo $bidAmt; ?>'/></td>
