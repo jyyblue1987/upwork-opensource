@@ -887,7 +887,8 @@ DROP TABLE IF EXISTS `job_bid_attachments`;
 CREATE TABLE IF NOT EXISTS `job_bid_attachments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `job_bid_id` int(11) NOT NULL,
-  `path` varchar(255) DEFAULT NULL,
+  `path` mediumtext,
+  `tid` int(11) NOT NULL
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
