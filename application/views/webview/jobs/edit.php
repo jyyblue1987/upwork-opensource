@@ -36,7 +36,7 @@
                             <input type="hidden"  name="id" class="form-control"  value='<?php echo $value->id;?>'>
                         </div>
                     </div>
-					
+
                     <div style="margin-top: 15px;" class="row">
                         <div class="col-md-12">
                             <h4 class="main_title">Select Category</h4>
@@ -101,7 +101,6 @@
                                     </select>
                                 </div>
                             </div>
-                            <!-- <input type="text"  name="skills" class="form-control" value='<?php echo $value->skills;?>'> -->
                         </div>
                     </div>
 					
@@ -127,10 +126,11 @@
                                             <?php 
                                                 $attachments = explode(",", $value->userfile);
                                                 foreach($attachments AS $attachment){
-                                                    if($value->userfile != ""){
-                                                    echo '<input type="hidden" value="'.str_replace('"','', $attachment).'" name="delete_file" id="delete_file" />';
-                                                    echo '<li>'.str_replace('"','', $attachment).'<img src="'.site_url().'assets/img/delete_icon.gif" data-formDiscard="'.$value->user_id.'/'.$value->tid.'" class="remove_attachment"></li>'; 
-                                                
+                                                    if($value->userfile != " "){
+                                                        if($attachment != ""){
+                                                            //echo '<input type="hidden" value="'.str_replace('"','', $attachment).'" name="delete_file" id="delete_file" />';
+                                                        }
+                                                        echo '<li>'.str_replace('"','', $attachment).'<img src="'.site_url().'assets/img/delete_icon.gif" data-formDiscard="'.$value->user_id.'/'.$value->tid.'" class="remove_attachment"></li>'; 
                                                     }
                                                 }
                                             ?>
@@ -353,7 +353,7 @@ padding-left: 40px;
             }
         });
 
-        $('#custom_job_post_form').submit(function() {
+        $('#jobEdit').submit(function() {
             var f = '"';
             $('#lists').children().each(function() {
                 f = f + $.trim($(this).text()) + '","';

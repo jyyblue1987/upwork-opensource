@@ -66,12 +66,10 @@ class Jobs extends Winjob_Controller {
     }
 
     public function create() {
-        
         $this->checkForEmployer();
-        
         $this->load->model( array( 'webuser_model', 'skills_model', 'jobs_model' ) );
         
-    // check if account is suspend then redirect to payment start 
+        // check if account is suspend then redirect to payment start 
         $user_id = $this->session->userdata('id');
         
         if( ! $this->webuser_model->is_active( $user_id) )
@@ -105,24 +103,26 @@ class Jobs extends Winjob_Controller {
             {
                 $skillNames = '';
                 $skills = $this->input->post('skills');
-                $data['skills'] = $skillNames;
-                $data['title'] = $this->input->post('title');
-                $data['category'] = $this->input->post('category');
-                $data['job_description'] = $this->input->post('job_description');
-                $data['job_type'] = $this->input->post('job_type');
-                $data['job_duration'] = $this->input->post('job_duration');
-                $data['experience_level'] = $this->input->post('experience_level');
-                $data['budget'] = $this->input->post('budget');
-                $data['hours_per_week'] = $this->input->post('hours_per_week');
-                $data['userfile'] = $this->input->post('userfile');
-                $data['status'] = 1;
-                $data['job_created'] = date('Y-m-d H:i:s');
-                $data['userfile'] = $this->input->post('attachments');
-                $data['user_id']  = $user_id;
-                $data['tid']  = $this->input->post('tid');
+                
+                $data = array(
+                    'skills' => $skillNames,
+                    'title' => $this->input->post('title'),
+                    'category' => $this->input->post('category'),
+                    'job_description' => $this->input->post('job_description'),
+                    'job_type' => $this->input->post('job_type'),
+                    'job_duration' => $this->input->post('job_duration'),
+                    'experience_level' => $this->input->post('experience_level'),
+                    'budget' => $this->input->post('budget'),
+                    'hours_per_week' => $this->input->post('hours_per_week'),
+                    'userfile' => $this->input->post('userfile'),
+                    'status' => 1,
+                    'job_created' => date('Y-m-d H:i:s'),
+                    'userfile' => $this->input->post('attachments'),
+                    'user_id'  => $user_id,
+                    'tid'  => $this->input->post('tid')
+                );
 
                 unset( $data['submitbtn'] );
-                
                 $job_id  = $this->jobs_model->create( $data );
                 if( $job_id != null )
                 {
@@ -1175,26 +1175,17 @@ class Jobs extends Winjob_Controller {
         if ($this->Adminlogincheck->checkx() && $this->session->userdata('type') == '1') {
             if ($this->input->post('title')) {
 
-                //save
-                //$data = $this->input->post();
-//                $data['userfile'] = $this->input->post('attachments');
-//                unset($data['userfile']);
-//                if (isset($dbPath))
-//                    $data['userfile'] = $dbPath;
-//                $data['user_id'] = $this->session->userdata('id');
-//                unset($data['oldUserFile']);
-//                if ($data['job_type'] == 'hourly') {
-//                    unset($data['budget']);
-//                } else {
-//                    unset($data['hours_per_week']);
-//                }
-                // Added by Armen start
-                // update skills
+                if ($data['job_type'] == 'hourly') {
+                    unset($data['budget']);
+                } else {
+                    unset($data['hours_per_week']);
+                }
+
                 $this->db->where('job_id', $this->input->post('id'));
                 $this->db->delete('job_skills');
                 $skills = array();
                 $skills['job_id'] = $this->input->post('id');
-                foreach ($data['skills'] as $key => $value) {
+                foreach ($this->input->post('skills') as $key => $value) {
                     $skills['skill_name'] = $value;
                     $this->db->insert('job_skills', $skills);
                 }
@@ -1207,8 +1198,8 @@ class Jobs extends Winjob_Controller {
                 $data['experience_level'] = $this->input->post('experience_level');
                 $data['budget'] = $this->input->post('budget');
                 $data['hours_per_week'] = $this->input->post('hours_per_week');
+
                 $data['userfile'] = $this->input->post('attachments');
-                
                 $data['skills'] = "";
                 $this->db->where('id', $this->input->post('id'));
                 if ($this->db->update('jobs', $data)) {
