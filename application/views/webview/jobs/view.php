@@ -193,6 +193,21 @@ $accepted_jobs = $query->result();
                     </div>
                     <div class="col-md-12 text-justify page-label div-details"><?php echo ucfirst($value->job_description) ?></div>
                 </div>
+                
+                <div class="row margin-top page-label margin-top-5">
+                    <div class="col-md-9">
+                        <label class="lab-details">Attachments</label>
+                    </div>
+                    <div class="col-md-12 text-justify page-label div-details">
+                    <?php 
+                    $attachments = explode(",", $value->userfile);
+                    foreach($attachments AS $attachment){
+                        echo '<a href="'.site_url().'jobs/download?dir='.$value->user_id.'/'.$value->tid.'&file='.str_replace('"','', $attachment).' ">'.str_replace('"','', $attachment).'</a><br>'; 
+                    }
+                    ?>
+                </div>
+                </div>
+                
                 <div class="jobdes-bordered-wrapper">
                     <div class="row jobdes-bordered page-label">
                         <div class="col-md-4 text-center">

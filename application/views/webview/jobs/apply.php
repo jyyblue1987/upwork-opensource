@@ -217,6 +217,22 @@ $total_spent=$row_spent->total_spent;
 
                     <div class="col-md-12 text-justify page-label job-desc"><?php echo ucfirst($value->job_description) ?></div>
                 </div>
+                
+                <div class="row margin-top page-label">
+                    <div class="col-md-9">
+                        <label>Attachment</label>
+                    </div>
+
+                    <div class="col-md-12 text-justify page-label job-desc">
+                         <?php 
+                    $attachments = explode(",", $value->userfile);
+                    foreach($attachments AS $attachment){
+                        echo '<a href="'.site_url().'jobs/download?dir='.$value->user_id.'/'.$value->tid.'&file='.str_replace('"','', $attachment).' ">'.str_replace('"','', $attachment).'</a><br>'; 
+                    }
+                    ?>
+                    </div>
+                </div>
+                
 <div class="jobdes-bordered-wrapper">
                 <div class="row jobdes-bordered page-label">
                    
@@ -299,9 +315,9 @@ $hire_count = $query->num_rows();
                                         $perHrs='';
                                         if ($value->job_type == 'hourly')
                                         {
-                                            if ($value->hourly_rate)
+                                            if ($rate)
                                             {
-                                                $bidAmt = $value->hourly_rate;
+                                                $bidAmt = $rate + $rate * WINJOB_FEE;
                                             } else
                                                 $rateMsg = 1;
                                             $perHrs='/hr';
