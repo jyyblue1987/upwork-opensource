@@ -1,5 +1,22 @@
 <style type="text/css">
-
+input[type=file] {
+        display:block;
+        top: 0;
+        left: 0;
+        height:0;
+        width:0;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        font-size: 8pt;
+        z-index: 1;
+        visibility: hidden;
+        margin-left: -40px;
+    }
+    
+    ul {
+        list-style-type: none;
+    }
+    
 </style>
 
 <?php
@@ -321,8 +338,6 @@ $hire_count = $query->num_rows();
                                             } else
                                                 $rateMsg = 1;
                                             $perHrs='/hr';
-                                        }else{
-                                            $bidAmt = $value->budget;
                                         }
                                         ?>
                                         <input type="text" class="form-control pro-input" name='bid_amount' id='bid_amount' value='<?php echo $bidAmt; ?>'/></td>
@@ -411,14 +426,29 @@ $hire_count = $query->num_rows();
                         <div class="col-md-12">
                             <label style="" class="lbl-att">Attachment (Optional)</label>
                         </div>
+                        
+                        <div class="col-md-12">
+                            <div class="upload_file">
+                                    <input type="file" name="files" id="files" />
+                                    <input type="button" id="uploader" value="Add files" style="margin-left: 0px;" class="btn my_btn" />
+                                    <div id="file_lists" style="margin: 0">
+                                        <ul id="lists">
+                                        </ul>
+                                    </div>
+                                    <input type="hidden" name="requestor" value="<?= $user_id ?>" />
+                                    <input type="hidden" name="tid" value="<?= $tid ?>" />
+                                    <input type="hidden" name="attachments" id="attachments" />
+                                </div>
+                        </div>
+                        
 
-                        <div class="col-md-12 job-attachment">
+<!--                        <div class="col-md-12 job-attachment" style="display: none;">
                             <div class="dropzone" id="my-dropzone" name="job_attachement">
                                 <div class="fallback">
                                     <input name="job_attachement" type="file" multiple />
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
 
                     <div class="row margin-top">
@@ -551,3 +581,103 @@ if ($value->isactive && $paymentSet) {
     </div>
 
 </section>
+<script>
+    var formSubmitted = false;
+    $(document).ready(function() {
+        clearForms();
+
+        $(window).unload(function(evt) {
+            if (!formSubmitted) {
+                $.ajax({
+                    url: "<?= base_url() . 'jobs/removefile' ?>",
+                    type: "POST",
+                    data: "formDiscard=<?= $user_id ?>/<?= $tid ?>",
+                    async: false
+                });
+            }
+        });
+
+        $('#uploader').click(function() {
+            $('input[type=file]').trigger('click');
+        });
+
+        $('input[type=file]').change(function() {
+            var formdata = false;
+            if (accepted_file($(this).val())) {
+                console.log(this.files[0]);
+                formdata = new FormData();
+                formdata.append("files", this.files[0]);
+                formdata.append("uid", <?= $user_id ?>);
+                formdata.append("ident", <?= $tid ?>);
+            } else {
+                alert('Executable files are NOT allowed!');
+                return false;
+            }
+            console.log(formdata);
+            if (formdata) {
+                $.ajax({
+                    url: "<?= base_url() ?>jobs/upload",
+                    type: "POST",
+                    data: formdata,
+                    processData: false,
+                    contentType: false,
+                    success: function(res) {
+                        console.log(res);
+                        switch (res) {
+                            case "0":
+                                alert('There was an error uploading the file, please try again!');
+                                break;
+                            case "1":
+                                alert('You have already added that file!');
+                                break;
+                            case "-1":
+                                alert('File size should NOT be greater than 15MB!');
+                                break;
+                            default:
+                                var fileWrapper = $("<li>");
+                                var removeButton = $("<img src=\"<?= base_url() ?>assets/img/delete_icon.gif\" alt=\"Remove\" title=\"Remove\" style=\"margin-left: 5px;\" />");
+                                removeButton.click(function() {
+                                    if (confirm("Are you sure you want to delete: \n" + $(this).parent().text() + " ?")) {
+                                        $.post("<?= base_url() . 'jobs/removefile' ?>", "file=" + $.trim($(this).parent().text()) + "&tid=<?= $user_id ?>/<?= $tid ?>");
+                                        $(this).parent().remove();
+                                    }
+                                });
+                                fileWrapper.html(res);
+                                fileWrapper.append(removeButton);
+                                $('#lists').append(fileWrapper);
+                                break;
+                        }
+                    }
+                });
+            }
+        });
+
+        $('#jobApply').submit(function() {
+            var f = '"';
+            $('#lists').children().each(function() {
+                f = f + $.trim($(this).text()) + '","';
+            });
+            $('#attachments').val(f.substring(0, f.length - 2));
+            formSubmitted = true;
+        });
+    });
+    function form_valid(f) {
+        formSubmitted = f;
+    }
+
+    function accepted_file(filename) {
+        var ext = filename.split('.').pop().toLowerCase();
+        if (ext !== 'exe') {
+            return true;
+        } else
+            return false;
+    }
+
+    function clearForms()
+    {
+        var i;
+        for (i = 0; (i < document.forms.length); i++) {
+            document.forms[i].reset();
+        }
+    }
+</script>

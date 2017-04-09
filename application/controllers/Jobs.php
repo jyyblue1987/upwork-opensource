@@ -992,7 +992,10 @@ class Jobs extends Winjob_Controller {
                 }
                 // Davit end
                 $data = $this->input->post();
-
+                unset($data['tid']);
+                unset($data['attachments']);
+                unset($data['requestor']);
+                unset($data['files']);
                 $data['user_id'] = $this->session->userdata('id');
                 $title = $data['job_title'];
                 unset($data['job_title']);
@@ -1001,18 +1004,9 @@ class Jobs extends Winjob_Controller {
                 //    var_dump($data);die();
                 if ($this->db->insert('job_bids', $data)) {
                     $insert_id = $this->db->insert_id();
-                    if (isset($_FILES['file']['name']) && (!empty($_FILES['file']['name']))) {
-                        for ($i = 0; $i < count($_FILES['file']['name']); $i++) {
-                            $ext = pathinfo($_FILES['file']['name'][$i], PATHINFO_EXTENSION);
-                            $newFileName = time() . rand(0000, 9999) . $this->session->userdata('id') . '.' . $ext;
-                            $source = $_FILES['file']['tmp_name'][$i];
-                            $dest = './uploads/' . $newFileName;
-                            move_uploaded_file($source, $dest);
-                            $dbPath = '/uploads/' . $newFileName;
-                            $dataAttach = array('job_bid_id' => $insert_id, 'path' => $dbPath);
-                            $this->db->insert('job_bid_attachments', $dataAttach);
-                        }
-                    }
+
+                    $dataAttach = array('job_bid_id' => $insert_id, 'path' => $this->input->post('attachments'), 'tid' => $this->input->post('tid'));
+                    $this->db->insert('job_bid_attachments', $dataAttach);
 
                     $rs = array('code' => '1', 'msg' => '');
                     $this->session->set_flashdata('msg', 'You have successfully submitted proposal for ' . $title);
@@ -1074,7 +1068,7 @@ class Jobs extends Winjob_Controller {
             $hires = $this->process->get_hires($record->user_id, $postId);
             // Davit start
 
-            $data = array('value' => $record, 'rate' => $rate['hourly_rate'], 'userfile' => $record->userfile, 'applicants' => $applicants['rows'], 'hires' => $hires['rows'], 'interviews' => $interviews['rows'], 'workedhours' => $workedhours, 'hire' => $record_hire,   'record_sidebar' => $record_sidebar, 'skills' => $job_skills, 'proposals' => $proposals, 'js' => array('dropzone.js', 'vendor/jquery.form.js', 'internal/job_apply.js'), 'css' => array("","","","assets/css/pages/apply.css"));
+            $data = array('value' => $record, 'user_id'=> $id, 'tid' => time(), 'rate' => $rate['hourly_rate'], 'userfile' => $record->userfile, 'applicants' => $applicants['rows'], 'hires' => $hires['rows'], 'interviews' => $interviews['rows'], 'workedhours' => $workedhours, 'hire' => $record_hire,   'record_sidebar' => $record_sidebar, 'skills' => $job_skills, 'proposals' => $proposals, 'js' => array('dropzone.js', 'vendor/jquery.form.js', 'internal/job_apply.js'), 'css' => array("","","","assets/css/pages/apply.css"));
             // Davit end
             $this->Admintheme->custom_webview("jobs/apply", $data);
         }
@@ -2513,7 +2507,7 @@ class Jobs extends Winjob_Controller {
             $id = $this->session->userdata('id');
             $this->db->select(array('job_bids.*', 'jobs.title', 'jobs.job_type', 'jobs.id as jobid',
                 'jobs.budget', 'jobs.hours_per_week', 'jobs.job_duration', 'jobs.category',
-                'jobs.experience_level', 'jobs.skills', 'jobs.job_description', 'jobs.user_id as clientid'));
+                'jobs.experience_level', 'jobs.skills', 'jobs.job_description', 'jobs.user_id as clientid', 'jobs.userfile', 'jobs.tid'));
             $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'left');
             $this->db->order_by("job_bids.id", "desc");
             $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id, 'job_bids.id' => $bidId));
@@ -2523,14 +2517,13 @@ class Jobs extends Winjob_Controller {
             }else{
                 redirect(site_url().'bids_list');
             }
-            
                     $this->db->select('*');
                     $this->db->from('jobs');
                     $this->db->where('user_id', $value->clientid);
                     $query_sidebar = $this->db->get();
                     $record_sidebar = $query_sidebar->num_rows();
                     $records = $query_sidebar->result();
-
+                    
                     $jobids = array();
             foreach ($records as $jobs) {
                 $jobids[] = $jobs->id;
@@ -2545,7 +2538,7 @@ class Jobs extends Winjob_Controller {
             $this->db->where('hired', 1);
             $query_hire = $this->db->get();
             $record_hire = $query_hire->num_rows();
-
+            
             $this->db->select('*');
             $this->db->from('job_workdairy');
             $this->db->where_in('cuser_id', $value->clientid);
@@ -2574,7 +2567,7 @@ class Jobs extends Winjob_Controller {
                     $paymentSet = $query->num_rows();
                 }
                 
-                $this->db->select("skill_name");
+            $this->db->select("skill_name");
             $this->db->from("job_skills");
             $this->db->where("job_id = ", $value->jobid);
             $query = $this->db->get();
@@ -2584,6 +2577,12 @@ class Jobs extends Winjob_Controller {
             $applicants = $this->process->get_applications($value->jobid);
             $interviews = $this->process->get_interviews($value->clientid, $value->jobid);
             $hires = $this->process->get_hires($value->clientid, $value->jobid);
+            
+            $this->db->select("*");
+            $this->db->from("job_bid_attachments");
+            $this->db->where("job_bid_id = ", $bidId);
+            $query = $this->db->get();
+            $attachments = $query->result_array();
             
             $data = array('value' => $value,
                 'record_sidebar' => $record_sidebar,
@@ -2598,7 +2597,9 @@ class Jobs extends Winjob_Controller {
                 'hires' => $hires['rows'], 
                 'interviews' => $interviews['rows'], 
                 'skills' => $job_skills,
+                'files' => $value->userfile,
                 'user_id' => $value->clientid,
+                'f_attachments' => $attachments,
                 'js' => array('vendor/jquery.form.js',
                     'internal/job_withdraw.js'));
             $this->Admintheme->webview("jobs/withdraw_system", $data);
