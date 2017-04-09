@@ -15,7 +15,7 @@ class Jobs extends Winjob_Controller {
         // load the default language for the current user.
         $this->load_language();
         // added by (Donfack Zeufack Hermann) end
-        $this->load->model(array('Category', 'Common_mod', 'Webuser_model', 'Process', 'Employer', 'profile/ProfileModel', 'Job_work_diary_model', 'Skills_model'));
+        $this->load->model(array('Category', 'Common_mod', 'Webuser_model', 'Process', 'Employer', 'profile/ProfileModel', 'Job_work_diary_model', 'Skills_model', 'jobs_model'));
         $this->load->library('paypal_lib');
         $this->process = new Process();
         $this->user_id = $this->session->userdata('id');
@@ -91,41 +91,36 @@ class Jobs extends Winjob_Controller {
         }
         else if($this->input->is_ajax_request() && is_post() && $this->input->post('title'))//Here we need to handle job creation
         {
-            //$data             = $this->input->post();
-            
-            
+            $data = array(
+                'title' => $this->input->post('title'),
+                'category' => $this->input->post('category'),
+                'job_description' => $this->input->post('job_description'),
+                'job_type' => $this->input->post('job_type'),
+                'job_duration' => $this->input->post('job_duration'),
+                'experience_level' => $this->input->post('experience_level'),
+                'budget' => $this->input->post('budget'),
+                'hours_per_week' => $this->input->post('hours_per_week'),
+                'userfile' => $this->input->post('userfile'),
+                'status' => 1,
+                'job_created' => date('Y-m-d H:i:s'),
+                'userfile' => $this->input->post('attachments'),
+                'user_id'  => $user_id,
+                'tid'  => $this->input->post('tid')
+            );
+
             if ($this->input->post('submitbtn') == '0') //JOB PREVIEW
             {
+                $data['skills'] = $this->input->post('skills');
                 $this->session->set_userdata('preview', $data);
                 $this->ajax_response( array('code' => '1', 'id' => '0') );
             }
             else // CREATE THE JOB
             {
-                $skillNames = '';
-                $skills = $this->input->post('skills');
-                
-                $data = array(
-                    'skills' => $skillNames,
-                    'title' => $this->input->post('title'),
-                    'category' => $this->input->post('category'),
-                    'job_description' => $this->input->post('job_description'),
-                    'job_type' => $this->input->post('job_type'),
-                    'job_duration' => $this->input->post('job_duration'),
-                    'experience_level' => $this->input->post('experience_level'),
-                    'budget' => $this->input->post('budget'),
-                    'hours_per_week' => $this->input->post('hours_per_week'),
-                    'userfile' => $this->input->post('userfile'),
-                    'status' => 1,
-                    'job_created' => date('Y-m-d H:i:s'),
-                    'userfile' => $this->input->post('attachments'),
-                    'user_id'  => $user_id,
-                    'tid'  => $this->input->post('tid')
-                );
-
                 unset( $data['submitbtn'] );
                 $job_id  = $this->jobs_model->create( $data );
                 if( $job_id != null )
                 {
+                    $skills = $this->input->post('skills');
                     $this->jobs_model->link_to_skills( $job_id, $skills);                    
                     $this->ajax_response( array('code' => '0', 'id' => base64_encode($job_id), 'type' => $data['job_type']) );
                 }
@@ -138,13 +133,16 @@ class Jobs extends Winjob_Controller {
     }
 
     public function savePostSession() {
-
         $data = $this->session->userdata('preview');
+        $skills = $data['skills'];
+        unset($data['skills']);
+        
         unset($data['submitbtn']);
         if ($this->input->post('submitbtn')) {
             if ($this->db->insert('jobs', $data)) {
                 $insert_id = $this->db->insert_id();
-                redirect("/jobs/view_" . $data['job_type'] . "/" . base64_encode($insert_id));
+                $this->jobs_model->link_to_skills( $insert_id, $skills);   
+                redirect(site_url().'jobs-home');
             }
         }
         redirect($_SERVER['HTTP_REFERER']);
@@ -1174,7 +1172,7 @@ class Jobs extends Winjob_Controller {
     public function edit($postId = null) {
         if ($this->Adminlogincheck->checkx() && $this->session->userdata('type') == '1') {
             if ($this->input->post('title')) {
-
+          
                 if ($data['job_type'] == 'hourly') {
                     unset($data['budget']);
                 } else {
@@ -1205,12 +1203,10 @@ class Jobs extends Winjob_Controller {
                 if ($this->db->update('jobs', $data)) {
                     $rs = array('code' => '1', 'type' => $data['job_type']);
                     $this->session->set_flashdata('msg', $data['title'] . ' has been updated');
-                    echo json_encode($rs);
                 } else {
                     $rs = array('code' => '0', 'msg' => '<div class="alert alert-danger">
                       <strong>Error!</strong> Error occured.Try again.
                     </div>');
-                    echo json_encode($rs);
                 }
                 die;
             }

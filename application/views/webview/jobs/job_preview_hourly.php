@@ -49,13 +49,12 @@
                             <label>Required Skills</label>
                         </div>
                         <div class="col-md-9 skills">
-                            <?php
-                            if (isset($data['skills']) && !empty($data['skills'])) {
-                                $skills =  is_string($data['skills']) ? explode(' ', $data['skills']) : $data['skills'];
-
-                                foreach ($skills as $skill)
-                                    echo "<span>$skill</span> ";
-                                }
+                            <?php 
+                                    $_skills = array();
+                                    $skill = $data['skills'];
+                                    foreach ($data['skills'] as $key => $value) {
+                                        echo "<span style='color: rgb(107, 107, 107); font-family: Calibri; font-size: 10.5px; padding-right: 5px;'>". $skill[$key]."</span>";
+                                    }
                             ?>
                         </div>
                     </div>
@@ -77,7 +76,12 @@
                         <div class="col-md-3 page-label">
                             <label>Attach File</label>
                         </div>
-                        <div style="font-size:16px;" class="col-md-9"><a href='<?php echo $data['path']; ?>' target="_blank">Click to view</a></div>
+                        <?php 
+                            $attachments = explode(",", $data['userfile']);
+                            foreach($attachments AS $attachment){
+                                echo '<a href="'.site_url().'jobs/download?dir='.$data['user_id'].'/'.$data['tid'].'&file='.str_replace('"','', $attachment).' ">'.str_replace('"','', $attachment).'</a><br>'; 
+                            }
+                    ?>
                     </div>
                 </div>
 

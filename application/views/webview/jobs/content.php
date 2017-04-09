@@ -205,6 +205,20 @@ $accepted_jobs = $query->result();
             <div style="margin-bottom: -3px;" class="page-jobs">
                 <h6 class="more no-pad" style="color: #494949;"><?php echo ucfirst($value->job_description) ?></h6>
             </div>
+            
+            <div class="col-md-12 col-md-offset-0 page-jobs no-pad" style=" margin-bottom: 10px;">
+                <h6 style="float:left;font-size: 14px;margin: 0;margin-top: 3px;margin-right: -8px;" class="page-sub-title more">Attachment</h6>
+                <div class="attachments">
+                    <br>
+                    <?php 
+                    $attachments = explode(",", $value->userfile);
+                    foreach($attachments AS $attachment){
+                        echo '<a href="'.site_url().'jobs/download?dir='.$value->user_id.'/'.$value->tid.'&file='.str_replace('"','', $attachment).' ">'.str_replace('"','', $attachment).'</a><br>'; 
+                    }
+                    ?>
+                </div>
+            </div>
+            
             <div class="col-md-12 col-md-offset-0 page-jobs no-pad" style=" margin-bottom: 10px;">
 
                 <h6 style="float:left;font-size: 14px;margin: 0;margin-top: 3px;margin-right: -8px;" class="page-sub-title more">Skills</h6>
@@ -221,20 +235,7 @@ $accepted_jobs = $query->result();
                 ?><br>
 				</div>
             </div>
-            
-            <div class="col-md-12 col-md-offset-0 page-jobs no-pad" style=" margin-bottom: 10px;">
-                <h6 style="float:left;font-size: 14px;margin: 0;margin-top: 3px;margin-right: -8px;" class="page-sub-title more">Attachment</h6>
-                <div class="attachments">
-                    <br>
-                    <?php 
-                    $attachments = explode(",", $value->userfile);
-                    foreach($attachments AS $attachment){
-                        echo '<a href="'.site_url().'jobs/download?dir='.$value->user_id.'/'.$value->tid.'&file='.str_replace('"','', $attachment).' ">'.str_replace('"','', $attachment).'</a><br>'; 
-                    }
-                    ?>
-                </div>
-            </div>
-            
+
             <div class="col-md-12 no-pad">
                 <nav>
                     <ul class="job-navigation custom_find_job_bottom">
