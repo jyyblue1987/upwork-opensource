@@ -431,6 +431,22 @@ span.text1 {text-transform: capitalize;}
                                     </p>
 									<br/>
                                     </div>
+                                                                    
+                    <div class="col-md-9">
+                        <label class="lab-details" style="font-size: 18px; margin-left: 23px;">Attachments</label>
+                    </div>
+                    <div class="col-md-12 text-justify page-label div-details" style="margin-left: 23px;">
+                    <?php 
+                    if($f_attachments[0]['path'] != ""){
+                        $attachments = explode(",", $f_attachments[0]['path']);
+                            foreach($attachments AS $attachment){
+                                echo '<a href="'.site_url().'jobs/download?dir='.$f_id.'/'.$f_attachments[0]['tid'].'&file='.str_replace('"','', $attachment).' ">'.str_replace('"','', $attachment).'</a><br>'; 
+                            }
+                        }else{
+                            echo "none";
+                        }
+                    ?>
+                </div>
                                 </div>
 								
 								  

@@ -137,7 +137,7 @@
                                         </ul>
                                     </div>
                                     <input type="hidden" name="requestor" value="<?= $value->user_id ?>" />
-                                    <input type="hidden" name="tid" value="<?= $value->tid ?>" />
+                                    <input type="hidden" name="tid" value="<?= $value->tid == 0 ? time() : $value->tid ?>" />
                                     <input type="hidden" name="attachments" id="attachments" />
                                 </div>
                         </div>
@@ -309,7 +309,7 @@ padding-left: 40px;
                 formdata = new FormData();
                 formdata.append("files", this.files[0]);
                 formdata.append("uid", <?= $value->user_id ?>);
-                formdata.append("ident", <?= $value->tid ?>);
+                formdata.append("ident", <?= $value->tid == 0 ? time() : $value->tid ?>);
             } else {
                 alert('Executable files are NOT allowed!');
                 return false;
@@ -339,7 +339,7 @@ padding-left: 40px;
                                 var removeButton = $("<img src=\"<?= base_url() ?>assets/img/delete_icon.gif\" alt=\"Remove\" title=\"Remove\" style=\"margin-left: 5px;\" />");
                                 removeButton.click(function() {
                                     if (confirm("Are you sure you want to delete: \n" + $(this).parent().text() + " ?")) {
-                                        $.post("<?= base_url() . 'jobs/removefile' ?>", "file=" + $.trim($(this).parent().text()) + "&tid=<?= $value->user_id ?>/<?= $value->tid ?>");
+                                        $.post("<?= base_url() . 'jobs/removefile' ?>", "file=" + $.trim($(this).parent().text()) + "&tid=<?= $value->user_id ?>/<?= $value->tid == 0 ? time() : $value->tid ?>");
                                         $(this).parent().remove();
                                     }
                                 });

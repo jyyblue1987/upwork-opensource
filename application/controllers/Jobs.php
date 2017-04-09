@@ -1191,7 +1191,7 @@ class Jobs extends Winjob_Controller {
                 $data['experience_level'] = $this->input->post('experience_level');
                 $data['budget'] = $this->input->post('budget');
                 $data['hours_per_week'] = $this->input->post('hours_per_week');
-
+                $data['tid'] = $this->input->post('tid');
                 $data['userfile'] = $this->input->post('attachments');
                 $data['skills'] = "";
                 $this->db->where('id', $this->input->post('id'));
