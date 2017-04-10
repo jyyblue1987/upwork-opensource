@@ -129,11 +129,13 @@ class Winjob_Controller extends CI_Controller {
     }
 
     protected function checkForEmployer(){
-        $this->authorized() && $this->isEmployer();
+        $this->authorized();
+        $this->isEmployer();
     }
     
     protected function checkForFreelancer(){
-        $this->authorized() && $this->isFreelancer();
+        $this->authorized();
+        $this->isFreelancer();
     }
     
     protected function display_active_contracts( $is_active_contract_page = true ){

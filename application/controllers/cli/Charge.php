@@ -15,8 +15,6 @@ class Charge extends CI_Controller {
         $this->load->helper('cli');
         $this->load->model( array('invoice_model', 'payment_model', 'payment_methods_model', 'webuser_model') );
         
-        //Enable logging informations.
-        $this->config->set_item('log_threshold', 3);
     }
     
     public function invoices_in_failures()
@@ -45,8 +43,6 @@ class Charge extends CI_Controller {
                 if( ! property_exists($this, $service_library) )
                     $this->load->library($service_library);
 
-                pl_array($invoice);
-                
                 //process payment through primary service.
                 $transaction_id = $this->{$service_library}->pay_invoice( $invoice->invoice_service_id, $primary );
                 
