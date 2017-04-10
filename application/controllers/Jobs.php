@@ -875,19 +875,7 @@ class Jobs extends Winjob_Controller {
             $query_sidebar = $this->db->get();
             $record_sidebar = $query_sidebar->result();
 
-            $jobids = array();
-            foreach ($record_sidebar as $jobs) {
-                $jobids[] = $jobs->id;
-            }
-
-            $jobids = implode(",", $jobids);
-
-            $this->db->select('*');
-            $this->db->from('job_bids');
-            $this->db->where_in('job_id', $jobids, FALSE);
-            $this->db->where('hired', '1');
-            $query_hire = $this->db->get();
-            $record_hire = $query_hire->num_rows();
+            $record_hire = $this->jobs_model->number_freelancer_hired($record->user_id);
 
             $this->db->select('*');
             $this->db->from('job_workdairy');
@@ -1047,18 +1035,7 @@ class Jobs extends Winjob_Controller {
             $queryhour = $this->db->get();
             $workedhours = $queryhour->result();
             
-            $jobids = array();
-            foreach ($records as $jobs) {
-                $jobids[] = $jobs->id;
-            }
-            $jobids = implode(",", $jobids);
-
-            $this->db->select('*');
-            $this->db->from('job_bids');
-            $this->db->where_in('job_id', $jobids, FALSE);
-            $this->db->where('hired', '1');
-            $query_hire = $this->db->get();
-            $record_hire = $query_hire->num_rows();
+            $record_hire = $this->jobs_model->number_freelancer_hired($record->user_id);
             
             $applicants = $this->process->get_applications($postId);
             $interviews = $this->process->get_interviews($record->user_id, $postId);
@@ -2521,18 +2498,7 @@ class Jobs extends Winjob_Controller {
             $record_sidebar = $query_sidebar->num_rows();
             $records = $query_sidebar->result();
 
-            $jobids = array();
-            foreach ($records as $jobs) {
-                $jobids[] = $jobs->id;
-            }
-            $jobids = implode(",", $jobids);
-            
-            $this->db->select('*');
-            $this->db->from('job_bids');
-            $this->db->where_in('job_id', $jobids, FALSE);
-            $this->db->where('hired', '1');
-            $query_hire = $this->db->get();
-            $record_hire = $query_hire->num_rows();
+            $record_hire = $this->jobs_model->number_freelancer_hired($value->clientid);
             
             $this->db->select('*');
             $this->db->from('job_workdairy');
