@@ -12,6 +12,7 @@ class Charge extends CI_Controller {
     public function __construct() {
         parent::__construct();
         
+        date_default_timezone_set("UTC");
         $this->load->helper('cli');
         $this->load->model( array('invoice_model', 'payment_model', 'payment_methods_model', 'webuser_model') );
         
@@ -51,12 +52,22 @@ class Charge extends CI_Controller {
                     if( ! in_array( $user_id, $account_to_activate ) )
                         array_push ($account_to_activate, $employer_id);
                     
-                    $this->invoice_model->set_status($invoice->id, $transaction_id, INVOICE_PAID);
+                    //Update invoice.
+                    $this->invoice_model->update_invoice($invoice->id, array(
+                       'status'          => INVOICE_PAID,
+                       'transaction_id'  => $transaction_id,
+                       'service_name'    => $primary->service_name,
+                       'updated_at'      => date('Y-m-d H:i:s'),
+                    ));
+                    
+                    //Update items.
+                    $this->invoice_model->update_items($invoice->id, array(
+                        'status' => INVOICE_PAID, 
+                        'updated_at' => date('Y-m-d H:i:s')
+                    ));
                 }
                 else
                 {
-                    $this->invoice_model->set_status($invoice->id, null, INVOICE_PROCESSING_PAID);
-
                     $keys = array_keys($account_to_activate, $employer_id);
 
                     if( count($keys) )
@@ -120,7 +131,9 @@ class Charge extends CI_Controller {
                                     'service_name'       => $primary->service_name,
                                     'invoice_service_id' => $invoice_service_id,
                                     'transaction_id'     => $transaction_id,
-                                    'status'             => $status
+                                    'status'             => $status,
+                                    'created_at'         => date('Y-m-d H:i:s'),
+                                    'updated_at'         => date('Y-m-d H:i:s'),
                                 ));
                 
                 $this->invoice_model->update_invoices_items($startOfWeek, $endOfWeek, $invoices['bid_ids'], $invoice_id, $status);

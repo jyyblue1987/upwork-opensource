@@ -25,43 +25,6 @@
         <div class="page-content">
             <!-- Panel -->
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <!--<h2><?php echo $title; ?></h2>-->
-                <div class="first">
-                    <h3><?php echo $title; ?></h3>
-                    <h4> Search by user name   </h4>
-                    <div class="btn-toolbar" role="toolbar" aria-label="...">
-                        <div class="btn-group" role="group" aria-label="...">A</div>
-                        <div class="btn-group" role="group" aria-label="...">B</div>
-                        <div class="btn-group" role="group" aria-label="...">C</div>
-                        <div class="btn-group" role="group" aria-label="...">D</div>
-                        <div class="btn-group" role="group" aria-label="...">E</div>
-                        <div class="btn-group" role="group" aria-label="...">F</div>
-                        <div class="btn-group" role="group" aria-label="...">G</div>
-                        <div class="btn-group" role="group" aria-label="...">H</div>
-                        <div class="btn-group" role="group" aria-label="...">I</div>
-                        <div class="btn-group" role="group" aria-label="...">J</div>
-                        <div class="btn-group" role="group" aria-label="...">K</div>
-                        <div class="btn-group" role="group" aria-label="...">L</div>
-                        <div class="btn-group" role="group" aria-label="...">M</div>
-                        <div class="btn-group" role="group" aria-label="...">N</div>
-                        <div class="btn-group" role="group" aria-label="...">O</div>
-                        <div class="btn-group" role="group" aria-label="...">P</div>
-                        <div class="btn-group" role="group" aria-label="...">Q</div>
-                        <div class="btn-group" role="group" aria-label="...">R</div>
-                        <div class="btn-group" role="group" aria-label="...">S</div>
-                        <div class="btn-group" role="group" aria-label="...">T</div>
-                        <div class="btn-group" role="group" aria-label="...">U</div>
-                        <div class="btn-group" role="group" aria-label="...">V</div>
-                        <div class="btn-group" role="group" aria-label="...">W</div>
-                        <div class="btn-group" role="group" aria-label="...">X</div>
-                        <div class="btn-group" role="group" aria-label="...">Y</div>
-                        <div class="btn-group" role="group" aria-label="...">Z</div>
-
-
-
-                    </div>
-
-                </div>
                 <p class="result-msg" style="text-align: center;color: green;font-size: 20px;display: none;"></p>
                 <div class="secound">
                     <div class="fabb">

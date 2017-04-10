@@ -75,9 +75,22 @@ class Userpage extends CI_Controller {
 					//added by Sergey end
 				}
 				$this->load->model('admin/'.$mod.'/'.$callpage);
-				$this->$callpage->check($permission);
-				
-				$this->$callpage->load($permission,$mod);
+                                
+                                $status = null;
+                                $this->$callpage->check($permission);
+                                switch( strtolower($callpage) ){
+                                    case 'invoicehourly':
+                                        $status = INVOICE_PROCESSING_PAID;
+                                        $this->$callpage->load_transaction($permission,$mod, $status);
+                                    break;
+                                    case 'transuctionhistory':
+                                        $status = INVOICE_PAID;
+                                        $this->$callpage->load_transaction($permission,$mod, $status);
+                                    break;
+                                    default:
+                                        $this->$callpage->load($permission,$mod);
+                                    break;
+                                }
 		}
 		
 		

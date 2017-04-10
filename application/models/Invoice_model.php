@@ -91,6 +91,16 @@ class invoice_model extends CI_Model
         return $this->db->insert_id();
     }
     
+    public function update_invoice($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('hourly_invoices', $data);
+    }
+    
+    public function update_items($id, $data){
+        $this->db->where('invoice_id', $id);
+        $this->db->update('hourly_invoices_items', $data);
+    }
+    
     public function update_invoices_items($start, $end, $bid_ids, $invoice_service_id, $status)
     {
         //set invoices item status
@@ -101,7 +111,8 @@ class invoice_model extends CI_Model
         
         $this->db->update('hourly_invoices_items', array(
             'status'     => $status, 
-            'invoice_id' => $invoice_service_id 
+            'invoice_id' => $invoice_service_id,
+            'updated_at' => date('Y-m-d H:i:s') 
         ));
     }
 }

@@ -6174,15 +6174,17 @@ CREATE TABLE `hourly_invoices` (
   `invoice_service_id` varchar(255) NOT NULL,
   `service_name` varchar(255) NOT NULL,
   `transaction_id` varchar(255) DEFAULT NULL,
-  `status` enum('PAID','PROCESSING_FAILED','UNPAID','') NOT NULL
+  `status` enum('PAID','PROCESSING_FAILED','UNPAID','') NOT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `hourly_invoices`
 --
 
-INSERT INTO `hourly_invoices` (`id`, `invoice_service_id`, `service_name`, `transaction_id`, `status`) VALUES
-(13, 'in_1A6LvzC3aXjEIlyVPmhwkSlb', 'stripe', 'txn_1A6LwKC3aXjEIlyVeHMd6hFH', 'PAID');
+INSERT INTO `hourly_invoices` (`id`, `invoice_service_id`, `service_name`, `transaction_id`, `status`, `created_at`, `updated_at`) VALUES
+(13, 'in_1A6LvzC3aXjEIlyVPmhwkSlb', 'stripe', 'txn_1A6LwKC3aXjEIlyVeHMd6hFH', 'PAID', '2017-04-05 19:00:16', '2017-04-05 19:00:16');
 
 -- --------------------------------------------------------
 
@@ -6245,6 +6247,7 @@ ALTER TABLE `hourly_invoices`
 --
 ALTER TABLE `hourly_invoices_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
