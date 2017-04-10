@@ -879,14 +879,13 @@ class Jobs extends Winjob_Controller {
             foreach ($record_sidebar as $jobs) {
                 $jobids[] = $jobs->id;
             }
-            $jobids = implode(",", $jobids);
 
             $_jobids = array_map('intval',$jobids);
-            
+
             $this->db->select('*');
             $this->db->from('job_bids');
             $this->db->where_in('job_id', $_jobids);
-            $this->db->where('hired', 1);
+            $this->db->where('hired', '1');
             $query_hire = $this->db->get();
             $record_hire = $query_hire->num_rows();
 
@@ -1060,7 +1059,7 @@ class Jobs extends Winjob_Controller {
             $this->db->select('*');
             $this->db->from('job_bids');
             $this->db->where_in('job_id', $_jobids);
-            $this->db->where('hired', 1);
+            $this->db->where('hired', '1');
             $query_hire = $this->db->get();
             $record_hire = $query_hire->num_rows();
             $applicants = $this->process->get_applications($postId);
@@ -2535,7 +2534,7 @@ class Jobs extends Winjob_Controller {
             $this->db->select('*');
             $this->db->from('job_bids');
             $this->db->where_in('job_id', $_jobids);
-            $this->db->where('hired', 1);
+            $this->db->where('hired', '1');
             $query_hire = $this->db->get();
             $record_hire = $query_hire->num_rows();
             
