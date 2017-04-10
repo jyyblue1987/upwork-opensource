@@ -67,19 +67,20 @@ if ($reject_count) {
 
 
 ?>
-<section id="big_header" class="custom_bids_list" style="margin-top: 40px; margin-bottom: 40px; height: auto;">
-    <div class="container white-box-feed" style="max-width: 960px;">
+<section id="big_header" class="custom_bids_list">
+    <div class="white-box-feed">
         <?php if ($this->session->flashdata('msg'))
         { ?>
             <div class="row alert alert-success"><?php echo $this->session->flashdata('msg'); ?></div>
 <?php } ?>
         <div class="row">
-            <div class="col-md-9 bottom-blue-border  padding-2">
-                <span style="margin-right: 50px;"><a href="<?php echo site_url('jobs/bids_list'); ?>"><b>My Bids (<?= $totalApplication ?>) </b></a></span> <span><a href="<?php echo site_url('jobs/archived_bids_list'); ?>"><b>Archived (<?= $totalrejact ?>)</b></a></span>
+            <div class="col-md-12 bottom-blue-border  padding-2">
+                <span><a href="<?php echo site_url('jobs/bids_list'); ?>"><b>My Bids (<?= $totalApplication ?>) </b></a></span>
+                <span class="margin-left-15"><a href="<?php echo site_url('jobs/archived_bids_list'); ?>"><b>Archived (<?= $totalrejact ?>)</b></a></span>
             </div>
         </div>
             <div class="row margin-top-1" >
-			<div class="col-md-9 bordered-alert text-center ack-box" style="background: rgb(240, 240, 240) none repeat scroll 0% 0%; padding: 0px 0px;">
+			<div class="col-md-9 bordered-alert text-center ack-box">
                             <h4>! You have sent  <?= $totalApplication; ?> proposals</h4>
 			 </div>
 		</div>
@@ -87,8 +88,7 @@ if ($reject_count) {
             <div class="col-md-2 col-sm-6 col-xs-6">
                 <label>Applied Date</label>
             </div>
-
-            <div style="margin-left: -38px;" class="col-md-10 col-sm-6 col-xs-6">
+            <div class="col-md-10 col-sm-6 col-xs-6 marg-38">
                 <label>Job Title</label>
             </div>
         </div>
@@ -101,7 +101,7 @@ if ($reject_count) {
 <?php } else {?>
 
         <div class="row">
-            <div class="col-md-12 margin-top-15">
+            <div class="col-md-12 margin-top-15 no-pad">
                 <?php foreach($records as $value) { ?>
                     <div class="custom_bids_list_border">
                         <div class="row">

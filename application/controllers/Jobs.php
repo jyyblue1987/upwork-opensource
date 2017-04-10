@@ -1112,10 +1112,10 @@ class Jobs extends Winjob_Controller {
             $this->db->where("(withdrawn=1 OR bid_reject=1)");
             $query_totalreject = $this->db->get();
             $reject_count = $query_totalreject->num_rows();
-            
-            $data = array('records' => $records, 'proposals' => $proposals, 'declined' => $declined, 'title' => 'My Bids - Winjob' );
+
+            $data = array('records' => $records, 'proposals' => $proposals, 'declined' => $declined, 'title' => 'My Bids - Winjob', 'css' => array("","","","assets/css/pages/bids_list.css"));
             // Davit end
-            $this->Admintheme->webview("jobs/bids_list", $data);
+            $this->Admintheme->custom_webview("jobs/bids_list", $data);
         }
     }
 
@@ -1158,8 +1158,8 @@ class Jobs extends Winjob_Controller {
             if ($query->num_rows() > 0)
                 $records2 = $query->result();
             $records = array_merge($records1, $records2);
-            $data = array('records' => $records1, 'title' => 'Archived Jobs - Winjob');
-            $this->Admintheme->webview("jobs/archived_bids_list", $data);
+            $data = array('records' => $records1, 'title' => 'Archived Jobs - Winjob', 'css' => array("","","","assets/css/pages/archived_bids_list.css"));
+            $this->Admintheme->custom_webview("jobs/archived_bids_list", $data);
         }
     }
 
