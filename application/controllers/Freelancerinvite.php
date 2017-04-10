@@ -7,7 +7,7 @@ class Freelancerinvite extends CI_Controller {
     {
         parent::__construct();
         //$this->load->model(array('Category', 'Common_mod'));
-        $this->load->model(array('common_mod', 'Category', 'profile/ProfileModel', 'Process',));
+        $this->load->model(array('common_mod', 'Category', 'profile/ProfileModel', 'Process', 'jobs_model'));
         $this->load->model(array('timezone'));
         $this->process = new Process();
       
@@ -83,24 +83,13 @@ class Freelancerinvite extends CI_Controller {
 		$accepted_jobs = $query->result();
 		//echo $this->db->last_query();
 		
-		$this->db->select('*');
+            $this->db->select('*');
             $this->db->from('jobs');
             $this->db->where('user_id', $record->user_id);
             $query_sidebar = $this->db->get();
             $record_sidebar = $query_sidebar->result();
 
-            $jobids = array();
-            foreach ($record_sidebar as $jobs) {
-                $jobids[] = $jobs->id;
-            }
-            $jobids = implode(",", $jobids);
-            
-            $this->db->select('*');
-            $this->db->from('job_bids');
-            $this->db->where_in('job_id', $jobids, FALSE);
-            $this->db->where('hired', '1');
-            $query_hire = $this->db->get();
-            $record_hire = $query_hire->num_rows();
+            $record_hire = $this->jobs_model->number_freelancer_hired($record->user_id);
 
             $this->db->select('*');
             $this->db->from('job_workdairy');
