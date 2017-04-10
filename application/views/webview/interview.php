@@ -2,7 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed'); 
 ?>
 <!doctype html>
-
+<html lang="en">
+<head>
     <meta charset="utf-8"/>
     <title><?php echo $title; ?></title>
     <meta name="viewport" content="width=device-width,height=device-height, initial-scale=1, user-scalable=no">
@@ -199,6 +200,8 @@ span.text1 {text-transform: capitalize;}
     font-size: 16px;
 }
 </style>
+
+</head>
 
 <body> 
     <div style="clear:both"></div>
