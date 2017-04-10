@@ -10,13 +10,9 @@
     {% if not freelancer %}
     <div class="ms_pay_butt">
         <div class="mystaff_pay_btnx payment_btn">
-            <input type="button" class="btn btn-primary form-btn my-btn " {# _job_btn_payment class to active payment button via js #}
-                   value="{{ app_lang('text_job_btn_payment') }}"
-                   data-id ="2"
-                   data-buserid="{{ job.buser_id }}"
-                   data-fuserid="{{ job.fuser_id }}"
-                   data-jobid="{{ job.job_id }}"
-                 />
+            <a href="{{ job_detail_link }}">
+                <input type="button" class="btn btn-primary form-btn my-btn"  value="{{ app_lang('text_job_btn_payment') }}"/>
+            </a>
         </div>
     </div>
     {% endif %}
