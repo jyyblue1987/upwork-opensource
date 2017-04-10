@@ -193,7 +193,7 @@ $accepted_jobs = $query->result();
                     </div>
                     <div class="col-md-12 text-justify page-label div-details"><?php echo ucfirst($value->job_description) ?></div>
                 </div>
-                
+                <?php if($value->tid != 0){ ?>
                 <div class="row margin-top page-label margin-top-5">
                     <div class="col-md-9">
                         <label class="lab-details">Attachments</label>
@@ -207,7 +207,7 @@ $accepted_jobs = $query->result();
                     ?>
                 </div>
                 </div>
-                
+                <?php } ?>
                 <div class="jobdes-bordered-wrapper">
                     <div class="row jobdes-bordered page-label">
                         <div class="col-md-4 text-center">

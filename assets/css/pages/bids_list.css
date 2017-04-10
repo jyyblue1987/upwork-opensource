@@ -1,0 +1,49 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,300italic,500,400italic,600,500italic,700italic,700,600italic);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800);
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+body {color: #333;font-family: "Roboto" !important;font-size: 14px;line-height: 1.42857;}
+html {color: #222;font-size: 1em;line-height: 1.4;}
+.custom_bids_list .white-box-feed .margin-top-1{margin-top: 15px;}
+.custom_bids_list .bordered-alert h4{margin-bottom: 0;}
+.custom_bids_list .margin-top-15{margin-top: 15px;}
+.custom_bids_list_border{border: 1px solid #ccc;
+border-radius: 4px;
+margin-bottom: 15px;
+padding: 10px 8px;
+width: 100%;}
+.custom_bids_list .white-box-feed{
+border: 1px solid #ccc;}
+.custom_bids_list .bottom-blue-border{width: 100%;}
+.custom_bids_list .bottom-blue-border span a{font-size: 18px;}
+#big_header{margin-top: 40px; margin-bottom: 40px; height: auto;}
+.menu ul {list-style:none;margin: 0;padding:0;}.menu li {margin: 0;padding: 0px;float:left;}
+.menu ul li  a {font-family:'Arial';display: block;color: #35a7d6;text-decoration:none;font-size:16px; padding: 0px 28px;margin-top:14px;border:none;	}
+.menu ul li  a.first-menu {font-family:'Arial';display: block;color: #35a7d6;text-decoration:none;font-size:16px; padding: 0px 28px 0px 6px;margin-top:14px;border:none;	}
+.menu  a:hover {color: #e84c3d;-webkit-transition:1s;-moz-transition:1s;-o-transition:1s;transition:1s;}
+#mid_contant{width:100%;float:left;background-color: #f0f0f0;min-height: 483px;margin-top:10px;}
+.white-box{background-color:white;border-radius: 4px;padding: 10px;}
+.bottom-blue-border {border-bottom: 1px solid #1ea7da;}
+.white-box-feed{background-color:white;border-radius: 4px;margin: 0px;padding: 20px;}
+.padding-2 {padding : 10px;}
+.bordered-alert{background: rgb(240, 240, 240) none repeat scroll 0% 0%; padding: 10px 0px;border: 2px solid green;border-radius:4px;margin: 8px 15px 20px 0px;width: 100%!important;background: rgb(240, 240, 240) none repeat scroll 0% 0%; padding: 10px 0px;}
+.custom_bids_list_border{border: 1px solid #ccc;border-radius: 4px;margin-bottom: 15px;padding: 10px 8px;width: 100%;}
+.margin-top {margin-top: 30px;}
+.no-pad{padding-left:0px;padding-right:0px;}
+.custom_inter_list_border{border: 1px solid #ccc;border-radius: 4px;margin-bottom: 15px;padding: 10px 8px;}
+.blue-text {color : #028FCC !important;}
+.margin-top-1{margin-top: 10px;}
+.ack-box {padding: 12px;}
+@media (min-width: 481px) and (max-width: 768px) {
+	.container {width: 740px;}
+	
+}
+@media (min-width: 1200px) {
+	.container {width: 1000px;}
+	.white-box-feed{background-color:white;border-radius: 4px;margin: 0px;padding: 40px;}
+	.margin-left-15{margin-left:30px;}
+}
+@media (min-width: 1024px) {
+	.container {width: 1000px;}
+	.white-box-feed{background-color:white;border-radius: 4px;margin: 0px;padding: 40px;}
+	.margin-left-15{margin-left:30px;}
+}

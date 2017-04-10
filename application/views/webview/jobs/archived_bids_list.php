@@ -65,28 +65,28 @@ if ($reject_count) {
 }
 
 ?>
-<section id="big_header" class="custom_archive_list" style="margin-top: 40px; margin-bottom: 40px; height: auto;">
-    <div class="container white-box-feed">
+<section id="big_header" class="custom_archive_list">
+    <div class="white-box-feed">
         <?php if ($this->session->flashdata('msg'))
         { ?>
             <div class="row alert alert-success"><?php echo $this->session->flashdata('msg'); ?></div>
 <?php } ?>
         <div class="row">
             <div class="col-md-9 bottom-blue-border  padding-2">
-                <span style="margin-right: 50px;"><a href="<?php echo site_url('jobs/bids_list'); ?>"><b>My Bids (<?= $totalApplication ?>)</b> </a></span>&nbsp <span><a href="<?php echo site_url('jobs/archived_bids_list'); ?>"><b>Archived (<?= $totalrejact ?>)</b></a></span>
+                <span><a href="<?php echo site_url('jobs/bids_list'); ?>"><b>My Bids (<?= $totalApplication ?>)</b> </a></span>
+                <span class="margin-left-15"><a href="<?php echo site_url('jobs/archived_bids_list'); ?>"><b>Archived (<?= $totalrejact ?>)</b></a></span>
             </div>
         </div>
             <div class="row margin-top-1" >
-			<div class="col-md-9 bordered-alert text-center ack-box" style="background: rgb(240, 240, 240) none repeat scroll 0% 0%; padding: 10px 0px; width: 779px;">
+			<div class="col-md-9 bordered-alert text-center ack-box">
 				 <h4>! You have withdrawn <?= $totalrejact ?> proposals</h4>
 			 </div>
 		</div>
-        <div class="row margin-top-3 margin-top-15">
-            <div class="col-md-2 ">
-                <label>Withdrawn Date</label>
+        <div class="row margin-top-3 margin-top-15 no-pad">
+            <div class="col-md-2 col-sm-6 col-xs-6">
+                <label>Withdrawn <br>Date</label>
             </div>
-
-            <div style="margin-left: -38px;" class="col-md-8">
+            <div class="col-md-10 col-sm-6 col-xs-6 marg-38">
                 <label>Job Title</label>
             </div>
         </div>
@@ -99,22 +99,19 @@ if ($reject_count) {
 <?php } else {?>
 
         <div class="row">
-            <div class="col-md-9 margin-top-15">
                 <?php foreach($records as $value) { ?>
-                <div class="row">
                     <div class="col-md-12 custom_bids_list_border">
                         <div class="row">
-                            <div class="col-md-2"><?php echo date('M d, Y',  strtotime($value->created));?></div>
-                            <div class="col-md-10 blue-text">
+                            <div class="col-md-2 col-xs-6"><?php echo date('M d, Y',  strtotime($value->created));?></div>
+                            <div class="col-md-10 col-xs-6 blue-text">
                                 <a href='<?php echo site_url("jobs/withdraw_system/".  base64_encode($value->id))?>'>
                                     <?php echo ucfirst($value->title); ?>
                                 </a>
                             </div>
                         </div>
-
                         <div class="row margin-top-1">
-                            <div class="col-md-2"><?php echo time_elapsed_string(strtotime($value->created)); ?></div>
-                            <div class="col-md-10 ">
+                            <div class="col-md-2 col-xs-6"><?php echo time_elapsed_string(strtotime($value->created)); ?></div>
+                            <div class="col-md-10 col-xs-6">
                                 <?php echo ucfirst($value->company); ?><br/>
                                 <?php // added by jahid start  ?>
                                 <?php if($value->withdrawn_by=='1'){?>
@@ -125,11 +122,8 @@ if ($reject_count) {
                              ?>
                             </div>
                         </div>
-
                     </div>
-                </div>
                 <?php } ?>
-            </div>
         </div>
 <?php } ?>
     </div>

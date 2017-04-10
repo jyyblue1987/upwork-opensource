@@ -879,14 +879,13 @@ class Jobs extends Winjob_Controller {
             foreach ($record_sidebar as $jobs) {
                 $jobids[] = $jobs->id;
             }
+
             $jobids = implode(",", $jobids);
 
-            $_jobids = array_map('intval',$jobids);
-            
             $this->db->select('*');
             $this->db->from('job_bids');
-            $this->db->where_in('job_id', $_jobids);
-            $this->db->where('hired', 1);
+            $this->db->where_in('job_id', $jobids, FALSE);
+            $this->db->where('hired', '1');
             $query_hire = $this->db->get();
             $record_hire = $query_hire->num_rows();
 
@@ -922,7 +921,6 @@ class Jobs extends Winjob_Controller {
             $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id));
             $proposals = $query->num_rows();
 
-            $client_id=$value->webuser_id;
             $query_spent = $this->db->query("SELECT SUM(payment_gross) as total_spent FROM `payments` INNER JOIN `webuser` ON `webuser`.`webuser_id` = `payments`.`user_id` INNER JOIN `jobs` ON `jobs`.`id` = `payments`.`job_id` INNER JOIN `job_accepted` ON `job_accepted`.`job_id` = `payments`.`job_id` INNER JOIN `job_bids` ON `job_bids`.`job_id` = `payments`.`job_id` WHERE `job_accepted`.`fuser_id` = `payments`.`user_id` AND
                 `job_bids`.`user_id` = `payments`.`user_id` AND `payments`.`buser_id` = $record->user_id");
             $row_spent = $query_spent->row();
@@ -1055,14 +1053,13 @@ class Jobs extends Winjob_Controller {
             }
             $jobids = implode(",", $jobids);
 
-            $_jobids = array_map('intval',$jobids);
-            
             $this->db->select('*');
             $this->db->from('job_bids');
-            $this->db->where_in('job_id', $_jobids);
-            $this->db->where('hired', 1);
+            $this->db->where_in('job_id', $jobids, FALSE);
+            $this->db->where('hired', '1');
             $query_hire = $this->db->get();
             $record_hire = $query_hire->num_rows();
+            
             $applicants = $this->process->get_applications($postId);
             $interviews = $this->process->get_interviews($record->user_id, $postId);
             $hires = $this->process->get_hires($record->user_id, $postId);
@@ -1113,10 +1110,10 @@ class Jobs extends Winjob_Controller {
             $this->db->where("(withdrawn=1 OR bid_reject=1)");
             $query_totalreject = $this->db->get();
             $reject_count = $query_totalreject->num_rows();
-            
-            $data = array('records' => $records, 'proposals' => $proposals, 'declined' => $declined, 'title' => 'My Bids - Winjob' );
+
+            $data = array('records' => $records, 'proposals' => $proposals, 'title' => 'My Bids - Winjob', 'css' => array("","","","assets/css/pages/bids_list.css"));
             // Davit end
-            $this->Admintheme->webview("jobs/bids_list", $data);
+            $this->Admintheme->custom_webview("jobs/bids_list", $data);
         }
     }
 
@@ -1159,8 +1156,8 @@ class Jobs extends Winjob_Controller {
             if ($query->num_rows() > 0)
                 $records2 = $query->result();
             $records = array_merge($records1, $records2);
-            $data = array('records' => $records1, 'title' => 'Archived Jobs - Winjob');
-            $this->Admintheme->webview("jobs/archived_bids_list", $data);
+            $data = array('records' => $records1, 'title' => 'Archived Jobs - Winjob', 'css' => array("","","","assets/css/pages/archived_bids_list.css"));
+            $this->Admintheme->custom_webview("jobs/archived_bids_list", $data);
         }
     }
 
@@ -2517,25 +2514,23 @@ class Jobs extends Winjob_Controller {
             }else{
                 redirect(site_url().'bids_list');
             }
-                    $this->db->select('*');
-                    $this->db->from('jobs');
-                    $this->db->where('user_id', $value->clientid);
-                    $query_sidebar = $this->db->get();
-                    $record_sidebar = $query_sidebar->num_rows();
-                    $records = $query_sidebar->result();
-                    
-                    $jobids = array();
+            $this->db->select('*');
+            $this->db->from('jobs');
+            $this->db->where('user_id', $value->clientid);
+            $query_sidebar = $this->db->get();
+            $record_sidebar = $query_sidebar->num_rows();
+            $records = $query_sidebar->result();
+
+            $jobids = array();
             foreach ($records as $jobs) {
                 $jobids[] = $jobs->id;
             }
             $jobids = implode(",", $jobids);
-
-            $_jobids = array_map('intval',$jobids);
             
             $this->db->select('*');
             $this->db->from('job_bids');
-            $this->db->where_in('job_id', $_jobids);
-            $this->db->where('hired', 1);
+            $this->db->where_in('job_id', $jobids, FALSE);
+            $this->db->where('hired', '1');
             $query_hire = $this->db->get();
             $record_hire = $query_hire->num_rows();
             
@@ -2572,7 +2567,6 @@ class Jobs extends Winjob_Controller {
             $this->db->where("job_id = ", $value->jobid);
             $query = $this->db->get();
             $job_skills = $query->result_array();
-            $record->job_skills = $job_skills;
             
             $applicants = $this->process->get_applications($value->jobid);
             $interviews = $this->process->get_interviews($value->clientid, $value->jobid);

@@ -205,6 +205,7 @@ $accepted_jobs = $query->result();
                     <div style="font-family: calibri; font-size: 16px; margin-bottom: 17px; margin-top: 8px;" class="col-md-12 text-justify page-label"><?php echo ucfirst($value->job_description) ?></div>
 
                 </div>
+                <?php if($value->tid != 0){ ?>
                 <div class="row margin-top page-label">
                     <div class="col-md-9">
                         <label>Attachments</label>
@@ -212,19 +213,16 @@ $accepted_jobs = $query->result();
                     <div style="font-family: calibri; font-size: 16px; margin-bottom: 17px; margin-top: 8px;" class="col-md-12 text-justify page-label">
                         <div class="attachments">
                     <?php
-                    if($value->tid != 0){
+                    
                         $attachments = explode(",", $value->userfile);
                         foreach($attachments AS $attachment){
                             echo '<a href="'.site_url().'jobs/download?dir='.$user_id.'/'.$value->tid.'&file='.str_replace('"','', $attachment).' ">'.str_replace('"','', $attachment).'</a><br>'; 
                         }
-                    }ELSE{
-                        echo "none";
-                    }
                     ?>
                 </div>
                     </div>
-
                 </div>
+                <?php } ?>
 <div class="jobdes-bordered-wrapper">
                 <div class="row jobdes-bordered page-label">
                     <div class="col-md-4 text-center">
@@ -361,23 +359,21 @@ $hire_count = $query->num_rows();
                             </div>
                         </div>
                     </div>
+                    <?php if($f_attachments){ ?>
                     <div class="row margin-top page-label margin-top-5">
                     <div class="col-md-9">
                         <label class="lab-details" style="font-size: 15px;">Attachments</label>
                     </div>
                     <div class="col-md-12 text-justify page-label div-details">
                     <?php 
-                    if($f_attachments[0]['path'] != ""){
                         $attachments = explode(",", $f_attachments[0]['path']);
                             foreach($attachments AS $attachment){
                                 echo '<a href="'.site_url().'jobs/download?dir='.$value->user_id.'/'.$f_attachments[0]['tid'].'&file='.str_replace('"','', $attachment).' ">'.str_replace('"','', $attachment).'</a><br>'; 
                             }
-                        }else{
-                            echo "none";
-                        }
                     ?>
                 </div>
                 </div>
+                    <?php } ?>
                 </div>
             </div>   
 

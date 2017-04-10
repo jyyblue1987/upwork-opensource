@@ -70,7 +70,7 @@
                         </div>
                     </div>
                 </div>
-
+                <?php if($data['tid'] != 0){ ?>
                 <div class="col-md-9 form-group">
                     <div class="row">
                         <div class="col-md-3 page-label">
@@ -84,6 +84,7 @@
                     ?>
                     </div>
                 </div>
+                <?php } ?>
 
                 <div class="col-md-9 form-group">
                     <div class="row">

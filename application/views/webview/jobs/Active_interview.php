@@ -82,7 +82,7 @@ if(!empty($declined)){
 
 <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/rating.css" />
 
-<section id="big_header" class="custom_active_interview" style="margin-top: 40px; margin-bottom: 40px; height: auto;" >
+<section id="big_header" class="custom_active_interview"  >
 
     <div class="white-box-feed">
         <?php if ($this->session->flashdata('msg'))
@@ -95,7 +95,7 @@ if(!empty($declined)){
             <div class="col-md-12 bottom-blue-border padding-2">
                 <span><b>My Offers (<?= $_offers ?>)</b></span>
             </div>
-            <div class="col-md-9 text-center bordered-alert margin-top" style="background: rgb(240, 240, 240) none repeat scroll 0% 0%; padding: 10px 0px;">
+            <div class="col-md-9 text-center bordered-alert margin-top" >
               <?= $msg_offers; ?>
             </div>
         </div>
@@ -143,7 +143,7 @@ if(!empty($declined)){
                 <span style="margin-right: 46px;"><a href="<?php echo site_url('Active_interview'); ?>"><b>Active Interview (<?= $interview_cnt ?>)</b></a></span>&nbsp <span><a href="<?php echo site_url('Active_interview/declined_interview'); ?>"><b>Declined (<?= $decline ?>)</b></a></span>
 
             </div>
-            <div class="col-md-9 text-center bordered-alert margin-top" style="background: rgb(240, 240, 240) none repeat scroll 0% 0%; padding: 10px 0px; width: 779px;">
+            <div class="col-md-9 text-center bordered-alert margin-top" >
 			 <?= $msg; ?>
             </div>
         </div>
