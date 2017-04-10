@@ -32,4 +32,10 @@ class Skills_model extends CI_Model{
                     ->get();
         return $query->result_array();
     }
+    
+    public function delete_skill($job_id){
+        $this->db
+                ->where('job_id', $job_id)
+                ->delete('job_skills');
+    }
 }

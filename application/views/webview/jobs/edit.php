@@ -32,8 +32,8 @@
                             <h4 class="main_title">Title</h4>
                         </div>
                         <div class="col-md-12">
-                            <input type="text"  name="title" class="form-control" id="title" value='<?php echo $value->title;?>'>
-                            <input type="hidden"  name="id" class="form-control"  value='<?php echo $value->id;?>'>
+                            <input type="text"  name="title" class="form-control" id="title" value='<?php echo $value->get_title();?>'>
+                            <input type="hidden"  name="id" class="form-control"  value='<?php echo $value->get_jobid();?>'>
                         </div>
                     </div>
 
@@ -63,13 +63,13 @@
                                                     foreach ($subcategory_data as $subcat)
                                                     {
                                                         ?>
-                                                        <option value="<?php echo $subcat->subcat_id ?>" <?php if($value->category==$subcat->subcat_id) echo 'selected="selected"'?>><?php echo $subcat->subcategory_name ?></option>
+                                                        <option value="<?php echo $subcat->subcat_id ?>" <?php if($value->get_category() ==$subcat->subcat_id) echo 'selected="selected"'?>><?php echo $subcat->subcategory_name ?></option>
                                                     <?php
                                                 }
                                             }
                                             ?>
 
-                                            </optgroup >
+                                            </optgroup>
                                             <?php
                                         }
                                     }
@@ -87,9 +87,9 @@
                             <div class="edit_title">
                                 <div class="input_skills">
                                     <select class="choose-skills" name="skills[]"  data-placeholder="Skills" style="width:100%;" multiple>
-                                        <?php foreach($job_skills as $item){
+                                        <?php foreach($value->get_skills() as $item){
                                           ?>
-                                        <option value="<?php echo $item['skill_name']; ?>" selected><?php echo $item["skill_name"]; ?></option> 
+                                        <option value="<?php echo $item; ?>" selected><?php echo $item; ?></option> 
                                         <?php 
                                         }?>
                                         <?php foreach($skillList as $key => $skill){
@@ -109,10 +109,10 @@
                             <h4 class="main_title">Job Description</h4>
                         </div>
                         <div class="col-md-12">
-                            <textarea name="job_description" id="job_description" class="form-control" rows="5"><?php echo $value->job_description;?></textarea>
+                            <textarea name="job_description" id="job_description" class="form-control" rows="5"><?php echo $value->get_jobdesc();?></textarea>
                         </div>
                     </div>
-					
+
                     <div style="margin-top: 15px;" class="row">
                         <div class="col-md-12">
                             <h4 class="main_title">Attach File</h4>
@@ -124,25 +124,18 @@
                                     <div id="file_lists" style="margin: 0">
                                         <ul id="lists">
                                             <?php 
-                                                $attachments = explode(",", $value->userfile);
-                                                foreach($attachments AS $attachment){
-                                                    if($value->userfile != " "){
-                                                        if($attachment != ""){
-                                                            //echo '<input type="hidden" value="'.str_replace('"','', $attachment).'" name="delete_file" id="delete_file" />';
-                                                        }
-                                                        echo '<li>'.str_replace('"','', $attachment).'<img src="'.site_url().'assets/img/delete_icon.gif" data-formDiscard="'.$value->user_id.'/'.$value->tid.'" class="remove_attachment"></li>'; 
-                                                    }
+                                                foreach($value->get_attachments() AS $attachment){
+                                                    echo '<li>'.$attachment.'<img src="'.site_url().'assets/img/delete_icon.gif" data-formDiscard="'.$value->get_employerid().'/'.$value->get_tid().'" class="remove_attachment"></li>'; 
                                                 }
                                             ?>
                                         </ul>
                                     </div>
-                                    <input type="hidden" name="requestor" value="<?= $value->user_id ?>" />
-                                    <input type="hidden" name="tid" value="<?= $value->tid == 0 ? time() : $value->tid ?>" />
+                                    <input type="hidden" name="requestor" value="<?= $value->get_employerid() ?>" />
+                                    <input type="hidden" name="tid" value="<?= $value->get_tid() == 0 ? time() : $value->get_tid() ?>" />
                                     <input type="hidden" name="attachments" id="attachments" />
                                 </div>
                         </div>
                     </div>
-					
                     <div class="row">
                         <div class="col-md-12">
                             <h4 class="main_title">Job Type</h4>
@@ -150,61 +143,61 @@
                         <div class="col-md-9" style="margin-top: 6px;margin-left: 20px;">
                             <div class="row">
                                 <div class="col-md-12 radio">
-                                    <input type="radio" value="hourly" name="job_type"   <?php if($value->job_type=='hourly') echo 'checked="checked"' ?> ><h4>Hourly - Pay by the hour verify with the work diary</h4>
+                                    <input type="radio" value="hourly" name="job_type"   <?php if($value->get_jobtype() =='hourly') echo 'checked="checked"' ?> ><h4>Hourly - Pay by the hour verify with the work diary</h4>
                                 </div> 
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12 radio">
                                     <input type="radio" value="fixed" name="job_type"
-                                             <?php if($value->job_type=='fixed') echo 'checked="checked"' ?> ><h4>Fixed - Pay by the project requires Detailed specifications</h4>
-                                </div>  
+                                             <?php if($value->get_jobtype() =='fixed') echo 'checked="checked"' ?> ><h4>Fixed - Pay by the project requires Detailed specifications</h4>
+                                </div>
                             </div>
 
                         </div>
                     </div>
-					
+
                     <div style="margin-top: 15px;" class="row">
                         <div class="col-md-12">
                             <h4 class="main_title">Experience Level</h4>
                         </div>
                         <div style="margin-left: 19px;" class="col-md-12 radio">
 							<div class="edit_title">
-								<input type="radio" name="experience_level" id="experience_level" value="Entry level" <?php if($value->experience_level=='Entry level') echo 'checked="checked"' ?> />
+								<input type="radio" name="experience_level" id="experience_level" value="Entry level" <?php if($value->get_exp() =='Entry level') echo 'checked="checked"' ?> />
 								<h4 style="margin-bottom: 0;">Entry Level $</h4>
 								<br />
 
-								<input type="radio" name="experience_level" id="experience_level" value="Entermediate" <?php if($value->experience_level=='Entermediate') echo 'checked="checked"' ?> />
+								<input type="radio" name="experience_level" id="experience_level" value="Entermediate" <?php if($value->get_exp() =='Entermediate') echo 'checked="checked"' ?> />
 								<h4 style="margin-bottom: 0;">Intermediate $$</h4>
 								<br />
 
-								<input type="radio" name="experience_level" id="experience_level" value="Experienced" <?php if($value->experience_level=='Experienced') echo 'checked="checked"' ?> />
+								<input type="radio" name="experience_level" id="experience_level" value="Experienced" <?php if($value->get_exp() =='Experienced') echo 'checked="checked"' ?> />
 								<h4>Experienced $$$</h4>
 							</div>
                         </div>
                     </div>
 					
-                    <div class="row <?php if($value->job_type!='fixed') echo 'hidden' ?>" id="fixed-control">
+                    <div class="row <?php if($value->get_jobtype() !='fixed') echo 'hidden' ?>" id="fixed-control">
                         <div class="col-md-12">
                             <h4 class="main_title">Budget$</h4>
                         </div>
                         <div class="col-md-12">
-                            <input style="width: 80px;" type="text" name="budget" id="budget" value="<?php echo round($value->budget,2);?>" class="" />
+                            <input style="width: 80px;" type="text" name="budget" id="budget" value="<?php echo round($value->get_budget(),2);?>" class="" />
                         </div>
                     </div>
 					
-                    <div class="row <?php if($value->job_type=='fixed') echo 'hidden' ?>" id="hourly-control">
+                    <div class="row <?php if($value->get_jobtype()=='fixed') echo 'hidden' ?>" id="hourly-control">
                         <div class="col-md-12">
                             <h4 class="main_title">Hours Per week</h4>
                         </div>
                         <div class="col-md-5">
                             <select class="form-control" name="hours_per_week">
-                                <option value="not_sure" <?php if($value->hours_per_week=='not_sure') echo 'selected="selected"'?>>Not Sure</option>
-                                <option value="1-9" <?php if($value->hours_per_week=='1-9') echo 'selected="selected"'?>>1-9</option>
-                                <option value="10-19" <?php if($value->hours_per_week=='10-19') echo 'selected="selected"'?>>10-19 hours</option>
-                                <option value="20-29" <?php if($value->hours_per_week=='20-29') echo 'selected="selected"'?>>20-29 hours</option>
-                                <option value="30-39" <?php if($value->hours_per_week=='30-39') echo 'selected="selected"'?>>30-39 hours</option>
-                                <option value="40_plus" <?php if($value->hours_per_week=='40_plus') echo 'selected="selected"'?>>More than 40 hours</option>
+                                <option value="not_sure" <?php if($value->get_hrs_perweek() =='not_sure') echo 'selected="selected"'?>>Not Sure</option>
+                                <option value="1-9" <?php if($value->get_hrs_perweek() =='1-9') echo 'selected="selected"'?>>1-9</option>
+                                <option value="10-19" <?php if($value->get_hrs_perweek() =='10-19') echo 'selected="selected"'?>>10-19 hours</option>
+                                <option value="20-29" <?php if($value->get_hrs_perweek() =='20-29') echo 'selected="selected"'?>>20-29 hours</option>
+                                <option value="30-39" <?php if($value->get_hrs_perweek() =='30-39') echo 'selected="selected"'?>>30-39 hours</option>
+                                <option value="40_plus" <?php if($value->get_hrs_perweek() =='40_plus') echo 'selected="selected"'?>>More than 40 hours</option>
                             </select>
                         </div>
                     </div>
@@ -214,12 +207,12 @@
                         </div>
                         <div class="col-md-5">
                             <select class="form-control" name="job_duration">
-                                <option value="not_sure" <?php if($value->job_duration=='not_sure') echo 'selected="selected"'?>>Not Sure</option>
-                                <option value="more_than_6_months" <?php if($value->job_duration=='more_than_6_months') echo 'selected="selected"'?>>More than 6 months</option>
-                                <option value="3_6_months" <?php if($value->job_duration=='3_6_months') echo 'selected="selected"'?>>3 - 6 months</option>
-                                <option value="1_3_months" <?php if($value->job_duration=='1_3_months') echo 'selected="selected"'?>>1 - 3 months</option>
-                                <option value="less_than_1_months" <?php if($value->job_duration=='less_than_1_months') echo 'selected="selected"'?>>Less than 1 month</option>
-                                <option value="less_than_1_week" <?php if($value->job_duration=='less_than_1_week') echo 'selected="selected"'?>>Less than 1 week</option>
+                                <option value="not_sure" <?php if($value->get_duration() =='not_sure') echo 'selected="selected"'?>>Not Sure</option>
+                                <option value="more_than_6_months" <?php if($value->get_duration() =='more_than_6_months') echo 'selected="selected"'?>>More than 6 months</option>
+                                <option value="3_6_months" <?php if($value->get_duration() =='3_6_months') echo 'selected="selected"'?>>3 - 6 months</option>
+                                <option value="1_3_months" <?php if($value->get_duration() =='1_3_months') echo 'selected="selected"'?>>1 - 3 months</option>
+                                <option value="less_than_1_months" <?php if($value->get_duration() =='less_than_1_months') echo 'selected="selected"'?>>Less than 1 month</option>
+                                <option value="less_than_1_week" <?php if($value->get_duration() =='less_than_1_week') echo 'selected="selected"'?>>Less than 1 week</option>
                             </select>
                         </div>
                     </div>
@@ -227,7 +220,6 @@
                 <br> <br>
                 <div class="col-md-12 form-group">
                     <input type="submit" value="Update" class="btn-primary big_mass_active transparent-btn big_mass_button pull-left" id='submitBtn'>
-					
                     <input type="submit" value="Cancel" class="btn-primary transparent-btn big_mass_button pull-left" id='previewBtn'>
                     <img src='<?= site_url(); ?>assets/img/version1/loader.gif' class="form-loader" style="display:none">
                 </div>
@@ -308,8 +300,8 @@ padding-left: 40px;
                 console.log(this.files[0]);
                 formdata = new FormData();
                 formdata.append("files", this.files[0]);
-                formdata.append("uid", <?= $value->user_id ?>);
-                formdata.append("ident", <?= $value->tid == 0 ? time() : $value->tid ?>);
+                formdata.append("uid", <?= $value->get_employerid() ?>);
+                formdata.append("ident", <?= $value->get_tid() == 0 ? time() : $value->get_tid() ?>);
             } else {
                 alert('Executable files are NOT allowed!');
                 return false;
@@ -339,7 +331,7 @@ padding-left: 40px;
                                 var removeButton = $("<img src=\"<?= base_url() ?>assets/img/delete_icon.gif\" alt=\"Remove\" title=\"Remove\" style=\"margin-left: 5px;\" />");
                                 removeButton.click(function() {
                                     if (confirm("Are you sure you want to delete: \n" + $(this).parent().text() + " ?")) {
-                                        $.post("<?= base_url() . 'jobs/removefile' ?>", "file=" + $.trim($(this).parent().text()) + "&tid=<?= $value->user_id ?>/<?= $value->tid == 0 ? time() : $value->tid ?>");
+                                        $.post("<?= base_url() . 'jobs/removefile' ?>", "file=" + $.trim($(this).parent().text()) + "&tid=<?= $value->get_employerid() ?>/<?= $value->get_tid() == 0 ? time() : $value->get_tid() ?>");
                                         $(this).parent().remove();
                                     }
                                 });

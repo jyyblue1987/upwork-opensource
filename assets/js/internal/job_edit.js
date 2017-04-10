@@ -54,7 +54,7 @@ $(document).ready(function () {
             }
         },
         success: function (rs) {
-            console.log(rs);
+            //console.log(rs);
             var data = JSON.parse(rs);
             
                 if (data.code == '0')
@@ -66,13 +66,12 @@ $(document).ready(function () {
                     $('input:submit').removeAttr('disabled');
                 }
                 else
-                {               
+                {
                     window.location = base_url() + 'jobs-home';
-                    //window.location = "/jobs/view_"+data.type+"/"+data.id+'?success=1';
                 }
         }
     };
-// bind form using 'ajaxForm' 
+
     $('#jobEdit').ajaxForm(options);
 
 });
