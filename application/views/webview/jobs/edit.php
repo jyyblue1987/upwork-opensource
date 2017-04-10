@@ -1,4 +1,19 @@
 <link rel="stylesheet" href="<?php echo site_url("assets/css/chosen.css"); ?>">
+<style>
+    input[type=file] {
+        display:block;
+        top: 0;
+        left: 0;
+        height:0;
+        width:0;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        font-size: 8pt;
+        z-index: 1;
+        visibility: hidden;
+        margin-left: -40px;
+    }
+</style>
 <script src="<?php echo site_url("assets/js/chosen.jquery.js"); ?>"></script>
 <section id="big_header" style="margin-top: 40px; margin-bottom: 40px; height: auto;overflow: hidden;border-right: 1px solid #ccc;margin-left: 13px;border-radius: 4px;">
     <div  style="border:1px solid #ccc;" class="container white-box-feed">
@@ -21,7 +36,7 @@
                             <input type="hidden"  name="id" class="form-control"  value='<?php echo $value->id;?>'>
                         </div>
                     </div>
-					
+
                     <div style="margin-top: 15px;" class="row">
                         <div class="col-md-12">
                             <h4 class="main_title">Select Category</h4>
@@ -86,7 +101,6 @@
                                     </select>
                                 </div>
                             </div>
-                            <!-- <input type="text"  name="skills" class="form-control" value='<?php echo $value->skills;?>'> -->
                         </div>
                     </div>
 					
@@ -104,10 +118,28 @@
                             <h4 class="main_title">Attach File</h4>
                         </div>
                         <div class="col-md-12">
-                            <div class="edit_title">
-                                <input style="padding: 0;" type="file" value="" name="userfile" class="">
-                                <input type="hidden" value="<?php echo $value->userfile;?>" name="oldUserFile" >
-                            </div>
+                            <div class="upload_file">
+                                    <input type="file" name="files" id="files" />
+                                    <input type="button" id="uploader" value="Add files" style="margin-left: 0px;" class="btn my_btn" />
+                                    <div id="file_lists" style="margin: 0">
+                                        <ul id="lists">
+                                            <?php 
+                                                $attachments = explode(",", $value->userfile);
+                                                foreach($attachments AS $attachment){
+                                                    if($value->userfile != " "){
+                                                        if($attachment != ""){
+                                                            //echo '<input type="hidden" value="'.str_replace('"','', $attachment).'" name="delete_file" id="delete_file" />';
+                                                        }
+                                                        echo '<li>'.str_replace('"','', $attachment).'<img src="'.site_url().'assets/img/delete_icon.gif" data-formDiscard="'.$value->user_id.'/'.$value->tid.'" class="remove_attachment"></li>'; 
+                                                    }
+                                                }
+                                            ?>
+                                        </ul>
+                                    </div>
+                                    <input type="hidden" name="requestor" value="<?= $value->user_id ?>" />
+                                    <input type="hidden" name="tid" value="<?= $value->tid == 0 ? time() : $value->tid ?>" />
+                                    <input type="hidden" name="attachments" id="attachments" />
+                                </div>
                         </div>
                     </div>
 					
@@ -197,7 +229,7 @@
                     <input type="submit" value="Update" class="btn-primary big_mass_active transparent-btn big_mass_button pull-left" id='submitBtn'>
 					
                     <input type="submit" value="Cancel" class="btn-primary transparent-btn big_mass_button pull-left" id='previewBtn'>
-                    <img src='/assets/img/version1/loader.gif' class="form-loader" style="display:none">
+                    <img src='<?= site_url(); ?>assets/img/version1/loader.gif' class="form-loader" style="display:none">
                 </div>
 
                 <!--<button type="submit" class="btn btn-primary pull-right">Next</button>-->
@@ -248,4 +280,105 @@ padding-left: 40px;
         var _parent_cat = $(this).find(":selected").parents('optgroup').attr('label');
         $(this).val().preppend(_parent_cat);
     });
+</script>
+<script>
+    var formSubmitted = false;
+    $(document).ready(function() {
+       clearForms();
+        $('.remove_attachment').click(function(evt) {
+            var _this = $(this);
+            var formDiscard = _this.data('formdiscard');
+            var file = $('#delete_file').val();
+            m = confirm("Are you sure you want to delete this post?");  
+            if( m == true ) {
+               $.post("<?= base_url() . 'jobs/removefile' ?>", "file=" + file + "&tid="+formDiscard);
+               $(this).parent().remove()
+            } else {
+               return false;
+            }
+        });
+
+        $('#uploader').click(function() {
+            $('input[type=file]').trigger('click');
+        });
+
+        $('input[type=file]').change(function() {
+            var formdata = false;
+            if (accepted_file($(this).val())) {
+                console.log(this.files[0]);
+                formdata = new FormData();
+                formdata.append("files", this.files[0]);
+                formdata.append("uid", <?= $value->user_id ?>);
+                formdata.append("ident", <?= $value->tid == 0 ? time() : $value->tid ?>);
+            } else {
+                alert('Executable files are NOT allowed!');
+                return false;
+            }
+            console.log(formdata);
+            if (formdata) {
+                $.ajax({
+                    url: "<?= base_url() ?>jobs/upload",
+                    type: "POST",
+                    data: formdata,
+                    processData: false,
+                    contentType: false,
+                    success: function(res) {
+                        console.log(res);
+                        switch (res) {
+                            case "0":
+                                alert('There was an error uploading the file, please try again!');
+                                break;
+                            case "1":
+                                alert('You have already added that file!');
+                                break;
+                            case "-1":
+                                alert('File size should NOT be greater than 15MB!');
+                                break;
+                            default:
+                                var fileWrapper = $("<li>");
+                                var removeButton = $("<img src=\"<?= base_url() ?>assets/img/delete_icon.gif\" alt=\"Remove\" title=\"Remove\" style=\"margin-left: 5px;\" />");
+                                removeButton.click(function() {
+                                    if (confirm("Are you sure you want to delete: \n" + $(this).parent().text() + " ?")) {
+                                        $.post("<?= base_url() . 'jobs/removefile' ?>", "file=" + $.trim($(this).parent().text()) + "&tid=<?= $value->user_id ?>/<?= $value->tid == 0 ? time() : $value->tid ?>");
+                                        $(this).parent().remove();
+                                    }
+                                });
+                                fileWrapper.html(res);
+                                fileWrapper.append(removeButton);
+                                $('#lists').append(fileWrapper);
+                                break;
+                        }
+                    }
+                });
+            }
+        });
+
+        $('#jobEdit').submit(function() {
+            var f = '"';
+            $('#lists').children().each(function() {
+                f = f + $.trim($(this).text()) + '","';
+            });
+            $('#attachments').val(f.substring(0, f.length - 2));
+            formSubmitted = true;
+        });
+    });
+    function form_valid(f) {
+        formSubmitted = f;
+    }
+
+    function accepted_file(filename) {
+        var ext = filename.split('.').pop().toLowerCase();
+        if (ext !== 'exe') {
+            return true;
+        } else
+            return false;
+    }
+
+    function clearForms()
+    {
+        var i;
+        for (i = 0; (i < document.forms.length); i++) {
+            document.forms[i].reset();
+        }
+    }
 </script>

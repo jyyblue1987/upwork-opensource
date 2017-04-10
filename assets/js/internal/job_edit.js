@@ -54,10 +54,11 @@ $(document).ready(function () {
             }
         },
         success: function (rs) {
+            console.log(rs);
             var data = JSON.parse(rs);
+            
                 if (data.code == '0')
                 {
-
                     $('.form-loader').hide();
                     $('.form-msg').html(data.msg);
                     $('.form-msg').show();
@@ -66,7 +67,7 @@ $(document).ready(function () {
                 }
                 else
                 {               
-                    window.location = '/jobs-home';
+                    window.location = base_url() + 'jobs-home';
                     //window.location = "/jobs/view_"+data.type+"/"+data.id+'?success=1';
                 }
         }

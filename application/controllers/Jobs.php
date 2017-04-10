@@ -15,7 +15,7 @@ class Jobs extends Winjob_Controller {
         // load the default language for the current user.
         $this->load_language();
         // added by (Donfack Zeufack Hermann) end
-        $this->load->model(array('Category', 'Common_mod', 'Webuser_model', 'Process', 'Employer', 'profile/ProfileModel', 'Job_work_diary_model', 'Skills_model'));
+        $this->load->model(array('Category', 'Common_mod', 'Webuser_model', 'Process', 'Employer', 'profile/ProfileModel', 'Job_work_diary_model', 'Skills_model', 'jobs_model'));
         $this->load->library('paypal_lib');
         $this->process = new Process();
         $this->user_id = $this->session->userdata('id');
@@ -66,12 +66,10 @@ class Jobs extends Winjob_Controller {
     }
 
     public function create() {
-        
         $this->checkForEmployer();
-        
         $this->load->model( array( 'webuser_model', 'skills_model', 'jobs_model' ) );
         
-    // check if account is suspend then redirect to payment start 
+        // check if account is suspend then redirect to payment start 
         $user_id = $this->session->userdata('id');
         
         if( ! $this->webuser_model->is_active( $user_id) )
@@ -93,39 +91,36 @@ class Jobs extends Winjob_Controller {
         }
         else if($this->input->is_ajax_request() && is_post() && $this->input->post('title'))//Here we need to handle job creation
         {
-            //$data             = $this->input->post();
-            
-            
+            $data = array(
+                'title' => $this->input->post('title'),
+                'category' => $this->input->post('category'),
+                'job_description' => $this->input->post('job_description'),
+                'job_type' => $this->input->post('job_type'),
+                'job_duration' => $this->input->post('job_duration'),
+                'experience_level' => $this->input->post('experience_level'),
+                'budget' => $this->input->post('budget'),
+                'hours_per_week' => $this->input->post('hours_per_week'),
+                'userfile' => $this->input->post('userfile'),
+                'status' => 1,
+                'job_created' => date('Y-m-d H:i:s'),
+                'userfile' => $this->input->post('attachments'),
+                'user_id'  => $user_id,
+                'tid'  => $this->input->post('tid')
+            );
+
             if ($this->input->post('submitbtn') == '0') //JOB PREVIEW
             {
+                $data['skills'] = $this->input->post('skills');
                 $this->session->set_userdata('preview', $data);
                 $this->ajax_response( array('code' => '1', 'id' => '0') );
             }
             else // CREATE THE JOB
             {
-                $skillNames = '';
-                $skills = $this->input->post('skills');
-                $data['skills'] = $skillNames;
-                $data['title'] = $this->input->post('title');
-                $data['category'] = $this->input->post('category');
-                $data['job_description'] = $this->input->post('job_description');
-                $data['job_type'] = $this->input->post('job_type');
-                $data['job_duration'] = $this->input->post('job_duration');
-                $data['experience_level'] = $this->input->post('experience_level');
-                $data['budget'] = $this->input->post('budget');
-                $data['hours_per_week'] = $this->input->post('hours_per_week');
-                $data['userfile'] = $this->input->post('userfile');
-                $data['status'] = 1;
-                $data['job_created'] = date('Y-m-d H:i:s');
-                $data['userfile'] = $this->input->post('attachments');
-                $data['user_id']  = $user_id;
-                $data['tid']  = $this->input->post('tid');
-
                 unset( $data['submitbtn'] );
-                
                 $job_id  = $this->jobs_model->create( $data );
                 if( $job_id != null )
                 {
+                    $skills = $this->input->post('skills');
                     $this->jobs_model->link_to_skills( $job_id, $skills);                    
                     $this->ajax_response( array('code' => '0', 'id' => base64_encode($job_id), 'type' => $data['job_type']) );
                 }
@@ -138,13 +133,16 @@ class Jobs extends Winjob_Controller {
     }
 
     public function savePostSession() {
-
         $data = $this->session->userdata('preview');
+        $skills = $data['skills'];
+        unset($data['skills']);
+        
         unset($data['submitbtn']);
         if ($this->input->post('submitbtn')) {
             if ($this->db->insert('jobs', $data)) {
                 $insert_id = $this->db->insert_id();
-                redirect("/jobs/view_" . $data['job_type'] . "/" . base64_encode($insert_id));
+                $this->jobs_model->link_to_skills( $insert_id, $skills);   
+                redirect(site_url().'jobs-home');
             }
         }
         redirect($_SERVER['HTTP_REFERER']);
@@ -964,7 +962,7 @@ class Jobs extends Winjob_Controller {
         if ($this->Adminlogincheck->checkx()) {
             $id = $this->session->userdata('id');
             
-
+            $rate = $this->ProfileModel->get_profile($id);
             // Davit start
             $this->db->select('id');
             $monthStart = date('Y-m-01');
@@ -994,7 +992,10 @@ class Jobs extends Winjob_Controller {
                 }
                 // Davit end
                 $data = $this->input->post();
-
+                unset($data['tid']);
+                unset($data['attachments']);
+                unset($data['requestor']);
+                unset($data['files']);
                 $data['user_id'] = $this->session->userdata('id');
                 $title = $data['job_title'];
                 unset($data['job_title']);
@@ -1003,18 +1004,9 @@ class Jobs extends Winjob_Controller {
                 //    var_dump($data);die();
                 if ($this->db->insert('job_bids', $data)) {
                     $insert_id = $this->db->insert_id();
-                    if (isset($_FILES['file']['name']) && (!empty($_FILES['file']['name']))) {
-                        for ($i = 0; $i < count($_FILES['file']['name']); $i++) {
-                            $ext = pathinfo($_FILES['file']['name'][$i], PATHINFO_EXTENSION);
-                            $newFileName = time() . rand(0000, 9999) . $this->session->userdata('id') . '.' . $ext;
-                            $source = $_FILES['file']['tmp_name'][$i];
-                            $dest = './uploads/' . $newFileName;
-                            move_uploaded_file($source, $dest);
-                            $dbPath = '/uploads/' . $newFileName;
-                            $dataAttach = array('job_bid_id' => $insert_id, 'path' => $dbPath);
-                            $this->db->insert('job_bid_attachments', $dataAttach);
-                        }
-                    }
+
+                    $dataAttach = array('job_bid_id' => $insert_id, 'path' => $this->input->post('attachments'), 'tid' => $this->input->post('tid'));
+                    $this->db->insert('job_bid_attachments', $dataAttach);
 
                     $rs = array('code' => '1', 'msg' => '');
                     $this->session->set_flashdata('msg', 'You have successfully submitted proposal for ' . $title);
@@ -1075,7 +1067,8 @@ class Jobs extends Winjob_Controller {
             $interviews = $this->process->get_interviews($record->user_id, $postId);
             $hires = $this->process->get_hires($record->user_id, $postId);
             // Davit start
-            $data = array('value' => $record, 'applicants' => $applicants['rows'], 'hires' => $hires['rows'], 'interviews' => $interviews['rows'], 'workedhours' => $workedhours, 'hire' => $record_hire,   'record_sidebar' => $record_sidebar, 'skills' => $job_skills, 'proposals' => $proposals, 'js' => array('dropzone.js', 'vendor/jquery.form.js', 'internal/job_apply.js'), 'css' => array("","","","assets/css/pages/apply.css"));
+
+            $data = array('value' => $record, 'user_id'=> $id, 'tid' => time(), 'rate' => $rate['hourly_rate'], 'userfile' => $record->userfile, 'applicants' => $applicants['rows'], 'hires' => $hires['rows'], 'interviews' => $interviews['rows'], 'workedhours' => $workedhours, 'hire' => $record_hire,   'record_sidebar' => $record_sidebar, 'skills' => $job_skills, 'proposals' => $proposals, 'js' => array('dropzone.js', 'vendor/jquery.form.js', 'internal/job_apply.js'), 'css' => array("","","","assets/css/pages/apply.css"));
             // Davit end
             $this->Admintheme->custom_webview("jobs/apply", $data);
         }
@@ -1174,58 +1167,41 @@ class Jobs extends Winjob_Controller {
     public function edit($postId = null) {
         if ($this->Adminlogincheck->checkx() && $this->session->userdata('type') == '1') {
             if ($this->input->post('title')) {
-                if (isset($_FILES['userfile']['name']) && ($_FILES['userfile']['name'] != '')) {
-                    $ext = pathinfo($_FILES['userfile']['name'], PATHINFO_EXTENSION);
-                    $newFileName = time() . rand(0000, 9999) . $this->session->userdata('id') . '.' . $ext;
-                    $source = $_FILES['userfile']['tmp_name'];
-                    $dest = './uploads/' . $newFileName;
-                    if (move_uploaded_file($source, $dest)) {
-                        $dbPath = '/uploads/' . $newFileName;
-                        @unlink('/uploads/' . $this->input->post('oldUserFile'));
-                    } else {
-                        $rs = array('code' => '0', 'msg' => '<div class="alert alert-danger">
-                              <strong>Error!</strong> Error in uploading file.
-                            </div>');
-                        echo json_encode($rs);
-                        die;
-                    }
-                }
-
-                //save
-                $data = $this->input->post();
-                unset($data['userfile']);
-                if (isset($dbPath))
-                    $data['userfile'] = $dbPath;
-                $data['user_id'] = $this->session->userdata('id');
-                unset($data['oldUserFile']);
+          
                 if ($data['job_type'] == 'hourly') {
                     unset($data['budget']);
                 } else {
                     unset($data['hours_per_week']);
                 }
-                // Added by Armen start
-                // update skills
+
                 $this->db->where('job_id', $this->input->post('id'));
                 $this->db->delete('job_skills');
                 $skills = array();
                 $skills['job_id'] = $this->input->post('id');
-                foreach ($data['skills'] as $key => $value) {
+                foreach ($this->input->post('skills') as $key => $value) {
                     $skills['skill_name'] = $value;
                     $this->db->insert('job_skills', $skills);
                 }
 
-                // Added by Armen end
+                $data['title'] = $this->input->post('title');
+                $data['category'] = $this->input->post('category');
+                $data['job_description'] = $this->input->post('job_description');
+                $data['job_type'] = $this->input->post('job_type');
+                $data['job_duration'] = $this->input->post('job_duration');
+                $data['experience_level'] = $this->input->post('experience_level');
+                $data['budget'] = $this->input->post('budget');
+                $data['hours_per_week'] = $this->input->post('hours_per_week');
+                $data['tid'] = $this->input->post('tid');
+                $data['userfile'] = $this->input->post('attachments');
                 $data['skills'] = "";
                 $this->db->where('id', $this->input->post('id'));
                 if ($this->db->update('jobs', $data)) {
                     $rs = array('code' => '1', 'type' => $data['job_type']);
                     $this->session->set_flashdata('msg', $data['title'] . ' has been updated');
-                    echo json_encode($rs);
                 } else {
                     $rs = array('code' => '0', 'msg' => '<div class="alert alert-danger">
                       <strong>Error!</strong> Error occured.Try again.
                     </div>');
-                    echo json_encode($rs);
                 }
                 die;
             }
@@ -2531,7 +2507,7 @@ class Jobs extends Winjob_Controller {
             $id = $this->session->userdata('id');
             $this->db->select(array('job_bids.*', 'jobs.title', 'jobs.job_type', 'jobs.id as jobid',
                 'jobs.budget', 'jobs.hours_per_week', 'jobs.job_duration', 'jobs.category',
-                'jobs.experience_level', 'jobs.skills', 'jobs.job_description', 'jobs.user_id as clientid'));
+                'jobs.experience_level', 'jobs.skills', 'jobs.job_description', 'jobs.user_id as clientid', 'jobs.userfile', 'jobs.tid'));
             $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'left');
             $this->db->order_by("job_bids.id", "desc");
             $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id, 'job_bids.id' => $bidId));
@@ -2541,14 +2517,13 @@ class Jobs extends Winjob_Controller {
             }else{
                 redirect(site_url().'bids_list');
             }
-            
                     $this->db->select('*');
                     $this->db->from('jobs');
                     $this->db->where('user_id', $value->clientid);
                     $query_sidebar = $this->db->get();
                     $record_sidebar = $query_sidebar->num_rows();
                     $records = $query_sidebar->result();
-
+                    
                     $jobids = array();
             foreach ($records as $jobs) {
                 $jobids[] = $jobs->id;
@@ -2563,7 +2538,7 @@ class Jobs extends Winjob_Controller {
             $this->db->where('hired', 1);
             $query_hire = $this->db->get();
             $record_hire = $query_hire->num_rows();
-
+            
             $this->db->select('*');
             $this->db->from('job_workdairy');
             $this->db->where_in('cuser_id', $value->clientid);
@@ -2592,7 +2567,7 @@ class Jobs extends Winjob_Controller {
                     $paymentSet = $query->num_rows();
                 }
                 
-                $this->db->select("skill_name");
+            $this->db->select("skill_name");
             $this->db->from("job_skills");
             $this->db->where("job_id = ", $value->jobid);
             $query = $this->db->get();
@@ -2602,6 +2577,12 @@ class Jobs extends Winjob_Controller {
             $applicants = $this->process->get_applications($value->jobid);
             $interviews = $this->process->get_interviews($value->clientid, $value->jobid);
             $hires = $this->process->get_hires($value->clientid, $value->jobid);
+            
+            $this->db->select("*");
+            $this->db->from("job_bid_attachments");
+            $this->db->where("job_bid_id = ", $bidId);
+            $query = $this->db->get();
+            $attachments = $query->result_array();
             
             $data = array('value' => $value,
                 'record_sidebar' => $record_sidebar,
@@ -2616,7 +2597,9 @@ class Jobs extends Winjob_Controller {
                 'hires' => $hires['rows'], 
                 'interviews' => $interviews['rows'], 
                 'skills' => $job_skills,
+                'files' => $value->userfile,
                 'user_id' => $value->clientid,
+                'f_attachments' => $attachments,
                 'js' => array('vendor/jquery.form.js',
                     'internal/job_withdraw.js'));
             $this->Admintheme->webview("jobs/withdraw_system", $data);

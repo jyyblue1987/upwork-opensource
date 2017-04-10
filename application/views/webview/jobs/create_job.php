@@ -116,15 +116,13 @@
                         <div class="col-md-12">
                           <div class="edit_title">
                                 <div class="upload_file">
-<!--                                <input type="file" value="" name="userfile" class="upload"
-                                   id="user_file">-->
                                     <input type="file" name="files" id="files" />
                                     <input type="button" id="uploader" value="Add files" style="margin-left: 0px;" class="btn my_btn" />
                                     <div id="file_lists" style="margin: 0">
                                         <ul id="lists">
                                         </ul>
                                     </div>
-                                    <input type="text" name="requestor" value="<?= $user_id ?>" />
+                                    <input type="hidden" name="requestor" value="<?= $user_id ?>" />
                                     <input type="hidden" name="tid" value="<?= $tid ?>" />
                                     <input type="hidden" name="attachments" id="attachments" />
                                 </div>

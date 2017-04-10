@@ -62,11 +62,11 @@ $(document).ready(function () {
             {
                 if ($("input[name=job_type]:checked").val() == 'hourly')
                 {
-                    window.location = "/jobs/preview_hourly";
+                    window.location = base_url() + "jobs/preview_hourly";
                 }
                 else
                 {
-                    window.location = "/jobs/preview_fixed";
+                    window.location = base_url() + "jobs/preview_fixed";
                 }
             }
             else

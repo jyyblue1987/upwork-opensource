@@ -128,8 +128,38 @@ class Freelancerinvite extends CI_Controller {
             $interviews = $this->process->get_interviews($record->user_id, $postId);
             $hires = $this->process->get_hires($record->user_id, $postId);
 
-            
-            $data = array('value' => $record, 'hire' => $record_hire, 'cover_letter' => $bids_details->cover_latter, 'receiver' => $record->user_id,  'applied' => $is_applied, 'conversations' => $conversation, 'conversation_count' => $conversation_count, 'withdrawn' =>$bids_details->withdrawn, 'withdrawn_by' =>$bids_details->withdrawn_by,  'bid_details'=>$bids_details,'js' => array('vendor/jquery.form.js', 'internal/job_withdraw.js'),'accepted_jobs'=>$accepted_jobs,'record_sidebar' => $record_sidebar,'hire'=>$record_hire,'workedhours'=>$workedhours, 'applicants' => $applicants['rows'], 'hires' => $hires['rows'], 'interviews' => $interviews['rows'], 'skills' => $job_skills,);
+            $this->db->select("*");
+            $this->db->from("job_bid_attachments");
+            $this->db->where("job_bid_id = ", $bids_details->id);
+            $query = $this->db->get();
+            $attachments = $query->result_array();
+
+            $data = array(
+                'value' => $record, 
+                'hire' => $record_hire, 
+                'cover_letter' => $bids_details->cover_latter, 
+                'files' => $value->userfile,
+                'user_id' => $value->clientid,
+                'f_attachments' => $attachments,
+                'receiver' => $record->user_id,  
+                'applied' => $is_applied, 
+                'conversations' => $conversation, 
+                'conversation_count' => $conversation_count, 
+                'withdrawn' =>$bids_details->withdrawn, 
+                'withdrawn_by' =>$bids_details->withdrawn_by,  
+                'bid_details'=>$bids_details,
+                'accepted_jobs'=>$accepted_jobs,
+                'record_sidebar' => $record_sidebar,
+                'hire'=>$record_hire,
+                'workedhours'=>$workedhours, 
+                'applicants' => $applicants['rows'], 
+                'hires' => $hires['rows'], 
+                'interviews' => $interviews['rows'], 
+                'skills' => $job_skills,
+                'files' => $value->userfile,
+                'f_attachments' => $attachments,
+                'f_id' => $bids_details->user_id,
+                'js' => array('vendor/jquery.form.js', 'internal/job_withdraw.js'));
             $this->Admintheme->webview("freelancerinvite", $data);
         }
 

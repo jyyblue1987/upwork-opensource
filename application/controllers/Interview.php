@@ -91,6 +91,12 @@ class Interview extends CI_Controller{
             if(isset($_GET['job_id'])){
                 $job_info = $this->process->get_job_info($user_id, $job_id);
             }
+            
+            $this->db->select("*");
+            $this->db->from("job_bid_attachments");
+            $this->db->where("job_bid_id = ", $bid_id);
+            $query = $this->db->get();
+            $attachments = $query->result_array();
 
             if(!empty($freelancer)){
                 if(!empty($freelancer_profile)){
@@ -113,7 +119,9 @@ class Interview extends CI_Controller{
                         'rating' => $user_rating,
                         'conversation' => $conversation,
                         'hourly_rate' => $freelancer_profile['hourly_rate'],
-                        'exp' => $freelancer_profile['work_experience_year']
+                        'exp' => $freelancer_profile['work_experience_year'],
+                        'f_attachments' => $attachments,
+                        'f_id' => $freelancer->webuser_id
                     );
 
                     $this->Admintheme->webview2("interview", $params);
