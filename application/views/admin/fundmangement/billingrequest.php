@@ -138,7 +138,7 @@
                                 <?php endforeach; ?>
                             <?php else: ?>
                             <tr>
-                                <td colspan="12"><b> No billing request yet. </b></td>
+                                <td colspan="12"><b> No invoices yet. </b></td>
                             </tr>
                             <?php endif; ?>
                         </tbody>

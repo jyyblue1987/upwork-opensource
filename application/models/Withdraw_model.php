@@ -48,6 +48,7 @@ class Withdraw_model extends CI_Model
       withdraw.amount,
       withdraw.id,
       withdraw.date,
+      withdraw.operation_date,
       withdraw.status AS status_payment,
       CONCAT(webuser.webuser_fname, ' ', webuser.webuser_lname) AS name,
       webuser.webuser_username,

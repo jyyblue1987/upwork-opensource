@@ -161,3 +161,6 @@ defined('INVOICE_PROCESSING_PAID') || define('INVOICE_PROCESSING_PAID', 'PROCESS
 defined('WITHDRAW_PAYPAL')    || define('WITHDRAW_PAYPAL', 'paypal');
 defined('WITHDRAW_SKRILL')    || define('WITHDRAW_SKRILL', 'skrill');
 defined('WITHDRAW_PAYONEER')  || define('WITHDRAW_PAYONEER', 'payoneer');
+
+defined('WITHDRAW_PROCESSED')    || define('WITHDRAW_PROCESSED', 'processed');
+defined('WITHDRAW_PENDING')    || define('WITHDRAW_PENDING', 'pending');

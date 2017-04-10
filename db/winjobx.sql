@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10.14
+-- version 4.5.5.1
 -- http://www.phpmyadmin.net
 --
--- Client: localhost:3306
--- Généré le: Jeu 23 Mars 2017 à 15:56
--- Version du serveur: 5.6.33-cll-lve
--- Version de PHP: 5.6.20
+-- Client :  127.0.0.1
+-- Généré le :  Lun 10 Avril 2017 à 16:48
+-- Version du serveur :  5.7.11
+-- Version de PHP :  5.6.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,10 +14,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données: `winjobx`
+-- Base de données :  `winjobx`
 --
 CREATE DATABASE IF NOT EXISTS `winjobx` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `winjobx`;
@@ -29,15 +29,14 @@ USE `winjobx`;
 --
 
 DROP TABLE IF EXISTS `adminresettoken`;
-CREATE TABLE IF NOT EXISTS `adminresettoken` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `adminresettoken` (
+  `id` int(11) NOT NULL,
   `token` varchar(100) NOT NULL,
   `user` varchar(20) NOT NULL,
   `status` varchar(2) NOT NULL,
   `ctime` int(30) NOT NULL,
-  `etime` int(30) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=54 ;
+  `etime` int(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `adminresettoken`
@@ -61,17 +60,14 @@ INSERT INTO `adminresettoken` (`id`, `token`, `user`, `status`, `ctime`, `etime`
 --
 
 DROP TABLE IF EXISTS `billingmethodlist`;
-CREATE TABLE IF NOT EXISTS `billingmethodlist` (
-  `sr` int(255) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `billingmethodlist` (
+  `sr` int(255) NOT NULL,
   `belongsTo` int(255) NOT NULL,
   `paymentMethod` varchar(11) COLLATE utf8_bin NOT NULL COMMENT 'cc or paypal',
   `attachedTo` int(11) NOT NULL,
   `isPrimary` int(11) NOT NULL,
-  `isDeleted` tinyint(4) NOT NULL,
-  PRIMARY KEY (`sr`),
-  KEY `sr` (`sr`),
-  KEY `attachedTo` (`attachedTo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=73 ;
+  `isDeleted` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Contenu de la table `billingmethodlist`
@@ -84,7 +80,7 @@ INSERT INTO `billingmethodlist` (`sr`, `belongsTo`, `paymentMethod`, `attachedTo
 (56, 18, 'paypal', 38, 0, 1),
 (57, 29, 'paypal', 39, 0, 1),
 (58, 18, 'paypal', 40, 0, 1),
-(59, 18, 'paypal', 41, 0, 0),
+(59, 18, 'paypal', 41, 1, 0),
 (60, 18, 'stripe', 47, 0, 1),
 (61, 18, 'stripe', 48, 0, 1),
 (62, 18, 'stripe', 52, 0, 1),
@@ -97,7 +93,7 @@ INSERT INTO `billingmethodlist` (`sr`, `belongsTo`, `paymentMethod`, `attachedTo
 (69, 18, 'stripe', 59, 0, 1),
 (70, 18, 'stripe', 60, 0, 1),
 (71, 18, 'stripe', 61, 0, 1),
-(72, 18, 'stripe', 62, 1, 0);
+(72, 18, 'stripe', 62, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -106,8 +102,8 @@ INSERT INTO `billingmethodlist` (`sr`, `belongsTo`, `paymentMethod`, `attachedTo
 --
 
 DROP TABLE IF EXISTS `ccdetails`;
-CREATE TABLE IF NOT EXISTS `ccdetails` (
-  `sr` int(255) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ccdetails` (
+  `sr` int(255) NOT NULL,
   `fname` varchar(255) COLLATE utf8_bin NOT NULL,
   `lname` varchar(255) COLLATE utf8_bin NOT NULL,
   `cardNumber` varchar(20) COLLATE utf8_bin NOT NULL,
@@ -122,10 +118,8 @@ CREATE TABLE IF NOT EXISTS `ccdetails` (
   `dateAdded` double NOT NULL,
   `dateUpdated` double NOT NULL,
   `belongsTo` double NOT NULL COMMENT 'userID from the user''s table',
-  `isDeleted` tinyint(4) NOT NULL COMMENT 'update to 0 if user delete the row',
-  PRIMARY KEY (`sr`),
-  KEY `sr` (`sr`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=63 ;
+  `isDeleted` tinyint(4) NOT NULL COMMENT 'update to 0 if user delete the row'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Contenu de la table `ccdetails`
@@ -163,8 +157,8 @@ INSERT INTO `ccdetails` (`sr`, `fname`, `lname`, `cardNumber`, `cvv`, `month`, `
 --
 
 DROP TABLE IF EXISTS `country`;
-CREATE TABLE IF NOT EXISTS `country` (
-  `country_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `country` (
+  `country_id` int(11) NOT NULL,
   `country_name` varchar(100) NOT NULL,
   `country_shortcode` varchar(50) NOT NULL,
   `country_dialingcode` varchar(50) NOT NULL,
@@ -173,9 +167,8 @@ CREATE TABLE IF NOT EXISTS `country` (
   `country_sub` varchar(2) NOT NULL,
   `country_avaliable` varchar(3) NOT NULL,
   `country_index` int(10) NOT NULL,
-  `country_status` varchar(2) NOT NULL,
-  PRIMARY KEY (`country_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=214 ;
+  `country_status` varchar(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `country`
@@ -403,8 +396,8 @@ INSERT INTO `country` (`country_id`, `country_name`, `country_shortcode`, `count
 --
 
 DROP TABLE IF EXISTS `daily_hourly_invoice`;
-CREATE TABLE IF NOT EXISTS `daily_hourly_invoice` (
-  `id_daily_hourly_invoice` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `daily_hourly_invoice` (
+  `id_daily_hourly_invoice` int(11) NOT NULL,
   `contract_id` int(100) NOT NULL,
   `des` text NOT NULL,
   `fuser_id` int(10) NOT NULL,
@@ -415,9 +408,8 @@ CREATE TABLE IF NOT EXISTS `daily_hourly_invoice` (
   `status` varchar(20) NOT NULL,
   `currency` varchar(20) NOT NULL,
   `amount` decimal(10,3) NOT NULL,
-  `date` datetime NOT NULL,
-  PRIMARY KEY (`id_daily_hourly_invoice`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -426,8 +418,8 @@ CREATE TABLE IF NOT EXISTS `daily_hourly_invoice` (
 --
 
 DROP TABLE IF EXISTS `daily_hourly_transaction`;
-CREATE TABLE IF NOT EXISTS `daily_hourly_transaction` (
-  `id_daily_hourly_transaction` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `daily_hourly_transaction` (
+  `id_daily_hourly_transaction` int(11) NOT NULL,
   `contract_id` varchar(100) NOT NULL,
   `des` text NOT NULL,
   `fuser_id` int(10) NOT NULL,
@@ -437,9 +429,8 @@ CREATE TABLE IF NOT EXISTS `daily_hourly_transaction` (
   `status` varchar(20) NOT NULL,
   `currency` varchar(20) NOT NULL,
   `amount` decimal(10,3) NOT NULL,
-  `date` datetime NOT NULL,
-  PRIMARY KEY (`id_daily_hourly_transaction`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `daily_hourly_transaction`
@@ -450,7 +441,11 @@ INSERT INTO `daily_hourly_transaction` (`id_daily_hourly_transaction`, `contract
 (2, '13_3Q6QGBXY20', '5hrs*$5.00', 13, 18, 'paypal', '4VV765549N6529153', 'Processed', '', '25.000', '2017-02-06 11:59:59'),
 (3, '13_NYVK5HQ3QP', '5hrs*$5.00', 13, 18, 'paypal', '2H871260K5306254F', 'Processed', '', '25.000', '2017-02-21 11:59:59'),
 (4, '13_3Q6QGBXY20', '1hrs*$5.00', 13, 18, 'paypal', '98V44572SM6041738', 'Processed', '', '5.000', '2017-03-01 11:59:59'),
-(5, '13_3Q6QGBXY20', '3hrs*$5.00', 13, 18, 'stripe', 'ch_1A0FU4C3aXjEIlyVXTQ8Sd5S', 'Processed', '', '15.000', '2017-03-21 11:59:59');
+(5, '13_3Q6QGBXY20', '3hrs*$5.00', 13, 18, 'stripe', 'ch_1A0FU4C3aXjEIlyVXTQ8Sd5S', 'Processed', '', '15.000', '2017-03-21 11:59:59'),
+(6, '13_NYVK5HQ3QP', '4hrs*$5.00', 13, 18, 'paypal', '32942857AB511993E', 'Processed', '', '20.000', '2017-03-24 11:59:59'),
+(7, '13_3Q6QGBXY20', '3hrs*$5.00', 13, 18, 'paypal', '5NB99321KX267570B', 'Processed', '', '15.000', '2017-03-25 11:59:59'),
+(8, '13_NYVK5HQ3QP', '2hrs*$5.00', 13, 18, 'paypal', '32410708VH209382Y', 'Processed', '', '10.000', '2017-04-04 11:59:59'),
+(9, '13_NYVK5HQ3QP', '5hrs*$5.00', 13, 18, 'paypal', '1AH73721T6583002E', 'Processed', '', '25.000', '2017-04-05 11:59:59');
 
 -- --------------------------------------------------------
 
@@ -459,8 +454,8 @@ INSERT INTO `daily_hourly_transaction` (`id_daily_hourly_transaction`, `contract
 --
 
 DROP TABLE IF EXISTS `freelancer_education`;
-CREATE TABLE IF NOT EXISTS `freelancer_education` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `freelancer_education` (
+  `id` int(11) NOT NULL,
   `fuser_id` int(11) NOT NULL,
   `school` varchar(300) NOT NULL,
   `dates_attend_from` varchar(100) NOT NULL,
@@ -469,9 +464,8 @@ CREATE TABLE IF NOT EXISTS `freelancer_education` (
   `field_of_study` varchar(300) NOT NULL,
   `grade` decimal(10,3) NOT NULL,
   `activities` text NOT NULL,
-  `description` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `freelancer_education`
@@ -487,12 +481,63 @@ INSERT INTO `freelancer_education` (`id`, `fuser_id`, `school`, `dates_attend_fr
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `hourly_invoices`
+--
+
+DROP TABLE IF EXISTS `hourly_invoices`;
+CREATE TABLE `hourly_invoices` (
+  `id` int(11) NOT NULL,
+  `invoice_service_id` varchar(255) NOT NULL,
+  `service_name` varchar(255) NOT NULL,
+  `transaction_id` varchar(255) DEFAULT NULL,
+  `status` enum('PAID','PROCESSING_FAILED','UNPAID','') NOT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `hourly_invoices`
+--
+
+INSERT INTO `hourly_invoices` (`id`, `invoice_service_id`, `service_name`, `transaction_id`, `status`, `created_at`, `updated_at`) VALUES
+(13, 'in_1A6LvzC3aXjEIlyVPmhwkSlb', 'stripe', 'txn_1A6LwKC3aXjEIlyVeHMd6hFH', 'PAID', '2017-04-05 18:00:16', '2017-04-05 18:00:16');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `hourly_invoices_items`
+--
+
+DROP TABLE IF EXISTS `hourly_invoices_items`;
+CREATE TABLE `hourly_invoices_items` (
+  `id` int(11) NOT NULL,
+  `bid_id` int(11) NOT NULL,
+  `amount_due` double NOT NULL,
+  `description` text NOT NULL,
+  `status` enum('UNPAID','PAID','PROCESSING_FAILED','') NOT NULL DEFAULT 'UNPAID',
+  `unpaid_reason` text,
+  `invoice_id` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `hourly_invoices_items`
+--
+
+INSERT INTO `hourly_invoices_items` (`id`, `bid_id`, `amount_due`, `description`, `status`, `unpaid_reason`, `invoice_id`, `created_at`, `updated_at`) VALUES
+(10, 210, 10, 'Invoice for Contract ID: 13_NYVK5HQ3QP - 2hrs*$5.00/hr', 'PAID', NULL, '13', '2017-04-05 19:00:16', '2017-04-05 19:00:16'),
+(9, 210, 15, 'Invoice for Contract ID: 13_NYVK5HQ3QP - 3hrs*$5.00/hr', 'PAID', NULL, '13', '2017-04-05 18:56:33', '2017-04-05 18:56:33');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `instagramtoken`
 --
 
 DROP TABLE IF EXISTS `instagramtoken`;
-CREATE TABLE IF NOT EXISTS `instagramtoken` (
-  `instagramtoken_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `instagramtoken` (
+  `instagramtoken_id` int(11) NOT NULL,
   `instagramtoken_owner` varchar(100) NOT NULL,
   `instagramtoken_userid` varchar(100) NOT NULL,
   `instagramtoken_usertoken` varchar(200) NOT NULL,
@@ -504,9 +549,8 @@ CREATE TABLE IF NOT EXISTS `instagramtoken` (
   `instagramtoken_follows` varchar(10) NOT NULL,
   `instagramtoken_status` varchar(2) NOT NULL,
   `instagramtoken_updated` varchar(30) NOT NULL,
-  `instagramtoken_added` varchar(30) NOT NULL,
-  PRIMARY KEY (`instagramtoken_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+  `instagramtoken_added` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `instagramtoken`
@@ -523,8 +567,8 @@ INSERT INTO `instagramtoken` (`instagramtoken_id`, `instagramtoken_owner`, `inst
 --
 
 DROP TABLE IF EXISTS `jobs`;
-CREATE TABLE IF NOT EXISTS `jobs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `jobs` (
+  `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `category` int(11) DEFAULT NULL,
@@ -535,14 +579,11 @@ CREATE TABLE IF NOT EXISTS `jobs` (
   `experience_level` varchar(100) DEFAULT NULL,
   `budget` float(10,2) DEFAULT NULL,
   `hours_per_week` varchar(100) DEFAULT NULL,
-  `userfile` mediumtext,
+  `userfile` varchar(200) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0=>close,open=>1',
   `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `job_created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `tid` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=181 ;
+  `job_created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `jobs`
@@ -612,7 +653,8 @@ INSERT INTO `jobs` (`id`, `user_id`, `title`, `category`, `job_description`, `jo
 (134, 18, 'test3', 1, 'test3', 'fixed', 'PHP', 'more_than_6_months', 'Entry level', 300.00, 'not_sure', '', 0, '2017-01-13 10:46:47', '2017-01-13 10:46:47'),
 (133, 18, 'fixed 1', 1, 'fixed 1', 'fixed', 'PHP', '3_6_months', 'Entry level', 12.00, 'not_sure', '', 0, '2017-01-13 09:53:13', '2017-01-13 09:53:13'),
 (131, 18, 'hourly', 1, 'html', 'hourly', 'HTML', '3_6_months', 'Entry level', 0.00, '20-29', '', 0, '2017-01-13 05:18:10', '2017-01-13 05:18:10'),
-(132, 18, 'fixed', 1, 'fixed', 'fixed', 'PHP', 'more_than_6_months', 'Entry level', 4000.00, 'not_sure', '', 0, '2017-01-13 05:18:33', '2017-01-13 05:18:33');
+(132, 18, 'fixed', 1, 'fixed', 'fixed', 'PHP', 'more_than_6_months', 'Entry level', 4000.00, 'not_sure', '', 0, '2017-01-13 05:18:33', '2017-01-13 05:18:33'),
+(181, 18, 'Work to validate hired payment', 1, 'This job will allow us to validate our job on hired payment confirmation.', 'fixed', '', '1_3_months', 'Entry level', 1500.00, 'not_sure', '/uploads/1490553809592018.jpg', 1, '2017-03-26 18:43:29', '2017-03-26 17:43:29');
 
 -- --------------------------------------------------------
 
@@ -621,17 +663,16 @@ INSERT INTO `jobs` (`id`, `user_id`, `title`, `category`, `job_description`, `jo
 --
 
 DROP TABLE IF EXISTS `job_accepted`;
-CREATE TABLE IF NOT EXISTS `job_accepted` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `job_accepted` (
+  `id` int(11) NOT NULL,
   `fuser_id` int(11) NOT NULL,
   `job_id` int(11) NOT NULL,
   `buser_id` int(11) NOT NULL,
   `bid_id` int(11) NOT NULL,
   `comments` text NOT NULL,
   `contact_id` varchar(100) NOT NULL,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=137 ;
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `job_accepted`
@@ -673,8 +714,8 @@ INSERT INTO `job_accepted` (`id`, `fuser_id`, `job_id`, `buser_id`, `bid_id`, `c
 --
 
 DROP TABLE IF EXISTS `job_bids`;
-CREATE TABLE IF NOT EXISTS `job_bids` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `job_bids` (
+  `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `job_id` int(11) NOT NULL,
   `bid_amount` float(10,2) DEFAULT NULL,
@@ -682,30 +723,8 @@ CREATE TABLE IF NOT EXISTS `job_bids` (
   `bid_earning` float(10,2) DEFAULT NULL,
   `job_duration` varchar(100) DEFAULT NULL,
   `cover_latter` text,
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0=>applied,1=>withdraw',
-  `hired` enum('0','1') DEFAULT '0' COMMENT '0 ->not hired, 1-> hired',
-  `hire_title` varchar(2555) DEFAULT NULL,
-  `hire_message` text,
-  `weekly_limit` int(10) NOT NULL DEFAULT '0',
-  `offer_bid_amount` float(10,2) DEFAULT NULL,
-  `offer_bid_fee` float(10,2) DEFAULT NULL,
-  `offer_bid_earning` float(10,2) DEFAULT NULL,
-  `allow_freelancer` enum('0','1') NOT NULL DEFAULT '0',
-  `fixed_pay_status` enum('0','1','2') DEFAULT NULL COMMENT '0 = paid nothing,1=padi partyl,2= paid all',
-  `weekly_amount` float(10,2) NOT NULL,
-  `fixedpay_amount` float(10,2) DEFAULT '0.00',
-  `start_date` varchar(255) NOT NULL DEFAULT '0',
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `jobstatus` tinyint(1) DEFAULT '0' COMMENT '0=not hire,1=End contact',
-  `end_date` varchar(255) DEFAULT NULL,
-  `bid_reject` int(11) NOT NULL DEFAULT '0' COMMENT '0= Active;1=Rejected',
-  `hired_on` decimal(10,2) NOT NULL,
-  `payment_status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0= notpayment ,1=pay,ent',
-  `withdrawn` int(11) DEFAULT NULL,
-  `withdrawn_by` int(11) DEFAULT NULL,
-  `job_progres_status` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=240 ;
+  `status` tinyint(4) NOT NULL DEFAULT '0'COMMENT
+) ;
 
 --
 -- Contenu de la table `job_bids`
@@ -767,14 +786,14 @@ INSERT INTO `job_bids` (`id`, `user_id`, `job_id`, `bid_amount`, `bid_fee`, `bid
 (218, 13, 152, 5.00, 0.50, 4.50, NULL, 'yrtuytru', 1, '0', NULL, NULL, 0, 5.00, 0.50, 4.50, '0', NULL, 0.00, 0.00, '0', '2017-02-15 08:21:32', 0, NULL, 0, '0.00', 0, 1, 1, 0),
 (219, 9, 152, 5.00, 0.50, 4.50, NULL, 'tyur6tu', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-17 10:30:57', 0, NULL, 1, '0.00', 0, 1, 2, 0),
 (220, 15, 152, 5.00, 0.50, 4.50, NULL, 'fgdfhg', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-17 10:31:24', 0, NULL, 0, '0.00', 0, NULL, NULL, 0),
-(221, 13, 153, 600.00, 60.00, 540.00, 'Less than 1 month', 'fsgfdg', 0, '0', 'seo for 1 webiste', 'fdhfdh', 0, NULL, NULL, NULL, '0', '1', 0.00, 626.00, '17/02/2017', '2017-02-17 10:35:06', 0, NULL, 0, '600.00', 0, NULL, NULL, 3),
+(221, 13, 153, 600.00, 60.00, 540.00, 'Less than 1 month', 'fsgfdg', 0, '0', 'seo for 1 webiste', 'fdhfdh', 0, NULL, NULL, NULL, '0', '1', 0.00, 200684.00, '17/02/2017', '2017-02-17 10:35:06', 0, NULL, 0, '600.00', 0, NULL, NULL, 3),
 (222, 9, 153, 61.00, 6.10, 54.90, 'Less than 1 week', 'frgtdfy', 0, '1', 'seo for 1 webiste', 'hfdh', 0, NULL, NULL, NULL, '0', '1', 0.00, 61.00, '17/02/2017', '2017-02-17 10:35:34', 0, NULL, 0, '61.00', 0, NULL, NULL, 2),
 (223, 15, 153, 45.00, 4.50, 40.50, 'Less than 1 month', 'dgfhftghj', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-18 09:57:40', 0, NULL, 0, '0.00', 0, NULL, NULL, 0),
 (224, 9, 154, 12.00, 1.20, 10.80, 'Less than 1 month', 'Hourly-Applied count and hire page interview count issue', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-18 10:23:10', 0, NULL, 1, '0.00', 0, 1, 2, 1),
 (225, 13, 154, 4555.00, 455.50, 4099.50, 'Less than 1 week', 'gdfhytgh', 0, '1', 'Fixed-Applied count and hire page interview count issue', 'gh', 0, NULL, NULL, NULL, '0', '1', 0.00, 4555.00, '18/02/2017', '2017-02-18 10:29:21', 0, NULL, 1, '4555.00', 0, 1, 2, 2),
 (226, 13, 156, 5.00, 0.50, 4.50, NULL, 'sfefef', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-21 06:48:56', 0, NULL, 1, '0.00', 0, 1, 2, 1),
 (227, 13, 155, 5.00, 0.50, 4.50, NULL, 'wdef', 1, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-21 06:49:12', 0, NULL, 0, '0.00', 0, 1, 1, 0),
-(228, 13, 157, 90.00, 9.00, 81.00, '3-6 months', 'Hi\nI have 4 + Years Exp. My Skill''s are PHP, My Sql, \n\nRegards\n\nArun', 0, '1', 'job testing', '', 0, NULL, NULL, NULL, '0', '1', 0.00, 90.00, '02/03/2017', '2017-02-22 11:27:55', 0, NULL, 0, '90.00', 0, NULL, NULL, 1),
+(228, 13, 157, 90.00, 9.00, 81.00, '3-6 months', 'Hi\nI have 4 + Years Exp. My Skill\'s are PHP, My Sql, \n\nRegards\n\nArun', 0, '1', 'job testing', '', 0, NULL, NULL, NULL, '0', '1', 0.00, 90.00, '02/03/2017', '2017-02-22 11:27:55', 0, NULL, 0, '90.00', 0, NULL, NULL, 1),
 (229, 15, 156, 5.00, 0.50, 4.50, NULL, 'srgthtft', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-27 16:39:43', 0, NULL, 0, '0.00', 0, NULL, NULL, 0),
 (230, 15, 157, 12.00, 1.20, 10.80, 'Less than 1 week', 'dsd', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-02-27 17:01:26', 0, NULL, 1, '0.00', 0, 1, 2, 0),
 (48, 9, 41, 5.00, 0.50, 4.50, NULL, 'We are a virtual digital marketing firm focused on provided digital marketing solutions to businesses and organisations in USA and around the world. Currently the firm has around 10 virtual staff around the world with most based in Australia. Stuart is currently looking to add an experienced Web Developer to our team. The commitment required for this role will be between 35 – 40 hours per week. Tasks • Manage and develop existing and new client websites. Experience/Skills • Experience in CSS, HTML, Java Script, Joomla and Google Analytics. • Experience with SSL wildcards. • Ecommerce set up and management. • SEO set up and running experience. • Prior experience or exposure to Healcode would be advantageous. • Well versed in several WP templates. • Regularly communicate with the rest of the team on project status. • Attention to detail. • Fast turnaround on tasks. • Fluent in English, both conversational and written. Both individuals and small development firms are encouraged to apply. Please do not call, email or Skype OUTSIDE of Upwork. Those who do so will be immediately eliminated from the process', 0, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2016-10-09 18:22:50', 0, NULL, 1, '0.00', 0, NULL, NULL, 0),
@@ -790,7 +809,7 @@ INSERT INTO `job_bids` (`id`, `user_id`, `job_id`, `bid_amount`, `bid_fee`, `bid
 (62, 9, 49, 1000.00, 100.00, 900.00, '20-29', 'Hi Adi\n Please try to understand I am we are testing website', 1, '0', 'SEO', 'hey', 0, NULL, NULL, NULL, '0', '1', 0.00, 1000.00, '2016/10/14 12:41', '2016-10-14 16:36:06', 0, NULL, 0, '0.00', 0, NULL, NULL, 0),
 (65, 9, 46, 1000.00, 100.00, 900.00, 'Less than 1 month', 'dgfsdg', 0, '0', 'aryan test 2', 'adadadad', 0, NULL, NULL, NULL, '0', '2', 0.00, 200.00, '2016/10/14 13:09', '2016-10-18 21:57:31', 1, '2016-10-18 22:10:27', 0, '0.00', 0, NULL, NULL, 0),
 (66, 9, 50, 55.00, 5.50, 49.50, 'not_sure', 'hjfghgjfhgj', 1, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2016-10-19 13:44:33', 0, NULL, 0, '0.00', 0, NULL, NULL, 0),
-(201, 9, 146, 50.00, 5.00, 45.00, 'Less than 1 month', 'I am interested your SEO project. I have +4 years experience about Search engine RANKING, On-page optimization, Off-page optimization, SEM, WordPress Etc. A superior ranking in the major search engines is the best way to bring Quality and Unique visitors to your website. I am using 100% white heat and manually technology in my work. Because Google doesn''t accept Black-Hat and Spam techniques.\nI am using Recent Panda & Penguin 2.1, Algorithm''s with Hummingbird update strategy.\nI provide you Guaranteed top ranking at search engine.\n\nPlease see my work Plan: \n\n**On-Page as Keywords Research and Selection, Competitor analysis, webmaster tools, Sitemap.xml, Google Analytic, Title Tags Optimization, Description Tags, ALT tag, Anchor text, H1 tags, Content Etc.\n\n**Off-Page namely: \nWeb 2.0 creation eg. wordpress.com, livejournal.com etc.\nRelevant Forum Back links\nRelevant Blog Commenting on different websites\nArticle Submission, Article Submission directories eg. Ezinearticles.com, Goarticles.com etc.\nPress Release submission in press release network sites eg. 24-7pressrelease.com, prweb.com etc.\nSubmission in Search Engine Friendly Directories eg. Dmoz.org, allwebsites.org etc.\nSubmission to Social Bookmarking websites eg. Del.icio.us, Digg, Stumbleupon etc.\nRSS Feed Submission in sites eg. Feedburner.com, rssfeeds.com etc.\nBlog Posting and Optimization e.g. blog-search.com, bloghub.com, blogspot.com, wordpress.com etc\nSocial Network Marketing eg. Facebook.com, myspace.com, linkedin.com, orkut.com, twitter.com et\nBlog Creation & Optimization e.g. blog-search.com, bloghub.com, blogspot.com, wordpress.com etc\nBlog Directory Submission\n\nCreation of Social Network Marketing Profiles eg. Pinterest.com, myspace.com, linkedin.com, orkut.com, Hi5.com, tumblr.com etc.\n\n\nSee my Attachment about the new strategy.\n\nI am waiting for you', 1, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-01-24 08:56:45', 0, NULL, 0, '0.00', 0, 1, 1, 1),
+(201, 9, 146, 50.00, 5.00, 45.00, 'Less than 1 month', 'I am interested your SEO project. I have +4 years experience about Search engine RANKING, On-page optimization, Off-page optimization, SEM, WordPress Etc. A superior ranking in the major search engines is the best way to bring Quality and Unique visitors to your website. I am using 100% white heat and manually technology in my work. Because Google doesn\'t accept Black-Hat and Spam techniques.\nI am using Recent Panda & Penguin 2.1, Algorithm\'s with Hummingbird update strategy.\nI provide you Guaranteed top ranking at search engine.\n\nPlease see my work Plan: \n\n**On-Page as Keywords Research and Selection, Competitor analysis, webmaster tools, Sitemap.xml, Google Analytic, Title Tags Optimization, Description Tags, ALT tag, Anchor text, H1 tags, Content Etc.\n\n**Off-Page namely: \nWeb 2.0 creation eg. wordpress.com, livejournal.com etc.\nRelevant Forum Back links\nRelevant Blog Commenting on different websites\nArticle Submission, Article Submission directories eg. Ezinearticles.com, Goarticles.com etc.\nPress Release submission in press release network sites eg. 24-7pressrelease.com, prweb.com etc.\nSubmission in Search Engine Friendly Directories eg. Dmoz.org, allwebsites.org etc.\nSubmission to Social Bookmarking websites eg. Del.icio.us, Digg, Stumbleupon etc.\nRSS Feed Submission in sites eg. Feedburner.com, rssfeeds.com etc.\nBlog Posting and Optimization e.g. blog-search.com, bloghub.com, blogspot.com, wordpress.com etc\nSocial Network Marketing eg. Facebook.com, myspace.com, linkedin.com, orkut.com, twitter.com et\nBlog Creation & Optimization e.g. blog-search.com, bloghub.com, blogspot.com, wordpress.com etc\nBlog Directory Submission\n\nCreation of Social Network Marketing Profiles eg. Pinterest.com, myspace.com, linkedin.com, orkut.com, Hi5.com, tumblr.com etc.\n\n\nSee my Attachment about the new strategy.\n\nI am waiting for you', 1, '0', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, 0.00, 0.00, '0', '2017-01-24 08:56:45', 0, NULL, 0, '0.00', 0, 1, 1, 1),
 (68, 15, 51, 500.00, 50.00, 450.00, '1-3 months', 'fdsghfdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd', 0, '0', 'Fixed job test', 'sdefed', 0, NULL, NULL, NULL, '0', '1', 0.00, 710.00, '2016/10/28 03:11', '2016-10-20 22:49:40', 1, '2016-11-27 20:11:03', 0, '0.00', 0, NULL, NULL, 0),
 (200, 9, 144, 5.00, 0.50, 4.50, NULL, 'dfhkf', 0, '0', 'New job 31', 'ok', 40, NULL, NULL, NULL, '0', NULL, 200.00, 0.00, '2017/01/21 23:18', '2017-01-21 17:17:59', 1, '2017-01-25 15:01:47', 0, '0.00', 0, NULL, NULL, 3),
 (70, 15, 52, 200.00, 20.00, 180.00, 'Less than 1 month', 'dgfgf', 0, '0', 'Testing', 'dfghfghj', 0, NULL, NULL, NULL, '0', '1', 0.00, 200.00, '2016/10/23 05:44', '2016-10-22 20:06:38', 1, '2016-10-22 23:10:46', 0, '0.00', 0, NULL, NULL, 0),
@@ -884,13 +903,11 @@ INSERT INTO `job_bids` (`id`, `user_id`, `job_id`, `bid_amount`, `bid_fee`, `bid
 --
 
 DROP TABLE IF EXISTS `job_bid_attachments`;
-CREATE TABLE IF NOT EXISTS `job_bid_attachments` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `job_bid_attachments` (
+  `id` int(11) NOT NULL,
   `job_bid_id` int(11) NOT NULL,
-  `path` mediumtext,
-  `tid` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `path` mediumtext
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `job_bid_attachments`
@@ -907,12 +924,11 @@ INSERT INTO `job_bid_attachments` (`id`, `job_bid_id`, `path`) VALUES
 --
 
 DROP TABLE IF EXISTS `job_categories`;
-CREATE TABLE IF NOT EXISTS `job_categories` (
-  `cat_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `job_categories` (
+  `cat_id` int(11) NOT NULL,
   `category_name` varchar(100) DEFAULT NULL,
-  `date_created` datetime DEFAULT NULL,
-  PRIMARY KEY (`cat_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+  `date_created` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `job_categories`
@@ -939,17 +955,16 @@ INSERT INTO `job_categories` (`cat_id`, `category_name`, `date_created`) VALUES
 --
 
 DROP TABLE IF EXISTS `job_conversation`;
-CREATE TABLE IF NOT EXISTS `job_conversation` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `job_conversation` (
+  `id` int(11) NOT NULL,
   `job_id` int(11) NOT NULL,
   `bid_id` int(11) NOT NULL,
   `message_conversation` text NOT NULL,
   `sender_id` int(11) NOT NULL,
   `receiver_id` int(11) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `have_seen` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1= unseen,0=seen',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=479 ;
+  `have_seen` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1= unseen,0=seen'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `job_conversation`
@@ -1258,7 +1273,7 @@ INSERT INTO `job_conversation` (`id`, `job_id`, `bid_id`, `message_conversation`
 (475, 0, 0, '', 13, 0, '2017-03-14 14:54:23', 1),
 (476, 0, 0, '', 13, 0, '2017-03-14 14:54:33', 1),
 (477, 178, 235, 'qwe', 13, 0, '2017-03-14 14:54:47', 0),
-(478, 178, 235, '''llll', 13, 0, '2017-03-14 14:56:05', 0);
+(478, 178, 235, '\'llll', 13, 0, '2017-03-14 14:56:05', 0);
 
 -- --------------------------------------------------------
 
@@ -1267,13 +1282,12 @@ INSERT INTO `job_conversation` (`id`, `job_id`, `bid_id`, `message_conversation`
 --
 
 DROP TABLE IF EXISTS `job_conversation_files`;
-CREATE TABLE IF NOT EXISTS `job_conversation_files` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `job_conversation_files` (
+  `id` int(11) NOT NULL,
   `job_conversation_id` int(11) DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,
-  `original_name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
+  `original_name` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `job_conversation_files`
@@ -1324,8 +1338,8 @@ INSERT INTO `job_conversation_files` (`id`, `job_conversation_id`, `name`, `orig
 --
 
 DROP TABLE IF EXISTS `job_feedback`;
-CREATE TABLE IF NOT EXISTS `job_feedback` (
-  `feedback_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `job_feedback` (
+  `feedback_id` int(11) NOT NULL,
   `feedback_job_id` int(11) NOT NULL,
   `feedback_userid` int(11) NOT NULL,
   `feedback_clientid` int(11) NOT NULL,
@@ -1338,9 +1352,8 @@ CREATE TABLE IF NOT EXISTS `job_feedback` (
   `feedback_score` float(10,2) DEFAULT NULL,
   `feedback_comment` text NOT NULL,
   `feedback_creted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `haveseen` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=Not Seen 1= Seen',
-  PRIMARY KEY (`feedback_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=99 ;
+  `haveseen` tinyint(1) NOT NULL DEFAULT '0'COMMENT
+) ;
 
 --
 -- Contenu de la table `job_feedback`
@@ -1375,19 +1388,18 @@ INSERT INTO `job_feedback` (`feedback_id`, `feedback_job_id`, `feedback_userid`,
 --
 
 DROP TABLE IF EXISTS `job_hire_end`;
-CREATE TABLE IF NOT EXISTS `job_hire_end` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `job_hire_end` (
+  `id` int(11) NOT NULL,
   `bid_id` int(11) NOT NULL,
   `weekly_limit` int(10) NOT NULL DEFAULT '0',
   `offer_bid_amount` float(10,2) DEFAULT NULL,
   `offer_bid_fee` float(10,2) DEFAULT NULL,
   `offer_bid_earning` float(10,2) DEFAULT NULL,
-  `fixed_pay_status` enum('0','1','2') DEFAULT NULL COMMENT '0 = paid nothing,1=padi partyl,2= paid all',
+  `fixed_pay_status` enum('0','1','2') DEFAULT NULL COMMENT AS `0 = paid nothing,1=padi partyl,2= paid all`,
   `weekly_amount` float(10,2) NOT NULL,
   `fixedpay_amount` float(10,2) DEFAULT '0.00',
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `job_hire_end`
@@ -1430,12 +1442,11 @@ INSERT INTO `job_hire_end` (`id`, `bid_id`, `weekly_limit`, `offer_bid_amount`, 
 --
 
 DROP TABLE IF EXISTS `job_skills`;
-CREATE TABLE IF NOT EXISTS `job_skills` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `job_skills` (
+  `id` int(11) NOT NULL,
   `job_id` int(11) NOT NULL,
-  `skill_name` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=73 ;
+  `skill_name` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `job_skills`
@@ -1483,7 +1494,9 @@ INSERT INTO `job_skills` (`id`, `job_id`, `skill_name`) VALUES
 (66, 177, 'Lead Generation'),
 (67, 178, 'PHP'),
 (71, 179, 'phonegap'),
-(72, 180, 'Product Sourcing');
+(72, 180, 'Product Sourcing'),
+(73, 181, 'PHP'),
+(74, 181, 'Object Oriented PHP');
 
 -- --------------------------------------------------------
 
@@ -1492,14 +1505,13 @@ INSERT INTO `job_skills` (`id`, `job_id`, `skill_name`) VALUES
 --
 
 DROP TABLE IF EXISTS `job_subcategories`;
-CREATE TABLE IF NOT EXISTS `job_subcategories` (
-  `subcat_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `job_subcategories` (
+  `subcat_id` int(11) NOT NULL,
   `cat_id` int(11) DEFAULT NULL,
   `subcategory_name` varchar(100) DEFAULT NULL,
   `url_rewrite` varchar(100) NOT NULL,
-  `date_created` datetime DEFAULT NULL,
-  PRIMARY KEY (`subcat_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=89 ;
+  `date_created` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `job_subcategories`
@@ -1602,31 +1614,37 @@ INSERT INTO `job_subcategories` (`subcat_id`, `cat_id`, `subcategory_name`, `url
 --
 
 DROP TABLE IF EXISTS `job_workdairy`;
-CREATE TABLE IF NOT EXISTS `job_workdairy` (
-  `workdairy_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `job_workdairy` (
+  `workdairy_id` int(11) NOT NULL,
   `jobid` int(11) NOT NULL,
   `bid_id` int(11) NOT NULL,
   `cuser_id` int(11) NOT NULL,
   `fuser_id` int(11) NOT NULL,
-  `starting_hour` text NOT NULL,
-  `ending_hour` text NOT NULL,
+  `starting_hour` datetime NOT NULL,
+  `ending_hour` datetime NOT NULL,
   `total_hour` text NOT NULL,
   `working_date` date DEFAULT NULL,
-  `end_work` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`workdairy_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=68 ;
+  `end_work` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `job_workdairy`
 --
 
 INSERT INTO `job_workdairy` (`workdairy_id`, `jobid`, `bid_id`, `cuser_id`, `fuser_id`, `starting_hour`, `ending_hour`, `total_hour`, `working_date`, `end_work`) VALUES
-(67, 149, 210, 18, 13, '2017-03-22 18:00:01', '2017-03-22 22:00:06', '4', '2017-03-22', '2017-03-22 22:00:06'),
+(78, 149, 210, 18, 13, '2017-03-24 11:00:00', '2017-03-24 12:00:00', '1', '2017-03-24', '2017-03-24 11:00:00'),
 (66, 147, 207, 18, 13, '2017-03-21 11:00:16', '2017-03-21 14:00:20', '3', '2017-03-21', '2017-03-21 14:00:20'),
 (62, 149, 210, 18, 13, '2017-02-05 17:00:12', '2017-02-05 18:00:15', '1', '2017-02-05', '2017-02-06 01:00:15'),
 (63, 147, 207, 18, 13, '2017-02-06 13:00:03', '2017-02-06 18:00:10', '5', '2017-02-06', '2017-02-07 01:00:10'),
 (64, 149, 210, 18, 13, '2017-02-21 18:00:20', '2017-02-21 23:00:23', '5', '2017-02-21', '2017-02-22 06:00:23'),
-(65, 147, 207, 18, 13, '2017-03-01 18:00:08', '2017-03-01 19:00:10', '1', '2017-03-01', '2017-03-01 19:00:10');
+(65, 147, 207, 18, 13, '2017-03-01 18:00:08', '2017-03-01 19:00:10', '1', '2017-03-01', '2017-03-01 19:00:10'),
+(79, 149, 210, 18, 13, '2017-03-24 12:00:00', '2017-03-24 13:00:00', '1', '2017-03-24', '2017-03-24 12:00:00'),
+(80, 149, 210, 18, 13, '2017-03-24 13:00:00', '2017-03-24 14:00:00', '1', '2017-03-24', '2017-03-24 13:00:00'),
+(81, 149, 210, 18, 13, '2017-03-24 14:00:00', '2017-03-24 15:00:00', '1', '2017-03-24', '2017-03-24 14:00:00'),
+(82, 147, 207, 18, 13, '2017-03-25 13:00:00', '2017-03-25 16:00:00', '3', '2017-03-25', '2017-03-25 15:00:00'),
+(94, 149, 210, 18, 13, '2017-04-04 16:00:00', '2017-04-04 18:00:00', '2', '2017-04-04', '2017-04-04 17:00:00'),
+(95, 149, 210, 18, 13, '2017-04-05 13:00:00', '2017-04-05 16:00:00', '3', '2017-04-05', '2017-04-05 15:00:00'),
+(96, 149, 210, 18, 13, '2017-04-05 16:00:00', '2017-04-05 18:00:00', '2', '2017-04-05', '2017-04-05 17:00:00');
 
 -- --------------------------------------------------------
 
@@ -1635,15 +1653,14 @@ INSERT INTO `job_workdairy` (`workdairy_id`, `jobid`, `bid_id`, `cuser_id`, `fus
 --
 
 DROP TABLE IF EXISTS `notification`;
-CREATE TABLE IF NOT EXISTS `notification` (
-  `id_notification` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `notification` (
+  `id_notification` int(11) NOT NULL,
   `link` varchar(400) NOT NULL,
   `description` text NOT NULL,
   `read_status` int(2) NOT NULL,
   `user_id` int(10) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_notification`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `notification`
@@ -1685,8 +1702,8 @@ INSERT INTO `notification` (`id_notification`, `link`, `description`, `read_stat
 --
 
 DROP TABLE IF EXISTS `payments`;
-CREATE TABLE IF NOT EXISTS `payments` (
-  `payment_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `payments` (
+  `payment_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `buser_id` int(11) NOT NULL,
   `job_id` int(11) NOT NULL,
@@ -1699,9 +1716,8 @@ CREATE TABLE IF NOT EXISTS `payments` (
   `des` text NOT NULL,
   `currency_code` varchar(5) NOT NULL,
   `payer_email` varchar(255) NOT NULL,
-  `payment_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`payment_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=260 ;
+  `payment_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `payments`
@@ -1739,7 +1755,63 @@ INSERT INTO `payments` (`payment_id`, `user_id`, `buser_id`, `job_id`, `bid_id`,
 (231, 13, 18, 153, 0, 0, '', '1', 0, 600.00, 'Full Paid', '', '', '2017-02-17 11:34:29'),
 (229, 13, 18, 150, 0, 0, '', '1', 0, 300.00, 'Full Paid', '', '', '2017-02-03 18:56:03'),
 (230, 13, 18, 150, 0, 0, '', '1', 0, 19.00, 'Milestone', '', '', '2017-02-03 19:44:02'),
-(228, 13, 18, 148, 0, 0, '', '1', 0, 100.00, 'Milestone', '', '', '2017-02-03 18:50:08');
+(228, 13, 18, 148, 0, 0, '', '1', 0, 100.00, 'Milestone', '', '', '2017-02-03 18:50:08'),
+(260, 13, 18, 153, 0, 0, '', '1', 0, 200000.00, 'Payment', '', '', '2017-03-24 11:12:25'),
+(261, 13, 18, 153, 0, 0, '', '1', 0, 2.00, 'Payment', '', '', '2017-03-25 23:58:01'),
+(262, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-26 00:10:42'),
+(263, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-26 00:24:31'),
+(264, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-26 00:24:48'),
+(265, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-26 00:25:57'),
+(266, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-26 00:31:38'),
+(267, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-26 00:32:57'),
+(268, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-26 00:34:45'),
+(269, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-26 00:37:21'),
+(270, 13, 18, 153, 0, 0, '', '1', 0, 5.00, 'Payment', '', '', '2017-03-26 00:38:58'),
+(271, 13, 18, 153, 0, 0, '', '1', 0, 5.00, 'Payment', '', '', '2017-03-26 00:40:02'),
+(272, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-26 00:42:18'),
+(273, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-26 00:43:51'),
+(274, 13, 18, 153, 0, 0, '', '1', 0, 5.00, 'Payment', '', '', '2017-03-26 00:45:42'),
+(275, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-26 00:48:42'),
+(276, 13, 18, 153, 0, 0, '', '1', 0, 5.00, 'Payment', '', '', '2017-03-26 00:50:10'),
+(277, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-26 00:56:37'),
+(278, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-26 01:09:29'),
+(279, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Milestone', '', '', '2017-03-26 01:14:19'),
+(280, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-26 08:32:20'),
+(281, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-26 08:33:57'),
+(282, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Milestone', '', '', '2017-03-26 08:34:25'),
+(283, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Milestone', '', '', '2017-03-26 08:50:23'),
+(284, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Milestone', '', '', '2017-03-26 09:38:27'),
+(285, 13, 18, 153, 0, 0, '', '1', 0, 5.00, 'Payment', '', '', '2017-03-26 09:39:14'),
+(286, 13, 18, 153, 0, 0, '', '1', 0, 5.00, 'Payment', '', '', '2017-03-26 09:41:54'),
+(287, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-26 09:45:10'),
+(288, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Payment', '', '', '2017-03-26 09:55:39'),
+(289, 13, 18, 153, 0, 0, '', '1', 0, 5.00, 'Payment', '', '', '2017-03-26 09:56:41'),
+(290, 13, 18, 153, 0, 0, '', '1', 0, 1.00, 'Milestone', '', '', '2017-03-26 09:57:10');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `payment_services`
+--
+
+DROP TABLE IF EXISTS `payment_services`;
+CREATE TABLE `payment_services` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `service_description` varchar(255) NOT NULL,
+  `service_name` varchar(255) NOT NULL,
+  `is_primary` tinyint(1) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `service_payer_id` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `payment_services`
+--
+
+INSERT INTO `payment_services` (`id`, `user_id`, `service_description`, `service_name`, `is_primary`, `is_deleted`, `service_payer_id`) VALUES
+(4, 18, 'personal@winjob.com', 'paypal', 0, 0, 'B-4KM10611LT757154G'),
+(5, 18, 'Diners Club ending in 3237', 'stripe', 1, 0, 'cus_AOcBX5xN4zByCc');
 
 -- --------------------------------------------------------
 
@@ -1748,8 +1820,8 @@ INSERT INTO `payments` (`payment_id`, `user_id`, `buser_id`, `job_id`, `bid_id`,
 --
 
 DROP TABLE IF EXISTS `paypal_object`;
-CREATE TABLE IF NOT EXISTS `paypal_object` (
-  `sr` double NOT NULL AUTO_INCREMENT,
+CREATE TABLE `paypal_object` (
+  `sr` double NOT NULL,
   `pp_fname` varchar(255) COLLATE utf8_bin NOT NULL,
   `pp_lname` varchar(255) COLLATE utf8_bin NOT NULL,
   `pp_email` varchar(255) COLLATE utf8_bin NOT NULL,
@@ -1758,9 +1830,8 @@ CREATE TABLE IF NOT EXISTS `paypal_object` (
   `payer_id` varchar(255) COLLATE utf8_bin NOT NULL,
   `belongsTo` double NOT NULL,
   `dateadded` double NOT NULL,
-  `completeObject` longtext COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`sr`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=42 ;
+  `completeObject` longtext COLLATE utf8_bin NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Contenu de la table `paypal_object`
@@ -1777,24 +1848,23 @@ INSERT INTO `paypal_object` (`sr`, `pp_fname`, `pp_lname`, `pp_email`, `agreemen
 -- --------------------------------------------------------
 
 --
--- Structure de la table `paypal_PAkey`
+-- Structure de la table `paypal_pakey`
 --
 
-DROP TABLE IF EXISTS `paypal_PAkey`;
-CREATE TABLE IF NOT EXISTS `paypal_PAkey` (
-  `sr` double NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `paypal_pakey`;
+CREATE TABLE `paypal_pakey` (
+  `sr` double NOT NULL,
   `PA_key` varchar(255) NOT NULL,
   `belongsTo` double NOT NULL,
   `dateadded` double NOT NULL,
-  `isActive` tinyint(4) NOT NULL,
-  PRIMARY KEY (`sr`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+  `isActive` tinyint(4) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `paypal_PAkey`
+-- Contenu de la table `paypal_pakey`
 --
 
-INSERT INTO `paypal_PAkey` (`sr`, `PA_key`, `belongsTo`, `dateadded`, `isActive`) VALUES
+INSERT INTO `paypal_pakey` (`sr`, `PA_key`, `belongsTo`, `dateadded`, `isActive`) VALUES
 (1, 'PA-9AG24100N4705281W', 18, 0, 0),
 (2, 'PA-7MH814029C4529254', 18, 1478956980, 1),
 (3, 'PA-9BW363416M7605124', 18, 1478960520, 0),
@@ -1806,26 +1876,25 @@ INSERT INTO `paypal_PAkey` (`sr`, `PA_key`, `belongsTo`, `dateadded`, `isActive`
 -- --------------------------------------------------------
 
 --
--- Structure de la table `paypal_PA_object`
+-- Structure de la table `paypal_pa_object`
 --
 
-DROP TABLE IF EXISTS `paypal_PA_object`;
-CREATE TABLE IF NOT EXISTS `paypal_PA_object` (
-  `sr` double NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `paypal_pa_object`;
+CREATE TABLE `paypal_pa_object` (
+  `sr` double NOT NULL,
   `completeObject` longtext COLLATE utf8_bin NOT NULL,
   `email` varchar(255) COLLATE utf8_bin NOT NULL,
   `paypal_accID` varchar(255) COLLATE utf8_bin NOT NULL,
   `dateadded` double NOT NULL,
   `belongsTo` double NOT NULL,
-  `PA_key` varchar(255) COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`sr`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
+  `PA_key` varchar(255) COLLATE utf8_bin NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Contenu de la table `paypal_PA_object`
+-- Contenu de la table `paypal_pa_object`
 --
 
-INSERT INTO `paypal_PA_object` (`sr`, `completeObject`, `email`, `paypal_accID`, `dateadded`, `belongsTo`, `PA_key`) VALUES
+INSERT INTO `paypal_pa_object` (`sr`, `completeObject`, `email`, `paypal_accID`, `dateadded`, `belongsTo`, `PA_key`) VALUES
 (1, '', 'buyer.test@haseeburrehman.com', 'B3LWEJAZ5TJ9N', 1478963704, 18, ''),
 (2, 'O:42:"PayPal\\Types\\AP\\PreapprovalDetailsResponse":29:{s:16:"responseEnvelope";O:36:"PayPal\\Types\\Common\\ResponseEnvelope":4:{s:9:"timestamp";s:29:"2016-11-12T07:18:57.701-08:00";s:3:"ack";s:7:"Success";s:13:"correlationId";s:13:"bf95e4dc8fa10";s:5:"build";s:8:"26820131";}s:8:"approved";s:4:"true";s:9:"cancelUrl";s:62:"http://www.winjob.com/pay/addPP/ExecuteAgreement?success=false";s:11:"curPayments";s:1:"0";s:17:"curPaymentsAmount";s:4:"0.00";s:17:"curPeriodAttempts";s:1:"0";s:19:"curPeriodEndingDate";N;s:12:"currencyCode";s:3:"USD";s:11:"dateOfMonth";s:1:"0";s:9:"dayOfWeek";s:16:"NO_DAY_SPECIFIED";s:10:"endingDate";N;s:19:"maxAmountPerPayment";N;s:19:"maxNumberOfPayments";N;s:28:"maxNumberOfPaymentsPerPeriod";N;s:27:"maxTotalAmountOfAllPayments";N;s:13:"paymentPeriod";s:19:"NO_PERIOD_SPECIFIED";s:7:"pinType";s:12:"NOT_REQUIRED";s:9:"returnUrl";s:61:"http://www.winjob.com/pay/addPP/ExecuteAgreement?success=true";s:11:"senderEmail";s:29:"buyer.test@haseeburrehman.com";s:4:"memo";N;s:12:"startingDate";s:24:"2016-11-12T13:22:59.000Z";s:6:"status";s:6:"ACTIVE";s:18:"ipnNotificationUrl";N;s:11:"addressList";N;s:9:"feesPayer";N;s:21:"displayMaxTotalAmount";s:5:"false";s:6:"sender";O:32:"PayPal\\Types\\AP\\SenderIdentifier":5:{s:14:"useCredentials";N;s:12:"taxIdDetails";N;s:5:"email";N;s:5:"phone";N;s:9:"accountId";s:13:"B3LWEJAZ5TJ9N";}s:13:"agreementType";N;s:5:"error";N;}', 'buyer.test@haseeburrehman.com', 'B3LWEJAZ5TJ9N', 1478963937, 18, ''),
 (3, 'O:42:"PayPal\\Types\\AP\\PreapprovalDetailsResponse":29:{s:16:"responseEnvelope";O:36:"PayPal\\Types\\Common\\ResponseEnvelope":4:{s:9:"timestamp";s:29:"2016-11-12T07:28:19.752-08:00";s:3:"ack";s:7:"Success";s:13:"correlationId";s:13:"3d05b7859c7d9";s:5:"build";s:8:"26820131";}s:8:"approved";s:4:"true";s:9:"cancelUrl";s:62:"http://www.winjob.com/pay/addPP/ExecuteAgreement?success=false";s:11:"curPayments";s:1:"0";s:17:"curPaymentsAmount";s:4:"0.00";s:17:"curPeriodAttempts";s:1:"0";s:19:"curPeriodEndingDate";N;s:12:"currencyCode";s:3:"USD";s:11:"dateOfMonth";s:1:"0";s:9:"dayOfWeek";s:16:"NO_DAY_SPECIFIED";s:10:"endingDate";N;s:19:"maxAmountPerPayment";N;s:19:"maxNumberOfPayments";N;s:28:"maxNumberOfPaymentsPerPeriod";N;s:27:"maxTotalAmountOfAllPayments";N;s:13:"paymentPeriod";s:19:"NO_PERIOD_SPECIFIED";s:7:"pinType";s:12:"NOT_REQUIRED";s:9:"returnUrl";s:61:"http://www.winjob.com/pay/addPP/ExecuteAgreement?success=true";s:11:"senderEmail";s:29:"buyer.test@haseeburrehman.com";s:4:"memo";N;s:12:"startingDate";s:24:"2016-11-12T13:22:59.000Z";s:6:"status";s:6:"ACTIVE";s:18:"ipnNotificationUrl";N;s:11:"addressList";N;s:9:"feesPayer";N;s:21:"displayMaxTotalAmount";s:5:"false";s:6:"sender";O:32:"PayPal\\Types\\AP\\SenderIdentifier":5:{s:14:"useCredentials";N;s:12:"taxIdDetails";N;s:5:"email";N;s:5:"phone";N;s:9:"accountId";s:13:"B3LWEJAZ5TJ9N";}s:13:"agreementType";N;s:5:"error";N;}', 'buyer.test@haseeburrehman.com', 'B3LWEJAZ5TJ9N', 1478964500, 18, 'PA-7MH814029C4529254'),
@@ -1838,12 +1907,11 @@ INSERT INTO `paypal_PA_object` (`sr`, `completeObject`, `email`, `paypal_accID`,
 --
 
 DROP TABLE IF EXISTS `site`;
-CREATE TABLE IF NOT EXISTS `site` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `site` (
+  `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `value` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
+  `value` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `site`
@@ -1871,11 +1939,10 @@ INSERT INTO `site` (`id`, `name`, `value`) VALUES
 --
 
 DROP TABLE IF EXISTS `skills`;
-CREATE TABLE IF NOT EXISTS `skills` (
-  `id_skills` int(11) NOT NULL AUTO_INCREMENT,
-  `skill_name` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_skills`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2678 ;
+CREATE TABLE `skills` (
+  `id_skills` int(11) NOT NULL,
+  `skill_name` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `skills`
@@ -4568,15 +4635,13 @@ INSERT INTO `skills` (`id_skills`, `skill_name`) VALUES
 --
 
 DROP TABLE IF EXISTS `stripe_customerdetail`;
-CREATE TABLE IF NOT EXISTS `stripe_customerdetail` (
-  `sr` int(255) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `stripe_customerdetail` (
+  `sr` int(255) NOT NULL,
   `belongsTo` int(11) NOT NULL,
   `stripeObject` longtext COLLATE utf8_bin NOT NULL,
   `stripeCustomerID` varchar(255) COLLATE utf8_bin NOT NULL,
-  `attachedTo` int(255) NOT NULL,
-  PRIMARY KEY (`sr`),
-  KEY `sr` (`sr`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=31 ;
+  `attachedTo` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Contenu de la table `stripe_customerdetail`
@@ -4602,13 +4667,12 @@ INSERT INTO `stripe_customerdetail` (`sr`, `belongsTo`, `stripeObject`, `stripeC
 --
 
 DROP TABLE IF EXISTS `timezones`;
-CREATE TABLE IF NOT EXISTS `timezones` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `timezones` (
+  `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
   `gmt` varchar(255) NOT NULL,
-  `value` varchar(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=83 ;
+  `value` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `timezones`
@@ -4696,7 +4760,7 @@ INSERT INTO `timezones` (`id`, `name`, `gmt`, `value`) VALUES
 (79, 'Magadan, Solomon Is., New Caledonia', 'GMT+11:00', '11'),
 (80, 'Auckland, Wellington', 'GMT+12:00', '12'),
 (81, 'Fiji, Kamchatka, Marshall Is.', 'GMT+12:00', '12'),
-(82, 'Nuku''alofa', 'GMT+13:00', '13');
+(82, 'Nuku\'alofa', 'GMT+13:00', '13');
 
 -- --------------------------------------------------------
 
@@ -4705,15 +4769,14 @@ INSERT INTO `timezones` (`id`, `name`, `gmt`, `value`) VALUES
 --
 
 DROP TABLE IF EXISTS `token`;
-CREATE TABLE IF NOT EXISTS `token` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `token` (
+  `id` int(11) NOT NULL,
   `token` varchar(100) NOT NULL,
   `user` varchar(20) NOT NULL,
   `status` varchar(2) NOT NULL,
   `ctime` int(30) NOT NULL,
-  `etime` int(30) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
+  `etime` int(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `token`
@@ -4749,8 +4812,8 @@ INSERT INTO `token` (`id`, `token`, `user`, `status`, `ctime`, `etime`) VALUES
 --
 
 DROP TABLE IF EXISTS `user`;
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `username` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -4760,16 +4823,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   `lastlogin` varchar(50) NOT NULL,
   `position` varchar(50) NOT NULL,
   `country` varchar(50) NOT NULL,
-  `phone` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+  `phone` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `user`
 --
 
 INSERT INTO `user` (`id`, `name`, `username`, `email`, `password`, `type`, `status`, `lastlogin`, `position`, `country`, `phone`) VALUES
-(1, 'Administrator', 'admin', 'getupwork@gmail.com', 'bac1a377c236d995f382e338fd56a349', '1', '1', '1490215976.4389', '', '', ''),
+(1, 'Administrator', 'admin', 'getupwork@gmail.com', 'bac1a377c236d995f382e338fd56a349', '1', '1', '1491840016.8658', '', '', ''),
 (8, 'sagar', 'sagar', 'sagar@sagar.me', '41ed44e3038dbeee7d2ffaa7f51d8a4b', '1', '1', '', '', 'all', ''),
 (9, 'Arif Hossain', 'arif', 'arif@arif.com', '0ff6c3ace16359e41e37d40b8301d67f', '2', '2', '1459555964.1421', '', '4', ''),
 (10, 'jahangir alam', 'jahangir', 'canvasdevelopers@gmail.com', '5fce16e0de0d807a14654c67a7b90405', '2', '2', '', '', 'all', ''),
@@ -4783,15 +4845,14 @@ INSERT INTO `user` (`id`, `name`, `username`, `email`, `password`, `type`, `stat
 --
 
 DROP TABLE IF EXISTS `userpage`;
-CREATE TABLE IF NOT EXISTS `userpage` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `userpage` (
+  `id` int(5) NOT NULL,
   `section` varchar(20) NOT NULL,
-  `page` varchar(20) NOT NULL,
+  `page` varchar(40) NOT NULL,
   `name` varchar(50) NOT NULL,
   `ind` int(4) NOT NULL,
-  `icon` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
+  `icon` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `userpage`
@@ -4802,7 +4863,7 @@ INSERT INTO `userpage` (`id`, `section`, `page`, `name`, `ind`, `icon`) VALUES
 (27, '16', 'listapi', 'List Api', 1, 'fa-list'),
 (28, '19', 'webuser', 'User', 1, 'fa-user'),
 (29, '19', 'instagram', 'Social IDs', 2, 'fa-facebook'),
-(30, '19', 'fundmangement', 'Fund Management ', 2, 'fa-usd'),
+(30, '19', 'fundmangement/hourly-billings', 'Fund Management ', 2, 'fa-usd'),
 (31, '19', 'contactmanagement', 'Contact Management', 3, '');
 
 -- --------------------------------------------------------
@@ -4812,13 +4873,12 @@ INSERT INTO `userpage` (`id`, `section`, `page`, `name`, `ind`, `icon`) VALUES
 --
 
 DROP TABLE IF EXISTS `userpageaccess`;
-CREATE TABLE IF NOT EXISTS `userpageaccess` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `userpageaccess` (
+  `id` int(11) NOT NULL,
   `section` varchar(20) NOT NULL,
   `user` varchar(20) NOT NULL,
-  `page` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+  `page` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `userpageaccess`
@@ -4836,14 +4896,13 @@ INSERT INTO `userpageaccess` (`id`, `section`, `user`, `page`) VALUES
 --
 
 DROP TABLE IF EXISTS `usersection`;
-CREATE TABLE IF NOT EXISTS `usersection` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usersection` (
+  `id` int(5) NOT NULL,
   `page` varchar(20) NOT NULL,
   `name` varchar(50) NOT NULL,
   `ind` int(4) NOT NULL,
-  `icon` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+  `icon` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `usersection`
@@ -4862,12 +4921,11 @@ INSERT INTO `usersection` (`id`, `page`, `name`, `ind`, `icon`) VALUES
 --
 
 DROP TABLE IF EXISTS `usersectionaccess`;
-CREATE TABLE IF NOT EXISTS `usersectionaccess` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usersectionaccess` (
+  `id` int(11) NOT NULL,
   `user` varchar(20) NOT NULL,
-  `section` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+  `section` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `usersectionaccess`
@@ -4883,16 +4941,15 @@ INSERT INTO `usersectionaccess` (`id`, `user`, `section`) VALUES
 --
 
 DROP TABLE IF EXISTS `usersubpage`;
-CREATE TABLE IF NOT EXISTS `usersubpage` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usersubpage` (
+  `id` int(5) NOT NULL,
   `page` int(5) NOT NULL,
   `subpage` varchar(20) NOT NULL,
   `name` varchar(50) NOT NULL,
   `menu` int(1) NOT NULL,
   `ind` int(4) NOT NULL,
-  `icon` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+  `icon` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `usersubpage`
@@ -4912,11 +4969,12 @@ INSERT INTO `usersubpage` (`id`, `page`, `subpage`, `name`, `menu`, `ind`, `icon
 (23, 28, 'suspendclient', 'Suspend Client', 1, 4, 'fa-user'),
 (24, 28, 'activefreelancer', 'Active Freelancer', 1, 5, 'fa-user'),
 (25, 28, 'suspendfreelancer', 'Suspend Freelancer', 1, 6, 'fa-user'),
-(26, 30, 'withdawlrequest', 'withdraw request ', 1, 1, 'fa-usd'),
-(27, 30, 'billingrequest', 'Billing Request ', 1, 2, 'fa-usd'),
-(28, 30, 'transuctionhistory', 'Transaction History ', 1, 3, 'fa-usd'),
-(29, 30, 'invoicehourly', 'Failed Transaction Invoices', 1, 4, 'fa-usd'),
-(30, 31, 'contactsupport', 'Contact Support', 1, 1, '');
+(26, 30, 'withdaw-processed', 'Processed Withdraw Request ', 1, 1, 'fa-usd'),
+(27, 30, 'invoices', 'Invoices', 1, 2, 'fa-usd'),
+(28, 30, 'paid-invoices', 'Paid Invoices', 1, 3, 'fa-usd'),
+(29, 30, 'failed-invoices', 'Failed Invoices', 1, 4, 'fa-usd'),
+(30, 31, 'contactsupport', 'Contact Support', 1, 1, ''),
+(31, 30, 'withdaw-pending', 'Pending Withdraw Request ', 1, 1, 'fa-usd');
 
 -- --------------------------------------------------------
 
@@ -4925,13 +4983,12 @@ INSERT INTO `usersubpage` (`id`, `page`, `subpage`, `name`, `menu`, `ind`, `icon
 --
 
 DROP TABLE IF EXISTS `usersubpageaccess`;
-CREATE TABLE IF NOT EXISTS `usersubpageaccess` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usersubpageaccess` (
+  `id` int(11) NOT NULL,
   `user` varchar(20) NOT NULL,
   `page` varchar(20) NOT NULL,
-  `subpage` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+  `subpage` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `usersubpageaccess`
@@ -4957,14 +5014,11 @@ INSERT INTO `usersubpageaccess` (`id`, `user`, `page`, `subpage`) VALUES
 --
 
 DROP TABLE IF EXISTS `user_categories`;
-CREATE TABLE IF NOT EXISTS `user_categories` (
-  `user_cat_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user_categories` (
+  `user_cat_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL DEFAULT '0',
-  `subcat_id` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`user_cat_id`),
-  KEY `user_id` (`user_id`),
-  KEY `subcat_id` (`subcat_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=171 ;
+  `subcat_id` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `user_categories`
@@ -5030,8 +5084,8 @@ INSERT INTO `user_categories` (`user_cat_id`, `user_id`, `subcat_id`) VALUES
 --
 
 DROP TABLE IF EXISTS `user_experience`;
-CREATE TABLE IF NOT EXISTS `user_experience` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user_experience` (
+  `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `company` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
@@ -5042,9 +5096,8 @@ CREATE TABLE IF NOT EXISTS `user_experience` (
   `year2` int(10) NOT NULL,
   `curr_working_place` tinyint(2) NOT NULL,
   `description` text NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `user_experience`
@@ -5064,8 +5117,8 @@ INSERT INTO `user_experience` (`id`, `user_id`, `company`, `title`, `location`, 
 --
 
 DROP TABLE IF EXISTS `webuser`;
-CREATE TABLE IF NOT EXISTS `webuser` (
-  `webuser_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `webuser` (
+  `webuser_id` int(11) NOT NULL,
   `webuser_company` varchar(50) NOT NULL,
   `webuser_fname` varchar(100) NOT NULL,
   `webuser_lname` varchar(100) NOT NULL,
@@ -5087,11 +5140,8 @@ CREATE TABLE IF NOT EXISTS `webuser` (
   `webuser_title` varchar(50) NOT NULL,
   `webuser_site` varchar(200) NOT NULL,
   `isactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1= active,0=suspend',
-  `suspend_reason` int(1) NOT NULL DEFAULT '0' COMMENT '1=payment',
-  `isdelete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=not del,1=deleted',
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`webuser_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=55 ;
+  `suspend_reason` int(1) NOT NULL DEFAULT '0'COMMENT
+) ;
 
 --
 -- Contenu de la table `webuser`
@@ -5152,8 +5202,8 @@ INSERT INTO `webuser` (`webuser_id`, `webuser_company`, `webuser_fname`, `webuse
 --
 
 DROP TABLE IF EXISTS `webuseraddresses`;
-CREATE TABLE IF NOT EXISTS `webuseraddresses` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `webuseraddresses` (
+  `id` int(11) NOT NULL,
   `webuser_id` int(11) NOT NULL,
   `address` text NOT NULL,
   `address1` text NOT NULL,
@@ -5162,9 +5212,8 @@ CREATE TABLE IF NOT EXISTS `webuseraddresses` (
   `zipcode` varchar(10) NOT NULL,
   `country` varchar(40) NOT NULL,
   `phone_number` varchar(30) NOT NULL,
-  `timezone` varchar(150) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+  `timezone` varchar(150) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `webuseraddresses`
@@ -5187,8 +5236,8 @@ INSERT INTO `webuseraddresses` (`id`, `webuser_id`, `address`, `address1`, `city
 --
 
 DROP TABLE IF EXISTS `webuser_basic_profile`;
-CREATE TABLE IF NOT EXISTS `webuser_basic_profile` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `webuser_basic_profile` (
+  `id` int(11) NOT NULL,
   `webuser_id` int(11) NOT NULL,
   `tagline` varchar(255) NOT NULL,
   `hourly_rate` float NOT NULL,
@@ -5196,11 +5245,8 @@ CREATE TABLE IF NOT EXISTS `webuser_basic_profile` (
   `work_experience_month` tinyint(2) NOT NULL,
   `skills` varchar(255) NOT NULL,
   `overview` text NOT NULL,
-  `last_updated_time` decimal(18,0) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `tagline` (`tagline`),
-  KEY `skills` (`skills`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+  `last_updated_time` decimal(18,0) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `webuser_basic_profile`
@@ -5223,16 +5269,15 @@ INSERT INTO `webuser_basic_profile` (`id`, `webuser_id`, `tagline`, `hourly_rate
 --
 
 DROP TABLE IF EXISTS `webuser_payment_methods`;
-CREATE TABLE IF NOT EXISTS `webuser_payment_methods` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `webuser_payment_methods` (
+  `id` int(11) NOT NULL,
   `webuser_id` int(11) NOT NULL,
   `payment_method_name` enum('paypal','skrill','payoneer','none') NOT NULL DEFAULT 'none',
   `account_id` varchar(196) NOT NULL,
   `creation_time` bigint(20) NOT NULL,
   `last_update_time` bigint(20) NOT NULL,
-  `current_status` enum('active','deactive') NOT NULL DEFAULT 'active',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=38 ;
+  `current_status` enum('active','deactive') NOT NULL DEFAULT 'active'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `webuser_payment_methods`
@@ -5284,8 +5329,8 @@ INSERT INTO `webuser_payment_methods` (`id`, `webuser_id`, `payment_method_name`
 --
 
 DROP TABLE IF EXISTS `webuser_portfolio`;
-CREATE TABLE IF NOT EXISTS `webuser_portfolio` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `webuser_portfolio` (
+  `id` int(11) NOT NULL,
   `webuser_id` int(11) NOT NULL,
   `project_title` varchar(255) NOT NULL,
   `project_overview` text NOT NULL,
@@ -5297,9 +5342,8 @@ CREATE TABLE IF NOT EXISTS `webuser_portfolio` (
   `skills` varchar(255) NOT NULL,
   `creation_time` date NOT NULL,
   `visibility_status` enum('yes','no') NOT NULL DEFAULT 'yes',
-  `last_updated_time` date NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+  `last_updated_time` date NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `webuser_portfolio`
@@ -5323,12 +5367,11 @@ INSERT INTO `webuser_portfolio` (`id`, `webuser_id`, `project_title`, `project_o
 --
 
 DROP TABLE IF EXISTS `webuser_portfolio_skills`;
-CREATE TABLE IF NOT EXISTS `webuser_portfolio_skills` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `webuser_portfolio_skills` (
+  `id` int(11) NOT NULL,
   `portfolio_id` int(11) NOT NULL,
-  `skill_name` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=85 ;
+  `skill_name` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `webuser_portfolio_skills`
@@ -5350,12 +5393,11 @@ INSERT INTO `webuser_portfolio_skills` (`id`, `portfolio_id`, `skill_name`) VALU
 --
 
 DROP TABLE IF EXISTS `webuser_skills`;
-CREATE TABLE IF NOT EXISTS `webuser_skills` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `webuser_skills` (
+  `id` int(11) NOT NULL,
   `webuser_id` int(11) NOT NULL,
-  `skill_name` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=135 ;
+  `skill_name` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `webuser_skills`
@@ -5383,8 +5425,8 @@ INSERT INTO `webuser_skills` (`id`, `webuser_id`, `skill_name`) VALUES
 --
 
 DROP TABLE IF EXISTS `webuser_tax_information`;
-CREATE TABLE IF NOT EXISTS `webuser_tax_information` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `webuser_tax_information` (
+  `id` int(11) NOT NULL,
   `webuser_id` int(11) NOT NULL,
   `legal_name` varchar(165) NOT NULL,
   `tax_no` varchar(64) NOT NULL,
@@ -5394,10 +5436,8 @@ CREATE TABLE IF NOT EXISTS `webuser_tax_information` (
   `city` varchar(96) NOT NULL,
   `state` varchar(96) NOT NULL,
   `zip` int(6) NOT NULL,
-  `created_time` bigint(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `tax_no` (`tax_no`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+  `created_time` bigint(20) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `webuser_tax_information`
@@ -5416,15 +5456,14 @@ INSERT INTO `webuser_tax_information` (`id`, `webuser_id`, `legal_name`, `tax_no
 --
 
 DROP TABLE IF EXISTS `webuser_tickets`;
-CREATE TABLE IF NOT EXISTS `webuser_tickets` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `webuser_tickets` (
+  `id` int(11) NOT NULL,
   `webuser_id` int(11) DEFAULT NULL,
   `fname` varchar(100) DEFAULT NULL,
   `lname` varchar(100) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
-  `subject` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+  `subject` varchar(50) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `webuser_tickets`
@@ -5446,8 +5485,8 @@ INSERT INTO `webuser_tickets` (`id`, `webuser_id`, `fname`, `lname`, `email`, `s
 --
 
 DROP TABLE IF EXISTS `webuser_ticket_messages`;
-CREATE TABLE IF NOT EXISTS `webuser_ticket_messages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `webuser_ticket_messages` (
+  `id` int(11) NOT NULL,
   `ticket_id` int(11) DEFAULT NULL,
   `sender_id` int(11) DEFAULT NULL,
   `receiver_id` int(11) DEFAULT NULL,
@@ -5458,9 +5497,8 @@ CREATE TABLE IF NOT EXISTS `webuser_ticket_messages` (
   `sender` set('user','support') NOT NULL DEFAULT 'user',
   `receiver` set('user','support') DEFAULT 'support',
   `imap_message_id` varchar(255) DEFAULT NULL,
-  `have_support_seen` tinyint(1) DEFAULT '1' COMMENT '1= unseen,0=seen',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=164 ;
+  `have_support_seen` tinyint(1) DEFAULT '1' COMMENT '1= unseen,0=seen'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `webuser_ticket_messages`
@@ -5581,13 +5619,12 @@ INSERT INTO `webuser_ticket_messages` (`id`, `ticket_id`, `sender_id`, `receiver
 --
 
 DROP TABLE IF EXISTS `webuser_ticket_message_files`;
-CREATE TABLE IF NOT EXISTS `webuser_ticket_message_files` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `webuser_ticket_message_files` (
+  `id` int(11) NOT NULL,
   `message_id` int(11) DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,
-  `original_name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=69 ;
+  `original_name` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `webuser_ticket_message_files`
@@ -5636,17 +5673,16 @@ INSERT INTO `webuser_ticket_message_files` (`id`, `message_id`, `name`, `origina
 --
 
 DROP TABLE IF EXISTS `withdraw`;
-CREATE TABLE IF NOT EXISTS `withdraw` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `withdraw` (
+  `id` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
   `amount` int(11) DEFAULT NULL,
   `payment_type` enum('1','2','3') NOT NULL DEFAULT '1' COMMENT '1=paypal,2=skrill,3=payneer',
   `processingfees` varchar(255) DEFAULT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` enum('pending','processed','cancelled','') NOT NULL DEFAULT 'pending',
-  `operation_date` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `operation_date` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `withdraw`
@@ -5654,7 +5690,9 @@ CREATE TABLE IF NOT EXISTS `withdraw` (
 
 INSERT INTO `withdraw` (`id`, `userid`, `amount`, `payment_type`, `processingfees`, `date`, `status`, `operation_date`) VALUES
 (1, 13, 1, '', '', '2017-03-02 22:59:44', 'processed', '2017-03-02 11:10:34'),
-(2, 13, 333, '3', '2', '2017-03-02 23:00:15', 'pending', NULL);
+(2, 13, 333, '3', '2', '2017-03-02 23:00:15', 'pending', NULL),
+(3, 13, 150, '3', '2', '2017-04-06 08:01:14', 'processed', '2017-04-10 11:22:27'),
+(4, 13, 10, '3', '2.00', '2017-04-10 11:16:59', 'pending', NULL);
 
 -- --------------------------------------------------------
 
@@ -5663,17 +5701,16 @@ INSERT INTO `withdraw` (`id`, `userid`, `amount`, `payment_type`, `processingfee
 --
 
 DROP TABLE IF EXISTS `workdairy_tracker`;
-CREATE TABLE IF NOT EXISTS `workdairy_tracker` (
-  `worktracker_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `workdairy_tracker` (
+  `worktracker_id` int(11) NOT NULL,
   `jobid` int(11) NOT NULL,
   `bid_id` int(11) NOT NULL,
   `cuser_id` int(11) NOT NULL,
   `fuser_id` int(11) NOT NULL,
   `cpture_image` text,
   `capture_time` text NOT NULL,
-  `working_date` date DEFAULT NULL,
-  PRIMARY KEY (`worktracker_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2491 ;
+  `working_date` date DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `workdairy_tracker`
@@ -6119,112 +6156,316 @@ INSERT INTO `workdairy_tracker` (`worktracker_id`, `jobid`, `bid_id`, `cuser_id`
 (2054, 143, 196, 18, 13, NULL, '2017-01-16 00:24:38', '2017-01-16'),
 (2053, 143, 196, 18, 13, NULL, '2017-01-16 00:18:38', '2017-01-16'),
 (2052, 143, 196, 18, 13, NULL, '2017-01-16 00:12:38', '2017-01-16'),
-(2051, 143, 196, 18, 13, NULL, '2017-01-16 00:06:38', '2017-01-16');
-
-ALTER TABLE `job_workdairy` CHANGE `starting_hour` `starting_hour` DATETIME NOT NULL, CHANGE `ending_hour` `ending_hour` DATETIME NOT NULL;
-
-DROP TABLE IF EXISTS `payment_services`;
-CREATE TABLE `payment_services` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `service_description` varchar(255) NOT NULL,
-  `service_name` varchar(255) NOT NULL,
-  `is_primary` tinyint(1) NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL,
-  `service_payer_id` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `payment_services`
---
-
-INSERT INTO `payment_services` (`id`, `user_id`, `service_description`, `service_name`, `is_primary`, `is_deleted`, `service_payer_id`) VALUES
-(4, 18, 'personal@winjob.com', 'paypal', 1, 0, 'B-4KM10611LT757154G'),
-(5, 18, 'Diners Club ending in 3237', 'stripe', 0, 0, 'cus_AOcBX5xN4zByCc');
+(2051, 143, 196, 18, 13, NULL, '2017-01-16 00:06:38', '2017-01-16'),
+(2521, 149, 210, 18, 13, NULL, '2017-03-24 11:06:00', '2017-03-24'),
+(2522, 149, 210, 18, 13, NULL, '2017-03-24 11:12:00', '2017-03-24'),
+(2523, 149, 210, 18, 13, NULL, '2017-03-24 11:18:00', '2017-03-24'),
+(2524, 149, 210, 18, 13, NULL, '2017-03-24 11:24:00', '2017-03-24'),
+(2525, 149, 210, 18, 13, NULL, '2017-03-24 11:30:00', '2017-03-24'),
+(2526, 149, 210, 18, 13, NULL, '2017-03-24 11:36:00', '2017-03-24'),
+(2527, 149, 210, 18, 13, NULL, '2017-03-24 11:42:00', '2017-03-24'),
+(2528, 149, 210, 18, 13, NULL, '2017-03-24 11:48:00', '2017-03-24'),
+(2529, 149, 210, 18, 13, NULL, '2017-03-24 11:54:00', '2017-03-24'),
+(2530, 149, 210, 18, 13, NULL, '2017-03-24 12:00:00', '2017-03-24'),
+(2531, 149, 210, 18, 13, NULL, '2017-03-24 12:06:00', '2017-03-24'),
+(2532, 149, 210, 18, 13, NULL, '2017-03-24 12:12:00', '2017-03-24'),
+(2533, 149, 210, 18, 13, NULL, '2017-03-24 12:18:00', '2017-03-24'),
+(2534, 149, 210, 18, 13, NULL, '2017-03-24 12:24:00', '2017-03-24'),
+(2535, 149, 210, 18, 13, NULL, '2017-03-24 12:30:00', '2017-03-24'),
+(2536, 149, 210, 18, 13, NULL, '2017-03-24 12:36:00', '2017-03-24'),
+(2537, 149, 210, 18, 13, NULL, '2017-03-24 12:42:00', '2017-03-24'),
+(2538, 149, 210, 18, 13, NULL, '2017-03-24 12:48:00', '2017-03-24'),
+(2539, 149, 210, 18, 13, NULL, '2017-03-24 12:54:00', '2017-03-24'),
+(2540, 149, 210, 18, 13, NULL, '2017-03-24 13:00:00', '2017-03-24'),
+(2541, 149, 210, 18, 13, NULL, '2017-03-24 13:06:00', '2017-03-24'),
+(2542, 149, 210, 18, 13, NULL, '2017-03-24 13:12:00', '2017-03-24'),
+(2543, 149, 210, 18, 13, NULL, '2017-03-24 13:18:00', '2017-03-24'),
+(2544, 149, 210, 18, 13, NULL, '2017-03-24 13:24:00', '2017-03-24'),
+(2545, 149, 210, 18, 13, NULL, '2017-03-24 13:30:00', '2017-03-24'),
+(2546, 149, 210, 18, 13, NULL, '2017-03-24 13:36:00', '2017-03-24'),
+(2547, 149, 210, 18, 13, NULL, '2017-03-24 13:42:00', '2017-03-24'),
+(2548, 149, 210, 18, 13, NULL, '2017-03-24 13:48:00', '2017-03-24'),
+(2549, 149, 210, 18, 13, NULL, '2017-03-24 13:54:00', '2017-03-24'),
+(2550, 149, 210, 18, 13, NULL, '2017-03-24 14:00:00', '2017-03-24'),
+(2551, 149, 210, 18, 13, NULL, '2017-03-24 14:06:00', '2017-03-24'),
+(2552, 149, 210, 18, 13, NULL, '2017-03-24 14:12:00', '2017-03-24'),
+(2553, 149, 210, 18, 13, NULL, '2017-03-24 14:18:00', '2017-03-24'),
+(2554, 149, 210, 18, 13, NULL, '2017-03-24 14:24:00', '2017-03-24'),
+(2555, 149, 210, 18, 13, NULL, '2017-03-24 14:30:00', '2017-03-24'),
+(2556, 149, 210, 18, 13, NULL, '2017-03-24 14:36:00', '2017-03-24'),
+(2557, 149, 210, 18, 13, NULL, '2017-03-24 14:42:00', '2017-03-24'),
+(2558, 149, 210, 18, 13, NULL, '2017-03-24 14:48:00', '2017-03-24'),
+(2559, 149, 210, 18, 13, NULL, '2017-03-24 14:54:00', '2017-03-24'),
+(2560, 149, 210, 18, 13, NULL, '2017-03-24 15:00:00', '2017-03-24'),
+(2561, 147, 207, 18, 13, NULL, '2017-03-25 13:06:00', '2017-03-25'),
+(2562, 147, 207, 18, 13, NULL, '2017-03-25 13:12:00', '2017-03-25'),
+(2563, 147, 207, 18, 13, NULL, '2017-03-25 13:18:00', '2017-03-25'),
+(2564, 147, 207, 18, 13, NULL, '2017-03-25 13:24:00', '2017-03-25'),
+(2565, 147, 207, 18, 13, NULL, '2017-03-25 13:30:00', '2017-03-25'),
+(2566, 147, 207, 18, 13, NULL, '2017-03-25 13:36:00', '2017-03-25'),
+(2567, 147, 207, 18, 13, NULL, '2017-03-25 13:42:00', '2017-03-25'),
+(2568, 147, 207, 18, 13, NULL, '2017-03-25 13:48:00', '2017-03-25'),
+(2569, 147, 207, 18, 13, NULL, '2017-03-25 13:54:00', '2017-03-25'),
+(2570, 147, 207, 18, 13, NULL, '2017-03-25 14:00:00', '2017-03-25'),
+(2571, 147, 207, 18, 13, NULL, '2017-03-25 14:06:00', '2017-03-25'),
+(2572, 147, 207, 18, 13, NULL, '2017-03-25 14:12:00', '2017-03-25'),
+(2573, 147, 207, 18, 13, NULL, '2017-03-25 14:18:00', '2017-03-25'),
+(2574, 147, 207, 18, 13, NULL, '2017-03-25 14:24:00', '2017-03-25'),
+(2575, 147, 207, 18, 13, NULL, '2017-03-25 14:30:00', '2017-03-25'),
+(2576, 147, 207, 18, 13, NULL, '2017-03-25 14:36:00', '2017-03-25'),
+(2577, 147, 207, 18, 13, NULL, '2017-03-25 14:42:00', '2017-03-25'),
+(2578, 147, 207, 18, 13, NULL, '2017-03-25 14:48:00', '2017-03-25'),
+(2579, 147, 207, 18, 13, NULL, '2017-03-25 14:54:00', '2017-03-25'),
+(2580, 147, 207, 18, 13, NULL, '2017-03-25 15:00:00', '2017-03-25'),
+(2581, 147, 207, 18, 13, NULL, '2017-03-25 15:06:00', '2017-03-25'),
+(2582, 147, 207, 18, 13, NULL, '2017-03-25 15:12:00', '2017-03-25'),
+(2583, 147, 207, 18, 13, NULL, '2017-03-25 15:18:00', '2017-03-25'),
+(2584, 147, 207, 18, 13, NULL, '2017-03-25 15:24:00', '2017-03-25'),
+(2585, 147, 207, 18, 13, NULL, '2017-03-25 15:30:00', '2017-03-25'),
+(2586, 147, 207, 18, 13, NULL, '2017-03-25 15:36:00', '2017-03-25'),
+(2587, 147, 207, 18, 13, NULL, '2017-03-25 15:42:00', '2017-03-25'),
+(2588, 147, 207, 18, 13, NULL, '2017-03-25 15:48:00', '2017-03-25'),
+(2589, 147, 207, 18, 13, NULL, '2017-03-25 15:54:00', '2017-03-25'),
+(2590, 147, 207, 18, 13, NULL, '2017-03-25 16:00:00', '2017-03-25'),
+(2591, 149, 210, 18, 13, NULL, '2017-03-28 16:06:00', '2017-03-28'),
+(2592, 149, 210, 18, 13, NULL, '2017-03-28 16:12:00', '2017-03-28'),
+(2593, 149, 210, 18, 13, NULL, '2017-03-28 16:18:00', '2017-03-28'),
+(2594, 149, 210, 18, 13, NULL, '2017-03-28 16:24:00', '2017-03-28'),
+(2595, 149, 210, 18, 13, NULL, '2017-03-28 16:30:00', '2017-03-28'),
+(2596, 149, 210, 18, 13, NULL, '2017-03-28 16:36:00', '2017-03-28'),
+(2597, 149, 210, 18, 13, NULL, '2017-03-28 16:42:00', '2017-03-28'),
+(2598, 149, 210, 18, 13, NULL, '2017-03-28 16:48:00', '2017-03-28'),
+(2599, 149, 210, 18, 13, NULL, '2017-03-28 16:54:00', '2017-03-28'),
+(2600, 149, 210, 18, 13, NULL, '2017-03-28 17:00:00', '2017-03-28'),
+(2601, 149, 210, 18, 13, NULL, '2017-03-28 17:06:00', '2017-03-28'),
+(2602, 149, 210, 18, 13, NULL, '2017-03-28 17:12:00', '2017-03-28'),
+(2603, 149, 210, 18, 13, NULL, '2017-03-28 17:18:00', '2017-03-28'),
+(2604, 149, 210, 18, 13, NULL, '2017-03-28 17:24:00', '2017-03-28'),
+(2605, 149, 210, 18, 13, NULL, '2017-03-28 17:30:00', '2017-03-28'),
+(2606, 149, 210, 18, 13, NULL, '2017-03-28 17:36:00', '2017-03-28'),
+(2607, 149, 210, 18, 13, NULL, '2017-03-28 17:42:00', '2017-03-28'),
+(2608, 149, 210, 18, 13, NULL, '2017-03-28 17:48:00', '2017-03-28'),
+(2609, 149, 210, 18, 13, NULL, '2017-03-28 17:54:00', '2017-03-28'),
+(2610, 149, 210, 18, 13, NULL, '2017-03-28 18:00:00', '2017-03-28'),
+(2611, 149, 210, 18, 13, NULL, '2017-04-03 06:06:00', '2017-04-03'),
+(2612, 149, 210, 18, 13, NULL, '2017-04-03 06:12:00', '2017-04-03'),
+(2613, 149, 210, 18, 13, NULL, '2017-04-03 06:18:00', '2017-04-03'),
+(2614, 149, 210, 18, 13, NULL, '2017-04-03 06:24:00', '2017-04-03'),
+(2615, 149, 210, 18, 13, NULL, '2017-04-03 06:30:00', '2017-04-03'),
+(2616, 149, 210, 18, 13, NULL, '2017-04-03 06:36:00', '2017-04-03'),
+(2617, 149, 210, 18, 13, NULL, '2017-04-03 06:42:00', '2017-04-03'),
+(2618, 149, 210, 18, 13, NULL, '2017-04-03 06:48:00', '2017-04-03'),
+(2619, 149, 210, 18, 13, NULL, '2017-04-03 06:54:00', '2017-04-03'),
+(2620, 149, 210, 18, 13, NULL, '2017-04-03 07:00:00', '2017-04-03'),
+(2621, 149, 210, 18, 13, NULL, '2017-04-03 07:06:00', '2017-04-03'),
+(2622, 149, 210, 18, 13, NULL, '2017-04-03 07:12:00', '2017-04-03'),
+(2623, 149, 210, 18, 13, NULL, '2017-04-03 07:18:00', '2017-04-03'),
+(2624, 149, 210, 18, 13, NULL, '2017-04-03 07:24:00', '2017-04-03'),
+(2625, 149, 210, 18, 13, NULL, '2017-04-03 07:30:00', '2017-04-03'),
+(2626, 149, 210, 18, 13, NULL, '2017-04-03 07:36:00', '2017-04-03'),
+(2627, 149, 210, 18, 13, NULL, '2017-04-03 07:42:00', '2017-04-03'),
+(2628, 149, 210, 18, 13, NULL, '2017-04-03 07:48:00', '2017-04-03'),
+(2629, 149, 210, 18, 13, NULL, '2017-04-03 07:54:00', '2017-04-03'),
+(2630, 149, 210, 18, 13, NULL, '2017-04-03 08:00:00', '2017-04-03'),
+(2631, 149, 210, 18, 13, NULL, '2017-04-04 10:06:00', '2017-04-04'),
+(2632, 149, 210, 18, 13, NULL, '2017-04-04 10:12:00', '2017-04-04'),
+(2633, 149, 210, 18, 13, NULL, '2017-04-04 10:18:00', '2017-04-04'),
+(2634, 149, 210, 18, 13, NULL, '2017-04-04 10:24:00', '2017-04-04'),
+(2635, 149, 210, 18, 13, NULL, '2017-04-04 10:30:00', '2017-04-04'),
+(2636, 149, 210, 18, 13, NULL, '2017-04-04 10:36:00', '2017-04-04'),
+(2637, 149, 210, 18, 13, NULL, '2017-04-04 10:42:00', '2017-04-04'),
+(2638, 149, 210, 18, 13, NULL, '2017-04-04 10:48:00', '2017-04-04'),
+(2639, 149, 210, 18, 13, NULL, '2017-04-04 10:54:00', '2017-04-04'),
+(2640, 149, 210, 18, 13, NULL, '2017-04-04 11:00:00', '2017-04-04'),
+(2641, 149, 210, 18, 13, NULL, '2017-04-04 09:06:00', '2017-04-04'),
+(2642, 149, 210, 18, 13, NULL, '2017-04-04 09:12:00', '2017-04-04'),
+(2643, 149, 210, 18, 13, NULL, '2017-04-04 09:18:00', '2017-04-04'),
+(2644, 149, 210, 18, 13, NULL, '2017-04-04 09:24:00', '2017-04-04'),
+(2645, 149, 210, 18, 13, NULL, '2017-04-04 09:30:00', '2017-04-04'),
+(2646, 149, 210, 18, 13, NULL, '2017-04-04 09:36:00', '2017-04-04'),
+(2647, 149, 210, 18, 13, NULL, '2017-04-04 09:42:00', '2017-04-04'),
+(2648, 149, 210, 18, 13, NULL, '2017-04-04 09:48:00', '2017-04-04'),
+(2649, 149, 210, 18, 13, NULL, '2017-04-04 09:54:00', '2017-04-04'),
+(2650, 149, 210, 18, 13, NULL, '2017-04-04 10:00:00', '2017-04-04'),
+(2651, 149, 210, 18, 13, NULL, '2017-04-04 04:06:00', '2017-04-04'),
+(2652, 149, 210, 18, 13, NULL, '2017-04-04 04:12:00', '2017-04-04'),
+(2653, 149, 210, 18, 13, NULL, '2017-04-04 04:18:00', '2017-04-04'),
+(2654, 149, 210, 18, 13, NULL, '2017-04-04 04:24:00', '2017-04-04'),
+(2655, 149, 210, 18, 13, NULL, '2017-04-04 04:30:00', '2017-04-04'),
+(2656, 149, 210, 18, 13, NULL, '2017-04-04 04:36:00', '2017-04-04'),
+(2657, 149, 210, 18, 13, NULL, '2017-04-04 04:42:00', '2017-04-04'),
+(2658, 149, 210, 18, 13, NULL, '2017-04-04 04:48:00', '2017-04-04'),
+(2659, 149, 210, 18, 13, NULL, '2017-04-04 04:54:00', '2017-04-04'),
+(2660, 149, 210, 18, 13, NULL, '2017-04-04 05:00:00', '2017-04-04'),
+(2661, 149, 210, 18, 13, NULL, '2017-04-04 05:06:00', '2017-04-04'),
+(2662, 149, 210, 18, 13, NULL, '2017-04-04 05:12:00', '2017-04-04'),
+(2663, 149, 210, 18, 13, NULL, '2017-04-04 05:18:00', '2017-04-04'),
+(2664, 149, 210, 18, 13, NULL, '2017-04-04 05:24:00', '2017-04-04'),
+(2665, 149, 210, 18, 13, NULL, '2017-04-04 05:30:00', '2017-04-04'),
+(2666, 149, 210, 18, 13, NULL, '2017-04-04 05:36:00', '2017-04-04'),
+(2667, 149, 210, 18, 13, NULL, '2017-04-04 05:42:00', '2017-04-04'),
+(2668, 149, 210, 18, 13, NULL, '2017-04-04 05:48:00', '2017-04-04'),
+(2669, 149, 210, 18, 13, NULL, '2017-04-04 05:54:00', '2017-04-04'),
+(2670, 149, 210, 18, 13, NULL, '2017-04-04 06:00:00', '2017-04-04'),
+(2671, 149, 210, 18, 13, NULL, '2017-04-04 09:06:00', '2017-04-04'),
+(2672, 149, 210, 18, 13, NULL, '2017-04-04 09:12:00', '2017-04-04'),
+(2673, 149, 210, 18, 13, NULL, '2017-04-04 09:18:00', '2017-04-04'),
+(2674, 149, 210, 18, 13, NULL, '2017-04-04 09:24:00', '2017-04-04'),
+(2675, 149, 210, 18, 13, NULL, '2017-04-04 09:30:00', '2017-04-04'),
+(2676, 149, 210, 18, 13, NULL, '2017-04-04 09:36:00', '2017-04-04'),
+(2677, 149, 210, 18, 13, NULL, '2017-04-04 09:42:00', '2017-04-04'),
+(2678, 149, 210, 18, 13, NULL, '2017-04-04 09:48:00', '2017-04-04'),
+(2679, 149, 210, 18, 13, NULL, '2017-04-04 09:54:00', '2017-04-04'),
+(2680, 149, 210, 18, 13, NULL, '2017-04-04 10:00:00', '2017-04-04'),
+(2681, 149, 210, 18, 13, NULL, '2017-04-04 12:06:00', '2017-04-04'),
+(2682, 149, 210, 18, 13, NULL, '2017-04-04 12:12:00', '2017-04-04'),
+(2683, 149, 210, 18, 13, NULL, '2017-04-04 12:18:00', '2017-04-04'),
+(2684, 149, 210, 18, 13, NULL, '2017-04-04 12:24:00', '2017-04-04'),
+(2685, 149, 210, 18, 13, NULL, '2017-04-04 12:30:00', '2017-04-04'),
+(2686, 149, 210, 18, 13, NULL, '2017-04-04 12:36:00', '2017-04-04'),
+(2687, 149, 210, 18, 13, NULL, '2017-04-04 12:42:00', '2017-04-04'),
+(2688, 149, 210, 18, 13, NULL, '2017-04-04 12:48:00', '2017-04-04'),
+(2689, 149, 210, 18, 13, NULL, '2017-04-04 12:54:00', '2017-04-04'),
+(2690, 149, 210, 18, 13, NULL, '2017-04-04 13:00:00', '2017-04-04'),
+(2691, 149, 210, 18, 13, NULL, '2017-04-04 13:06:00', '2017-04-04'),
+(2692, 149, 210, 18, 13, NULL, '2017-04-04 13:12:00', '2017-04-04'),
+(2693, 149, 210, 18, 13, NULL, '2017-04-04 13:18:00', '2017-04-04'),
+(2694, 149, 210, 18, 13, NULL, '2017-04-04 13:24:00', '2017-04-04'),
+(2695, 149, 210, 18, 13, NULL, '2017-04-04 13:30:00', '2017-04-04'),
+(2696, 149, 210, 18, 13, NULL, '2017-04-04 13:36:00', '2017-04-04'),
+(2697, 149, 210, 18, 13, NULL, '2017-04-04 13:42:00', '2017-04-04'),
+(2698, 149, 210, 18, 13, NULL, '2017-04-04 13:48:00', '2017-04-04'),
+(2699, 149, 210, 18, 13, NULL, '2017-04-04 13:54:00', '2017-04-04'),
+(2700, 149, 210, 18, 13, NULL, '2017-04-04 14:00:00', '2017-04-04'),
+(2701, 149, 210, 18, 13, NULL, '2017-04-04 10:06:00', '2017-04-04'),
+(2702, 149, 210, 18, 13, NULL, '2017-04-04 10:12:00', '2017-04-04'),
+(2703, 149, 210, 18, 13, NULL, '2017-04-04 10:18:00', '2017-04-04'),
+(2704, 149, 210, 18, 13, NULL, '2017-04-04 10:24:00', '2017-04-04'),
+(2705, 149, 210, 18, 13, NULL, '2017-04-04 10:30:00', '2017-04-04'),
+(2706, 149, 210, 18, 13, NULL, '2017-04-04 10:36:00', '2017-04-04'),
+(2707, 149, 210, 18, 13, NULL, '2017-04-04 10:42:00', '2017-04-04'),
+(2708, 149, 210, 18, 13, NULL, '2017-04-04 10:48:00', '2017-04-04'),
+(2709, 149, 210, 18, 13, NULL, '2017-04-04 10:54:00', '2017-04-04'),
+(2710, 149, 210, 18, 13, NULL, '2017-04-04 11:00:00', '2017-04-04'),
+(2711, 149, 210, 18, 13, NULL, '2017-04-04 16:06:00', '2017-04-04'),
+(2712, 149, 210, 18, 13, NULL, '2017-04-04 16:12:00', '2017-04-04'),
+(2713, 149, 210, 18, 13, NULL, '2017-04-04 16:18:00', '2017-04-04'),
+(2714, 149, 210, 18, 13, NULL, '2017-04-04 16:24:00', '2017-04-04'),
+(2715, 149, 210, 18, 13, NULL, '2017-04-04 16:30:00', '2017-04-04'),
+(2716, 149, 210, 18, 13, NULL, '2017-04-04 16:36:00', '2017-04-04'),
+(2717, 149, 210, 18, 13, NULL, '2017-04-04 16:42:00', '2017-04-04'),
+(2718, 149, 210, 18, 13, NULL, '2017-04-04 16:48:00', '2017-04-04'),
+(2719, 149, 210, 18, 13, NULL, '2017-04-04 16:54:00', '2017-04-04'),
+(2720, 149, 210, 18, 13, NULL, '2017-04-04 17:00:00', '2017-04-04'),
+(2721, 149, 210, 18, 13, NULL, '2017-04-04 17:06:00', '2017-04-04'),
+(2722, 149, 210, 18, 13, NULL, '2017-04-04 17:12:00', '2017-04-04'),
+(2723, 149, 210, 18, 13, NULL, '2017-04-04 17:18:00', '2017-04-04'),
+(2724, 149, 210, 18, 13, NULL, '2017-04-04 17:24:00', '2017-04-04'),
+(2725, 149, 210, 18, 13, NULL, '2017-04-04 17:30:00', '2017-04-04'),
+(2726, 149, 210, 18, 13, NULL, '2017-04-04 17:36:00', '2017-04-04'),
+(2727, 149, 210, 18, 13, NULL, '2017-04-04 17:42:00', '2017-04-04'),
+(2728, 149, 210, 18, 13, NULL, '2017-04-04 17:48:00', '2017-04-04'),
+(2729, 149, 210, 18, 13, NULL, '2017-04-04 17:54:00', '2017-04-04'),
+(2730, 149, 210, 18, 13, NULL, '2017-04-04 18:00:00', '2017-04-04'),
+(2731, 149, 210, 18, 13, NULL, '2017-04-05 13:06:00', '2017-04-05'),
+(2732, 149, 210, 18, 13, NULL, '2017-04-05 13:12:00', '2017-04-05'),
+(2733, 149, 210, 18, 13, NULL, '2017-04-05 13:18:00', '2017-04-05'),
+(2734, 149, 210, 18, 13, NULL, '2017-04-05 13:24:00', '2017-04-05'),
+(2735, 149, 210, 18, 13, NULL, '2017-04-05 13:30:00', '2017-04-05'),
+(2736, 149, 210, 18, 13, NULL, '2017-04-05 13:36:00', '2017-04-05'),
+(2737, 149, 210, 18, 13, NULL, '2017-04-05 13:42:00', '2017-04-05'),
+(2738, 149, 210, 18, 13, NULL, '2017-04-05 13:48:00', '2017-04-05'),
+(2739, 149, 210, 18, 13, NULL, '2017-04-05 13:54:00', '2017-04-05'),
+(2740, 149, 210, 18, 13, NULL, '2017-04-05 14:00:00', '2017-04-05'),
+(2741, 149, 210, 18, 13, NULL, '2017-04-05 14:06:00', '2017-04-05'),
+(2742, 149, 210, 18, 13, NULL, '2017-04-05 14:12:00', '2017-04-05'),
+(2743, 149, 210, 18, 13, NULL, '2017-04-05 14:18:00', '2017-04-05'),
+(2744, 149, 210, 18, 13, NULL, '2017-04-05 14:24:00', '2017-04-05'),
+(2745, 149, 210, 18, 13, NULL, '2017-04-05 14:30:00', '2017-04-05'),
+(2746, 149, 210, 18, 13, NULL, '2017-04-05 14:36:00', '2017-04-05'),
+(2747, 149, 210, 18, 13, NULL, '2017-04-05 14:42:00', '2017-04-05'),
+(2748, 149, 210, 18, 13, NULL, '2017-04-05 14:48:00', '2017-04-05'),
+(2749, 149, 210, 18, 13, NULL, '2017-04-05 14:54:00', '2017-04-05'),
+(2750, 149, 210, 18, 13, NULL, '2017-04-05 15:00:00', '2017-04-05'),
+(2751, 149, 210, 18, 13, NULL, '2017-04-05 15:06:00', '2017-04-05'),
+(2752, 149, 210, 18, 13, NULL, '2017-04-05 15:12:00', '2017-04-05'),
+(2753, 149, 210, 18, 13, NULL, '2017-04-05 15:18:00', '2017-04-05'),
+(2754, 149, 210, 18, 13, NULL, '2017-04-05 15:24:00', '2017-04-05'),
+(2755, 149, 210, 18, 13, NULL, '2017-04-05 15:30:00', '2017-04-05'),
+(2756, 149, 210, 18, 13, NULL, '2017-04-05 15:36:00', '2017-04-05'),
+(2757, 149, 210, 18, 13, NULL, '2017-04-05 15:42:00', '2017-04-05'),
+(2758, 149, 210, 18, 13, NULL, '2017-04-05 15:48:00', '2017-04-05'),
+(2759, 149, 210, 18, 13, NULL, '2017-04-05 15:54:00', '2017-04-05'),
+(2760, 149, 210, 18, 13, NULL, '2017-04-05 16:00:00', '2017-04-05'),
+(2761, 149, 210, 18, 13, NULL, '2017-04-05 16:06:00', '2017-04-05'),
+(2762, 149, 210, 18, 13, NULL, '2017-04-05 16:12:00', '2017-04-05'),
+(2763, 149, 210, 18, 13, NULL, '2017-04-05 16:18:00', '2017-04-05'),
+(2764, 149, 210, 18, 13, NULL, '2017-04-05 16:24:00', '2017-04-05'),
+(2765, 149, 210, 18, 13, NULL, '2017-04-05 16:30:00', '2017-04-05'),
+(2766, 149, 210, 18, 13, NULL, '2017-04-05 16:36:00', '2017-04-05'),
+(2767, 149, 210, 18, 13, NULL, '2017-04-05 16:42:00', '2017-04-05'),
+(2768, 149, 210, 18, 13, NULL, '2017-04-05 16:48:00', '2017-04-05'),
+(2769, 149, 210, 18, 13, NULL, '2017-04-05 16:54:00', '2017-04-05'),
+(2770, 149, 210, 18, 13, NULL, '2017-04-05 17:00:00', '2017-04-05'),
+(2771, 149, 210, 18, 13, NULL, '2017-04-05 17:06:00', '2017-04-05'),
+(2772, 149, 210, 18, 13, NULL, '2017-04-05 17:12:00', '2017-04-05'),
+(2773, 149, 210, 18, 13, NULL, '2017-04-05 17:18:00', '2017-04-05'),
+(2774, 149, 210, 18, 13, NULL, '2017-04-05 17:24:00', '2017-04-05'),
+(2775, 149, 210, 18, 13, NULL, '2017-04-05 17:30:00', '2017-04-05'),
+(2776, 149, 210, 18, 13, NULL, '2017-04-05 17:36:00', '2017-04-05'),
+(2777, 149, 210, 18, 13, NULL, '2017-04-05 17:42:00', '2017-04-05'),
+(2778, 149, 210, 18, 13, NULL, '2017-04-05 17:48:00', '2017-04-05'),
+(2779, 149, 210, 18, 13, NULL, '2017-04-05 17:54:00', '2017-04-05'),
+(2780, 149, 210, 18, 13, NULL, '2017-04-05 18:00:00', '2017-04-05');
 
 --
 -- Index pour les tables exportées
 --
 
 --
--- Index pour la table `payment_services`
+-- Index pour la table `adminresettoken`
 --
-ALTER TABLE `payment_services`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id` (`id`);
+ALTER TABLE `adminresettoken`
+  ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT pour les tables exportées
+-- Index pour la table `billingmethodlist`
 --
+ALTER TABLE `billingmethodlist`
+  ADD PRIMARY KEY (`sr`),
+  ADD KEY `sr` (`sr`),
+  ADD KEY `attachedTo` (`attachedTo`);
 
 --
--- AUTO_INCREMENT pour la table `payment_services`
+-- Index pour la table `ccdetails`
 --
-ALTER TABLE `payment_services`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
-
---
--- Structure de la table `hourly_invoices`
---
-
-DROP TABLE IF EXISTS `hourly_invoices`;
-CREATE TABLE `hourly_invoices` (
-  `id` int(11) NOT NULL,
-  `invoice_service_id` varchar(255) NOT NULL,
-  `service_name` varchar(255) NOT NULL,
-  `transaction_id` varchar(255) DEFAULT NULL,
-  `status` enum('PAID','PROCESSING_FAILED','UNPAID','') NOT NULL,
-  `created_at` timestamp NOT NULL,
-  `updated_at` timestamp NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+ALTER TABLE `ccdetails`
+  ADD PRIMARY KEY (`sr`),
+  ADD KEY `sr` (`sr`);
 
 --
--- Contenu de la table `hourly_invoices`
+-- Index pour la table `country`
 --
-
-INSERT INTO `hourly_invoices` (`id`, `invoice_service_id`, `service_name`, `transaction_id`, `status`, `created_at`, `updated_at`) VALUES
-(13, 'in_1A6LvzC3aXjEIlyVPmhwkSlb', 'stripe', 'txn_1A6LwKC3aXjEIlyVeHMd6hFH', 'PAID', '2017-04-05 19:00:16', '2017-04-05 19:00:16');
-
--- --------------------------------------------------------
+ALTER TABLE `country`
+  ADD PRIMARY KEY (`country_id`);
 
 --
--- Structure de la table `hourly_invoices_items`
+-- Index pour la table `daily_hourly_invoice`
 --
-
-DROP TABLE IF EXISTS `hourly_invoices_items`;
-CREATE TABLE `hourly_invoices_items` (
-  `id` int(11) NOT NULL,
-  `bid_id` int(11) NOT NULL,
-  `amount_due` double NOT NULL,
-  `description` text NOT NULL,
-  `payment_service_name` varchar(255) DEFAULT NULL,
-  `status` enum('UNPAID','PAID','PROCESSING_FAILED','') NOT NULL DEFAULT 'UNPAID',
-  `unpaid_reason` text,
-  `invoice_id` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL,
-  `updated_at` timestamp NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+ALTER TABLE `daily_hourly_invoice`
+  ADD PRIMARY KEY (`id_daily_hourly_invoice`);
 
 --
--- Contenu de la table `hourly_invoices_items`
+-- Index pour la table `daily_hourly_transaction`
 --
-
-INSERT INTO `hourly_invoices_items` (`id`, `bid_id`, `amount_due`, `description`, `payment_service_name`, `status`, `unpaid_reason`, `invoice_id`, `created_at`, `updated_at`) VALUES
-(10, 210, 10, 'Invoice for Contract ID: 13_NYVK5HQ3QP - 2hrs*$5.00/hr', NULL, 'PAID', NULL, '13', '2017-04-05 19:00:16', '2017-04-05 19:00:16'),
-(9, 210, 15, 'Invoice for Contract ID: 13_NYVK5HQ3QP - 3hrs*$5.00/hr', NULL, 'PAID', NULL, '13', '2017-04-05 18:56:33', '2017-04-05 18:56:33');
+ALTER TABLE `daily_hourly_transaction`
+  ADD PRIMARY KEY (`id_daily_hourly_transaction`);
 
 --
--- Index pour les tables exportées
+-- Index pour la table `freelancer_education`
 --
-
---
--- Index pour la table `hourly_invoices`
---
-ALTER TABLE `hourly_invoices`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `index_transaction_id` (`transaction_id`),
-  ADD KEY `invoice_service_id` (`invoice_service_id`);
+ALTER TABLE `freelancer_education`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `hourly_invoices_items`
@@ -6234,21 +6475,545 @@ ALTER TABLE `hourly_invoices_items`
   ADD KEY `index_bid_id` (`bid_id`);
 
 --
+-- Index pour la table `instagramtoken`
+--
+ALTER TABLE `instagramtoken`
+  ADD PRIMARY KEY (`instagramtoken_id`);
+
+--
+-- Index pour la table `jobs`
+--
+ALTER TABLE `jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id` (`id`);
+
+--
+-- Index pour la table `job_accepted`
+--
+ALTER TABLE `job_accepted`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `job_bid_attachments`
+--
+ALTER TABLE `job_bid_attachments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `job_categories`
+--
+ALTER TABLE `job_categories`
+  ADD PRIMARY KEY (`cat_id`);
+
+--
+-- Index pour la table `job_conversation`
+--
+ALTER TABLE `job_conversation`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `job_conversation_files`
+--
+ALTER TABLE `job_conversation_files`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `job_hire_end`
+--
+ALTER TABLE `job_hire_end`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `job_skills`
+--
+ALTER TABLE `job_skills`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `job_subcategories`
+--
+ALTER TABLE `job_subcategories`
+  ADD PRIMARY KEY (`subcat_id`);
+
+--
+-- Index pour la table `job_workdairy`
+--
+ALTER TABLE `job_workdairy`
+  ADD PRIMARY KEY (`workdairy_id`);
+
+--
+-- Index pour la table `notification`
+--
+ALTER TABLE `notification`
+  ADD PRIMARY KEY (`id_notification`);
+
+--
+-- Index pour la table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`payment_id`);
+
+--
+-- Index pour la table `payment_services`
+--
+ALTER TABLE `payment_services`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id` (`id`);
+
+--
+-- Index pour la table `paypal_object`
+--
+ALTER TABLE `paypal_object`
+  ADD PRIMARY KEY (`sr`);
+
+--
+-- Index pour la table `paypal_pakey`
+--
+ALTER TABLE `paypal_pakey`
+  ADD PRIMARY KEY (`sr`);
+
+--
+-- Index pour la table `paypal_pa_object`
+--
+ALTER TABLE `paypal_pa_object`
+  ADD PRIMARY KEY (`sr`);
+
+--
+-- Index pour la table `site`
+--
+ALTER TABLE `site`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `skills`
+--
+ALTER TABLE `skills`
+  ADD PRIMARY KEY (`id_skills`);
+
+--
+-- Index pour la table `stripe_customerdetail`
+--
+ALTER TABLE `stripe_customerdetail`
+  ADD PRIMARY KEY (`sr`),
+  ADD KEY `sr` (`sr`);
+
+--
+-- Index pour la table `timezones`
+--
+ALTER TABLE `timezones`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `token`
+--
+ALTER TABLE `token`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `userpage`
+--
+ALTER TABLE `userpage`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `userpageaccess`
+--
+ALTER TABLE `userpageaccess`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `usersection`
+--
+ALTER TABLE `usersection`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `usersectionaccess`
+--
+ALTER TABLE `usersectionaccess`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `usersubpage`
+--
+ALTER TABLE `usersubpage`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `usersubpageaccess`
+--
+ALTER TABLE `usersubpageaccess`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `user_categories`
+--
+ALTER TABLE `user_categories`
+  ADD PRIMARY KEY (`user_cat_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `subcat_id` (`subcat_id`);
+
+--
+-- Index pour la table `user_experience`
+--
+ALTER TABLE `user_experience`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `webuseraddresses`
+--
+ALTER TABLE `webuseraddresses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `webuser_basic_profile`
+--
+ALTER TABLE `webuser_basic_profile`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tagline` (`tagline`),
+  ADD KEY `skills` (`skills`);
+
+--
+-- Index pour la table `webuser_payment_methods`
+--
+ALTER TABLE `webuser_payment_methods`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `webuser_portfolio`
+--
+ALTER TABLE `webuser_portfolio`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `webuser_portfolio_skills`
+--
+ALTER TABLE `webuser_portfolio_skills`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `webuser_skills`
+--
+ALTER TABLE `webuser_skills`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `webuser_tax_information`
+--
+ALTER TABLE `webuser_tax_information`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `tax_no` (`tax_no`);
+
+--
+-- Index pour la table `webuser_tickets`
+--
+ALTER TABLE `webuser_tickets`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `webuser_ticket_messages`
+--
+ALTER TABLE `webuser_ticket_messages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `webuser_ticket_message_files`
+--
+ALTER TABLE `webuser_ticket_message_files`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `withdraw`
+--
+ALTER TABLE `withdraw`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `workdairy_tracker`
+--
+ALTER TABLE `workdairy_tracker`
+  ADD PRIMARY KEY (`worktracker_id`);
+
+--
 -- AUTO_INCREMENT pour les tables exportées
 --
 
 --
--- AUTO_INCREMENT pour la table `hourly_invoices`
+-- AUTO_INCREMENT pour la table `adminresettoken`
 --
-ALTER TABLE `hourly_invoices`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+ALTER TABLE `adminresettoken`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+--
+-- AUTO_INCREMENT pour la table `billingmethodlist`
+--
+ALTER TABLE `billingmethodlist`
+  MODIFY `sr` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+--
+-- AUTO_INCREMENT pour la table `ccdetails`
+--
+ALTER TABLE `ccdetails`
+  MODIFY `sr` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+--
+-- AUTO_INCREMENT pour la table `country`
+--
+ALTER TABLE `country`
+  MODIFY `country_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=214;
+--
+-- AUTO_INCREMENT pour la table `daily_hourly_invoice`
+--
+ALTER TABLE `daily_hourly_invoice`
+  MODIFY `id_daily_hourly_invoice` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `daily_hourly_transaction`
+--
+ALTER TABLE `daily_hourly_transaction`
+  MODIFY `id_daily_hourly_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT pour la table `freelancer_education`
+--
+ALTER TABLE `freelancer_education`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT pour la table `hourly_invoices_items`
 --
 ALTER TABLE `hourly_invoices_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
-
+--
+-- AUTO_INCREMENT pour la table `instagramtoken`
+--
+ALTER TABLE `instagramtoken`
+  MODIFY `instagramtoken_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT pour la table `jobs`
+--
+ALTER TABLE `jobs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=182;
+--
+-- AUTO_INCREMENT pour la table `job_accepted`
+--
+ALTER TABLE `job_accepted`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
+--
+-- AUTO_INCREMENT pour la table `job_bids`
+--
+ALTER TABLE `job_bids`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `job_bid_attachments`
+--
+ALTER TABLE `job_bid_attachments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `job_categories`
+--
+ALTER TABLE `job_categories`
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT pour la table `job_conversation`
+--
+ALTER TABLE `job_conversation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=479;
+--
+-- AUTO_INCREMENT pour la table `job_conversation_files`
+--
+ALTER TABLE `job_conversation_files`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+--
+-- AUTO_INCREMENT pour la table `job_feedback`
+--
+ALTER TABLE `job_feedback`
+  MODIFY `feedback_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `job_hire_end`
+--
+ALTER TABLE `job_hire_end`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+--
+-- AUTO_INCREMENT pour la table `job_skills`
+--
+ALTER TABLE `job_skills`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+--
+-- AUTO_INCREMENT pour la table `job_subcategories`
+--
+ALTER TABLE `job_subcategories`
+  MODIFY `subcat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+--
+-- AUTO_INCREMENT pour la table `job_workdairy`
+--
+ALTER TABLE `job_workdairy`
+  MODIFY `workdairy_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+--
+-- AUTO_INCREMENT pour la table `notification`
+--
+ALTER TABLE `notification`
+  MODIFY `id_notification` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+--
+-- AUTO_INCREMENT pour la table `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=291;
+--
+-- AUTO_INCREMENT pour la table `payment_services`
+--
+ALTER TABLE `payment_services`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT pour la table `paypal_object`
+--
+ALTER TABLE `paypal_object`
+  MODIFY `sr` double NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+--
+-- AUTO_INCREMENT pour la table `paypal_pakey`
+--
+ALTER TABLE `paypal_pakey`
+  MODIFY `sr` double NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT pour la table `paypal_pa_object`
+--
+ALTER TABLE `paypal_pa_object`
+  MODIFY `sr` double NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT pour la table `site`
+--
+ALTER TABLE `site`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+--
+-- AUTO_INCREMENT pour la table `skills`
+--
+ALTER TABLE `skills`
+  MODIFY `id_skills` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2678;
+--
+-- AUTO_INCREMENT pour la table `stripe_customerdetail`
+--
+ALTER TABLE `stripe_customerdetail`
+  MODIFY `sr` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+--
+-- AUTO_INCREMENT pour la table `timezones`
+--
+ALTER TABLE `timezones`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+--
+-- AUTO_INCREMENT pour la table `token`
+--
+ALTER TABLE `token`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+--
+-- AUTO_INCREMENT pour la table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT pour la table `userpage`
+--
+ALTER TABLE `userpage`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+--
+-- AUTO_INCREMENT pour la table `userpageaccess`
+--
+ALTER TABLE `userpageaccess`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT pour la table `usersection`
+--
+ALTER TABLE `usersection`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+--
+-- AUTO_INCREMENT pour la table `usersectionaccess`
+--
+ALTER TABLE `usersectionaccess`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT pour la table `usersubpage`
+--
+ALTER TABLE `usersubpage`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+--
+-- AUTO_INCREMENT pour la table `usersubpageaccess`
+--
+ALTER TABLE `usersubpageaccess`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+--
+-- AUTO_INCREMENT pour la table `user_categories`
+--
+ALTER TABLE `user_categories`
+  MODIFY `user_cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=171;
+--
+-- AUTO_INCREMENT pour la table `user_experience`
+--
+ALTER TABLE `user_experience`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT pour la table `webuser`
+--
+ALTER TABLE `webuser`
+  MODIFY `webuser_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `webuseraddresses`
+--
+ALTER TABLE `webuseraddresses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+--
+-- AUTO_INCREMENT pour la table `webuser_basic_profile`
+--
+ALTER TABLE `webuser_basic_profile`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT pour la table `webuser_payment_methods`
+--
+ALTER TABLE `webuser_payment_methods`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+--
+-- AUTO_INCREMENT pour la table `webuser_portfolio`
+--
+ALTER TABLE `webuser_portfolio`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+--
+-- AUTO_INCREMENT pour la table `webuser_portfolio_skills`
+--
+ALTER TABLE `webuser_portfolio_skills`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+--
+-- AUTO_INCREMENT pour la table `webuser_skills`
+--
+ALTER TABLE `webuser_skills`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
+--
+-- AUTO_INCREMENT pour la table `webuser_tax_information`
+--
+ALTER TABLE `webuser_tax_information`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT pour la table `webuser_tickets`
+--
+ALTER TABLE `webuser_tickets`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT pour la table `webuser_ticket_messages`
+--
+ALTER TABLE `webuser_ticket_messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=164;
+--
+-- AUTO_INCREMENT pour la table `webuser_ticket_message_files`
+--
+ALTER TABLE `webuser_ticket_message_files`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+--
+-- AUTO_INCREMENT pour la table `withdraw`
+--
+ALTER TABLE `withdraw`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT pour la table `workdairy_tracker`
+--
+ALTER TABLE `workdairy_tracker`
+  MODIFY `worktracker_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2781;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

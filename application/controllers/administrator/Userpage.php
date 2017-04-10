@@ -27,12 +27,18 @@ class Userpage extends CI_Controller {
 
 
 		       $page=$this->uri->uri_to_assoc();
-			if(isset($page['subpage'])){
+                       
+                       $keys = array_keys($page);
+                       
+                       if( count( $keys ) ==  3){
+                           $callpage = $keys[2];
+                       }else if(isset($page['subpage'])){
 				$callpage=$page['subpage'];
 			}else{
 				$callpage="loadmain";
 			}
 			$mod=$page['loadpage'];
+                        
 			switch ($mod) {
 
 					case "packages":
@@ -66,7 +72,7 @@ class Userpage extends CI_Controller {
 					$permission=array('lists'=> '41' , 'add'=> '42' , 'edit'=> '43' , 'inactive'=> '44' , 'courses'=> '46');
 					break;
 					case "fundmangement":
-					$permission=array('withdawlrequest'=> '26' , 'billingrequest'=> '27' , 'transuctionhistory'=> '28', 'invoicehourly'=> '29' );
+					$permission=array('withdaw-processed'=> '26' , 'withdaw-pending'=> '31' , 'invoices'=> '27' , 'paid-invoices'=> '28', 'failed-invoices'=> '29' );
 					break;
 					//added Sergey start
 					case "contactmanagement":
@@ -74,18 +80,40 @@ class Userpage extends CI_Controller {
 					break;
 					//added by Sergey end
 				}
-				$this->load->model('admin/'.$mod.'/'.$callpage);
+                                
+                                $callpage_update = $callpage;
+                                if(in_array($callpage, array("withdaw-processed", "withdaw-pending"))){
+                                     $callpage_update = "withdawrequest";
+                                }else if(strtolower($callpage) == "paid-invoices"){
+                                    $callpage_update = "Transuctionhistory";
+                                }else if(strtolower($callpage) == "failed-invoices"){
+                                    $callpage_update = "Invoicehourly";
+                                }
+                                
+                                $this->load->model('admin/'.$mod.'/'.$callpage_update);
                                 
                                 $status = null;
-                                $this->$callpage->check($permission);
+                                
+                                $this->$callpage_update->check($permission);
+                                
                                 switch( strtolower($callpage) ){
-                                    case 'invoicehourly':
-                                        $status = INVOICE_PROCESSING_PAID;
-                                        $this->$callpage->load_transaction($permission,$mod, $status);
+                                    case 'invoices':
+                                        $status = INVOICE_UNPAID;
+                                        $this->$callpage_update->load_transaction($permission,$mod, $status);
                                     break;
-                                    case 'transuctionhistory':
+                                    case 'failed-invoices':
+                                        $status = INVOICE_PROCESSING_PAID;
+                                        $this->$callpage_update->load_transaction($permission,$mod, $status);
+                                    break;
+                                    case 'paid-invoices':
                                         $status = INVOICE_PAID;
-                                        $this->$callpage->load_transaction($permission,$mod, $status);
+                                        $this->$callpage_update->load_transaction($permission,$mod, $status);
+                                    break;
+                                    case 'withdaw-processed':
+                                        $this->$callpage_update->load($permission,$mod, WITHDRAW_PROCESSED);
+                                    break;
+                                    case 'withdaw-pending':
+                                        $this->$callpage_update->load($permission,$mod, WITHDRAW_PENDING);
                                     break;
                                     default:
                                         $this->$callpage->load($permission,$mod);

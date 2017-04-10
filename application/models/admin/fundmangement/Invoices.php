@@ -1,5 +1,5 @@
 <?php
-class Billingrequest extends CI_Model {
+class Invoices extends CI_Model {
 
     function __construct() {
         parent::__construct();
@@ -7,7 +7,7 @@ class Billingrequest extends CI_Model {
 
 	  function check($permission) {
 
-		if($this->Adminlogincheck->checkper($permission['billingrequest'])){
+		if($this->Adminlogincheck->checkper($permission['invoices'])){
 			return true;
 		}else{
 			redirect(site_url());
@@ -18,7 +18,7 @@ class Billingrequest extends CI_Model {
 
 
 		$page=$this->uri->uri_to_assoc();
-		$title=$this->Adminforms->getdata("name","usersubpage",$permission['billingrequest']);
+		$title=$this->Adminforms->getdata("name","usersubpage",$permission['invoices']);
 
 		if(isset($_GET['q'])){
 			$q=$_GET['q'];
@@ -34,11 +34,8 @@ class Billingrequest extends CI_Model {
 			$query = $this->db->get();
 			$result = $query->result();
 
-
-			
 			$data = array( 'title' => $title, 'permission' => $permission, 'loadpage' => $page['loadpage'], 'subpage' => $page['subpage'],'result' => $result,  );
-
-			$this->Admintheme->loadview($page['loadpage']."/".$page['subpage'],$data);
+			$this->Admintheme->loadview($page['loadpage']."/billingrequest",$data);
 
 
 
@@ -91,13 +88,13 @@ class Billingrequest extends CI_Model {
                     ->get();
         
         $data = array(
-            'title'      => $title, 
+            'title'      => 'Invoices', 
             'permission' => $permission, 
             'loadpage'   => $page['loadpage'], 
             'subpage'    => $page['subpage'], 
             'txns'       => $query->result(),
         );
-        $this->Admintheme->loadview($page['loadpage'] . "/" . $page['subpage'], $data);
+        $this->Admintheme->loadview($page['loadpage'] . "/billingrequest" , $data);
     }
 
 

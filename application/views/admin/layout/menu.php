@@ -304,12 +304,21 @@ foreach($p as $pst){
 echo ' 
 <li class="site-menu-item';
 
-if($this->uri->segment(6)==$pst->name){ echo " active"; } 
-echo '">
- <a class="animsition-link" href="'.site_url('administrator/userpage/loadpage/'.$lst->name.'/subpage/'.$pst->name.'/').'" data-slug="tables-basic">
- <i class="site-menu-icon  '.$pst->icon.'" aria-hidden="true"></i>
- <span class="site-menu-title">'.$pst->title.'</span></a>
-</li>';
+if(in_array($pst->name, array('withdaw-processed', 'withdaw-pending'))){ 
+    if($this->uri->segment(6)==$pst->name){ echo " active"; }  
+    echo '">
+        <a class="animsition-link" href="'.site_url('administrator/userpage/loadpage/fundmangement/subpage/'.$pst->name.'/').'" data-slug="tables-basic">
+        <i class="site-menu-icon  '.$pst->icon.'" aria-hidden="true"></i>
+        <span class="site-menu-title">'.$pst->title.'</span></a>
+       </li>';
+}else{
+    if($this->uri->segment(6)==$pst->name){ echo " active"; } 
+    echo '">
+        <a class="animsition-link" href="'.site_url('administrator/userpage/loadpage/'.$lst->name.'/subpage/'.$pst->name.'/').'" data-slug="tables-basic">
+        <i class="site-menu-icon  '.$pst->icon.'" aria-hidden="true"></i>
+        <span class="site-menu-title">'.$pst->title.'</span></a>
+       </li>';
+}
 }
 echo "
 

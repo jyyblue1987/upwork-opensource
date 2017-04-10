@@ -98,7 +98,7 @@
                                     <td><input type="checkbox"></td>
                                     <td><?= $key+1; ?></td>
                                     <td><?= $value['id']; ?></td>
-                                    <td><?= date('m/d/Y', strtotime($value['date'])); ?></td>
+                                    <td><?= date('m/d/Y', strtotime( ( strtolower($value['status_payment']) == WITHDRAW_PROCESSED ? $value['operation_date'] : $value['date'] ) ) ); ?></td>
                                     <td>
                                         <table>
                                             <tr><td>
@@ -110,7 +110,7 @@
                                             <tr><td>
 
                                                 <b>Account Balance:</b>
-                                                2
+                                                <?= '$' . $payment_model->get_amount_available( $value['webuser_id'] );  ?>
                                             </td>
                                             </tr>
                                             <tr><td>
@@ -126,19 +126,22 @@
                                     <td><?= $value['amount']; ?></td>
                                     <td>
                                         <span id="<?= 'td'.$value['id'];?>"><?= ucwords($value['status_payment']); ?></span>
-                                        <input type="checkbox" data-toggle="toggle" data-on="<i class='fa fa-check'></i>" data-off="<i class='fa fa-circle-o'></i>" data-size="normal" id="<?="check-".$value['id']?>" value="<?="check-".$value['id']?>" class="status-toggle" >
+                                        <?php if(strtolower($value['status_payment']) == WITHDRAW_PENDING): ?>
+                                            <input type="checkbox" data-toggle="toggle" data-on="<i class='fa fa-check'></i>" data-off="<i class='fa fa-circle-o'></i>" data-size="normal" id="<?="check-".$value['id']?>" value="<?="check-".$value['id']?>" class="status-toggle" >
+                                        <?php endif; ?>
                                     </td>
                                     <td>
                                         <div class="selector" id="uniform-user_type" style="width: 100px;">
+                                            <?php if(strtolower($value['status_payment']) == WITHDRAW_PENDING): ?>
                                             <select id="user_type" name="user_type" class="form-control status-select" key="<?= $value['id'] ?>">
                                                 <option value="">Select value</option>
                                                 <option value="1" >Edit</option>
-
                                                 <option value="3">Pending</option>
                                                 <option value="2">Processed</option>
                                             </select>
                                         </div>
                                         <h5>Pay Now</h5>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
                             <?php
