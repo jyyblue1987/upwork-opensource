@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 10 Avril 2017 à 16:48
+-- Généré le :  Lun 10 Avril 2017 à 17:40
 -- Version du serveur :  5.7.11
 -- Version de PHP :  5.6.19
 
@@ -4859,10 +4859,8 @@ CREATE TABLE `userpage` (
 --
 
 INSERT INTO `userpage` (`id`, `section`, `page`, `name`, `ind`, `icon`) VALUES
-(26, '18', 'country', 'Country', 1, 'fa-list'),
 (27, '16', 'listapi', 'List Api', 1, 'fa-list'),
 (28, '19', 'webuser', 'User', 1, 'fa-user'),
-(29, '19', 'instagram', 'Social IDs', 2, 'fa-facebook'),
 (30, '19', 'fundmangement/hourly-billings', 'Fund Management ', 2, 'fa-usd'),
 (31, '19', 'contactmanagement', 'Contact Management', 3, '');
 
@@ -4911,7 +4909,6 @@ CREATE TABLE `usersection` (
 INSERT INTO `usersection` (`id`, `page`, `name`, `ind`, `icon`) VALUES
 (16, '', 'Api Developer', 600, ''),
 (17, '', 'System Data', 700, ''),
-(18, '', 'Common Data', 500, ''),
 (19, '', 'User/ID', 1, '');
 
 -- --------------------------------------------------------
@@ -7014,6 +7011,7 @@ ALTER TABLE `withdraw`
 --
 ALTER TABLE `workdairy_tracker`
   MODIFY `worktracker_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2781;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
