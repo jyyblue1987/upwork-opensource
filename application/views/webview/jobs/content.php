@@ -206,6 +206,7 @@ $accepted_jobs = $query->result();
                 <h6 class="more no-pad" style="color: #494949;"><?php echo ucfirst($value->job_description) ?></h6>
             </div>
             
+            <?php if($value->tid != 0){ ?>
             <div class="col-md-12 col-md-offset-0 page-jobs no-pad" style=" margin-bottom: 10px;">
                 <h6 style="float:left;font-size: 14px;margin: 0;margin-top: 3px;margin-right: -8px;" class="page-sub-title more">Attachment</h6>
                 <div class="attachments">
@@ -218,6 +219,7 @@ $accepted_jobs = $query->result();
                     ?>
                 </div>
             </div>
+            <?php } ?>
             
             <div class="col-md-12 col-md-offset-0 page-jobs no-pad" style=" margin-bottom: 10px;">
 

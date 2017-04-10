@@ -235,6 +235,7 @@ $total_spent=$row_spent->total_spent;
                     <div class="col-md-12 text-justify page-label job-desc"><?php echo ucfirst($value->job_description) ?></div>
                 </div>
                 
+                <?php if($value->tid != 0){ ?>
                 <div class="row margin-top page-label">
                     <div class="col-md-9">
                         <label>Attachment</label>
@@ -243,12 +244,13 @@ $total_spent=$row_spent->total_spent;
                     <div class="col-md-12 text-justify page-label job-desc">
                          <?php 
                     $attachments = explode(",", $value->userfile);
-                    foreach($attachments AS $attachment){
-                        echo '<a href="'.site_url().'jobs/download?dir='.$value->user_id.'/'.$value->tid.'&file='.str_replace('"','', $attachment).' ">'.str_replace('"','', $attachment).'</a><br>'; 
-                    }
+                        foreach($attachments AS $attachment){
+                            echo '<a href="'.site_url().'jobs/download?dir='.$value->user_id.'/'.$value->tid.'&file='.str_replace('"','', $attachment).' ">'.str_replace('"','', $attachment).'</a><br>'; 
+                        }
                     ?>
                     </div>
                 </div>
+                <?php } ?>
                 
 <div class="jobdes-bordered-wrapper">
                 <div class="row jobdes-bordered page-label">
