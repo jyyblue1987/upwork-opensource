@@ -37,8 +37,19 @@ class Withdawrequest extends CI_Model {
         $this->db->where('webuser.isdelete', 0);
         $query = $this->db->get();
         $result = $query->result();
+        
+        $from      = $this->input->get('from');
+        $to        = $this->input->get('to');
+        $user_type = $this->input->get('user_type');
+        $criteria  = $this->input->get('criteria');
 
-        $record = $this->withdraw_model->get_by_all_user($status);
+        $record = $this->withdraw_model->get_by_all_user($status, array(
+            'from'      => $from,
+            'to'        => $to,
+            'user_type' => $user_type,
+            'criteria'  => $criteria
+        ));
+        
         foreach ($record as $key => $value) {
             $data = $this->payment_methods_model->get_email_by_user_and_method($value['webuser_id'], strtolower($value['payment_type']));
 
@@ -53,7 +64,11 @@ class Withdawrequest extends CI_Model {
             'subpage' => $page['subpage'],
             'result' => $result,
             'record' => $record,
-            'payment_model' => $this->payment_model
+            'payment_model' => $this->payment_model,
+            'from' => $from,
+            'to' => $to,
+            'user_type' => $user_type,
+            'criteria' => $criteria,
         );
 
         $this->Admintheme->loadview($page['loadpage'] . "/withdawlrequest", $data);

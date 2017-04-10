@@ -4786,7 +4786,7 @@ DROP TABLE IF EXISTS `userpage`;
 CREATE TABLE IF NOT EXISTS `userpage` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `section` varchar(20) NOT NULL,
-  `page` varchar(20) NOT NULL,
+  `page` varchar(40) NOT NULL,
   `name` varchar(50) NOT NULL,
   `ind` int(4) NOT NULL,
   `icon` varchar(50) NOT NULL,

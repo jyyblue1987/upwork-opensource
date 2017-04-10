@@ -30,56 +30,39 @@
             <!-- Panel -->
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <p class="result-msg" style="text-align: center;color: green;font-size: 20px;display: none;"></p>
-                <div class="secound">
-
-                    <div class="fabb">
-                        Date
-                    </div>
-
-                    <div class="fad">
-                        To
-
-                    </div>
-                    <div class="fabb">
-                        Date
-                    </div>
-                    <div class="faff">
-                        SEARCH
-
-                    </div>
-
-                </div>
-
-
-                <div class="third">
-
-                    <div class="fab">
-                        <div class="selector" id="uniform-user_type" style="width: 100px;">
-                            <select id="user_type" name="user_type" class="form-control">
-                                <option value="">ID</option>
-
-                                <option value="3">
-                                    Username</option>
-                                <option value="2">Email</option>
-
-
-                            </select>
+                <form class="col-xs-12" action="" method="get" id="searchfilter" style="padding-left: 0;">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-11">
+                            <div class="col-md-3 col-sm-3" style="padding-left: 0;">
+                                <label class="col-xs-12">From</label>
+                                <input type="text" class="form-control"   id="selectedDate-1" name="from" value='<?= $from ?>'/>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <label class="col-xs-12">To</label>
+                                <input type="text" class="form-control"   id="selectedDate-2" name="to" value='<?= $to ?>' />
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <label class="col-xs-12">&nbsp;</label>
+                                <div class="selector" id="uniform-user_type">
+                                    <select id="user_type" name="user_type" class="form-control">
+                                        <option value="1" <?= ($user_type == 1 ? 'selected' : '' ) ?>>ID</option>
+                                        <option value="3" <?= ($user_type == 3 ? 'selected' : '' ) ?>>Username</option>
+                                        <option value="2" <?= ($user_type == 2 ? 'selected' : '' ) ?>>Email</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <label class="col-xs-12">&nbsp;</label>
+                                <input type="text" class="form-control"   name="criteria" value='<?= $criteria ?>' />
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-1 text-center" style="padding-left: 0;">
+                            <label class="col-xs-12">&nbsp;</label>
+                            <button class="btn btn-primary" id="payfilter" type="submit">Search</button>
                         </div>
                     </div>
-                    <div class="fad">
-                        <i class="fa fa-minus" aria-hidden="true"></i>
-
-                    </div>
-                    <div class="fae">
-
-
-                    </div>
-                    <div class="faf">
-                        SEARCH
-
-                    </div>
-
-                </div>
+                </form>    
+                
                 <div class="table">
 
                     <table class="table table-bordered">
@@ -138,7 +121,7 @@
                                 <?php endforeach; ?>
                             <?php else: ?>
                             <tr>
-                                <td colspan="12"><b> No invoices yet. </b></td>
+                                <td colspan="12"><b> No invoices. </b></td>
                             </tr>
                             <?php endif; ?>
                         </tbody>
@@ -154,6 +137,17 @@
 </div>
 <script>
     $(document).ready(function () {
+        
+        $('#selectedDate-1').datepicker({
+            format: 'dd-mm-yyyy',
+            orientation: 'bottom'
+        });
+        
+        $('#selectedDate-2').datepicker({
+            format: 'dd-mm-yyyy',
+            orientation: 'bottom'
+        });
+        
         $('#example').DataTable({
             bFilter: false,
         });

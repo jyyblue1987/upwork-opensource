@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="<?php echo site_url("assets/global/fonts/material-design/material-design.min.css"); ?>">
   <link rel="stylesheet" href="<?php echo site_url("assets/global/fonts/brand-icons/brand-icons.min.css"); ?>">
         <link rel="stylesheet" href="<?php echo site_url("assets/css/toastr.min.css"); ?>">
+        <link rel="stylesheet" href="<?php echo site_url("assets/global/vendor/bootstrap-datepicker/bootstrap-datepicker.min.css"); ?>">
   <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
   <!--[if lt IE 9]>
     <script src="<?php echo site_url("assets/global/vendor/html5shiv/html5shiv.min.js"); ?>"></script>
@@ -42,6 +43,7 @@
   <script src="<?php echo site_url("assets/global/vendor/breakpoints/breakpoints.js"); ?>"></script>
   <script src="<?php echo site_url("assets/global/vendor/jquery/jquery.js"); ?>"></script>
   <script src="<?php echo site_url("assets/global/vendor/bootstrap/bootstrap.js"); ?>"></script>
+   <script src="<?php echo site_url("assets/global/vendor/bootstrap-datepicker/bootstrap-datepicker.min.js"); ?>"></script>
   <script>
   Breakpoints();
   </script>

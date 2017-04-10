@@ -40,8 +40,12 @@ class Withdraw_model extends CI_Model
       return array();
   }
 
-  public function get_by_all_user($status)
+  public function get_by_all_user($status, $filters = null)
   {
+    
+    if( ! empty($filters) )
+        extract ($filters);
+    
     $this->db->select("
       webuser.webuser_id,
       webuser.webuser_email AS email,
@@ -60,8 +64,42 @@ class Withdraw_model extends CI_Model
       withdraw.processingfees", FALSE);
 
       $this->db->where('status', $status);
+      
+    if(!empty($criteria)){
+        switch($user_type){
+            case 1://ID
+                $this->db->where('webuser.webuser_id', $criteria);
+            break;
+            case 2://Email
+                $this->db->like("webuser.webuser_email", $criteria);
+            break;
+            case 3://Username
+                $this->db->like('name', $criteria);
+            break;
+        }
+    }
+    
 
-      $this->db->order_by('date');
+      if( $status == WITHDRAW_PENDING){
+          
+          if(!empty($from))
+            $this->db->where('date >=', date('Y-m-d', strtotime($from)));
+          
+          if(!empty($to))
+            $this->db->where('date <=', date('Y-m-d', strtotime($to)));
+          
+          $this->db->order_by('date');
+      }else{
+          
+          if(!empty($from))
+            $this->db->where('operation_date >=', date('Y-m-d', strtotime($from)));
+          
+          if(!empty($to))
+            $this->db->where('operation_date <=', date('Y-m-d', strtotime($to)));
+          
+          $this->db->order_by('operation_date');
+      }
+          
 
     $this->db->join('webuser', 'webuser.webuser_id = withdraw.userid');
 
