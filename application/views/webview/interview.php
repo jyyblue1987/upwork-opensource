@@ -529,7 +529,7 @@ span.text1 {text-transform: capitalize;}
     </div>
     <?php 
 //  $this->load->view("webview/includes/footer"); 
-    $this->load->view("webview/includes/footer-common-script"); 
+    //$this->load->view("webview/includes/footer-common-script"); 
     ?>
 </body>
 </html>
