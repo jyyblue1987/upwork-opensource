@@ -359,23 +359,21 @@ $hire_count = $query->num_rows();
                             </div>
                         </div>
                     </div>
+                    <?php if($f_attachments[0]['path'] != ""){ ?>
                     <div class="row margin-top page-label margin-top-5">
                     <div class="col-md-9">
                         <label class="lab-details" style="font-size: 15px;">Attachments</label>
                     </div>
                     <div class="col-md-12 text-justify page-label div-details">
                     <?php 
-                    if($f_attachments[0]['path'] != ""){
                         $attachments = explode(",", $f_attachments[0]['path']);
                             foreach($attachments AS $attachment){
                                 echo '<a href="'.site_url().'jobs/download?dir='.$value->user_id.'/'.$f_attachments[0]['tid'].'&file='.str_replace('"','', $attachment).' ">'.str_replace('"','', $attachment).'</a><br>'; 
                             }
-                        }else{
-                            echo "none";
-                        }
                     ?>
                 </div>
                 </div>
+                    <?php } ?>
                 </div>
             </div>   
 
