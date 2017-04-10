@@ -257,7 +257,7 @@ class Process extends CI_Model {
         $this->db
                 ->select('*')
                 ->from('job_bids')
-                ->where_in('jobs_id', array_map('intval', $jobids))
+                ->where_in('jobs_id', $jobids, FALSE)
                 ->where('hired', 1);
         $query = $this->db->get();
         return $query->num_rows();

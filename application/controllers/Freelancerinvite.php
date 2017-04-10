@@ -94,12 +94,10 @@ class Freelancerinvite extends CI_Controller {
                 $jobids[] = $jobs->id;
             }
             $jobids = implode(",", $jobids);
-
-            $_jobids = array_map('intval',$jobids);
             
             $this->db->select('*');
             $this->db->from('job_bids');
-            $this->db->where_in('job_id', $_jobids);
+            $this->db->where_in('job_id', $jobids, FALSE);
             $this->db->where('hired', '1');
             $query_hire = $this->db->get();
             $record_hire = $query_hire->num_rows();
