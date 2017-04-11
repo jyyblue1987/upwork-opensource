@@ -76,9 +76,9 @@ span.rating-badge {
 
 .attach_icon {
 position: absolute;
-right: 7%;
+right: 5%;
 font-size: 26px;
-top: 35%;
+top: 51%;
 color: #a2a2a2;
 transform: rotate(90deg);
 }
@@ -201,6 +201,7 @@ span.text1 {text-transform: capitalize;}
 }
 
 .uploaded_files .item { float: left; margin-right: 5px; }
+.fa-times{ background: none; color: #000; }
 </style>
 
 </head>
@@ -417,7 +418,7 @@ span.text1 {text-transform: capitalize;}
 										</div>
 										<div class="sms_send_btn ccc_sms_send_btn" style="width:20%;float: left;height: 100px;"><a href="javascript:void(0);" id="submit">SEND</a></div>
 										</form>
-                                                                                <div style="width:77%;min-height: 42px;position: relative;">
+                                                                                <div style="width:77%;min-height: 42px;position: relative; top: 12px;">
                                                                                     <div class="uploaded_files" style='left: 3%'></div>
                                                                                 </div>
 										<span id="error_span" style="color:red;padding: 0 0 0 15px;display:none;"></span>
