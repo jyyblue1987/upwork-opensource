@@ -637,8 +637,9 @@ class Jobs extends Winjob_Controller {
                 $this->db->where('webuser.webuser_id', $id);
                 $query_status = $this->db->get();
                 $ststus = $query_status->row();
-
-                $data = array('js' => array('internal/find_job.js'), 'records' => $records, 'limit' => $limit, 'no_of_interview' => $intervier_no, 'proposal_no' => $proposal_no, 'profilecompleteness' => $profilecompleteness, 'ststus' => $ststus);
+                
+                $offers = $this->process->get_total_offers($id);
+                $data = array('js' => array('internal/find_job.js'), 'records' => $records, 'offers' => $offers['rows'], 'limit' => $limit, 'no_of_interview' => $intervier_no, 'proposal_no' => $proposal_no, 'profilecompleteness' => $profilecompleteness, 'ststus' => $ststus);
 
                 if (isset($subCateList) && !empty($subCateList)) {
                     $data['subCateList'] = $subCateList['rows'];
@@ -648,12 +649,22 @@ class Jobs extends Winjob_Controller {
                 $data['jobCatSelected'] = $jobCat;
 
                 // Davit start
-                $this->db->select('id');
-                $monthStart = date('Y-m-01');
-                $monthEnd = date('Y-m-t');
-                $this->db->where("(created BETWEEN '{$monthStart}' AND '{$monthEnd}')");
-                $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id));
+//                $this->db->select('id');
+//                $monthStart = date('Y-m-01');
+//                $monthEnd = date('Y-m-t');
+//                $this->db->where("(created BETWEEN '{$monthStart}' AND '{$monthEnd}')");
+//                $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id));
+//                $proposals = $query->num_rows();
+                
+                $this->db->select('*');
+                $this->db->from('job_bids');
+                $this->db->where(array('bid_reject' => 0, 'status!=1' => null));
+                $this->db->where('user_id', $id);
+                $this->db->where('job_progres_status', 0);
+                $this->db->where(array('withdrawn' => NULL));
+                $query = $this->db->get();
                 $proposals = $query->num_rows();
+                
                 $data['proposals'] = $proposals;
 
                 $sql = "SELECT cropped_image FROM webuser WHERE webuser_id =  " . $this->session->userdata(USER_ID);

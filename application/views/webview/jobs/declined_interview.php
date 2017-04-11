@@ -50,15 +50,9 @@ if(!empty($active_interview)){
 }
 
 
-if(!empty($active_offer)){
-    $aoffer = 0;
-    foreach($active_offer as $offer){
-            $aoffer++;
-    }
-    $_offers = $aoffer;
-    $msg_offers = $_offers." Pending Job Offers";
+if($active_offer != 0){
+    $msg_offers = $active_offer." Offers Available";
 }else{
-    $_offers = 0;
     $msg_offers = "No Pending Job Offers";
 }
 
@@ -90,7 +84,7 @@ if(!empty($active_interview)){
 <?php } ?>
         <div class="row">
             <div class="col-md-12 bottom-blue-border padding-2">
-                <span><b>My Offers (<?= $_offers; ?>)</b></span>
+                <span><b>My Offers (<?= $active_offer; ?>)</b></span>
             </div>
             <div class="col-md-12 text-center bordered-alert margin-top" style="">
                <?= $msg_offers  ?>
@@ -108,11 +102,11 @@ if(!empty($active_interview)){
 
         <div class="row">
             <div class="col-md-12 margin-top-15">
-                <?php foreach($active_offer as $offer){?>
+                <?php foreach($offer_rows as $offer){?>
                 <div class="row">
                     <div class="col-md-12 custom_declined_list_border">
                         <div class="row">
-                            <div class="col-md-2 col-xs-6"><?php  echo date(' M j, Y ', strtotime($offer->bid_created)); ?></div>
+                            <div class="col-md-2 col-xs-6"><?php  echo date(' M j, Y ', strtotime($offer->job_created)); ?></div>
                             <div class="col-md-10 col-xs-6 blue-text">
                                 <a href="<?php echo base_url() ?>jobs/accept_hourly?fmJob=<?php echo base64_encode($offer->job_id);?>"> 
                                  <?php echo $offer->title;?> 
@@ -122,7 +116,7 @@ if(!empty($active_interview)){
 
                          <div class="row margin-top-1">
                             <div class="col-md-2 col-xs-6"><?php 
-                            $timeDate = strtotime($offer->bid_created);
+                            $timeDate = strtotime($offer->job_created);
                             $dateInLocal = date("Y-m-d H:i:s", $timeDate);
                             
                             echo time_elapsed_string(strtotime($dateInLocal)); ?></div>

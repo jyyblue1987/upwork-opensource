@@ -295,4 +295,25 @@ class Process extends CI_Model {
         }
         return $return_array;
     }
+    
+    function get_total_offers($user_id){
+        $this->db
+                ->select('*')
+                ->from('job_bids')
+                ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
+                ->where('job_bids.job_progres_status', 2)
+                ->where('job_bids.hired', '1')
+                ->where('job_bids.bid_reject', '0')
+                ->where('job_bids.status', '0')
+                ->where('jobs.status', '1')
+                ->where('job_bids.user_id', $user_id);
+        $query = $this->db->get();
+
+        $return_array = array();
+        $return_array['rows'] = $query->num_rows();
+        if ($return_array['rows'] > 0) {
+            $return_array['data'] = $query->result();
+        }
+        return $return_array;
+    }
 }
