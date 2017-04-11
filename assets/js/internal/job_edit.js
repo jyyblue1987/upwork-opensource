@@ -54,9 +54,7 @@ $(document).ready(function () {
             }
         },
         success: function (rs) {
-            //console.log(rs);
             var data = JSON.parse(rs);
-            
                 if (data.code == '0')
                 {
                     $('.form-loader').hide();

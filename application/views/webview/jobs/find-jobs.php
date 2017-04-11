@@ -15,7 +15,7 @@ $clientend = $Conversation->clientend();
 <?php if ($job_alert_count) { ?>
             <div class="row margin-top-1">
                 <div class="bordered-alert text-center ack-box">
-                    <h4 class="h4">! You have  <a href="<?php echo site_url("Active_interview"); ?>" class="show_notification"><?= $job_alert_count ?> pending offer- Accept to start working</a>
+                    <h4 class="h4">! You have  <a href="<?php echo site_url("Active_interview"); ?>" class="show_notification"><?= $offers ?> pending offer- Accept to start working</a>
 
                     </h4>
                 </div>
