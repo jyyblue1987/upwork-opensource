@@ -1167,12 +1167,16 @@ class Jobs extends Winjob_Controller {
             } else {
                 unset($data['hours_per_week']);
             }
-
+            
             if ($this->jobs_model->update_job($this->input->post('id'), $data)) {
-                $rs = array('code' => '1', 'type' => $this->input->post('job_type'));
+                $rs =  array('code' => '1', 'type' => $this->input->post('job_type'));
                 $this->session->set_flashdata('msg', $this->input->post('title') . ' has been updated');
+                echo json_encode($rs);
+                die;
             } else {
                 $rs = array('code' => '0', 'msg' => '<div class="alert alert-danger"><strong>Error!</strong> Error occured.Try again.</div>');
+                echo json_encode($rs);
+                die;
             }
         }
 

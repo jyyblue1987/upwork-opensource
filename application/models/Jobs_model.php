@@ -331,7 +331,7 @@ class Jobs_model extends CI_Model {
     }
     
     public function update_job($job_id, $data){
-        $this->db
+        return $this->db
             ->where('id', $job_id)
             ->update('jobs', $data);
     }

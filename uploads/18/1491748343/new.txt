@@ -1,0 +1,14 @@
+var data = json_encode(rs);
+
+if (data.code == '0')
+                {
+                    $('.form-loader').hide();
+                    $('.form-msg').html(data.msg);
+                    $('.form-msg').show();
+                    $('.form-msg').fadeOut(10000);
+                    $('input:submit').removeAttr('disabled');
+                }
+                else
+                {
+                    window.location = base_url() + 'jobs-home';
+                }
