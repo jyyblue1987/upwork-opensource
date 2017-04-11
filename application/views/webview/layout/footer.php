@@ -92,7 +92,7 @@
  }
  
  function base_url() {
-    var base_url = '<?php base_url(); ?>';
+    var base_url = '<?php echo base_url(); ?>';
     return base_url;
 }
  </script>
