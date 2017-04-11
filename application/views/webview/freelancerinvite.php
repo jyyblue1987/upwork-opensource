@@ -67,6 +67,7 @@ input#submitmsg {  background: #2baad9 none repeat scroll 0 0;  border: medium n
 .show_files .delete_item{
     margin-left: 5px;
 }
+.uploaded_files .item { float: left; margin-right: 5px; }
 		</style>
 
 <?php
@@ -597,24 +598,27 @@ $hire_count = $query->num_rows();
 
 							</ul>
 						</div>
-						<div style="border: 1px solid #ccc;margin-top: -2px;" class="chat-bar">
+						<div style="border: 1px solid #ccc; min-height: 105px; max-height: 150px;" class="chat-bar">
 							<form id="chat_form" action="">										
 							<input type="hidden" id="bid_id" name="bid_id" value="<?=$bid_details->id?>">
 							<input type="hidden" name="job_id" id="job_id" value="<?=$value->id?>">
 							<input type="hidden" name="user_id" id="user_id" value="<?=$value->user_id?>">
                                                         <input type="hidden" name="receiver_id" id="receiver_id" value="<?=$receiver?>">
-							<div style="width:80%;float: left;height: 100px;position: relative;">
-                            <div class = "uploaded_files">
-                            </div>
+							<div style="width:80%;float: left; position: relative;">
+                            
                             <input type = "hidden" name = "removed_files" value = "" id = "removed_files">
                             <input type="file" name="fileupload[]" class = "hidden" value="fileupload" id="fileupload" multiple>
                             <div class="attach_icon">
                                 <i style="cursor: pointer;" class="fa fa-paperclip" aria-hidden="true"></i>
                             </div>
 							<textarea style="border-radius: 4px; resize: none; padding-right: 24px;" name="chat-input" id="chat-input"></textarea>
+                                                        
 							</div>
 							<div class="ccc_sms_send_btn" style="width:20%;float: left;height: 100px;"><a href="javascript:void(0);" id="submit">SEND</a></div>
 							</form>
+                                                        <div style="width:77%;min-height: 42px;position: relative;">
+                                                            <div class="uploaded_files" style='left: 3%'></div>
+                                                        </div>
 							<span id="error_span" style="color:red;padding: 0 0 0 15px;display:none;"></span>
 							<span id="success_span" style="color:green;padding: 0 0 0 15px;display:none;"></span>
 						</div>

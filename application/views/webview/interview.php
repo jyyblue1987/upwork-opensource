@@ -199,6 +199,8 @@ span.text1 {text-transform: capitalize;}
 .buttonsidefoure ul li a {
     font-size: 16px;
 }
+
+.uploaded_files .item { float: left; margin-right: 5px; }
 </style>
 
 </head>
@@ -399,24 +401,25 @@ span.text1 {text-transform: capitalize;}
 
 										</ul>
 									</div>
-									<div class="chat-bar">
+									<div style="border: 1px solid #ccc; height: 100px; " class="chat-bar">
 										<form id="chat_form" action="">
 										<input type="hidden" id="bid_id" name="bid_id" value="<?=$job_info['bid_id']?>">
 										<input type="hidden" name="job_id" id="job_id" value="<?=$job_info['job_id']?>">
 										<input type="hidden" name="user_id" id="user_id" value="<?=$job_info['user_id']?>">
                                                                                 <input type="hidden" name="receiver_id" id="receiver_id" value="<?=$freelancer_id?>">
-										<div  class="chat_border" style="width:80%;float: left;height: 100px;">
-                                        <div class = "uploaded_files">
-                                        </div>
-                                        <input type = "hidden" name = "removed_files" value = "" id = "removed_files">
-                                        <input type="file" name="fileupload[]" class = "hidden" value="fileupload" id="fileupload" multiple>
-										<textarea style="border-radius: 4px; resize: none; padding-right: 24px;" name="chat-input" id="chat-input" rows="4"></textarea>
-										<div class="attach_icon">
-										<i style="cursor: pointer;" class="fa fa-paperclip" aria-hidden="true"></i>
-										</div>
+										<div  class="chat_border" style="width:80%;float: left; position: relative;">
+                                                                                    <input type = "hidden" name = "removed_files" value = "" id = "removed_files">
+                                                                                    <input type="file" name="fileupload[]" class = "hidden" value="fileupload" id="fileupload" multiple>
+                                                                                    <textarea style="border-radius: 4px; resize: none; padding-right: 24px;" name="chat-input" id="chat-input" rows="4"></textarea>
+                                                                                    <div class="attach_icon">
+                                                                                    <i style="cursor: pointer;" class="fa fa-paperclip" aria-hidden="true"></i>
+                                                                                    </div>
 										</div>
 										<div class="sms_send_btn ccc_sms_send_btn" style="width:20%;float: left;height: 100px;"><a href="javascript:void(0);" id="submit">SEND</a></div>
 										</form>
+                                                                                <div style="width:77%;min-height: 42px;position: relative;">
+                                                                                    <div class="uploaded_files" style='left: 3%'></div>
+                                                                                </div>
 										<span id="error_span" style="color:red;padding: 0 0 0 15px;display:none;"></span>
 										<span id="success_span" style="color:green;padding: 0 0 0 15px;display:none;"></span>
 									</div>

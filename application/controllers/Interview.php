@@ -138,13 +138,6 @@ class Interview extends CI_Controller{
 
 	public function insert_message(){
 
-		/*print_r($_POST['data']);
-		die();*/
-
-		//parse_str($_POST['form'], $form);
-
-		
-
 		$sender_id = $this->session->userdata(USER_ID);
 
 		$freelancer_id = $this->input->post('receiver_id');
@@ -264,7 +257,7 @@ class Interview extends CI_Controller{
 
 		$result = $query->result();
 
-		$condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
+		/*$condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
 		$webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
         $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
 		if (!empty($timezone)) {
@@ -274,10 +267,10 @@ class Interview extends CI_Controller{
 			$time = $date2->format('g:i A');
 		} else {
 			$time = date('g:i A',strtotime($result[0]->conversation_date));
-		}
+		}*/
 
 		
-
+                $time = date('g:i A',strtotime($result[0]->conversation_date));
 		$html = '';
 
 		if(($result[0]->cropped_image) == "") { 

@@ -37,7 +37,7 @@
                         {% for payment in payment_txns %}
                             {% set is_hourly = payment.job_type == constant('HOURLY_JOB_TYPE') %}
                             <tr>
-                                <td>{{ app_date(payment.payment_create, 'D, M j, Y') }}</td>
+                                <td>{{ app_date(payment.payment_create, 'D, M j, Y H:i:s') }}</td>
                                 <td>
                                     {% if is_hourly %}
                                         {{ app_lang('text_job_type_hourly_price') }}

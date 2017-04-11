@@ -285,7 +285,7 @@ class Payment_model extends CI_Model {
         extract($filters);
         
         $fixed_fields = 
-                "jobs.job_type, "
+                "DISTINCTROW  jobs.job_type, "
                 . "payments.payment_create,"
                 . "jobs.title,"
                 . "payments.des,"
@@ -295,7 +295,7 @@ class Payment_model extends CI_Model {
 
 
         $hourly_fields = 
-                "jobs.job_type, "
+                "DISTINCTROW jobs.job_type, "
                 . "invx.created_at as payment_create, "
                 . "'' as title, "
                 . "invx.description as des,"
@@ -365,20 +365,22 @@ class Payment_model extends CI_Model {
         extract($filters);
         
         $fixed_fields = 
-                "jobs.job_type as job_type, "
+                "DISTINCTROW  jobs.job_type as job_type, "
                 . "payments.payment_create,"
                 . "jobs.title,"
                 . "payments.des,"
+                . "payments.buser_id as buser_id,"
                 . "webuser.webuser_fname,"
                 . "webuser.webuser_lname,"
                 . "payments.payment_gross ";
 
 
         $hourly_fields = 
-                "jobs.job_type, "
+                " DISTINCTROW  jobs.job_type, "
                 . "invx.created_at as payment_create, "
                 . "'' as title, "
                 . "invx.description as des,"
+                . "ja.buser_id as buser_id,"
                 . "u.webuser_fname,"
                 . "u.webuser_lname,"
                 . "invx.amount_due as payment_gross ";
@@ -431,7 +433,7 @@ class Payment_model extends CI_Model {
             $sql .= " AND created_at <= '" . $to_internal . "' ";
         }
         
-        $sql = $sql . " ORDER BY payment_create DESC";
+        $sql = $sql . "ORDER BY payment_create DESC";
                 
         $query = $this->db->query($sql);
         
