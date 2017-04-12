@@ -332,4 +332,53 @@ class Process extends CI_Model {
         $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $user_id));
         return $query->num_rows();
     }
+    
+    function get_attachments($bid_id){
+        $this->db
+                ->select("*")
+                ->from("job_bid_attachments")
+                ->where("job_bid_id = ", $bid_id);
+        $query = $this->db->get();
+        $attachments = $query->result_array();
+        
+        $files = array();
+        $attachments = explode(",", $attachments[0]['path']);
+        foreach($attachments AS $attachment){
+            $files[] = str_replace('"','', $attachment);
+        }
+        return $files;
+    }
+    
+    public function time_elapsed_string($_ptime){
+        $ptime = strtotime($_ptime);
+        $etime = time() - $ptime;
+
+        if ($etime < 1){
+            return '0 seconds';
+        }
+
+        $a = array(365 * 24 * 60 * 60 => 'year',
+            30 * 24 * 60 * 60 => 'month',
+            24 * 60 * 60 => 'day',
+            60 * 60 => 'hour',
+            60 => 'minute',
+            1 => 'second'
+        );
+
+        $a_plural = array('year' => 'years',
+            'month' => 'months',
+            'day' => 'days',
+            'hour' => 'hours',
+            'minute' => 'minutes',
+            'second' => 'seconds'
+        );
+
+        foreach ($a as $secs => $str){
+            $d = $etime / $secs;
+            if ($d >= 1){
+                $r = round($d);
+                return $r . ' ' . ($r > 1 ? $a_plural[$str] : $str) . ' ago';
+            }
+        }
+    }
 }
