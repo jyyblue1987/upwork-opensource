@@ -116,7 +116,7 @@ $accepted_jobs = $query->result();
 					
 					<div class="col-md-2 page-label">                        
                         <span style="margin-top: -15px;" class="pull-right"><?php
-                             $timeDate = strtotime($value->created);
+                             $timeDate = strtotime($value->job_created);
                             $dateInLocal = date("Y-m-d H:i:s", $timeDate);
                             echo time_elapsed_string(strtotime($dateInLocal)); ?></span>
                     </div>
