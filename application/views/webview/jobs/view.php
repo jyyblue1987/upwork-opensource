@@ -8,7 +8,7 @@ $this->db->from('job_accepted');
 $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
 $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
 $this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
-$this->db->where('job_accepted.buser_id',$value->user_id);
+$this->db->where('job_accepted.buser_id',$value->get_employerid());
 
 $query=$this->db->get();
 
@@ -55,7 +55,7 @@ $accepted_jobs = $query->result();
     }
  }
             
-            if($value->status=='0'){?>
+            if($emp->get_status() == 0){?>
             
                 <div class="alert alert-warning">
                     <strong>Warning!</strong> The job does not exist.
@@ -65,27 +65,27 @@ $accepted_jobs = $query->result();
             <div class="col-md-9 col-md-offset-0 white-box job-cont">
                 <?php
                 $marginClass = '';
-                if ($this->session->userdata('type') == '1')
+                if ($emp->get_type() == '1')
                 {
                     ?>
                     <?php
                     $marginClass = 'margin-top';
                 }
                 ?>
-                <?php if($value->user_id == $this->session->userdata('id')){ ?>
+                <?php if($emp->get_userid() == $this->session->userdata('id')){ ?>
                 <div class="col-md-3 col-sm-6 col-xs-6" style="float: right; font-size: 11px; width: 300px;">
                             <div class="row"> 
                                 <div class="col-md-5 col-sm-5 col-xs-12">
                                     <label class="gray-text">
                                         <span class="hidden-xs hidden-sm margin-10-left">&nbsp;</span>
-                                        <a href='<?= site_url('jobs/edit/' . base64_encode($job_id)); ?>'style="color: #37A000">Edit Posting <span class='glyphicon custom_client_icon glyphicon-edit co'></span>
+                                        <a href='<?= site_url('jobs/edit/' . base64_encode($value->get_jobid())); ?>'style="color: #37A000">Edit Posting <span class='glyphicon custom_client_icon glyphicon-edit co'></span>
                                         </a>
                                     </label>
                                 </div>
 
                                 <div class="col-md-5 col-sm-4 col-xs-12">
                                     <label class="gray-text"> 
-                                        <a href="javascript:void(0)" id="endpost" onclick="Confirmremove(<?= base64_encode($job_id) ?>);" class="co">
+                                        <a href="javascript:void(0)" id="endpost" onclick="Confirmremove(<?= base64_encode($value->get_jobid()) ?>);" class="co">
                                             Remove Posting
                                             <span class='glyphicon custom_client_icon glyphicon-remove co'></span>
                                         </a>
@@ -96,29 +96,24 @@ $accepted_jobs = $query->result();
                 <?php } ?>
                 <div class="row <?php echo $marginClass; ?>">
                     <div class="col-md-10 col-xs-6 page-label">
-                        <h1 class="job-title cos_job-title"><?php echo ucfirst($value->title) ?></h1>
+                        <h1 class="job-title cos_job-title"><?php echo $value->get_title(); ?></h1>
                     </div>
                     
                     <div class="col-md-2 col-xs-6 page-label">
                         
-                        <span class="pull-right marg-top-neg"><?php
-                       // date_default_timezone_set("Asia/Bangkok");
-                        $timeDate = strtotime($value->created);
-                        $dateInLocal = date("Y-m-d H:i:s", $timeDate);
-
-                        echo \DatetimeHelper::timeElapsedString(strtotime($dateInLocal)); ?></span>
+                        <span class="pull-right marg-top-neg"><?php echo $time ?></span>
                     </div>
                 </div>
                 <div class="jobdes-bordered-wrapper">
                 <div class="row jobdes-bordered page-label">
                      
                     <div class="col-md-3 text-center">
-                        <label class="lab-res">Job Type</label> <br /> <span><?php echo ucfirst($value->job_type) ?></span>
+                        <label class="lab-res">Job Type</label> <br /> <span><?php echo ucfirst($value->get_jobtype()) ?></span>
                     </div>
                     <div class="col-md-3 text-center page-label">
                         <label class="lab-res">  
                             <?php
-                            if ($value->job_type == 'hourly')
+                            if ($value->get_jobtype() == 'hourly')
                             {
                                 echo "Hourly Per week";
                             } else
@@ -127,22 +122,22 @@ $accepted_jobs = $query->result();
                             }
                             ?>
                         </label><br /><span><?php
-                            if ($value->job_type == 'hourly')
+                            if ($value->get_jobtype() == 'hourly')
                             {
-                                echo $value->hours_per_week;
+                                echo $value->get_hrs_perweek();
                             } else
                             {
-                                echo '$' . round($value->budget, 2);
+                                echo '$' . round($value->get_budget(), 2);
                             }
                             ?></span>
                     </div>
 
                     <div class="col-md-3 text-center page-label">
-                        <label class="lab-res">Job Duration</label><br /> <span><?php echo str_replace('_', '-', $value->job_duration) ?></span>
+                        <label class="lab-res">Job Duration</label><br /> <span><?php echo $value->get_duration() ?></span>
                     </div>
 
                     <div class="col-md-3 last-div text-center page-label">
-                        <label class="lab-res">Experience Level</label><br /> <span><?php echo ucfirst($value->experience_level); ?></span>
+                        <label class="lab-res">Experience Level</label><br /> <span><?php echo ucfirst($value->get_exp()); ?></span>
                     </div>
                    
                 </div>
@@ -152,14 +147,7 @@ $accepted_jobs = $query->result();
                         <label class="job-cat">Job Category</label>
                     </div>
                     <div class="col-md-10 margin-top-4">
-                       <?php 
-                        $this->db->select('*');
-                        $this->db->from('job_subcategories'); 
-                        $this->db->where('subcat_id',$value->category);
-                        $query_done = $this->db->get();
-                        $result= $query_done->row();
-                        echo $result->subcategory_name;
-                       ?>
+                       <?php echo $value->get_subcategory(); ?>
                     </div>
                     </div>
                 <div class="row req-skills margin-top page-label margin-top-1">
@@ -168,22 +156,16 @@ $accepted_jobs = $query->result();
                     </div>
 
                     <div class="col-md-10 skills page-label">
-						<div class="custom_user_skills">
-							<?php
-							if (isset($value->job_skills) && !empty($value->job_skills))
-							{
-								$skills =$value->job_skills;
-							 
-								if(count($skills)<=1){
-									echo "<span> ".$skills[0]['skill_name']."</span> ";
-								}else{
-									foreach ($skills as $skill)
-										echo "<span> ".$skill['skill_name']."</span> ";
-								}
-								
-							}
-							?>
-						</div>
+                        <div class="custom_user_skills">
+                                <?php
+                                if (isset($skills) && !empty($skills))
+                                {
+                                    foreach($skills AS $key => $_skill){
+                                        echo "<span> ".$_skill['skill_name']."</span> ";
+                                    }
+                                }
+                                ?>
+                        </div>
                     </div>
                 </div>
 
@@ -191,18 +173,17 @@ $accepted_jobs = $query->result();
                     <div class="col-md-9">
                         <label class="lab-details">Details</label>
                     </div>
-                    <div class="col-md-12 text-justify page-label div-details"><?php echo ucfirst($value->job_description) ?></div>
+                    <div class="col-md-12 text-justify page-label div-details"><?php echo $value->get_jobdesc(); ?></div>
                 </div>
-                <?php if($value->tid != 0){ ?>
+                <?php if($value->get_tid() != 0){ ?>
                 <div class="row margin-top page-label margin-top-5">
                     <div class="col-md-9">
                         <label class="lab-details">Attachments</label>
                     </div>
                     <div class="col-md-12 text-justify page-label div-details">
                     <?php 
-                    $attachments = explode(",", $value->userfile);
-                    foreach($attachments AS $attachment){
-                        echo '<a href="'.site_url().'jobs/download?dir='.$value->user_id.'/'.$value->tid.'&file='.str_replace('"','', $attachment).' ">'.str_replace('"','', $attachment).'</a><br>'; 
+                    foreach($value->get_attachments() AS $attachment){
+                        echo '<a href="'.site_url().'jobs/download?dir='.$value->get_employerid().'/'.$value->get_tid().'&file='.$attachment.' ">'.$attachment.'</a><br>'; 
                     }
                     ?>
                 </div>
@@ -212,12 +193,12 @@ $accepted_jobs = $query->result();
                     <div class="row jobdes-bordered page-label">
                         <div class="col-md-4 text-center">
                             <label class="lab-res">Proposals</label> <br /> <span>
-                                <?=$applicants;?>
+                                <?= $applicants;?>
                             </span>
                         </div>
 
                         <div class="col-md-4 text-center page-label">
-                            <label class="lab-res">Interviewing</label><br /> <span><?=$interviews;?> </span>
+                            <label class="lab-res">Interviewing</label><br /> <span><?= $interviews;?> </span>
                         </div>
 
                         <div class=" last-div col-md-4 text-center page-label">
@@ -228,73 +209,6 @@ $accepted_jobs = $query->result();
 
                     </div> 
                 </div>
-                <?php /*?>
-				<div class="">
-					<div class="col-lg-12 col-md-12 col-sm-12 chat-screen">
-						<div class="chat-details-topbar">
-							<h3><?=$value->webuser_fname?>  <?=$value->webuser_lname?></h3>
-							<h5><?=$value->title?></h5>
-							<p></p>
-						</div>
-						<div class="chat-details form-group" style="margin:0;">
-							<ul id="scroll-ul">
-							<?php
-							//$chat_details = array_reverse($chat_details);
-							$group_time = false;
-							$current_date = strtotime(date("d-m-Y"));
-							$date ='';$temp_date ='';
-							
-							if(!empty($conversations)){
-							foreach($conversations as $chat_data) {
-							
-							if(($chat_data->webuser_picture) == "") { 
-								$src = site_url("assets/user.png");
-							 } else { 
-								$src = base_url().$chat_data->webuser_picture;
-							 } 
-							
-							$temp_date = date("d-m-Y", strtotime($chat_data->created));
-							if($date != strtotime($temp_date)){
-								$date = strtotime($temp_date);
-								$group_time = true;
-							}
-							else {
-								$group_time = false;
-							}
-							
-							if($group_time){
-								
-							?>
-							<li><span class="group-date"><?php if($date == $current_date) { echo "Today";} else { echo date("l, F j, Y", $date);}?></span></li>
-							
-							<?php } ?>
-								<li>							
-									<span class="name"><img src="<?=$src?>"><?=$chat_data->webuser_fname?> <?=$chat_data->webuser_lname?></span> <span class="chat-date"><?=date("g:i a", strtotime($chat_data->created))?></span>
-									<span id="scroll" class="details"><?=$chat_data->message_conversation?></span>
-								</li>
-							<?php } }?>
-
-							</ul>
-						</div>
-						<div class="chat-bar">
-							<form id="chat_form" action="">										
-							<input type="hidden" id="bid_id" name="bid_id" value="<?=$bid_details->id?>">
-							<input type="hidden" name="job_id" id="job_id" value="<?=$value->id?>">
-							<input type="hidden" name="user_id" id="user_id" value="<?=$this->session->userdata('id')?>">
-							<div style="width:80%;float: left;height: 100px;"><textarea name="chat-input" id="chat-input"></textarea></div>
-							<div style="width:20%;float: left;height: 100px;"><a href="javascript:void(0);" id="submit">SEND</a></div>
-							</form>
-							<span id="error_span" style="color:red;padding: 0 0 0 15px;display:none;"></span>
-							<span id="success_span" style="color:green;padding: 0 0 0 15px;display:none;"></span>
-						</div>
-						
-					</div>
-				</div>
-            <?php */?>
-                
-            
-            
-            
                 <div class="buttonsidethree">
                     <div class="row margin-top page-label">
                         <div class="col-md-6 col-sm-6">
@@ -349,7 +263,7 @@ $accepted_jobs = $query->result();
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-6  text-right pull-right">
-                            <?php  if($job_data->jobstatus == 1){ ?>
+                            <?php  if($emp->get_status() == 1){ ?>
                                     <div class="buttonsidethreeright margin-right-none">
                             <?php }else{ ?>
                             <div class="buttonsidethreeright pull-right pad-0-margin-0">
@@ -452,7 +366,7 @@ $accepted_jobs = $query->result();
                 <?php
                 if ($this->session->userdata('type') == '2')
                 {
-                    if ($applied)
+                    if ($is_applied != 0)
                     {
                         ?>
 						
@@ -460,14 +374,6 @@ $accepted_jobs = $query->result();
                             <div class="col-md-10 col-md-offset-2">
                                 <div class="alert alert-warning">
                                     <strong>You have already applied for this job.</strong>
-                                    <?php /*
-                                    if ($conversation_count)
-                                    {
-                                    ?>
-                                    <button type="button" class="btn btn-primary form-btn" id="start_chat"  onclick="loadmessage(<?=$bid_details->id?>,<?=$value->user_id?>,<?=$value->id?>)">Message</button>
-                                    <?php
-                                    } */
-                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -475,14 +381,14 @@ $accepted_jobs = $query->result();
                     <?php  } else {  ?>
                         <div class="row">
                             <div class="col-md-10 col-md-offset-2">
-								<?php if($ststus->isactive==0){ ?>
+								<?php if($f_active==0){ ?>
 										<a class="pad-left" href="javascript:void(0)"><button type="button" class="btn btn-primary">Proposal is in Hold</button></a>
 									<?php }elseif ($proposals >= 30){ ?>
                                     <div class="alert alert-warning">
                                         <strong>Warning!</strong> You reach your monthly proposals limit.
                                     </div>
                                     <?php } else { ?>
-                                    <a style="padding-left: 0;" href="<?php echo site_url("jobs/apply/" . url_title($value->title) . '/' . base64_encode($value->id)); ?>"><button type="button" class="btn btn-primary custon_send_pro send-pro">Send a Proposal</button></a>
+                                    <a style="padding-left: 0;" href="<?php echo site_url("jobs/apply/" . url_title($value->get_title()) . '/' . base64_encode($value->get_jobid())); ?>"><button type="button" class="btn btn-primary custon_send_pro send-pro">Send a Proposal</button></a>
 									<?php }?>
                                
 								
@@ -496,11 +402,9 @@ $accepted_jobs = $query->result();
                     <div style="" class="col-md-10 col-md-offset-2 right-section">
                         <div class="row margin-top-2">
                             <div class="col-md-12">
-                                
                                 <?php
-if ($value->isactive && $payment_set) {
-    ?>
-										<i style="" class="fa fa-check-circle circ-check"></i>
+                                if ($emp->is_active() == 1 && $payment_set) { ?>
+                                <i style="" class="fa fa-check-circle circ-check"></i>
                                         <?php
                                     } else {
                                         ?>
@@ -508,7 +412,7 @@ if ($value->isactive && $payment_set) {
                                         <?php
                                     }
                                     ?>
-                                <label class="pad-25"><?php echo ucfirst($value->webuser_fname) ?></label>
+                                <label class="pad-25"><?php echo ucfirst($emp->get_fname()) ?></label>
                                 
                                 
                             </div>
@@ -539,8 +443,8 @@ if ($value->isactive && $payment_set) {
                         <div style="" class="row margin-top-2 border-bottom job-posted">
                             <div class="col-md-12">
                                 <label style="" class="label-side">
-                                   <?php if(!empty($record_sidebar)){
-                                        echo count($record_sidebar);
+                                   <?php if(!empty($jobs_posted)){
+                                        echo $jobs_posted;
                                     }else{
                                         echo "0";
                                     } ?>
@@ -551,7 +455,7 @@ if ($value->isactive && $payment_set) {
                         <div class="row margin-top-2 border-bottom hired">
                             <div class="col-md-12">
                                 <label style="" class="label-side">
-								<?=$hire;?> 
+								<?= $total_hired;?> 
 								<span class="span-side">Hired</span>
 								</label>
                             </div>
@@ -559,16 +463,8 @@ if ($value->isactive && $payment_set) {
                         <div style="" class="row margin-top-2 border-bottom total-work">
                             <div class="col-md-12">
                                 <label style="" class="label-side">
-								<?php $total_work = 0;
-                                    if(!empty($workedhours)){
-                                        foreach($workedhours as $work){
-                                            $total_work +=$work->total_hour;
-                                        }
-                                        echo $total_work." <span class='total-works'>Hours</span>";
-                                    }else{
-                                        echo " 0 <span class='total-works'>Hours Worked</span>";
-                                    }?>
-								</label>
+				<?php echo $workedhours ?>
+			</label>
                             </div>
                         </div>
 
@@ -586,12 +482,8 @@ if ($value->isactive && $payment_set) {
 								<i class="fa fa-map-marker"></i>
 								
 								<label style="" class="label-side">
-								<span class="span-side"><?php
-                                $this->db->where('country_id', $value->webuser_country);
-                                $q = $this->db->get('country');
-                                $record = $q->row();
-                                echo ucfirst($record->country_name);
-                                ?></span>
+								<span class="span-side"><?php echo ucfirst($country) ?>
+                                </span>
 								</label>
                             </div>
                         </div>

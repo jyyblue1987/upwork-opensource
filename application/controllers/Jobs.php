@@ -1,11 +1,11 @@
 <?php
-error_reporting(0);
+error_reporting(E_ALL);
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Jobs extends Winjob_Controller {
     
     private $process;
-    private $user_id;
+    public $user_id;
     private $employer;
     
     public function __construct() {
@@ -823,132 +823,77 @@ class Jobs extends Winjob_Controller {
         if ($this->Adminlogincheck->checkx()) {
             $postId = base64_decode($postId);
             $employer = new Employer($postId);
+
             $emp_id = $employer->get_job_employer($postId);
-            
-            $id = $this->session->userdata('id');
+            $client = new Employer($emp_id);
 
-            $this->db->select('*');
-            $this->db->from('webuser w');
-            $this->db->join('jobs j', 'j.user_id=w.webuser_id', 'left');
-            $this->db->where('j.id', $postId);
-            $this->db->order_by('j.id', 'asc');
-            $query = $this->db->get();
-            $record = $query->row();
-            
-            $record->job_skills = $this->Skills_model->get_skills($postId);
+            $budget = 0;
+            $total_work = 0;
+            $feedbackScore = 0;
 
-            $query = $this->db->get_where('job_bids', array('job_id' => $postId, 'user_id' => $id, 'status!=1' => null));
-            $bids_details = $query->row();
-            $is_applied = $query->num_rows();
+            $records = array();
+            $_price = array();
+            $_freelancer = array();
 
+            $job = new Job_details($emp_id, $postId);
+            $applicants = $this->process->get_applications($postId);
+            $interviews = $this->process->get_interviews($emp_id, $postId);
+            $hires = $this->process->get_hires($emp_id, $postId);
+            $jobids = $this->process->get_job_ids($emp_id);
+            $jobs_posted = $this->process->get_jobs($emp_id);
+            $country = $this->ProfileModel->get_country($client->get_country());
+            $accepted_jobs = $this->process->accepted_jobs('', $emp_id);
+            $freelancer_active = $this->Webuser_model->is_active($this->user_id);
 
-            //conversation
-            $conversation_count = 0;
-            $conversation = array();
+            foreach($accepted_jobs AS $a_jobs){
+                   $feedbacks = $this->process->get_feedbacks($a_jobs->fuser_id, $a_jobs->job_id);
+                   $diary = $this->Job_work_diary_model->get_work_hours($a_jobs->fuser_id, $a_jobs->job_id);
 
-            if ($is_applied) {
-                $this->db->select('*');
-                $this->db->from('job_conversation');
-                $this->db->where('job_conversation.receiver_id', $id);
-                $this->db->where('job_conversation.job_id', $postId);
-                $this->db->where('job_conversation.bid_id', $bids_details->id);
+                foreach($diary AS $_diary){
+                    $total_work += $_diary->total_hour;
+                }
 
-                $query = $this->db->get(); // assign to a variable
-                $conversation_count = $query->num_rows(); // then use num rows
+               if($a_jobs->jobstatus == 1){
+                   if(!empty($feedbacks)){
+                        if($a_jobs->job_type == 'fixed'){
+                            $price = $a_jobs->fixedpay_amount;
+                            $feedbackScore += ($feedbacks['feedback_score'] * $price);
+                            $budget += $price;
+                        }else{
 
+                            if($a_jobs->offer_bid_amount){
+                                $amount = $a_jobs->offer_bid_amount;
+                            }else{
+                                $amount = $a_jobs->bid_amount;
+                            }
 
-
-                if ($conversation_count) {
-
-                    $this->db->select('job_conversation.*,webuser.*');
-                    $this->db->from('job_conversation');
-                    $this->db->join('webuser', 'job_conversation.sender_id = webuser.webuser_id', 'inner');
-                    $this->db->where('job_conversation.job_id', $postId);
-                    $this->db->where('job_conversation.bid_id', $bids_details->id);
-                    $this->db->order_by("job_conversation.id", "ASC");
-                    $query_conversation = $this->db->get();
-                    $conversation = $query_conversation->result();
+                            $price = $a_jobs->fixedpay_amount * $amount;
+                            $feedbackScore += ($feedbacks['feedback_score'] * $price);
+                            $budget += $price;
+                        }
+                    }
                 }
             }
 
-
-            $this->db->select('*,job_bids.id as bid_id,job_bids.status AS bid_status,jobs.job_duration AS jobduration,job_bids.created AS bid_created');
-            $this->db->from('job_accepted');
-            $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-            $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
-            $this->db->where('job_accepted.buser_id', $record->user_id);
-            $query = $this->db->get();
-            $accepted_jobs = $query->result();
-
-            $this->db->select('*');
-            $this->db->from('jobs');
-            $this->db->where('user_id', $record->user_id);
-            $query_sidebar = $this->db->get();
-            $record_sidebar = $query_sidebar->result();
-
-            $record_hire = $this->jobs_model->number_freelancer_hired($record->user_id);
-
-            $this->db->select('*');
-            $this->db->from('job_workdairy');
-            $this->db->where_in('cuser_id', $record->user_id);
-            $queryhour = $this->db->get();
-            $workedhours = $queryhour->result();
-
-            $this->db->select('*');            
-            $this->db->from('jobs');
-            $this->db->join('billingmethodlist', 'billingmethodlist.belongsTo = jobs.user_id', 'inner');
-            $this->db->where('billingmethodlist.belongsTo', $record->user_id);
-            $this->db->where('billingmethodlist.isDeleted', "0");
-            $this->db->where('jobs.status', 1);
-            $query = $this->db->get();   
-            $paymentSet=0;
-                if (is_object($query)) {
-                    $paymentSet = $query->num_rows();
-                }
-            
-            $this->db->select('*');
-            $this->db->from('webuser');
-            $this->db->where('webuser.webuser_id', $id);
-            $query_status = $this->db->get();
-            $ststus = $query_status->row();
-
-            // Davit start
-            $this->db->select('id');
-            $monthStart = date('Y-m-01');
-            $monthEnd = date('Y-m-t');
-            $this->db->where("(created BETWEEN '{$monthStart}' AND '{$monthEnd}')");
-            $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id));
-            $proposals = $query->num_rows();
-
-            $query_spent = $this->db->query("SELECT SUM(payment_gross) as total_spent FROM `payments` INNER JOIN `webuser` ON `webuser`.`webuser_id` = `payments`.`user_id` INNER JOIN `jobs` ON `jobs`.`id` = `payments`.`job_id` INNER JOIN `job_accepted` ON `job_accepted`.`job_id` = `payments`.`job_id` INNER JOIN `job_bids` ON `job_bids`.`job_id` = `payments`.`job_id` WHERE `job_accepted`.`fuser_id` = `payments`.`user_id` AND
-                `job_bids`.`user_id` = `payments`.`user_id` AND `payments`.`buser_id` = $record->user_id");
-            $row_spent = $query_spent->row();
-            $total_spent=$row_spent->total_spent;
-            
-            $applicants = $this->process->get_applications($postId);
-            $interviews = $this->process->get_interviews($record->user_id, $postId);
-            $hires = $this->process->get_hires($record->user_id, $postId);
-            
             $data = array(
-                'value' => $record, 
-               // 'test' => $employer,
-                'proposals' => $proposals, 
-                'applied' => $is_applied, 
-                'conversations' => $conversation, 
-                'conversation_count' => $conversation_count, 
-                'bid_details' => $bids_details, 
-                'accepted_jobs' => $accepted_jobs, 
-                'record_sidebar' => $record_sidebar,
+                'emp' => $client,
+                'time' => $this->time_elapsed_string($job->get_date_created()),
+                'value' => $job,
+                'skills' => $this->Skills_model->get_skills($postId),
+                'jobs_posted' => $jobs_posted['rows'],
                 'applicants' => $applicants['rows'],
                 'hires' => $hires['rows'],
                 'interviews' => $interviews['rows'],
-                'hire' => $record_hire, 
-                'workedhours' => $workedhours, 
-                'ststus' => $ststus,
-                'css' => array("","","","assets/css/pages/view.css"),
-                'payment_set' => $paymentSet,
-                'total_spent' => $total_spent,
-                'job_id' => $postId
+                'total_hired' => $this->jobs_model->number_freelancer_hired($emp_id),
+                'workedhours' => $this->process->get_worked_hours($emp_id),
+                'payment_set' => $client->is_payment_set(),
+                'total_spent' => $client->total_spent($emp_id),
+                'rating' => $this->Webuser_model->get_total_rating($emp_id),
+                'country' => ucfirst($country['country_name']),
+                'f_active' => $freelancer_active,
+                'is_applied' => $this->process->is_applied($this->user_id, $postId),
+                'proposals' => $this->process->get_freelancer_proposals($this->user_id),
+                'css' => array("", "", "", "assets/css/pages/view.css")
              );
 
             $this->Admintheme->custom_webview("jobs/view", $data);

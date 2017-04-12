@@ -257,8 +257,8 @@ class Process extends CI_Model {
         $this->db
                 ->select('*')
                 ->from('job_bids')
-                ->where_in('jobs_id', $jobids, FALSE)
-                ->where('hired', 1);
+                ->where_in('job_id', $jobids, FALSE)
+                ->where('hired', '1');
         $query = $this->db->get();
         return $query->num_rows();
     }
@@ -315,5 +315,21 @@ class Process extends CI_Model {
             $return_array['data'] = $query->result();
         }
         return $return_array;
+    }
+    
+    function is_applied($user_id, $job_id){
+        $query = $this->db->get_where('job_bids', array('job_id' => $job_id, 'user_id' => $user_id, 'status!=1' => null));
+        return $query->num_rows();
+    }
+    
+    function get_freelancer_proposals($user_id){
+        $monthStart = date('Y-m-01');
+        $monthEnd = date('Y-m-t');
+
+        $this->db
+                ->select('id')
+                ->where("(created BETWEEN '{$monthStart}' AND '{$monthEnd}')");
+        $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $user_id));
+        return $query->num_rows();
     }
 }
