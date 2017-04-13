@@ -21,6 +21,7 @@ $route['pay/add-card']            = 'pay/add_card';
 $route['pay/add-paypal-account']  = 'pay/add_paypal_account';
 $route['billing-history']         = 'pay';
 $route['edit-jobs/(:any)']        = 'jobs/edit/($1)';
+$route['jobs/(:any)/(:any)']      = 'jobs/view/($1)/($2)';
 
 $route['default_controller'] = 'home';
 $route['404_override'] = '';

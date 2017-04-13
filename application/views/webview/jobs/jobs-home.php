@@ -75,7 +75,7 @@
                                 <div class="col-md-4 col-sm-4 col-xs-12 nopadding">
 
                                     <label class="gray-text">
-                                        <a href='<?= site_url('jobs/view/' . url_title($value['title']) . '/' . $value['job_id']); ?>' class="co">View Job Posting <span class='glyphicon custom_client_icon glyphicon-info-sign co'></span></a>
+                                        <a href='<?= site_url('jobs/' . url_title($value['title']) . '/' . $value['job_id']); ?>' class="co">View Job Posting <span class='glyphicon custom_client_icon glyphicon-info-sign co'></span></a>
                                     </label>
                                 </div>
 

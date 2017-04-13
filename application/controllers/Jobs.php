@@ -897,7 +897,7 @@ class Jobs extends Winjob_Controller {
                 'css' => array("", "", "", "assets/css/pages/view.css")
              );
 
-            $this->Admintheme->custom_webview("jobs/view", $data);
+            $this->Admintheme->custom_webview("jobs/jobs", $data);
         }
     }
 
