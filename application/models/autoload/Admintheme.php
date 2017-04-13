@@ -32,7 +32,7 @@ class Admintheme extends CI_Model {
         $text = $this->siteconfig->text();
         $data['text']=$text;
 
-        $this->load->view('webview/layout/header4.php',$data);
+        $this->load->view('webview/layout/header.php',$data);
         $this->load->view('webview/layout/afterheader.php',$data, false);
         $this->load->view('webview/layout/menu.php',$data, false);
         $this->load->view('webview/'.$page,$data, false);
@@ -70,7 +70,7 @@ class Admintheme extends CI_Model {
         $this->load->view('webview/layout/afterheader.php',$data, false);
         $this->load->view('webview/layout/menu.php',$data, false);
         $this->load->view('webview/'.$page,$data, false);
-        $this->load->view('webview/layout/footer2.php',$data, false);
+        $this->load->view('webview/layout/footer.php',$data, false);
         $this->load->view('webview/layout/afterfooter.php',$data, false); 
      }
 	 // added by (Donfack Zeufack Hermann) end
@@ -93,7 +93,7 @@ class Admintheme extends CI_Model {
         $data['text']=$text;
 
         $this->load->view('webview/layout/header.php',$data, false);
-        $this->load->view('webview/layout/afterheaderx.php',$data, false);
+        $this->load->view('webview/layout/afterheader.php',$data, false);
         $this->load->view('webview/layout/menu.php',$data, false);
         $this->load->view('webview/'.$page,$data, false);
         $this->load->view('webview/layout/footer.php',$data, false);
