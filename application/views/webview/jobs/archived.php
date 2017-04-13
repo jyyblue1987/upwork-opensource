@@ -104,7 +104,7 @@ if ($reject_count) {
                         <div class="row">
                             <div class="col-md-2 col-xs-6"><?php echo date('M d, Y',  strtotime($value->created));?></div>
                             <div class="col-md-10 col-xs-6 blue-text">
-                                <a href='<?php echo site_url("jobs/proposals/".  base64_encode($value->id))?>'>
+                                <a href='<?php echo site_url("jobs/proposals/".url_title($value->title)."/". base64_encode($value->id))?>'>
                                     <?php echo ucfirst($value->title); ?>
                                 </a>
                             </div>
