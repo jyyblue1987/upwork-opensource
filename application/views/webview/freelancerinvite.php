@@ -665,7 +665,7 @@ $hire_count = $query->num_rows();
                     {
                         ?><div class="row">
                             <div class="col-md-10 col-md-offset-2">
-                                <a href="<?php echo site_url("jobs/apply/" . url_title($value->title) . '/' . base64_encode($value->id)); ?>"><button type="button" class="btn btn-primary">Send a Proposal</button></a>
+                                <a href="<?php echo site_url("jobs/" . url_title($value->title) . '/' . base64_encode($value->id).'/apply'); ?>"><button type="button" class="btn btn-primary">Send a Proposal</button></a>
                             </div>
                         </div>
                     <?php
