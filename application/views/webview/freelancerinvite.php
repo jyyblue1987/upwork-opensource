@@ -540,7 +540,7 @@ $hire_count = $query->num_rows();
 					<div class="mass_box">
 						<div style="border-top: 1px solid #CCC;border-left: 1px solid #ccc;border-right: 1px solid #ccc;min-height: 70px;" class="chat-details-topbar">
 							<h3 style="padding-top: 1px;"><?=$value->webuser_fname?>  <?=$value->webuser_lname?></h3>
-							<h5 style="margin-top: -11px;"><?=$value->title?></h5>
+							<h5 style="margin-top: -11px;"><?= app_substr(ucwords($value->title), CONTRACT_JOB_TITLE_MAX, '...') ?></h5>
 						</div>
 						<div style="margin:0;border-left: 1px solid #ccc;border-right: 1px solid #ccc;margin-top: -27px;padding-left: 20px;padding-top: 9px;min-height: 225px;" class="chat-details form-group" style="margin:0;">
 							<ul id="scroll-ul">

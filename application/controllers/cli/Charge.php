@@ -18,6 +18,7 @@ class Charge extends CI_Controller {
         
     }
     
+    //TODO: Try to improve the process when primary method of payment has been changed.
     public function invoices_in_failures()
     {   
         if(is_cli())
@@ -43,6 +44,13 @@ class Charge extends CI_Controller {
                 $service_library = 'winjob_' . strtolower($primary->service_name);
                 if( ! property_exists($this, $service_library) )
                     $this->load->library($service_library);
+                
+                /*if($primary != $invoice->service_name){
+                    //delete invoice in the old service
+                    $this->{$service_library}->delete_invoice( $invoice->invoice_service_id, $primary );
+                    //create an invoice
+                     $invoice_service_id = $this->{$service_library}->create_invoice( $invoices['invoices'], $primary );
+                }*/
 
                 //process payment through primary service.
                 $transaction_id = $this->{$service_library}->pay_invoice( $invoice->invoice_service_id, $primary );

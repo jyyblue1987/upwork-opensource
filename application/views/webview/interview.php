@@ -343,7 +343,7 @@ span.text1 {text-transform: capitalize;}
 								<div style="height: 430px;background: #fff;" class="mass_box">
 									<div class="chat-details-topbar">
 										<h3><?=$fname?>  <?=$lname?></h3>
-										<h5><?= ucwords($job_info['title'])?></h5>
+										<h5><?= app_substr(ucwords($job_info['title']), CONTRACT_JOB_TITLE_MAX, '...') ?></h5>
 <!--										<p></p>-->
 									</div>
 									<div class="chat-details ">

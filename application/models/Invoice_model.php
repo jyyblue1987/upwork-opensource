@@ -43,7 +43,7 @@ class invoice_model extends CI_Model
     
     public function get_invoices_in_processing_failure()
     {
-        $query = $this->db->select('hourly_invoices.*, webuser.webuser_id')
+        $query = $this->db->select('hourly_invoices.*, webuser.webuser_id, hourly_invoices_items.*')
                     ->from('hourly_invoices')
                     ->join('hourly_invoices_items', "hourly_invoices_items.invoice_id = hourly_invoices.id", 'inner')
                     ->join('job_accepted', "job_accepted.bid_id = hourly_invoices_items.bid_id", 'inner')
