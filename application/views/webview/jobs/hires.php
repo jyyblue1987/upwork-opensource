@@ -30,7 +30,7 @@
                 $totalrejact = 0;
             }
 
-            $appliedLink = site_url('jobs/applied/' . base64_encode($jobId));
+            $appliedLink = site_url('jobs/applications/' . base64_encode($jobId));
             $interviewsLink = site_url('jobs/interviews/' . base64_encode($jobId));
             $offerLink = site_url('offer?job_id=' . base64_encode($jobId));
             $hireLink = site_url('hires?job_id=' . base64_encode($jobId));

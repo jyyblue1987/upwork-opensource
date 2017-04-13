@@ -8,9 +8,12 @@ $route['win-jobs']       = 'win_jobs';
 $route['ended-jobs']     = 'ended_jobs';
 $route['my-balance']     = 'pay/balance';
 $route['jobs/my-bids']   = 'jobs/bids_list';
-$route['jobs/my-bids/archived'] = 'jobs/archived_bids_list';
+
+$route['my-offers']                 = 'Active_interview';
+$route['jobs/interviews/(:any)']    = 'jobs/interviews/($1)';
+$route['jobs/applications/(:any)']  = 'jobs/applied/($1)';
+$route['jobs/my-bids/archived']     = 'jobs/archived_bids_list';
 $route['jobs/proposals/(:any)/(:any)'] = 'jobs/withdraw_system/($2)'; 
-$route['my-offers']   = 'Active_interview';
 $route['my-offers/archived']   = 'Active_interview/declined_interview';
 
 /****************************************

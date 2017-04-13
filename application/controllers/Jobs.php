@@ -1747,7 +1747,7 @@ class Jobs extends Winjob_Controller {
                 'job_title' => ucwords($job_details['title']),
                 'title' => 'Applications - Winjob'
             );
-            $this->Admintheme->webview("jobs/applied", $data);
+            $this->Admintheme->webview("jobs/applications", $data);
         }
     }
 

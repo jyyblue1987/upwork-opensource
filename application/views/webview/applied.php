@@ -13,7 +13,7 @@ if($hire_count){	$hire = $hire_count;} else {	$hire = 0;}
 if($Offer_count){	$totalOffer = $Offer_count;} else {	$totalOffer = 0;}
 if($reject_count){ $totalrejact = $reject_count; } else { $totalrejact = 0; }
 
-$appliedLink=site_url('jobs/applied/' . base64_encode($jobId));
+$appliedLink=site_url('jobs/applications/' . base64_encode($jobId));
 $interviewsLink=site_url('jobs/interviews/' . base64_encode($jobId));
 $offerLink=site_url('offer?job_id=' . base64_encode($jobId));
 $hireLink=site_url('hires?job_id=' . base64_encode($jobId));
@@ -285,7 +285,7 @@ $totalApplication = $this->db->count_all_results();
 		$.post("<?php echo site_url('jobs/bid_decline');?>", { form : id },  function(data) {
 			if(data.success){
 				$('.result-msg').html('You have successfully Decline the Post');
-					window.location = "<?php echo base_url();?>jobs/applied/<?=base64_encode($value->job_id)?>";
+					window.location = "<?php echo base_url();?>jobs/applications/<?=base64_encode($value->job_id)?>";
 					
 			} else{
 					alert('Opps!! Something went wrong.');

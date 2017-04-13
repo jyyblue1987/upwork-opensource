@@ -65,7 +65,7 @@
                         <div class="col-md-7 col-sm-6 col-xs-6">
                             <div class="job-activity-title margin-10">
                                 <label class="jobTitle">
-                                    <a href="<?= site_url('jobs/applied/' . $value['job_id']) ?>"><?= $value['job_type'] . " - " . $value['title'] ?></a></label>
+                                    <a href="<?= site_url('jobs/applications/' . $value['job_id']) ?>"><?= $value['job_type'] . " - " . $value['title'] ?></a></label>
 
                                 <p class="hidden-lg hidden-md"><?= $value['job_created'] ?><br></p>
                             </div>
@@ -107,7 +107,7 @@
                         <div class="col-md-9 col-sm-12 col-xs-12">
                             <ul class="client-job-activity pull-right" >
                                 <li>
-                                    <a href="<?= site_url('jobs/applied/' . $value['job_id']) ?>">Application (<?= $value['applicants'] ?>)</a> 
+                                    <a href="<?= site_url('jobs/applications/' . $value['job_id']) ?>">Application (<?= $value['applicants'] ?>)</a> 
                                 </li>
                                 <li>
                                     <a href="<?= site_url('jobs/interviews/' . $value['job_id']) ?>">Interviews (<?= $value['interviews'] ?>)</a>  

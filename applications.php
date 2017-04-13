@@ -362,7 +362,7 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
 		$.post("<?php echo site_url('jobs/bid_decline');?>", { form : id },  function(data) {
 			if(data.success){
 				$('.result-msg').html('You have successfully Decline the Post');
-					window.location = "<?php echo base_url();?>jobs/applied/<?=base64_encode($job_info[0]->job_id)?>";
+					window.location = "<?php echo base_url();?>jobs/applications/<?=base64_encode($job_info[0]->job_id)?>";
 					
 			} else{
 					alert('Opps!! Something went wrong.');
