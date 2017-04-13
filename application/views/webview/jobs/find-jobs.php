@@ -208,7 +208,7 @@ $clientend = $Conversation->clientend();
                                         </div>
 
                                         <div class="gray-text no-padding side-mar-bot">
-                                            <a class="side-menu-j"  href="<?php echo base_url() ?>jobs/bids_list">Proposal Sent <p style="float: right;margin: 0;"><?= $proposals; ?></p></a>
+                                            <a class="side-menu-j"  href="<?php echo base_url() ?>jobs/my-bids">Proposal Sent <p style="float: right;margin: 0;"><?= $proposals; ?></p></a>
                                         </div>
 
                                         <div class="gray-text no-padding">

@@ -1046,7 +1046,7 @@ class Jobs extends Winjob_Controller {
 
             $data = array('records' => $records, 'proposals' => $proposals, 'title' => 'My Bids - Winjob', 'css' => array("","","","assets/css/pages/bids_list.css"));
             // Davit end
-            $this->Admintheme->custom_webview("jobs/bids_list", $data);
+            $this->Admintheme->custom_webview("jobs/my-bids", $data);
         }
     }
 

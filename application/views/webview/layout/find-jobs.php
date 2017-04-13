@@ -166,7 +166,7 @@ $job_alert_count = $Conversation->job_alert();
                             
                             <div class="row">
                                 <div class="col-md-7 gray-text no-padding">
-                                <a href="<?php echo base_url() ?>jobs/bids_list" style="color:#686361">
+                                <a href="<?php echo base_url() ?>jobs/my-bids" style="color:#686361">
                                     <label class="blue-text">Proposal Sent</label>
                                 </a>
                             </div>

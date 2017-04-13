@@ -249,7 +249,7 @@ if ($this->session->userdata('loggedx')) {
                                 <ul>  
                                     <li><a class="first-menu" href="<?php echo site_url('find-jobs'); ?>" class="current"> Find Jobs  </a></li>      
                                     <li><a href="<?php echo site_url('profile/'.$webuser->webuser_username); ?>"> My Profile </a></li>			
-                                    <li><a href="<?php echo site_url('jobs/bids_list'); ?>"> My Bids</a></li>
+                                    <li><a href="<?php echo site_url('jobs/my-bids'); ?>"> My Bids</a></li>
                                     <li><a href="<?php echo site_url('withdraw'); ?>"> Withdraw</a></li>
                                 </ul>
                             </div>

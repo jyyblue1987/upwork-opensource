@@ -176,7 +176,7 @@
 
                                 <div class="row">
                                     <div style="margin-bottom: 8px;" class="col-md-9 gray-text no-padding">
-                                        <a href="<?php echo base_url() ?>jobs/bids_list" style="color: #3bafdb;font-size: 16px;font-family: calibri;font-weight: bold;"> Proposal Sent <p style="float: right;margin: 0;"><?= $proposals; ?></p>
+                                        <a href="<?php echo base_url() ?>jobs/my-bids" style="color: #3bafdb;font-size: 16px;font-family: calibri;font-weight: bold;"> Proposal Sent <p style="float: right;margin: 0;"><?= $proposals; ?></p>
                                         </a>
                                     </div>
                                 </div>

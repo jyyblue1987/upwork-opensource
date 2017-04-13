@@ -36,7 +36,7 @@ class __TwigTemplate_824908792b100f4d5b364c4090cf77a638476d1eb87c6fbf5e63cd7fd03
         echo "</a></li>\t\t\t
                         <li><a href=\"";
         // line 9
-        echo twig_escape_filter($this->env, site_url("jobs/bids_list"), "html", null, true);
+        echo twig_escape_filter($this->env, site_url("jobs/my-bids"), "html", null, true);
         echo "\"> ";
         echo twig_escape_filter($this->env, app_lang("text_app_my_bid_list"), "html", null, true);
         echo "</a></li>
