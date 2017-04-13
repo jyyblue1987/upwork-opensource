@@ -76,7 +76,7 @@ if ($reject_count) {
         <div class="row">
             <div class="col-md-12 bottom-blue-border  padding-2">
                 <span><a href="<?php echo site_url('jobs/my-bids'); ?>"><b>My Bids (<?= $totalApplication ?>) </b></a></span>
-                <span class="margin-left-15"><a href="<?php echo site_url('jobs/archived_bids_list'); ?>"><b>Archived (<?= $totalrejact ?>)</b></a></span>
+                <span class="margin-left-15"><a href="<?php echo site_url('jobs/my-bids/archived'); ?>"><b>Archived (<?= $totalrejact ?>)</b></a></span>
             </div>
         </div>
             <div class="row margin-top-1" >

@@ -8,6 +8,7 @@ $route['win-jobs']       = 'win_jobs';
 $route['ended-jobs']     = 'ended_jobs';
 $route['my-balance']     = 'pay/balance';
 $route['jobs/my-bids']   = 'jobs/bids_list';
+$route['jobs/my-bids/archived']   = 'jobs/archived_bids_list';
 
 /****************************************
  * USER FRIENDLY URL FOR CLIENT/EMPLOYER

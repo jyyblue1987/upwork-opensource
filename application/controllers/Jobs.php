@@ -1090,7 +1090,7 @@ class Jobs extends Winjob_Controller {
                 $records2 = $query->result();
             $records = array_merge($records1, $records2);
             $data = array('records' => $records1, 'title' => 'Archived Jobs - Winjob', 'css' => array("","","","assets/css/pages/archived_bids_list.css"));
-            $this->Admintheme->custom_webview("jobs/archived_bids_list", $data);
+            $this->Admintheme->custom_webview("jobs/archived", $data);
         }
     }
 
