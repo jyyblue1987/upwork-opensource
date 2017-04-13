@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Offer extends CI_Controller {
+class Offered extends CI_Controller {
 
     private $process;
     private $user_id;
@@ -88,7 +88,7 @@ class Offer extends CI_Controller {
                 );
             }
 
-            $this->Admintheme->webview("offer", $data);
+            $this->Admintheme->webview("offered", $data);
         }
     }
 

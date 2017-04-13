@@ -2787,12 +2787,12 @@ class Jobs extends Winjob_Controller {
                     $data_payment['payment_gross'] = $budget;
 
                     $this->db->insert('payments', $data_payment);
-        redirect(site_url().'offer?job_id='.base64_encode($job_id));            
+        redirect(site_url().'offered?job_id='.base64_encode($job_id));            
                     /* adding data at report end */
                 }
                 //updates by haseeburrehman.com ends     
             }
-            redirect(site_url().'offer?job_id='.base64_encode($job_id));
+            redirect(site_url().'offered?job_id='.base64_encode($job_id));
         } else {
              $response['success'] = false;
              $response['message'] = 'Unsuccessfull';

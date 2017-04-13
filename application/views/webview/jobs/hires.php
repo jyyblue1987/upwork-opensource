@@ -32,7 +32,7 @@
 
             $appliedLink = site_url('jobs/applications/' . base64_encode($jobId));
             $interviewsLink = site_url('jobs/interviews/' . base64_encode($jobId));
-            $offerLink = site_url('offer?job_id=' . base64_encode($jobId));
+            $offerLink = site_url('offered?job_id=' . base64_encode($jobId));
             $hireLink = site_url('hires?job_id=' . base64_encode($jobId));
             $rejectLink = site_url('reject?job_id=' . base64_encode($jobId));
 
