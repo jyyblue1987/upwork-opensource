@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+error_reporting(E_ALL);
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Jobs extends Winjob_Controller {
@@ -1672,64 +1672,66 @@ class Jobs extends Winjob_Controller {
             $hires = $this->process->get_hires($this->user_id, $job_id);
             $interviews = $this->process->get_interviews($this->user_id, $job_id);
             
-            foreach($bids['data'] AS $_bids){
-               $ended_jobs = $this->process->cnt_ended_jobs($_bids->user_id);
-               $freelancer_profile = $this->ProfileModel->get_profile($_bids->user_id);
-               $accepted_jobs = $this->process->accepted_jobs($_bids->user_id);
-               $pic = $this->Adminforms->getdatax("picture", "webuser", $_bids->user_id);
-               $country = $this->ProfileModel->get_country($_bids->webuser_country);
-               $skills = $this->ProfileModel->get_skills($_bids->user_id);
-               $user_rating = $this->Webuser_model->get_total_rating($_bids->user_id);
-               $_pic = $pic != "" ? $pic : "assets/user.png";
+            if($bids['rows'] > 0){
+                foreach($bids['data'] AS $_bids){
+                   $ended_jobs = $this->process->cnt_ended_jobs($_bids->user_id);
+                   $freelancer_profile = $this->ProfileModel->get_profile($_bids->user_id);
+                   $accepted_jobs = $this->process->accepted_jobs($_bids->user_id);
+                   $pic = $this->Adminforms->getdatax("picture", "webuser", $_bids->user_id);
+                   $country = $this->ProfileModel->get_country($_bids->webuser_country);
+                   $skills = $this->ProfileModel->get_skills($_bids->user_id);
+                   $user_rating = $this->Webuser_model->get_total_rating($_bids->user_id);
+                   $_pic = $pic != "" ? $pic : "assets/user.png";
 
-               foreach($accepted_jobs AS $a_jobs){
-                   $feedbacks = $this->process->get_feedbacks($a_jobs->fuser_id, $a_jobs->job_id);
-                   $diary = $this->Job_work_diary_model->get_work_hours($a_jobs->fuser_id, $a_jobs->job_id);
+                   foreach($accepted_jobs AS $a_jobs){
+                       $feedbacks = $this->process->get_feedbacks($a_jobs->fuser_id, $a_jobs->job_id);
+                       $diary = $this->Job_work_diary_model->get_work_hours($a_jobs->fuser_id, $a_jobs->job_id);
 
-                    foreach($diary AS $_diary){
-                        $total_work += $_diary->total_hour;
-                    }
-                    
-                   if($a_jobs->jobstatus == 1){
-                       if(!empty($feedbacks)){
-                            if($a_jobs->job_type == 'fixed'){
-                                $price = $a_jobs->fixedpay_amount;
-                                $feedbackScore += ($feedbacks['feedback_score'] * $price);
-                                $budget += $price;
-                            }else{
-                                
-                                if($a_jobs->offer_bid_amount){
-                                    $amount = $a_jobs->offer_bid_amount;
+                        foreach($diary AS $_diary){
+                            $total_work += $_diary->total_hour;
+                        }
+
+                       if($a_jobs->jobstatus == 1){
+                           if(!empty($feedbacks)){
+                                if($a_jobs->job_type == 'fixed'){
+                                    $price = $a_jobs->fixedpay_amount;
+                                    $feedbackScore += ($feedbacks['feedback_score'] * $price);
+                                    $budget += $price;
                                 }else{
-                                    $amount = $a_jobs->bid_amount;
-                                }
 
-                                $price = $a_jobs->fixedpay_amount * $amount;
-                                $feedbackScore += ($feedbacks['feedback_score'] * $price);
-                                $budget += $price;
+                                    if($a_jobs->offer_bid_amount){
+                                        $amount = $a_jobs->offer_bid_amount;
+                                    }else{
+                                        $amount = $a_jobs->bid_amount;
+                                    }
+
+                                    $price = $a_jobs->fixedpay_amount * $amount;
+                                    $feedbackScore += ($feedbacks['feedback_score'] * $price);
+                                    $budget += $price;
+                                }
                             }
                         }
                     }
-                }
 
-                $records[] = array(
-                   'ended_jobs' => $ended_jobs,
-                   'tagline' => ucfirst($freelancer_profile['tagline']),
-                   'budget' => $budget,
-                   'feedback_score' => $feedbackScore,
-                   'total_work' => $total_work,
-                   'pic' => $_pic,
-                   'fname' => $_bids->webuser_fname,
-                   'lname' => $_bids->webuser_lname,
-                   'user_id' => $_bids->user_id,
-                   'job_id' => $_bids->job_id,
-                   'bid_id' => $_bids->id,
-                   'bid_amount' => $_bids->bid_amount,
-                   'country' => ucfirst($country['country_name']),
-                   'letter' => $_bids->cover_latter,
-                   'skills' => $skills,
-                   'rating' => $user_rating
-                );
+                    $records[] = array(
+                       'ended_jobs' => $ended_jobs,
+                       'tagline' => ucfirst($freelancer_profile['tagline']),
+                       'budget' => $budget,
+                       'feedback_score' => $feedbackScore,
+                       'total_work' => $total_work,
+                       'pic' => $_pic,
+                       'fname' => $_bids->webuser_fname,
+                       'lname' => $_bids->webuser_lname,
+                       'user_id' => $_bids->user_id,
+                       'job_id' => $_bids->job_id,
+                       'bid_id' => $_bids->id,
+                       'bid_amount' => $_bids->bid_amount,
+                       'country' => ucfirst($country['country_name']),
+                       'letter' => $_bids->cover_latter,
+                       'skills' => $skills,
+                       'rating' => $user_rating
+                    );
+                }
             }
 
             $data = array(
