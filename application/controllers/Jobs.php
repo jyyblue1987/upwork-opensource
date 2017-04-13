@@ -2372,7 +2372,7 @@ class Jobs extends Winjob_Controller {
                     $sender_id = $this->session->userdata('id');
                     $data = "INSERT INTO job_conversation set job_id = '" . $job_id . "', bid_id = '0',  message_conversation = '" . $message . "', sender_id = '" . $sender_id . "', receiver_id = '" . $fuser_id . "', have_seen = 1 ";
 
-                    redirect(site_url('Active_interview'));
+                    redirect(site_url('my-offers'));
                 }
 
                 redirect(site_url('jobs-home'));
@@ -3122,7 +3122,7 @@ class Jobs extends Winjob_Controller {
             if ($freelancer_hit_id != null) {
                 $sql = "UPDATE  job_bids set status = '1',withdrawn=1,withdrawn_by=1 WHERE job_id ='" . $freelancer_hit_id . "' AND user_id=" . $user_id;
                 $this->db->query($sql);
-                redirect(site_url('Active_interview'));
+                redirect(site_url('my-offers'));
             } else {
                 $bid_id = $_POST['form'];
                 $sql = "UPDATE  job_bids set bid_reject = '1',withdrawn=1,withdrawn_by=2  WHERE id ='" . $bid_id . "'";

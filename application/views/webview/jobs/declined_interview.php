@@ -137,7 +137,7 @@ if(!empty($active_interview)){
         <div class="row">
             <div class="col-md-12 bottom-blue-border  padding-2">
                 
-                <span style="margin-right: 45px;"><a href="<?php echo site_url('Active_interview'); ?>"><b>Active Interview (<?= $count_interview ?>)</b></a></span>&nbsp <span><a href="<?php echo site_url('Active_interview/declined_interview'); ?>"><b>Declined (<?= $declined ?>)</b></a></span>
+                <span style="margin-right: 45px;"><a href="<?php echo site_url('my-offers'); ?>"><b>Active Interview (<?= $count_interview ?>)</b></a></span>&nbsp <span><a href="<?php echo site_url('my-offers/archived'); ?>"><b>Declined (<?= $decline == 0 ? 0 : $decline ?>)</b></a></span>
 
             </div>
             <div class="col-md-12 text-center bordered-alert margin-top">

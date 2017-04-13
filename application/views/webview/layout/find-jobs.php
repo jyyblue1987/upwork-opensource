@@ -9,7 +9,7 @@ $job_alert_count = $Conversation->job_alert();
                 <?php if($job_alert_count){ ?>
                  <div class="row margin-top-1">
 			<div class="col-md-10 bordered-alert text-center ack-box">
-				 <h4>!  <a href="/Active_interview" class="show_notification" style="color: #28da28 !important;"><i class="fa fa-envelope-o " aria-hidden="true"></i> <?=$job_alert_count?> Pending Offer</a>
+				 <h4>!  <a href="/my-offers" class="show_notification" style="color: #28da28 !important;"><i class="fa fa-envelope-o " aria-hidden="true"></i> <?=$job_alert_count?> Pending Offer</a>
 							 
 							</h4>
 			 </div>
@@ -157,7 +157,7 @@ $job_alert_count = $Conversation->job_alert();
                         <div class='row white-box'>
                             <div class="row ">
                                 <div class="col-md-7 no-padding">
-                                <a href="<?php echo base_url() ?>Active_interview"><label class="blue-text">Active Interview</label></a>
+                                <a href="<?php echo base_url() ?>my-offers"><label class="blue-text">Active Interview</label></a>
                             </div>
                             <div class="col-md-2 text-center gray-text proposal-digit">
                                 <label class="blue-text"><?= $no_of_interview ?></label>
