@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL);
+error_reporting(0);
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Jobs extends Winjob_Controller {
@@ -528,12 +528,12 @@ class Jobs extends Winjob_Controller {
                 $this->db->where('job_bids.bid_reject', 0);
                 $this->db->group_by('job_conversation.job_id');
                 $query = $this->db->get();
+                
                 if (is_object($query)) {
                     $intervier_no = $query->num_rows();
                 } else {
                     $intervier_no = null;
                 }
-
                 //$record = $query->result();
                 $this->db->select('*');
                 $this->db->from('job_bids');
@@ -735,26 +735,27 @@ class Jobs extends Winjob_Controller {
             $emp = $this->employer->is_active();
             $records = array();
 
-            foreach($jobs['data'] AS $_jobs){
-                $applicants = $this->process->get_applications($_jobs->id);
-                $rejects = $this->process->get_rejected($_jobs->id);
-                $offers = $this->process->get_offers($_jobs->id);
-                $hires = $this->process->get_hires($this->user_id, $_jobs->id);
-                $interviews = $this->process->get_interviews($this->user_id, $_jobs->id);
+            if($jobs['rows'] > 0){
+                foreach($jobs['data'] AS $_jobs){
+                    $applicants = $this->process->get_applications($_jobs->id);
+                    $rejects = $this->process->get_rejected($_jobs->id);
+                    $offers = $this->process->get_offers($_jobs->id);
+                    $hires = $this->process->get_hires($this->user_id, $_jobs->id);
+                    $interviews = $this->process->get_interviews($this->user_id, $_jobs->id);
 
-                $records[] = array(
-                    'applicants' => $applicants['rows'],
-                    'rejects' => $rejects['rows'],
-                    'offers' => $offers['rows'],
-                    'hires' => $hires['rows'],
-                    'interviews' => $interviews['rows'],
-                    'job_id' => base64_encode($_jobs->id),
-                    'job_type' => ucfirst($_jobs->job_type),
-                    'title' => ucwords($_jobs->title),
-                    'job_created' => $this->time_elapsed_string($_jobs->job_created)
-                );
+                    $records[] = array(
+                        'applicants' => $applicants['rows'],
+                        'rejects' => $rejects['rows'],
+                        'offers' => $offers['rows'],
+                        'hires' => $hires['rows'],
+                        'interviews' => $interviews['rows'],
+                        'job_id' => base64_encode($_jobs->id),
+                        'job_type' => ucfirst($_jobs->job_type),
+                        'title' => ucwords($_jobs->title),
+                        'job_created' => $this->time_elapsed_string($_jobs->job_created)
+                    );
+                }
             }
-
             $conversation = new Conversation();
             $data = array(
                 'records' => $records,
