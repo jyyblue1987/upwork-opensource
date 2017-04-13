@@ -112,7 +112,7 @@
                         <div class="job_title client_job_title">
                             <span class="clint_view_j-title">
                                 {{ app_substr(job_title, constant('CONTRACT_JOB_TITLE_MAX'), '...') }}</span><br />
-                            <a href="{{ base_url() }}jobs/view/{{ url_title( job_status.title, 'dash', true ) }}/{{ job_id_encoded }}">{{ app_lang('text_job_original_view') }}</a>
+                            <a href="{{ base_url() }}jobs/{{ url_title( job_status.title, 'dash', true ) }}/{{ job_id_encoded }}">{{ app_lang('text_job_original_view') }}</a>
                         </div>
                     </div>
                 </div>

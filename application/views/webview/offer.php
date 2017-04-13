@@ -181,7 +181,7 @@ body {
 					<div class="col-md-8">
 						
 						<div class="offer_job_details">
-						<!--<a href="<?php echo base_url() ?>jobs/view/<?php echo str_replace(' ', '-', $message->title) ?>/<?php echo base64_encode($message->job_id);?>">-->
+						<!--<a href="<?php echo base_url() ?>jobs/<?php echo str_replace(' ', '-', $message->title) ?>/<?php echo base64_encode($message->job_id);?>">-->
 						
 						<?php if($value['hire_title'] !=""){
 							$job_title = $value['hire_title'];

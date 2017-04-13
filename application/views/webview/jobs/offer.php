@@ -101,7 +101,7 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
 					<div class="col-md-8">
 						
 						
-						<!--<a href="<?php echo base_url() ?>jobs/view/<?php echo str_replace(' ', '-', $message->title) ?>/<?php echo base64_encode($message->job_id);?>">-->
+						<!--<a href="<?php echo base_url() ?>jobs/<?php echo str_replace(' ', '-', $message->title) ?>/<?php echo base64_encode($message->job_id);?>">-->
 						
 						<?php if($message->hire_title !=""){
 							$job_title = $message->hire_title;

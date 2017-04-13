@@ -2032,7 +2032,7 @@ class Jobs extends Winjob_Controller {
             $details = array(
                     'fname' => $user_name,
                     'company' => 'Winjob',
-                    'verification' => site_url()."jobs/view/" . $title . "/" . base64_encode($job_id),
+                    'verification' => site_url()."jobs/" . $title . "/" . base64_encode($job_id),
                     'slogan' => 'Hire Talented Freelancers For a Low Cost',
                     'para1' => 'You have successfully received '.$payment.' from '.$company_name.'. Please see details below.',
                     'payment' => $payment,
@@ -2069,7 +2069,7 @@ class Jobs extends Winjob_Controller {
                     'company' => 'Winjob',
                     'slogan' => 'Hire Talented Freelancers For a Low Cost',
                     'fname' => $client_name,
-                    'verification' => site_url()."jobs/view/" . $job_title . "/" . base64_encode($jobId),
+                    'verification' => site_url()."jobs/" . $job_title . "/" . base64_encode($jobId),
                     'para1' => 'Your contract has started with '.$user_name.'. Please review the job post below.',
             );
             
@@ -2079,7 +2079,7 @@ class Jobs extends Winjob_Controller {
                     'company' => 'Winjob',
                     'slogan' => 'Hire Talented Freelancers For a Low Cost',
                     'fname' => $user_name,
-                    'verification' => site_url()."jobs/view/" . $job_title . "/" . base64_encode($jobId),
+                    'verification' => site_url()."jobs/" . $job_title . "/" . base64_encode($jobId),
                     'para1' => 'Your contract has started with '.$client_name.'. Please review the job post below.',
             );    
             

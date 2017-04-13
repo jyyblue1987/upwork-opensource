@@ -155,7 +155,7 @@
 						</b>
 						<br/>
 						
-						<a href="<?php echo base_url() ?>jobs/view/<?php echo str_replace(' ', '-', $job_details[0]->title) ?>/<?php echo base64_encode($bid_details[0]->job_id);?>">View Origial job post</a></div>
+						<a href="<?php echo base_url() ?>jobs/<?php echo str_replace(' ', '-', $job_details[0]->title) ?>/<?php echo base64_encode($bid_details[0]->job_id);?>">View Origial job post</a></div>
 				</div>
 				 <?php
 				$perHrs = '';

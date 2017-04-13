@@ -33,7 +33,7 @@ $route['app/(:any)'] = 'app/index/';
 $route['materia'] = 'materia/index';
 $route['materia/(:any)'] = 'materia/index';
 
-
+$route['jobs/(:any)/(:any)/apply'] = 'jobs/apply/($1)/($2)';
 
 $route['administrator'] = 'administrator/home';
 $route['post-job'] = 'jobs/create';

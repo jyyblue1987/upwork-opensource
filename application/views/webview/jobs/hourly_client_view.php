@@ -98,7 +98,7 @@ input.btn-cancel:hover{border:1px solid transparent;color:#fff;background:#28609
 							$job_title = $job_status->title;
 						}?>
 						<?= app_substr($job_title, CONTRACT_JOB_TITLE_MAX, '...'); ?></span><br />
-						<a href="<?php echo base_url() ?>jobs/view/<?php echo url_title($job_status->title) ?>/<?php echo base64_encode($job_status->job_id);?>">View original job post</a>
+						<a href="<?php echo base_url() ?>jobs/<?php echo url_title($job_status->title) ?>/<?php echo base64_encode($job_status->job_id);?>">View original job post</a>
 						</div>
 					</div>
 			</div>
