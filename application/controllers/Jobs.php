@@ -2438,7 +2438,7 @@ class Jobs extends Winjob_Controller {
             if ($query->num_rows() > 0){
                 $value = $query->row();
             }else{
-                redirect(site_url().'bids_list');
+                redirect(site_url().'jobs/my-bids');
             }
             $this->db->select('*');
             $this->db->from('jobs');
@@ -2511,7 +2511,7 @@ class Jobs extends Winjob_Controller {
                 'f_attachments' => $attachments,
                 'js' => array('vendor/jquery.form.js',
                     'internal/job_withdraw.js'));
-            $this->Admintheme->webview("jobs/withdraw_system", $data);
+            $this->Admintheme->webview("jobs/proposals", $data);
         }
     }
 
