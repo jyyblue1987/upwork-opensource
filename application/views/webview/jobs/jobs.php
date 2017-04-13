@@ -388,7 +388,7 @@ $accepted_jobs = $query->result();
                                         <strong>Warning!</strong> You reach your monthly proposals limit.
                                     </div>
                                     <?php } else { ?>
-                                    <a style="padding-left: 0;" href="<?php echo site_url("jobs/apply/" . url_title($value->get_title()) . '/' . base64_encode($value->get_jobid())); ?>"><button type="button" class="btn btn-primary custon_send_pro send-pro">Send a Proposal</button></a>
+                                    <a style="padding-left: 0;" href="<?php echo site_url("jobs/" . url_title($value->get_title()) . '/' . base64_encode($value->get_jobid()).'/apply'); ?>"><button type="button" class="btn btn-primary custon_send_pro send-pro">Send a Proposal</button></a>
 									<?php }?>
                                
 								
