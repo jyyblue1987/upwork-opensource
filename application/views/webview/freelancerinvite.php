@@ -178,7 +178,7 @@ foreach($accepted_jobs as $job_data){
                     <div class="row">
                         <div class="col-md-3 text-center"><label class="gray-text"></label></div>
                         <div class="col-md-3 text-center"><label class="gray-text"><a href='<?php echo site_url('jobs/view/' . base64_encode($value->id)); ?>'>View Job Posting <span class='glyphicon glyphicon-info-sign'></span></a></label></div>
-                        <div class="col-md-3 text-center"><label class="gray-text"><a href='<?php echo site_url('jobs/edit/' . base64_encode($value->id)); ?>'>Edit Posting <span class='glyphicon glyphicon-edit'></span></a></label></div>
+                        <div class="col-md-3 text-center"><label class="gray-text"><a href='<?php echo site_url('edit-jobs/' . base64_encode($value->id)); ?>'>Edit Posting <span class='glyphicon glyphicon-edit'></span></a></label></div>
                         <div class="col-md-3 text-center"><label class="gray-text"><a href='<?php echo site_url('jobs/close/' . base64_encode($value->id)); ?>'>Remove Posting <span class='glyphicon glyphicon-remove'></span></a></label></div>                    
                     </div>
                     <?php

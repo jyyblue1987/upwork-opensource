@@ -78,7 +78,7 @@ $accepted_jobs = $query->result();
                                 <div class="col-md-5 col-sm-5 col-xs-12">
                                     <label class="gray-text">
                                         <span class="hidden-xs hidden-sm margin-10-left">&nbsp;</span>
-                                        <a href='<?= site_url('jobs/edit/' . base64_encode($value->get_jobid())); ?>'style="color: #37A000">Edit Posting <span class='glyphicon custom_client_icon glyphicon-edit co'></span>
+                                        <a href='<?= site_url('edit-jobs/' . base64_encode($value->get_jobid())); ?>'style="color: #37A000">Edit Posting <span class='glyphicon custom_client_icon glyphicon-edit co'></span>
                                         </a>
                                     </label>
                                 </div>

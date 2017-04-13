@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL);
+error_reporting(0);
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Jobs extends Winjob_Controller {
@@ -87,7 +87,7 @@ class Jobs extends Winjob_Controller {
                 'tid' => time()
             );
             
-            $this->Admintheme->webview("jobs/create_job", $data);
+            $this->Admintheme->webview("jobs/post-job", $data);
         }
         else if($this->input->is_ajax_request() && is_post() && $this->input->post('title'))//Here we need to handle job creation
         {
@@ -769,7 +769,7 @@ class Jobs extends Winjob_Controller {
                 'css'       => array("","","","assets/css/pages/job_status.css")
             );
 
-            $this->Admintheme->custom_webview("jobs/job_status", $data);
+            $this->Admintheme->custom_webview("jobs/jobs-home", $data);
         }
     }
     
@@ -1157,7 +1157,7 @@ class Jobs extends Winjob_Controller {
             'skillList' => $skillList,
             'js' => array('vendor/jquery.form.js', 'internal/job_edit.js'));
 
-        $this->Admintheme->webview("jobs/edit", $data);
+        $this->Admintheme->webview("jobs/edit-jobs", $data);
     }
 
     public function browse() {
