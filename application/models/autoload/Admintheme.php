@@ -71,7 +71,7 @@ class Admintheme extends CI_Model {
         $this->load->view('webview/layout/menu.php',$data, false);
         $this->load->view('webview/'.$page,$data, false);
         $this->load->view('webview/layout/footer.php',$data, false);
-        $this->load->view('webview/layout/afterfooter.php',$data, false); 
+        $this->load->view('webview/layout/footer.php',$data, false); 
      }
 	 // added by (Donfack Zeufack Hermann) end
 
