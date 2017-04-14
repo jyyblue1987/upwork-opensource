@@ -391,7 +391,7 @@ $('#submit').click(function(){
 		$("#error_span").show().delay(5000).fadeOut();
 		return false;
 	}
-	$.post('<?php echo base_url() ?>Interview/insert_message', { freelancer_id: f_id, job_id: j_id, bid_id: b_id, messsage: messsage },  function(data) {
+	$.post('<?php echo base_url() ?>Applicants/insert_message', { freelancer_id: f_id, job_id: j_id, bid_id: b_id, messsage: messsage },  function(data) {
 		
 			if(data != '') {
 					$('#scroll-ul').append(data);

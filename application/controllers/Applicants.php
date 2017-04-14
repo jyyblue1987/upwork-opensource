@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Interview extends CI_Controller {
+class Applicants extends CI_Controller {
 
     private $process;
     private $user_id;
@@ -119,7 +119,7 @@ class Interview extends CI_Controller {
                         'job_id' => $_GET['job_id']
                     );
 
-                    $this->Admintheme->webview2("interview", $params);
+                    $this->Admintheme->webview2("applicants", $params);
                 } else {
                     redirect(site_url("profile/basic"));
                 }

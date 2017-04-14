@@ -175,7 +175,7 @@ body {
 				<div class="row">
 					<div class="col-md-2">
 					  <div class="view_pro_btn">
-					      <a href="<?php echo base_url()."interview?user_id=".base64_encode($value['user_id'])."&job_id=".base64_encode($value['job_id'])."&bid_id=".base64_encode($value['bid_id']);?>">View Profile</a>
+					      <a href="<?php echo base_url()."applicants?user_id=".base64_encode($value['user_id'])."&job_id=".base64_encode($value['job_id'])."&bid_id=".base64_encode($value['bid_id']);?>">View Profile</a>
 					  </div>
 					</div>
 					<div class="col-md-8">

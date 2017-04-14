@@ -1049,7 +1049,7 @@ $('#submit').click(function(){
 
     var form_data = new FormData($('#chat_form')[0]);
         $.ajax({
-            url: '<?php echo base_url() ?>Interview/insert_message',
+            url: '<?php echo base_url() ?>Applicants/insert_message',
             dataType: 'json',
             cache: false,
             contentType: false,

@@ -162,7 +162,7 @@
 								   <div class="ec_massage_butt">
 								       <div class="pastsms">
 								           <input type="button" class="btn btn-primary form-btn"  onclick="loadmessage(<?=$message->bid_id?>,<?=$message->fuser_id?>,<?=$message->job_id?>,'<?=$username?>','<?=$title?>')" value="Message">
-									<!--<a href="<?php echo base_url() ?>interview?user_id=<?=base64_encode($message->fuser_id)?>&job_id=<?=base64_encode($message->job_id)?>&bid_id=<?=base64_encode($message->bid_id)?>">
+									<!--<a href="<?php echo base_url() ?>applicants?user_id=<?=base64_encode($message->fuser_id)?>&job_id=<?=base64_encode($message->job_id)?>&bid_id=<?=base64_encode($message->bid_id)?>">
 											<input type="button" class="btn btn-primary transparent-btn" value="Message" />
 									</a>-->
 								       </div>
@@ -199,7 +199,7 @@
 						<div class="row">
 							<div class="col-md-2">
 							    <div class="pro_view">
-							    <a href="<?php echo base_url()."interview?user_id=".base64_encode($message->webuser_id)."&job_id=".base64_encode($message->job_id)."&bid_id=".base64_encode($message->bid_id);?>" style="font-size: 14px;color: #3DB0DD;">View Profile</a>
+							    <a href="<?php echo base_url()."applicants?user_id=".base64_encode($message->webuser_id)."&job_id=".base64_encode($message->job_id)."&bid_id=".base64_encode($message->bid_id);?>" style="font-size: 14px;color: #3DB0DD;">View Profile</a>
 							    </div>
 							</div>
 							<div style="margin-left: -6px;" class="col-md-10">

@@ -55,7 +55,7 @@
                                         <img src="{{ app_user_img( contract.cropped_image ) }}" class="user-picture pull-left" width="64" height="64" />
                                         <div class="pull-left user-info">    
                                             <h3>
-                                                <a href="{{ base_url("interview?user_id=") ~ user_id_encoded ~ "&job_id=" ~ job_id_encoded ~ "&bid_id=" ~ bid_id_encoded }}">
+                                                <a href="{{ base_url("applicants?user_id=") ~ user_id_encoded ~ "&job_id=" ~ job_id_encoded ~ "&bid_id=" ~ bid_id_encoded }}">
                                                     <span class="blue-text">{{ contract.webuser_fname ~ ' ' ~ contract.webuser_lname }}</span>
                                                 </a>
                                                 {% if app_user_data()['type'] == constant('EMPLOYER') %}

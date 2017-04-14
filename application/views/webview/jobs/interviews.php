@@ -138,7 +138,7 @@ color: #fff;
                                 </div>
                                 <div class="col-md-8 text-left margin-left-1" style="margin-top:-4px;">
                                    <div class="aplicant_identity">
-                                        <label class="aplicant_name"><a href="<?php echo base_url() ?>Interview?user_id=<?=base64_encode($value['user_id'])?>&job_id=<?=base64_encode($value['job_id'])?>&bid_id=<?=base64_encode($value['bid_id'])?>"><?php echo ucfirst($value['fname']) . " " . ucfirst($value['lname']) ?></a></label> 
+                                        <label class="aplicant_name"><a href="<?php echo base_url() ?>applicants?user_id=<?=base64_encode($value['user_id'])?>&job_id=<?=base64_encode($value['job_id'])?>&bid_id=<?=base64_encode($value['bid_id']).'/interview'?>"><?php echo ucfirst($value['fname']) . " " . ucfirst($value['lname']) ?></a></label> 
                                     <br/> 
                                     <span>
                                         <b>
@@ -236,7 +236,7 @@ color: #fff;
 
                                 <div class="col-md-2 margin-top-5 text-right msg-buttons">
                                     <!--<a href="javascript:void(0)" onclick="loadmessage(<?=$value['bid_id']?>,<?=$value['user_id']?>,<?=$value['job_id']?>)">Message</a>-->
-                                    <div class="hire_sms_btn"><a class="btn btn-primary form-btn" href="<?php echo base_url() ?>interview?user_id=<?=base64_encode($value['user_id'])?>&job_id=<?=base64_encode($value['job_id'])?>&bid_id=<?=base64_encode($value['bid_id'])?>">Message</a>  
+                                    <div class="hire_sms_btn"><a class="btn btn-primary form-btn" href="<?php echo base_url() ?>applicants?user_id=<?=base64_encode($value['user_id'])?>&job_id=<?=base64_encode($value['job_id'])?>&bid_id=<?=base64_encode($value['bid_id']).'/interview'?>">Message</a>  
                                     </div>
 
                                    <div class="hire_me_btn">
