@@ -161,7 +161,7 @@ if(!empty($declined)){
                 <div class="row">
                     <div class="col-md-2 col-sm-6 col-xs-6"><?php  echo date(' M j, Y ', strtotime($interview->bid_created)); ?></div>
                     <div class="col-md-10 blue-text col-sm-6 col-xs-6">
-                        <a href="<?php echo base_url() ?>Freelancerinvite?fmJob=<?php echo base64_encode($interview->job_id);?>"> <?php echo $interview->title;?></a>
+                        <a href="<?php echo base_url() ?>proposals/my-interview?fmJob=<?php echo base64_encode($interview->job_id);?>"> <?php echo $interview->title;?></a>
                     </div>
                 </div>
 
