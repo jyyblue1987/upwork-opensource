@@ -90,7 +90,7 @@ color: #fff;
                      <li><a href='<?= site_url('jobs/interviews/' . $jobId) ?>'>Interview (<?=$interviews?>)</a> </li>
                      <li><a href='<?= site_url('offered?job_id=' . $jobId) ?>'>Offers (<?=$offers;?>) </a>  </li>
                      <li><a href='<?= site_url('hired?job_id=' . $jobId) ?>'>Hires (<?=$hires;?>)</a> </li>
-                     <li><a href='<?= site_url('reject?job_id=' . $jobId) ?>'>Rejected (<?=$rejects;?>)</a></li>
+                     <li><a href='<?= site_url('declined?job_id=' . $jobId) ?>'>Rejected (<?=$rejects;?>)</a></li>
                     <li class="drop_btn">
 						<div class="dropdown hour_btnx custom-application_drop_down">
 							<button style="margin-left: -14px;" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
@@ -315,7 +315,7 @@ color: #fff;
 		$.post("<?php echo site_url('jobs/bid_decline');?>", { form : id },  function(data) {
 			if(data.success){
 				$('.result-msg').html('You have successfully Decline the Post');
-					window.location = "<?php echo base_url();?>reject?job_id=<?=base64_encode($value['job_id'])?>";
+					window.location = "<?php echo base_url();?>declined?job_id=<?=base64_encode($value['job_id'])?>";
 					
 			} else{
 					alert('Opps!! Something went wrong.');

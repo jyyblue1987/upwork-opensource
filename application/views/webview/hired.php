@@ -82,7 +82,7 @@ body{font-family: "calibri" !important;}
                      <li><a href='<?= site_url('jobs/interviews/' . $jobId) ?>'>Interview (<?=$interviews?>)</a> </li>
                      <li><a href='<?= site_url('offered?job_id=' . $jobId) ?>'>Offers (<?=$offers;?>) </a>  </li>
                      <li><a class="active-link" href='<?= site_url('hired?job_id=' . $jobId) ?>'>Hires (<?=$hires;?>)</a> </li>
-                     <li><a href='<?= site_url('reject?job_id=' . $jobId) ?>'>Rejected (<?=$rejects;?>)</a></li>
+                     <li><a href='<?= site_url('declined?job_id=' . $jobId) ?>'>Rejected (<?=$rejects;?>)</a></li>
                   <li class="drop_btn">
 				  <div class="dropdown hour_btnx custom-application_drop_down">
 					<button  style="margin-left: -14px;" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">

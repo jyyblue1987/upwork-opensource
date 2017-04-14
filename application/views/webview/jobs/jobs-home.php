@@ -119,7 +119,7 @@
                                     <a href="<?= site_url('hired?job_id=' . $value['job_id']) ?>">Hires (<?= $value['hires']; ?>)</a>   
                                 </li> 
                                 <li>
-                                    <a href="<?= site_url('reject?job_id=' . $value['job_id']) ?>" class="last-link">Rejected (<?= $value['rejects']; ?>)</a>  
+                                    <a href="<?= site_url('declined?job_id=' . $value['job_id']) ?>" class="last-link">Rejected (<?= $value['rejects']; ?>)</a>  
                                 </li>
 
                             </ul>

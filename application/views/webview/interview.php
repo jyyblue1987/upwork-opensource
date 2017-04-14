@@ -500,7 +500,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $.post("<?php echo site_url('jobs/bid_decline'); ?>", {form: id}, function (data) {
                 if (data.success) {
                     $('.result-msg').html('You have successfully Decline the Post');
-                    window.location = "<?php echo base_url(); ?>reject?job_id=<?= $job_id ?>";
+                    window.location = "<?php echo base_url(); ?>declined?job_id=<?= $job_id ?>";
                 } else {
                     alert('Opps!! Something went wrong.');
                 }
