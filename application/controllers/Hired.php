@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Hires extends CI_Controller {
+class Hired extends CI_Controller {
 
     private $process;
     private $user_id;
@@ -70,7 +70,7 @@ class Hires extends CI_Controller {
                 'title' => 'Hires - Winjob'
             );
 
-            $this->Admintheme->webview("hires", $data);
+            $this->Admintheme->webview("hired", $data);
         }
     }
 
