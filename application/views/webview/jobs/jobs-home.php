@@ -107,19 +107,19 @@
                         <div class="col-md-9 col-sm-12 col-xs-12">
                             <ul class="client-job-activity pull-right" >
                                 <li>
-                                    <a href="<?= site_url('jobs/applications/' . $value['job_id']) ?>">Application (<?= $value['applicants'] ?>)</a> 
+                                    <a href="<?= site_url('jobs/applications/' . $value['job_id']) ?>">Applications (<?= $value['applicants'] ?>)</a> 
                                 </li>
                                 <li>
                                     <a href="<?= site_url('jobs/interviews/' . $value['job_id']) ?>">Interviews (<?= $value['interviews'] ?>)</a>  
                                 </li>
                                 <li>
-                                    <a href="<?= site_url('offered?job_id=' . $value['job_id']) ?>">Offers (<?= $value['offers']; ?>)</a>  
+                                    <a href="<?= site_url('offered?job_id=' . $value['job_id']) ?>">Offered (<?= $value['offers']; ?>)</a>  
                                 </li>
                                 <li>
-                                    <a href="<?= site_url('hired?job_id=' . $value['job_id']) ?>">Hires (<?= $value['hires']; ?>)</a>   
+                                    <a href="<?= site_url('hired?job_id=' . $value['job_id']) ?>">Hired (<?= $value['hires']; ?>)</a>   
                                 </li> 
                                 <li>
-                                    <a href="<?= site_url('declined?job_id=' . $value['job_id']) ?>" class="last-link">Rejected (<?= $value['rejects']; ?>)</a>  
+                                    <a href="<?= site_url('declined?job_id=' . $value['job_id']) ?>" class="last-link">Declined (<?= $value['rejects']; ?>)</a>  
                                 </li>
 
                             </ul>
