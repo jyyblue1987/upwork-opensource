@@ -710,18 +710,11 @@ class Jobs extends Winjob_Controller {
             $this->Admintheme->webview("jobs/apply_fixed", $data);
         }
     }
-
-    public function preview_fixed() {
+    
+    public function preview_job_posting(){
         if ($this->Adminlogincheck->checkx() && $this->session->userdata('preview')) {
             $data = array('data' => $this->session->userdata('preview'));
-            $this->Admintheme->webview("jobs/job_preview_fixed", $data);
-        }
-    }
-
-    public function preview_hourly() {
-        if ($this->Adminlogincheck->checkx() && $this->session->userdata('preview')) {
-            $data = array('data' => $this->session->userdata('preview'));
-            $this->Admintheme->webview("jobs/job_preview_hourly", $data);
+            $this->Admintheme->webview("jobs/preview-job-posting", $data);
         }
     }
 

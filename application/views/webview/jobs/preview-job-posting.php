@@ -108,16 +108,28 @@
                         <div style="font-size:16px;" class="col-md-9"><?php echo ucfirst($data['experience_level'])?></div>
                     </div>
                 </div>
-
-                <div class="col-md-9 form-group" id="fixed-control">
-                    <div class="row">
-                        <div class="col-md-3 page-label">
-                            <label>Budget</label>
+                
+                <?php if($data['job_type'] == 'fixed'){ ?>
+                    <div class="col-md-9 form-group" id="fixed-control">
+                        <div class="row">
+                            <div class="col-md-3 page-label">
+                                <label>Budget</label>
+                            </div>
+                            <div style="font-size:16px;" class="col-md-9">$<?php echo $data['budget'];?></div>
                         </div>
-                        <div style="font-size:16px;" class="col-md-9">$<?php echo $data['budget'];?></div>
                     </div>
-                </div>
-
+                <?php }else{ ?>
+                    <div class="col-md-9 form-group" id="hourly-control">
+                        <div class="row">
+                            <div class="col-md-3 page-label">
+                                <label>Hours Per week</label>
+                            </div>
+                            <div style="font-size:16px;" class="col-md-9"><?php 
+                            echo ucfirst($data['hours_per_week'])?></div>
+                        </div>
+                    </div>
+                <?php } ?>
+                
                 <div class="col-md-9 form-group">
                     <div class="row">
                         <div class="col-md-3 page-label">
