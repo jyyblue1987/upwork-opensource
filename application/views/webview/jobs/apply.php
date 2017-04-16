@@ -165,7 +165,7 @@ $total_spent=$row_spent->total_spent;
                                 echo "Hourly Per week";
                             } else
                             {
-                                echo '$';
+                                echo 'Budget $';
                             }
                             ?>
                         </label><br /><span><?php

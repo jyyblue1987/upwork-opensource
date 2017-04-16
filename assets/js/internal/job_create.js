@@ -60,14 +60,7 @@ $(document).ready(function () {
             console.log(data);
             if ($.trim(data.code) == '1')
             {
-                if ($("input[name=job_type]:checked").val() == 'hourly')
-                {
-                    window.location = base_url() + "jobs/preview_hourly";
-                }
-                else
-                {
-                    window.location = base_url() + "jobs/preview_fixed";
-                }
+                window.location = base_url() + "jobs/preview-job-posting";
             }
             else
             {
