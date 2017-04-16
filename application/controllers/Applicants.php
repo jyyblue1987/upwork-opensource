@@ -135,6 +135,9 @@ class Applicants extends Winjob_Controller {
         $condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
         $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS, null, $condition);
         $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
+        $all_timezones = DateTimeZone::listIdentifiers();
+        
+        dump($timezone['name'], true);
         
         $params = array(
             'timezone'        => $timezone,

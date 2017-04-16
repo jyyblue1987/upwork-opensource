@@ -276,7 +276,7 @@ if( ! function_exists('dump') ){
         if(is_array( $data) || is_object($data)){
             $data = json_encode($data, JSON_PRETTY_PRINT);
         }
-        var_dump( $data );
+        print_r( $data );
         echo '</pre>';
         
         if($die)
@@ -400,6 +400,39 @@ if( !function_exists('array_key_value_exists'))
         
         return false;
     }
+}
+
+function timezone_list() {
+    static $timezones = null;
+
+    if ($timezones === null) {
+        $timezones = [];
+        $offsets = [];
+        $now = new DateTime('now', new DateTimeZone('UTC'));
+
+        foreach (DateTimeZone::listIdentifiers() as $timezone) {
+            $now->setTimezone(new DateTimeZone($timezone));
+            $offsets[] = $offset = $now->getOffset();
+            $timezones[$timezone] = '(' . format_GMT_offset($offset) . ') ' . format_timezone_name($timezone);
+        }
+
+        array_multisort($offsets, $timezones);
+    }
+
+    return $timezones;
+}
+
+function format_GMT_offset($offset) {
+    $hours = intval($offset / 3600);
+    $minutes = abs(intval($offset % 3600 / 60));
+    return 'GMT' . ($offset ? sprintf('%+03d:%02d', $hours, $minutes) : '');
+}
+
+function format_timezone_name($name) {
+    $name = str_replace('/', ', ', $name);
+    $name = str_replace('_', ' ', $name);
+    $name = str_replace('St ', 'St. ', $name);
+    return $name;
 }
 
 // added by (Donfack Zeufack Hermann) end
