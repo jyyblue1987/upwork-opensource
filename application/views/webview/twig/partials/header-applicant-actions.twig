@@ -1,0 +1,46 @@
+<div class="col-md-3 col-sm-3 col-xs-12">
+    <div class="side_header">
+        <div class="topriht align-center">
+            {% if status %}
+                {% if job_info['hired'] == 0 %}
+                    {% if job_type == 'fixed' %}
+                        {% set link =  base_url("jobs/confirm_hired_fixed?user_id=" ~ v_user_id ~ '&job_id=' ~ v_job_id ) %}
+                    {% else %}
+                        {% set link =  base_url("jobs/confirm_hired_hourly?user_id=" ~ v_user_id ~ '&job_id=' ~ v_job_id ) %}
+                    {% endif %}
+                    <a href="{{ link }}">
+                        <button id="buttonsecond">
+                            {{ app_lang('text_job_hire_me') }}&nbsp;&nbsp;
+                            <i class="fa fa-caret-right" aria-hidden="true"></i>
+                        </button>
+                    </a>
+                {% endif %}
+            {% endif %}
+            <br/>
+
+            <a href="{{ base_url('profile/profile_freelancer?user=' ~ v_user_id ~ '&name=' ~ slag) }}" >
+                <button class="btn" id="view-profile-btn">
+                    {{ app_lang('text_job_btn_op_view_profile') }}
+                </button>
+            </a>
+            <br/>
+
+            {% if  job_info['withdrawn'] == 1 or job_info['bid_reject'] == 1 %}
+                {% if job_info['withdrawn_by'] == 1 %}
+                    <small>{{ app_lang('text_job_declined_by_free') }} </small>
+                {% elseif job_info['withdrawn_by'] == 2 %}
+                    <small>{{ app_lang('text_job_declined_by_you') }}</small>
+                {% endif %}
+           {% else %}
+                <div class="decline-line">
+                    <i class="fa fa-times-circle" aria-hidden="true"></i> 
+                    <small>
+                        <a href="javascript:void(0)" onclick="Confirmdecline({{ job_info['bid_id'] }});">
+                            {{ app_lang('text_job_declined_candidate') }}
+                        </a>
+                    </small>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

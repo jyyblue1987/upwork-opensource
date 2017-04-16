@@ -47,7 +47,7 @@ class Active_interview  extends CI_Controller{
             $record_offer = $query->result();
             
             $data = array('active_interview' => $record,'active_offer'=>$record_offer);
-            $this->Admintheme->webview("jobs/Active_interview", $data);
+            $this->Admintheme->webview("jobs/active_interview", $data);
         }
     }
 }

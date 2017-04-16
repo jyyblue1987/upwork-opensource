@@ -21,7 +21,8 @@ class Job_details extends CI_Model {
     private $status;
     private $date_created;
     private $tid;
-
+    private $created;
+    
     function __construct($user_id = FALSE, $job_id = FALSE) {
         parent::__construct();
         if(is_numeric($user_id) && is_numeric($job_id)){
@@ -52,6 +53,7 @@ class Job_details extends CI_Model {
             $this->status = $detail['status'];
             $this->date_created = $detail['job_created'];
             $this->tid = $detail['tid'];
+            $this->created = $detail['created'];
         }else{
             return FALSE;
         }
@@ -74,7 +76,7 @@ class Job_details extends CI_Model {
     }
     
     function get_jobdesc(){
-        return $this->job_desc;
+        return ucfirst($this->job_desc);
     }
     
     function get_jobtype(){
@@ -96,7 +98,7 @@ class Job_details extends CI_Model {
     }
     
     function get_duration(){
-        return $this->job_duration;
+        return str_replace('_', '-', $this->job_duration);
     }
     
     function get_exp(){
@@ -130,5 +132,19 @@ class Job_details extends CI_Model {
     
     function get_tid(){
         return $this->tid;
+    }
+    
+    function get_created(){
+        return $this->date_created;
+    }
+    
+    function get_subcategory(){
+        $this->db
+                ->select('*')
+                ->from('job_subcategories')
+                ->where('subcat_id',$this->get_category());
+        $query = $this->db->get();
+        $result= $query->row();
+        return $result->subcategory_name;
     }
 }

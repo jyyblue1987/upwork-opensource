@@ -15,7 +15,7 @@ $clientend = $Conversation->clientend();
 <?php if ($job_alert_count) { ?>
             <div class="row margin-top-1">
                 <div class="bordered-alert text-center ack-box">
-                    <h4 class="h4">! You have  <a href="<?php echo site_url("Active_interview"); ?>" class="show_notification"><?= $offers ?> pending offer- Accept to start working</a>
+                    <h4 class="h4">! You have  <a href="<?php echo site_url("my-offers"); ?>" class="show_notification"><?= $offers ?> pending offer- Accept to start working</a>
 
                     </h4>
                 </div>
@@ -204,11 +204,11 @@ $clientend = $Conversation->clientend();
                             <div class="col-md-12 margin-top-space proposal-boxn no-pad no-pad-xs">
                                 <div  class='white-box side-menu-j-cont'>
                                         <div class="no-padding no-pad side-mar-bot">
-                                            <a class="side-menu-j" href="<?php echo base_url() ?>Active_interview">Active Interview <p style="float: right;margin: 0;"><?= $no_of_interview ?></p></a>
+                                            <a class="side-menu-j" href="<?php echo base_url() ?>my-offers">Active Interview <p style="float: right;margin: 0;"><?= $no_of_interview ?></p></a>
                                         </div>
 
                                         <div class="gray-text no-padding side-mar-bot">
-                                            <a class="side-menu-j"  href="<?php echo base_url() ?>jobs/bids_list">Proposal Sent <p style="float: right;margin: 0;"><?= $proposals; ?></p></a>
+                                            <a class="side-menu-j"  href="<?php echo base_url() ?>jobs/my-bids">Proposal Sent <p style="float: right;margin: 0;"><?= $proposals; ?></p></a>
                                         </div>
 
                                         <div class="gray-text no-padding">

@@ -151,7 +151,7 @@
 						<div class="row">
 							<div class="col-md-2">
 								<div style="margin-top: 0px;" class="pro_view">
-								    <a style="font-size: 14px;color: #3DB0DD;" href="<?php echo base_url()."interview?user_id=".base64_encode($message->webuser_id)."&job_id=".base64_encode($message->job_id)."&bid_id=".base64_encode($message->bid_id);?>">View Profile</a>
+								    <a style="font-size: 14px;color: #3DB0DD;" href="<?php echo base_url()."applicants?user_id=".base64_encode($message->webuser_id)."&job_id=".base64_encode($message->job_id)."&bid_id=".base64_encode($message->bid_id);?>">View Profile</a>
 								</div>
 							</div>
 						

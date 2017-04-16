@@ -180,3 +180,6 @@ $lang['text_app_withdraw_processing_data']         = 'Processing Data';
 $lang['text_app_transaction_freelancers']        = 'All Freelancers';
 $lang['text_app_transaction_history_freelancer'] = 'Freelancer';
 $lang['text_job_title_client_pay']               = 'Billing history';
+
+$lang['text_app_runtime_no_freelancer'] = 'Freelancer do not exists or has closed his account.';
+$lang['text_app_invalid_application_parameter']  = "parameter's application missing.";

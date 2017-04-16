@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Jobs extends Winjob_Controller {
     
     private $process;
-    private $user_id;
+    public $user_id;
     private $employer;
     
     public function __construct() {
@@ -87,7 +87,7 @@ class Jobs extends Winjob_Controller {
                 'tid' => time()
             );
             
-            $this->Admintheme->webview("jobs/create_job", $data);
+            $this->Admintheme->webview("jobs/post-job", $data);
         }
         else if($this->input->is_ajax_request() && is_post() && $this->input->post('title'))//Here we need to handle job creation
         {
@@ -528,12 +528,12 @@ class Jobs extends Winjob_Controller {
                 $this->db->where('job_bids.bid_reject', 0);
                 $this->db->group_by('job_conversation.job_id');
                 $query = $this->db->get();
+                
                 if (is_object($query)) {
                     $intervier_no = $query->num_rows();
                 } else {
                     $intervier_no = null;
                 }
-
                 //$record = $query->result();
                 $this->db->select('*');
                 $this->db->from('job_bids');
@@ -735,26 +735,27 @@ class Jobs extends Winjob_Controller {
             $emp = $this->employer->is_active();
             $records = array();
 
-            foreach($jobs['data'] AS $_jobs){
-                $applicants = $this->process->get_applications($_jobs->id);
-                $rejects = $this->process->get_rejected($_jobs->id);
-                $offers = $this->process->get_offers($_jobs->id);
-                $hires = $this->process->get_hires($this->user_id, $_jobs->id);
-                $interviews = $this->process->get_interviews($this->user_id, $_jobs->id);
+            if($jobs['rows'] > 0){
+                foreach($jobs['data'] AS $_jobs){
+                    $applicants = $this->process->get_applications($_jobs->id);
+                    $rejects = $this->process->get_rejected($_jobs->id);
+                    $offers = $this->process->get_offers($_jobs->id);
+                    $hires = $this->process->get_hires($this->user_id, $_jobs->id);
+                    $interviews = $this->process->get_interviews($this->user_id, $_jobs->id);
 
-                $records[] = array(
-                    'applicants' => $applicants['rows'],
-                    'rejects' => $rejects['rows'],
-                    'offers' => $offers['rows'],
-                    'hires' => $hires['rows'],
-                    'interviews' => $interviews['rows'],
-                    'job_id' => base64_encode($_jobs->id),
-                    'job_type' => ucfirst($_jobs->job_type),
-                    'title' => ucwords($_jobs->title),
-                    'job_created' => $this->time_elapsed_string($_jobs->job_created)
-                );
+                    $records[] = array(
+                        'applicants' => $applicants['rows'],
+                        'rejects' => $rejects['rows'],
+                        'offers' => $offers['rows'],
+                        'hires' => $hires['rows'],
+                        'interviews' => $interviews['rows'],
+                        'job_id' => base64_encode($_jobs->id),
+                        'job_type' => ucfirst($_jobs->job_type),
+                        'title' => ucwords($_jobs->title),
+                        'job_created' => $this->time_elapsed_string($_jobs->job_created)
+                    );
+                }
             }
-
             $conversation = new Conversation();
             $data = array(
                 'records' => $records,
@@ -768,7 +769,7 @@ class Jobs extends Winjob_Controller {
                 'css'       => array("","","","assets/css/pages/job_status.css")
             );
 
-            $this->Admintheme->custom_webview("jobs/job_status", $data);
+            $this->Admintheme->custom_webview("jobs/jobs-home", $data);
         }
     }
     
@@ -823,135 +824,80 @@ class Jobs extends Winjob_Controller {
         if ($this->Adminlogincheck->checkx()) {
             $postId = base64_decode($postId);
             $employer = new Employer($postId);
+
             $emp_id = $employer->get_job_employer($postId);
-            
-            $id = $this->session->userdata('id');
+            $client = new Employer($emp_id);
 
-            $this->db->select('*');
-            $this->db->from('webuser w');
-            $this->db->join('jobs j', 'j.user_id=w.webuser_id', 'left');
-            $this->db->where('j.id', $postId);
-            $this->db->order_by('j.id', 'asc');
-            $query = $this->db->get();
-            $record = $query->row();
-            
-            $record->job_skills = $this->Skills_model->get_skills($postId);
+            $budget = 0;
+            $total_work = 0;
+            $feedbackScore = 0;
 
-            $query = $this->db->get_where('job_bids', array('job_id' => $postId, 'user_id' => $id, 'status!=1' => null));
-            $bids_details = $query->row();
-            $is_applied = $query->num_rows();
+            $records = array();
+            $_price = array();
+            $_freelancer = array();
 
+            $job = new Job_details($emp_id, $postId);
+            $applicants = $this->process->get_applications($postId);
+            $interviews = $this->process->get_interviews($emp_id, $postId);
+            $hires = $this->process->get_hires($emp_id, $postId);
+            $jobids = $this->process->get_job_ids($emp_id);
+            $jobs_posted = $this->process->get_jobs($emp_id);
+            $country = $this->ProfileModel->get_country($client->get_country());
+            $accepted_jobs = $this->process->accepted_jobs('', $emp_id);
+            $freelancer_active = $this->Webuser_model->is_active($this->user_id);
 
-            //conversation
-            $conversation_count = 0;
-            $conversation = array();
+            foreach($accepted_jobs AS $a_jobs){
+                   $feedbacks = $this->process->get_feedbacks($a_jobs->fuser_id, $a_jobs->job_id);
+                   $diary = $this->Job_work_diary_model->get_work_hours($a_jobs->fuser_id, $a_jobs->job_id);
 
-            if ($is_applied) {
-                $this->db->select('*');
-                $this->db->from('job_conversation');
-                $this->db->where('job_conversation.receiver_id', $id);
-                $this->db->where('job_conversation.job_id', $postId);
-                $this->db->where('job_conversation.bid_id', $bids_details->id);
+                foreach($diary AS $_diary){
+                    $total_work += $_diary->total_hour;
+                }
 
-                $query = $this->db->get(); // assign to a variable
-                $conversation_count = $query->num_rows(); // then use num rows
+               if($a_jobs->jobstatus == 1){
+                   if(!empty($feedbacks)){
+                        if($a_jobs->job_type == 'fixed'){
+                            $price = $a_jobs->fixedpay_amount;
+                            $feedbackScore += ($feedbacks['feedback_score'] * $price);
+                            $budget += $price;
+                        }else{
 
+                            if($a_jobs->offer_bid_amount){
+                                $amount = $a_jobs->offer_bid_amount;
+                            }else{
+                                $amount = $a_jobs->bid_amount;
+                            }
 
-
-                if ($conversation_count) {
-
-                    $this->db->select('job_conversation.*,webuser.*');
-                    $this->db->from('job_conversation');
-                    $this->db->join('webuser', 'job_conversation.sender_id = webuser.webuser_id', 'inner');
-                    $this->db->where('job_conversation.job_id', $postId);
-                    $this->db->where('job_conversation.bid_id', $bids_details->id);
-                    $this->db->order_by("job_conversation.id", "ASC");
-                    $query_conversation = $this->db->get();
-                    $conversation = $query_conversation->result();
+                            $price = $a_jobs->fixedpay_amount * $amount;
+                            $feedbackScore += ($feedbacks['feedback_score'] * $price);
+                            $budget += $price;
+                        }
+                    }
                 }
             }
 
-
-            $this->db->select('*,job_bids.id as bid_id,job_bids.status AS bid_status,jobs.job_duration AS jobduration,job_bids.created AS bid_created');
-            $this->db->from('job_accepted');
-            $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-            $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
-            $this->db->where('job_accepted.buser_id', $record->user_id);
-            $query = $this->db->get();
-            $accepted_jobs = $query->result();
-
-            $this->db->select('*');
-            $this->db->from('jobs');
-            $this->db->where('user_id', $record->user_id);
-            $query_sidebar = $this->db->get();
-            $record_sidebar = $query_sidebar->result();
-
-            $record_hire = $this->jobs_model->number_freelancer_hired($record->user_id);
-
-            $this->db->select('*');
-            $this->db->from('job_workdairy');
-            $this->db->where_in('cuser_id', $record->user_id);
-            $queryhour = $this->db->get();
-            $workedhours = $queryhour->result();
-
-            $this->db->select('*');            
-            $this->db->from('jobs');
-            $this->db->join('billingmethodlist', 'billingmethodlist.belongsTo = jobs.user_id', 'inner');
-            $this->db->where('billingmethodlist.belongsTo', $record->user_id);
-            $this->db->where('billingmethodlist.isDeleted', "0");
-            $this->db->where('jobs.status', 1);
-            $query = $this->db->get();   
-            $paymentSet=0;
-                if (is_object($query)) {
-                    $paymentSet = $query->num_rows();
-                }
-            
-            $this->db->select('*');
-            $this->db->from('webuser');
-            $this->db->where('webuser.webuser_id', $id);
-            $query_status = $this->db->get();
-            $ststus = $query_status->row();
-
-            // Davit start
-            $this->db->select('id');
-            $monthStart = date('Y-m-01');
-            $monthEnd = date('Y-m-t');
-            $this->db->where("(created BETWEEN '{$monthStart}' AND '{$monthEnd}')");
-            $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id));
-            $proposals = $query->num_rows();
-
-            $query_spent = $this->db->query("SELECT SUM(payment_gross) as total_spent FROM `payments` INNER JOIN `webuser` ON `webuser`.`webuser_id` = `payments`.`user_id` INNER JOIN `jobs` ON `jobs`.`id` = `payments`.`job_id` INNER JOIN `job_accepted` ON `job_accepted`.`job_id` = `payments`.`job_id` INNER JOIN `job_bids` ON `job_bids`.`job_id` = `payments`.`job_id` WHERE `job_accepted`.`fuser_id` = `payments`.`user_id` AND
-                `job_bids`.`user_id` = `payments`.`user_id` AND `payments`.`buser_id` = $record->user_id");
-            $row_spent = $query_spent->row();
-            $total_spent=$row_spent->total_spent;
-            
-            $applicants = $this->process->get_applications($postId);
-            $interviews = $this->process->get_interviews($record->user_id, $postId);
-            $hires = $this->process->get_hires($record->user_id, $postId);
-            
             $data = array(
-                'value' => $record, 
-               // 'test' => $employer,
-                'proposals' => $proposals, 
-                'applied' => $is_applied, 
-                'conversations' => $conversation, 
-                'conversation_count' => $conversation_count, 
-                'bid_details' => $bids_details, 
-                'accepted_jobs' => $accepted_jobs, 
-                'record_sidebar' => $record_sidebar,
+                'emp' => $client,
+                'time' => $this->time_elapsed_string($job->get_date_created()),
+                'value' => $job,
+                'skills' => $this->Skills_model->get_skills($postId),
+                'jobs_posted' => $jobs_posted['rows'],
                 'applicants' => $applicants['rows'],
                 'hires' => $hires['rows'],
                 'interviews' => $interviews['rows'],
-                'hire' => $record_hire, 
-                'workedhours' => $workedhours, 
-                'ststus' => $ststus,
-                'css' => array("","","","assets/css/pages/view.css"),
-                'payment_set' => $paymentSet,
-                'total_spent' => $total_spent,
-                'job_id' => $postId
+                'total_hired' => $this->jobs_model->number_freelancer_hired($emp_id),
+                'workedhours' => $this->process->get_worked_hours($emp_id),
+                'payment_set' => $client->is_payment_set(),
+                'total_spent' => $client->total_spent($emp_id),
+                'rating' => $this->Webuser_model->get_total_rating($emp_id),
+                'country' => ucfirst($country['country_name']),
+                'f_active' => $freelancer_active,
+                'is_applied' => $this->process->is_applied($this->user_id, $postId),
+                'proposals' => $this->process->get_freelancer_proposals($this->user_id),
+                'css' => array("", "", "", "assets/css/pages/view.css")
              );
 
-            $this->Admintheme->custom_webview("jobs/view", $data);
+            $this->Admintheme->custom_webview("jobs/jobs", $data);
         }
     }
 
@@ -1100,7 +1046,7 @@ class Jobs extends Winjob_Controller {
 
             $data = array('records' => $records, 'proposals' => $proposals, 'title' => 'My Bids - Winjob', 'css' => array("","","","assets/css/pages/bids_list.css"));
             // Davit end
-            $this->Admintheme->custom_webview("jobs/bids_list", $data);
+            $this->Admintheme->custom_webview("jobs/my-bids", $data);
         }
     }
 
@@ -1144,7 +1090,7 @@ class Jobs extends Winjob_Controller {
                 $records2 = $query->result();
             $records = array_merge($records1, $records2);
             $data = array('records' => $records1, 'title' => 'Archived Jobs - Winjob', 'css' => array("","","","assets/css/pages/archived_bids_list.css"));
-            $this->Admintheme->custom_webview("jobs/archived_bids_list", $data);
+            $this->Admintheme->custom_webview("jobs/archived", $data);
         }
     }
 
@@ -1211,7 +1157,7 @@ class Jobs extends Winjob_Controller {
             'skillList' => $skillList,
             'js' => array('vendor/jquery.form.js', 'internal/job_edit.js'));
 
-        $this->Admintheme->webview("jobs/edit", $data);
+        $this->Admintheme->webview("jobs/edit-jobs", $data);
     }
 
     public function browse() {
@@ -1726,64 +1672,66 @@ class Jobs extends Winjob_Controller {
             $hires = $this->process->get_hires($this->user_id, $job_id);
             $interviews = $this->process->get_interviews($this->user_id, $job_id);
             
-            foreach($bids['data'] AS $_bids){
-               $ended_jobs = $this->process->cnt_ended_jobs($_bids->user_id);
-               $freelancer_profile = $this->ProfileModel->get_profile($_bids->user_id);
-               $accepted_jobs = $this->process->accepted_jobs($_bids->user_id);
-               $pic = $this->Adminforms->getdatax("picture", "webuser", $_bids->user_id);
-               $country = $this->ProfileModel->get_country($_bids->webuser_country);
-               $skills = $this->ProfileModel->get_skills($_bids->user_id);
-               $user_rating = $this->Webuser_model->get_total_rating($_bids->user_id);
-               $_pic = $pic != "" ? $pic : "assets/user.png";
+            if($bids['rows'] > 0){
+                foreach($bids['data'] AS $_bids){
+                   $ended_jobs = $this->process->cnt_ended_jobs($_bids->user_id);
+                   $freelancer_profile = $this->ProfileModel->get_profile($_bids->user_id);
+                   $accepted_jobs = $this->process->accepted_jobs($_bids->user_id);
+                   $pic = $this->Adminforms->getdatax("picture", "webuser", $_bids->user_id);
+                   $country = $this->ProfileModel->get_country($_bids->webuser_country);
+                   $skills = $this->ProfileModel->get_skills($_bids->user_id);
+                   $user_rating = $this->Webuser_model->get_total_rating($_bids->user_id);
+                   $_pic = $pic != "" ? $pic : "assets/user.png";
 
-               foreach($accepted_jobs AS $a_jobs){
-                   $feedbacks = $this->process->get_feedbacks($a_jobs->fuser_id, $a_jobs->job_id);
-                   $diary = $this->Job_work_diary_model->get_work_hours($a_jobs->fuser_id, $a_jobs->job_id);
+                   foreach($accepted_jobs AS $a_jobs){
+                       $feedbacks = $this->process->get_feedbacks($a_jobs->fuser_id, $a_jobs->job_id);
+                       $diary = $this->Job_work_diary_model->get_work_hours($a_jobs->fuser_id, $a_jobs->job_id);
 
-                    foreach($diary AS $_diary){
-                        $total_work += $_diary->total_hour;
-                    }
-                    
-                   if($a_jobs->jobstatus == 1){
-                       if(!empty($feedbacks)){
-                            if($a_jobs->job_type == 'fixed'){
-                                $price = $a_jobs->fixedpay_amount;
-                                $feedbackScore += ($feedbacks['feedback_score'] * $price);
-                                $budget += $price;
-                            }else{
-                                
-                                if($a_jobs->offer_bid_amount){
-                                    $amount = $a_jobs->offer_bid_amount;
+                        foreach($diary AS $_diary){
+                            $total_work += $_diary->total_hour;
+                        }
+
+                       if($a_jobs->jobstatus == 1){
+                           if(!empty($feedbacks)){
+                                if($a_jobs->job_type == 'fixed'){
+                                    $price = $a_jobs->fixedpay_amount;
+                                    $feedbackScore += ($feedbacks['feedback_score'] * $price);
+                                    $budget += $price;
                                 }else{
-                                    $amount = $a_jobs->bid_amount;
-                                }
 
-                                $price = $a_jobs->fixedpay_amount * $amount;
-                                $feedbackScore += ($feedbacks['feedback_score'] * $price);
-                                $budget += $price;
+                                    if($a_jobs->offer_bid_amount){
+                                        $amount = $a_jobs->offer_bid_amount;
+                                    }else{
+                                        $amount = $a_jobs->bid_amount;
+                                    }
+
+                                    $price = $a_jobs->fixedpay_amount * $amount;
+                                    $feedbackScore += ($feedbacks['feedback_score'] * $price);
+                                    $budget += $price;
+                                }
                             }
                         }
                     }
-                }
 
-                $records[] = array(
-                   'ended_jobs' => $ended_jobs,
-                   'tagline' => ucfirst($freelancer_profile['tagline']),
-                   'budget' => $budget,
-                   'feedback_score' => $feedbackScore,
-                   'total_work' => $total_work,
-                   'pic' => $_pic,
-                   'fname' => $_bids->webuser_fname,
-                   'lname' => $_bids->webuser_lname,
-                   'user_id' => $_bids->user_id,
-                   'job_id' => $_bids->job_id,
-                   'bid_id' => $_bids->id,
-                   'bid_amount' => $_bids->bid_amount,
-                   'country' => ucfirst($country['country_name']),
-                   'letter' => $_bids->cover_latter,
-                   'skills' => $skills,
-                   'rating' => $user_rating
-                );
+                    $records[] = array(
+                       'ended_jobs' => $ended_jobs,
+                       'tagline' => ucfirst($freelancer_profile['tagline']),
+                       'budget' => $budget,
+                       'feedback_score' => $feedbackScore,
+                       'total_work' => $total_work,
+                       'pic' => $_pic,
+                       'fname' => $_bids->webuser_fname,
+                       'lname' => $_bids->webuser_lname,
+                       'user_id' => $_bids->user_id,
+                       'job_id' => $_bids->job_id,
+                       'bid_id' => $_bids->id,
+                       'bid_amount' => $_bids->bid_amount,
+                       'country' => ucfirst($country['country_name']),
+                       'letter' => $_bids->cover_latter,
+                       'skills' => $skills,
+                       'rating' => $user_rating
+                    );
+                }
             }
 
             $data = array(
@@ -1799,7 +1747,7 @@ class Jobs extends Winjob_Controller {
                 'job_title' => ucwords($job_details['title']),
                 'title' => 'Applications - Winjob'
             );
-            $this->Admintheme->webview("jobs/applied", $data);
+            $this->Admintheme->webview("jobs/applications", $data);
         }
     }
 
@@ -2084,7 +2032,7 @@ class Jobs extends Winjob_Controller {
             $details = array(
                     'fname' => $user_name,
                     'company' => 'Winjob',
-                    'verification' => site_url()."jobs/view/" . $title . "/" . base64_encode($job_id),
+                    'verification' => site_url()."jobs/" . $title . "/" . base64_encode($job_id),
                     'slogan' => 'Hire Talented Freelancers For a Low Cost',
                     'para1' => 'You have successfully received '.$payment.' from '.$company_name.'. Please see details below.',
                     'payment' => $payment,
@@ -2121,7 +2069,7 @@ class Jobs extends Winjob_Controller {
                     'company' => 'Winjob',
                     'slogan' => 'Hire Talented Freelancers For a Low Cost',
                     'fname' => $client_name,
-                    'verification' => site_url()."jobs/view/" . $job_title . "/" . base64_encode($jobId),
+                    'verification' => site_url()."jobs/" . $job_title . "/" . base64_encode($jobId),
                     'para1' => 'Your contract has started with '.$user_name.'. Please review the job post below.',
             );
             
@@ -2131,7 +2079,7 @@ class Jobs extends Winjob_Controller {
                     'company' => 'Winjob',
                     'slogan' => 'Hire Talented Freelancers For a Low Cost',
                     'fname' => $user_name,
-                    'verification' => site_url()."jobs/view/" . $job_title . "/" . base64_encode($jobId),
+                    'verification' => site_url()."jobs/" . $job_title . "/" . base64_encode($jobId),
                     'para1' => 'Your contract has started with '.$client_name.'. Please review the job post below.',
             );    
             
@@ -2424,7 +2372,7 @@ class Jobs extends Winjob_Controller {
                     $sender_id = $this->session->userdata('id');
                     $data = "INSERT INTO job_conversation set job_id = '" . $job_id . "', bid_id = '0',  message_conversation = '" . $message . "', sender_id = '" . $sender_id . "', receiver_id = '" . $fuser_id . "', have_seen = 1 ";
 
-                    redirect(site_url('Active_interview'));
+                    redirect(site_url('my-offers'));
                 }
 
                 redirect(site_url('jobs-home'));
@@ -2482,7 +2430,7 @@ class Jobs extends Winjob_Controller {
             $id = $this->session->userdata('id');
             $this->db->select(array('job_bids.*', 'jobs.title', 'jobs.job_type', 'jobs.id as jobid',
                 'jobs.budget', 'jobs.hours_per_week', 'jobs.job_duration', 'jobs.category',
-                'jobs.experience_level', 'jobs.skills', 'jobs.job_description', 'jobs.user_id as clientid', 'jobs.userfile', 'jobs.tid'));
+                'jobs.experience_level', 'jobs.skills', 'jobs.job_description', 'jobs.user_id as clientid', 'jobs.userfile', 'jobs.tid', 'jobs.job_created'));
             $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'left');
             $this->db->order_by("job_bids.id", "desc");
             $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id, 'job_bids.id' => $bidId));
@@ -2490,7 +2438,7 @@ class Jobs extends Winjob_Controller {
             if ($query->num_rows() > 0){
                 $value = $query->row();
             }else{
-                redirect(site_url().'bids_list');
+                redirect(site_url().'jobs/my-bids');
             }
             $this->db->select('*');
             $this->db->from('jobs');
@@ -2563,7 +2511,7 @@ class Jobs extends Winjob_Controller {
                 'f_attachments' => $attachments,
                 'js' => array('vendor/jquery.form.js',
                     'internal/job_withdraw.js'));
-            $this->Admintheme->webview("jobs/withdraw_system", $data);
+            $this->Admintheme->webview("jobs/proposals", $data);
         }
     }
 
@@ -2839,12 +2787,12 @@ class Jobs extends Winjob_Controller {
                     $data_payment['payment_gross'] = $budget;
 
                     $this->db->insert('payments', $data_payment);
-        redirect(site_url().'offer?job_id='.base64_encode($job_id));            
+        redirect(site_url().'offered?job_id='.base64_encode($job_id));            
                     /* adding data at report end */
                 }
                 //updates by haseeburrehman.com ends     
             }
-            redirect(site_url().'offer?job_id='.base64_encode($job_id));
+            redirect(site_url().'offered?job_id='.base64_encode($job_id));
         } else {
              $response['success'] = false;
              $response['message'] = 'Unsuccessfull';
@@ -3174,7 +3122,7 @@ class Jobs extends Winjob_Controller {
             if ($freelancer_hit_id != null) {
                 $sql = "UPDATE  job_bids set status = '1',withdrawn=1,withdrawn_by=1 WHERE job_id ='" . $freelancer_hit_id . "' AND user_id=" . $user_id;
                 $this->db->query($sql);
-                redirect(site_url('Active_interview'));
+                redirect(site_url('my-offers'));
             } else {
                 $bid_id = $_POST['form'];
                 $sql = "UPDATE  job_bids set bid_reject = '1',withdrawn=1,withdrawn_by=2  WHERE id ='" . $bid_id . "'";

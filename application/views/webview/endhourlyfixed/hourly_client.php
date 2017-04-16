@@ -39,7 +39,7 @@ button.btn-cancel:hover{color:#fff;background:#286090;border: 1px solid transpar
 								<?php  } ?>
 		</div>
 		<div class="col-sm-3" id="name" class="end_contact_name">
-			<h3 style="margin: 0px;margin-top: -10px;margin-left: -11px;"><a href="<?php echo base_url()."interview?user_id=".base64_encode($job->webuser_id)."&job_id=".base64_encode($job->job_id)."&bid_id=".base64_encode($job->bid_id);?>">
+			<h3 style="margin: 0px;margin-top: -10px;margin-left: -11px;"><a href="<?php echo base_url()."applicants?user_id=".base64_encode($job->webuser_id)."&job_id=".base64_encode($job->job_id)."&bid_id=".base64_encode($job->bid_id);?>">
 								<label style="font-size: 17px;font-family: calibri;" class="blue-text"><?=$job->webuser_fname ?> <?=$job->webuser_lname ?></label>
 								</a></h3>
 		<h4> <?=$job->webuser_company ?>		</h4>

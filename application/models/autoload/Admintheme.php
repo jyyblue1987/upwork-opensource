@@ -93,7 +93,7 @@ class Admintheme extends CI_Model {
         $data['text']=$text;
 
         $this->load->view('webview/layout/header.php',$data, false);
-        $this->load->view('webview/layout/afterheaderx.php',$data, false);
+        $this->load->view('webview/layout/afterheader.php',$data, false);
         $this->load->view('webview/layout/menu.php',$data, false);
         $this->load->view('webview/'.$page,$data, false);
         $this->load->view('webview/layout/footer.php',$data, false);

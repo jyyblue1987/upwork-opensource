@@ -1,0 +1,59 @@
+{% extends "webview/layout/twig/layout.twig" %}
+
+{% block title %}  {{ app_lang('text_job_title_applicant') }} - Winjob  {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ site_url("assets/css/bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/font-awesome.min.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/fonts.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/header.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/croppic.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/footer.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/bootstrap-socil.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/normalize.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/style.css") }}">
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/applicant.css") }}">
+{% endblock %}
+
+{% block content %}
+    <div class="row" id="interview-content">
+        {# The two following partials should be the header for all type of devices (mobile, tablette, and others. #}
+        {% include 'webview/twig/partials/header-applicant.twig' %}
+        
+        {% include 'webview/twig/partials/header-applicant-actions.twig' %}
+    </div>
+        
+    <div class="row" id="interview">
+        <div class="col-md-9 col-sm-9 col-xs-12">
+            <div class="header-border-x">
+                <div class="col-xs-12 chat-screen">
+                    <div class="chat-details-topbar">
+                        <h3>{{ fname }}  {{ lname }}</h3>
+                        <h5>{{ app_substr(job_info['title'], constant('CONTRACT_JOB_TITLE_MAX'), '...' )|capitalize }}</h5>
+                    </div>
+                    <div class="chat-details">
+                        <ul id="scroll-ul">
+                            {% if conversation is not empty %}
+                                {% for chat_data in conversation['data'] %}
+                                    
+                                {% endfor %}
+                            {% else %}
+                                <li class="no-messages" >{{ app_lang('text_job_chat_no_message') }}</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix clear-both"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    
+    {# this variable defines the asset/modular/pages file to load #}
+    <script> var page = 'applicant'; </script>
+    
+    <script data-main="{{ app_modular_js("winjob") }}" src="{{ app_modular_js("lib/require.dev.js") }}"></script>
+    
+{% endblock %}

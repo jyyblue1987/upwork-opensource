@@ -170,3 +170,11 @@ $lang['text_job_statement_total_debits'] = 'Total Debits';
 $lang['text_job_statement_total_credits'] = 'Total Credits';
 $lang['text_job_statement_total_charges'] = 'Total Charges';
 $lang['text_job_statement_ending_balance'] = 'Ending Balance';
+
+$lang['text_job_title_applicant']  = "Interview";
+$lang['text_job_hire_me'] = 'Hire me';
+
+$lang['text_job_declined_by_free'] = 'Declined by Freelancer';
+$lang['text_job_declined_by_you'] = 'Declined by You';
+$lang['text_job_declined_candidate'] = 'Decline Candidate';
+$lang['text_job_chat_no_message']    = 'No message';

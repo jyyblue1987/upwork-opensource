@@ -61,7 +61,7 @@ class Registercheck extends CI_Controller {
         if($this->input->post('job_id') != NULL && $this->input->post('job_id') != 0){
             $job_id = base64_encode($this->input->post('job_id'));
             $title = $this->str_to_url($this->input->post('title'));
-            $redirect_url = '&redirect='.site_url().'jobs/apply/'.$title.'/'.$job_id; //temp placeholder
+            $redirect_url = '&redirect='.site_url().'jobs/'.$title.'/'.$job_id.'/apply'; //temp placeholder
         }
         
 	$resetlink=site_url()."verifyemail?token=".$token.$redirect_url;

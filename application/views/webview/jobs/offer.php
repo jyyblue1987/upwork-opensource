@@ -17,7 +17,7 @@ if($Application_count){	$totalApplication = $Application_count;} else {	$totalAp
 if($Offer_count){	$totalOffer = $Offer_count;} else {	$totalOffer = 0;}
 if($reject_count){ $totalrejact = $reject_count; } else { $totalrejact = 0; }
 
-$appliedLink=site_url('jobs/applied/' . base64_encode($jobId));
+$appliedLink=site_url('jobs/applications/' . base64_encode($jobId));
 $interviewsLink=site_url('jobs/interviews/' . base64_encode($jobId));
 $offerLink=site_url('offer?job_id=' . base64_encode($jobId));
 $hireLink=site_url('hires?job_id=' . base64_encode($jobId));
@@ -101,7 +101,7 @@ $rejectLink=site_url('reject?job_id=' . base64_encode($jobId));
 					<div class="col-md-8">
 						
 						
-						<!--<a href="<?php echo base_url() ?>jobs/view/<?php echo str_replace(' ', '-', $message->title) ?>/<?php echo base64_encode($message->job_id);?>">-->
+						<!--<a href="<?php echo base_url() ?>jobs/<?php echo str_replace(' ', '-', $message->title) ?>/<?php echo base64_encode($message->job_id);?>">-->
 						
 						<?php if($message->hire_title !=""){
 							$job_title = $message->hire_title;

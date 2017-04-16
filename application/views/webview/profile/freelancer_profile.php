@@ -45,7 +45,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                         <div class="col-md-6 col-sm-4">
                             <div class="topriht">
-								<a href="<?php echo base_url() ?>Active_interview">
+								<a href="<?php echo base_url() ?>my-offers">
                                 <button id="buttonsecond">Hire Me &nbsp;&nbsp;<i class="fa fa-caret-right" aria-hidden="true"></i></button>
 								</a>
                             </div>

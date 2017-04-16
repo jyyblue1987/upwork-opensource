@@ -87,11 +87,11 @@ body {
 
               <div class="col-md-12 nopadding" >
                 <ul class="client-job-activity-current">
-                     <li><a href='<?= site_url('jobs/applied/' . $jobId) ?>'>Application (<?= $applicants ?>)</a></li>
+                     <li><a href='<?= site_url('jobs/applications/' . $jobId) ?>'>Application (<?= $applicants ?>)</a></li>
                      <li><a href='<?= site_url('jobs/interviews/' . $jobId) ?>'>Interview (<?=$interviews?>)</a> </li>
-                     <li><a class="active-link" href='<?= site_url('offer?job_id=' . $jobId) ?>'>Offers (<?=$offers;?>) </a>  </li>
-                     <li><a href='<?= site_url('hires?job_id=' . $jobId) ?>'>Hires (<?=$hires;?>)</a> </li>
-                     <li><a href='<?= site_url('reject?job_id=' . $jobId) ?>'>Rejected (<?=$rejects;?>)</a></li>
+                     <li><a class="active-link" href='<?= site_url('offered?job_id=' . $jobId) ?>'>Offers (<?=$offers;?>) </a>  </li>
+                     <li><a href='<?= site_url('hired?job_id=' . $jobId) ?>'>Hires (<?=$hires;?>)</a> </li>
+                     <li><a href='<?= site_url('declined?job_id=' . $jobId) ?>'>Rejected (<?=$rejects;?>)</a></li>
                    <li class="drop_btn">
 				   <div class="dropdown hour_btnx custom-application_drop_down">
 						<button style="margin-left: -14px;" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
@@ -175,13 +175,13 @@ body {
 				<div class="row">
 					<div class="col-md-2">
 					  <div class="view_pro_btn">
-					      <a href="<?php echo base_url()."interview?user_id=".base64_encode($value['user_id'])."&job_id=".base64_encode($value['job_id'])."&bid_id=".base64_encode($value['bid_id']);?>">View Profile</a>
+					      <a href="<?php echo base_url()."applicants?user_id=".base64_encode($value['user_id'])."&job_id=".base64_encode($value['job_id'])."&bid_id=".base64_encode($value['bid_id']);?>">View Profile</a>
 					  </div>
 					</div>
 					<div class="col-md-8">
 						
 						<div class="offer_job_details">
-						<!--<a href="<?php echo base_url() ?>jobs/view/<?php echo str_replace(' ', '-', $message->title) ?>/<?php echo base64_encode($message->job_id);?>">-->
+						<!--<a href="<?php echo base_url() ?>jobs/<?php echo str_replace(' ', '-', $message->title) ?>/<?php echo base64_encode($message->job_id);?>">-->
 						
 						<?php if($value['hire_title'] !=""){
 							$job_title = $value['hire_title'];

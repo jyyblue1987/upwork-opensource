@@ -86,11 +86,11 @@ color: #fff;
             <div class="col-md-12 nopadding" >
                 <div>
                  <ul class="client-job-activity-current">
-                     <li><a href='<?= site_url('jobs/applied/' . $jobId) ?>'>Application (<?= $applicants ?>)</a></li>
+                     <li><a href='<?= site_url('jobs/applications/' . $jobId) ?>'>Application (<?= $applicants ?>)</a></li>
                      <li><a href='<?= site_url('jobs/interviews/' . $jobId) ?>'>Interview (<?=$interviews?>)</a> </li>
-                     <li><a href='<?= site_url('offer?job_id=' . $jobId) ?>'>Offers (<?=$offers;?>) </a>  </li>
-                     <li><a href='<?= site_url('hires?job_id=' . $jobId) ?>'>Hires (<?=$hires;?>)</a> </li>
-                     <li><a class="active-link" href='<?= site_url('reject?job_id=' . $jobId) ?>'>Rejected (<?=$rejects;?>)</a></li>
+                     <li><a href='<?= site_url('offered?job_id=' . $jobId) ?>'>Offers (<?=$offers;?>) </a>  </li>
+                     <li><a href='<?= site_url('hired?job_id=' . $jobId) ?>'>Hires (<?=$hires;?>)</a> </li>
+                     <li><a class="active-link" href='<?= site_url('declined?job_id=' . $jobId) ?>'>Rejected (<?=$rejects;?>)</a></li>
                     <li class="drop_btn">
 						<div class="dropdown hour_btnx custom-application_drop_down">
 							<button style="margin-left: -14px;" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
@@ -138,7 +138,7 @@ color: #fff;
                                 </div>
                                 <div class="col-md-8 text-left margin-left-1" style="margin-top:-4px;">
                                    <div class="aplicant_identity">
-                                        <label class="aplicant_name"><a href="<?php echo base_url() ?>Interview?user_id=<?=base64_encode($value['user_id'])?>&job_id=<?=base64_encode($value['job_id'])?>&bid_id=<?=base64_encode($value['bid_id'])?>"><?php echo ucfirst($value['fname']) . " " . ucfirst($value['lname']) ?></a></label> 
+                                        <label class="aplicant_name"><a href="<?php echo base_url() ?>applicants?user_id=<?=base64_encode($value['user_id'])?>&job_id=<?=base64_encode($value['job_id'])?>&bid_id=<?=base64_encode($value['bid_id']).'/declined'?>"><?php echo ucfirst($value['fname']) . " " . ucfirst($value['lname']) ?></a></label> 
                                     <br/> 
                                     <span>
                                         <b>
@@ -236,7 +236,7 @@ color: #fff;
 
                                 <div class="col-md-2 margin-top-5 text-right msg-buttons">
                                     <!--<a href="javascript:void(0)" onclick="loadmessage(<?=$value['bid_id']?>,<?=$value['user_id']?>,<?=$value['job_id']?>)">Message</a>-->
-                                    <div class="hire_sms_btn"><a class="btn btn-primary form-btn" href="<?php echo base_url() ?>interview?user_id=<?=base64_encode($value['user_id'])?>&job_id=<?=base64_encode($value['job_id'])?>&bid_id=<?=base64_encode($value['bid_id'])?>">Message</a>  
+                                    <div class="hire_sms_btn"><a class="btn btn-primary form-btn" href="<?php echo base_url() ?>applicants?user_id=<?=base64_encode($value['user_id'])?>&job_id=<?=base64_encode($value['job_id'])?>&bid_id=<?=base64_encode($value['bid_id']).'/declined'?>">Message</a>  
                                     </div>
 
                                    <div class="hire_me_btn">

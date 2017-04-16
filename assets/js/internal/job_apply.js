@@ -22,7 +22,7 @@ function successResp(rs)
     }
     else
     {
-        window.location = base_url() + 'jobs/bids_list';
+        window.location = base_url() + 'jobs/my-bids';
     }
 }
 $(document).ready(function () {

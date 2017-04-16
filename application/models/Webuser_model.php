@@ -18,6 +18,22 @@ class Webuser_model extends CI_Model {
         return $query_status->row();
     }
     
+    public function load_profile($id, $with_skill = false)
+    {
+        $this->db->select(
+                'webuser.*, webuser_basic_profile.tagline, '
+              . 'webuser_basic_profile.work_experience_year, '
+              . 'webuser_basic_profile.work_experience_month, '
+              . 'webuser_basic_profile.overview, '
+              . 'webuser_basic_profile.hourly_rate')
+             ->from('webuser')
+             ->join('webuser_basic_profile', 'ON webuser_basic_profile.webuser_id = webuser.webuser_id', 'inner')
+             ->where('webuser.webuser_id', $id);
+        
+        $query = $this->db->get();
+        return $query->row();
+    }
+    
     public function activated_all( $ids, $reason = null )
     {
         if(empty($ids)) return;
@@ -111,7 +127,8 @@ class Webuser_model extends CI_Model {
         
         $average_rating = (string) ( $amount_total > 0 ? ( $rating_total_times_amount / $amount_total ) : 0.0 );
         
-        if($average_rating > 0.0){
+        if($average_rating > 0.0)
+        {
             $mark_pos       = strpos($average_rating, '.');
             if($mark_pos !== null )
                 $average_rating = substr ($average_rating, 0, ($mark_pos + 2));

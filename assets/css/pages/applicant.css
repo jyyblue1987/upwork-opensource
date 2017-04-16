@@ -1,0 +1,381 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14 avr. 2017, 11:54:13
+    Author     : Hermannovich <donfack.hermann@gmail.com>
+*/
+
+.user_view_img img {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    margin-left: 10px;
+}
+.chat_border {
+    position: relative;
+    display: inline-block;
+    margin-top: -7px;
+}
+.attach_icon{
+    height: 20px;
+    width: 20px;
+}
+.main_hourly_rate a {
+    margin-top: 15px;
+}
+span.rating-badge {
+    background: #F77D0E none repeat scroll 0 0;
+    border-radius: 2px;
+    color: #fff;
+    padding: 2px 4px 2px 5px;
+    font-size: 12px;
+}
+.review_ratting_left .star-rating::before {
+    font-size: 19px !important;
+    left: 10px;
+}
+.review_ratting_right .star-rating::before {
+    top: -2px;
+}
+
+
+.buttonsidefoure ul.custom_li li {
+    overflow: hidden;
+    margin: -24px 11px;
+}
+
+.attach_icon {
+    position: absolute;
+    right: 5%;
+    font-size: 26px;
+    top: 51%;
+    color: #a2a2a2;
+    transform: rotate(90deg);
+}
+.show_files{
+    position: absolute;
+    left: 5%;
+    top: 3%;
+}
+.show_files span{
+    font-size: 12px;
+}
+.show_files .delete_item{
+    margin-left: 5px;
+}
+.user_skills span {
+    background: #ccc none repeat scroll 0 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: #494949;
+    display: inline-block;
+    font-size: 12px;
+    margin-bottom: 4px;
+    padding: 1px 5px 1px 5px;
+    margin-right: 2px;
+}
+.user_skills span:hover {
+    background: #008329;
+    color: #fff;
+}
+
+.row.chat-box { min-height: 400px; border: 1px solid; padding: 16px;}
+
+
+.white-box.bordered_cl {
+    width: 754px;
+}
+
+textarea#chat-input { 
+    width: 568px;
+    height: 40px;
+    margin: 0 0 0 15px;
+    margin-top: 25px;
+    border: 2px solid #1ca7db;
+}
+.active { 
+    border: 2px solid #1ca7db;  
+    color: #1ca7db;
+}
+.chat-sidebar a { color: #000;}
+.chat-bar { 
+    width: 100%;
+    z-index: 1;
+    bottom: 0;
+    min-height: 80px;
+    height: 80px;
+    position: absolute;
+    background: #fff;
+    top: 325px;
+    border-top: 1px solid #ccc;
+}
+
+form#chat_form a {
+    display: inline-block;
+    background: #1ca7db;
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+    padding: 5px 21px;
+    margin: 18px 6px;
+    text-decoration: none;
+    width: 120px;
+    height: 40px;
+}
+.cover_box p {
+    padding-top: 0px;
+}
+.textarea {
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-wrap: break-word;
+    resize: horizontal;
+    height: 645px;
+    overflow-y: visible;
+}
+.textarea:focus{
+    outline-style: solid;
+    outline-width: 2px;
+}
+span.chat-date { font-size: 13px; padding: 0 0 0 15px; color: #949494;}
+span.group-date { display: block; text-align: center; font-size: 16px; color: #7d7b7b;}
+span.name { text-transform: capitalize;}
+span.text1 {text-transform: capitalize;}
+
+.buttonsidefoure ul li a {
+    font-size: 16px;
+}
+
+.uploaded_files .item { float: left; margin-right: 5px; }
+.fa-times{ background: none; color: #000; }
+
+.header-border-x{
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #ccc;
+    position: relative;
+}
+
+#interview-content{
+    margin-top: 40px;
+}
+
+.user_view_img{
+    padding-top: 13px;
+}
+
+.review_ratting{
+    margin-top:1px;
+}
+
+.star-rating-custom{
+    left:0;
+    height: 1.2em;
+    margin-top:-5px; 
+    color:#DEDEDE; 
+    width: 4em
+}
+
+.username{
+    text-transform: uppercase; 
+    font-size:18px
+}
+
+.h3-x, .h4-x{
+    color:#494949;
+    font-size: 16px;
+    font-family: 'Calibri';
+    padding-top: 10px;
+    font-weight: 800;
+}
+
+.h4-x {
+    font-size: 21.88px;
+    padding-top: 0;
+    font-weight: normal;
+}
+
+.country-x{
+    margin-bottom: 0;
+}
+
+.navbar-default .navbar-toggle .icon-bar{
+    color: #fff;
+    background-color: #fff;
+}
+
+.buttonside{
+    padding-bottom: 55px;
+}
+
+.topriht {
+    background: #fff;
+    padding: 10px 5px;
+    border: 1px solid #ccc;
+}
+
+#buttonsecond {
+    background: #18a7dc;
+    color: #fff;
+    border-radius: 3px;
+    border: none;
+    padding: 1px 38px 1px 38px;
+    font-size: 21.88px;
+    font-family: 'Calibri';
+    font-weight: bold;
+}
+
+#view-profile-btn {
+    margin-top: 20px;
+    background: #1ba7db;
+    padding: 8px 36px 8px 31px;
+    color: #FFF;
+    margin: 20px 5px 0px 2px;
+    font-size: 14px;
+    font-family: "Calibri";
+    font-weight: bold;
+}
+
+.decline-line, .fa a {
+    color: #1ba7db;
+    padding-top: 15px;
+    font-size: 18px;
+    font-weight: 800;
+    display: block;
+}
+
+#interview .header-border-x{
+    border-top: none;
+    padding: 20px;
+}
+
+/********************************************************
+ *
+ * CHAT STYLE SHOULD BE PLACE IN ITS OWN FILE.
+ *
+ ********************************************************/
+
+.chat-screen {
+    border: 1px solid #ccc; 
+    padding: 0;
+    min-height: 410px;
+}
+
+.chat-details-topbar { 
+    border-bottom: 1px solid #ccc;
+    padding: 0 10px;
+}
+
+.chat-details-topbar h3 { 
+    padding: 5px 0; 
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.chat-details-topbar h5 { 
+    padding: 0;
+}
+
+.chat-details {  
+    overflow-x: hidden; 
+    overflow-y: scroll;
+    max-height: 246px;
+}
+.chat-details ul li { 
+    list-style-type: none; 
+    padding: 10px 0;
+}
+.chat-details ul li span img { 
+    width: 50px; 
+    border-radius: 50%; 
+    margin: 0 15px 0 0;
+}
+.chat-details ul li span.details { 
+    display:     block; 
+    margin-left: 67px;  
+    font-size:   14px;  
+    color:       #757474;
+}
+
+.chat-details ul .no-messages{
+    width: 100%;
+    font-weight: bold;
+    text-align: center;
+    font-size: 18px;
+    padding: 20px 10px;
+}
+
+/* Tiny reset; you probably already have this */
+.expandingArea textarea, 
+.expandingArea pre {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  border: 0;
+}
+
+/* The containing element has the expandingArea
+   class, define any border or inset box-shadow
+   etc. here that you want to style your textarea.
+   I've just added a simple 1px solid mid-grey
+   border. You can also set a min-height property
+   here if you want and it works as expected.
+ */
+.expandingArea {
+  position: relative;
+  border: 1px solid #888;
+  background: #fff;
+}
+/* Any padding should go in here; it needs to be
+   the same for both the pre and the textarea. You
+   also need to make sure both have exactly the
+   same font and line height properties, although
+   the exact values can of course be anything you
+   want.
+ */
+.expandingArea textarea,
+.expandingArea pre {
+  padding: 5px;
+  background: transparent;
+  font: 400 13px/16px helvetica, arial, sans-serif;
+  /* Make the text soft-wrap */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.expandingArea textarea {
+   /* The border-box box model is used to allow
+      padding whilst still keeping the overall width
+      at exactly that of the containing element.
+    */
+   -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+       -ms-box-sizing: border-box;
+           box-sizing: border-box;
+   /* This height is used when JS is disabled */
+   height: 100px;
+   width: 100%;
+ }
+
+.expandingArea.active textarea {
+  /* Hide any scrollbars */
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  /* Remove WebKit user-resize widget */
+  resize: none;
+}
+
+.expandingArea pre {
+  display: none;
+}
+.expandingArea.active pre {
+  display: block;
+  /* We don't actually want to see this text, it's just for sizing */
+  visibility: hidden;
+}

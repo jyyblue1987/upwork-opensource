@@ -145,7 +145,7 @@ class Freelancerinvite extends CI_Controller {
                 'f_attachments' => $attachments,
                 'f_id' => $bids_details->user_id,
                 'js' => array('vendor/jquery.form.js', 'internal/job_withdraw.js'));
-            $this->Admintheme->webview("freelancerinvite", $data);
+            $this->Admintheme->webview("my-interview", $data);
         }
 
 	}

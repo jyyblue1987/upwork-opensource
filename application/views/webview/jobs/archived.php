@@ -64,29 +64,27 @@ if ($reject_count) {
     $totalrejact = 0;
 }
 
-
-
 ?>
-<section id="big_header" class="custom_bids_list">
+<section id="big_header" class="custom_archive_list">
     <div class="white-box-feed">
         <?php if ($this->session->flashdata('msg'))
         { ?>
             <div class="row alert alert-success"><?php echo $this->session->flashdata('msg'); ?></div>
 <?php } ?>
         <div class="row">
-            <div class="col-md-12 bottom-blue-border  padding-2">
-                <span><a href="<?php echo site_url('jobs/bids_list'); ?>"><b>My Bids (<?= $totalApplication ?>) </b></a></span>
-                <span class="margin-left-15"><a href="<?php echo site_url('jobs/archived_bids_list'); ?>"><b>Archived (<?= $totalrejact ?>)</b></a></span>
+            <div class="col-md-9 bottom-blue-border  padding-2">
+                <span><a href="<?php echo site_url('jobs/my-bids'); ?>"><b>My Bids (<?= $totalApplication ?>)</b> </a></span>
+                <span class="margin-left-15"><a href="<?php echo site_url('jobs/my-bids/archived'); ?>"><b>Archived (<?= $totalrejact ?>)</b></a></span>
             </div>
         </div>
             <div class="row margin-top-1" >
 			<div class="col-md-9 bordered-alert text-center ack-box">
-                            <h4>! You have sent  <?= $totalApplication; ?> proposals</h4>
+				 <h4>! You have withdrawn <?= $totalrejact ?> proposals</h4>
 			 </div>
 		</div>
-        <div class="row margin-top-3 margin-top-15">
+        <div class="row margin-top-3 margin-top-15 no-pad">
             <div class="col-md-2 col-sm-6 col-xs-6">
-                <label>Applied Date</label>
+                <label>Withdrawn <br>Date</label>
             </div>
             <div class="col-md-10 col-sm-6 col-xs-6 marg-38">
                 <label>Job Title</label>
@@ -94,40 +92,38 @@ if ($reject_count) {
         </div>
 <?php if(empty($records)) {?>
         <div class="row">
-            <div style="text-align: center;margin-top: 12px;" class="col-md-9 custom_bids_list_border">
+            <div style="text-align: center;margin-top: 10px;" class="col-md-9 custom_bids_list_border">
                 No Bids Available
             </div>
         </div>
 <?php } else {?>
 
         <div class="row">
-            <div class="col-md-12 margin-top-15 no-pad">
                 <?php foreach($records as $value) { ?>
-                    <div class="custom_bids_list_border">
+                    <div class="col-md-12 custom_bids_list_border">
                         <div class="row">
-                            <div class="col-md-2 col-sm-6 col-xs-6"><?php echo date('M d, Y',  strtotime($value->created));?></div>
-                            <div class="col-md-10 col-sm-6 col-xs-6 blue-text">
-                                <a href='<?php echo site_url("jobs/withdraw_system/".  base64_encode($value->id))?>'>
+                            <div class="col-md-2 col-xs-6"><?php echo date('M d, Y',  strtotime($value->created));?></div>
+                            <div class="col-md-10 col-xs-6 blue-text">
+                                <a href='<?php echo site_url("jobs/proposals/".url_title($value->title)."/". base64_encode($value->id))?>'>
                                     <?php echo ucfirst($value->title); ?>
                                 </a>
                             </div>
                         </div>
-
                         <div class="row margin-top-1">
-                            <div class="col-md-2 col-sm-6 col-xs-6"><?php
-                            
-                            $timeDate = strtotime($value->created);
-                            $dateInLocal = date("Y-m-d H:i:s", $timeDate);
-                            
-                            echo time_elapsed_string(strtotime($dateInLocal)); ?></div>
-                            <div class="col-md-10 col-lg-10 col-sm-6 col-xs-6">
+                            <div class="col-md-2 col-xs-6"><?php echo time_elapsed_string(strtotime($value->created)); ?></div>
+                            <div class="col-md-10 col-xs-6">
                                 <?php echo ucfirst($value->company); ?><br/>
-                                
+                                <?php // added by jahid start  ?>
+                                <?php if($value->withdrawn_by=='1'){?>
+                                Withdrawn By You
+                             <?php }else{
+                                 echo 'Withdrawn By Client';
+                             } 
+                             ?>
                             </div>
                         </div>
                     </div>
                 <?php } ?>
-            </div>
         </div>
 <?php } ?>
     </div>

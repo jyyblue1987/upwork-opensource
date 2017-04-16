@@ -351,7 +351,7 @@ $(document).ready(function() {
 			
 			if (data.success) {
                // $('.success').html(data.message);
-				setTimeout(function(){ window.location = "<?php echo base_url();?>offer?job_id=<?=$job_id?>"; }, 100);
+				setTimeout(function(){ window.location = "<?php echo base_url();?>offered?job_id=<?=$job_id?>"; }, 100);
             }
 			else{
 				$('.success').html(data.message);

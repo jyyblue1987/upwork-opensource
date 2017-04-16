@@ -134,7 +134,7 @@ if(!empty($declined)){
         <div class="row"  style="margin-top: 25px;">
             <div class="col-md-9 bottom-blue-border no-pad">
                 
-                <span style="margin-right: 46px;"><a href="<?php echo site_url('Active_interview'); ?>"><b>Active Interview (<?= $interview_cnt ?>)</b></a></span>&nbsp <span><a href="<?php echo site_url('Active_interview/declined_interview'); ?>"><b>Declined (<?= $decline ?>)</b></a></span>
+                <span style="margin-right: 46px;"><a href="<?php echo site_url('my-offers'); ?>"><b>Active Interview (<?= $interview_cnt ?>)</b></a></span>&nbsp <span><a href="<?php echo site_url('my-offers/archived'); ?>"><b>Declined (<?= $decline == 0 ? 0 : $decline ?>)</b></a></span>
 
             </div>
             <div class="col-md-9 text-center bordered-alert margin-top" >
@@ -161,7 +161,7 @@ if(!empty($declined)){
                 <div class="row">
                     <div class="col-md-2 col-sm-6 col-xs-6"><?php  echo date(' M j, Y ', strtotime($interview->bid_created)); ?></div>
                     <div class="col-md-10 blue-text col-sm-6 col-xs-6">
-                        <a href="<?php echo base_url() ?>Freelancerinvite?fmJob=<?php echo base64_encode($interview->job_id);?>"> <?php echo $interview->title;?></a>
+                        <a href="<?php echo base_url() ?>proposals/my-interview?fmJob=<?php echo base64_encode($interview->job_id);?>"> <?php echo $interview->title;?></a>
                     </div>
                 </div>
 

@@ -65,7 +65,7 @@
                         <div class="col-md-7 col-sm-6 col-xs-6">
                             <div class="job-activity-title margin-10">
                                 <label class="jobTitle">
-                                    <a href="<?= site_url('jobs/applied/' . $value['job_id']) ?>"><?= $value['job_type'] . " - " . $value['title'] ?></a></label>
+                                    <a href="<?= site_url('jobs/applications/' . $value['job_id']) ?>"><?= $value['job_type'] . " - " . $value['title'] ?></a></label>
 
                                 <p class="hidden-lg hidden-md"><?= $value['job_created'] ?><br></p>
                             </div>
@@ -75,14 +75,14 @@
                                 <div class="col-md-4 col-sm-4 col-xs-12 nopadding">
 
                                     <label class="gray-text">
-                                        <a href='<?= site_url('jobs/view/' . url_title($value['title']) . '/' . $value['job_id']); ?>' class="co">View Job Posting <span class='glyphicon custom_client_icon glyphicon-info-sign co'></span></a>
+                                        <a href='<?= site_url('jobs/' . url_title($value['title']) . '/' . $value['job_id']); ?>' class="co">View Job Posting <span class='glyphicon custom_client_icon glyphicon-info-sign co'></span></a>
                                     </label>
                                 </div>
 
                                 <div class="col-md-4 col-sm-4 col-xs-12 nopadding">
                                     <label class="gray-text">
                                         <span class="hidden-xs hidden-sm margin-10-left">&nbsp;</span>
-                                        <a href='<?= site_url('jobs/edit/' . $value['job_id']); ?>'style="color: #37A000">Edit Posting <span class='glyphicon custom_client_icon glyphicon-edit co'></span>
+                                        <a href='<?= site_url('edit-jobs/' . $value['job_id']); ?>'style="color: #37A000">Edit Posting <span class='glyphicon custom_client_icon glyphicon-edit co'></span>
                                         </a>
                                     </label>
                                 </div>
@@ -107,19 +107,19 @@
                         <div class="col-md-9 col-sm-12 col-xs-12">
                             <ul class="client-job-activity pull-right" >
                                 <li>
-                                    <a href="<?= site_url('jobs/applied/' . $value['job_id']) ?>">Application (<?= $value['applicants'] ?>)</a> 
+                                    <a href="<?= site_url('jobs/applications/' . $value['job_id']) ?>">Application (<?= $value['applicants'] ?>)</a> 
                                 </li>
                                 <li>
                                     <a href="<?= site_url('jobs/interviews/' . $value['job_id']) ?>">Interviews (<?= $value['interviews'] ?>)</a>  
                                 </li>
                                 <li>
-                                    <a href="<?= site_url('offer?job_id=' . $value['job_id']) ?>">Offers (<?= $value['offers']; ?>)</a>  
+                                    <a href="<?= site_url('offered?job_id=' . $value['job_id']) ?>">Offers (<?= $value['offers']; ?>)</a>  
                                 </li>
                                 <li>
-                                    <a href="<?= site_url('hires?job_id=' . $value['job_id']) ?>">Hires (<?= $value['hires']; ?>)</a>   
+                                    <a href="<?= site_url('hired?job_id=' . $value['job_id']) ?>">Hires (<?= $value['hires']; ?>)</a>   
                                 </li> 
                                 <li>
-                                    <a href="<?= site_url('reject?job_id=' . $value['job_id']) ?>" class="last-link">Rejected (<?= $value['rejects']; ?>)</a>  
+                                    <a href="<?= site_url('declined?job_id=' . $value['job_id']) ?>" class="last-link">Rejected (<?= $value['rejects']; ?>)</a>  
                                 </li>
 
                             </ul>

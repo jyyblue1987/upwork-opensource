@@ -365,7 +365,7 @@ class Jobs extends CI_Controller
             if ($query->num_rows() > 0)
                 $records = $query->result();
             $data = array('records' => $records);
-            $this->Admintheme->webview("jobs/bids_list", $data);
+            $this->Admintheme->webview("jobs/my-bids", $data);
         }
     }
 
@@ -808,7 +808,7 @@ class Jobs extends CI_Controller
             if ($query->num_rows() > 0)
                 $value = $query->row();
             else
-                redirect('/jobs/bids_list');
+                redirect('/jobs/my-bids');
 
             $data = array('value' => $value, 'js' => array('vendor/jquery.form.js', 'internal/job_withdraw.js'));
             $this->Admintheme->webview("jobs/withdraw_system", $data);

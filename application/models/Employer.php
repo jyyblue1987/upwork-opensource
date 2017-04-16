@@ -140,12 +140,12 @@ class Employer extends CI_Model {
         return $employer['webuser_id'];
     }
     
-    function is_payment_set($user_id){
+    function is_payment_set(){
         $this->db
                 ->select('*')
                 ->from('jobs')
                 ->join('billingmethodlist', 'billingmethodlist.belongsTo = jobs.user_id', 'inner')
-                ->where('billingmethodlist.belongsTo', $user_id)
+                ->where('billingmethodlist.belongsTo', $this->get_userid())
                 ->where('billingmethodlist.isDeleted', '0')
                 ->where('jobs.status', 1);
         $query = $this->db->get();

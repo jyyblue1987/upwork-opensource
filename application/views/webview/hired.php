@@ -78,11 +78,11 @@ body{font-family: "calibri" !important;}
             ?>
                     <div class="col-md-12 nopadding">
                     <ul class="client-job-activity-current">
-                    <li><a href='<?= site_url('jobs/applied/' . $jobId) ?>'>Application (<?= $applicants ?>)</a></li>
+                    <li><a href='<?= site_url('jobs/applications/' . $jobId) ?>'>Application (<?= $applicants ?>)</a></li>
                      <li><a href='<?= site_url('jobs/interviews/' . $jobId) ?>'>Interview (<?=$interviews?>)</a> </li>
-                     <li><a href='<?= site_url('offer?job_id=' . $jobId) ?>'>Offers (<?=$offers;?>) </a>  </li>
-                     <li><a class="active-link" href='<?= site_url('hires?job_id=' . $jobId) ?>'>Hires (<?=$hires;?>)</a> </li>
-                     <li><a href='<?= site_url('reject?job_id=' . $jobId) ?>'>Rejected (<?=$rejects;?>)</a></li>
+                     <li><a href='<?= site_url('offered?job_id=' . $jobId) ?>'>Offers (<?=$offers;?>) </a>  </li>
+                     <li><a class="active-link" href='<?= site_url('hired?job_id=' . $jobId) ?>'>Hires (<?=$hires;?>)</a> </li>
+                     <li><a href='<?= site_url('declined?job_id=' . $jobId) ?>'>Rejected (<?=$rejects;?>)</a></li>
                   <li class="drop_btn">
 				  <div class="dropdown hour_btnx custom-application_drop_down">
 					<button  style="margin-left: -14px;" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">

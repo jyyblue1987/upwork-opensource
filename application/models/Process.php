@@ -202,15 +202,15 @@ class Process extends CI_Model {
     
     function get_conversation($job_id, $bid_id){
         $this->db
-                ->select('job_conversation.*,job_conversation.created as conversation_date,webuser.*,jobs.title')
-                ->from('job_conversation')
-                ->join('webuser', 'job_conversation.sender_id = webuser.webuser_id', 'inner')
-                ->join('jobs', 'jobs.id = job_conversation.job_id', 'inner')
-                ->where('job_conversation.job_id', $job_id)
-                ->where('job_conversation.bid_id', $bid_id);
+            ->select('job_conversation.*,job_conversation.created as conversation_date,webuser.*,jobs.title')
+            ->from('job_conversation')
+            ->join('webuser', 'job_conversation.sender_id = webuser.webuser_id', 'inner')
+            ->join('jobs', 'jobs.id = job_conversation.job_id', 'inner')
+            ->where('job_conversation.job_id', $job_id)
+            ->where('job_conversation.bid_id', $bid_id);
         $query = $this->db->get();
         
-        $return_array = array();
+        $return_array         = array();
         $return_array['rows'] = $query->num_rows();
         if ($return_array['rows'] > 0) {
             $return_array['data'] = $query->result();
@@ -220,9 +220,9 @@ class Process extends CI_Model {
     
     function get_convo_images($id){
         $this->db
-                ->select('*')
-                ->from('job_conversation_files')
-                ->where('job_conversation_id', $id);
+            ->select('*')
+            ->from('job_conversation_files')
+            ->where('job_conversation_id', $id);
         $query = $this->db->get();
         return $query->row_array();
     }
@@ -257,8 +257,8 @@ class Process extends CI_Model {
         $this->db
                 ->select('*')
                 ->from('job_bids')
-                ->where_in('jobs_id', $jobids, FALSE)
-                ->where('hired', 1);
+                ->where_in('job_id', $jobids, FALSE)
+                ->where('hired', '1');
         $query = $this->db->get();
         return $query->num_rows();
     }
@@ -315,5 +315,70 @@ class Process extends CI_Model {
             $return_array['data'] = $query->result();
         }
         return $return_array;
+    }
+    
+    function is_applied($user_id, $job_id){
+        $query = $this->db->get_where('job_bids', array('job_id' => $job_id, 'user_id' => $user_id, 'status!=1' => null));
+        return $query->num_rows();
+    }
+    
+    function get_freelancer_proposals($user_id){
+        $monthStart = date('Y-m-01');
+        $monthEnd = date('Y-m-t');
+
+        $this->db
+                ->select('id')
+                ->where("(created BETWEEN '{$monthStart}' AND '{$monthEnd}')");
+        $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $user_id));
+        return $query->num_rows();
+    }
+    
+    function get_attachments($bid_id){
+        $this->db
+                ->select("*")
+                ->from("job_bid_attachments")
+                ->where("job_bid_id = ", $bid_id);
+        $query = $this->db->get();
+        $attachments = $query->result_array();
+        
+        $files = array();
+        $attachments = explode(",", $attachments[0]['path']);
+        foreach($attachments AS $attachment){
+            $files[] = str_replace('"','', $attachment);
+        }
+        return $files;
+    }
+    
+    public function time_elapsed_string($_ptime){
+        $ptime = strtotime($_ptime);
+        $etime = time() - $ptime;
+
+        if ($etime < 1){
+            return '0 seconds';
+        }
+
+        $a = array(365 * 24 * 60 * 60 => 'year',
+            30 * 24 * 60 * 60 => 'month',
+            24 * 60 * 60 => 'day',
+            60 * 60 => 'hour',
+            60 => 'minute',
+            1 => 'second'
+        );
+
+        $a_plural = array('year' => 'years',
+            'month' => 'months',
+            'day' => 'days',
+            'hour' => 'hours',
+            'minute' => 'minutes',
+            'second' => 'seconds'
+        );
+
+        foreach ($a as $secs => $str){
+            $d = $etime / $secs;
+            if ($d >= 1){
+                $r = round($d);
+                return $r . ' ' . ($r > 1 ? $a_plural[$str] : $str) . ' ago';
+            }
+        }
     }
 }

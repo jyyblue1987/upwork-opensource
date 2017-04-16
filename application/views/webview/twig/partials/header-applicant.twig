@@ -1,0 +1,48 @@
+<div class="col-md-9 col-sm-9 col-xs-12">
+    <div class="header-border-x">
+        <div class="row">
+            <div class="col-xs-12 col-sm-2 col-md-2 text-center" style="padding-right: 0">
+                <div class="user_view_img">
+                    <img src="{{ app_user_img( cropped_img ) }}"/>
+                    <div class="clearfix clear-both"></div>
+                    <div class="review_ratting text-center {# col-xs-offset-5 #}">
+                        <span class="rating-badge">{{ rating }}</span>
+                        <div title="Rated {{ rating }} out of 5" class="star-rating star-rating-custom" 
+                             itemtype="http://schema.org/Rating" 
+                             itemscope="" 
+                             itemprop="reviewRating">
+                            <span style="width:{{ (( rating / 5) * 100) }}% ; margin-top:0px;">
+                                <strong itemprop="ratingValue">{{ rating }}</strong> out of 5
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <div class="row">
+                    <h4 class="col-xs-12 col-md-9 col-sm-9 username"> 
+                        {{ fname ~ ' ' ~ lname }}
+                    </h4>
+                    <h4 class="col-xs-12 col-md-3 col-sm-3 text-right h4-x">
+                        {% set hour = (job_info['job_type'] == 'fixed' ? '' : '/hr') %}
+                        {{ '$' ~ job_info['bid_amount'] ~ hour  }}
+                    </h4>
+                </div>
+                <p class="country-x"><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;{{ country }} </p>
+                <h3 class="h3-x">{{ tagline }}</h3>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="buttonside">
+                            <div class="user_skills">
+                                {% for skill in skills %}
+                                    <span>{{ skill["skill_name"] }}</span>
+                                {% endfor %}
+                            </div>
+                            <div style="clear:both"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

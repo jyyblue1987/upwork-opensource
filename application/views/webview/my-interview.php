@@ -177,8 +177,8 @@ foreach($accepted_jobs as $job_data){
                     ?>
                     <div class="row">
                         <div class="col-md-3 text-center"><label class="gray-text"></label></div>
-                        <div class="col-md-3 text-center"><label class="gray-text"><a href='<?php echo site_url('jobs/view/' . base64_encode($value->id)); ?>'>View Job Posting <span class='glyphicon glyphicon-info-sign'></span></a></label></div>
-                        <div class="col-md-3 text-center"><label class="gray-text"><a href='<?php echo site_url('jobs/edit/' . base64_encode($value->id)); ?>'>Edit Posting <span class='glyphicon glyphicon-edit'></span></a></label></div>
+                        <div class="col-md-3 text-center"><label class="gray-text"><a href='<?php echo site_url('jobs/' . base64_encode($value->id)); ?>'>View Job Posting <span class='glyphicon glyphicon-info-sign'></span></a></label></div>
+                        <div class="col-md-3 text-center"><label class="gray-text"><a href='<?php echo site_url('edit-jobs/' . base64_encode($value->id)); ?>'>Edit Posting <span class='glyphicon glyphicon-edit'></span></a></label></div>
                         <div class="col-md-3 text-center"><label class="gray-text"><a href='<?php echo site_url('jobs/close/' . base64_encode($value->id)); ?>'>Remove Posting <span class='glyphicon glyphicon-remove'></span></a></label></div>                    
                     </div>
                     <?php
@@ -665,7 +665,7 @@ $hire_count = $query->num_rows();
                     {
                         ?><div class="row">
                             <div class="col-md-10 col-md-offset-2">
-                                <a href="<?php echo site_url("jobs/apply/" . url_title($value->title) . '/' . base64_encode($value->id)); ?>"><button type="button" class="btn btn-primary">Send a Proposal</button></a>
+                                <a href="<?php echo site_url("jobs/" . url_title($value->title) . '/' . base64_encode($value->id).'/apply'); ?>"><button type="button" class="btn btn-primary">Send a Proposal</button></a>
                             </div>
                         </div>
                     <?php
@@ -1049,7 +1049,7 @@ $('#submit').click(function(){
 
     var form_data = new FormData($('#chat_form')[0]);
         $.ajax({
-            url: '<?php echo base_url() ?>Interview/insert_message',
+            url: '<?php echo base_url() ?>Applicants/insert_message',
             dataType: 'json',
             cache: false,
             contentType: false,

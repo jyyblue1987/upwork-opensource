@@ -93,7 +93,7 @@
 									$job_title = $job->title;
 								}?>
 								<span class="clint_view_j-title"><?=$job_title;?></span><br>
-								<a href="<?php echo base_url() ?>jobs/view/<?php echo url_title($job->title, 'dash', true) ?>/<?php echo base64_encode($job->job_id);?>">View original job post</a>
+								<a href="<?php echo base_url() ?>jobs/<?php echo url_title($job->title, 'dash', true) ?>/<?php echo base64_encode($job->job_id);?>">View original job post</a>
 						        </div>
 						    </div>
 						    </div>

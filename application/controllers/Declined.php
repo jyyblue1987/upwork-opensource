@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Reject extends CI_Controller {
+class Declined extends CI_Controller {
 
     private $process;
     private $user_id;
@@ -117,7 +117,7 @@ class Reject extends CI_Controller {
                 'title' => 'Rejected - Winjob'
             );
             
-            $this->Admintheme->webview("reject", $data);
+            $this->Admintheme->webview("declined", $data);
         }
     }
 

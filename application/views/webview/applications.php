@@ -362,7 +362,7 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
 		$.post("<?php echo site_url('jobs/bid_decline');?>", { form : id },  function(data) {
 			if(data.success){
 				$('.result-msg').html('You have successfully Decline the Post');
-					window.location = "<?php echo base_url();?>jobs/applied/<?=base64_encode($job_info[0]->job_id)?>";
+					window.location = "<?php echo base_url();?>jobs/applications/<?=base64_encode($job_info[0]->job_id)?>";
 					
 			} else{
 					alert('Opps!! Something went wrong.');
@@ -391,7 +391,7 @@ $('#submit').click(function(){
 		$("#error_span").show().delay(5000).fadeOut();
 		return false;
 	}
-	$.post('<?php echo base_url() ?>Interview/insert_message', { freelancer_id: f_id, job_id: j_id, bid_id: b_id, messsage: messsage },  function(data) {
+	$.post('<?php echo base_url() ?>Applicants/insert_message', { freelancer_id: f_id, job_id: j_id, bid_id: b_id, messsage: messsage },  function(data) {
 		
 			if(data != '') {
 					$('#scroll-ul').append(data);
