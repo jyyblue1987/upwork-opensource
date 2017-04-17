@@ -151,7 +151,7 @@ if (count($records) > 0)
             </div>
             <?php 
             $job = new Job_details($value->user_id, $value->id);
-            if($job->get_tid() != 0){ ?>
+            if(!empty($job->get_attachments()[0])){ ?>
                 <div class="row margin-top page-label margin-top-5" style="margin-left: 0px; margin-bottom: 10px;">
                     <div class="col-md-9">
                         <label class="lab-details">Attachments</label>
