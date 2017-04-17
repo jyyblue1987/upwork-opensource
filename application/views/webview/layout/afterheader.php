@@ -149,7 +149,7 @@ $notif_count = count($result);
                         } else { ?>
                                     <li><a href="#">Hire Freelancers </a></li>
                                     <li><a href="#"> How it Works</a></li>
-                                    <li><a href="#">  Find Jobs</a></li>
+                                    <li><a href="<?php echo site_url().'freelance-jobs' ?>">  Find Jobs</a></li>
                         <?php } ?>
 
                     </ul>
