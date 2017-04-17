@@ -209,7 +209,7 @@ if (count($records) > 0)
                         }                                               
 ?>
                        
-                        <li><b>$<?php echo round($total_spent,0);?></b> Spent</li>
+                        <li><b>$<?php echo round($emp->total_spent($value->user_id),0);?></b> Spent</li>
                         <li style="padding-top: 5px;margin-bottom: 4px;">
                             <?php if($total_feedbackScore !=0 && $total_budget!=0){
                                 $totalscore = ($total_feedbackScore / $total_budget);
