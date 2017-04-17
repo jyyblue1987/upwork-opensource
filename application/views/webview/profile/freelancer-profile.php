@@ -47,157 +47,89 @@ foreach ($accepted_jobs as $job_data) {
 <!-- this css update by indsys tech 3 march -->
 
  <style type="text/css">
-    
-.buttonsidefoure {
-    margin-top:40px !important;
-    margin-bottom:  !important;
-    background: white;
-    max-width: 370px;
-    margin-right: -5px;
-    margin-left: 20px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    height: 100%;
-    padding-bottom: 20px;
-}
-.buttonsidefoure ul li {
-    padding: 13px 0px 0px 5px;
-}
-.buttonsidefoure h2 {
-    font-size: 21.26px;
-    margin: -8px 30px 15px 7px;
-    color: #494949;
-    font-family:'Calibri';
-    src: url(../fonts/Calibri.ttf);
-    display: block;
-    padding: 15px 0 0 0;
-    font-weight:800;
-}
-.buttonsidefoure ul li a {
-    text-decoration: none;
-    color: #494949;
-    font-family: 'Calibri';
-    src: url(../fonts/Calibri.ttf);
-    font-size: 16.26px;
-    display: block;
-    font-weight: bold;
-}
-span.rating-badge {
-    background: #F77D0E none repeat scroll 0 0;
-    border-radius: 2px;
-    color: #fff;
-    padding: 2px 4px 2px 5px;
-    font-size: 12px;
-}
-.review_ratting {
-  margin-bottom: 20px;
-}
-.user_view_img {
-    margin-left: 15px;
-}
-.topmiddle {
-    margin-left: 30px;
-}
-.user_view_img img {
-    border-radius: 50%;
-    height: 100px;
-    width: 100px;
-    margin: 10px 0px 6px 10px;
-    }
-span.rating-badge {
-    background: #F77D0E none repeat scroll 0 0;
-    border-radius: 2px;
-    color: #fff;
-    padding: 2px 4px 2px 5px;
-    font-size: 12px;
-}
-.profile_star-rating::before {top: -8px;left:-2px;}
-ul.cus_main_side_nav_bar li a i{}
+
 
     
  </style>
-<section id="big_header"  style="margin-bottom: 40px; height: auto;">
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/css/pages/freelancer-profile.css" />
+<section id="big_header">
 <!-- end code of 3 march indsys tech-->
  
 <div style="clear:both"></div>
-<div class="container">
+<div class="">
     <div id="top-content">
-        <div class="row">
             <div class="mainwork">
-             <div class="row">
-                 <div class="col-md-9 margin-top-4">
+             <div class="row no-pad-mob">
+                 <div class="col-md-9 margin-top-4 no-pad-mob">
                     <div class="header_border">
-                            <div class="col-md-2 col-sm-4" style="width: 122px">
-                                <div class="topleftside">
-                                    <div style="margin-left: 0;margin-bottom: -2px;" class="user_view_img">
-                                    <?php if(!empty($userimg->cropped_image)){ ?>
-                                        <img class="" width="120" src="<?php echo $userimg->cropped_image;?>"/>
-                                    <?php }else{ ?>
-                                    <img class="" width="120" src="<?php echo site_url("assets/user.png");?>"/>
-                                    <?php } ?>
+                        <div class="col-md-3 col-sm-4">
+                            <div class="user_view_img">
+                            <?php if(!empty($userimg->cropped_image)){ ?>
+                                <img class="" width="120" src="<?php echo $userimg->cropped_image;?>"/>
+                            <?php }else{ ?>
+                            <img class="" width="120" src="<?php echo site_url("assets/user.png");?>"/>
+                            <?php } ?>
+                            </div>
+                                <?php
+                                if ($total_budget != 0) {
+                                    $totalscore = ($total_feedbackScore / $total_budget);
+                                    $rating_feedback = ($totalscore / 5) * 100;
+                                } else {
+                                    $totalscore = null;
+                                    $rating_feedback = null;
+                                }
+                                ?>
+                            <div class="row">
+                                <div class="col-md-3 col-xs-2">
+                                    <span class="rating-badge"><?= $current_user_rating ?></span>
+                                </div>
+                                <div class="col-md-9 col-xs-10 marg-top">
+                                    <div title="Rated <?= $jobfeedback->feedback_score; ?> out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+                                    <span style="width:<?= $rating_result; ?>%">
+                                    <strong itemprop="ratingValue"><?= $jobfeedback->feedback_score; ?></strong> out of 5</span>
                                     </div>
-                                    <div style="clear:both"></div>
-                                    
-                                    <div class="review_ratting">
-                                        <?php
-                                        if ($total_budget != 0) {
-                                        $totalscore = ($total_feedbackScore / $total_budget);
-                                        $rating_feedback = ($totalscore / 5) * 100;
-                                        } else {
-                                        $totalscore = null;
-                                        $rating_feedback = null;
-                                        }
-                                        ?>
-                                        
-                                        <span style="margin-left: 6px;margin-bottom: -2px;font-size:10px;margin-top: 2px;" class="rating-badge"><?= $current_user_rating ?></span>
-                                        
-                                        <div title="Rated <?= $current_user_rating; ?> out of 5" class="star-rating profile_star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left: 39%;margin-top: 3%;position: absolute;">
-                                            <span style="width:<?= ( ( $current_user_rating / 5 ) * 100); ?>%;top: -8px;left: -2px;">
-                                                <strong itemprop="ratingValue"><?= $current_user_rating; ?></strong> out of 5
-                                            </span>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="col-md-9 col-sm-4 no-pad">
+                                <div class="row">
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                        <div class="topmiddle">
+                                            <h4 style="margin-bottom:0px;"><?php echo $webUserInfo['webuser_fname'] . " " . $webUserInfo['webuser_lname'] ?></h4>
+                                            
+                                            <p><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;<?php echo $webUserInfo['webuser_country_name'] ?> <?=$localtime?></p>
+                                            <h3 style="padding-top: 0;"><?php echo $basicDetails["tagline"] ?></h3>
+                                            <div style="margin-top: -15px;" class="buttonside">
+                                                <?php
+                                                $skills = $basicDetails['user_skills'];
+
+
+                                                if (count($skills) > 0) {
+                                                ?>
+                                                <ul>
+                                                <?php
+                                                    foreach ($skills as $key => $value) {
+                                                ?>
+                                                    <li><a href=""><?php echo $value['skill_name']; ?></a></li>
+                                                <?php
+                                                    }
+                                                ?>
+                                                </ul>
+                                                    <?php
+                                                }
+                                                ?>
+
+                                                <div style="clear:both"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                        <div class="topriht">
+                                            <h4>$<?php echo $basicDetails["hourly_rate"] + $basicDetails["hourly_rate"] * WINJOB_FEE ?> USD/hr</h4> 
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-9 col-sm-4 nopadding">
-                                <div class="topmiddle">
-                                    <h4 style="margin-bottom:0px;"><?php echo $webUserInfo['webuser_fname'] . " " . $webUserInfo['webuser_lname'] ?></h4>
-                                    
-                                    <p><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;<?php echo $webUserInfo['webuser_country_name'] ?> <?=$localtime?></p>
-                                    <h3 style="padding-top: 0;"><?php echo $basicDetails["tagline"] ?></h3>
-                                    <div style="margin-top: -15px;" class="buttonside">
-                                        <?php
-                                        $skills = $basicDetails['user_skills'];
-
-
-                                        if (count($skills) > 0) {
-                                        ?>
-                                        <ul>
-                                        <?php
-                                            foreach ($skills as $key => $value) {
-                                        ?>
-                                            <li><a href=""><?php echo $value['skill_name']; ?></a></li>
-                                        <?php
-                                            }
-                                        ?>
-                                        </ul>
-                                            <?php
-                                        }
-                                        ?>
-
-                                        <div style="clear:both"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="topriht">
-                                    <h4>$<?php echo $basicDetails["hourly_rate"] + $basicDetails["hourly_rate"] * WINJOB_FEE ?> USD/hr</h4> 
-                                    
-                                    <!-- <a href="<?php echo base_url() ?>Active_interview">
-                                    <button id="buttonsecond">Hire Me &nbsp;&nbsp;<i class="fa fa-caret-right" aria-hidden="true"></i></button>
-                                    </a> -->
-                                </div>
-                            </div>
-                            
                             
                             <div style="clear:both"></div>
                             <div class="top_border"></div>
@@ -208,36 +140,24 @@ ul.cus_main_side_nav_bar li a i{}
                     </div>
                  
               </div>
-              <div class="col-md-3">
+              <div class="col-md-3 no-pad-mob">
                  
                                         <div class="buttonsidefoure">
-                                            <h2 style="margin-bottom: 5px;">Work History</h2>
+                                            <h2 class="marg-5">Work History</h2>
                                             <ul class="main_side_nav_bar cus_main_side_nav_bar">
                                                 <li>
-                                                
-                                                      <div class="review_ratting">
-                                              <?php if($total_feedbackScore !=0 && $total_budget!=0){
-                                                $totalscore = ($total_feedbackScore / $total_budget);
-                                                $rating_feedback = ($totalscore/5)*100;
-                                               ?>
-                                               <span style="margin-right: 3px;" class="rating-badge"><?= $current_user_rating ?></span>
-                                              <div title="Rated <?= $current_user_rating ?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em;margin-top:-5px;width:105px; color:#DEDEDE;">
-                                               <span style="width:<?= ( ( $current_user_rating / 5 ) * 100 )?>% ;margin-top:0px;">
-                                                   <strong itemprop="ratingValue"><?= $current_user_rating ?></strong> out of 5
-                                               </span>
-                                               </div>
-                                           <?php  }else{ ?>
-                                             <span style="margin-right: 3px;" class="rating-badge">0.0</span>
-                                               <div title="Rated 0 out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em; margin-top:-5px;">
-                                               <span style="width:0% ;margin-top:-5px;">
-                                                   <strong itemprop="ratingValue">0</strong> out of 5
-                                               </span>
-                                               </div>
-                                          <?php   } ?>
-                                         </div>
-                                                   
+                                                    <div class="row">
+                                                        <div class="col-md-3 col-xs-2">
+                                                            <span class="rating-badge"><?= $current_user_rating ?></span>
+                                                        </div>
+                                                        <div class="col-md-9 col-xs-10 marg-top">
+                                                            <div title="Rated <?= $jobfeedback->feedback_score; ?> out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+                                                            <span style="width:<?= $rating_result; ?>%">
+                                                            <strong itemprop="ratingValue"><?= $jobfeedback->feedback_score; ?></strong> out of 5</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>  
                                                 </li>
-                                                
                                                 <li>
                                                     <i style="float: left;margin-top: 5px;" class="fa fa-credit-card-alt"></i>
                                                     <a href="">&nbsp;$<?php echo $basicDetails["hourly_rate"] + $basicDetails["hourly_rate"] * WINJOB_FEE ?> <span>/hour</span></a>
@@ -297,15 +217,10 @@ ul.cus_main_side_nav_bar li a i{}
                                         </div>  
                                 
               </div>
-             </div>
             </div>
-            <div class="middle">
-                <div class="container">
-                    <div class="midlmain">
-                        <div class="row">
-                            <div style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; margin-top: 30px; border: 1px solid rgb(204, 204, 204);" class="col-md-9 col-sm-9">
-                                <div style="overflow: hidden;" class="divison">
-                                
+            <div class="row">
+                <div class="col-md-9 col-xs-12 col-sm-12 col-lg-9 no-pad-mob">                                
+                    <div style="overflow: hidden;" class="job-history">
                                     <div class="buttonsidethree">
                                         <div class="row">
                                             <div class="col-md-6 col-sm-6">
@@ -329,9 +244,9 @@ ul.cus_main_side_nav_bar li a i{}
                                         $jobfeedback = $query->row();
                                         ?>
                                         
-                                <div style="border: 0;border-bottom: 1px solid #ccc;margin-top: 10px;" class="history_section">
-                                        <div class="row">
-                                            <div class="col-md-8 col-sm-6">
+                                <div class="history_section his_">
+                                        <div class="row no-pad">
+                                            <div class="col-md-8 col-sm-6 col-xs-12 no-pad">
                                                 <div style="padding-left: 9px;" class="buttonsidethreeleft">
                                                     <p> <?= $job_data->hire_title ?></p>
                                                     <h3 style="margin-bottom: -8px;"><?php echo date(' M j, Y ', strtotime($job_data->start_date)); ?>
@@ -354,7 +269,7 @@ ul.cus_main_side_nav_bar li a i{}
                                                 </div>
                                             </div>
                                             
-                                            <div class="col-md-4 col-sm-6">
+                                            <div class="col-md-4 col-sm-6 col-xs-12">
                                                 <?php if ($job_data->job_type == "fixed") { ?>
                                                 <div class="buttonsidethreeright pull-right " style="padding:0;margin-right: -14px;">
                                                     <?php } else { if ($job_data->jobstatus == 1) {
@@ -472,16 +387,16 @@ ul.cus_main_side_nav_bar li a i{}
                                             <?php } ?>
 
                                         </div>
-                                    <div class="col-md-4 col-sm-4">
+                                    <div class="col-md-3 col-sm-3">
                                         
                                     </div>
                                 </div>
                             </div>
                             <div style="clear:both"></div>
-                        </div>
-                    </div>
-                </div>
-                <div style="margin: 0;margin-top: 25px;margin-bottom: 40px;" class="main_portfolio">
+            </div>
+            </div>
+            <div class="middle">
+                <div style="margin: 0;margin-top: 25px;margin-bottom: 40px;" class="row main_portfolio">
                     <div class="protfilio">
                     <div class="">
                         <div class="row">
@@ -653,7 +568,6 @@ foreach ($experience as $val) { ?>
                     </div>
                 </div>
                 </div>
-            </div>
         </div>
 <?php
 $this->load->view("webview/profile/portfolio-modal");

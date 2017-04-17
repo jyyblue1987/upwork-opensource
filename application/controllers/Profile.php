@@ -117,7 +117,7 @@ class Profile extends CI_Controller {
                         $params['localtime'] = date('h:i A');
                     }
 
-                    $this->Admintheme->webview2("profile/freelancer-profile", $params);
+                    $this->Admintheme->custom_webview("profile/freelancer-profile", $params);
                 } else {
                     redirect(site_url("profile/basic"));
                 }
@@ -1011,7 +1011,7 @@ class Profile extends CI_Controller {
                     $params['educations'] = $educations;
 
                     //$this->load->view("webview/profile/freelancer-profile", $params);
-                    $this->Admintheme->webview2("profile/freelancer-profile", $params);
+                    $this->Admintheme->custom_webview("profile/freelancer-profile", $params);
                 } else {
                     redirect(site_url("profile/basic"));
                 }

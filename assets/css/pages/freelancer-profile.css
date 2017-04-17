@@ -1,0 +1,380 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,300italic,500,400italic,600,500italic,700italic,700,600italic);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800);
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+body {color: #333;font-family: "Roboto" !important;font-size: 14px;line-height: 1.42857;}
+html {color: #222;font-size: 1em;line-height: 1.4;}
+.buttonsidefoure {background: white;border: 1px solid #ccc;padding: 10px;height: 100%;padding-bottom: 20px;}
+.buttonsidefoure ul li {padding: 13px 0px 0px 5px;}
+.buttonsidefoure h2 {font-size: 21.26px;margin: -8px 30px 15px 7px;color: #494949;font-family:'Calibri';src: url(../fonts/Calibri.ttf);display: block;padding: 15px 0 0 0;font-weight:800;}
+.buttonsidefoure ul li a {text-decoration: none;color: #494949;font-family: 'Calibri';src: url(../fonts/Calibri.ttf);font-size: 16.26px;display: block;font-weight: bold;}
+span.rating-badge {background: #F77D0E none repeat scroll 0 0;border-radius: 2px;color: #fff;padding: 2px 4px 2px 5px;font-size: 12px;}
+.user_view_img img {border-radius: 50%;height: 100px;width: 100px;margin: 10px 0px 0px 10px;}
+span.rating-badge {background: #F77D0E none repeat scroll 0 0;border-radius: 2px;color: #fff;padding: 2px 4px 2px 5px;font-size: 12px;}
+.profile_star-rating::before {top: -8px;left:-2px;}
+ul.cus_main_side_nav_bar li{list-style: none!important;}
+.custom_active_interview .custom_interview_border{height: 1px;background: #ccc;width: 108.2%;margin-top: 25px;margin-left: -44px;}
+#big_header{margin-top: 40px; margin-bottom: 40px; height: auto;}
+.menu ul {list-style:none;margin: 0;padding:0;}.menu li {margin: 0;padding: 0px;float:left;}
+.menu ul li  a {font-family:'Arial';display: block;color: #35a7d6;text-decoration:none;font-size:16px; padding: 0px 28px;margin-top:14px;border:none;	}
+.menu ul li  a.first-menu {font-family:'Arial';display: block;color: #35a7d6;text-decoration:none;font-size:16px; padding: 0px 28px 0px 6px;margin-top:14px;border:none;	}
+.menu  a:hover {color: #e84c3d;-webkit-transition:1s;-moz-transition:1s;-o-transition:1s;transition:1s;}
+#mid_contant{width:100%;float:left;background-color: #f0f0f0;min-height: 483px;margin-top:10px;}
+.white-box{background-color:white;border-radius: 4px;padding: 10px;}
+.bottom-blue-border {border-bottom: 1px solid #1ea7da;}
+.white-box-feed{background-color:white;border-radius: 4px;margin: 0px;padding: 30px;}
+.padding-2 {padding : 10px;}
+.bordered-alert{border: 2px solid green;border-radius:4px;margin: 8px 15px 20px 0px;width: 100%!important;background: rgb(240, 240, 240) none repeat scroll 0% 0%; padding: 10px 0px;}
+.custom_bids_list_border{border: 1px solid #ccc;border-radius: 4px;margin-bottom: 15px;padding: 10px 8px;width: 100%;}
+.margin-top {margin-top: 30px;}
+.no-pad{padding-left:0px;padding-right:0px;}
+.custom_inter_list_border{border: 1px solid #ccc;border-radius: 4px;margin-bottom: 15px;padding: 10px 8px;}
+.blue-text {color : #028FCC !important;}
+.margin-top-1{margin-top: 10px;}
+.pull-left{float:left;}
+.top-right{margin-right: -30px!important;}
+/*Freelancer profile start*/
+.header_border {
+	height: auto;
+	width: 100%;
+	background: #fff;
+    border: 1px solid #ccc;
+    position: relative;
+    padding:10px;
+}
+.buttonsidetwo {
+	padding: 15px;
+}
+.protfilio {
+	margin-top: 10px;
+}
+.topmiddle h4 {
+	padding-top: 10px;
+	font-size: 21.88px;
+	color: #494949;
+    text-transform: uppercase;
+	font-family: "Calibri";
+	src: url(../fonts/Calibri.ttf);
+}
+.topmiddle p {
+	padding-top: 10px;
+	font-size: 13px;
+	font-family: 'Calibri';
+	src: url(../fonts/Calibri.ttf);
+    color:#494949;
+	font-weight: 700;
+    margin-bottom: 2px;
+}
+.topmiddle h3 {
+	font-size: 16px;
+	font-family: 'Calibri';
+	src: url(../fonts/Calibri.ttf);
+	padding-top: 5px;
+	font-weight: 800;
+    color: #494949;
+}
+.topriht h4 {
+	padding-top: 10px;
+	font-size: 21.88px;
+	color: #494949;
+	font-family: "Calibri";
+	src: url(../fonts/Calibri.ttf);
+	top: 0px;
+	right: 15px;
+	margin-bottom: 10px;
+}
+.buttonside ul {
+	list-style: none;
+	max-width: 470px;
+    padding-top: 8px;
+}
+.buttonside ul li {
+	padding: 10px 5px 0 0px;
+	float: left;
+}
+.buttonside ul li a {
+	background-color: #e6e7e7;
+	border-radius: 4px;
+	color: #535353;
+	font-family: 'Calibri';
+    src: url(../fonts/Calibri.ttf);
+	font-size: 10.5px;
+	padding: 4px 8px;
+}
+.buttonsidefoure h2 {
+	font-size: 21.26px;
+	color: #494949;
+	font-family: 'Calibri';
+	src: url(../fonts/Calibri.ttf);
+	display: block;
+	padding: 15px 0 0 0;
+}
+.buttonsidefoure ul li a span {
+	color: #494949;
+	font-family: 'Calibri';
+	src: url(../fonts/Calibri.ttf);
+	font-size: 14px;
+}
+.top_border {
+	border: 1px solid #ccc;
+	width: 60%;
+	text-align: center;
+	margin:0 auto;
+	margin-top: 30px;
+}
+.buttonsidetwo h2 {
+	padding-bottom: 20px;
+	font-family: "Calibri";
+	font-weight: 800;
+	margin-left: 10px;
+	font-size: 22px;
+	margin-top: 40px;
+}
+.company_name span {
+	color: #494949;
+	font-size: 18px;
+	font-weight: 800;
+}
+.buttonsidetwo h2 {
+	padding-bottom: 12px;
+	font-family: "Calibri";
+	font-weight: 800;
+	margin-left: 10px;
+	font-size: 22px;
+	margin-top: 15px;
+}
+.buttonsidetwo p {
+	font-family: "Calibri";
+	src: url(../fonts/Calibri.ttf);
+	margin-left: 10px;
+}
+.history_section {
+	background: #fff;
+	border: 1px solid #ccc;
+	padding: 20px;
+}
+
+.buttonsidethreeright h6, h3 {
+	margin-top: 10px;
+}
+.buttonsidethreeright span, h3, h6 {
+	padding-bottom: 10px;
+}
+.buttonsidethreeleft p {
+	color: #000000;
+	font-family: "Calibri";
+	font-size: 20px;
+	font-weight: 800;
+	color: #1CA7DB;
+	margin-bottom: -10px;
+}
+.buttonsidethreeleft h3 {
+  color: #6b6b6b;
+  font-family: "Calibri";
+  font-size: 17.5px;
+}
+
+/* job view page*/
+.buttonsidethree {
+ 
+  margin-top: 16px;
+}
+.buttonsidethreeleft p {
+	color: #000000;
+	font-family: "Calibri";
+	font-size: 20px;
+	font-weight: 800;
+	color: #1CA7DB;
+	margin-bottom: -10px;
+}
+.buttonsidethreeleft h3 {
+  color: #6b6b6b;
+  font-family: "Calibri";
+  font-size: 17.5px;
+}
+.buttonsidethreeright {
+  float: right;
+}
+.buttonsidethreeright h6 {
+  color: #494949;
+  display: inline-block;
+  font-family: "Calibri";
+  font-size: 20px;
+  padding-bottom: 5px;
+  width: 100%;
+  font-weight: 800;
+}
+.buttonsidethreeright h3 {
+  color: #494949;
+  font-family: "Calibri";
+  font-size: 18px;
+}
+.buttonsidethreeright h4 {
+  color: #6b6b6b;
+  font-family: "ArialRegular";
+  font-size: 18px;
+  padding-top: 5px;
+}
+.buttonsidethreeright span.rate {
+  float: left;
+  font-size: 1.5em;
+  padding-left: 10px;
+  width: auto;
+}
+.main_portfolio {
+	background: #fff;
+	border: 1px solid #ccc;
+	margin-top: 25px;
+	padding-top: 30px;
+	margin-bottom: 40px;
+}
+.protilo-left h2 {
+	font-family: "Calibri";
+	padding-bottom: 25px;
+	padding-top: 31px;
+	padding-left: 30px;
+    color: #000;
+}
+.protfilhead h1 {
+	font-family: "Calibri";
+	padding-bottom: 20px;
+	padding-left: 30px;
+	font-size: 22px;
+	font-weight: 800;
+}
+.exp-showcase {
+	padding-left: 30px;
+    font-family: "Calibri";
+}
+.exp-showcase h4 {
+	padding-bottom: 10px;
+}
+.feedback_comment p {
+	padding-top: 10px;
+	font-family: "Calibri";
+	padding-left: 30px;
+	margin-bottom: 10px;
+}
+.protfilheadtwo h1 {
+	font-family: "Calibri";
+	padding-bottom: 25px;
+
+}
+.protfilio-bottom {
+	margin-bottom: 20px;
+}
+.protfilheadtwo {
+	padding-bottom: 10px;
+	padding-left: 30px;
+}
+.buttonsidethreeright {
+	margin-right: 30px;
+}
+.port_img h1 a {
+	color: #494949;
+	font-size: 15px;
+	font-weight: 800;
+	text-decoration: none;
+}
+.protfilio {
+	margin-top: 7px;
+}
+.exp-showcase h4 a {
+	font-size: 20px;
+	font-weight: 800;
+}
+.company_name h4 a {
+	font-size: 0px;
+    font-family: "Calibri";
+    src: url(../fonts/Calibri.ttf);
+}
+.user_view_img {
+  margin-bottom: 5px;
+  text-align: center;
+}
+.proftilbutt,.protilo-right,.proftilbutttwo {
+	margin-left: 102px;
+}
+.protfilheadtwo p, h2, h3, h4, h5, h6 {
+	/* padding-bottom: 21px; */
+	/* padding-left: 30px; */
+	margin-bottom: 10px;
+}
+.education_head p, h2, h3, h4, h5, h6 {
+	margin-bottom: 10px;
+    font-family: "Calibri";
+}
+.education_head {
+	margin-left: 30px;
+	/* margin-bottom: 20px; */
+}
+.marg-top{margin-top:-5px;}
+/*Freelancer profile end*/
+
+
+.star-rating {
+    background: #eba705 none repeat scroll 0 0;
+    border-radius: 4px;
+    color: #fff;
+    float: left;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 5px;
+}
+.star-rating {
+  font-family: star;
+  font-size: 20px;
+  height: 1em;
+  overflow: hidden;
+  position: relative;
+  width: 4.2em;
+  background: none !important;
+    margin-bottom: 10px;
+
+}
+.star-rating::before {
+    color: #ddd;
+    content: "\2605\2605\2605\2605\2605";
+    float: left;
+    left: 0;
+    position: absolute;
+    top: 0;
+    padding-bottom: 
+}
+.star-rating span,#feedbackbutton h4 span {
+  color: #F77D0E ;
+  float: left;
+  font-size: 20px !important;
+  left: 0;
+  margin-left: 0 !important;
+  overflow: hidden;
+  padding-top: 1.5em !important;
+  position: absolute;
+  top: 0;
+}
+
+.star-rating span::before {
+    color: #F77D0E ;
+    content: "\2605\2605\2605\2605\2605";
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+.job-history{padding:10px 15px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; margin-top: 30px; border: 1px solid rgb(204, 204, 204);}
+.his_{border: 0;border-bottom: 1px solid #ccc;}
+.marg-5{margin-bottom: 5px;}
+@media(max-width: 480px){
+	.buttonsidefoure{margin-top:20px!important;}
+	.job-history{padding-left:10px!important;}
+	.no-pad-mob{padding-left:0px;padding-right:0px!important;}
+}
+@media (min-width: 481px) and (max-width: 768px) {
+	.container {width: 740px;}
+	.buttonsidefoure{margin-top:20px;}
+	.no-pad-mob{padding-left:0px;padding-right:0px!important;}
+}
+@media (min-width: 1200px) {
+	.container {width: 1000px;}
+}
+@media (min-width: 1024px) {
+	.container {width: 1000px;}
+}
