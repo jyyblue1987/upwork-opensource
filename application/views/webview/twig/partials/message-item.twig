@@ -1,0 +1,17 @@
+<li style="padding:20px">
+    <span class="name">
+        <img src="{{ app_user_img( image ) }}"> 
+        {{ fname ~ ' ' ~ lname }}
+    </span>
+    <span class="chat-date">{{ time }}</span>
+    <span class="details">{{ message }}</span>
+    {% if images is not empty %}
+        {% for image in images %}
+            <div class = "chat_image">
+                <a target="blank"  href="{{ base_url('uploads/' ~ image.name ) }}">
+                    {{ image.name }} 
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
+</li>

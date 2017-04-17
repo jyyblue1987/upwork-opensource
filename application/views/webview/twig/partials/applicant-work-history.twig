@@ -1,0 +1,82 @@
+<div class="topriht">
+    <h2>
+        <b>{{ app_lang('text_job_applicant_work_history') }}</b>
+    </h2>
+    <ul>
+        <li>
+            <div class="review_ratting text-center">
+                <span class="rating-badge rating-sidebar-badge">{{ rating }}</span>
+                <div title="Rated {{ rating }} out of 5" class="star-rating star-rating-custom" 
+                     itemtype="http://schema.org/Rating" 
+                     itemscope="" 
+                     itemprop="reviewRating">
+                    <span style="width:{{ (( rating / 5) * 100) }}% ; margin-top:0px;">
+                        <strong itemprop="ratingValue">{{ rating }}</strong> out of 5
+                    </span>
+                </div>
+                <div class="clearfix clear-both"></div>
+            </div>  
+        </li>
+        <li class="main_hourly_rate">
+            <div>
+                <a href="#">
+                    <i style="font-size: 17px;" class="fa fa-credit-card-alt" aria-hidden="true"></i>
+                    &nbsp;${{ hourly_rate + hourly_rate * constant('WINJOB_FEE') }} <span>/hr</span>
+                </a>
+            </div>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                &nbsp;
+                {% if total_work is not empty %}
+                    {{ total_work }} 
+                    <span class='cc_normal_txt'>
+                        {% if total_work > 1 %}
+                            hrs
+                        {% else %}
+                            hr
+                        {% endif %}
+                    </span>
+                {% else %}
+                    0.00 <span class='cc_normal_txt'>hr</span>
+                {% endif %}
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-suitcase" aria-hidden="true"></i>
+                &nbsp;
+                {{ ended_jobs }} 
+                <span>
+                    {% if ended_jobs > 1 %}
+                        {{ app_lang('text_job_applicant_jobs_completed') }}
+                    {% else %}
+                        {{ app_lang('text_job_applicant_job_completed') }}
+                    {% endif %}
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <i class="fa fa-tree" aria-hidden="true"></i>
+                &nbsp;
+                {{ exp }} 
+                <span>
+                    {% if exp > 1 %}
+                        {{ app_lang('text_job_applicant_years_experience') }}
+                    {% else %}
+                        {{ app_lang('text_job_applicant_year_experience') }}
+                    {% endif %}
+                </span>
+            </a>
+        </li>
+        <li>
+            <a style="font-size: 18px;" href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                &nbsp;
+                <span>{{ country }}</span>
+            </a>
+        </li>
+    </ul>
+</div>

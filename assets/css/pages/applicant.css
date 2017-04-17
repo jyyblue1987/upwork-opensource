@@ -19,10 +19,7 @@ and open the template in the editor.
     display: inline-block;
     margin-top: -7px;
 }
-.attach_icon{
-    height: 20px;
-    width: 20px;
-}
+
 .main_hourly_rate a {
     margin-top: 15px;
 }
@@ -47,28 +44,9 @@ span.rating-badge {
     margin: -24px 11px;
 }
 
-.attach_icon {
-    position: absolute;
-    right: 5%;
-    font-size: 26px;
-    top: 51%;
-    color: #a2a2a2;
-    transform: rotate(90deg);
-}
-.show_files{
-    position: absolute;
-    left: 5%;
-    top: 3%;
-}
-.show_files span{
-    font-size: 12px;
-}
-.show_files .delete_item{
-    margin-left: 5px;
-}
 .user_skills span {
     background: #ccc none repeat scroll 0 0;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 3px;
     color: #494949;
     display: inline-block;
@@ -84,11 +62,6 @@ span.rating-badge {
 
 .row.chat-box { min-height: 400px; border: 1px solid; padding: 16px;}
 
-
-.white-box.bordered_cl {
-    width: 754px;
-}
-
 textarea#chat-input { 
     width: 568px;
     height: 40px;
@@ -101,45 +74,7 @@ textarea#chat-input {
     color: #1ca7db;
 }
 .chat-sidebar a { color: #000;}
-.chat-bar { 
-    width: 100%;
-    z-index: 1;
-    bottom: 0;
-    min-height: 80px;
-    height: 80px;
-    position: absolute;
-    background: #fff;
-    top: 325px;
-    border-top: 1px solid #ccc;
-}
 
-form#chat_form a {
-    display: inline-block;
-    background: #1ca7db;
-    color: #fff;
-    text-align: center;
-    font-size: 18px;
-    padding: 5px 21px;
-    margin: 18px 6px;
-    text-decoration: none;
-    width: 120px;
-    height: 40px;
-}
-.cover_box p {
-    padding-top: 0px;
-}
-.textarea {
-    max-height: 300px;
-    overflow-x: hidden;
-    overflow-wrap: break-word;
-    resize: horizontal;
-    height: 645px;
-    overflow-y: visible;
-}
-.textarea:focus{
-    outline-style: solid;
-    outline-width: 2px;
-}
 span.chat-date { font-size: 13px; padding: 0 0 0 15px; color: #949494;}
 span.group-date { display: block; text-align: center; font-size: 16px; color: #7d7b7b;}
 span.name { text-transform: capitalize;}
@@ -152,11 +87,13 @@ span.text1 {text-transform: capitalize;}
 .uploaded_files .item { float: left; margin-right: 5px; }
 .fa-times{ background: none; color: #000; }
 
+
 .header-border-x{
     padding: 10px;
     background: #fff;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     position: relative;
+    padding-bottom: 40px;
 }
 
 #interview-content{
@@ -169,6 +106,12 @@ span.text1 {text-transform: capitalize;}
 
 .review_ratting{
     margin-top:1px;
+}
+
+@media (max-width: 767px){
+    .review_ratting{
+        margin-left: 41.66666667%;
+    }
 }
 
 .star-rating-custom{
@@ -207,14 +150,10 @@ span.text1 {text-transform: capitalize;}
     background-color: #fff;
 }
 
-.buttonside{
-    padding-bottom: 55px;
-}
-
 .topriht {
     background: #fff;
     padding: 10px 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
 }
 
 #buttonsecond {
@@ -252,6 +191,32 @@ span.text1 {text-transform: capitalize;}
     padding: 20px;
 }
 
+.white-box.bordered_cl {
+    margin-top:20px;
+    margin-bottom:40px;
+    border: 1px solid #ddd;
+}
+
+.cover-letter {
+    font-size: 22px;
+    padding: 0px 13px;
+    font-family: "Calibri";
+    color: #494949;
+    font-weight: 800;
+}
+
+.cover-letter-text {
+    font-size: 16px;
+    line-height: 26px;
+}
+
+.cover_box p {
+    padding: 0 15px;
+    margin-bottom: 0;
+}
+
+.lab-details{ font-size: 16px; }
+
 /********************************************************
  *
  * CHAT STYLE SHOULD BE PLACE IN ITS OWN FILE.
@@ -259,13 +224,13 @@ span.text1 {text-transform: capitalize;}
  ********************************************************/
 
 .chat-screen {
-    border: 1px solid #ccc; 
+    border: 1px solid #ddd; 
     padding: 0;
-    min-height: 410px;
+    min-height: 200px;
 }
 
 .chat-details-topbar { 
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #ddd;
     padding: 0 10px;
 }
 
@@ -281,8 +246,8 @@ span.text1 {text-transform: capitalize;}
 
 .chat-details {  
     overflow-x: hidden; 
-    overflow-y: scroll;
-    max-height: 246px;
+    overflow-y: auto;
+    max-height: 350px;
 }
 .chat-details ul li { 
     list-style-type: none; 
@@ -308,6 +273,56 @@ span.text1 {text-transform: capitalize;}
     padding: 20px 10px;
 }
 
+.chat-bar{
+    border-top: 1px solid #ddd;
+    padding: 10px;
+}
+
+.buttonsidefoure {
+    margin-top: -35px !important;
+}
+
+.buttonsidefoure .topriht{
+    padding: 10px 15px;
+}
+
+.buttonsidefoure .review_ratting{
+    margin-left: 0;
+}
+
+.buttonsidefoure h2{
+    margin: 0;
+    padding: 0;
+    margin-left: 0;
+}
+
+.buttonsidefoure ul li{
+    margin-top: 10px;
+}
+
+.buttonsidefoure ul li a {
+    text-decoration: none;
+    color: #494949;
+    font-family: 'Calibri';
+    font-size: 16px;
+    display: block;
+    font-weight: bold;
+}
+
+.buttonsidefoure ul li a i {
+    text-align: center;
+    height: 30px;
+    width: 30px;
+    font-size: 20px;
+    padding: 6px 6px;
+    border-radius: 50%;
+    color: #494949;
+}
+
+.rating-sidebar-badge{
+    font-size: 10px;
+}
+
 /* Tiny reset; you probably already have this */
 .expandingArea textarea, 
 .expandingArea pre {
@@ -326,8 +341,10 @@ span.text1 {text-transform: capitalize;}
  */
 .expandingArea {
   position: relative;
-  border: 1px solid #888;
+  border: 2px solid #1ca7db;
   background: #fff;
+  border-radius: 5px;
+  min-height: 50px;
 }
 /* Any padding should go in here; it needs to be
    the same for both the pre and the textarea. You
@@ -344,6 +361,13 @@ span.text1 {text-transform: capitalize;}
   /* Make the text soft-wrap */
   white-space: pre-wrap;
   word-wrap: break-word;
+  padding-bottom: 20px;
+}
+
+.expandingArea.has-files textarea,
+.expandingArea.has-files pre
+{
+    padding-bottom: 30px;
 }
 
 .expandingArea textarea {
@@ -356,11 +380,11 @@ span.text1 {text-transform: capitalize;}
        -ms-box-sizing: border-box;
            box-sizing: border-box;
    /* This height is used when JS is disabled */
-   height: 100px;
+   height: 150px;
    width: 100%;
  }
 
-.expandingArea.active textarea {
+.expandingArea.active-textbox textarea {
   /* Hide any scrollbars */
   overflow: hidden;
   position: absolute;
@@ -374,8 +398,102 @@ span.text1 {text-transform: capitalize;}
 .expandingArea pre {
   display: none;
 }
-.expandingArea.active pre {
+.expandingArea.active-textbox pre {
   display: block;
   /* We don't actually want to see this text, it's just for sizing */
   visibility: hidden;
+}
+
+#chat_form
+{
+    margin-bottom: 0;
+}
+
+#chat-submit{
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    background-color: #1CA7DB;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    line-height: 50px;
+    font-size: 28px;
+}
+
+#chat-submit i{
+    position: relative;
+    left: -3px;
+    top: 0;
+}
+
+.chat-submit-container{
+    padding: 0; 
+}
+
+@media(max-width: 479px){
+    #chat-submit{
+        height: 30px;
+        width: 30px;
+        border-radius: 15px;
+        font-size: 14px;
+        line-height: 30px;
+    }
+}
+
+.attach_icon{
+    height: 20px;
+    width: 20px;
+}
+
+.attach_icon{
+    position: absolute;
+    left: 8px;
+    font-size: 18px;
+    top: -19px;
+    color: #a2a2a2;
+    width: 100%;
+}
+
+.attach_icon .uploaded_files{
+    margin-left: 10px;
+    width:90%
+}
+
+.attach_icon i {
+    cursor: pointer;
+    transform: rotate(90deg);
+    width: 5%;
+}
+
+
+.chat-thumbnail-wrapper{
+    position: relative; 
+    left: 0; 
+    right: 0;
+}
+
+
+.show_files {
+    position: absolute;
+    left: 5%;
+    top: -7px;
+    margin-left: 10px;
+    width:90%;
+}
+
+.show_files span{
+    font-size: 12px;
+}
+
+.show_files .delete_item{
+    margin-left: 5px;
+}
+
+
+#msg_container{
+    display: inline-block;
+    margin: 5px 0;
+    width: 100%;
+    padding: 5px;
 }

@@ -398,7 +398,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <i style="cursor: pointer;" class="fa fa-paperclip" aria-hidden="true"></i>
                                                             </div>
                                                         </div>
-                                                        <div class="sms_send_btn ccc_sms_send_btn" style="width:20%;float: left;height: 100px;"><a href="javascript:void(0);" id="submit">SEND</a></div>
+                                                        <div class="sms_send_btn ccc_sms_send_btn" style="width:20%;float: left;height: 100px;">
+                                                            <a href="javascript:void(0);" id="submit">SEND</a>
+                                                        </div>
                                                     </form>
                                                     <div style="width:77%;min-height: 42px;position: relative; top: 12px;">
                                                         <div class="uploaded_files" style='left: 3%'></div>
@@ -472,10 +474,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         ?>
                                                     </a>
                                                 </li>
-                                                <li><a href=""><i class="fa fa-suitcase" aria-hidden="true"></i>&nbsp;<?php echo $ended_jobs; ?> <span>  Jobs Completed </span></a>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="fa fa-suitcase" aria-hidden="true"></i>
+                                                        &nbsp;
+                                                        <?php echo $ended_jobs; ?> 
+                                                        <span>  Jobs Completed </span></a>
                                                 </li>
                                                 <li>
-                                                    <a href=""><i style="margin-right: 5px;" class="fa fa-tree" aria-hidden="true"></i>&nbsp;<?php echo $exp ?> <span> Years Experience</span></a>
+                                                    <a href="">
+                                                        <i style="margin-right: 5px;" class="fa fa-tree" aria-hidden="true"></i>
+                                                        &nbsp;
+                                                        <?php echo $exp ?> <span> Years Experience</span></a>
                                                 </li>
                                                 <li style="margin-bottom: -10px;">
                                                     <a style="font-size: 18px;" href=""><i style="margin-right: 4px;" class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;

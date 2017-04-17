@@ -33,7 +33,8 @@ class Winjob_Controller extends CI_Controller {
                 'app_lang',
                 'app_user_img',
                 'has_flash', 'flashdata', 'csrf_name', 'csrf_token',
-                'app_time_elapsed_string', 'strtotime', 'app_workdiary_capture'
+                'app_time_elapsed_string', 'strtotime', 'app_workdiary_capture', 
+                'current_user_datetime'
              )
         ));
         // added by (Donfack Zeufack Hermann) end

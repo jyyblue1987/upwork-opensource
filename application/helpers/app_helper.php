@@ -402,6 +402,34 @@ if( !function_exists('array_key_value_exists'))
     }
 }
 
+function current_user_datetime( $app_date_time, $user_timezone )
+{
+    $app_timezone = new DateTimeZone(date_default_timezone_get());
+    $gmtTimezone  = new DateTimeZone('GMT');
+    $date         = new DateTime( $app_date_time, $app_timezone );
+    $date->setTimezone($gmtTimezone);
+    $date->setTimezone($user_timezone);
+    return $date;
+}
+
+function get_right_timezone( $name )
+{
+    $all_timezones = DateTimeZone::listIdentifiers();
+    
+    $name = str_replace('St. ', 'St ', $name);
+    $name = str_replace(' ', '_', $name);
+    $name = str_replace(', ', '/', $name);
+    
+    foreach($all_timezones as $timezone)
+    {
+        if(strpos($timezone, $name) !== false ) 
+        {
+            return $timezone;
+        }
+    }
+    return date_default_timezone_get();
+}
+
 function timezone_list() {
     static $timezones = null;
 

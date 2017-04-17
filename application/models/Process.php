@@ -227,6 +227,30 @@ class Process extends CI_Model {
         return $query->row_array();
     }
     
+    public function get_all_images_of_each_message( $ids )
+    {
+        $query = $this->db
+                    ->select('*')
+                    ->from('job_conversation_files')
+                    ->where_in('job_conversation_id', $ids)
+                    ->order_by('job_conversation_id')
+                    ->get();
+        
+        $result = $query->result();
+        
+        $images = array();
+        if( ! empty($result) )
+        {
+            foreach($result as $item)
+            {
+                $image_item = new stdClass;
+                $image_item->name = $item->name;
+                $images[ $item->job_conversation_id ][] = $image_item;
+            }
+        }
+        return $images;
+    }
+    
     function get_job_info($user_id, $job_id){
         $this->db
                 ->select('job_bids.*, jobs.job_type, jobs.title, job_bids.id AS bid_id')

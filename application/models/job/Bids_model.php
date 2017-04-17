@@ -41,4 +41,10 @@ class Bids_model extends CI_Model {
         $this->db->where('job_id', $job_id);
         $this->db->update('job_bids', $updated_data);
     }
+    
+    public function update_field($bid_id, $field, $value)
+    {
+        $this->db->where('id', $bid_id);
+        $this->db->update('job_bids', array($field => $value));
+    }
 }

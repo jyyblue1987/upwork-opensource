@@ -71,15 +71,9 @@ class Applicants extends Winjob_Controller {
         if( empty( $freelancer ) ){
             $this->session->set_flashdata('error', $this->lang->line('text_app_runtime_no_freelancer'));
             redirect( home_url() );
-        }
-            
-
-        $budget             = 0;
-        $total_work         = 0;
-        $feedbackScore      = 0;
+        }        
 
         $ended_jobs         = $this->process->cnt_ended_jobs($user_id);
-        //$withdrawn          = $this->process->get_withdrawn_by($user_id, $bid_id, $job_id);
         $country            = $this->ProfileModel->get_country($freelancer->webuser_country);
         $skills             = $this->ProfileModel->get_skills($user_id);
         $user_rating        = $this->webuser_model->get_total_rating($user_id);
@@ -87,69 +81,45 @@ class Applicants extends Winjob_Controller {
         $conversation       = $this->process->get_conversation($job_id, $bid_id);
         $job_info           = $this->process->get_job_info($user_id, $job_id);
         
-        /*foreach ($conversation['data'] AS $_convo) 
+        if( ! empty( $conversation['data'] ) )
         {
-            $images = $this->process->get_convo_images($_convo->id);
-        }*/
+            $all_conv_ids = array();
+            
+            foreach ($conversation['data'] AS $_convo) 
+            {
+                $all_conv_ids[] =  $_convo->id;
+            }
 
+            $images = $this->process->get_all_images_of_each_message( $all_conv_ids );
+        }
+
+        $total_work         = 0;
         foreach ($accepted_jobs AS $a_jobs) 
         {
-            $feedbacks = $this->process->get_feedbacks($a_jobs->fuser_id, $a_jobs->job_id);
             $diary     = $this->job_work_diary_model->get_work_hours($a_jobs->fuser_id, $a_jobs->job_id);
 
             foreach ($diary AS $_diary) 
             {
                 $total_work += $_diary->total_hour;
             }
-
-            if ($a_jobs->jobstatus == 1) 
-            {
-                if (!empty($feedbacks)) 
-                {
-                    if ($a_jobs->job_type == 'fixed') 
-                    {
-                        $price = $a_jobs->fixedpay_amount;
-                        $feedbackScore += ($feedbacks['feedback_score'] * $price);
-                        $budget += $price;
-                    } 
-                    else 
-                    {
-                        if ($a_jobs->offer_bid_amount) 
-                        {
-                            $amount = $a_jobs->offer_bid_amount;
-                        } 
-                        else 
-                        {
-                            $amount = $a_jobs->bid_amount;
-                        }
-
-                        $price = $a_jobs->fixedpay_amount * $amount;
-                        $feedbackScore += ($feedbacks['feedback_score'] * $price);
-                        $budget += $price;
-                    }
-                }
-            }
         }
 
         //Get the timezone.
-        $condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
-        $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS, null, $condition);
-        $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
-        $all_timezones = DateTimeZone::listIdentifiers();
-        
-        dump($timezone['name'], true);
+        $client_id             = $this->session->userdata(USER_ID);
+        $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS, null, " AND webuser_id=" . $client_id);
+        $timezone              = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
+        $user_timezone         = get_right_timezone( $timezone['name'] );
+        $date                  = Carbon::now( new DateTimeZone( $user_timezone ) );
         
         $params = array(
-            'timezone'        => $timezone,
-            'current_time'    => Carbon::now($timezone['value']), //Current time from user timezone
+            'crt_user_time'   => $date, //Current time from user timezone
+            'user_timezone'   => $user_timezone,
             'ended_jobs'      => $ended_jobs,
-            'budget'          => $budget,
-            'feedback_score'  => $feedbackScore,
             'total_work'      => $total_work,
+            'images'          => $images,
             'tagline'         => ucfirst($freelancer->tagline),
             'country'         => ucfirst($country['country_name']),
             'status'          => $freelancer->isactive,
-            'title'           => 'Interviews - Winjob',
             'slag'            => strtolower(str_replace(' ', '-', $freelancer->webuser_fname . '-' . $freelancer->webuser_lname)),
             'fname'           => $freelancer->webuser_fname,
             'lname'           => $freelancer->webuser_lname,
@@ -168,10 +138,123 @@ class Applicants extends Winjob_Controller {
             'v_bid_id'        => $view_bid_id,
             'v_user_id'       => $view_user_id
         );
-
-        //$this->Admintheme->webview2("applicants", $params);
         
         $this->twig->display('webview/twig/applicant', $params);
+    }
+    
+    public function post_message()
+    {   
+        $sender_id     = (int)$this->session->userdata(USER_ID);
+        $freelancer_id = (int)$this->input->post('receiver_id');
+        $job_id        = (int)$this->input->post('job_id');
+        $bid_id        = (int)$this->input->post('bid_id');
+        $_timezone     = $this->input->post('timezone');
+        $timezone      = ! empty($_timezone) ? $_timezone : date_default_timezone_get();
+        $message       = rtrim(trim($this->input->post('chat_message')));
+        
+        if(empty($freelancer_id) || empty($job_id) || empty($bid_id))
+        {
+            $this->ajax_response(array(
+                'message' => $this->lang->item('text_job_conversation_refresh_your_browser') ,
+                'status'  => 'error'
+            ));
+        }
+        
+        if(empty($message))
+        {
+            $this->ajax_response(array(
+                'message' => $this->lang->item('text_job_conversation_empty_message') ,
+                'status'  => 'error'
+            ));
+        }
+        
+        $this->load->model(array('conversation_model', 'job/bids_model', 'webuser_model'));
+        
+        $current_date = date('Y-m-d H:i:s');
+        $message_item = array(
+            "job_id"               => $job_id,
+            "bid_id"               => $bid_id,
+            "message_conversation" => $message,
+            "sender_id"            => $sender_id,
+            "receiver_id"          => $freelancer_id,
+            "created"              => $current_date,
+            "have_seen"            => 1,
+        );
+        
+        //Save message of interview.
+        $message_item_id = $this->conversation_model->create($message_item);
+        //update the bid state (bid is being in interview process)
+        $this->bids_model->update_field($bid_id, 'job_progres_status', 1);
+        
+        $images = array();        
+        if (isset($_FILES['fileupload']) && !empty($_FILES['fileupload'])) 
+        {
+            $attachment_file = $this->_handle_remove_files_list();
+            $images          = $this->_upload_files( $attachment_file, $message_item_id );
+        }
+        
+        $user_datetime = current_user_datetime($current_date, $timezone);
+        $time          = $user_datetime->format('g:i A');
+        $client        = $this->webuser_model->load_informations($this->session->userdata(USER_ID));
+        
+        $html = $this->twig->render('webview/twig/partials/message-item', array(
+            'time'    => $time,
+            'image'   => $client->cropped_image,
+            'fname'   => $client->webuser_fname,
+            'lname'   => $client->webuser_lname,
+            'message' => $message,
+            'images'  => $images,
+        ));
+        
+        $this->ajax_response(array(
+            'message' => $html,
+            'status'  => 'success',
+        ));        
+    }
+    
+    private function _upload_files( $attachment_file, $insert_id )
+    {
+        $images = array();
+        $num_files = count($attachment_file['name']);
+        for ($i = 0; $i < $num_files; $i++) {
+            if ($attachment_file["error"][$i] > 0) {
+
+            } else {
+                $img = $attachment_file["name"][$i];
+                $file = explode(".", $img);
+                $new_image_name = 'image_' . uniqid() . '.' . 'jpg';
+                move_uploaded_file($attachment_file["tmp_name"][$i], 'uploads/' . $new_image_name);
+                if( $this->db->insert('job_conversation_files', array(
+                    'job_conversation_id' => $insert_id,
+                    'name'                => $new_image_name,
+                    'original_name'       => $img
+                ))){
+                    $item       = new stdClass();
+                    $item->name = $new_image_name;
+                    $images[]   = $item;
+                } 
+            }
+        }
+        
+        return $images;
+    }
+    
+    private function _handle_remove_files_list()
+    {
+        $attachment_file  = $_FILES["fileupload"];
+        $removed_images   = $this->input->post('removed_files');
+        $removed_images   = ! empty( $removed_images ) ? explode(',', $_POST['removed_files']) : array();
+        
+        if (count($removed_images)) {
+            foreach ($removed_images as $index => $value) {
+                if (in_array($value, $attachment_file['name'])) {
+                    $key = array_search($value, $attachment_file['name']);
+                    unset($attachment_file['name'][$key]);
+                    unset($attachment_file['tmp_name'][$key]);
+                }
+            }
+        }
+        return $attachment_file;
     }
 
     public function insert_message() {
@@ -309,7 +392,4 @@ class Applicants extends Winjob_Controller {
         print_r(json_encode($html));
         die;
     }
-
 }
-
-?>
