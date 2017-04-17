@@ -173,9 +173,10 @@ if (count($records) > 0)
             <div class="col-md-12">
                 <nav>
                     <ul class="job-navigation custom_find_job_bottom">
-                    
-                     <?php 
-                        if($value->isactive && $paymentSet) 
+
+                     <?php
+                        $emp = new Employer($value->user_id);
+                        if($emp->is_active() == 1 && $emp->is_payment_set()) 
                         {
                           ?>
                         <li><i style="color: rgb(2, 143, 204);" class="fa fa-check-circle"></i>Verified</li>
