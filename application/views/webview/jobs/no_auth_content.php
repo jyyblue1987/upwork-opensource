@@ -216,6 +216,13 @@ if (count($records) > 0)
                                </div>
                           <?php   } ?>
                         </li>
+                        <li>
+                            <i style="font-size: 16px;margin-right: 2px;" class="fa fa-map-marker"></i>
+                            <?php
+                            $country = new Employer($value->user_id);
+                            echo $country->get_country();
+                            ?>
+			</li>
                     </ul>
                 </nav>
             </div>

@@ -106,7 +106,10 @@ class Employer extends CI_Model {
     }
 
     function get_country() {
-        return $this->country;
+        $this->db->where('country_id', $this->country);
+	$query = $this->db->get('country');
+        $result = $query->row_array();
+        return $result['country_name'];
     }
 
     function get_phone() {
