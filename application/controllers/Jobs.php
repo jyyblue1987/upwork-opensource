@@ -835,7 +835,7 @@ class Jobs extends Winjob_Controller {
             $hires = $this->process->get_hires($emp_id, $postId);
             $jobids = $this->process->get_job_ids($emp_id);
             $jobs_posted = $this->process->get_jobs($emp_id);
-            $country = $this->ProfileModel->get_country($client->get_country());
+            $country = new Employer($emp_id);
             $accepted_jobs = $this->process->accepted_jobs('', $emp_id);
             $freelancer_active = $this->Webuser_model->is_active($this->user_id);
 
@@ -883,7 +883,7 @@ class Jobs extends Winjob_Controller {
                 'payment_set' => $client->is_payment_set(),
                 'total_spent' => $client->total_spent($emp_id),
                 'rating' => $this->Webuser_model->get_total_rating($emp_id),
-                'country' => ucfirst($country['country_name']),
+                'country' => ucfirst($country->get_country()),
                 'f_active' => $freelancer_active,
                 'is_applied' => $this->process->is_applied($this->user_id, $postId),
                 'proposals' => $this->process->get_freelancer_proposals($this->user_id),
@@ -1671,7 +1671,7 @@ class Jobs extends Winjob_Controller {
                    $freelancer_profile = $this->ProfileModel->get_profile($_bids->user_id);
                    $accepted_jobs = $this->process->accepted_jobs($_bids->user_id);
                    $pic = $this->Adminforms->getdatax("picture", "webuser", $_bids->user_id);
-                   $country = $this->ProfileModel->get_country($_bids->webuser_country);
+                   $country = new Employer($_bids->user_id);
                    $skills = $this->ProfileModel->get_skills($_bids->user_id);
                    $user_rating = $this->Webuser_model->get_total_rating($_bids->user_id);
                    $_pic = $pic != "" ? $pic : "assets/user.png";
@@ -1719,7 +1719,7 @@ class Jobs extends Winjob_Controller {
                        'job_id' => $_bids->job_id,
                        'bid_id' => $_bids->id,
                        'bid_amount' => $_bids->bid_amount,
-                       'country' => ucfirst($country['country_name']),
+                       'country' => ucfirst($country->get_country()),
                        'letter' => $_bids->cover_latter,
                        'skills' => $skills,
                        'rating' => $user_rating
@@ -1774,7 +1774,7 @@ class Jobs extends Winjob_Controller {
                $freelancer_profile = $this->ProfileModel->get_profile($_interviews->user_id);
                $accepted_jobs = $this->process->accepted_jobs($_interviews->user_id);
                $pic = $this->Adminforms->getdatax("picture", "webuser", $_interviews->user_id);
-               $country = $this->ProfileModel->get_country($_interviews->webuser_country);
+               $country = new Employer($_interviews->user_id);
                $skills = $this->ProfileModel->get_skills($_interviews->user_id);
                $user_rating = $this->Webuser_model->get_total_rating($_interviews->user_id);
                $_pic = $pic != "" ? $pic : "assets/user.png";
@@ -1822,7 +1822,7 @@ class Jobs extends Winjob_Controller {
                    'job_id' => $_interviews->job_id,
                    'bid_id' => $_interviews->id,
                    'bid_amount' => $_interviews->bid_amount,
-                   'country' => ucfirst($country['country_name']),
+                   'country' => ucfirst($country->get_country()),
                    'letter' => $_interviews->cover_latter,
                    'skills' => $skills,
                    'rating' => $user_rating
@@ -2453,10 +2453,7 @@ class Jobs extends Winjob_Controller {
             $row_spent = $query_spent->row();
             $total_spent=$row_spent->total_spent;
             $emp = new Employer($value->clientid);
-            
-            $this->db->where('country_id', $emp->get_country());
-            $q = $this->db->get('country');
-            $country = $q->row_array();
+
             
             $this->db->select('*');            
             $this->db->from('jobs');
@@ -2491,7 +2488,7 @@ class Jobs extends Winjob_Controller {
                 'hire' => $record_hire,
                 'workedhours' => $workedhours,
                 'total_spent' => $total_spent,
-                'country' => ucwords($country['country_name']),
+                'country' => ucwords($emp->get_country()),
                 'fname' => ucwords($emp->get_fname()),
                 'status' => $emp->get_status(),
                 'payment_set' => $paymentSet,
