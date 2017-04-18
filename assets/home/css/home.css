@@ -306,7 +306,7 @@ width:100%;
 }
 #simpleApproacHeaderTexttwo p span{
 	font-family: 'Raleway';
-  font-weight: 600;
+  	font-weight: 600;
     font-size: 50px;
 	text-align:center;
 	margin-top:60px;
@@ -314,19 +314,29 @@ width:100%;
 	color:#20a7d9;
 }
 #simpleApproacBoxtwo article{ 
-		height:250px;	
-	  margin:30px auto;
+	  height:280px;	
+	  margin:20px auto;
 	  background-color:#fff;
 	  border:1px solid #3863A0;
 	  cursor:pointer;
 	  border-radius:4px;
 }
-#simpleApproacBoxtwo div  div:nth-child(1) i{
+#simpleApproacBoxtwo div div:nth-child(1){
+	font-family: 'Calibri';
+	font-size:20px;
+	height:50px;
+	border-bottom:1px solid #3863A0;
+	text-align: center;padding:0px;
+	margin-bottom:10px;
+	padding-top:10px;
+	color:#fff;
+}
+#simpleApproacBoxtwo div div:nth-child(2) i{
 	font-size:50px;
 	color:#fff;
 	margin-top: 20px;
 }
-#simpleApproacBoxtwo div  div:nth-child(1){
+#simpleApproacBoxtwo div div:nth-child(2){
 	position:absolute;
 	height:100px;
 	width:100px;
@@ -336,27 +346,19 @@ width:100%;
 	background:#000000;
 	position:relative;
 	margin:0 auto;
-	margin-top:-50px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-#simpleApproacBoxtwo div  div:nth-child(2){
-	font-family: 'Calibri';
-	font-weight: 600;
-	font-size:25.25px;
-	color:#000000; 
-	padding-top:20px;
-	text-align: center;
-}
-#simpleApproacBoxtwo div  div:nth-child(3){
-	font-family: 'Calibri';
-	font-weight: 400;
-	font-size:17px;
-	color:black;
-	padding-right:25px;
-	padding-top:12px;
-	text-align: center;
-	padding-left: 25px;
-}
+
+	#simpleApproacBoxtwo div div:nth-child(3){
+		font-family: 'Calibri';
+		font-weight: 400;
+		font-size:17px;
+		color:black;
+		padding-right:25px;
+		text-align: center;
+		padding-left: 25px;
+		padding-top:25px;
+	}
 #ouBlog{
 width:100%;	
 background-color:#457dbe;
@@ -496,3 +498,14 @@ div#web:hover i{
 div#web:hover .post-title{
 	color:#ffffff;
 }
+.p-text{color:#4CAF50;}
+.p-text2{color:#F44236;}
+.p-backgroun{background-color: #F44236!important;}
+.no-pad{padding-left:0;padding-right:0!important;}
+.background-0{background-color: #2F7B15!important;}
+.background-1{background-color: #0091CA!important;}
+.background-2{background-color: #756DDD!important;}
+.background-3{background-color: #B74700!important;}
+.background-4{background-color: #02BAD6!important;}
+.background-5{background-color: #F44136!important;}
+.inherit{text-decoration: none;color: inherit}
