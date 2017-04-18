@@ -223,7 +223,7 @@ foreach ($accepted_jobs as $job_data) {
                     <div style="overflow: hidden;" class="job-history">
                                     <div class="buttonsidethree">
                                         <div class="row">
-                                            <div class="col-md-6 col-sm-6">
+                                            <div class="col-md-6 col-sm-6 no-pad-mob">
                                                 <div class="buttonsidethreeleft">
                                                     <h2>Job History</h2>
                                                 </div>
@@ -246,15 +246,15 @@ foreach ($accepted_jobs as $job_data) {
                                         
                                 <div class="history_section his_">
                                         <div class="row no-pad">
-                                            <div class="col-md-8 col-sm-6 col-xs-12 no-pad">
-                                                <div style="padding-left: 9px;" class="buttonsidethreeleft">
+                                            <div class="col-md-8 col-sm-6 col-xs-12 no-pad-mob">
+                                                <div class="buttonsidethreeleft">
                                                     <p> <?= $job_data->hire_title ?></p>
                                                     <h3 style="margin-bottom: -8px;"><?php echo date(' M j, Y ', strtotime($job_data->start_date)); ?>
                                                     <?php if ($job_data->jobstatus == 1) {
                                                     echo " - " . date(' M j, Y ', strtotime($job_data->end_date));
                                                     } ?>
                                                     </h3>
-                                                    <p style="color: rgb(73, 73, 73); font-style: italic; font-size: 17.5px; font-weight: 500;">
+                                                    <p class="job-status">
                                                     <?php
                                                     if ($job_data->jobstatus == 1) {
                                                     if (!empty($jobfeedback)) {
@@ -271,17 +271,20 @@ foreach ($accepted_jobs as $job_data) {
                                             
                                             <div class="col-md-4 col-sm-6 col-xs-12">
                                                 <?php if ($job_data->job_type == "fixed") { ?>
-                                                <div class="buttonsidethreeright pull-right " style="padding:0;margin-right: -14px;">
+                                                <div class="buttonsidethreeright pull-right " style="padding:0;">
                                                     <?php } else { if ($job_data->jobstatus == 1) {
                                                     ?>
                                                     <div class="buttonsidethreeright " style="padding:0;"> <?php } else { ?>
-                                                        <div class="buttonsidethreeright pull-right " style="padding:0;margin-right: -14px;">
+                                                        <div class="buttonsidethreeright pull-right " style="padding:0;float:right:">
                                                             <?php }
                                                         } ?>
 
 
                                                         <?php
-                                                        if ($job_data->job_type == "fixed") {
+                                                        if ($job_data->job_type == "fixed") {?>
+                                                        <!--<h6>$<?= $job_data->bid_amount ?></h6>-->
+
+                                                            <h3 style='margin-top:0px;margin-bottom:-15px;float:right;font-size: 20px;font-family: "Calibri";'>Paid $<?= $total_price_fixed = $job_data->fixedpay_amount ?></h3><br><?
                                                         if ($job_data->jobstatus == 1) {
                                                         if (!empty($jobfeedback)) {
                                                         ?>
@@ -310,9 +313,7 @@ foreach ($accepted_jobs as $job_data) {
                                                                 <?php }
                                                             } ?>
 
-                                                            <!--<h6>$<?= $job_data->bid_amount ?></h6>-->
-
-                                                            <h3 style='position: absolute;right: 0;top: 18px;font-size: 20px;font-family: "Calibri";font-weight: 800;'>Paid $<?= $total_price_fixed = $job_data->fixedpay_amount ?></h3>
+                                                            
                                                         <?php
                                                         } else {
                                                         if ($job_data->jobstatus == 1) {
@@ -335,7 +336,7 @@ foreach ($accepted_jobs as $job_data) {
                                                                     <?php }
                                                                 } ?>
 
-                                                            <h6>
+                                                            <h6 style="text-align: right;">
                                                                 <?php
                                                                 $this->db->select('*');
                                                                 $this->db->from('job_workdairy');
@@ -355,7 +356,7 @@ foreach ($accepted_jobs as $job_data) {
                                                                 ?>
 
                                                             </h6>
-                                                            <h3 style="position: absolute;top: 23px;right: 0;">
+                                                            <h3 style="position: absolute;top: 23px;">
                                                         <?php
                                                         if ($job_data->offer_bid_amount) {
                                                         $amount = $job_data->offer_bid_amount;
@@ -696,5 +697,4 @@ $this->load->view("webview/includes/footer-common-script");
         </script>
     </div>
 </div>
-<style>
-
+</div></section>
