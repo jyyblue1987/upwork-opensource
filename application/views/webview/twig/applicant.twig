@@ -26,88 +26,10 @@
     <div class="row" id="interview">
         <div class="col-md-9 col-sm-9 col-xs-12">
             <div class="header-border-x">
-                <div class="col-xs-12 chat-screen">
-                    <div class="chat-details-topbar">
-                        <h3>{{ fname }}  {{ lname }}</h3>
-                        <h5>{{ app_substr(job_info['title'], constant('CONTRACT_JOB_TITLE_MAX'), '...' )|capitalize }}</h5>
-                    </div>
-                    <div class="chat-details">
-                        <ul id="scroll-ul">
-                            {% if conversation['data'] is not empty %}
-                                
-                                {% set group_time    = false                %}
-                                {% set current_date  = ''                   %}
-                                {% set display_date  = ''                   %}
-                                
-                                {% for chat_data in conversation['data'] %}
-                                    {% set chat_datetime = current_user_datetime(chat_data.conversation_date, user_timezone  ) %}
-                                    
-                                    {% if display_date != chat_datetime.format('Y-m-d') %}
-                                        {% set current_date  = crt_user_time.copy().timestamp( chat_datetime.getTimestamp() )  %}
-                                        {% set display_date  = current_date.format('Y-m-d')  %}
-                                        {% set group_time    = true %}
-                                    {% else %}
-                                        {% set group_time   = false %}
-                                    {% endif %}
-                                    
-                                    {% if group_time %}        
-                                    <li>
-                                        <span class="group-date">
-                                            {% if current_date.diffInDays( crt_user_time ) == 0 %}
-                                                {{ app_lang('text_job_chat_today') }}
-                                            {% else %}
-                                                {{ date(current_date.timestamp, user_timezone)|format("l, F j, Y") }}
-                                            {% endif %}
-                                        </span>
-                                    </li>
-                                    {% endif %}
-                                    
-                                    {% set chat_time   = chat_datetime.format('g:i A') %}
-                                    {% set chat_images = images[ chat_data.id ] %}
-                                    {% include 'webview/twig/partials/message-item.twig' with {'image': chat_data.cropped_image, 'fname': chat_data.webuser_fname, 'lname': chat_data.webuser_lname, 'time': chat_time, 'message': chat_data.message_conversation, 'images': chat_images } %}
-                                    
-                                {% endfor %}
-                            {% else %}
-                                <li class="no-messages" >{{ app_lang('text_job_chat_no_message') }}</li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                    <div class="chat-bar">
-                        <form id="chat_form" enctype="multipart/form-data">
-                            <input type="hidden" id="bid_id" name="bid_id" value="{{ job_info['bid_id'] }}">
-                            <input type="hidden" name="job_id" id="job_id" value="{{ job_info['job_id'] }}">
-                            <input type="hidden" name="user_id" id="user_id" value="{{ job_info['user_id'] }}">
-                            <input type="hidden" name="receiver_id" id="receiver_id" value="{{ freelancer_id }}">
-                            <input type="hidden" name="timezone" id="timezone" value="{{ user_timezone }}">
-                            
-                            <div class="row">
-                                <div class="col-xs-10">
-                                    <div class="expandingArea">
-                                        <pre><span></span><br></pre>
-                                        <textarea name="chat_message"></textarea>
-                                    </div>
-                                    <div class="chat-thumbnail-wrapper">
-                                        <input type="hidden" name="removed_files" value="" id="removed_files">
-                                        <input type="file" name="fileupload[]" class="hidden" id="fileupload" multiple="multiple">
-                                        <div class="attach_icon">
-                                            <i class="fa fa-paperclip" aria-hidden="true"></i>
-                                            <div class="uploaded_files"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-2 text-center chat-submit-container">
-                                    <a href="javascript:void(0);" id="chat-submit">
-                                        <i class="fa fa-paper-plane"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-xs-10">
-                                <span id="msg_container" class="alert hide"></span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="clearfix clear-both"></div>
+                
+                {% set chat_infos = {'fname': fname, 'lname': lname, 'job_title': job_info['title'], 'conversation': conversation, 'user_timezone': user_timezone, 'crt_user_time': crt_user_time, 'images': images, 'bid_id': job_info['bid_id'], 'job_id': job_info['job_id'], 'user_id': job_info['user_id'], 'receiver_id': freelancer_id} %}
+                {{ include('webview/twig/partials/chat-interview.twig', chat_infos) }}
+                
             </div>
             <div class="col-md-12 col-sm-12 white-box bordered_cl">
                 <div class="cover_box">

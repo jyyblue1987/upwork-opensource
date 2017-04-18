@@ -1,0 +1,229 @@
+{% extends "webview/layout/twig/layout.twig" %}
+
+{% block title %}  {{ app_lang('text_job_title_applicant') }} - Winjob  {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ site_url("assets/css/bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/font-awesome.min.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/fonts.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/header.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/croppic.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/footer.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/bootstrap-socil.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/normalize.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/style.css") }}">
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/applicant.css") }}">
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/my-interview.css") }}">
+{% endblock %}
+
+{% block content %}
+    
+    <div class="row" id="interview-content">
+        <div class="col-md-9 col-sm-9 col-xs-12">
+            <div class="header-border-x interview-freelancer">
+                <div class="row">
+                    <div class="col-md-10 page-label">
+                        <h1 class="job-title cos_job-title">{{ value.title|capitalize }}</h1>
+                    </div>
+                    <div class="col-md-2 page-label text-right">                        
+                        <span>
+                            {{ app_time_elapsed_string(strtotime(value.created)) }}
+                        </span>
+                    </div>
+                </div>
+                        
+                <div class="jobdes-bordered-wrapper">
+                    <div class="row jobdes-bordered page-label">
+                        <div class="col-md-3 text-center">
+                            <label style="font-family: calibri;font-size: 17px;">
+                                Job Type
+                            </label> 
+                            <br /> 
+                            <span>{{ value.job_type }}</span>
+                        </div>
+
+                        <div class="col-md-3 text-center page-label">
+                            <label style="font-family: calibri;font-size: 17px;">
+                                {% if value.job_type == 'hourly' %}
+                                    {{ "Hourly Per week" }}
+                                {% else %}
+                                    {{ "Budget $" }}
+                                {% endif %}
+                            </label><br />
+                            <span>
+                                {% if value.job_type == 'hourly' %}
+                                    {{ value.hours_per_week }}
+                                {% else %}
+                                    {{ '$' ~ round(value.budget, 2) }}
+                                {% endif %}
+                            </span>
+                        </div>
+
+                        <div class="col-md-3 text-center page-label">
+                            <label style="font-family: calibri;font-size: 17px;">
+                                Job Duration
+                            </label>
+                            <br /> 
+                            <span>
+                                {{ value.job_duration|replace({'_': '-'}) }}
+                            </span>
+                        </div>
+
+                        <div class="col-md-3 last-div text-center page-label">
+                            <label style="font-family: calibri;font-size: 17px;">
+                                Experience Level
+                            </label>
+                            <br /> 
+                            <span>{{ value.experience_level|capitalize }}</span>
+                        </div>
+                    </div>
+               </div>
+                        
+               <div class="row margin-top page-label">
+                    <div class="col-md-2">
+                        <label>Job Category</label>
+                    </div>
+                    <div style="margin-top: 4px;" class="col-md-10 skills page-label">
+                        <div style="margin-top: -3px;" class="custom_user_skills">
+                            {{ subcategory_name }}
+                        </div>
+                    </div>
+                </div>
+                        
+                <div class="row margin-top page-label">
+                    <div class="col-md-2">
+                        <label>Skills</label>
+                    </div>
+                    <div class="col-md-10 skills page-label">
+                        <div class="custom_user_skills">
+                            {% if skills is not empty and skills %}
+                                {% for skill in skills %}
+                                    <span>{{ skill['skill_name'] }}</span>
+                                {% endfor %}
+                            {% endif %} 
+                        </div>
+                    </div>
+                </div>
+                        
+                <div class="row margin-top page-label">
+                    <div class="col-md-9">
+                        <label>Detail</label>
+                    </div>
+                    <div style="font-family: calibri; font-size: 16px; margin-bottom: 17px; margin-top: 8px;" class="col-md-12 text-justify page-label">
+                        {{ value.job_description|capitalize }}
+                    </div>
+                </div>
+                
+                {% if value.tid != 0 and attachments is not empty %}
+                <div class="row margin-top page-label">
+                    <div class="col-md-9">
+                        <label>Attachments</label>
+                    </div>
+                    <div style="font-family: calibri; font-size: 16px; margin-bottom: 17px; margin-top: 8px;" class="col-md-12 text-justify page-label">
+                        <div class="attachments">
+                        {% for attachment in attachments %}
+                            <a href="{{ site_url('jobs/download?dir=' ~ value.webuser_id ~ '/' ~ value.tid ~ '&file=') }}{{ attachment|replace({'"': ''}) }}">
+                                {{ attachment|replace({'"': ''}) }}
+                            </a>
+                            <br> 
+                        {% endfor %}
+                </div>
+                    </div>
+                </div>
+                {% endif %}
+                
+                
+                <div class="jobdes-bordered-wrapper">
+                    <div class="row jobdes-bordered page-label">
+                        <div class="col-md-4 text-center">
+                            <label style="font-family: calibri;font-size: 17px;">Proposals</label> 
+                            <br /> 
+                            <span> {{ applicants }} </span>
+                        </div>
+
+                        <div class="col-md-4 text-center page-label">
+                            <label style="font-family: calibri;font-size: 17px;">Interviewing</label>
+                            <br />
+                            <span>{{ interviews }}</span>
+                        </div>
+
+                        <div class="col-md-4 text-center last-div page-label">
+                            <label style="font-family: calibri;font-size: 17px;">Hired</label><br /> <span>
+                                {{ hires }}
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- php cover head add-->
+                <br>
+                <br>
+                
+                <div style="border: 1px solid #ccc;">
+                    <div class="text-center">
+                        <label style="color: #000;font-family: calibri;font-size: 17px;margin-top: 3px; width: 100%">
+                            Submitted Proposal
+                        </label>
+                        <label style="color: #000;font-family: calibri;font-size: 17px; width: 100%">
+                            Your proposed terms
+                        </label>
+                        <label style="color: #000;font-family: calibri;font-size: 17px; width: 100%">
+                            {% set hour = (value.job_type == 'fixed' ? '' : '/hr') %}
+                            Rate : <span id='bid_earning_read' style="font-weight: 600">${{ round( bid_details.bid_earning, 2) }}{{ hour }}</span>
+                            <span id='bid_amount_read' style="font-weight: normal">(${{ round(bid_details.bid_amount, 2) }}{{ hour }} charge to client)</span>
+                        </label>
+                        <div style="margin-left: 12px;margin-top: 6px;margin-bottom: 8px;">
+                            {% if bids_details.withdrawn == 0 %}
+                            <input type="button" 
+                                   class="btn btn-primary form-btn"
+                                   value="Propose Different Terms" 
+                                   data-toggle="modal" 
+                                   data-target="#myModal2"/>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% set chat_infos = {'fname': fname, 'lname': lname, 'job_title': value.title, 'conversation': conversation, 'user_timezone': user_timezone, 'crt_user_time': crt_user_time, 'images': images, 'bid_id': bid_details.id, 'job_id': bid_details.job_id, 'user_id': value.user_id, 'receiver_id': value.user_id} %}
+                {{ include('webview/twig/partials/chat-interview.twig', chat_infos) }}
+                
+            </div>
+        </div>
+        <div class='col-xs-12 col-sm-3 col-md-3 buttonsidefoure'>
+            {{ include('webview/twig/partials/client-work-history.twig') }}     
+        </div>
+    </div>
+     
+    <div class='row'>
+        <div class='col-xs-12 col-sm-9 col-md-9'>
+            <div class="col-md-12 col-sm-12 white-box bordered_cl">
+                <div class="cover_box">
+                    <p class="cover-letter">{{ app_lang('text_job_applicant_cover_letter') }}<br/></p>
+                    <p class="cover-letter-text">
+                        {{ cover_letter }}
+                    </p>
+                    <br/>
+                </div>
+                {% if f_attachments[0]['path'] != "" %}
+                    <div class="col-md-9">
+                        <label class="lab-details">{{ app_lang('text_job_applicant_attachments') }}</label>
+                    </div>
+                    <div class="col-md-12 text-justify page-label div-details" style="margin-left: 23px;">
+                        {% for attachment in f_attachments %}
+                            <a href="{{ site_url('jobs/download?dir=' ~ f_id ~ '/' ~ f_attachments[0]['tid'] ~ '&file=') }}{{ attachment|replace({'"': ''}) }}">{{ attachment|replace({'"': ''}) }}</a><br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>                       
+    {% include 'webview/modals/propose-different-term.twig' %}
+{% endblock %}
+
+{% block js %}
+    
+    {# this variable defines the asset/modular/pages file to load #}
+    <script> var page = 'my-interview'; </script>
+    
+    <script data-main="{{ app_modular_js("winjob") }}" src="{{ app_modular_js("lib/require.dev.js") }}"></script>
+    
+{% endblock %}

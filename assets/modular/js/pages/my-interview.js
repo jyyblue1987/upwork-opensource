@@ -41,7 +41,7 @@ define(function (require) {
     }
 
     var container = document.querySelector('.expandingArea');
-    if( container)
+    if( container )
         makeExpandingArea( container );
     
     var files_loaded = [];

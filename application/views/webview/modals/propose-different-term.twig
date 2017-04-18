@@ -1,0 +1,60 @@
+<div id="myModal2" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="border: none;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Proposed Terms</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" id='jobApply'>
+                    <input type="hidden" name='bid_id' value='{{ bid_details.id }}'/>
+                    <input type="hidden" name='proposal' value='1'/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-3 col-md-offset-3 page-label">
+                                    <label>Your Bid</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="col-md-1">$</div>
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" name='bid_amount' id='bid_amount' value='{{ round(bid_details.bid_amount, 2) }}' style="float: left;width: 75px"/>
+                                        <label style=' margin-left: 2px;margin-top: 6px;position: absolute;'>{{ hour }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 col-md-offset-3 page-label">
+                                    <label>10% Winjob Fee</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="col-md-1">$</div>
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" name='bid_fee' id='bid_fee' disabled style="float: left;width: 75px" />
+                                        <label style=' margin-left: 2px;margin-top: 6px;position: absolute;'>{{ hour }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 col-md-offset-3 page-label">
+                                    <label>Your Earnings</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="col-md-1">$</div>
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" name='bid_earning' id='bid_earning' disabled style="float: left;width: 75px"/>
+                                        <label style=' margin-left: 2px;margin-top: 6px;position: absolute;'>{{ hour }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="text-align: center; border-top: none">
+                        <input type="submit" class="btn btn-primary form-btn" value="Done" />
+                        <input type="button" class="btn btn-default form-btn-default" value="Cancel" data-dismiss="modal" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

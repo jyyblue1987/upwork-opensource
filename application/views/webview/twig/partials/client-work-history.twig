@@ -1,0 +1,76 @@
+<div class="topriht">
+    <h2>
+        {% if value.isactive and payment_set %}
+            <i style="font-size: 25px; color: rgb(2, 143, 204);" class="fa fa-check-circle"></i>
+        {% else %}
+            <i style="font-size: 25px; color: rgb(187, 187, 187);" class="fa fa-minus-circle"></i>
+        {% endif %}
+        <span >{{ value.webuser_fname|capitalize }}</span>
+    </h2>
+    <ul>
+        <li>
+            <div class="review_ratting text-center">
+                <span class="rating-badge rating-sidebar-badge">{{ rating }}</span>
+                <div title="Rated {{ rating }} out of 5" class="star-rating star-rating-custom" 
+                     itemtype="http://schema.org/Rating" 
+                     itemscope="" 
+                     itemprop="reviewRating">
+                    <span style="width:{{ (( rating / 5) * 100) }}% ; margin-top:0px;">
+                        <strong itemprop="ratingValue">{{ rating }}</strong> out of 5
+                    </span>
+                </div>
+                <div class="clearfix clear-both"></div>
+            </div>  
+        </li>
+        <li class="main_hourly_rate">
+            <div>
+                <a href="#">
+                    {{ record_sidebar }} <span>Jobs Posted</span>
+                </a>
+            </div>
+        </li>
+        <li>
+            <a href="#">
+                {{ hire }} <span>Hired</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <a href="#">
+                    {{ workedhours }} <span>Hours worked</span>
+                </a>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                {{ '$' ~ '35550' }} <span>Spent</span>
+            </a>
+        </li>
+        <li>
+            <a style="font-size: 18px;" href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                &nbsp;
+                <span>{{ country }}</span>
+            </a>
+        </li>
+    </ul>
+</div>
+    
+<div class="topriht" style='margin-top: 20px;'>
+    {% if  bid_details.withdrawn == 1 or bid_details.bid_reject == 1 %}
+        {% if bid_details.withdrawn_by == 1 %}
+            <small>{{ app_lang('text_job_declined_by_free') }} </small>
+        {% elseif bid_details.withdrawn_by == 2 %}
+            <small>{{ app_lang('text_job_declined_by_you') }}</small>
+        {% endif %}
+   {% else %}
+        <div class="decline-line text-center">
+            <i class="fa fa-times-circle" aria-hidden="true"></i> 
+            <small>
+                <a id="btn-decline-applicant" href="{{ site_url('jobs/bid_decline/' ~ bid_details.job_id) }}">
+                    Decline Job
+                </a>
+            </small>
+        </div>
+    {% endif %}
+ </div>

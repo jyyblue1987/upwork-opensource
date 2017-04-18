@@ -335,4 +335,55 @@ class Jobs_model extends CI_Model {
             ->where('id', $job_id)
             ->update('jobs', $data);
     }
+    
+    public function load_client_infos( $post_id )
+    {
+        $query = $this->db->select('webuser.*,jobs.*,jobs.created created')
+                ->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left')
+                ->order_by("jobs.id", "desc")
+                ->get_where('jobs', array('id' => $post_id));
+        
+        return $query->row();
+    }
+    
+    public function get_category( $category_id )
+    {
+        $query = $this->db
+                    ->from('job_subcategories')
+                    ->where('subcat_id', $category_id)
+                    ->get();
+        
+        $result = $query->row();
+        
+        $category_name = '';
+        if( ! empty( $result ) )
+            $category_name = $result->subcategory_name;
+        
+        return $category_name;
+    }
+    
+    public function get_skills( $job_id )
+    {
+        $query = $this->db
+                    ->select("skill_name")
+                    ->from("job_skills")
+                    ->where("job_id = ", $job_id )
+                    ->get();
+        
+        return $query->result_array();
+    }
+    
+    public function num_sent_by( $client_id )
+    {
+        $query = $this->db->select('COUNT(*) as num')
+                    ->from('jobs')
+                    ->where('user_id', $client_id)
+                    ->get();
+        
+        $result = $query->row();
+        
+        if( ! empty( $result ) )
+            return $result->num;
+        return 0;
+    }
 }

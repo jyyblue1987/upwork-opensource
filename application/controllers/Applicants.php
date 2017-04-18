@@ -39,7 +39,7 @@ class Applicants extends Winjob_Controller {
 
     public function index() {
         
-        $this->authorized(); 
+        $this->checkForEmployer();
         
         $view_user_id = $this->input->get('user_id');
         if( ! empty( $view_user_id ) )
@@ -145,17 +145,17 @@ class Applicants extends Winjob_Controller {
     public function post_message()
     {   
         $sender_id     = (int)$this->session->userdata(USER_ID);
-        $freelancer_id = (int)$this->input->post('receiver_id');
+        $receiver_id   = (int)$this->input->post('receiver_id');
         $job_id        = (int)$this->input->post('job_id');
         $bid_id        = (int)$this->input->post('bid_id');
         $_timezone     = $this->input->post('timezone');
         $timezone      = ! empty($_timezone) ? $_timezone : date_default_timezone_get();
         $message       = rtrim(trim($this->input->post('chat_message')));
         
-        if(empty($freelancer_id) || empty($job_id) || empty($bid_id))
+        if(empty($receiver_id) || empty($job_id) || empty($bid_id))
         {
             $this->ajax_response(array(
-                'message' => $this->lang->item('text_job_conversation_refresh_your_browser') ,
+                'message' => $this->lang->line('text_job_conversation_refresh_your_browser') ,
                 'status'  => 'error'
             ));
         }
@@ -163,7 +163,7 @@ class Applicants extends Winjob_Controller {
         if(empty($message))
         {
             $this->ajax_response(array(
-                'message' => $this->lang->item('text_job_conversation_empty_message') ,
+                'message' => $this->lang->line('text_job_conversation_empty_message') ,
                 'status'  => 'error'
             ));
         }
@@ -176,7 +176,7 @@ class Applicants extends Winjob_Controller {
             "bid_id"               => $bid_id,
             "message_conversation" => $message,
             "sender_id"            => $sender_id,
-            "receiver_id"          => $freelancer_id,
+            "receiver_id"          => $receiver_id,
             "created"              => $current_date,
             "have_seen"            => 1,
         );
@@ -255,141 +255,5 @@ class Applicants extends Winjob_Controller {
             }
         }
         return $attachment_file;
-    }
-
-    public function insert_message() {
-        $sender_id = $this->session->userdata(USER_ID);
-        $freelancer_id = $this->input->post('receiver_id');
-        $job_id = $this->input->post('job_id');
-        $bid_id = $this->input->post('bid_id');
-        $messsage = $this->input->post('chat-input');
-        $form = $_POST;
-
-        if ($bid_id == 0) {
-            $this->db->select('*');
-            $this->db->from('job_bids');
-            $this->db->where('job_bids.user_id', $freelancer_id);
-            $this->db->where('job_bids.job_id', $job_id);
-            $query = $this->db->get();
-            $job_bid_details = $query->result();
-            $bid_id = $job_bid_details[0]->id;
-        }
-
-        $data = "INSERT INTO job_conversation set job_id = '" . $job_id . "', bid_id = '" . $bid_id . "',  message_conversation = '" . $messsage . "', sender_id = '" . $sender_id . "', receiver_id = '" . $freelancer_id . "', have_seen = 1 ";
-        $this->db->query($data);
-        $insert_id = $this->db->insert_id();
-        $data_up = "UPDATE job_bids SET job_progres_status=1  WHERE id=$bid_id;";
-        $this->db->query($data_up);
-
-        if (isset($_FILES['fileupload']) && !empty($_FILES['fileupload'])) {
-            $attachment_file = $_FILES["fileupload"];
-            $removed_images = (isset($_POST['removed_files']) && !empty($_POST['removed_files'])) ? explode(',', $_POST['removed_files']) : array();
-            if (count($removed_images) <= 1 && !empty($removed_images)) {
-                if (in_array($removed_images[0], $attachment_file['name'])) {
-                    $key = array_search($removed_images[0], $attachment_file['name']);
-                    unset($attachment_file['name'][$key]);
-                    unset($attachment_file['tmp_name'][$key]);
-                }
-            } else if (count($removed_images) > 1 && !empty($removed_images)) {
-                foreach ($removed_images as $index => $value) {
-                    if (in_array($value, $attachment_file['name'])) {
-                        $key = array_search($value, $attachment_file['name']);
-                        unset($attachment_file['name'][$key]);
-                        unset($attachment_file['tmp_name'][$key]);
-                    }
-                }
-            }
-            $no_files = count($attachment_file['name']);
-            for ($i = 0; $i < $no_files; $i++) {
-                if ($attachment_file["error"][$i] > 0) {
-
-                } else {
-                    $img = $attachment_file["name"][$i];
-                    $file = explode(".", $img);
-                    $new_image_name = 'image_' . uniqid() . '.' . 'jpg';
-                    move_uploaded_file($attachment_file["tmp_name"][$i], 'uploads/' . $new_image_name);
-                    $this->db->insert('job_conversation_files', array(
-                        'job_conversation_id' => $insert_id,
-                        'name' => $new_image_name,
-                        'original_name' => $img
-                    ));
-                }
-            }
-
-            $this->db->select("name");
-            $this->db->from("job_conversation_files");
-            $this->db->where("job_conversation_id", $insert_id);
-            $query = $this->db->get();
-            $images = $query->result_array();
-        }
-
-
-
-
-
-        $this->db->select('job_conversation.*,job_conversation.created as conversation_date,webuser.*,jobs.title,wu.webuser_fname as fname,wu.webuser_lname as lname,wu.webuser_id as r_id');
-
-        $this->db->from('job_conversation');
-
-        $this->db->join('webuser', 'job_conversation.sender_id = webuser.webuser_id', 'inner');
-
-        $this->db->join('jobs', 'jobs.id = job_conversation.job_id', 'inner');
-
-        $this->db->join('webuser as wu', 'jobs.user_id = wu.webuser_id', 'inner');
-
-        $this->db->where('job_conversation.bid_id', $bid_id);
-
-        $this->db->order_by("job_conversation.id", "desc");
-
-        $query = $this->db->get();
-
-        $conversation_count = $query->num_rows();
-
-        $result = $query->result();
-
-        /* $condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
-          $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
-          $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
-          if (!empty($timezone)) {
-          $date2 =  new DateTime(date('Y-m-d h:i:s',strtotime($result[0]->conversation_date)), new DateTimezone('UTC'));
-          $date2->setTimezone(new \DateTimezone($timezone['gmt']));
-
-          $time = $date2->format('g:i A');
-          } else {
-          $time = date('g:i A',strtotime($result[0]->conversation_date));
-          } */
-
-
-        $time = date('g:i A', strtotime($result[0]->conversation_date));
-        $html = '';
-
-        if (($result[0]->cropped_image) == "") {
-
-            $src = site_url("assets/user.png");
-        } else {
-
-            $src = $result[0]->cropped_image;
-        }
-
-        $html .= '<li style="padding:20px">';
-
-        $html .= '<span class="name"><img src="' . $src . '"> ' . $result[0]->webuser_fname . ' ' . $result[0]->webuser_lname . ' </span>';
-
-        $html .= '<span class="chat-date">' . $time . '</span>';
-
-        $html .= '<span class="details">' . $result[0]->message_conversation . '</span>';
-
-
-        if (isset($images) && !empty($images)) {
-            foreach ($images as $key => $value) {
-                $html .= '<div class = "chat_image"><a target = "blank" download href = "' . base_url() . 'uploads/' . $value['name'] . '">' . $value['name'] . '</a></div>';
-            }
-        }
-
-        $html .= '</li>';
-
-
-        print_r(json_encode($html));
-        die;
     }
 }

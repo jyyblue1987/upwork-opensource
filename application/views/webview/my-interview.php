@@ -247,7 +247,7 @@ foreach($accepted_jobs as $job_data){
                     </div>
                 </div>
 
-			   <div class="row margin-top page-label">
+                <div class="row margin-top page-label">
                     <div class="col-md-2">
                         <label>Skills</label>
                     </div>
@@ -385,7 +385,8 @@ $hire_count = $query->num_rows();
                                     }
                                     ?>
                                     <div style="color: #000;margin-left: -67px;margin-top: 2px;" class="col-md-5">
-                                        <label>$<amt id='bid_earning_read'><?php echo round($bid_details->bid_earning, 2); ?></amt><?php echo $perHrs ?></label> ($<amt id='bid_amount_read'><?php echo round($bid_details->bid_amount, 2); ?></amt><?php echo $perHrs ?> charge to client)
+                                        <label>$<amt id='bid_earning_read'><?php echo round($bid_details->bid_earning, 2); ?></amt><?php echo $perHrs ?></label> 
+                                        ($<amt id='bid_amount_read'><?php echo round($bid_details->bid_amount, 2); ?></amt><?php echo $perHrs ?> charge to client)
                                     </div>
 
                                 </div>
@@ -633,7 +634,7 @@ $hire_count = $query->num_rows();
            
             <?php
             //echo "<pre>";
-            //print_r($bids_details);
+            //print_r($conversation_count);
             ?>   
             <div class="col-md-3" style="">
                <!-- <?php

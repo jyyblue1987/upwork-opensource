@@ -1,0 +1,21 @@
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="border: none;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Withdraw Proposal</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to withdraw this proposal?</p>
+            </div>
+            <div class="modal-footer" style="text-align: left; border-top: none">
+                <form method="post" id='jobWithDraw'>
+                    <input type="hidden" name='bid_id' value='{{ bid_details.id }}'/>
+                    <input type="hidden" name='withdraw' value='1'/>
+                    <input type="submit" class="btn btn-primary form-btn" value="Withdraw Proposal" />
+                    <input type="button" class="btn btn-default form-btn-default" value="Cancel" data-dismiss="modal" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

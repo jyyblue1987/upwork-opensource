@@ -70,4 +70,19 @@ class Job_work_diary_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+    
+    public function get_hour_work_for( $client_id )
+    {
+        $query = $this->db->select('SUM(total_hour) as total_hour')
+                    ->from('job_workdairy')
+                    ->where_in('cuser_id', $client_id)
+                    ->get();
+        
+        $workedhours = $query->row();
+        
+        if( !empty( $workedhours ) )
+            return  $workedhours->total_hour;
+        
+        return 0;
+    }
 }

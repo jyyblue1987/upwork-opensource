@@ -1,152 +1,126 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Freelancerinvite extends CI_Controller {
+use Carbon\Carbon; 
+
+class Freelancerinvite extends Winjob_Controller {
 	
-	  public function __construct()
+    public function __construct()
     {
         parent::__construct();
-        //$this->load->model(array('Category', 'Common_mod'));
+        
+        $this->load_language();
+        
         $this->load->model(array('common_mod', 'Category', 'profile/ProfileModel', 'Process', 'jobs_model'));
         $this->load->model(array('timezone'));
         $this->process = new Process();
       
     }
+    
+    /**
+     * Load the appropriate language file
+     */
+    protected function load_language(){
+        parent::load_language();
+        $this->lang->load('job', $this->get_default_lang());
+    }
 	
 
-	public function index() {
+    public function index() {
 
-            if($this->session->userdata('type') != 2){
-            redirect(site_url("jobs-home"));
+        $this->checkForFreelancer();
+        
+        $job_id = $this->input->get('fmJob');
+        $id = $this->session->userdata('id');
+        
+        if(empty($job_id))
+        {
+            $this->session->set_flashdata('error', $this->lang->line('text_app_invalid_application_parameter'));
+            redirect( home_url() );
         }
-		if ($this->Adminlogincheck->checkx()){
-              $postId = base64_decode($_GET['fmJob']);
-			
-			$id = $this->session->userdata('id');
+        
+        $this->load->model(array('job/bids_model', 'timezone', 'payment_methods_model', 'job_work_diary_model'));
+        
+        $postId       = base64_decode($job_id);
+	$record       = $this->jobs_model->load_client_infos( $postId );
+        $bids_details = $this->bids_model->load($postId, $id);
 
-            $this->db->select('webuser.*,jobs.*,jobs.created created');
-            $this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
-            $this->db->order_by("jobs.id", "desc");
-            $query = $this->db->get_where('jobs', array('id' => $postId));
-            $record = $query->row();
-            $query = $this->db->get_where('job_bids', array('job_id' => $postId, 'user_id' => $id));
-            $bids_details = $query->row();
-            $is_applied  = $query->num_rows();
-
-            //conversation
-            $conversation_count = 0;
-            $conversation = array();
+        //dump(array($record, $bids_details), true); 
+        
+        if( empty( $bids_details ) ){
+            //$this->session->set_flashdata('error', $this->lang->line('text_app_invalid_application_state'));
+            redirect( home_url() );
+        }
+           
+       $conversation       = $this->process->get_conversation($postId, $bids_details->id);
+       
+       if( ! empty( $conversation['data'] ) )
+        {
+            $all_conv_ids = array();
             
-            if( $is_applied ){     
-                $this->db->select('*');
-                $this->db->from('job_conversation');
-                $this->db->where('job_conversation.receiver_id', $id);
-                $this->db->where('job_conversation.job_id', $postId);
-                $this->db->where('job_conversation.bid_id', $bids_details->id);
-                
-                $query=$this->db->get();// assign to a variable
-                $conversation_count = $query->num_rows();// then use num rows
-
-                }
-               
-                if( $conversation_count ){
-                
-                    $this->db->select('job_conversation.*,job_conversation.created as conversation_date,webuser.*');
-                    $this->db->from('job_conversation');
-                    $this->db->join('webuser', 'job_conversation.sender_id = webuser.webuser_id', 'inner');
-                    $this->db->where('job_conversation.job_id', $postId);
-                    $this->db->where('job_conversation.bid_id', $bids_details->id);
-                    $this->db->order_by("job_conversation.id", "ASC");
-                    $query_conversation=$this->db->get();
-                    $conversation =  $query_conversation->result();
-                
-                    
-                    
-
-                foreach ($conversation as $key => $value) {
-                    $this->db->select('*');
-                    $this->db->from('job_conversation_files');
-                    $this->db->where('job_conversation_id', $value->id);
-                    $query = $this->db->get();
-                    $images = $query->result();
-                    $conversation[$key]->images_array = $images;
-                }
+            foreach ($conversation['data'] AS $_convo) 
+            {
+                $all_conv_ids[] =  $_convo->id;
             }
-		
-		
-		$this->db->select('*,job_bids.id as bid_id,job_bids.status AS bid_status,jobs.job_duration AS jobduration,job_bids.created AS bid_created');
-		$this->db->from('job_accepted');
-		$this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-		$this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
-		$this->db->where('job_accepted.buser_id',$record->user_id);
-		$query=$this->db->get();
-		$accepted_jobs = $query->result();
-		//echo $this->db->last_query();
-		
-            $this->db->select('*');
-            $this->db->from('jobs');
-            $this->db->where('user_id', $record->user_id);
-            $query_sidebar = $this->db->get();
-            $record_sidebar = $query_sidebar->result();
 
-            $record_hire = $this->jobs_model->number_freelancer_hired($record->user_id);
-
-            $this->db->select('*');
-            $this->db->from('job_workdairy');
-            $this->db->where_in('cuser_id',$record->user_id);
-            $queryhour=$this->db->get();
-            $workedhours = $queryhour->result();
-
-            $condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
-            $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
-            $timezone = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
-            $data['timezone'] = $timezone;
-            
-            $this->db->select("skill_name");
-            $this->db->from("job_skills");
-            $this->db->where("job_id = ", $postId);
-            $query = $this->db->get();
-            $job_skills = $query->result_array();
-            $record->job_skills = $job_skills;
-            
-            $applicants = $this->process->get_applications($postId);
-            $interviews = $this->process->get_interviews($record->user_id, $postId);
-            $hires = $this->process->get_hires($record->user_id, $postId);
-
-            $this->db->select("*");
-            $this->db->from("job_bid_attachments");
-            $this->db->where("job_bid_id = ", $bids_details->id);
-            $query = $this->db->get();
-            $attachments = $query->result_array();
-
-            $data = array(
-                'value' => $record, 
-                'hire' => $record_hire, 
-                'cover_letter' => $bids_details->cover_latter, 
-                'files' => $value->userfile,
-                'user_id' => $value->clientid,
-                'f_attachments' => $attachments,
-                'receiver' => $record->user_id,  
-                'applied' => $is_applied, 
-                'conversations' => $conversation, 
-                'conversation_count' => $conversation_count, 
-                'withdrawn' =>$bids_details->withdrawn, 
-                'withdrawn_by' =>$bids_details->withdrawn_by,  
-                'bid_details'=>$bids_details,
-                'accepted_jobs'=>$accepted_jobs,
-                'record_sidebar' => $record_sidebar,
-                'hire'=>$record_hire,
-                'workedhours'=>$workedhours, 
-                'applicants' => $applicants['rows'], 
-                'hires' => $hires['rows'], 
-                'interviews' => $interviews['rows'], 
-                'skills' => $job_skills,
-                'files' => $value->userfile,
-                'f_attachments' => $attachments,
-                'f_id' => $bids_details->user_id,
-                'js' => array('vendor/jquery.form.js', 'internal/job_withdraw.js'));
-            $this->Admintheme->webview("my-interview", $data);
+            $images = $this->process->get_all_images_of_each_message( $all_conv_ids );
         }
-
-	}
+        
+        $job_skills = $this->jobs_model->get_skills( $postId );
+        $applicants = $this->process->get_applications($postId);
+        $interviews = $this->process->get_interviews($record->user_id, $postId);
+        $hires      = $this->process->get_hires($record->user_id, $postId);
+        
+        //Get the timezone.
+        $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS, null, " AND webuser_id=" . $id);
+        $timezone              = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
+        $user_timezone         = get_right_timezone( $timezone['name'] );
+        $date                  = Carbon::now( new DateTimeZone( $user_timezone ) );
+        
+        $payment_set    = $this->payment_methods_model->get_primary( $record->user_id );
+        $record_sidebar = $this->jobs_model->num_sent_by( $record->user_id );
+        $record_hire    = $this->jobs_model->number_freelancer_hired($record->user_id);
+        $workedhours    = $this->job_work_diary_model->get_hour_work_for( $record->user_id );
+        $country        = $this->ProfileModel->get_country($record->webuser_country);
+        $attachments    = $this->process->get_attachments( $bids_details->id );
+        
+        $this->db->select('*,job_bids.id as bid_id,job_bids.status AS bid_status,jobs.job_duration AS jobduration,job_bids.created AS bid_created');
+        $this->db->from('job_accepted');
+        $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
+        $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
+        $this->db->where('job_accepted.buser_id',$record->user_id);
+        $query=$this->db->get();
+        $accepted_jobs = $query->result();
+        
+        $data = array(
+            'value'            => $record,
+            'subcategory_name' => $this->jobs_model->get_category( $record->category ),
+            'attachments'      => explode(",", $record->userfile),
+            'applicants'       => $applicants['rows'],
+            'hires'            => $hires['rows'], 
+            'interviews'       => $interviews['rows'],
+            'bid_details'      => $bids_details,
+            'conversation'     => $conversation,
+            'images'           => $images,
+            'fname'            => $record->webuser_fname,
+            'lname'            => $record->webuser_lname,
+            'crt_user_time'    => $date, //Current time from user timezone
+            'user_timezone'    => $user_timezone,
+            'payment_set'      => $payment_set,
+            'record_sidebar'   => $record_sidebar,
+            'hire'             => $record_hire,
+            'skills'           => $job_skills,
+            'workedhours'      => $workedhours, 
+            'country'          => ucfirst($country['country_name']),
+            'cover_letter'     => $bids_details->cover_latter, 
+            'user_id'          => $record->clientid,
+            'f_id'             => $bids_details->user_id,
+            'f_attachments'    => $attachments, 
+            'accepted_jobs'    => $accepted_jobs,
+            'rating'           => '0.0'
+        );
+        
+        //$this->Admintheme->webview("my-interview", $data);
+        $this->twig->display('webview/twig/my-interview', $data);
+    }
 }
