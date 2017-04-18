@@ -12,7 +12,6 @@ class Freelancerinvite extends Winjob_Controller {
         $this->load_language();
         
         $this->load->model(array('common_mod', 'Category', 'profile/ProfileModel', 'Process', 'jobs_model'));
-        $this->load->model(array('timezone'));
         $this->process = new Process();
       
     }
@@ -39,13 +38,14 @@ class Freelancerinvite extends Winjob_Controller {
             redirect( home_url() );
         }
         
-        $this->load->model(array('job/bids_model', 'timezone', 'payment_methods_model', 'job_work_diary_model'));
+        $this->load->model(array(
+            'job/bids_model', 'timezone', 'payment_methods_model', 
+            'job_work_diary_model', 'webuser_model', 'payment_model'
+        ));
         
         $postId       = base64_decode($job_id);
 	$record       = $this->jobs_model->load_client_infos( $postId );
         $bids_details = $this->bids_model->load($postId, $id);
-
-        //dump(array($record, $bids_details), true); 
         
         if( empty( $bids_details ) ){
             //$this->session->set_flashdata('error', $this->lang->line('text_app_invalid_application_state'));
@@ -83,14 +83,8 @@ class Freelancerinvite extends Winjob_Controller {
         $workedhours    = $this->job_work_diary_model->get_hour_work_for( $record->user_id );
         $country        = $this->ProfileModel->get_country($record->webuser_country);
         $attachments    = $this->process->get_attachments( $bids_details->id );
-        
-        $this->db->select('*,job_bids.id as bid_id,job_bids.status AS bid_status,jobs.job_duration AS jobduration,job_bids.created AS bid_created');
-        $this->db->from('job_accepted');
-        $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-        $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
-        $this->db->where('job_accepted.buser_id',$record->user_id);
-        $query=$this->db->get();
-        $accepted_jobs = $query->result();
+        $rating         = $this->webuser_model->get_total_rating( $record->user_id, true );
+        $amount_spent   = $this->payment_model->get_amount_spent( $record->user_id );
         
         $data = array(
             'value'            => $record,
@@ -117,10 +111,10 @@ class Freelancerinvite extends Winjob_Controller {
             'f_id'             => $bids_details->user_id,
             'f_attachments'    => $attachments, 
             'accepted_jobs'    => $accepted_jobs,
-            'rating'           => '0.0'
+            'rating'           => $rating,
+            'amount_spent'     => $amount_spent
         );
         
-        //$this->Admintheme->webview("my-interview", $data);
         $this->twig->display('webview/twig/my-interview', $data);
     }
 }

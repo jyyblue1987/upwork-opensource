@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ site_url("assets/css/bootstrap-socil.css") }}">
     <link rel="stylesheet" href="{{ site_url("assets/css/normalize.css") }}">
     <link rel="stylesheet" href="{{ site_url("assets/css/style.css") }}">
+    <link rel="stylesheet" href="{{ base_url("assets/modular/js/lib/formvalidation/formValidation.min.css") }}">
     <link rel="stylesheet" href="{{ base_url("assets/css/pages/applicant.css") }}">
     <link rel="stylesheet" href="{{ base_url("assets/css/pages/my-interview.css") }}">
 {% endblock %}
@@ -159,6 +160,7 @@
                 <br>
                 <br>
                 
+                <div id="notif-interview-container" class="alert alert-success hide"></div>
                 <div style="border: 1px solid #ccc;">
                     <div class="text-center">
                         <label style="color: #000;font-family: calibri;font-size: 17px;margin-top: 3px; width: 100%">
@@ -169,8 +171,8 @@
                         </label>
                         <label style="color: #000;font-family: calibri;font-size: 17px; width: 100%">
                             {% set hour = (value.job_type == 'fixed' ? '' : '/hr') %}
-                            Rate : <span id='bid_earning_read' style="font-weight: 600">${{ round( bid_details.bid_earning, 2) }}{{ hour }}</span>
-                            <span id='bid_amount_read' style="font-weight: normal">(${{ round(bid_details.bid_amount, 2) }}{{ hour }} charge to client)</span>
+                            Rate : <span id='bid_earning_read' style="font-weight: 600">$<span id='_bid_earning'>{{ round( bid_details.bid_earning, 2) }}</span>{{ hour }}</span>
+                            <span id='bid_amount_read' style="font-weight: normal">($<span id='_bid_amount'>{{ round(bid_details.bid_amount, 2) }}</span>{{ hour }} charge to client)</span>
                         </label>
                         <div style="margin-left: 12px;margin-top: 6px;margin-bottom: 8px;">
                             {% if bids_details.withdrawn == 0 %}

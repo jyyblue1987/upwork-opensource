@@ -882,7 +882,7 @@ class Jobs extends Winjob_Controller {
                 'workedhours' => $this->process->get_worked_hours($emp_id),
                 'payment_set' => $client->is_payment_set(),
                 'total_spent' => $client->total_spent($emp_id),
-                'rating' => $this->Webuser_model->get_total_rating($emp_id),
+                'rating' => $this->Webuser_model->get_total_rating($emp_id, true),
                 'country' => ucfirst($country->get_country()),
                 'f_active' => $freelancer_active,
                 'is_applied' => $this->process->is_applied($this->user_id, $postId),
@@ -2372,6 +2372,38 @@ class Jobs extends Winjob_Controller {
             }
             $this->Admintheme->webview("jobs/send_invitation", $data);
         }
+    }
+    
+    public function change_proposal_term()
+    {
+        if( ! $this->Adminlogincheck->checkx() && $this->session->userdata('type') != FREELANCER){
+            $this->ajax_response (array( 'code' => '-1', /* Not connected */ ));
+        }
+        
+        $data = array();
+        $data['bid_amount']  = $this->input->post('bid_amount');
+        $bid_id              = $this->input->post('bid_id');
+        $data['bid_fee']     = round($data['bid_amount'] / 10, 2);
+        $data['bid_earning'] = $data['bid_amount'] - $data['bid_fee'];
+        $this->db->where('id', $bid_id);
+        
+        //Update bid amount
+        if ($this->db->update('job_bids', $data)) 
+        {
+            $result = array(
+                'code' => '1', 
+                'modal' => '#myModal2', 
+                'amt' => '1', 
+                'msg' => 'You proposal has been revised.');
+        }
+        else
+        {
+            $result = array(
+                'code' => '0', 
+                'msg' => 'Something went wrong.');
+        }
+        
+        $this->ajax_response($result);
     }
 
     public function withdraw_system($bidId = null) {

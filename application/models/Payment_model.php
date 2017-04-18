@@ -358,6 +358,38 @@ class Payment_model extends CI_Model {
         return $query->result();
     }
     
+    public function get_amount_spent( $client_id )
+    {
+        $fixed_total_amount   = " SUM(DISTINCTROW(payments.payment_gross)) as payment_gross ";
+        $hourly_total_amount  =  " SUM(DISTINCTROW(invx.amount_due)) as payment_gross ";
+        
+        $sql = "SELECT $fixed_total_amount FROM payments WHERE payments.buser_id = $client_id ";
+        
+        $sql = $sql . 
+                "  UNION ALL SELECT  $hourly_total_amount  FROM hourly_invoices_items as invx
+                   INNER JOIN job_accepted as ja ON ( ja.bid_id = invx.bid_id )
+                   WHERE ja.buser_id = $client_id AND invx.status = '" .  INVOICE_PAID ."'";
+        
+        $query = $this->db->query($sql);
+        
+        $result = $query->result();
+        
+        $amount = 0.0;
+        
+        if(!empty($result))
+        {
+            
+            if(!empty($result[0]))
+                $amount += $result[0]->payment_gross;
+            
+            if(!empty($result[1]))
+                $amount += $result[1]->payment_gross;
+            
+        }
+        
+        return $amount;
+    }
+    
     
     public function get_payment_list_of_employer( $user_id, $filters )
     {   

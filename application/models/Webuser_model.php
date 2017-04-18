@@ -106,14 +106,14 @@ class Webuser_model extends CI_Model {
         return $this->get_field('webuser_username', $user_id);
     }
     
-    public function get_total_rating( $user_id ){
+    public function get_total_rating( $user_id, $is_employer = false ){
         
         $rating_total_times_amount = 0.0;
         $amount_total              = 0.0;
         
         //load all fixed job's contract with their paid and the feedback rating.
-        $fixed_contract_rating_score  = $this->get_fixed_contract_rating_score( $user_id );
-        $hourly_contract_rating_score = $this->get_hourly_contract_rating_score( $user_id );
+        $fixed_contract_rating_score  = $this->get_fixed_contract_rating_score( $user_id, $is_employer );
+        $hourly_contract_rating_score = $this->get_hourly_contract_rating_score( $user_id, $is_employer );
         
         if( $fixed_contract_rating_score !== null ){
             $rating_total_times_amount = $fixed_contract_rating_score['rating_times_amount'];
@@ -137,32 +137,101 @@ class Webuser_model extends CI_Model {
         return $average_rating;
     }
     
+    public function get_all_contract_ids( $user_id, $job_status, $bids_status, $is_employer = false )
+    {
+        //Get all contract id which is ended.
+        $this->db
+            ->select('DISTINCT(job_bids.id)')
+            ->from('job_bids')
+            ->join('job_accepted', 'job_accepted.job_id=job_bids.job_id', 'inner')
+            ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
+            ->where('job_bids.jobstatus', $bids_status)
+            ->where('jobs.job_type', $job_status);
+        
+        if($is_employer)
+            $this->db->where('job_accepted.buser_id', $user_id);
+        else
+            $this->db->where('job_accepted.fuser_id', $user_id);
+        
+        $query = $this->db->get();
+        
+        $results = $query->result();
+        
+        $ids = array();
+        if( ! empty( $results )){
+            foreach($results as $result)
+            {
+                $ids[] = $result->id;
+            }
+        }
+        return $ids; 
+    }
+    
+    public function get_all_employer_fixed_ended_contract( $user_id )
+    {
+        return $this->get_all_contract_ids($user_id, FIXED_JOB_TYPE, JOB_ENDED, true);
+    }
+    
+    public function get_all_freelancer_fixed_ended_contract( $user_id )
+    {
+        return $this->get_all_contract_ids($user_id, FIXED_JOB_TYPE, JOB_ENDED, false);
+    }
+    
+    public function get_all_employer_hourly_ended_contract( $user_id )
+    {
+        return $this->get_all_contract_ids($user_id, HOURLY_JOB_TYPE, JOB_ENDED, true);
+    }
+    
+    public function get_all_freelancer_hourly_ended_contract( $user_id )
+    {
+        return $this->get_all_contract_ids($user_id, HOURLY_JOB_TYPE, JOB_ENDED, false);
+    }
+    
+    
+    
     /**
      * return an array of rating and total amount for all fixed contract or null
      * 
      * @param int $user_id
      * @return mixed
      */
-    private function get_fixed_contract_rating_score( $user_id ){
+    private function get_fixed_contract_rating_score( $user_id, $is_employer = false ){
         
-        $query = $this->db
-                    ->select('SUM(fixedpay_amount * feedback_score) as fixed_rating_score, SUM(fixedpay_amount) as total_amount')
-                    ->from('job_bids')
-                    ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
-                    ->join('job_feedback', 'job_feedback.feedback_job_id=jobs.id', 'inner')
-                    ->join('job_accepted', 'job_accepted.job_id=job_feedback.feedback_job_id', 'inner')
-                    ->where('job_bids.user_id', $user_id)
-                    ->where('job_feedback.sender_id !=', $user_id)
-                    ->where('job_feedback.feedback_userid', $user_id)
-                    ->where('job_feedback.feedback_score > ', 0)
-                    ->where('job_bids.jobstatus', JOB_ENDED)
-                    ->where('jobs.job_type', FIXED_JOB_TYPE)
-                    ->get();
+        if($is_employer)
+        {
+            $contract_ids = $this->get_all_employer_fixed_ended_contract( $user_id );
+        }
+        else
+        {
+            $contract_ids = $this->get_all_freelancer_fixed_ended_contract( $user_id );
+        }    
         
-        $result = $query->row();
+        if( ! empty( $contract_ids ) )
+        {
+            $this->db
+                ->select('SUM(fixedpay_amount * feedback_score) as fixed_rating_score, SUM(fixedpay_amount) as total_amount')
+                ->from('job_bids')
+                ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
+                ->join('job_feedback', 'job_feedback.feedback_job_id=job_bids.job_id', 'inner')
+                ->where('job_feedback.sender_id !=', $user_id);
+            
+            if($is_employer)
+                $this->db->where('job_feedback.feedback_clientid', $user_id);
+            else
+                $this->db->where('job_feedback.feedback_userid', $user_id);
+            
+            $this->db
+                ->where('job_feedback.feedback_score > ', 0)
+                ->where_in('job_bids.id', $contract_ids);
+            
+            $query =  $this->db->get();
         
-        if( ! empty( $result ))
-            return array('rating_times_amount' => $result->fixed_rating_score, 'total_amount' => $result->total_amount );
+            $result = $query->row();
+
+            if( ! empty( $result ) )
+                return array('rating_times_amount' => $result->fixed_rating_score, 'total_amount' => $result->total_amount );
+         }
+        
         
         return null;
     }
@@ -173,43 +242,59 @@ class Webuser_model extends CI_Model {
      * @param int $user_id
      * @return mixed
      */
-    public function get_hourly_contract_rating_score( $user_id ){
+    public function get_hourly_contract_rating_score( $user_id, $is_employer = false ){
         
-        $query = $this->db
-                    ->select('job_bids.offer_bid_amount, job_bids.bid_amount, feedback_score, SUM(job_workdairy.total_hour) as total_hour')
-                    ->from('job_bids')
-                    ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
-                    ->join('job_feedback', 'job_feedback.feedback_job_id=jobs.id', 'inner')
-                    ->join('job_accepted', 'job_accepted.job_id=job_feedback.feedback_job_id', 'inner')
-                    ->join('job_workdairy', 'job_workdairy.jobid=jobs.id', 'inner')
-                    ->where('job_bids.user_id', $user_id)
-                    ->where('job_feedback.sender_id !=', $user_id)
-                    ->where('job_feedback.feedback_userid', $user_id)
-                    ->where('job_feedback.feedback_score > ', 0)
-                    ->where('job_bids.jobstatus', JOB_ENDED)
-                    ->where('jobs.job_type', HOURLY_JOB_TYPE)
-                    ->group_by('job_bids.id')
-                    ->get();
+        if($is_employer)
+        {
+            $contract_ids = $this->get_all_employer_hourly_ended_contract( $user_id );
+        }
+        else
+        {
+            $contract_ids = $this->get_all_freelancer_hourly_ended_contract( $user_id );
+        }  
         
-        $result = $query->result();
-        
-        $rating       = 0;
-        $total_amount = 0;
-        
-        if(!empty($result)){
-            foreach($result as $key => $item){
-                if( ! empty( $item->offer_bid_amount ) ){
-                    $amount = $item->offer_bid_amount;
-                }else{
-                    $amount = $item->bid_amount;
-                }
-                
-                $amount       = $item->total_hour * $amount;
-                $rating       = $rating + ($item->feedback_score * $amount);
-                $total_amount = $total_amount + $amount;
-            }
+        if( ! empty( $contract_ids ) )
+        {
+            $this->db
+                ->select('job_bids.offer_bid_amount, job_bids.bid_amount, feedback_score, SUM(job_workdairy.total_hour) as total_hour')
+                ->from('job_bids')
+                ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
+                ->join('job_feedback', 'job_feedback.feedback_job_id=job_bids.job_id', 'inner')
+                ->join('job_workdairy', 'job_workdairy.jobid=job_bids.job_id', 'inner')
+                ->where('job_feedback.sender_id !=', $user_id);
             
-            return array('rating_times_amount' => $rating, 'total_amount' => $total_amount );
+            if($is_employer)
+                $this->db->where('job_feedback.feedback_clientid', $user_id);
+            else
+                $this->db->where('job_feedback.feedback_userid', $user_id);
+            
+            $this->db
+                ->where('job_feedback.feedback_score > ', 0)
+                ->where_in('job_bids.id', $contract_ids)
+                ->group_by('job_bids.id');
+            
+            $query =  $this->db->get();
+            
+            $result = $query->result();
+        
+            $rating       = 0;
+            $total_amount = 0;
+
+            if(!empty($result)){
+                foreach($result as $key => $item){
+                    if( ! empty( $item->offer_bid_amount ) ){
+                        $amount = $item->offer_bid_amount;
+                    }else{
+                        $amount = $item->bid_amount;
+                    }
+
+                    $amount       = $item->total_hour * $amount;
+                    $rating       = $rating + ($item->feedback_score * $amount);
+                    $total_amount = $total_amount + $amount;
+                }
+
+                return array('rating_times_amount' => $rating, 'total_amount' => $total_amount );
+            }
         }
         
         return null;

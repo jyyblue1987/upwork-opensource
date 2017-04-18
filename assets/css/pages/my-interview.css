@@ -8,6 +8,10 @@ and open the template in the editor.
     Author     : Hermannovich <donfack.hermann@gmail.com>
 */
 
+.header-border-x.interview-freelancer{
+    padding: 20px;
+}
+
 .interview-freelancer .chat-screen{
     margin-top: 40px;
 }
@@ -24,4 +28,9 @@ and open the template in the editor.
     padding: 0;
     width: auto; 
     height: auto;
+}
+
+#notif-interview-container{
+    margin: 5px 0;
+    padding: 5px;
 }

@@ -11,7 +11,9 @@ requirejs.config({
         bootstrap : { "deps" :['jquery'] },
         chatbox   : { "deps" :['jquery', 'bootstrap'] },
         payment   : { "deps" :['jquery', 'bootstrap'] },
-        jquery_datetime_picker: { "deps" :['jquery'] }
+        jquery_datetime_picker: { "deps" :['jquery'] },
+        form_validation: { "deps" :['jquery'] },
+        bootstrap_form_validation: { "deps" :['jquery', 'form_validation'] }
     },
     paths: {
         pages: '../pages',
@@ -23,6 +25,9 @@ requirejs.config({
         bootstrap_datepicker: 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min',
         jquery_datetime_picker: '../lib/jquery.datetimepicker.full.min',
         "jquery-mousewheel": '../lib/jquery.mousewheel.min',
-        moment: '../lib/moment' 
+        moment: '../lib/moment',
+        jquery_form: '../lib/jquery.form',
+        form_validation: '../lib/formvalidation/formValidation.min',
+        bootstrap_form_validation: '../lib/formvalidation/framework/bootstrap.min'
     }
 });

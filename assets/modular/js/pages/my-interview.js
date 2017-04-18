@@ -3,8 +3,11 @@ define(function (require) {
     /**
      * LOAD DEPENDENCIES
      */
-    var $           = require('jquery'),
-        bootstrap   = require('bootstrap');
+    var $                = require('jquery'),
+        bootstrap        = require('bootstrap'),
+        jquery_form      = require('jquery_form'),
+        formValidation   = require('form_validation'),
+        bootstrap_form_validation = require('bootstrap_form_validation');
         
     function makeExpandingArea(container) 
     {
@@ -189,6 +192,95 @@ define(function (require) {
                     alert('Opps!! Something went wrong.');
                 }
             }, 'json');
+        }
+    });
+    
+    
+    var $bid_amount  = $('#bid_amount');
+    var $bid_fee     = $('#bid_fee');
+    var $bid_earning = $('#bid_earning');
+    var $jobApplyBtn = $('#jobApply');
+    
+    function setFee() 
+    {
+        var myRate = parseInt($bid_amount.val());
+        
+        if ( ! isNaN( myRate ) ) 
+        {
+            $bid_fee.val( myRate / 10 );
+            $bid_earning.val( myRate - ( myRate / 10 ) );
+        } 
+        else 
+        {
+            $bid_fee.val('');
+            $bid_earning.val('');
+        }
+    }
+    
+    
+    setFee();
+    $bid_amount.keyup(function () {
+        setFee();
+    });
+    
+    
+    $jobApplyBtn.formValidation({
+        framework: 'bootstrap',
+        excluded: ':disabled',
+        message: 'This value is not valid',
+        resetForm: 'true',
+        fields: {
+            bid_amount: {
+                validators: {
+                    notEmpty: {
+                        message: '&nbsp;'
+                    }
+                }
+            }
+        }
+    }).on('success.field.fv', function (e, data) {
+        e.preventDefault();
+        data.fv.disableSubmitButtons(false);
+
+    }).on('err.field.fv', function (e, data) {
+        data.fv.disableSubmitButtons(false);
+    });
+    
+    
+    var notif_interview_container = $('#notif-interview-container');
+    $jobApplyBtn.ajaxForm({
+        beforeSubmit: function () {
+            if (! $jobApplyBtn.data('formValidation').isValid() )
+            {
+                return false;
+            }
+            else
+            {
+                $('input:submit').prop('disabled', true);
+            }
+        },
+        success: function (rs) 
+        {   
+            var data  = JSON.parse(rs);
+            var _class = 'success';
+            
+            if ( data.code == '0' )
+            {
+                $('input:submit').prop('disabled', false);
+                _class = 'danger';
+            }
+            else
+            {
+                if( data.amt == '1' )
+                {
+                    $('#_bid_amount').text($bid_amount.val());
+                    $('#_bid_earning').text($bid_earning.val());
+                }
+                
+                $(data.modal).find('.close').click();
+            }
+            
+            display_message(notif_interview_container, 'alert-' + _class, 'hide', data.msg);
         }
     });
 });

@@ -6,7 +6,7 @@
                 <h4 class="modal-title">Proposed Terms</h4>
             </div>
             <div class="modal-body">
-                <form method="post" id='jobApply'>
+                <form method="post" id='jobApply' action="{{ site_url('jobs/change_proposal_term') }}">
                     <input type="hidden" name='bid_id' value='{{ bid_details.id }}'/>
                     <input type="hidden" name='proposal' value='1'/>
                     <div class="row">
