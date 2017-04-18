@@ -149,6 +149,22 @@ if (count($records) > 0)
             <div style="margin-bottom: -3px;" class="col-md-12 col-md-offset-0 page-jobs ">
                 <h6 class="more" style="color: #494949;"><?php echo ucfirst($value->job_description) ?></h6>
             </div>
+            <?php 
+            $job = new Job_details($value->user_id, $value->id);
+            if(!empty($job->get_attachments()[0])){ ?>
+                <div class="row margin-top page-label margin-top-5" style="margin-left: 0px; margin-bottom: 10px;">
+                    <div class="col-md-9">
+                        <label class="lab-details">Attachments</label>
+                    </div>
+                    <div class="col-md-12 text-justify page-label div-details">
+                    <?php 
+                    foreach($job->get_attachments() AS $attachment){
+                        echo '<a href="'.site_url().'jobs/download?dir='.$value->user_id.'/'.$job->get_tid().'&file='.$attachment.' ">'.$attachment.'</a><br>'; 
+                    }
+                    ?>
+            </div>
+            </div>
+            <?php } ?>
             <div class="col-md-12 col-md-offset-0 page-jobs " style=" margin-bottom: 2px;">
 
                 <h6 style="float:left;font-size: 14px;margin: 0;margin-top: 3px;margin-right: -8px;" class="page-sub-title">Skills</h6>
@@ -173,9 +189,10 @@ if (count($records) > 0)
             <div class="col-md-12">
                 <nav>
                     <ul class="job-navigation custom_find_job_bottom">
-                    
-                     <?php 
-                        if($value->isactive && $paymentSet) 
+
+                     <?php
+                        $emp = new Employer($value->user_id);
+                        if($emp->is_active() == 1 && $emp->is_payment_set()) 
                         {
                           ?>
                         <li><i style="color: rgb(2, 143, 204);" class="fa fa-check-circle"></i>Verified</li>
@@ -192,7 +209,7 @@ if (count($records) > 0)
                         }                                               
 ?>
                        
-                        <li><b>$<?php echo round($total_spent,0);?></b> Spent</li>
+                        <li><b>$<?php echo round($emp->total_spent($value->user_id),0);?></b> Spent</li>
                         <li style="padding-top: 5px;margin-bottom: 4px;">
                             <?php if($total_feedbackScore !=0 && $total_budget!=0){
                                 $totalscore = ($total_feedbackScore / $total_budget);
@@ -216,6 +233,13 @@ if (count($records) > 0)
                                </div>
                           <?php   } ?>
                         </li>
+                        <li>
+                            <i style="font-size: 16px;margin-right: 2px;" class="fa fa-map-marker"></i>
+                            <?php
+                            $country = new Employer($value->user_id);
+                            echo $country->get_country();
+                            ?>
+			</li>
                     </ul>
                 </nav>
             </div>
