@@ -41,10 +41,10 @@ if(!empty($active_interview)){
         $a++;
     }
     if(count($active_interview) > 0){
-        $declined = count($active_interview);
+        $_declined = count($declined);
         $msg_declined = $declined." Declined Jobs";
     } else {
-        $declined = count($active_interview);
+        $_declined = count($declined);
         $msg_declined = "No Declined Jobs";
     }
 }
@@ -137,7 +137,7 @@ if(!empty($active_interview)){
         <div class="row">
             <div class="col-md-12 bottom-blue-border  padding-2">
                 
-                <span style="margin-right: 45px;"><a href="<?php echo site_url('my-offers'); ?>"><b>Active Interview (<?= $count_interview ?>)</b></a></span>&nbsp <span><a href="<?php echo site_url('my-offers/archived'); ?>"><b>Declined (<?= $decline == 0 ? 0 : $decline ?>)</b></a></span>
+                <span style="margin-right: 45px;"><a href="<?php echo site_url('my-offers'); ?>"><b>Active Interview (<?= $count_interview ?>)</b></a></span>&nbsp <span><a href="<?php echo site_url('my-offers/archived'); ?>"><b>Declined (<?= $_declined == 0 ? 0 : $_declined ?>)</b></a></span>
 
             </div>
             <div class="col-md-12 text-center bordered-alert margin-top">

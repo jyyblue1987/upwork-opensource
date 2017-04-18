@@ -234,8 +234,8 @@ $total_spent=$row_spent->total_spent;
 
                     <div class="col-md-12 text-justify page-label job-desc"><?php echo ucfirst($value->job_description) ?></div>
                 </div>
-                
-                <?php if($value->tid != 0){ ?>
+
+                <?php if($value->userfile != ""){ ?>
                 <div class="row margin-top page-label">
                     <div class="col-md-9">
                         <label>Attachment</label>

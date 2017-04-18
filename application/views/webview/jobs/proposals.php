@@ -205,7 +205,7 @@ $accepted_jobs = $query->result();
                     <div style="font-family: calibri; font-size: 16px; margin-bottom: 17px; margin-top: 8px;" class="col-md-12 text-justify page-label"><?php echo ucfirst($value->job_description) ?></div>
 
                 </div>
-                <?php if($value->tid != 0){ ?>
+                <?php if($value->userfile != ""){ ?>
                 <div class="row margin-top page-label">
                     <div class="col-md-9">
                         <label>Attachments</label>
@@ -359,7 +359,7 @@ $hire_count = $query->num_rows();
                             </div>
                         </div>
                     </div>
-                    <?php if($f_attachments){ ?>
+                    <?php if($f_attachments[0]['path'] != ""){ ?>
                     <div class="row margin-top page-label margin-top-5">
                     <div class="col-md-9">
                         <label class="lab-details" style="font-size: 15px;">Attachments</label>

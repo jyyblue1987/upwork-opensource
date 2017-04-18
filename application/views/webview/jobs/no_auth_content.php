@@ -104,7 +104,56 @@ if (count($records) > 0)
     foreach ($records as $key => $value)
     {
 
+$this->db->select('*');
+$this->db->from('job_accepted');
+$this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
+$this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
+$this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
+$this->db->where('job_accepted.buser_id',$value->user_id);
+$query=$this->db->get();
 
+$accepted_jobs = $query->result();
+$total_feedbackScore=0 ;
+$total_budget=0 ;
+ if(!empty($accepted_jobs)){
+    foreach($accepted_jobs as $job_data){
+        $this->db->select('*');
+        $this->db->from('job_feedback');
+        $this->db->where('job_feedback.feedback_userid',$job_data->fuser_id);
+        $this->db->where('job_feedback.sender_id !=',$job_data->fuser_id);
+        $this->db->where('job_feedback.feedback_job_id',$job_data->job_id);
+        $query=$this->db->get();
+        $jobfeedback= $query->row();
+        
+        if($job_data->jobstatus == 1){
+            if(!empty($jobfeedback)){
+                if($job_data->job_type == "fixed"){
+                    $total_price_fixed=$job_data->fixedpay_amount;
+                    $total_feedbackScore += ($jobfeedback->feedback_score *$total_price_fixed);
+                    $total_budget += $total_price_fixed;
+                }else{
+                    $this->db->select('*');
+                    $this->db->from('job_workdairy');
+                    $this->db->where('fuser_id',$job_data->fuser_id);
+                    $this->db->where('jobid',$job_data->job_id);
+                    $query_done = $this->db->get();
+                    $job_done = $query_done->result();
+                    $total_work = 0;
+                    foreach($job_done as $work){
+                        $total_work +=$work->total_hour;
+                    }
+                    
+                    if($job_data->offer_bid_amount) {
+                    $amount = $job_data->offer_bid_amount;
+                    } else {$amount =  $job_data->bid_amount;} 
+                     $total_price= $total_work *$amount;
+                    $total_budget += $total_price ;
+                    $total_feedbackScore += ($jobfeedback->feedback_score *$total_price);
+                }
+            }
+        }
+    }
+ }
 ?>
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">

@@ -204,7 +204,7 @@ $clientend = $Conversation->clientend();
                             <div class="col-md-12 margin-top-space proposal-boxn no-pad no-pad-xs">
                                 <div  class='white-box side-menu-j-cont'>
                                         <div class="no-padding no-pad side-mar-bot">
-                                            <a class="side-menu-j" href="<?php echo base_url() ?>my-offers">Active Interview <p style="float: right;margin: 0;"><?= $no_of_interview ?></p></a>
+                                            <a class="side-menu-j" href="<?php echo base_url() ?>my-offers">Active Interview <p style="float: right;margin: 0;"><?= $int ?></p></a>
                                         </div>
 
                                         <div class="gray-text no-padding side-mar-bot">
