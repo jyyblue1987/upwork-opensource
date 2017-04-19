@@ -4,9 +4,9 @@
             <div class="col-md-10 col-md-offset-0">
                 <div class="row">
                     <div class="col-md-12 no-padding margin-top-search">
-                        <form action="find-jobs" method="post" id="job-search-form">
-                            <input style="width: 737px;" type="text" name="jobsearchbykeywords" id="jobsearch" value="<?php if (isset($searchKeyword)) echo $searchKeyword; ?>" autocomplete="on" class="form-control search-field" /> 
-                            <i class="fa fa-search search-btn search-btn-cat" aria-hidden="true"></i>
+                        <form action="<?= site_url() ?>jobs-search" method="GET" id="job-search-form">
+                            <input style="width: 737px;" type="text" name="q" id="jobsearch" value="<?php if (isset($searchKeyword)) echo $searchKeyword; ?>" autocomplete="on" class="form-control search-field" /> 
+                            <i class="fa fa-search search-btn search-btn-home" aria-hidden="true"></i>
                         </form>
                     </div>
                 </div>

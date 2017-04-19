@@ -1,33 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>
-        <?php echo $title; ?> </title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width,height=device-height, initial-scale=1, user-scalable=no">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="stylesheet" href="<?php echo base_url() ?>assets/home/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>assets/home/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>assets/home/css/fonts.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/footer.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/header.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>assets/home/css/normalize.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>assets/home/css/style.css">
-    <link rel='stylesheet' media='screen and (min-width: 0px) and (max-width: 5000px)' href='css/lg-style.css' />
-    <link rel='stylesheet' media='screen and (min-width: 0px) and (max-width: 1199px)' href='css/md-style.css' />
-    <link rel='stylesheet' media='screen and (min-width: 0px) and (max-width: 991px)' href='css/sm-style.css' />
-    <link rel='stylesheet' media='screen and (min-width: 0px) and (max-width: 767px)' href='css/xs-style.css' />
-    <script src="<?php echo base_url() ?>assets/home/js/vendor/modernizr-2.8.3.min.js"></script>
-    <?php $this->load->view("webview/layout/afterheader") ?> </section>
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/home/css/home.css">
     </div>
     <div class="clear"></div>
     <section id="big_header">
         <div class="container">
             <p class="banner-title">Hire export freelancers for your online job</p>
-            <p class="banner-details">Millions of small businesses use Frelancer to turn their idto reality</p>
+            <p class="banner-details">Millions of small businesses use Freelancer to turn their into reality</p>
             <section id="sliderButton" class="hidden-xs hidden-sm">
                 <button type="button" onclick="location.href='employeersignup'">I want to Hire</button>
                 <button type="button" onclick="location.href='freelancersignup'">I want to work</button>
@@ -49,12 +27,12 @@
                 </div>
                 
                 <div id="simpleApproacBoxone" class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-3" style="padding-left:0;padding-right:0;">
+                    <div class="col-xs-12 col-sm-6 col-md-3" class="no-pad">
                         <article>
                             <div>
                                 <p>Post Project</p>
                             </div>
-                            <div>
+                            <div class="background-0">
                                 <p>1</p>
                             </div>
                             <div>
@@ -62,12 +40,12 @@
                             </div>
                         </article>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-3" style="padding-left:0;padding-right:0;">
+                    <div class="col-xs-12 col-sm-6 col-md-3" class="no-pad">
                         <article>
                             <div>
                                 <p> Get Biddings </P>
                             </div>
-                            <div style="background-color: #EE3E41;">
+                            <div class="background-1">
                                 <p>2</p>
                             </div>
                             <div>
@@ -75,12 +53,12 @@
                             </div>
                         </article>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-3" style="padding-left:0;padding-right:0;">
+                    <div class="col-xs-12 col-sm-6 col-md-3" class="no-pad">
                         <article>
                             <div>
                                 <p> Choose The Best</p>
                             </div>
-                            <div style="background-color: #FDB813;">
+                            <div class="background-2">
                                 <p>3</p>
                             </div>
                             <div>
@@ -88,12 +66,12 @@
                             </div>
                         </article>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-3" style="padding-left:0;padding-right:0;">
+                    <div class="col-xs-12 col-sm-6 col-md-3" class="no-pad">
                         <article>
                             <div>
                                 <p>Approve & Pay</P>
                             </div>
-                            <div style="background-color: #4CAF50;">
+                            <div class="background-3">
                                 <p><i class="fa fa-check" aria-hidden="true"></i> </p>
                             </div>
                             <div>
@@ -214,10 +192,8 @@
             <div id="simpleApproacBoxtwo" class="row">
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     <article>
-                        <div style="background-color: #F44236;"><i class="fa fa-user" aria-hidden="true"></i> </div>
-                        <div>
-                            <p style="color:#F44236">Bid a project</p>
-                        </div>
+                        <div class="background-0">Bid a project</div>
+                        <div class="background-5"><i class="fa fa-user" aria-hidden="true"></i> </div>
                         <div>
                             <p>Go to Browse projects and bid for it!</p>
                         </div>
@@ -225,10 +201,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     <article>
-                        <div style="background-color: #02BAD6;"><i class="fa fa-briefcase" aria-hidden="true"></i> </div>
-                        <div>
-                            <p style="color:#02BAD6">Wait For Approve</p>
-                        </div>
+                        <div class="background-2">Wait For Approve</div>
+                        <div class="background-4"><i class="fa fa-briefcase" aria-hidden="true"></i> </div>
                         <div>
                             <p>Wait Until the Employer select you as a project winner. Remember after a selection & get hired the work will be valid for you </p>
                         </div>
@@ -236,10 +210,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     <article>
-                        <div style="background-color: #4CAF50;"><i class="fa fa-clock-o" aria-hidden="true"></i> </div>
-                        <div>
-                            <p style="color:#4CAF50">Work & Earning</p>
-                        </div>
+                        <div class="background-1">Work & Earning</div>
+                        <div class="background-3"><i class="fa fa-clock-o" aria-hidden="true"></i> </div>
                         <div>
                             <p>Complete your work by schedule that you both agreed or you can run winjob timer for get paid hourly. </p>
                         </div>
@@ -250,9 +222,6 @@
     </section>
     <section id="ouBlog">
         <div class="container">
-            <header>Build your online Dream Team- <a href="signup" style="text-decoration: none;color: inherit">Get Started</a></header>
+            <header>Build your online Dream Team- <a href="signup" class="inherit">Get Started</a></header>
         </div>
     </section>
-    <?php $this->load->view("webview/layout/footer"); $this->load->view("webview/includes/new-footer-common-script"); ?> </body>
-
-</html>

@@ -39,9 +39,9 @@ span.rating-badge {
         <div class="row ">
             <div class="row">
                 <div style="width: 101%;" class="col-md-12 padding-left-off margin-bottom-3">
-                    <form id="freelacer-search" action="<?php echo site_url('profile/find-freelancer')?>" method="post">
+                    <form id="freelacer-search" action="<?php echo site_url('freelancers-search')?>" method="GET">
                         <div class="col-md-10">
-                            <input style="width: 91.5%;" type="text" name="keywords" class="form-control search-field" value="<?php echo $searchWord ?>"/> 
+                            <input style="width: 91.5%;" type="text" name="q" class="form-control search-field" value="<?php echo $searchWord ?>" id="jobsearch"/> 
                             <i aria-hidden="true" class="fa custom_btn fa-search search-btn search-freelancer"></i>
                         </div>
 						
@@ -110,10 +110,10 @@ span.rating-badge {
                     <div style="width: 97.1%;" class="col-md-12 white-box candidate-list">
                         <div class="row margin-top-1">
                             <div style="margin-left: 5px;" class="col-md-1 st_img">
-                                <img src="<?php echo base_url().$fp->webuser_picture?>" width="64" height="64" />
+                                <img src="<?php echo $fp->webuser_picture == "" ? base_url().'assets/user.png' : base_url().$fp->webuser_picture?>" width="64" height="64" />
                             </div>
                             <div class="col-md-8 text-left margin-left-1 aplicant_name" style="margin-top:-4px;">
-                                <label class="blue-text"><?php echo $fp->webuser_fname." ".$fp->webuser_lname ?></label> <br/> 
+                                <a href="<?= site_url().'freelancer/'.$fp->webuser_username ?>"><label class="blue-text"><?php echo $fp->webuser_fname." ".$fp->webuser_lname ?></label></a> <br/> 
                                 <span style="color: #494949;"><b><?php echo $fp->tagline ?></b></span>
                                 <div class="row margin-top-2">
                                     
@@ -237,12 +237,10 @@ span.rating-badge {
 </section>
 <!-- big_header-->
 <script type="text/javascript">
-$('.search-freelancer').click(function(){
-    var val = $('input[name="keywords"]').val();
-    if(val != "" && val.length > 0){
-        $('#freelacer-search').submit();
-    }else{
-        alert("Leave a search word");
-    }
-});
+$('.search-freelancer').click(function () {
+        var keywords = $('#jobsearch').val();
+        if (keywords.length > 0) {
+            $('#freelacer-search').submit();
+        }
+    });
 </script>

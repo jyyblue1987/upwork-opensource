@@ -1,25 +1,26 @@
+   <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/pages/signin.css" />
    <div class="main_area_div_signin main_area_div white-box">
   	<h1 class="text-center header-login">Login and start to work</h1>
 			 
- 	<h4 class="text-center" style="margin:20px 15px;margin-bottom: 28px;">Don't have an account? <a href="<?php echo site_url("signup/") ?>">Sign up</a></h4>
+ 	<h4 class="text-center no-acc">Don't have an account? <a href="<?php echo site_url("signup/") ?>">Sign up</a></h4>
 
 		<?php if(isset($_GET['error'])){ ?>
-		<h4 class="text-center text-danger" style="margin:20px 15px;">Wrong Username or Password</h4>
+		<h4 class="text-center text-danger marg-top-right">Wrong Username or Password</h4>
 		<?php } ?>
 		<?php if(isset($_GET['emailverify'])){ ?>
-		<h5 class="text-center text-danger" style="margin:20px 15px;">Email Not Verified </br></br>
+		<h5 class="text-center text-danger marg-top-right">Email Not Verified </br></br>
 			<?php if(isset($_GET['username'])){ ?>
 		<a class="" href="<?php echo site_url("resendlink?username=").$_GET['username']; ?>">Resend </a>Verification Link To <?php echo $newemail; ?>
 		<?php } ?>
 		</h5>
 		<?php } ?>
 			<?php if(isset($_GET['reset'])){ ?>
-		<h4 class="text-center text-success" style="margin:20px 15px;">Password Changed Successfuly</h4>
+		<h4 class="text-center text-success marg-top-right">Password Changed Successfuly</h4>
 		<?php } ?>
 		
 		
 		
-		   <form style="margin-bottom: 61px;" id="basicb" method="post" action="<?php echo site_url("logincheck"); ?>">
+		   <form class="marg-bot-s1" id="basicb" method="post" action="<?php echo site_url("logincheck"); ?>">
 		   		<div class="row">
 					<div class="col-md-3 col-lg-4 col-sm-3 hidden-xs">
 					</div>
@@ -67,7 +68,7 @@
 					<div class="col-md-3 col-lg-4 col-sm-3 hidden-xs">
 					</div>
 					<div class="col-md-6 col-lg-4 col-sm-6 col-xs-12">                           
-						<div style="margin-top: 11px;font-family: calibri;font-size: 18px;float: right;" class="checkbox-custom checkbox-primary text-left">
+						<div class="checkbox-custom checkbox-primary text-left forg-cont">
                           <div class="forgot_btn">
                               <a href="<?php echo site_url("resetpass"); ?>">Forgot Password ?</a>
                           </div>

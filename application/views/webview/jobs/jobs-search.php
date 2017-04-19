@@ -59,9 +59,9 @@ $clientend = $Conversation->clientend();
 
         <div class="search-form">
             <div class="row">
-                <form action="find-jobs" method="post" id="job-search-form">
+                <form action="<?= site_url() ?>jobs-search" method="GET" id="job-search-form">
                     <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12 no-pad search-cont">
-                            <input type="text" placeholder="Find job" name="jobsearchbykeywords" id="jobsearch" value=""  class="form-control search-field"/>
+                            <input type="text" placeholder="Find job" name="q" id="jobsearch" value="<?= isset($_GET['q']) ? $_GET['q'] : ''  ?>" class="form-control search-field"/>
                             <i aria-hidden="true" class="fa fa-search search-btn-home custom_btn"></i>
                     </div>
                     <div class="col-md-2 col-lg-2 col-sm-2 col-xs-12 no-pad">
@@ -81,7 +81,7 @@ $clientend = $Conversation->clientend();
                                         foreach ($subCateList as $sub) {
                                             ?>
                                             <div  class="col-md-12 blue-text catscont">
-                                                <label> <a href="<?php echo site_url('find-jobs/' . $sub['subcat_id']) ?>"> <?php echo $sub['subcategory_name'] ?> </a> </label>
+                                                <label> <a href="<?php echo site_url('jobs-search/' . $sub['subcat_id']) ?>"> <?php echo $sub['subcategory_name'] ?> </a> </label>
                                             </div>
                                             <?php
                                         }
@@ -204,7 +204,7 @@ $clientend = $Conversation->clientend();
                             <div class="col-md-12 margin-top-space proposal-boxn no-pad no-pad-xs">
                                 <div  class='white-box side-menu-j-cont'>
                                         <div class="no-padding no-pad side-mar-bot">
-                                            <a class="side-menu-j" href="<?php echo base_url() ?>my-offers">Active Interview <p style="float: right;margin: 0;"><?= $no_of_interview ?></p></a>
+                                            <a class="side-menu-j" href="<?php echo base_url() ?>my-offers">Active Interview <p style="float: right;margin: 0;"><?= $int ?></p></a>
                                         </div>
 
                                         <div class="gray-text no-padding side-mar-bot">

@@ -22,7 +22,7 @@ class Home extends CI_Controller {
                         $this->Admintheme->webview("home",$data);
                          * 
                          */
-                    $this->load->view("webview/winjob/home",$params);
+                    $this->Admintheme->custom_webview("winjob/home",$params);
 		}
 	}
 	 
@@ -30,6 +30,6 @@ class Home extends CI_Controller {
             $params = array(
                 'title' => "Winjob Home"
             );
-            $this->load->view("webview/winjob/home",$params);
+            $this->Admintheme->custom_webview("winjob/home",$params);
         }
 }

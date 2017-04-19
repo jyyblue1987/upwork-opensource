@@ -104,18 +104,18 @@ $accepted_jobs = $query->result();
 ?>
 
 
-
-<section id="big_header" style="margin-top: 40px; margin-bottom: 40px; height: auto; overflow: hidden; margin-left: 4px;border-radius: 4px;width: 1000px;">
-    <div class="container">
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/css/pages/proposals.css" />
+<section id="big_header">
+    <div class="no-pad-mob pad-large">
         <div class="row">
-            <div class="col-md-9 col-md-offset-0 white-box job-cont" style="padding: 30px;">                
+            <div class="col-md-9 col-md-offset-0 white-box job-cont">                
                 <div class="row">					
                     <div class="col-md-10 page-label">
                         <h1 class="job-title cos_job-title"><?php echo ucfirst($value->title) ?></h1>
                     </div>
 					
 					<div class="col-md-2 page-label">                        
-                        <span style="margin-top: -15px;" class="pull-right"><?php
+                        <span class="pull-right"><?php
                              $timeDate = strtotime($value->job_created);
                             $dateInLocal = date("Y-m-d H:i:s", $timeDate);
                             echo time_elapsed_string(strtotime($dateInLocal)); ?></span>
@@ -205,7 +205,7 @@ $accepted_jobs = $query->result();
                     <div style="font-family: calibri; font-size: 16px; margin-bottom: 17px; margin-top: 8px;" class="col-md-12 text-justify page-label"><?php echo ucfirst($value->job_description) ?></div>
 
                 </div>
-                <?php if($value->tid != 0){ ?>
+                <?php if($value->userfile != ""){ ?>
                 <div class="row margin-top page-label">
                     <div class="col-md-9">
                         <label>Attachments</label>
@@ -273,10 +273,10 @@ $hire_count = $query->num_rows();
                 </div>
             
        
-            <div class="col-md-9" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; ">
+            <div class="col-md-12 no-pad" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; ">
                 <div class='form-msg'></div>            
                
-                    <div style="border: 1px solid rgb(204, 204, 204); width: 698px;border-radius: 4px;margin-top: 20px;" class="col-md-12">
+                    <div style="border: 1px solid rgb(204, 204, 204); border-radius: 4px;margin-top: 20px;" class="col-md-12">
                         <div class="row">
 								<?php
 							   // print_r($value);
@@ -297,8 +297,7 @@ $hire_count = $query->num_rows();
 										// added by jahid end 
 									}
 								?>
-                            <div style="text-align: center;" class="col-md-7 col-centered custom_sp">
-								
+                            <div style="text-align: center;" class="col-md-12 col-centered custom_sp no-pad">
 								<div class="row">
                                     <div class="col-md-12">
                                         <label style="margin-bottom: -3px;">Submitted Proposal</label>
@@ -330,7 +329,7 @@ $hire_count = $query->num_rows();
  {?>
                                 <div class="row margin-top-2">
                                     <div class="col-md-12">
-                                        <input style="margin-left: 15px;" type="button" class="btn btn-primary form-btn" value="Propose Different Terms" data-toggle="modal" data-target="#myModal2"/>
+                                        <input type="button" class="btn btn-primary form-btn" value="Propose Different Terms" data-toggle="modal" data-target="#myModal2"/>
                                     </div>
                                 </div>
 
@@ -345,21 +344,21 @@ $hire_count = $query->num_rows();
                     </div>
               
 
-                <div class="row">
-                    <div class="col-md-11">
+                <div class="row no-pad">
+                    <div class="col-md-11 no-pad-mob">
                         <div class="row">
-                            <div style="margin-top: 30px;" class="col-md-11 margin-left-2 margin-top-2">
+                            <div style="margin-top: 30px;" class="col-md-11 no-pad-mob margin-top-2">
                                 <p class="custom_cover-letter">Cover Letter</p>
                             </div>
                         </div>
 
                         <div class="row margin-top-2">
-                            <div class="col-md-11 margin-left-2">
+                            <div class="col-md-11 margin-left-2 no-pad-mob">
                                 <p style="margin-bottom: 32px;" style="margin-bottom: 10px; color: rgb(73, 73, 73);" class="custom_cover-letter-text"><?php echo ucfirst($value->cover_latter) ?></p>
                             </div>
                         </div>
                     </div>
-                    <?php if($f_attachments){ ?>
+                    <?php if($f_attachments[0]['path'] != ""){ ?>
                     <div class="row margin-top page-label margin-top-5">
                     <div class="col-md-9">
                         <label class="lab-details" style="font-size: 15px;">Attachments</label>
@@ -381,52 +380,47 @@ $hire_count = $query->num_rows();
             <div class="col-md-3 no-pad">
                 <div class="row client-activity">
                     <div class="col-md-10 col-md-offset-2 right-section">
-                        <div class="row margin-top-2">
-                            <div class="col-md-12">
+                        <p class="margin-top-2">
                                 
                                 <?php
                                         if ($status && $payment_set) {
                                             ?>
-										<i style="margin-top: -10px; margin-left: -4px; font-size: 25px; color: rgb(2, 143, 204);position: absolute;top: 8px;" class="fa fa-check-circle"></i>
+										<i style="font-size: 25px; color: rgb(2, 143, 204);" class="fa fa-check-circle"></i>
                                         <?php
                                     } else {
                                         ?>
-                                        <i style="margin-top: -10px; margin-left: -4px; font-size: 25px; color: rgb(187, 187, 187);position: absolute;top: 8px;" class="fa fa-minus-circle"></i>
+                                        <i style="font-size: 25px; color: rgb(187, 187, 187);" class="fa fa-minus-circle"></i>
                                         <?php
                                     }
                                     ?>
-                                <label style="margin-left: 25px;"><?php echo $fname ?></label>
-                                
-                                
-                            </div>
-                        </div>
-                        <div style="margin-top: 10px;" class="row margin-top-2 border-bottom">
+                                <label><?php echo $fname ?></label>
+                         </p>
+                        <div style="margin-top: 10px;margin-bottom: 10px;" class="row margin-top-2 border-bottom">
                             <div class="col-md-8 ">
-								<?php if($total_feedbackScore !=0 && $total_budget!=0){
+                                <?php if($total_feedbackScore !=0 && $total_budget!=0){
                                 $totalscore = ($total_feedbackScore / $total_budget);
                                 $rating_feedback = ($totalscore/5)*100;
                                ?>
                                 <button style="font-size: 10px;background:#F77D0E;padding: 2px 4px;border-radius: 2px;" id="buttonfirst"><?=number_format((float)$totalscore,1,'.','');?></button>
-								<div title="Rated <?=$totalscore;?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="right: -8%;margin-top: -3%;position: absolute;">
-								<span style="width:<?=$rating_feedback;?>%">
-									<strong itemprop="ratingValue"><?=$totalscore;?></strong> out of 5
-								</span>
-								</div>
-							<?php  }else{ ?>
+                                <div title="Rated <?=$totalscore;?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+                                <span style="width:<?=$rating_feedback;?>%">
+                                    <strong itemprop="ratingValue"><?=$totalscore;?></strong> out of 5
+                                </span>
+                                </div>
+                            <?php  }else{ ?>
                              <button style="font-size: 10px;background:#F77D0E;padding: 2px 4px;border-radius: 2px;"  id="buttonfirst">0.0</button>
-								<div style="right: -8%;margin-top: -3%;position: absolute;" title="Rated 0 out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="right: -45%;margin-top: 2%;position: absolute;">
-								<span style="width:0%">
-									<strong itemprop="ratingValue">0</strong> out of 5
-								</span>
-								</div>
+                                <div title="Rated 0 out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+                                <span style="width:0%">
+                                    <strong itemprop="ratingValue">0</strong> out of 5
+                                </span>
+                                </div>
                           <?php   } ?>
                                
                             </div>
                         </div>
-
-                        <div style="margin-top: 14px;margin-left: -19px;" class="row margin-top-2 border-bottom">
-                            <div class="col-md-12">
-                                <label style="font-family: Calibri;font-size: 20.26px;color: #494949;margin-top: -29px;">
+                               
+                        <p>
+                                <label style="font-family: Calibri;font-size: 18px;color: #494949;">
                                    <?php if(!empty($record_sidebar)){
                                         echo $record_sidebar;
                                     }else{
@@ -434,19 +428,15 @@ $hire_count = $query->num_rows();
                                     } ?>
 								<span style="font-size: 14px;color: #494949;font-family: calibri;">Jobs Posted</span>
 								</label>
-                            </div>
-                        </div>
-                        <div style="margin-top: 4px;margin-left: -19px;" class="row margin-top-2 border-bottom">
-                            <div class="col-md-12">
-                                <label style="font-family: Calibri;font-size: 20.26px;color: #494949;margin-top: -29px;">
+                        </p>
+                        <p>
+                                <label style="font-family: Calibri;font-size: 18px;color: #494949;">
 								<?=$hire;?> 
 								<span style="font-size: 14px;color: #494949;font-family: calibri;">Hired</span>
 								</label>
-                            </div>
-                        </div>
-                        <div style="margin-top: 2px;margin-left: -19px;" class="row margin-top-2 border-bottom">
-                            <div class="col-md-12">
-                                <label style="font-family: Calibri;font-size: 20.26px;color: #494949;margin-top: -29px;">
+                        </p>
+                        <p>
+                                <label style="font-family: Calibri;font-size: 18px;color: #494949;">
 								<?php $total_work = 0;
                                     if(!empty($workedhours)){
                                         foreach($workedhours as $work){
@@ -457,29 +447,24 @@ $hire_count = $query->num_rows();
                                         echo " 0 <span style='font-size: 14px;color: #494949;font-family: calibri;'>Hours Worked</span>";
                                     } ?>
 								</label>
-                            </div>
-                        </div>
-
-                        <div style="margin-top: 4px;margin-left: -19px;" class="row margin-top-2 border-bottom">
-                            <div class="col-md-12">
-                                <label style="font-family: Calibri;font-size: 20.26px;color: #494949;margin-top: -29px;">
+                        </p>
+                        <p>
+                                <label style="font-family: Calibri;font-size: 18px;color: #494949;">
 								$<?php echo round($total_spent,0);?>
 								<span style="font-size: 14px;color: #494949;font-family: calibri;">Spent</span>
 								</label>
-                            </div>
-                        </div>
-                        <div class="row margin-top-2 border-bottom">
-                            <div style="font-family: Calibri;font-size: 18px;margin-left: 12px;margin-top: -15px;margin-bottom: 5px;">
+                        </p>
+                        <p>
 								
 								<i class="fa fa-map-marker"></i>
 								
-								<label style="font-family: Calibri;font-size: 20.26px;color: #494949;margin-top: -29px;">
+								<label style="font-family: Calibri;font-size: 18px;color: #494949;">
 								<span style="font-size: 14px;color: #494949;font-family: calibri;"><?php
                                 
                                 echo $country;
                                 ?></span>
 								</label>
-                            </div>
+                        </p>
                         </div>
                 </div>
             </div>
@@ -590,7 +575,5 @@ $hire_count = $query->num_rows();
 
                 <div class="col-md-3"></div>
             </div>
-
         </div>
-
 </section>

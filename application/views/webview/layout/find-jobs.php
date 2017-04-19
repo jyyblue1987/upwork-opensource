@@ -19,7 +19,7 @@ $job_alert_count = $Conversation->job_alert();
                     <div class="col-md-10 col-md-offset-0">
                         <div class="row">
                             <div class="col-md-12 no-padding margin-top-search">
-                                <form action="find-jobs" method="post" id="job-search-form">
+                                <form action="jobs-search" method="post" id="job-search-form">
                                     <input type="text" placeholder="Find job" name="jobsearchbykeywords" id="jobsearch" value=""  class="form-control search-field" /> 
                                     <i class="fa fa-search search-btn search-btn-home" aria-hidden="true"></i>
                                 </form>

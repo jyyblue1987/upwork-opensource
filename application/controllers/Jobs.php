@@ -234,6 +234,7 @@ class Jobs extends Winjob_Controller {
         } else {
             $offsetId = $url_rewrite;
         }
+        
 
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 2) {
@@ -460,8 +461,8 @@ class Jobs extends Winjob_Controller {
                     $query = $this->db->get_where('jobs', $val, $limit, $offset);
                 } else {
                     $keywords = "";
-                    if (!empty($_POST)) {
-                        $keywords = $this->input->post("jobsearchbykeywords");
+                    if (isset($_GET['q'])) {
+                        $keywords = $this->input->get("q");
                     }
 
                     if (isset($sql) && $sql != "" && strlen($sql) >= 1) {
@@ -514,26 +515,20 @@ class Jobs extends Winjob_Controller {
                     $records = null;
                 }
                 $user_id = $this->session->userdata('id');
-                $this->db->select('*');
-                $this->db->from('job_bids');
-                $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
-                $this->db->join('job_conversation', 'job_conversation.job_id=jobs.id', 'inner');
-                $this->db->where('job_bids.user_id', $user_id);
-                $this->db->where('job_bids.status', 0);
-                // added by jahid start 
-                $this->db->where('job_bids.job_progres_status', 1);
-                $this->db->where(array('job_bids.withdrawn' => NULL));  
-                // added by jahid end 
-                $this->db->where('jobs.status', 1);
-                $this->db->where('job_bids.bid_reject', 0);
-                $this->db->group_by('job_conversation.job_id');
-                $query = $this->db->get();
-                
-                if (is_object($query)) {
-                    $intervier_no = $query->num_rows();
-                } else {
-                    $intervier_no = null;
-                }
+                $this->db->select('jobs.*, job_bids.*,webuser.*,job_bids.user_id AS bid_user_id,job_bids.status AS bid_status,job_bids.created AS bid_created,job_conversation.bid_id AS jbid_id');
+                $this->db->join('job_bids', 'jobs.id=job_bids.job_id', 'left');
+                $this->db->join('webuser', 'jobs.user_id=webuser.webuser_id', 'left');
+                $this->db->join('job_conversation', 'job_bids.id=job_conversation.bid_id', 'left');
+                $this->db->where('job_bids.user_id',$user_id);
+                $this->db->where('job_bids.status','0');
+                $this->db->where('job_bids.bid_reject','0');
+                $this->db->where('job_bids.job_progres_status', '1');
+                $this->db->where(array('job_bids.withdrawn' => NULL)); 
+                $this->db->group_by('jbid_id'); 
+                $this->db->order_by("jobs.id", "desc");
+                $query=$this->db->get('jobs');
+                $record = $query->result();
+                $data['int'] = count($record);
                 //$record = $query->result();
                 $this->db->select('*');
                 $this->db->from('job_bids');
@@ -639,7 +634,7 @@ class Jobs extends Winjob_Controller {
                 $ststus = $query_status->row();
                 
                 $offers = $this->process->get_total_offers($id);
-                $data = array('js' => array('internal/find_job.js'), 'records' => $records, 'offers' => $offers['rows'], 'limit' => $limit, 'no_of_interview' => $intervier_no, 'proposal_no' => $proposal_no, 'profilecompleteness' => $profilecompleteness, 'ststus' => $ststus);
+                $data = array('js' => array('internal/find_job.js'), 'records' => $records, 'offers' => $offers['rows'], 'limit' => $limit, 'no_of_interview' => count($record), 'proposal_no' => $proposal_no, 'profilecompleteness' => $profilecompleteness, 'ststus' => $ststus);
 
                 if (isset($subCateList) && !empty($subCateList)) {
                     $data['subCateList'] = $subCateList['rows'];
@@ -670,6 +665,21 @@ class Jobs extends Winjob_Controller {
                 $sql = "SELECT cropped_image FROM webuser WHERE webuser_id =  " . $this->session->userdata(USER_ID);
                 $croppedImage =    $this->db->query($sql)->row();
                 $data['croppedImage'] = $croppedImage;
+                
+                $this->db->select('jobs.*, job_bids.*,webuser.*,job_bids.user_id AS bid_user_id,job_bids.status AS bid_status,job_bids.created AS bid_created,job_conversation.bid_id AS jbid_id');
+                $this->db->join('job_bids', 'jobs.id=job_bids.job_id', 'left');
+                $this->db->join('webuser', 'jobs.user_id=webuser.webuser_id', 'left');
+                $this->db->join('job_conversation', 'job_bids.id=job_conversation.bid_id', 'left');
+                $this->db->where('job_bids.user_id',$user_id);
+                $this->db->where('job_bids.status','0');
+                $this->db->where('job_bids.bid_reject','0');
+                $this->db->where('job_bids.job_progres_status', '1');
+                $this->db->where(array('job_bids.withdrawn' => NULL)); 
+                $this->db->group_by('jbid_id'); 
+                $this->db->order_by("jobs.id", "desc");
+                $query=$this->db->get('jobs');
+                $record = $query->result();
+                $data['int'] = count($record);
                 // Davit end
                 if ($jobCatPage) {
 
@@ -683,7 +693,7 @@ class Jobs extends Winjob_Controller {
                 } else {
                     $data['page'] = "find-jobs";
                     $data['css']  = array("","","","assets/css/pages/find-jobs.css");
-                    $this->Admintheme->custom_webview("jobs/find-jobs", $data);
+                    $this->Admintheme->custom_webview("jobs/jobs-search", $data);
                 }
             }
         } else {
@@ -2533,7 +2543,7 @@ class Jobs extends Winjob_Controller {
                 'f_attachments' => $attachments,
                 'js' => array('vendor/jquery.form.js',
                     'internal/job_withdraw.js'));
-            $this->Admintheme->webview("jobs/proposals", $data);
+            $this->Admintheme->custom_webview("jobs/proposals", $data);
         }
     }
 
@@ -3336,8 +3346,8 @@ class Jobs extends Winjob_Controller {
                     $query = $this->db->get_where('jobs', $val, $limit, $offset);
                 } else {
                     $keywords = "";
-                    if (!empty($_POST)) {
-                        $keywords = $this->input->post("jobsearchbykeywords");
+                    if (isset($_GET['q'])) {
+                        $keywords = $this->input->get("q");
                     }
 
                     if (isset($sql) && $sql != "" && strlen($sql) >= 1) {

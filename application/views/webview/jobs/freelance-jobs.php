@@ -4,8 +4,8 @@
             <div class="col-md-10 col-md-offset-0">
                 <div style="margin-top: -23px;" class="row">
                     <div class="col-md-12 no-padding margin-top-search" style="padding: 0px;">
-                        <form action="<?= site_url() ?>freelance-jobs" method="post" id="job-search-form">
-                            <input type="text" placeholder="Find job" name="jobsearchbykeywords" id="jobsearch" value="<?= isset($_POST['jobsearchbykeywords']) ? $_POST['jobsearchbykeywords'] : ''  ?>"  class="form-control search-field" />
+                        <form action="<?= site_url() ?>jobs-search" method="GET" id="job-search-form">
+                            <input type="text" placeholder="Find job" name="q" id="jobsearch" value="<?= isset($_GET['q']) ? $_GET['q'] : ''  ?>"  class="form-control search-field" />
                             <i class="fa fa-search search-btn search-btn-home custom_btn" aria-hidden="true"></i>
                         </form>
                     </div>
