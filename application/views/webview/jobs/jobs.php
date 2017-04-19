@@ -175,7 +175,8 @@ $accepted_jobs = $query->result();
                     </div>
                     <div class="col-md-12 text-justify page-label div-details"><?php echo $value->get_jobdesc(); ?></div>
                 </div>
-                <?php if($value->get_tid() != 0){ ?>
+
+                <?php if($value->get_attachments()[0] != ""){ ?>
                 <div class="row margin-top page-label margin-top-5">
                     <div class="col-md-9">
                         <label class="lab-details">Attachments</label>

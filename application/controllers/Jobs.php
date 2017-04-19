@@ -462,7 +462,7 @@ class Jobs extends Winjob_Controller {
                 } else {
                     $keywords = "";
                     if (!empty($_POST)) {
-                        $keywords = $this->input->post("jobsearchbykeywords");
+                        $keywords = $this->input->get("q");
                     }
 
                     if (isset($sql) && $sql != "" && strlen($sql) >= 1) {
@@ -3346,9 +3346,9 @@ class Jobs extends Winjob_Controller {
                     $query = $this->db->get_where('jobs', $val, $limit, $offset);
                 } else {
                     $keywords = "";
-                    if (!empty($_POST)) {
-                        $keywords = $this->input->post("jobsearchbykeywords");
-                    }
+                    //if (!empty($_POST)) {
+                        $keywords = $this->input->get("q");
+                    //}
 
                     if (isset($sql) && $sql != "" && strlen($sql) >= 1) {
                             $val = array(
