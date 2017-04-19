@@ -39,7 +39,7 @@ span.rating-badge {
         <div class="row ">
             <div class="row">
                 <div style="width: 101%;" class="col-md-12 padding-left-off margin-bottom-3">
-                    <form id="freelacer-search" action="<?php echo site_url('profile/find-freelancer')?>" method="GET">
+                    <form id="freelacer-search" action="<?php echo site_url('freelancers')?>" method="GET">
                         <div class="col-md-10">
                             <input style="width: 91.5%;" type="text" name="q" class="form-control search-field" value="<?php echo $searchWord ?>"/> 
                             <i aria-hidden="true" class="fa custom_btn fa-search search-btn search-freelancer"></i>

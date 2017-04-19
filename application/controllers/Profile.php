@@ -203,7 +203,7 @@ class Profile extends CI_Controller {
                         }
                     }
                 }
-                $this->Admintheme->webview("jobs/freelancer-search", $data);
+                $this->Admintheme->webview("jobs/freelancers", $data);
         } else {
             redirect(site_url("signin"));
         }

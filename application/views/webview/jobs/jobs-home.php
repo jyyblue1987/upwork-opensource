@@ -39,7 +39,7 @@
 
     <div class="search-top">
         <div class="row">
-            <form id="freelacer-search" action="<?= site_url() ?>profile/find-freelancer" method="GET">
+            <form id="freelacer-search" action="<?= site_url() ?>freelancers" method="GET">
                 <div class="col-md-10 col-lg-10 col-sm-10 col-xs-12 no-pad search-cont">
                     <input type="text" name="q" class="form-control search-field" placeholder="Find freelancers" value=""/> 
                     <i aria-hidden="true" class="fa fa-search search-btn search-freelancer custom_btn"></i>
