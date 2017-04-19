@@ -5,7 +5,7 @@
     <section id="big_header">
         <div class="container">
             <p class="banner-title">Hire export freelancers for your online job</p>
-            <p class="banner-details">Millions of small businesses use Frelancer to turn their idto reality</p>
+            <p class="banner-details">Millions of small businesses use Freelancer to turn their into reality</p>
             <section id="sliderButton" class="hidden-xs hidden-sm">
                 <button type="button" onclick="location.href='employeersignup'">I want to Hire</button>
                 <button type="button" onclick="location.href='freelancersignup'">I want to work</button>
