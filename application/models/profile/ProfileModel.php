@@ -30,9 +30,10 @@ class ProfileModel extends CI_Model{
         $this->db->where("wu.webuser_type",2);
         $this->db->like("wu.webuser_fname",$keywords);
         $this->db->or_like("wu.webuser_lname",$keywords);
-        $this->db->or_like("wubp.skills",$keywords);
+        //$this->db->or_like("wubp.skills",$keywords);
         $this->db->or_like("wubp.tagline",$keywords);
         $this->db->or_like("wubp.overview",$keywords);
+        $this->db->group_by("wu.webuser_id");
         $this->db->limit($offset,$limit);
         $query = $this->db->get();
         //$count = $this->db->count();
