@@ -42,7 +42,7 @@ $job_alert_count = $Conversation->job_alert();
                                         foreach ($subCateList as $sub) {
                                             ?>
                                             <div class="col-md-12 blue-text">
-                                                <label> <a href="<?php echo site_url('jobs-search/' . $sub['subcat_id']) ?>"> <?php echo $sub['subcategory_name'] ?> </a> </label>
+                                                <label> <a href="<?php echo site_url('find-jobs/' . $sub['subcat_id']) ?>"> <?php echo $sub['subcategory_name'] ?> </a> </label>
                                             </div>
                                             <?php
                                         }

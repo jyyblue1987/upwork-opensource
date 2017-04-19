@@ -74,7 +74,7 @@ class Logincheck extends CI_Controller {
                     if(isset($this->session->redirect)){
                         redirect($this->session->redirect);
                     }else{
-                        redirect(site_url("jobs-search"));
+                        redirect(site_url("find-jobs"));
                     }
                     
                 }

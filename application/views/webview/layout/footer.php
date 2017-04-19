@@ -77,7 +77,7 @@
 <script>
  var global_url_array = {
      'freelance-jobs': 'jobs/jobs_no_auth',
-     'jobs-search': 'jobs/find'
+     'find-jobs': 'jobs/find'
  };
  
  function get_target_path(){
@@ -88,7 +88,7 @@
         }
     }
 
-    return global_url_array['jobs-search'];
+    return global_url_array['find-jobs'];
  }
  
  function base_url() {

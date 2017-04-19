@@ -46,9 +46,10 @@ $route['jobs/(:any)/(:any)/apply'] = 'jobs/apply/($1)/($2)';
 
 $route['administrator'] = 'administrator/home';
 $route['post-job'] = 'jobs/create';
+$route['find-jobs'] = 'jobs/find';
 $route['jobs-search'] = 'jobs/find';
-$route['jobs-search/(:any)'] = 'jobs/find/($1)';
-$route['jobs-search/(:any)/(:any)'] = 'jobs/find/($1)/($2)';
+$route['find-jobs/(:any)'] = 'jobs/find/($1)';
+$route['find-jobs/(:any)/(:any)'] = 'jobs/find/($1)/($2)';
 $route['jobs-home'] = 'jobs/status';
 $route['payment-methods'] = 'payment/methods';
 $route['payment-methods/remove'] = 'payment/removeAccount';

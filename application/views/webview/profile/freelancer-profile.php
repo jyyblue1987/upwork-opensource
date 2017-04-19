@@ -284,7 +284,8 @@ foreach ($accepted_jobs as $job_data) {
                                                         if ($job_data->job_type == "fixed") {?>
                                                         <!--<h6>$<?= $job_data->bid_amount ?></h6>-->
 
-                                                            <h3 class="style">Paid $<?= $total_price_fixed = $job_data->fixedpay_amount ?></h3><br><?
+                                                            <h3 class="style">Paid $<?= $total_price_fixed = $job_data->fixedpay_amount ?></h3><br>
+                                                        <?php
                                                         if ($job_data->jobstatus == 1) {
                                                         if (!empty($jobfeedback)) {
                                                         ?>
@@ -346,7 +347,7 @@ foreach ($accepted_jobs as $job_data) {
                                                         ?>
                                                         <?php $total_price = $total_work * $amount; ?>
                                                         $<?= $total_price; ?> 
-                                                            </h3><?
+                                                            </h3><?php
                                                         if ($job_data->jobstatus == 1) {
                                                         if (!empty($jobfeedback)) {
                                                         ?>
@@ -375,6 +376,7 @@ foreach ($accepted_jobs as $job_data) {
 
                                             <?php }
                                             } else { ?>
+                                        
 
                                             <div class="">
                                             <div class="row">
@@ -386,6 +388,7 @@ foreach ($accepted_jobs as $job_data) {
                                             </div>
                                             </div>
                                             <?php } ?>
+                                         
 
                                         </div>
                                     <div class="col-md-3 col-sm-3">
@@ -396,6 +399,7 @@ foreach ($accepted_jobs as $job_data) {
                             <div class="clear-both"></div>
             </div>
             </div>
+              <?php if ($this->session->userdata('type') == 2) { ?>
             <div class="middle">
                 <div class="row main_portfolio">
                     <div class="protfilio">
@@ -569,6 +573,7 @@ foreach ($experience as $val) { ?>
                     </div>
                 </div>
                 </div>
+                <?php } ?>
         </div>
 <?php
 $this->load->view("webview/profile/portfolio-modal");

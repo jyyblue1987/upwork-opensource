@@ -13,6 +13,7 @@ class ProfileModel extends CI_Model{
             'wu.webuser_id',
             'wu.webuser_fname',
             'wu.webuser_lname',
+            'wu.webuser_username',
             'wu.webuser_picture',
             'c.country_name',
             'wubp.tagline',

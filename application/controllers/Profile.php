@@ -1,12 +1,12 @@
 <?php
-
+error_reporting(0);
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Profile extends CI_Controller {
 
     public function __construct($username=null) {
         parent::__construct('');
-        $this->load->model(array('common_mod', 'Category', 'profile/ProfileModel'));
+        $this->load->model(array('common_mod', 'Category', 'profile/ProfileModel', 'Employer'));
         $this->load->model(array('timezone'));
     }
 
@@ -47,7 +47,7 @@ class Profile extends CI_Controller {
             $data = $this->common_mod->getColsVal(WEB_USER_TABLE, $cols, $condition);
 
             $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
-            if (empty($this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone'])))
+            if (!($this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone'])))
             {
                 $gmt = 'GMT'.date('P');
 
@@ -107,7 +107,7 @@ class Profile extends CI_Controller {
                     die();*/
                     if (!empty($timezone)) {
                         $date =  new \DateTime(date('Y-m-d h:i:s',time()), new DateTimezone('UTC'));
-                        $date->setTimezone(new \DateTimezone($timezone['gmt']));
+                        //$date->setTimezone(new \DateTimezone($timezone['gmt']));
                       /*  print_r($timezone['gmt']);
                         echo "<br>";
                         print_r($date);
@@ -159,7 +159,7 @@ class Profile extends CI_Controller {
     public function searchFreelancer() {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
-                redirect(site_url("jobs-search"));
+                redirect(site_url("find-jobs"));
             }
 
                 $fieldCheck = array(
@@ -1160,4 +1160,119 @@ class Profile extends CI_Controller {
 
         redirect(site_url('profile/basic_bio'));
     }
+    
+    public function profileSearch($username = NULL){
+        if ($this->Adminlogincheck->checkx()) {
+            
+            $this->load->model('webuser_model');
+            $emp = new Employer($username);
+            $user_id = $emp->get_username();
+
+            $sql = "SELECT cropped_image FROM webuser WHERE webuser_id =  " . $user_id;
+            $params['userimg'] = $this->db->query($sql)->row();
+
+            $this->db->select('*,job_bids.id as bid_id,job_bids.status AS bid_status,jobs.job_duration AS jobduration,job_bids.created AS bid_created');
+            $this->db->from('job_accepted');
+            //  $this->db->join('job_feedback', 'job_feedback.feedback_job_id=job_accepted.job_id', 'inner');
+            $this->db->join('webuser', 'webuser.webuser_id=job_accepted.buser_id', 'inner');
+            $this->db->join('webuser_basic_profile', 'webuser_basic_profile.webuser_id=webuser.webuser_id', 'inner');
+            $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
+            $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
+            $this->db->join('country', 'country.country_id=webuser.webuser_country', 'inner');
+            //  $this->db->where('job_feedback.feedback_userid',$user_id);
+            //  $this->db->where('job_feedback.sender_id !=',$user_id);
+            $this->db->where('job_accepted.fuser_id', $user_id);
+            // $this->db->where('job_bids.jobstatus', '1' );
+
+            $query = $this->db->get();
+            $params['accepted_jobs'] = $query->result();
+
+            $params['current_user_rating'] = $this->webuser_model->get_total_rating( $user_id );
+                    
+            //get webuser info//
+            $cols = array("webuser_fname", "webuser_lname", "webuser_picture", "webuser_country");
+            $condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
+            $data = $this->common_mod->getColsVal(WEB_USER_TABLE, $cols, $condition);
+
+            $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
+            if (!($this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone'])))
+            {
+                $gmt = 'GMT'.date('P');
+
+                $timezone = $this->timezone->getByGMT($gmt);
+            }
+            else
+                $timezone = $this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone']);
+
+            if (!empty($data['rows'][0])) {
+                //get country//
+                $sql = " AND country_id = " . $data['rows'][0]['webuser_country'] . " ";
+                $data['rows'][0]['webuser_country_name'] = $this->common_mod->getSpecificColVal(COUNTEY_TABLE, "country_name", $sql);
+                $params['webUserInfo'] = $data['rows'][0];
+                //get basic information//
+                $data2 = $this->common_mod->get(WEB_USER_BASIC_PROFILE_TABLE, null, $condition);
+                if (!empty($data2['rows'][0])) {
+                    $title = "";
+                    if (strlen($data['rows'][0]["webuser_fname"]) > 0) {
+                        $title = $data['rows'][0]["webuser_fname"];
+                    }
+                    if (strlen($data2['rows'][0]["tagline"]) > 0) {
+                        $title .= " | " . $data2['rows'][0]["tagline"];
+                    }
+                    $params['title'] = $title;
+                    // added by Armen start
+
+                    $this->db->select("skill_name");
+                    $this->db->from("webuser_skills");
+                    $this->db->where("webuser_id = ", $this->session->userdata(USER_ID));
+                    $query = $this->db->get();
+                    $user_skills = $query->result_array();
+
+                    // added by Armen end
+                    $params['basicDetails'] = $data2['rows'][0];
+                    $params['basicDetails']['user_skills'] = $user_skills;
+
+                    //get protfolio details//
+                    $portfolioDetails = $this->common_mod->get(WEB_USER_PORTFOLIO_TABLE, null, $condition . " AND visibility_status='yes'");
+                    if (!empty($portfolioDetails['rows'][0])) {
+                        $params['portfolios'] = $portfolioDetails['rows'];
+                    }
+
+                    $this->db->select('*');
+                    $this->db->from('freelancer_education');
+                    $this->db->where('fuser_id', $user_id);
+                    $query = $this->db->get();
+                    $educations = $query->result();
+
+                    $profileExp = $this->ProfileModel->getExp($user_id);
+                    $params['experience'] = $profileExp;
+
+                    $params['educations'] = $educations;
+
+                    //$this->load->view("webview/profile/freelancer-profile", $params);
+
+                   /* echo phpinfo();
+                    die();*/
+                    if (!empty($timezone)) {
+                        $date =  new \DateTime(date('Y-m-d h:i:s',time()), new DateTimezone('UTC'));
+                        //$date->setTimezone(new \DateTimezone($timezone['gmt']));
+                      /*  print_r($timezone['gmt']);
+                        echo "<br>";
+                        print_r($date);
+                        die();*/
+                        $params['localtime'] = $date->format('h:i A');
+                    } else {
+                        $params['localtime'] = date('h:i A');
+                    }
+
+                    $this->Admintheme->custom_webview("profile/freelancer-profile", $params);
+                } else {
+                    redirect(site_url("profile/basic"));
+                }
+            }
+        } else {
+            redirect(site_url("signin"));
+        }
+    }
+    
 }

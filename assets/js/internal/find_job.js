@@ -375,9 +375,7 @@ $(document).ready(function () {
     $('.search-btn-home').click(function(){
         var keywords = $('#jobsearch').val();
         if(keywords.length > 0){
-
            $("#job-search-form").submit();
-
         }
     });
 });

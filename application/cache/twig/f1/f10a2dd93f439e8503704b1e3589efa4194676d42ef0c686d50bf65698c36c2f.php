@@ -24,7 +24,7 @@ class __TwigTemplate_824908792b100f4d5b364c4090cf77a638476d1eb87c6fbf5e63cd7fd03
                     <ul>  
                         <li><a class=\"first-menu\" href=\"";
         // line 7
-        echo twig_escape_filter($this->env, site_url("jobs-search"), "html", null, true);
+        echo twig_escape_filter($this->env, site_url("find-jobs"), "html", null, true);
         echo "\" class=\"current\"> ";
         echo twig_escape_filter($this->env, app_lang("text_app_find_jobs"), "html", null, true);
         echo "</a></li>      
@@ -85,7 +85,7 @@ class __TwigTemplate_824908792b100f4d5b364c4090cf77a638476d1eb87c6fbf5e63cd7fd03
             <div class=\"col-xs-12 col-sm-12 col-md-12\">
                 <div class=\"menu\">
                     <ul>  
-                        <li><a class=\"first-menu\" href=\"{{ site_url('jobs-search') }}\" class=\"current\"> {{ app_lang('text_app_find_jobs') }}</a></li>      
+                        <li><a class=\"first-menu\" href=\"{{ site_url('find-jobs') }}\" class=\"current\"> {{ app_lang('text_app_find_jobs') }}</a></li>      
                         <li><a href=\"{{ app_profile_url() }}\"> {{ app_lang('text_app_my_profile') }}</a></li>\t\t\t
                         <li><a href=\"{{ site_url('jobs/bids_list') }}\"> {{ app_lang('text_app_my_bid_list') }}</a></li>
                         <li><a href=\"{{ site_url('withdraw') }}\"> {{ app_lang('text_app_withdraw') }}</a></li>
