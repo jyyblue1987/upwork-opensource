@@ -188,3 +188,6 @@ $lang['text_job_applicant_years_experience'] = 'Years Experience';
 $lang['text_job_applicant_year_experience'] = 'Year Experience';
 $lang['text_job_conversation_refresh_your_browser'] = 'Try to refresh your browser and try to sent message again.';
 $lang['text_job_conversation_empty_message'] = 'Please enter your message';
+$lang['text_job_title_message_board'] = 'Messages';
+$lang['text_job_no_authorized_to_load_message'] = 'You are not authorized to load messages.';
+$lang['text_job_conversation_internal_error']   = 'Unable to send message.';

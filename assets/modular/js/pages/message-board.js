@@ -58,10 +58,11 @@ define(function (require) {
         
         if( ! $uploaded_files.hasClass('show_files'))
             $uploaded_files.addClass('show_files');
-        
+                
         $.each(names, function (index, value) {
             if($.inArray(value, files_loaded) !== -1) return;
             files_loaded.push(value);
+            console
             $uploaded_files.append(
                 '<div class = "item">' +
                    '<span class = "item_name">' + value + '</span>' +
@@ -116,7 +117,7 @@ define(function (require) {
     var $scroll_up       = $('#scroll-ul');
     var sending_message  = false;
     
-    $('#chat-submit').on('click', function () {
+    $(document).on('click', '#chat-submit', function () {
         
         if(sending_message) return;
         
@@ -137,19 +138,19 @@ define(function (require) {
         });
 
         sending_message  = true;
-        var jqXhr = $.post(site_url + 'applicants/post_message', form_data, $.noop, 'json');
+        var jqXhr = $.post(site_url + 'messageboard/post_message', form_data, $.noop, 'json');
         
         jqXhr.done(function(result){
             if(result.status == 'success')
             {
                 var empty_message = $scroll_up.find('li.no-messages'); 
-                if(empty_message)
+                if(empty_message && empty_message.length)
                 {
                     empty_message.remove();
                 }
                 
                 var today_group = $('#group-chat-today');
-                if(!today_group)
+                if( today_group.length <= 0 )
                 {
                     $scroll_up.append('<li id="group-chat-today"><span class="group-date"><b>Today</b></span></li>');
                 }
@@ -181,20 +182,42 @@ define(function (require) {
     
     $chat_detail.animate({scrollTop: $chat_detail.prop("scrollHeight")}, 1);
     
+    var $chat_screen     = $('.chat-screen');
+    var $notif_msg_item  = $('.notif-message-details');
+    var current_bid      = null; 
     
-    $('#btn-decline-applicant').on('click', function(){
-        var x    = confirm("Are you sure! want to Decline the User?");
-        var that = $(this);
-               
-        if (x) {
-            $.post(site_url + 'jobs/bid_decline', {form: that.data('id')}, function (data) {
-                if (data.success) {
-                    $('.result-msg').html('You have successfully Decline the Post');
-                    window.location =  site_url + "declined?job_id=" + that.data('job');
-                } else {
-                    alert('Opps!! Something went wrong.');
-                }
-            }, 'json');
-        }
+    $notif_msg_item.on('click', function(event){
+        
+        event.preventDefault();
+        
+        var that  = $(this);
+        var datas = { bid_id: that.data('bid'), is_ticket: that.data('ticket')};
+        
+        if(current_bid == that.data('bid')) return;
+            current_id = that.data('bid');
+            
+        var jqXhr = $.post(site_url + 'messageboard/load_details', datas, $.noop, 'json'); 
+        
+        jqXhr.done(function(result){
+            if(result.status == 'success') {
+                $notif_msg_item.removeClass('chat-item-active');
+                that.addClass('seen chat-item-active');
+                $chat_screen.html( result.message );
+                
+                notif_container  = $('#msg_container');
+                chatbox          = $('textarea[name="chat_message"]');
+                $chat_detail     = $('.chat-details');
+                $scroll_up       = $('#scroll-ul');
+                container        = document.querySelector('.expandingArea');
+                $uploaded_files   = $('.uploaded_files');
+                
+                if( container)
+                    makeExpandingArea( container );
+                $chat_detail.animate({scrollTop: $('.chat-details').prop("scrollHeight")}, 1);
+                
+            } else {
+               display_message(notif_container, 'alert-danger', 'hide', result.message);
+            }
+        });
     });
 });

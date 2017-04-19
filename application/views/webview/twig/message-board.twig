@@ -1,0 +1,71 @@
+{% extends "webview/layout/twig/layout.twig" %}
+
+{% block title %}  {{ app_lang('text_job_title_message_board') }} - Winjob  {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ site_url("assets/css/bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/font-awesome.min.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/fonts.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/header.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/croppic.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/footer.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/bootstrap-socil.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/normalize.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/style.css") }}">
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/applicant.css") }}">
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/message-board.css") }}">
+{% endblock %}
+
+{% block content %}
+        
+    <div class="row" id="message-board">
+        <div class="wrapper-message-board col-xs-12">
+            {% if messages is empty %}
+                <h2 class="text-center no-messages-board">
+                    Sorry! No Message Available right now
+                </h2>
+            {% endif %}
+
+            {% if messages is not empty %}
+            <div class="col-md-3 col-sm-3 hidden-xs chat-sidebar">
+                {% for message in messages %}
+                    {% set name = message['webuser_fname'] ~ " " ~ message['webuser_lname'] %}
+                    
+                    <div data-bid="{{ message['bid_id'] }}" data-ticket="{{ message['is_ticket'] }}" 
+                         class='notif-message-details col-sm-12  {% if message['have_seen'] == 0 %} seen {% endif %} {% if last_message is defined and ( message['bid_id'] == last_message.bid_id ) %} chat-item-active {% endif %}'>
+                        <div data-id="{{ message['bid_id'] }}" id="notif-{{ message['bid_id'] }}"
+                             class="sidebar-block">
+                            <div class="col-xs-3">
+                                <i class="fa fa-comments fa-3x" aria-hidden="true"></i>
+                            </div>
+                            <div class='col-xs-9'>
+                                <span class="pull-left">{{ app_substr(name, 15, '...') }}</span>
+                                {% set message_datetime = current_user_datetime(message['created'], user_timezone) %}
+                                <span class="pull-right chat-time">{{  message_datetime.format("d-m-Y") }}</span>
+                                <span class="clearfix clear-both"></span>
+                                <span class="chat-title"><b>{{ app_substr(message['title'], 20, '...') }}</b></span>
+                                <span class="chat-message">{{ app_substr(message['message_conversation'], 40, '...') }}</span>
+                            </div>
+                        </div>
+                        <div class='clearfix clear-both'></div>
+                    </div>
+
+                {% endfor %}
+            </div>
+            <div class="col-md-9 col-sm-9 col-xs-12 messages-container">
+                {% set chat_infos = {'fname': last_message.fname, 'lname': last_message.lname, 'job_title': last_message.title, 'conversation': chat_details, 'user_timezone': user_timezone, 'crt_user_time': crt_user_time, 'images': images, 'bid_id': last_message.bid_id, 'job_id': last_message.job_id, 'user_id': last_message.r_id, 'receiver_id': last_message.r_id, 'is_ticket': last_message.is_ticket} %}
+                {{ include('webview/twig/partials/chat-interview.twig', chat_infos) }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    
+    {# this variable defines the asset/modular/pages file to load #}
+    <script> var page = 'message-board'; </script>
+    
+    <script data-main="{{ app_modular_js("winjob") }}" src="{{ app_modular_js("lib/require.dev.js") }}"></script>
+    
+{% endblock %}

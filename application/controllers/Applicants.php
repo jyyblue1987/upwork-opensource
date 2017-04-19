@@ -183,6 +183,15 @@ class Applicants extends Winjob_Controller {
         
         //Save message of interview.
         $message_item_id = $this->conversation_model->create($message_item);
+        
+        if(empty($message_item_id))
+        {
+            $this->ajax_response(array(
+                'message' => $this->lang->line('text_job_conversation_internal_error') ,
+                'status'  => 'error'
+            ));
+        }   
+        
         //update the bid state (bid is being in interview process)
         $this->bids_model->update_field($bid_id, 'job_progres_status', 1);
         

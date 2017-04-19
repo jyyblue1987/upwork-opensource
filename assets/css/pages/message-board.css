@@ -1,0 +1,95 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18 avr. 2017, 20:30:56
+    Author     : Hermannovich <donfack.hermann@gmail.com>
+*/
+
+#message-board{
+    background: #fff;
+    border: 1px solid #ccc;
+    margin-top:40px;
+    margin-bottom:40px;
+    height: auto;
+    padding: 20px;
+}
+
+.no-messages-board{
+    font-size:22px;
+}
+
+.chat-sidebar {
+    padding: 0;
+    min-height: 600px;
+    border-right: 1px solid #ccc;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 600px;
+}
+
+.wrapper-message-board{
+    padding: 0;
+    border: 1px solid #ccc;
+}
+
+.notif-message-details{
+    cursor: pointer;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    display: block;
+    float: left;    
+    background-color: #f4f4f4;
+}
+
+.notif-message-details .col-xs-3,
+.notif-message-details .col-xs-9{
+    padding: 0;
+}
+
+.chat-item-active {
+    background-color: #e4e4e4;
+    color: #1ca7db;
+}
+
+.notif-message-details:hover{
+    background-color: #d4d4d4;
+    color: #1ca7db;
+}
+
+.sidebar-block{
+    padding: 0;
+}
+
+.chat-title{
+    width: 100%;
+    display: block;
+    padding: 5px 0;
+}
+
+.chat-message{
+    display: block; /* or inline-block */
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    font-style: italic;
+}
+
+.chat-time{
+    font-size: 10px;
+}
+
+.messages-container{
+    padding: 0px;
+}
+
+.messages-container .chat-screen{
+    border: none;
+    height: 100%
+}
+
+.messages-container .chat-details{
+    max-height: 467px;
+}

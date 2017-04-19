@@ -185,7 +185,7 @@
                         </div>
                     </div>
                 </div>
-                {% set chat_infos = {'fname': fname, 'lname': lname, 'job_title': value.title, 'conversation': conversation, 'user_timezone': user_timezone, 'crt_user_time': crt_user_time, 'images': images, 'bid_id': bid_details.id, 'job_id': bid_details.job_id, 'user_id': value.user_id, 'receiver_id': value.user_id} %}
+                {% set chat_infos = {'fname': fname, 'lname': lname, 'job_title': value.title, 'conversation': conversation['data'], 'user_timezone': user_timezone, 'crt_user_time': crt_user_time, 'images': images, 'bid_id': bid_details.id, 'job_id': bid_details.job_id, 'user_id': value.user_id, 'receiver_id': value.user_id} %}
                 {{ include('webview/twig/partials/chat-interview.twig', chat_infos) }}
                 
             </div>

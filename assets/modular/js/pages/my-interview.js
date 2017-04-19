@@ -151,6 +151,12 @@ define(function (require) {
                     empty_message.remove();
                 }
                 
+                var today_group = $('#group-chat-today');
+                if(!today_group)
+                {
+                    $scroll_up.append('<li id="group-chat-today"><span class="group-date"><b>Today</b></span></li>');
+                }
+                
                 $uploaded_files.find('.item').remove();
                 $uploaded_files.removeClass('show_files');
                 
@@ -167,7 +173,7 @@ define(function (require) {
             }
             else
             {
-                display_message(notif_container, 'alert-success', 'hide', result.message);
+                display_message(notif_container, 'alert-danger', 'hide', result.message);
             }
         });
         

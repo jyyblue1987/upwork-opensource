@@ -299,4 +299,143 @@ class Webuser_model extends CI_Model {
         
         return null;
     }
+    
+    public function get_all_messages( $user_id )
+    {
+        $fields = array(
+            'jc.id', 
+            'jc.job_id', 
+            'jc.bid_id', 
+            'jc.message_conversation', 
+            'jc.sender_id', 
+            'jc.receiver_id', 
+            'jc.created', 
+            'jc.have_seen',
+            'webuser.webuser_fname', 
+            'webuser.webuser_lname', 
+            'webuser.cropped_image', 
+            'webuser.webuser_email', 
+            'jobs.title', 
+            '0 as is_ticket'
+        );
+        
+        $this->db
+            ->select($fields)
+            ->from('job_conversation jc')
+            ->join('webuser', 'jc.sender_id = webuser.webuser_id', 'inner')
+            ->join('jobs', 'jobs.id = jc.job_id', 'inner')
+            ->where('jc.receiver_id', $user_id);
+                        
+        $query_one = $this->db->get_compiled_select();
+        
+        $fields = array(
+            'wtm.id', 
+            'wtm.ticket_id as job_id', 
+            'wtm.ticket_id as bid_id', 
+            'wt.subject as message_conversation',
+            'wtm.sender_id', 
+            'wtm.receiver_id', 
+            'wtm.created', 
+            'wtm.have_seen',
+            '"" as webuser_fname', 
+            '"" as webuser_lname',  
+            'if(wtm.sender="user", webuser.cropped_image, "") as cropped_image',
+            'if(wtm.sender="user", webuser.webuser_email, user.email) as webuser_email', 
+            '"Support" as title', 
+            '1 as is_ticket'
+        );
+        
+        $this->db
+            ->select( $fields )
+            ->from('webuser_ticket_messages wtm')
+            ->join('user', 'wtm.sender_id = user.id and sender = "support" ', 'left')
+            ->join('webuser', 'wtm.sender_id = webuser.webuser_id and sender = "user" ', 'left')
+            ->join('webuser_tickets wt', 'wt.id = wtm.ticket_id', 'inner')
+            ->where('wt.webuser_id', $user_id);
+        
+	$query_two = $this->db->get_compiled_select();
+        
+        $query = $this->db->query($query_one . ' UNION ALL ' . $query_two . ' Order by 7 desc, 1 desc');
+        
+        return  $query->result();
+    }
+    
+    public function mark_tickets_as_read( $bid_id )
+    {
+        $this->db->where('ticket_id', $bid_id);
+	$this->db->update('webuser_ticket_messages', array('have_seen' => 0));
+    }
+    
+    public function get_all_tickets( $bid_id )
+    {
+        $fields = array(
+            'wtm.id', 
+            'wtm.ticket_id as job_id', 
+            'wtm.ticket_id as bid_id', 
+            'wtm.message as message_conversation',
+            'wtm.sender_id', 
+            'wtm.receiver_id', 
+            'wtm.created', 
+            'wtm.have_seen',
+            ' "Support" as fname', 
+            'if(wtm.sender="user", webuser.webuser_fname, "Support") as webuser_fname',
+            'webuser.webuser_lname', 
+            'webuser.cropped_image', 
+            'wt.subject as title',
+            'wtm.created as created', 
+            '1 as is_ticket'
+        );
+        
+        $query = $this->db->select($fields)
+                ->from('webuser_ticket_messages wtm')
+                ->join('user', 'wtm.sender_id = user.id and sender = "support" ', 'left')
+                ->join('webuser', 'wtm.sender_id = webuser.webuser_id and sender = "user"', 'left')
+                ->join('webuser_tickets wt', 'wt.id = wtm.ticket_id', 'inner')
+                ->where('wtm.ticket_id', $bid_id)
+                ->order_by("wtm.id", "asc")
+                ->get();
+        
+        return $query->result();
+    }
+    
+    public function get_all_images_of_each_ticket( $ids )
+    {
+        $query = $this->db
+                    ->select('*')
+                    ->from('webuser_ticket_message_files')
+                    ->where_in('message_id', $ids)
+                    ->order_by('message_id')
+                    ->get();
+        
+        $result = $query->result();
+        
+        $images = array();
+        if( ! empty($result) )
+        {
+            foreach($result as $item)
+            {
+                $image_item = new stdClass;
+                $image_item->name = $item->name;
+                $images[ $item->job_conversation_id ][] = $image_item;
+            }
+        }
+        return $images;
+    }
+    
+    public function save_ticket( $ticket )
+    {
+        if($this->db->insert('webuser_ticket_messages', $ticket))
+           return $this->db->insert_id();
+        return null;
+    }
+    
+    public function load_user_ticket( $bid_id )
+    {
+        $query = $this->db->select("fname, lname, email, subject")
+                    ->from("webuser_tickets")
+                    ->where("id", $bid_id)
+                    ->get();
+        
+        return $query->result();
+    }
 }
