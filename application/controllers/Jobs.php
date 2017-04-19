@@ -461,9 +461,9 @@ class Jobs extends Winjob_Controller {
                     $query = $this->db->get_where('jobs', $val, $limit, $offset);
                 } else {
                     $keywords = "";
-                    if (!empty($_POST)) {
+                    //if (!empty($_POST)) {
                         $keywords = $this->input->get("q");
-                    }
+                    //}
 
                     if (isset($sql) && $sql != "" && strlen($sql) >= 1) {
 
