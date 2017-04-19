@@ -59,9 +59,9 @@ $clientend = $Conversation->clientend();
 
         <div class="search-form">
             <div class="row">
-                <form action="find-jobs" method="post" id="job-search-form">
+                <form action="find-jobs" method="GET" id="job-search-form">
                     <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12 no-pad search-cont">
-                            <input type="text" placeholder="Find job" name="jobsearchbykeywords" id="jobsearch" value=""  class="form-control search-field"/>
+                            <input type="text" placeholder="Find job" name="q" id="jobsearch" value="<?= isset($_GET['jobsearchbykeywords']) ? $_GET['jobsearchbykeywords'] : ''  ?>" class="form-control search-field"/>
                             <i aria-hidden="true" class="fa fa-search search-btn-home custom_btn"></i>
                     </div>
                     <div class="col-md-2 col-lg-2 col-sm-2 col-xs-12 no-pad">
