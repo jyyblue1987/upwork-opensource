@@ -314,7 +314,7 @@ width:100%;
 	color:#20a7d9;
 }
 #simpleApproacBoxtwo article{ 
-	  height:280px;	
+	  min-height:280px;	
 	  margin:20px auto;
 	  background-color:#fff;
 	  border:1px solid #3863A0;

@@ -1,0 +1,47 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,300italic,500,400italic,600,500italic,700italic,700,600italic);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800);
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+body {color: #333;font-family: "Roboto" !important;font-size: 14px;line-height: 1.42857;}
+html {color: #222;font-size: 1em;line-height: 1.4;}
+#mid_contant{width:100%;float:left;background-color: #f0f0f0;min-height: 483px;}
+.main_area_div_signin{margin-top: 40px;margin-bottom: 40px;border: 1px solid #ccc;}
+.main_area_div_signin .sign_heading h1 {color: #262525;font-family: 'calibri';font-size: 31px;margin: 13px 4px 31px 21px;margin-bottom: -16px;margin-left: -25px;}
+.main_area_div_signin .form-control{margin-bottom: 25px;border-radius: 4px;font-size: 16px;font-family: calibri;}
+.main_area_div_signin .sing_up_text{margin-right: 29px;}
+.fg_pass #next {width: 400px;margin-right: 32px;margin-bottom: 40px;}
+.main_area_div{width:100%;border:1px solid #b6b3b3;border-radius:7px;margin-top:50px;margin-bottom: 50px;}
+.white-box{background-color:white;border-radius: 4px;padding: 10px;}
+.text-center{text-align: center;}
+.header-login{color: #262525;font-family: 'calibri';margin:0px;margin-bottom: -16px;font-size: 31px;}
+#next {font-size: 20px;padding: 10px 20px 10px 25px;}
+.forgot_btn {margin-top: 6px;margin-left: -22px;display: block;}
+input{font-family: "Roboto-regular"}
+h4.no-acc{margin:20px 15px!important;margin-bottom: 28px!important;font-family: 'calibri'!important;}
+.marg-top-right{margin:20px 15px;}
+.marg-bot-s1{margin-bottom: 61px;}
+.forg-cont{margin-top: 11px;font-family: "calibri";font-size: 18px;float: right;}
+
+    @media (min-width: 768px) {
+     .container {
+        width: 740px;
+      }
+
+    }
+
+    @media (min-width: 992px) {
+     .container {
+        width: 960px;
+      }
+
+    }
+
+    @media (min-width: 1024px) {
+     .container {
+        width: 1000px;
+      }
+
+    }
+
+    @media (min-width: 1200px) {
+     .container {width: 1000px;}
+    }
