@@ -33,7 +33,7 @@ class Employer extends CI_Model {
         }else{
             $result = $this->db->query("SELECT webuser_id FROM webuser WHERE webuser_username = '$user_id'");
             $_uid = $result->row_array();
-            return $this->init($_uid['uid']);
+            return $this->init($_uid['webuser_id']);
         }
     }
 

@@ -117,7 +117,7 @@ class Profile extends CI_Controller {
                         $params['localtime'] = date('h:i A');
                     }
 
-                    $this->Admintheme->custom_webview("profile/freelancer-profile", $params);
+                    $this->Admintheme->custom_webview("profile/freelancer", $params);
                 } else {
                     redirect(site_url("profile/basic"));
                 }
@@ -1165,8 +1165,8 @@ class Profile extends CI_Controller {
         if ($this->Adminlogincheck->checkx()) {
             
             $this->load->model('webuser_model');
-            $emp = new Employer($username);
-            $user_id = $emp->get_username();
+            $emp = new Employer(preg_replace('/[^A-Za-z0-9\-]/', '', $username));
+            $user_id = $emp->get_userid();
 
             $sql = "SELECT cropped_image FROM webuser WHERE webuser_id =  " . $user_id;
             $params['userimg'] = $this->db->query($sql)->row();
@@ -1191,7 +1191,7 @@ class Profile extends CI_Controller {
                     
             //get webuser info//
             $cols = array("webuser_fname", "webuser_lname", "webuser_picture", "webuser_country");
-            $condition = " AND webuser_id=" . $this->session->userdata(USER_ID);
+            $condition = " AND webuser_id=" . $user_id;
             $data = $this->common_mod->getColsVal(WEB_USER_TABLE, $cols, $condition);
 
             $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS,null,$condition);
@@ -1224,7 +1224,7 @@ class Profile extends CI_Controller {
 
                     $this->db->select("skill_name");
                     $this->db->from("webuser_skills");
-                    $this->db->where("webuser_id = ", $this->session->userdata(USER_ID));
+                    $this->db->where("webuser_id = ", $user_id);
                     $query = $this->db->get();
                     $user_skills = $query->result_array();
 
@@ -1265,9 +1265,7 @@ class Profile extends CI_Controller {
                         $params['localtime'] = date('h:i A');
                     }
 
-                    $this->Admintheme->custom_webview("profile/freelancer-profile", $params);
-                } else {
-                    redirect(site_url("profile/basic"));
+                    $this->Admintheme->custom_webview("profile/freelancer", $params);
                 }
             }
         } else {

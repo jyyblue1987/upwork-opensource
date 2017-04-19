@@ -32,6 +32,7 @@ $route['billing-history']         = 'pay';
 $route['edit-jobs/(:any)']        = 'jobs/edit/($1)';
 $route['jobs/(:any)/(:any)']      = 'jobs/view/($1)/($2)';
 $route['jobs/preview-job-posting'] = 'jobs/preview_job_posting';
+$route['freelancer/(:any)']       = 'profile/profileSearch/($1)'; 
 
 $route['default_controller'] = 'home';
 $route['404_override'] = '';
@@ -64,7 +65,7 @@ $route['profile/my-freelancer-profile'] = "profile/freelancerProfile";
 $route['profile/update-contact-details'] = "profile/updateContactDetails";
 $route['profile/remove-portfolio'] = "profile/removePortfolio";
 $route['profile/edit-portfolio'] = "profile/editPortfolio";
-$route['freelancers'] = "profile/searchFreelancer";
+$route['freelancers-search'] = "profile/searchFreelancer";
 $route['search'] = "search";
 $route['homepage'] = "home/homepage";
 $route['json/(:any)'] = 'json/(:any)';
@@ -193,5 +194,6 @@ $route['trust-safety'] = 'footerPages/trust_safety';
 $route['feedback'] = 'footerPages/feedback';
 
 $route['freelance-jobs'] = 'jobs/jobs_no_auth';
+$route['jobs-search'] = 'jobs/jobs_no_auth';
 $route['freelance-jobs/(:any)'] = 'jobs/jobs_no_auth/($1)';
 $route['freelance-jobs/(:any)/(:any)'] = 'jobs/jobs_no_auth/($1)/($2)';
