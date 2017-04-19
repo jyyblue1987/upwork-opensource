@@ -2543,7 +2543,7 @@ class Jobs extends Winjob_Controller {
                 'f_attachments' => $attachments,
                 'js' => array('vendor/jquery.form.js',
                     'internal/job_withdraw.js'));
-            $this->Admintheme->webview("jobs/proposals", $data);
+            $this->Admintheme->custom_webview("jobs/proposals", $data);
         }
     }
 
