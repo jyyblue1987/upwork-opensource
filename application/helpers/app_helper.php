@@ -23,7 +23,7 @@ if ( ! function_exists('home_url'))
                 $uri = 'jobs-home';
             break;
             case 2:
-                $uri = 'find-jobs';
+                $uri = 'jobs-search';
             break;
         }
 

@@ -203,7 +203,7 @@ class Feedback extends Winjob_Controller{
         
         if ($this->Adminlogincheck->checkx()){
             if($this->session->userdata('type') != 1){
-            redirect(site_url("find-jobs"));
+            redirect(site_url("jobs-search"));
         }
 
 			 $jobId = base64_decode($_GET['fmJob']);
@@ -265,7 +265,7 @@ class Feedback extends Winjob_Controller{
         
         if ($this->Adminlogincheck->checkx()){
             if($this->session->userdata('type') != 1){
-            redirect(site_url("find-jobs"));
+            redirect(site_url("jobs-search"));
         }
 
             $jobId = base64_decode($_GET['fmJob']);

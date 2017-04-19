@@ -20,7 +20,7 @@ class Declined extends CI_Controller {
 
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
+                redirect(site_url("jobs-search"));
             }
 
             $budget = 0;

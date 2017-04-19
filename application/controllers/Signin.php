@@ -12,7 +12,7 @@ class Signin extends CI_Controller {
                 if(isset($_GET['redirect'])){
                     redirect(site_url("profile-settings").'?redirect='.$_GET['redirect']);
                 }else{
-                    redirect(site_url("find-jobs"));
+                    redirect(site_url("jobs-search"));
                 }
             }
         }else {

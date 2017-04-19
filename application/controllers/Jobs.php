@@ -691,9 +691,9 @@ class Jobs extends Winjob_Controller {
                     }
                     $this->Admintheme->webview("jobs/category-jobs", $data);
                 } else {
-                    $data['page'] = "find-jobs";
+                    $data['page'] = "jobs-search";
                     $data['css']  = array("","","","assets/css/pages/find-jobs.css");
-                    $this->Admintheme->custom_webview("jobs/find-jobs", $data);
+                    $this->Admintheme->custom_webview("jobs/jobs-search", $data);
                 }
             }
         } else {
@@ -731,7 +731,7 @@ class Jobs extends Winjob_Controller {
     public function status() {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
+                redirect(site_url("jobs-search"));
             }
 
             $jobs = $this->process->get_posted_jobs($this->user_id);
@@ -1331,7 +1331,7 @@ class Jobs extends Winjob_Controller {
             $this->load->model(array('jobs_model', 'webuser_model', 'contracts_model', 'payment_model'));
         }catch(RuntimeException $e){
             log_message('debug', $e->getMessage());
-            redirect(site_url("find-jobs"));
+            redirect(site_url("jobs-search"));
         }
         
         $contract_id      = (int) base64_decode( $contract_id );
@@ -1513,7 +1513,7 @@ class Jobs extends Winjob_Controller {
     public function fixed_client_view() {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
+                redirect(site_url("jobs-search"));
             }
 
             // added by (Donfack Zeufack Hermann) start load models
@@ -1544,7 +1544,7 @@ class Jobs extends Winjob_Controller {
 
         if(empty($fm_job)){
             //TODO: set a message here to explain redirection.
-            redirect(site_url('find-jobs'));
+            redirect(site_url('jobs-search'));
         }
         
         return array(
@@ -1566,7 +1566,7 @@ class Jobs extends Winjob_Controller {
                 $this->load->model(array('jobs_model', 'webuser_model', 'payment_model'));
             }catch(RuntimeException $e){
                 log_message('debug', $e->getMessage());
-                redirect(site_url("find-jobs"));
+                redirect(site_url("jobs-search"));
             }
             // added by (Donfack Zeufack Hermann) end           
             
@@ -1620,7 +1620,7 @@ class Jobs extends Winjob_Controller {
     public function hourly_client_view() {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
+                redirect(site_url("jobs-search"));
             }
 
             $jobId = base64_decode($_GET['fmJob']);
@@ -1653,7 +1653,7 @@ class Jobs extends Winjob_Controller {
     public function applied($jobId = null) {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
+                redirect(site_url("jobs-search"));
             }
 
             $budget = 0;
@@ -1757,7 +1757,7 @@ class Jobs extends Winjob_Controller {
     public function interviews($jobId = null) {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
+                redirect(site_url("jobs-search"));
             }
 
             $budget = 0;
@@ -2137,7 +2137,7 @@ class Jobs extends Winjob_Controller {
     public function mystaff() {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
+                redirect(site_url("jobs-search"));
             }
             
             // added by (Donfack Zeufack Hermann) start 
@@ -2219,7 +2219,7 @@ class Jobs extends Winjob_Controller {
     public function pasthire() {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
+                redirect(site_url("jobs-search"));
             }
 
             $user_id = $this->session->userdata('id');
@@ -2317,7 +2317,7 @@ class Jobs extends Winjob_Controller {
     public function offersent() {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
+                redirect(site_url("jobs-search"));
             }
 
             $user_id = $this->session->userdata('id');
@@ -2550,7 +2550,7 @@ class Jobs extends Winjob_Controller {
     public function confirm_hired_fixed() {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
+                redirect(site_url("jobs-search"));
             }
             
     
@@ -2631,7 +2631,7 @@ class Jobs extends Winjob_Controller {
     public function confirm_hired_hourly() {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
+                redirect(site_url("jobs-search"));
             }
             
             
@@ -2882,7 +2882,7 @@ class Jobs extends Winjob_Controller {
     public function client_endjobnotification() {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
+                redirect(site_url("jobs-search"));
             }
 
             $user_id = $this->session->userdata('id');
@@ -2992,7 +2992,7 @@ class Jobs extends Winjob_Controller {
     public function workdairy_client() {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
+                redirect(site_url("jobs-search"));
             }
 
             $client_id = $this->session->userdata('id');

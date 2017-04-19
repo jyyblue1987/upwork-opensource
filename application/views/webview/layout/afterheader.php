@@ -127,7 +127,7 @@ $notif_count = count($result);
                     <?php if ($this->session->userdata('type') == '1') { ?>
                                 <a class="navbar-brand" href="<?php echo site_url('jobs-home'); ?>">WINJOB</a>
                     <?php } else if ($this->session->userdata('type') == '2') { ?>
-                                <a class="navbar-brand" href="<?php echo site_url('find-jobs'); ?>">WINJOB</a>
+                                <a class="navbar-brand" href="<?php echo site_url('jobs-search'); ?>">WINJOB</a>
                     <?php } else { ?>
                                 <a class="navbar-brand" href="<?php echo site_url(); ?>">WINJOB</a>
                     <?php } ?>
@@ -142,7 +142,7 @@ $notif_count = count($result);
                                     <li><a href="<?php echo site_url('jobs/my-freelancers'); ?>">  <i class="fa fa-users" aria-hidden="true"></i> My Freelancers  </a></li> 
                                     <li><a href="<?php echo site_url('billing-history'); ?>"><i class="fa fa-credit-card" aria-hidden="true"></i>  Pay </a></li>
                             <?php } else if ($this->session->userdata('type') == '2') { ?>
-                                    <li><a href="<?php echo site_url('find-jobs'); ?>"><i class="fa fa-briefcase" aria-hidden="true"></i> Find Job  </a></li>
+                                    <li><a href="<?php echo site_url('jobs-search'); ?>"><i class="fa fa-briefcase" aria-hidden="true"></i> Find Job  </a></li>
                                     <li><a href="<?php echo site_url('win-jobs'); ?>">  <i class="fa fa-trophy" aria-hidden="true"></i> Win Jobs  </a></li> 
                                     <li><a href="<?php echo site_url('my-balance'); ?>"><i class="fa fa-credit-card" aria-hidden="true"></i>  Balance </a></li>
                             <?php }
@@ -271,7 +271,7 @@ if ($this->session->userdata('loggedx')) {
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="menu">
                             <ul>
-                                <li><a class="first-menu" href="<?php echo site_url('find-jobs'); ?>" class="current"> Find Jobs  </a></li>      
+                                <li><a class="first-menu" href="<?php echo site_url('jobs-search'); ?>" class="current"> Find Jobs  </a></li>      
                                 <li><a href="<?php echo site_url('profile/'.$webuser->webuser_username); ?>"> My Profile </a></li>			
                                 <li><a href="<?php echo site_url('jobs/my-bids'); ?>"> My Bids</a></li>
                                 <li><a href="<?php echo site_url('withdraw'); ?>"> Withdraw</a></li>

@@ -57,7 +57,7 @@ class Pay extends Winjob_Controller
     {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
+                redirect(site_url("jobs-search"));
             }
 
             $client_id = $this->session->userdata('id');

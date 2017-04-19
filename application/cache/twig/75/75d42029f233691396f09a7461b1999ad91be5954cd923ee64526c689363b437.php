@@ -19,7 +19,7 @@ class __TwigTemplate_53706cc21d8c03589e08e73df30ee9d98cd994256ba16facc125aaa1183
         echo "<li>
    <a href=\"";
         // line 2
-        echo twig_escape_filter($this->env, site_url("find-jobs"), "html", null, true);
+        echo twig_escape_filter($this->env, site_url("jobs-search"), "html", null, true);
         echo "\">
        <i class=\"fa fa-briefcase\" aria-hidden=\"true\"></i>
        ";
@@ -81,7 +81,7 @@ class __TwigTemplate_53706cc21d8c03589e08e73df30ee9d98cd994256ba16facc125aaa1183
     public function getSourceContext()
     {
         return new Twig_Source("<li>
-   <a href=\"{{ site_url('find-jobs') }}\">
+   <a href=\"{{ site_url('jobs-search') }}\">
        <i class=\"fa fa-briefcase\" aria-hidden=\"true\"></i>
        {{ app_lang('text_app_find_job') }}
    </a>

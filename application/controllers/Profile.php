@@ -159,7 +159,7 @@ class Profile extends CI_Controller {
     public function searchFreelancer() {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
-                redirect(site_url("find-jobs"));
+                redirect(site_url("jobs-search"));
             }
 
                 $fieldCheck = array(

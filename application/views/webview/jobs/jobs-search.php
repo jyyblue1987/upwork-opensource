@@ -59,7 +59,7 @@ $clientend = $Conversation->clientend();
 
         <div class="search-form">
             <div class="row">
-                <form action="<?= site_url() ?>find-jobs" method="GET" id="job-search-form">
+                <form action="<?= site_url() ?>jobs-search" method="GET" id="job-search-form">
                     <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12 no-pad search-cont">
                             <input type="text" placeholder="Find job" name="q" id="jobsearch" value="<?= isset($_GET['q']) ? $_GET['q'] : ''  ?>" class="form-control search-field"/>
                             <i aria-hidden="true" class="fa fa-search search-btn-home custom_btn"></i>
@@ -81,7 +81,7 @@ $clientend = $Conversation->clientend();
                                         foreach ($subCateList as $sub) {
                                             ?>
                                             <div  class="col-md-12 blue-text catscont">
-                                                <label> <a href="<?php echo site_url('find-jobs/' . $sub['subcat_id']) ?>"> <?php echo $sub['subcategory_name'] ?> </a> </label>
+                                                <label> <a href="<?php echo site_url('jobs-search/' . $sub['subcat_id']) ?>"> <?php echo $sub['subcategory_name'] ?> </a> </label>
                                             </div>
                                             <?php
                                         }
