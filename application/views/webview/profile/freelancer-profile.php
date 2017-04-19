@@ -55,7 +55,7 @@ foreach ($accepted_jobs as $job_data) {
 <section id="big_header">
 <!-- end code of 3 march indsys tech-->
  
-<div style="clear:both"></div>
+<div class="clear-both"></div>
 <div class="">
     <div id="top-content">
             <div class="mainwork">
@@ -95,11 +95,11 @@ foreach ($accepted_jobs as $job_data) {
                                 <div class="row">
                                     <div class="col-md-8 col-sm-8 col-xs-12">
                                         <div class="topmiddle">
-                                            <h4 style="margin-bottom:0px;"><?php echo $webUserInfo['webuser_fname'] . " " . $webUserInfo['webuser_lname'] ?></h4>
+                                            <h4 class="marg-bot-0"><?php echo $webUserInfo['webuser_fname'] . " " . $webUserInfo['webuser_lname'] ?></h4>
                                             
                                             <p><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;<?php echo $webUserInfo['webuser_country_name'] ?> <?=$localtime?></p>
-                                            <h3 style="padding-top: 0;"><?php echo $basicDetails["tagline"] ?></h3>
-                                            <div style="margin-top: -15px;" class="buttonside">
+                                            <h3 class="pad-top-0"><?php echo $basicDetails["tagline"] ?></h3>
+                                            <div class="buttonside marg-top--15">
                                                 <?php
                                                 $skills = $basicDetails['user_skills'];
 
@@ -119,7 +119,7 @@ foreach ($accepted_jobs as $job_data) {
                                                 }
                                                 ?>
 
-                                                <div style="clear:both"></div>
+                                                <div class="clear-both"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -131,7 +131,7 @@ foreach ($accepted_jobs as $job_data) {
                                 </div>
                             </div>
                             
-                            <div style="clear:both"></div>
+                            <div class="clear-both"></div>
                             <div class="top_border"></div>
                             <div class="buttonsidetwo">
                                 <h2>Overview</h2>
@@ -159,7 +159,7 @@ foreach ($accepted_jobs as $job_data) {
                                                     </div>  
                                                 </li>
                                                 <li>
-                                                    <i style="float: left;margin-top: 5px;" class="fa fa-credit-card-alt"></i>
+                                                    <i class="fa fa-credit-card-alt pull-left marg-top-5"></i>
                                                     <a href="">&nbsp;$<?php echo $basicDetails["hourly_rate"] + $basicDetails["hourly_rate"] * WINJOB_FEE ?> <span>/hour</span></a>
                                                 </li>
                                                 <li>
@@ -209,9 +209,9 @@ foreach ($accepted_jobs as $job_data) {
                                                         ?>
                                                     </a>
                                                 </li>
-                                                <li><a href=""><i style="margin-right: 5px;" class="fa fa-tree" aria-hidden="true"></i>&nbsp;<?php echo $basicDetails["work_experience_year"] ?><span> Years Experience</span></a></li>
+                                                <li><a href=""><i class="fa fa-tree marg-right-5" aria-hidden="true"></i>&nbsp;<?php echo $basicDetails["work_experience_year"] ?><span> Years Experience</span></a></li>
                                                 
-                                                <li><a href=""><i style="margin-right: 10px;" class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;<?php echo $webUserInfo['webuser_country_name'] ?>
+                                                <li><a href=""><i class="fa fa-map-marker marg-right-10" aria-hidden="true"></i>&nbsp;<?php echo $webUserInfo['webuser_country_name'] ?>
                                                         <span></span></a></li>
                                             </ul>
                                         </div>  
@@ -220,7 +220,7 @@ foreach ($accepted_jobs as $job_data) {
             </div>
             <div class="row">
                 <div class="col-md-9 col-xs-12 col-sm-12 col-lg-9 no-pad-mob">                                
-                    <div style="overflow: hidden;" class="job-history">
+                    <div class="job-history overflow-hidden">
                                     <div class="buttonsidethree">
                                         <div class="row">
                                             <div class="col-md-6 col-sm-6 no-pad-mob">
@@ -249,7 +249,7 @@ foreach ($accepted_jobs as $job_data) {
                                             <div class="col-md-8 col-sm-6 col-xs-12 no-pad-mob">
                                                 <div class="buttonsidethreeleft">
                                                     <p> <?= $job_data->hire_title ?></p>
-                                                    <h3 style="margin-bottom: -8px;"><?php echo date(' M j, Y ', strtotime($job_data->start_date)); ?>
+                                                    <h3 class="marg-bot--8"><?php echo date(' M j, Y ', strtotime($job_data->start_date)); ?>
                                                     <?php if ($job_data->jobstatus == 1) {
                                                     echo " - " . date(' M j, Y ', strtotime($job_data->end_date));
                                                     } ?>
@@ -271,11 +271,11 @@ foreach ($accepted_jobs as $job_data) {
                                             
                                             <div class="col-md-4 col-sm-6 col-xs-12">
                                                 <?php if ($job_data->job_type == "fixed") { ?>
-                                                <div class="buttonsidethreeright pull-right " style="padding:0;">
+                                                <div class="buttonsidethreeright pull-right pad-0">
                                                     <?php } else { if ($job_data->jobstatus == 1) {
                                                     ?>
-                                                    <div class="buttonsidethreeright " style="padding:0;"> <?php } else { ?>
-                                                        <div class="buttonsidethreeright pull-right " style="padding:0;float:right:">
+                                                    <div class="buttonsidethreeright pull-right pad-0"> <?php } else { ?>
+                                                        <div class="buttonsidethreeright pull-right pad-0">
                                                             <?php }
                                                         } ?>
 
@@ -284,7 +284,7 @@ foreach ($accepted_jobs as $job_data) {
                                                         if ($job_data->job_type == "fixed") {?>
                                                         <!--<h6>$<?= $job_data->bid_amount ?></h6>-->
 
-                                                            <h3 style='margin-top:0px;margin-bottom:-15px;float:right;font-size: 20px;font-family: "Calibri";'>Paid $<?= $total_price_fixed = $job_data->fixedpay_amount ?></h3><br><?
+                                                            <h3 class="style">Paid $<?= $total_price_fixed = $job_data->fixedpay_amount ?></h3><br><?
                                                         if ($job_data->jobstatus == 1) {
                                                         if (!empty($jobfeedback)) {
                                                         ?>
@@ -303,7 +303,7 @@ foreach ($accepted_jobs as $job_data) {
                                                             
                                                             <div title="Rated 0 out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
                                                                 
-                                                                <span style="width:0%">
+                                                                <span class="width-0">
                                                                     <strong itemprop="ratingValue">0</strong> out of 5
                                                                 </span>
                                                                 
@@ -315,28 +315,8 @@ foreach ($accepted_jobs as $job_data) {
 
                                                             
                                                         <?php
-                                                        } else {
-                                                        if ($job_data->jobstatus == 1) {
-                                                        if (!empty($jobfeedback)) {
-                                                        ?>
-                                                            <div title="Rated <?= $jobfeedback->feedback_score; ?> out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
-                                                                <span style="width:<?= $rating_result; ?>%">
-                                                                    <strong itemprop="ratingValue"><?= $jobfeedback->feedback_score; ?></strong> out of 5
-                                                                </span>
-                                                            </div>
-                                                                    <span class="rate"><?= $jobfeedback->feedback_score; ?></span>
-
-                                                                    <?php } else { ?>
-                                                                    <div title="Rated 0 out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
-                                                                        <span style="width:0%">
-                                                                            <strong itemprop="ratingValue">0</strong> out of 5
-                                                                        </span>
-                                                                    </div>
-                                                                    <span class="rate">0.00</span>
-                                                                    <?php }
-                                                                } ?>
-
-                                                            <h6 style="text-align: right;">
+                                                        } else {?>
+                                                            <h6 class="text-right">
                                                                 <?php
                                                                 $this->db->select('*');
                                                                 $this->db->from('job_workdairy');
@@ -356,7 +336,7 @@ foreach ($accepted_jobs as $job_data) {
                                                                 ?>
 
                                                             </h6>
-                                                            <h3 style="position: absolute;top: 23px;">
+                                                            <h3 class="text-right marg-bot-0 marg-top-0">
                                                         <?php
                                                         if ($job_data->offer_bid_amount) {
                                                         $amount = $job_data->offer_bid_amount;
@@ -366,7 +346,27 @@ foreach ($accepted_jobs as $job_data) {
                                                         ?>
                                                         <?php $total_price = $total_work * $amount; ?>
                                                         $<?= $total_price; ?> 
-                                                            </h3>
+                                                            </h3><?
+                                                        if ($job_data->jobstatus == 1) {
+                                                        if (!empty($jobfeedback)) {
+                                                        ?>
+                                                            <div title="Rated <?= $jobfeedback->feedback_score; ?> out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+                                                                <span style="width:<?= $rating_result; ?>%">
+                                                                    <strong itemprop="ratingValue"><?= $jobfeedback->feedback_score; ?></strong> out of 5
+                                                                </span>
+                                                            </div>
+                                                                    <span class="rate pull-right"><?= $jobfeedback->feedback_score; ?></span>
+
+                                                                    <?php } else { ?>
+                                                                    <div title="Rated 0 out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+                                                                        <span class="width:0%">
+                                                                            <strong itemprop="ratingValue">0</strong> out of 5
+                                                                        </span>
+                                                                    </div>
+                                                                    <span class="rate">0.00</span>
+                                                                    <?php }
+                                                                } ?>
+
                                                         <?php } ?>
                                                         </div>
                                                     </div>
@@ -393,11 +393,11 @@ foreach ($accepted_jobs as $job_data) {
                                     </div>
                                 </div>
                             </div>
-                            <div style="clear:both"></div>
+                            <div class="clear-both"></div>
             </div>
             </div>
             <div class="middle">
-                <div style="margin: 0;margin-top: 25px;margin-bottom: 40px;" class="row main_portfolio">
+                <div class="row main_portfolio">
                     <div class="protfilio">
                     <div class="">
                         <div class="row">
@@ -408,7 +408,7 @@ foreach ($accepted_jobs as $job_data) {
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <div class="proftilbutt">
-                                    <button style="margin-right:28px" class="pull-right edit-portfolio" id="buttontrei"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; &nbsp;Add Portfolio</button>
+                                    <button class="pull-right edit-portfolio marg-right-t8" id="buttontrei"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; &nbsp;Add Portfolio</button>
                                 </div>
                             </div>
                         </div>
@@ -478,7 +478,7 @@ if (isset($portfolios) && is_array($portfolios) && sizeof($portfolios) > 0) {
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <div class="protilo-right">
-                                    <button style="margin-right:28px" class="pull-right edit-exp" id="buttontrei"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; &nbsp;Add Experience</button>
+                                    <button class="pull-right edit-exp marg-right-t8" id="buttontrei"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; &nbsp;Add Experience</button>
                                 </div>
                             </div>
                         </div>
@@ -490,17 +490,17 @@ foreach ($experience as $val) { ?>
             <div class="row">
                 <div class="col-md-12 col-sm-12">
                     <div class="exp-showcase">  
-                        <div><b><a style="color:grey; " href="#" id ="<?php echo $val->id; ?>" onclick="editClickedExp(this.id)" ><i class="fa fa-pencil" aria-hidden="true"></i></a> </b></div>
-                        <div><h4><a style="color:#000;" href=""><?php echo $val->title; ?></a> </h4></div> 
+                        <div><b><a href="#" id ="<?php echo $val->id; ?>" onclick="editClickedExp(this.id)" class="color-gray"><i class="fa fa-pencil" aria-hidden="true"></i></a> </b></div>
+                        <div><h4><a href="" class="color-black" ><?php echo $val->title; ?></a> </h4></div> 
                         <div class="company_name">
                             <h4>
-                                <a style="color:#494949;" href="">
+                                <a href="" class="color-company">
                                     <span><?php echo $val->company; ?></span>
                                 </a>
                             </h4>
                         </div>
                         <div class="address_bar">
-                            <a  style="color:grey;" href="" class="">
+                            <a href="" class="color-grey">
                                 <span>
                                     <?= DatetimeHelper::getMonthByNum($val->month1)."-".$val->year1; ?>
                                     <?php if ((int)$val->year2 === 0) {
@@ -561,7 +561,7 @@ foreach ($experience as $val) { ?>
 
                             <div class="col-md-6 col-sm-6">
                                 <div class="proftilbutttwo">
-                                    <button style="margin-right:28px" class="pull-right edit-edu" id="buttontrei"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; &nbsp;Add Education</button>
+                                    <button class="pull-right edit-edu marg-right-t8" id="buttontrei"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; &nbsp;Add Education</button>
                                 </div>
                             </div>
 

@@ -1,33 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>
-        <?php echo $title; ?> </title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width,height=device-height, initial-scale=1, user-scalable=no">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="stylesheet" href="<?php echo base_url() ?>assets/home/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>assets/home/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>assets/home/css/fonts.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/footer.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/header.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>assets/home/css/normalize.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/home/css/home.css">
-    <link rel='stylesheet' media='screen and (min-width: 0px) and (max-width: 5000px)' href='css/lg-style.css' />
-    <link rel='stylesheet' media='screen and (min-width: 0px) and (max-width: 1199px)' href='css/md-style.css' />
-    <link rel='stylesheet' media='screen and (min-width: 0px) and (max-width: 991px)' href='css/sm-style.css' />
-    <link rel='stylesheet' media='screen and (min-width: 0px) and (max-width: 767px)' href='css/xs-style.css' />
-    <script src="<?php echo base_url() ?>assets/home/js/vendor/modernizr-2.8.3.min.js"></script>
-    <?php $this->load->view("webview/layout/afterheader") ?> </section>
     </div>
     <div class="clear"></div>
     <section id="big_header">
         <div class="container">
             <p class="banner-title">Hire export freelancers for your online job</p>
-            <p class="banner-details">Millions of small businesses use Frelancer to turn their idto reality</p>
+            <p class="banner-details">Millions of small businesses use Freelancer to turn their into reality</p>
             <section id="sliderButton" class="hidden-xs hidden-sm">
                 <button type="button" onclick="location.href='employeersignup'">I want to Hire</button>
                 <button type="button" onclick="location.href='freelancersignup'">I want to work</button>
@@ -247,6 +225,3 @@
             <header>Build your online Dream Team- <a href="signup" class="inherit">Get Started</a></header>
         </div>
     </section>
-    <?php $this->load->view("webview/layout/footer"); $this->load->view("webview/includes/new-footer-common-script"); ?> </body>
-
-</html>
