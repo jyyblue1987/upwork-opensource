@@ -110,7 +110,7 @@ span.rating-badge {
                     <div style="width: 97.1%;" class="col-md-12 white-box candidate-list">
                         <div class="row margin-top-1">
                             <div style="margin-left: 5px;" class="col-md-1 st_img">
-                                <img src="<?php echo base_url().$fp->webuser_picture?>" width="64" height="64" />
+                                <img src="<?php echo $fp->webuser_picture == "" ? base_url().'assets/user.png' : base_url().$fp->webuser_picture?>" width="64" height="64" />
                             </div>
                             <div class="col-md-8 text-left margin-left-1 aplicant_name" style="margin-top:-4px;">
                                 <label class="blue-text"><?php echo $fp->webuser_fname." ".$fp->webuser_lname ?></label> <br/> 

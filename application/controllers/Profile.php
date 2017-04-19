@@ -162,7 +162,6 @@ class Profile extends CI_Controller {
                 redirect(site_url("find-jobs"));
             }
 
-            if (isset($_GET['q'])) {
                 $fieldCheck = array(
                     'field' => 'keywords',
                     'label' => "Keywords",
@@ -198,7 +197,6 @@ class Profile extends CI_Controller {
                     $keywords = $this->input->get("q");
                     if (strlen($keywords) > 0) {
                         $data['searchWord'] = $keywords;
-                        echo $keywords;
                         $freelancers = $this->ProfileModel->getFreelancerSearch($keywords);
                         if (!empty($freelancers) && sizeof($freelancers) > 0) {
                             $data['freelancers'] = $freelancers;
@@ -206,7 +204,6 @@ class Profile extends CI_Controller {
                     }
                 }
                 $this->Admintheme->webview("jobs/freelancer-search", $data);
-            }
         } else {
             redirect(site_url("signin"));
         }
