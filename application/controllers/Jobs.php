@@ -847,7 +847,7 @@ class Jobs extends Winjob_Controller {
                 $amount = $_accepted->offer_bid_amount ? $_accepted->offer_bid_amount : $_accepted->bid_amount;
 
                 $job_history[] = array(
-                  'title'         => $_accepted->hire_title,
+                  'title'         => ucwords($_accepted->hire_title),
                   'start_date'    => $_accepted->start_date,
                   'job_status'    => $_accepted->jobstatus,
                   'end_date'      => $_accepted->end_date,
