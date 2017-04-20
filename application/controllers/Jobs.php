@@ -844,6 +844,7 @@ class Jobs extends Winjob_Controller {
             foreach($accepted_jobs AS $_accepted){
                 $jobfeedback = $this->process->get_feedbacks($_accepted->fuser_id, $_accepted->job_id);
                 $total_work = $this->process->feedback_worked_hrs($_accepted->fuser_id, $_accepted->job_id);
+                $amount = $_accepted->offer_bid_amount ? $_accepted->offer_bid_amount : $_accepted->bid_amount;
 
                 $job_history[] = array(
                   'title'         => $_accepted->hire_title,
@@ -852,7 +853,7 @@ class Jobs extends Winjob_Controller {
                   'end_date'      => $_accepted->end_date,
                   'job_type'      => $_accepted->job_type,
                   'pay'           => $_accepted->job_type == 'fixed' ? $_accepted->fixedpay_amount : $total_work,
-                  'total_price'   => $_accepted->offer_bid_amount ? $_accepted->offer_bid_amount : $total_work*$_accepted->bid_amount,
+                  'total_price'   => $total_work * $amount,
                   'rating'        => $jobfeedback['feedback_score'],
                   'rating_result' => ($jobfeedback['feedback_score'] / 5) * 100,
                   'comment'       => $jobfeedback['feedback_comment'],

@@ -420,7 +420,7 @@ class Process extends CI_Model {
 
         if(!empty($result)){
             foreach($result as $work){
-                $total_work +=$work->total_hour;
+                $total_work += $work->total_hour;
             }
             return $total_work;
         }else{
