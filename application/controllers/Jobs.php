@@ -15,7 +15,9 @@ class Jobs extends Winjob_Controller {
         // load the default language for the current user.
         $this->load_language();
         // added by (Donfack Zeufack Hermann) end
-        $this->load->model(array('Category', 'Common_mod', 'Webuser_model', 'Process', 'Employer', 'profile/ProfileModel', 'Job_work_diary_model', 'Skills_model', 'jobs_model', 'Job_details', 'payment_model'));
+        $this->load->model(array('Category', 'Common_mod', 'Webuser_model', 'Process', 'Employer', 
+            'profile/ProfileModel', 'Job_work_diary_model', 'Skills_model', 'jobs_model', 
+            'Job_details', 'payment_model', 'payment_methods_model'));
         $this->load->library('paypal_lib');
         $this->process = new Process();
         $this->user_id = $this->session->userdata('id');
@@ -823,85 +825,64 @@ class Jobs extends Winjob_Controller {
         }
     }
 
-    public function view($title = null, $postId = null) {
-        if ($this->Adminlogincheck->checkx()) {
-            $postId = base64_decode($postId);
-            $employer = new Employer($postId);
+    public function view($title = NULL, $postId = NULL) {
+            $this->authorized();
 
-            $emp_id = $employer->get_job_employer($postId);
-            $client = new Employer($emp_id);
+            $postId   = base64_decode($postId);
+            $employer = $this->jobs_model->load_client_infos($postId);
+            $client   = new Employer($employer->webuser_id);
+            $job      = new Job_details($client->get_userid(), $postId);
 
-            $budget = 0;
-            $total_work = 0;
-            $feedbackScore = 0;
-
-            $records = array();
-            $_price = array();
-            $_freelancer = array();
-
-            $job = new Job_details($emp_id, $postId);
-            $applicants = $this->process->get_applications($postId);
-            $interviews = $this->process->get_interviews($emp_id, $postId);
-            $hires = $this->process->get_hires($emp_id, $postId);
-            $jobids = $this->process->get_job_ids($emp_id);
-            $jobs_posted = $this->process->get_jobs($emp_id);
-            $country = new Employer($emp_id);
-            $accepted_jobs = $this->process->accepted_jobs('', $emp_id);
             $freelancer_active = $this->Webuser_model->is_active($this->user_id);
+            $accepted_jobs     = $this->process->accepted_jobs($client->get_userid(), TRUE);
+            $jobs_posted       = $this->jobs_model->num_sent_by($client->get_userid());
+            $applicants        = $this->process->get_applications($postId);
+            $interviews        = $this->process->get_interviews($client->get_userid(), $postId);
+            $hires             = $this->process->get_hires($client->get_userid(), $postId);
+            $jobids            = $this->process->get_job_ids($client->get_userid());
 
-            foreach($accepted_jobs AS $a_jobs){
-                   $feedbacks = $this->process->get_feedbacks($a_jobs->fuser_id, $a_jobs->job_id);
-                   $diary = $this->Job_work_diary_model->get_work_hours($a_jobs->fuser_id, $a_jobs->job_id);
+            foreach($accepted_jobs AS $_accepted){
+                $jobfeedback = $this->process->get_feedbacks($_accepted->fuser_id, $_accepted->job_id);
+                $total_work = $this->process->feedback_worked_hrs($_accepted->fuser_id, $_accepted->job_id);
 
-                foreach($diary AS $_diary){
-                    $total_work += $_diary->total_hour;
-                }
-
-               if($a_jobs->jobstatus == 1){
-                   if(!empty($feedbacks)){
-                        if($a_jobs->job_type == 'fixed'){
-                            $price = $a_jobs->fixedpay_amount;
-                            $feedbackScore += ($feedbacks['feedback_score'] * $price);
-                            $budget += $price;
-                        }else{
-
-                            if($a_jobs->offer_bid_amount){
-                                $amount = $a_jobs->offer_bid_amount;
-                            }else{
-                                $amount = $a_jobs->bid_amount;
-                            }
-
-                            $price = $a_jobs->fixedpay_amount * $amount;
-                            $feedbackScore += ($feedbacks['feedback_score'] * $price);
-                            $budget += $price;
-                        }
-                    }
-                }
+                $job_history[] = array(
+                  'title'         => $_accepted->hire_title,
+                  'start_date'    => $_accepted->start_date,
+                  'job_status'    => $_accepted->jobstatus,
+                  'end_date'      => $_accepted->end_date,
+                  'job_type'      => $_accepted->job_type,
+                  'pay'           => $_accepted->job_type == 'fixed' ? $_accepted->fixedpay_amount : $total_work,
+                  'total_price'   => $_accepted->offer_bid_amount ? $_accepted->offer_bid_amount : $total_work*$_accepted->bid_amount,
+                  'rating'        => $jobfeedback['feedback_score'],
+                  'rating_result' => ($jobfeedback['feedback_score'] / 5) * 100,
+                  'comment'       => $jobfeedback['feedback_comment'],
+                  'total_work'    => $total_work
+                );
             }
 
             $data = array(
-                'emp' => $client,
-                'time' => $this->time_elapsed_string($job->get_date_created()),
-                'value' => $job,
-                'skills' => $this->Skills_model->get_skills($postId),
-                'jobs_posted' => $jobs_posted['rows'],
-                'applicants' => $applicants['rows'],
-                'hires' => $hires['rows'],
-                'interviews' => $interviews['rows'],
-                'total_hired' => $this->jobs_model->number_freelancer_hired($emp_id),
-                'workedhours' => $this->Job_work_diary_model->get_hour_work_for($emp_id),
-                'payment_set' => $client->is_payment_set(),
-                'total_spent' => $this->payment_model->get_amount_spent($emp_id),
-                'rating' => $this->Webuser_model->get_total_rating($emp_id, true),
-                'country' => ucfirst($country->get_country()),
-                'f_active' => $freelancer_active,
-                'is_applied' => $this->process->is_applied($this->user_id, $postId),
-                'proposals' => $this->process->get_freelancer_proposals($this->user_id),
-                'css' => array("", "", "", "assets/css/pages/view.css")
+                'emp'           => $client,
+                'time'          => $this->time_elapsed_string($job->get_date_created()),
+                'value'         => $job,
+                'skills'        => $this->Skills_model->get_skills($postId),
+                'jobs_posted'   => $jobs_posted,
+                'applicants'    => $applicants['rows'],
+                'hires'         => $hires['rows'],
+                'interviews'    => $interviews['rows'],
+                'total_hired'   => $this->jobs_model->number_freelancer_hired($client->get_userid()),
+                'workedhours'   => $this->Job_work_diary_model->get_hour_work_for($client->get_userid()),
+                'payment_set'   => $this->payment_methods_model->get_primary($client->get_userid()),
+                'total_spent'   => $this->payment_model->get_amount_spent($client->get_userid()),
+                'rating'        => $this->Webuser_model->get_total_rating($client->get_userid(), true),
+                'country'       => ucfirst($client->get_country()),
+                'f_active'      => $freelancer_active,
+                'is_applied'    => $this->process->is_applied($this->user_id, $postId),
+                'accepted_jobs' => $accepted_jobs,
+                'job_history'   => $job_history,
+                'css'           => array("", "", "", "assets/css/pages/view.css")
              );
 
             $this->Admintheme->custom_webview("jobs/jobs", $data);
-        }
     }
 
     public function apply($title = null, $postId = null) {
