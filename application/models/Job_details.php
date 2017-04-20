@@ -113,7 +113,7 @@ class Job_details extends CI_Model {
     }
     
     function get_exp(){
-        return $this->exp_level;
+        return ucfirst($this->exp_level);
     }
     
     function get_budget(){

@@ -284,7 +284,7 @@
                 <div class="col-md-3 no-pad">
                     <?php
                     if ($this->session->userdata('type') == '2') {
-                        if ($is_applied != 0) {
+                        if ($is_applied > 0) {
                             ?>
                             <div class="row">
                                 <div class="col-md-10 col-md-offset-2">

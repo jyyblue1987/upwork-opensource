@@ -74,7 +74,7 @@ class Employer extends CI_Model {
     }
 
     function get_fname() {
-        return $this->fname;
+        return ucfirst($this->fname);
     }
 
     function get_lname() {
