@@ -1,3 +1,8 @@
+<style>
+    label.label-side{
+        font-size: 14px;
+    }
+</style>
 <p class="result-msg"></p>
 <section id="big_header">
     <div class="container">
@@ -464,7 +469,7 @@ $accepted_jobs = $query->result();
                         <div style="" class="row margin-top-2 border-bottom total-work">
                             <div class="col-md-12">
                                 <label style="" class="label-side">
-				<?php echo $workedhours ?>
+				<?php echo $workedhours ?> Hours Worked
 			</label>
                             </div>
                         </div>

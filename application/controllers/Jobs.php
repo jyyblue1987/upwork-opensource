@@ -15,7 +15,7 @@ class Jobs extends Winjob_Controller {
         // load the default language for the current user.
         $this->load_language();
         // added by (Donfack Zeufack Hermann) end
-        $this->load->model(array('Category', 'Common_mod', 'Webuser_model', 'Process', 'Employer', 'profile/ProfileModel', 'Job_work_diary_model', 'Skills_model', 'jobs_model', 'Job_details'));
+        $this->load->model(array('Category', 'Common_mod', 'Webuser_model', 'Process', 'Employer', 'profile/ProfileModel', 'Job_work_diary_model', 'Skills_model', 'jobs_model', 'Job_details', 'payment_model'));
         $this->load->library('paypal_lib');
         $this->process = new Process();
         $this->user_id = $this->session->userdata('id');
@@ -889,7 +889,7 @@ class Jobs extends Winjob_Controller {
                 'hires' => $hires['rows'],
                 'interviews' => $interviews['rows'],
                 'total_hired' => $this->jobs_model->number_freelancer_hired($emp_id),
-                'workedhours' => $this->job_work_diary_model->get_hour_work_for($emp_id),
+                'workedhours' => $this->Job_work_diary_model->get_hour_work_for($emp_id),
                 'payment_set' => $client->is_payment_set(),
                 'total_spent' => $this->payment_model->get_amount_spent($emp_id),
                 'rating' => $this->Webuser_model->get_total_rating($emp_id, true),
