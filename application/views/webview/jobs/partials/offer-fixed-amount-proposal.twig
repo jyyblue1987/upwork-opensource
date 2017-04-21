@@ -1,0 +1,39 @@
+<div class="row bid-amount">
+    <div class="col-md-12 text-left">
+        <h4 class="confirm_hire_title">Amount :</h4>
+    </div>
+    <div class="col-md-12">
+       <strong id="budget-show" class="fix-price">${{ bid_details.bid_amount }}&nbsp;</strong>
+       <a id="budget-edit"><i style="margin-left: 10px;" class="fa fa-pencil-square-o blue-text"></i></a>
+    </div>
+    <div class="col-md-5">
+        <input type="hidden" name="budget_old" id="budget" class="form-control" value="{{ bid_details.bid_amount }}" />
+        <input type="text" name="budget" id="budget-edit-field" class="form-control hide custom_amount_box" value="{{ bid_details.bid_amount }}" />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="radio">
+            <label>
+              <input type="radio" name="budget_type" value="1" checked>
+              Paid All
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+              <input type="radio" name="budget_type" value="0" >
+              Paid Nothing
+            </label>
+        </div>
+        <div class="radio">
+            <label class="pull-left">
+              <input type="radio" name="budget_type" id="milestone_radio"  value="2">
+              Milestone
+            </label>
+            <div class="col-xs-3 hide" id="milestone-input-container">    
+                $<input type="text" name="milestone_input" class="form-control" style="width: 50%; display: inline-block" >
+            </div>
+        </div>
+    </div>
+</div>

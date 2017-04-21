@@ -163,7 +163,8 @@ h2.success {  width: 100%; text-align: center;  color: green;  display: none;}
 						<input type="hidden" name="job_id" id="job_id" value="<?=base64_decode($job_id)?>">
 						<input type="hidden" name="payer_email" id="payer_email" value="<?=$user_details[0]->webuser_email;?>">
 						<input type="hidden" name="default_title" id="default_title" value="<?=$job_details[0]->title?>">
-						<input style="float: left;margin-right: 10px;" type="checkbox" name="tearms" id="tearms" required /><p> I understand and agree to the Winjob <a href="">user Agreement</a> and <a href="">policy</a></p>
+						<input style="float: left;margin-right: 10px;" type="checkbox" name="tearms" id="tearms" required />
+                                                <p> I understand and agree to the Winjob <a href="">user Agreement</a> and <a href="">policy</a></p>
 						<p class="tarms_conditions" style="color:red;display:none;"></p>
 					</div>
 

@@ -33,7 +33,7 @@
                     
                     <div data-bid="{{ message['bid_id'] }}" data-ticket="{{ message['is_ticket'] }}" 
                          class='notif-message-details col-sm-12  {% if message['have_seen'] == 0 %} seen {% endif %} {% if last_message is defined and ( message['bid_id'] == last_message.bid_id ) %} chat-item-active {% endif %}'>
-                        <div data-id="{{ message['bid_id'] }}" id="notif-{{ message['bid_id'] }}"
+                        <div id="notif-{{ message['bid_id'] }}"
                              class="sidebar-block">
                             <div class="col-xs-3">
                                 <i class="fa fa-comments fa-3x" aria-hidden="true"></i>

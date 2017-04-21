@@ -386,4 +386,14 @@ class Jobs_model extends CI_Model {
             return $result->num;
         return 0;
     }
+    
+    public function load_informations( $job_id )
+    {
+        $query = $this->db->select('*')
+                    ->from('jobs')
+                    ->where('jobs.id', $job_id)
+                    ->get();
+        
+        return $query->row();
+    }
 }

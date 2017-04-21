@@ -34,3 +34,12 @@ and open the template in the editor.
     margin: 5px 0;
     padding: 5px;
 }
+
+.modal .modal-body {
+    border: none;
+    padding: 0;
+}
+
+.modal .modal-body form{
+    margin-bottom: 0;
+}

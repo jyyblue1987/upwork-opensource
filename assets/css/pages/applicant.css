@@ -28,7 +28,7 @@ span.rating-badge {
     border-radius: 2px;
     color: #fff;
     padding: 2px 4px 2px 5px;
-    font-size: 12px;
+    font-size: 9px;
 }
 .review_ratting_left .star-rating::before {
     font-size: 19px !important;
@@ -188,13 +188,19 @@ span.text1 {text-transform: capitalize;}
 
 #interview .header-border-x{
     border-top: none;
-    padding: 20px;
 }
 
 .white-box.bordered_cl {
     margin-top:20px;
     margin-bottom:40px;
     border: 1px solid #ddd;
+    padding: 15px 0;
+}
+
+.white-box.bordered_cl .col-md-12,
+.white-box.bordered_cl .col-md-9{
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .cover-letter {
@@ -211,7 +217,7 @@ span.text1 {text-transform: capitalize;}
 }
 
 .cover_box p {
-    padding: 0 15px;
+    padding: 0 10px;
     margin-bottom: 0;
 }
 

@@ -109,4 +109,38 @@ class Winjob_stripe {
         }
         return null;
     }
+    
+    public function paid($amount, $currency, $service)
+    {
+        $now = Carbon::now(new DateTimeZone('UTC'));
+
+        try
+        {
+            //charge stripe account. 
+            $charge =   \Stripe\Charge::create(array(
+                            "amount"      => $amount * 100,
+                            "currency"    => $currency,
+                            "customer"    => $service->service_payer_id,
+                            "description" => "Offer's payment for fixed job - " . date("d-m-Y H:i:s", $now->timestamp)
+                        ));
+            
+            return $charge;
+        }
+        catch (\Stripe\Error\RateLimit $e) {
+            // Too many requests made to the API too quickly
+        } catch (\Stripe\Error\InvalidRequest $e) {
+            // Invalid parameters were supplied to Stripe's API
+        } catch (\Stripe\Error\Authentication $e) {
+            // Authentication with Stripe's API failed
+            // (maybe you changed API keys recently)
+        } catch (\Stripe\Error\ApiConnection $e) {
+            // Network communication with Stripe failed
+        } catch (\Stripe\Error\Base $e) {
+            // Display a very generic error to the user, and maybe send
+            // yourself an email
+        } catch (Exception $e) {
+            // Something else happened, completely unrelated to Stripe
+        }
+        return null;
+    }
 }

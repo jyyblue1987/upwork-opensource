@@ -183,3 +183,4 @@ $lang['text_job_title_client_pay']               = 'Billing history';
 
 $lang['text_app_runtime_no_freelancer'] = 'Freelancer do not exists or has closed his account.';
 $lang['text_app_invalid_application_parameter']  = "parameter's application missing.";
+$lang['text_app_invalid_bid_parameter']  = "parameter's bid missing.";

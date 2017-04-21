@@ -43,7 +43,7 @@
                     <div class="col-md-9">
                         <label class="lab-details">{{ app_lang('text_job_applicant_attachments') }}</label>
                     </div>
-                    <div class="col-md-12 text-justify page-label div-details" style="margin-left: 23px;">
+                    <div class="col-md-12 text-justify page-label div-details">
                         {% for attachment in f_attachments %}
                             <a href="{{ site_url('jobs/download?dir=' ~ f_id ~ '/' ~ f_attachments[0]['tid'] ~ '&file=') }}{{ attachment|replace({'"': ''}) }}">{{ attachment|replace({'"': ''}) }}</a><br>
                         {% endfor %}

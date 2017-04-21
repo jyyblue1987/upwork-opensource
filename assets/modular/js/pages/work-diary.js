@@ -5,7 +5,7 @@ define(function (require) {
      */
     var $               = require('jquery'),
         bootstrap       = require('bootstrap'),
-        datetimepicker  = require('jquery_datetime_picker')
+        datetimepicker  = require('jquery_datetime_picker'),
         moment          = require('moment');
     
     function calculated_total_hour(){

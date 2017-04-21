@@ -370,4 +370,8 @@ class Messageboard extends Winjob_Controller
         }
         return $attachment_file;
     }
+
+    public function load_new_message(){
+        
+    }
 }

@@ -3,7 +3,13 @@
         <div class="modal-content">
             <div class="modal-header" style="border: none;">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Proposed Terms</h4>
+                <h4 class="modal-title">
+                    {% if client is defined %}
+                        Offer Terms
+                    {% else %}
+                        Proposed Terms
+                    {% endif %}
+                </h4>
             </div>
             <div class="modal-body">
                 <form method="post" id='jobApply' action="{{ site_url('jobs/change_proposal_term') }}">
@@ -13,7 +19,13 @@
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-3 col-md-offset-3 page-label">
-                                    <label>Your Bid</label>
+                                    <label>
+                                        {% if client is defined %}
+                                           Your offer
+                                        {% else %}
+                                           Your Bid
+                                        {% endif %}
+                                    </label>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="col-md-1">$</div>
@@ -37,7 +49,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-3 col-md-offset-3 page-label">
-                                    <label>Your Earnings</label>
+                                    <label>
+                                        {% if client is defined %}
+                                           Freelancer Earnings
+                                        {% else %}
+                                           Your Earnings
+                                        {% endif %}
+                                    </label>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="col-md-1">$</div>

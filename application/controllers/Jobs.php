@@ -2547,6 +2547,7 @@ class Jobs extends Winjob_Controller {
         }
     }
 
+    
     public function confirm_hired_fixed() {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
