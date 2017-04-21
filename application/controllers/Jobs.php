@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL);
+error_reporting(0 );
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Jobs extends Winjob_Controller {
@@ -223,105 +223,79 @@ class Jobs extends Winjob_Controller {
     }
 
     public function find($url_rewrite = null, $sort = 1) {
-
+        $this->isFreelancer();
         $url_rewrite = substr($url_rewrite, 1, -1);
-        $this->db->select('*');
-        $this->db->from('job_subcategories');
-        $this->db->where('url_rewrite', "mobile-development");
-        $query = $this->db->get();
-        $result = $query->row();
-
-        if ($result != null) {
-            $offsetId = $result->subcat_id;
-        } else {
-            $offsetId = $url_rewrite;
-        }
         
+        $id              = $this->user_id;
+        $user_categories = $this->Category->get_user_subcategories($this->user_id);
+        $jobCat          = $this->uri->segment(2);
+        $jobCatPage      = false;
+        $sql             = "";
 
-        if ($this->Adminlogincheck->checkx()) {
-            if ($this->session->userdata('type') != 2) {
-                redirect(site_url("jobs-home"));
+        if (sizeof($user_categories) > 0) {
+            foreach($user_categories AS $cat){
+                $sql .= $cat->subcat_id . ",";
             }
+        }
 
-            $id = $this->session->userdata(USER_ID);
-            $jobCat = $this->uri->segment(2);
+        $sql         = substr($sql, 0, strlen($sql) - 1);
+        $sqlIn       = " AND subcat_id IN ( " . $sql . " ) ";
+        $subCateList = $this->Common_mod->get(SUBCATEGORY_TABLE, null, $sqlIn);
 
-            $jobCatPage = false;
-            //get users job category//
+        $limit = 10;
+        $records = array();
 
-            $user_categories = $this->Category->get_user_subcategories($this->session->userdata('id'));
+        $this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
+        $this->db->order_by("jobs.id", "desc");
+
+        if ($this->input->is_ajax_request()) {
             
-            if (sizeof($user_categories) > 0) {
-                $sql = "";
-                foreach ($user_categories as $sub) {
-                    $sql .= $sub->subcat_id . ",";
-                }
-                $sql = substr($sql, 0, strlen($sql) - 1);
-                $sqlIn = " AND subcat_id IN ( " . $sql . " ) ";
-                $subCateList = $this->Common_mod->get(SUBCATEGORY_TABLE, null, $sqlIn);
+            $category    = array();
+            $jobCat      = $this->input->post('jobCat');
+            $jobType     = $this->input->post('jobtype');
+            $jobDuration = $this->input->post('jobduratin');
+            $jobHours    = $this->input->post('jobweekhour');
+            $offsetId    = $this->input->post('limit');
+            $keywords    = $this->input->post('keywords');
+            
+            if (intval($offsetId) >= 0 == false) {
+                $offsetId = 0;
             }
-
-            $limit = 10;
-            $records = array();
-         
-            $this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
-            $this->db->order_by("jobs.id", "desc");
-
-            if ($this->input->is_ajax_request()) {
-                //die("limit is 10");
-                $category = array();
-                $jobCat = $this->input->post('jobCat');
-
-                $jobType = $this->input->post('jobtype');
-                $jobDuration = $this->input->post('jobduratin');
-                $jobHours = $this->input->post('jobweekhour');
-
-                $offsetId = $this->input->post('limit');
-                $keywords = $this->input->post('keywords');
-                if (intval($offsetId) >= 0 == false) {
-                    $offsetId = 0;
-                }
-                if (strlen($jobCat) > 0) {
-                    $catIds = explode(",", $jobCat);
-                    if (sizeof($catIds) > 0) {
-                        foreach ($catIds as $cat) {
-                            if (intval($cat) > 0) {
-                                $category[] = $cat;
-                            }
+            if (strlen($jobCat) > 0) {
+                $catIds = explode(",", $jobCat);
+                if (sizeof($catIds) > 0) {
+                    foreach ($catIds as $cat) {
+                        if (intval($cat) > 0) {
+                            $category[] = $cat;
                         }
                     }
                 }
-                // var_dump($catIds);
-                // var_dump($category);
-                if (!empty($jobType)) {
-                    $jobType = explode(",", $jobType);
-                    foreach ($jobType as $type) {
-                        //$jobType[] = $type;
-                        $this->db->or_where('jobs.job_type', $type);
-                    }
+            }
+            if (!empty($jobType)) {
+                $jobType = explode(",", $jobType);
+                foreach ($jobType as $type) {
+                    $this->db->or_where('jobs.job_type', $type);
                 }
-                if (!empty($jobDuration)) {
-                    $jobDuration = explode(",", $jobDuration);
-                    foreach ($jobDuration as $duretion) {
-                        //$jobDuration[] = $duretion;
-                        $this->db->or_where('jobs.job_duration', $duretion);
-                    }
+            }
+            if (!empty($jobDuration)) {
+                $jobDuration = explode(",", $jobDuration);
+                foreach ($jobDuration as $duretion) {
+                    $this->db->or_where('jobs.job_duration', $duretion);
                 }
-                if (!empty($jobHours)) {
+            }
+            if (!empty($jobHours)) {
+                $jobHours = explode(",", $jobHours);
+                foreach ($jobHours as $hour) {
+                    $this->db->or_where('jobs.hours_per_week', $hour);
+                }
+            }
 
-                    $jobHours = explode(",", $jobHours);
-                    foreach ($jobHours as $hour) {
-                        ///   $jobHours[] = $hour;
-                        $this->db->or_where('jobs.hours_per_week', $hour);
-                    }
-                }
+            $val = array(
+                '1' => '1',
+            );
 
-                $val = array(
-                    '1' => '1',
-                        //  'status' => 1
-                );
-                $offset = $limit * $offsetId;
-                $keywords = $this->input->post('keywords');
+            $offset = $limit * $offsetId;
+            $keywords = $this->input->post('keywords');
 
 
 
@@ -698,9 +672,6 @@ class Jobs extends Winjob_Controller {
                     $this->Admintheme->custom_webview("jobs/jobs-search", $data);
                 }
             }
-        } else {
-            redirect(site_url("signin"));
-        }
     }
 
     public function apply_hourly() {

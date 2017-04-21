@@ -10,9 +10,7 @@ class Category extends CI_Model
     
     public function get_subcategories($cat_id, $user_id=null)
     {
-        //echo $cat_id;
-            $resultset = $this->db->get_where('job_subcategories', ['cat_id' => $cat_id]);
-        //echo $this->db->last_query();
+        $resultset = $this->db->get_where('job_subcategories', ['cat_id' => $cat_id]);
         return $resultset->result();
     }
     
