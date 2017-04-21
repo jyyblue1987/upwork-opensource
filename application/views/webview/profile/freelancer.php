@@ -79,8 +79,8 @@ foreach ($accepted_jobs as $job_data) {
                                     $rating_feedback = null;
                                 }
                                 ?>
-                            <div class="row">
-                                <div class="col-md-3 col-xs-2">
+                            <div class="row marg-left-lg">
+                                <div class="col-md-3 col-xs-2 no-pad-mob">
                                     <span class="rating-badge"><?= $current_user_rating ?></span>
                                 </div>
                                 <div class="col-md-9 col-xs-10 marg-top">
@@ -400,26 +400,25 @@ foreach ($accepted_jobs as $job_data) {
             </div>
             </div>
               <?php if ($this->session->userdata('type') == 2) { ?>
-            <div class="middle">
-                <div class="row main_portfolio">
+            <div class="row pad-left-right">
+                <div class="main_portfolio col-md-9 col-sm-12 col-xs-12 no-pad-mob">
                     <div class="protfilio">
                     <div class="">
                         <div class="row">
-                            <div class="col-md-6 col-sm-6">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
                                 <div class="protfilhead">
-                                    <h1>Portfolio</h1>
+                                    <h3>Portfolio</h3>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-sm-6">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
                                 <div class="proftilbutt">
-                                    <button class="pull-right edit-portfolio marg-right-t8" id="buttontrei"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; &nbsp;Add Portfolio</button>
+                                    <p class="exp-but"><a href="#" id ="buttonrei" class="color-gray"><i class="fa fa-plus" aria-hidden="true"></i></a> </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="mainprotfilio">
-                    <div class="container">
                         <div class="row">
 <?php
 if (isset($portfolios) && is_array($portfolios) && sizeof($portfolios) > 0) {
@@ -432,7 +431,7 @@ if (isset($portfolios) && is_array($portfolios) && sizeof($portfolios) > 0) {
         }
         ?>
                                     <div class="col-md-3 col-sm-3 col-xs-12" id="div-<?php echo $count ?>">
-                                        <div class="col-md-12 col-xs-12 protfilimg">
+                                        <div class="col-md-12 col-xs-12 protfilimg no-pad">
                                             <div class="port_img">
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                                 <a href="#" class="edit-portfolio" alt="<?php echo $count ?>" accesskey="<?php echo base64_encode($portfolio['id']) ?>">
@@ -469,21 +468,20 @@ if (isset($portfolios) && is_array($portfolios) && sizeof($portfolios) > 0) {
     echo "No portfolio was added";
 }
 ?>
+
                         </div>
-                    </div>
+                        <div><hr></div>
                 </div>
-                <div class="mainprotfilio-mid">
-                    <div class="">
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6">
-                                <div class="protilo-left">
-                                    <h2>Experience</h2>
-                                </div>
+                <div class="mainprotfilio-mid no-pad-mob">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <div class="protilo-left">
+                                <h3>Experience</h3>
                             </div>
-                            <div class="col-md-6 col-sm-6">
-                                <div class="protilo-right">
-                                    <button class="pull-right edit-exp marg-right-t8" id="buttontrei"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; &nbsp;Add Experience</button>
-                                </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <div class="protilo-right">
+                                <p class="exp-but"><a href="#" id ="buttonrei" class="color-gray"><i class="fa fa-plus" aria-hidden="true"></i></a> </p>
                             </div>
                         </div>
                     </div>
@@ -492,35 +490,25 @@ foreach ($experience as $val) { ?>
     <div class="mainprotfilio-mid-button">
         <div class="">
             <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <div class="exp-showcase">  
-                        <div><b><a href="#" id ="<?php echo $val->id; ?>" onclick="editClickedExp(this.id)" class="color-gray"><i class="fa fa-pencil" aria-hidden="true"></i></a> </b></div>
-                        <div><h4><a href="" class="color-black" ><?php echo $val->title; ?></a> </h4></div> 
-                        <div class="company_name">
-                            <h4>
-                                <a href="" class="color-company">
-                                    <span><?php echo $val->company; ?></span>
-                                </a>
-                            </h4>
-                        </div>
-                        <div class="address_bar">
-                            <a href="" class="color-grey">
-                                <span>
-                                    <?= DatetimeHelper::getMonthByNum($val->month1)."-".$val->year1; ?>
-                                    <?php if ((int)$val->year2 === 0) {
-                                        echo ' - Till present | ';
-                                    }
-                                    else {
-                                        echo 'To ' . DatetimeHelper::getMonthByNum($val->month2) . ' - ' . $val->year2." | ";
-                                        ;
-                                    } 
-                                     echo $val->location; 
-                                    ?>
-                                </span>
-                            </a>
-                        </div>
+                <div class="col-md-12 col-sm-12 exp-showcase">
+                   <p class="exp-but"><a href="#" id ="<?php echo $val->id; ?>" onclick="editClickedExp(this.id)" class="color-gray"><i class="fa fa-pencil" aria-hidden="true"></i></a> </p>
+                    <p class="exp-title"><a href=""><?php echo $val->title; ?></a></p>
 
-                    </div>
+                    <p class="exp-company"><a href=""><?php echo $val->company; ?></a></p>
+                    <p class="exp-year"><a href="">
+                            <span>
+                                <?= DatetimeHelper::getMonthByNum($val->month1)."-".$val->year1; ?>
+                                <?php if ((int)$val->year2 === 0) {
+                                    echo ' - Till present | ';
+                                }
+                                else {
+                                    echo 'To ' . DatetimeHelper::getMonthByNum($val->month2) . ' - ' . $val->year2." | ";
+                                    ;
+                                } 
+                                 echo $val->location; 
+                                ?>
+                            </span>
+                        </a></p>
                 </div>
             </div>
         </div>
@@ -542,33 +530,33 @@ foreach ($experience as $val) { ?>
                 <div class="protfilio-bottom">
                     <div class="">
                         <div class="row">
-                            <div class="col-md-6 col-sm-6">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
                                 <div class="protfilheadtwo">
-                                    <h1>Education</h1> 
+                                    <h3>Education</h3> 
                                 </div>
-                                <?php
-                                foreach ($educations as $education) {
-                                    ?> 
-                                    <div class="education_head"> 
-                                        <p><?= $education->school ?></p>
-                                        <h2><?= $education->degree ?></h2>
-                                        <h3><?= $education->dates_attend_from ?> – <?= $education->dates_attend_to ?></h3>
-                                        <h4><?= $education->field_of_study ?></h4>
-                                        <h5><?= $education->activities ?></h5>
-                                        <h6><?= $education->description ?></h6>
-                                    </div>  
-
-    <?php
-}
-?>
                             </div> 
 
-                            <div class="col-md-6 col-sm-6">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
                                 <div class="proftilbutttwo">
-                                    <button class="pull-right edit-edu marg-right-t8" id="buttontrei"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; &nbsp;Add Education</button>
+                                <p class="exp-but"><a href="#" id ="buttonrei" class="color-gray"><i class="fa fa-plus" aria-hidden="true"></i></a> </p>
                                 </div>
                             </div>
-
+                        </div>
+                        <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <?php
+                            foreach ($educations as $education) {
+                                ?> 
+                                <div class="education_head"> 
+                                    <p class="exp-title"><a><?= $education->school ?></a></p>
+                                    <p class="exp-company"><a><?= $education->degree ?></a></p>
+                                    <p class="exp-company"><a><?= $education->field_of_study ?></a></p>
+                                    <p class="exp-company"><a><?= $education->activities ?></a></p>
+                                    <p class="exp-year"><a><?= $education->dates_attend_from ?> – <?= $education->dates_attend_to ?></a></p>
+                                    <div class="feedback_comment"><p><?= $education->description ?></p></div>
+                                </div>
+                                <hr>  
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
