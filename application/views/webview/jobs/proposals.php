@@ -206,7 +206,7 @@ span.rating-badge {
                             </div>
                         </div>
                     </div>
-                    <?php if($f_attachments[0] != ""){ ?>
+                    <?php if($f_attachments){ ?>
                     <div class="row margin-top page-label margin-top-5">
                     <div class="col-md-9">
                         <label class="lab-details font-15" >Attachments</label>
@@ -277,7 +277,7 @@ span.rating-badge {
                         </p>
                         <p>
                                 <label class="job_posted">
-                				<?php echo $workedhours; ?>
+                				<?= $workedhours != "" ? $workedhours : 0; ?>
                                 <span class="st">Hours Worked</span>
                 				</label>
                         </p>
