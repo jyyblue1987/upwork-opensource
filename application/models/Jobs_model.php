@@ -169,6 +169,9 @@ class Jobs_model extends CI_Model {
     
     public function get_all_freelancer_total_hour( $job_ids, $this_week_start = null, $today = null){
         
+        if(empty($job_ids))
+            return array();
+        
         $this->db
             ->select('fuser_id, jobid, SUM(total_hour) as total_hour')
             ->from('job_workdairy')

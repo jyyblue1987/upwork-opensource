@@ -145,6 +145,11 @@ defined('CONTRACT_JOB_COMPANY_NAME_MAX') || define('CONTRACT_JOB_COMPANY_NAME_MA
 defined('BID_STATE_APPLIED') || define('BID_STATE_APPLIED', 0);
 defined('BID_STATE_PAUSED') || define('BID_STATE_PAUSED', 2);
 
+defined('BID_PROGRESS_APPLIED') || define('BID_STATE_APPLIED', 0);
+defined('BID_PROGRESS_INTERVIEWS') || define('BID_PROGRESS_INTERVIEWS', 1);
+defined('BID_PROGRESS_OFFER') || define('BID_PROGRESS_OFFER', 2);
+defined('BID_PROGRESS_HIRED') || define('BID_PROGRESS_HIRED', 3);
+
 
 defined('EMPLOYER')   || define('EMPLOYER', 1);
 defined('FREELANCER') || define('FREELANCER', 2);

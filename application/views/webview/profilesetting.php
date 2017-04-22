@@ -315,7 +315,7 @@
                                 <span>  Time zone</span>
                             </div>
                             <div style="margin-left: 70px;" class="col-xs-8">
-                                <span style="font-size:17px;font-family: calibri;" id="timezone"><?php echo !empty($timezone) ? '(' . $timezone['gmt'] . ') - ' . $timezone['name'] : '-' ?> </span>
+                                <span style="font-size:17px;font-family: calibri;" id="timezone"><?php echo !empty($user_timezone) ? $user_timezone . ' - ' . $time_offset : '-' ?> </span>
                             </div>
 
                         </div>

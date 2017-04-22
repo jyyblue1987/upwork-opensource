@@ -36,17 +36,17 @@ class Profilesetting extends CI_Controller {
                 $webuserCountry = $this->common_mod->getSpecificColVal(COUNTEY_TABLE,"country_name"," AND country_id  =".$this->session->userdata('webuser_country'));
 
                 $countryList = $this->common_mod->get(COUNTEY_TABLE,null," AND country_status=1");
-                $timezones = $this->timezone->get_timezones();
+                $timezones   = get_all_php_timezones(); /*$this->timezone->get_timezones(); the old timezone system do not handle Daylight Saving Time*/
 
-                if (empty($this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone'])))
+                $user_timezone = $webUserContactDetails['rows'][0]['timezone'];
+                if (empty($user_timezone))
                 {
-                    $gmt = 'GMT'.date('P');
-
-                    $timezone = $this->timezone->getByGMT($gmt);
+                    $user_timezone = date_default_timezone_get();
                 }
-                else
-                    $timezone = $this->timezone->get((int)$webUserContactDetails['rows'][0]['timezone']);
-
+                
+                $date_time_zone = new DateTimeZone($user_timezone);
+                $time_offset    = format_GMT_offset( $date_time_zone->getOffset(new DateTime(NULL, $date_time_zone)) );
+                
                 $data = array(
                     'title' => "Profile Setting",
                     'page' => "profilesetting",
@@ -68,7 +68,8 @@ class Profilesetting extends CI_Controller {
                     'openSub' =>'profile-basic',
                     'webuserContactDetails' =>$webUserContactDetails['rows'][0],
                     'webuserCountry'=>$webuserCountry,
-                    'timezone' => $timezone,
+                    'user_timezone' => $user_timezone,
+                    'time_offset' => $time_offset,
                     'timezones' => $timezones,
 					'profile'=>$profile,
 					'country_code_dailing' =>$countrydailing->country_dialingcode,

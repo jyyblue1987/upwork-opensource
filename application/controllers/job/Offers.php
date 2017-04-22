@@ -58,7 +58,7 @@ class Offers extends Winjob_Controller{
         $job             = $this->jobs_model->load_informations( $decoded_j_id );
         $webuser_profile = $this->webuser_model->load_profile( $decoded_f_id ); 
         $bid             = $this->bids_model->load( $decoded_j_id, $decoded_f_id );
-                
+                        
         $data = array(
             'applier_id'   => $freelancer_id,
             'job_id'       => $job_id,

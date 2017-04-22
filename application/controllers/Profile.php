@@ -2,10 +2,11 @@
 error_reporting(0);
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Profile extends CI_Controller {
+class Profile extends Winjob_Controller {
 
     public function __construct($username=null) {
         parent::__construct('');
+        $this->load_language();
         $this->load->model(array('common_mod', 'Category', 'profile/ProfileModel', 'Employer'));
         $this->load->model(array('timezone'));
     }
@@ -461,6 +462,7 @@ class Profile extends CI_Controller {
                         'rules' => 'trim|xss_clean|min_length[1]|max_length[255]'
                     )
                 );
+                
                 $this->form_validation->set_rules($fieldCheck);
                 if ($this->form_validation->run() == FALSE) {
                     $response['msg'] = validation_errors();

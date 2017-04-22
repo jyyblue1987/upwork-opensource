@@ -324,9 +324,7 @@ class Webuser_model extends CI_Model {
             ->from('job_conversation jc')
             ->join('webuser', 'jc.sender_id = webuser.webuser_id', 'inner')
             ->join('jobs', 'jobs.id = jc.job_id', 'inner')
-            ->group_start()
-            ->or_where(array("jc.sender_id" => $user_id, "jc.receiver_id" => $user_id))
-            ->group_end();
+            ->where('jc.receiver_id', $user_id);
                         
         $query_one = $this->db->get_compiled_select();
         
@@ -353,9 +351,7 @@ class Webuser_model extends CI_Model {
             ->join('user', 'wtm.sender_id = user.id and sender = "support" ', 'left')
             ->join('webuser', 'wtm.sender_id = webuser.webuser_id and sender = "user" ', 'left')
             ->join('webuser_tickets wt', 'wt.id = wtm.ticket_id', 'inner')
-            ->group_start()
-            ->or_where(array("wtm.sender_id" => $user_id, "wtm.receiver_id" => $user_id))
-            ->group_end();
+            ->where('wtm.receiver_id', $user_id);
         
 	$query_two = $this->db->get_compiled_select();
         

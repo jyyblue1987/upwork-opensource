@@ -130,15 +130,10 @@ $slag = strtolower(str_replace(' ', '-', $webUserInfo['webuser_fname'] .'-'. $we
                     <div class="topriht align-center">
 						<?php if($ststus->isactive==1){ ?>
 							<?php if($job_info[0]->hired == 0){ ?>
-								<?php if(($job_info[0]->job_type) == 'fixed'){?>
-										<a href="<?php echo base_url() ?>jobs/confirm_hired_fixed?user_id=<?=$_GET['user_id'];?>&job_id=<?=$_GET['job_id'];?>">
-								<?php	} else {?>
-										<a href="<?php echo base_url() ?>jobs/confirm_hired_hourly?user_id=<?=$_GET['user_id'];?>&job_id=<?=$_GET['job_id'];?>">
-								<?php	} ?>
-									
-									 <button id="buttonsecond">Hire Me&nbsp;&nbsp;<i class="fa fa-caret-right" aria-hidden="true"></i></button>
-								</a>
-							<?php	} ?>
+                                                            <a href="<?php echo base_url() ?>jobs/offers?user_id=<?=$_GET['user_id'];?>&job_id=<?=$_GET['job_id'];?>">
+                                                                <button id="buttonsecond">Hire Me&nbsp;&nbsp;<i class="fa fa-caret-right" aria-hidden="true"></i></button>
+                                                            </a>
+							<?php } ?>
 						<?php } ?>
                         <br/>
 						

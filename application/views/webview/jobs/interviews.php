@@ -241,20 +241,8 @@ color: #fff;
 
                                    <div class="hire_me_btn">
 
-                                   <?php if($job_type == 'hourly') 	
-{
-?> 
-		 <a class="btn btn-primary form-btn" href="<?php echo base_url()?>jobs/confirm_hired_hourly?user_id=<?=base64_encode($value['user_id'])?>&job_id=<?=base64_encode($value['job_id'])?>;">Hire Me</a>                			  
-              <?php 			  
-			  }
-			   else 
-			   {
-			   ?>
-			    <a class="btn btn-primary form-btn" href="<?php echo base_url() ?>jobs/confirm_hired_fixed?user_id=<?=base64_encode($value['user_id'])?>&job_id=<?=base64_encode($value['job_id']); ?>">Hire Me</a>                              
+                                    <a class="btn btn-primary form-btn" href="<?php echo base_url() ?>jobs/offers?user_id=<?=base64_encode($value['user_id'])?>&job_id=<?=base64_encode($value['job_id']); ?>">Hire Me</a>                              
 			  
-			  <?php }
-                                   
- ?>
                                   
                                   
                                                                  

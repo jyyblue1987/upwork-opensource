@@ -430,6 +430,61 @@ function get_right_timezone( $name )
     return date_default_timezone_get();
 }
 
+function get_all_timezone_regions()
+{
+    return array(
+        'Africa' => DateTimeZone::AFRICA,
+        'America' => DateTimeZone::AMERICA,
+        'Antarctica' => DateTimeZone::ANTARCTICA,
+        'Aisa' => DateTimeZone::ASIA,
+        'Atlantic' => DateTimeZone::ATLANTIC,
+        'Europe' => DateTimeZone::EUROPE,
+        'Indian' => DateTimeZone::INDIAN,
+        'Pacific' => DateTimeZone::PACIFIC
+    );
+}
+
+function get_all_php_timezones()
+{
+    $regions = get_all_timezone_regions();
+    
+    $timezones = array();
+    foreach ($regions as $name => $mask)
+    {
+        $zones = DateTimeZone::listIdentifiers($mask);
+        foreach($zones as $timezone)
+        {   
+            // Remove region name and add a sample time
+            $timezones[$name][$timezone] = format_timezone($timezone, $name);
+        }
+    }
+    
+    return $timezones;
+}
+
+function format_timezone( $timezone, $name)
+{
+    // Lets sample the time there right now
+    $time = new DateTime(NULL, new DateTimeZone($timezone));
+    // Us dumb Americans can't handle millitary time
+    $ampm = $time->format('H') > 12 ? ' ('. $time->format('g:i a'). ')' : '';
+    
+    return format_timezone_name(substr($timezone, strlen($name) + 1)) . ' - ' . $time->format('H:i') . $ampm;
+}
+
+function display_friendly_timezone( $timezone )
+{
+    $regions = get_all_timezone_regions();
+    
+    foreach ($regions as $name => $mask)
+    {
+        if(strpos($timezone, $name) !== null){
+            return format_timezone($timezone, $name);
+        }
+    }
+    return null;
+}
+
 function timezone_list() {
     static $timezones = null;
 
