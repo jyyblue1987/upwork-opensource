@@ -368,9 +368,11 @@ class Process extends CI_Model {
         $attachments = $query->result_array();
         
         $files = array();
-        $attachments = explode(",", $attachments[0]['path']);
-        foreach($attachments AS $attachment){
-            $files[] = str_replace('"','', $attachment);
+        if($query->num_rows() > 0){
+            $attachments = explode(",", $attachments[0]['path']);
+            foreach($attachments AS $attachment){
+                $files[] = str_replace('"','', $attachment);
+            }
         }
         return $files;
     }

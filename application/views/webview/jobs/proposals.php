@@ -206,7 +206,8 @@ span.rating-badge {
                             </div>
                         </div>
                     </div>
-                    <?php if($f_attachments[0] != ""){ ?>
+
+                    <?php if($f_attachments){ ?>
                     <div class="row margin-top page-label margin-top-5">
                     <div class="col-md-9">
                         <label class="lab-details" style="font-size: 15px;">Attachments</label>
