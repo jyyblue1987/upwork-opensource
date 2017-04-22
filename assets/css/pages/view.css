@@ -73,7 +73,7 @@ h1.job-title{font-family: calibri;font-weight: 700;}
 .star-rating::before {color: #b8b8ba;content: "\2605\2605\2605\2605\2605";float: left;left: 0;position: absolute;top: 0;}
 .star-rating span,#feedbackbutton h4 span {color: #F77D0E ;float: left;font-size: 20px !important;left: 0;margin-left: 0 !important;overflow: hidden;padding-top: 1.5em !important;position: absolute;top: 0;}
 .star-rating span::before {color: #F77D0E ;content: "\2605\2605\2605\2605\2605";left: 0;position: absolute;top: 0;}
-.right-section {background: white none repeat scroll 0 0;margin-top: 0px;padding: 0px 30px 20px 30px;border: 1px solid #ccc;padding: 0 30px 9px;border-radius: 4px;}
+.right-section {background: white none repeat scroll 0 0;margin-top: 0px;padding: 0px 20px 20px 20px;border: 1px solid #ccc;padding: 0 30px 9px;border-radius: 4px;}
 .margin-top-2{margin-top: 20px;}
 .client-activity label{color: #616161;}
 .result-message{text-align: center;color: green;font-size: 20px;display: none;}
@@ -102,7 +102,7 @@ h3.paid{margin-top: 7px; font-family: "Calibri"; font-size: 20px; font-weight: 8
 .margin-top-8{margin-top: 8px!important;}
 span.job-data{margin-top: -8px;margin-bottom: 20px;}
 a.pad-left{padding-left: 38px!important;}
-button.send-pro{margin: 20px 0 !important;width: 170px;height: 40px;font-size: 18px;background: #028FCC;color: #fff;}
+button.send-pro{width:100%;margin-bottom:20px;height: 40px;font-size: 18px;background: #028FCC;color: #fff;}
 i.circ-check{margin-top: -10px; margin-left: -4px; font-size: 25px; color: rgb(2, 143, 204);position: absolute;top: 8px;}
 i.circ-min{margin-top: -10px; margin-left: -4px; font-size: 25px; color: rgb(187, 187, 187);position: absolute;top: 8px;}
 label.pad-25{margin-left: 25px;}
@@ -117,14 +117,14 @@ span.span-side{font-size: 14px;color: #494949;font-family: 'calibri';}
 .total-work{margin-top: 2px;margin-left: -19px;}
 span.total-works{font-size: 14px;color: #494949;font-family: 'calibri';}
 .maste{font-family: 'Calibri';font-size: 18px;margin-left: 12px;margin-top: -15px;margin-bottom: 5px;}
-
+.no-right-pad{padding-right: 0px;}
 
 
 
 
 
 @media only screen and (max-width : 480px){
-	.no-pad{margin-top:20px;padding-right: 0px;padding-left: 0px;}
+	.no-pad{margin-top:20px;padding-right:0px!important;padding-left: 0px;}
 	i.circ-min{margin-top: 0px;font-size: 25px; color: rgb(187, 187, 187);position: absolute;top: 8px;}
 	.totscore{font-size: 10px!important;background:#F77D0E!important;padding: 2px 4px!important;border-radius: 2px!important;margin-left: 15px;}
 	.right-section{padding:0px 20px 0px 20px;}
@@ -132,7 +132,7 @@ span.total-works{font-size: 14px;color: #494949;font-family: 'calibri';}
 }
 @media (min-width: 481px) and (max-width: 768px) {
 	.container {width: 740px;}
-	.no-pad{margin-top:20px;padding-right: 0px;padding-left: 0px;margin-left: 15px;margin-right: 15px;}
+	.no-pad{margin-top:20px;padding-right: 0px!important;padding-left: 0px;margin-left: 15px;}
 	i.circ-min{margin-bottom: 10px;font-size: 25px; color: rgb(187, 187, 187);position: absolute;top: 8px;}
 	.right-section{padding:0px 20px 0px 20px;margin-right: 10px;margin-left: 0px;}
 	.revrat{right: -8%;margin-top:-1px;position: relative;}

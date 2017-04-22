@@ -195,6 +195,6 @@ $route['trust-safety'] = 'footerPages/trust_safety';
 $route['feedback'] = 'footerPages/feedback';
 
 $route['freelance-jobs'] = 'jobs/jobs_no_auth';
-$route['jobs-search'] = 'jobs/jobs_no_auth';
+//$route['jobs-search'] = 'jobs/jobs_no_auth';
 $route['freelance-jobs/(:any)'] = 'jobs/jobs_no_auth/($1)';
 $route['freelance-jobs/(:any)/(:any)'] = 'jobs/jobs_no_auth/($1)/($2)';

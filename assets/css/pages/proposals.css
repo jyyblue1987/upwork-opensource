@@ -19,9 +19,14 @@ margin-bottom: 8px;
 margin-top: -7px;}
 .job-cont{padding:20px;border: 1px solid #ddd!important;border-radius: 0px;}
 .page-label label , .page-label{color: #333 !important;}
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
 
 .jobdes-bordered-wrapper {
-    
     padding: 11px;
     padding-left:26px;
     padding-right:26px;
@@ -112,8 +117,10 @@ margin-top: -7px;}
 div#next_header {margin-bottom: 10px;}
 .custom_cover-letter{font-size: 22px;font-family: "Calibri";src: url(../fonts/Calibri.ttf);color: #494949;font-weight: 800;}
 .client-activity label{color: #616161;}
-.right-section {background: white none repeat scroll 0 0;margin-top: 0px;padding: 0px 20px 20px 20px;border: 1px solid #ccc;}
+.right-section {background: white none repeat scroll 0 0;margin-top: 0px;padding: 0px 10px 10px 20px;border: 1px solid #ccc;padding-top:0px;}
+
 .margin-top-2{margin-top: 20px;}
+.margin-top-1{margin-top: 10px;}
 .star-rating {
     background: #eba705 none repeat scroll 0 0;
     border-radius: 4px;
@@ -164,6 +171,45 @@ div#next_header {margin-bottom: 10px;}
 div.right-section p{
 	height:25px!important;
 }
+label.job_posted{font-family: 'Calibri';font-size: 18px;color: #494949;}
+span.st{font-size: 14px;color: #494949;font-family: 'calibri';}
+.margin-top-4{margin-top: 4px;}
+.job_desc{font-family: 'calibri'; font-size: 16px; margin-bottom: 17px; margin-top: 8px;}
+.back-col{background: rgb(255, 255, 255) none repeat scroll 0% 0%; }
+.subm{border: 1px solid rgb(204, 204, 204); border-radius: 4px;margin-top: 20px;}
+.marg-bot--3{margin-bottom: -3px;}
+.marg-top-30{margin-top: 30px;}
+.cover-letter{margin-bottom: 32px;margin-bottom: 10px; color: rgb(73, 73, 73);}
+.font-15{font-size: 15px;}
+.text-center{text-align: center;}
+i.circle{font-size: 25px; color: rgb(2, 143, 204);}
+i.minus-circle{font-size: 25px; color: rgb(187, 187, 187);}
+.marg-bot-10{margin-top: 10px;margin-bottom: 10px;}
+div.star-rating{left:0;height: 1.2em; margin-top:-5px; color:#DEDEDE; width: 4em}
+div.star-rating2{left:0;height: 1.2em; margin-top:-5px;}
+span.span-0{width:0% ;margin-top:-5px;}
+
+div.modal-content1{border-bottom: 50px;padding-left:30px;padding-right:30px;padding-top: 50px;text-align: center;}
+div.modal-header1{border-bottom: 0;padding-top: 20px;border-radius: 4px 4px 0 0;}
+button.close{position: absolute;top: 35px;right: 29px;font-size: 30px;}
+div.modal-body1{border-radius: 0 0 4px 4px;margin-bottom: 50px;}
+h4.modal-title1{margin-top: 0px;}
+p.sure{margin-left: 15px;font-size: 17px;font-family: 'calibri';margin-bottom: 20px;}
+div.modal-footer1{text-align: left; border-top: none}
+input.formb{float: left;margin-left: 200px;}
+input.can{float: left;}
+img.form-loader{display:none}
+div.modal-content2{padding-top: 50px;padding-bottom: 50px;padding-left: 30px;padding-right: 30px;}
+div.modal-header2{border-bottom: 0;padding-top: 20px;border-radius: 4px 4px 0px 0px;}
+button.close2{position: absolute;top: 35px;right: 29px;font-size: 30px;}
+div.modal-body2{border-radius: 0 0 4px 4px;}
+div.row2{margin-bottom: 20px;margin-top: 15px;}
+.left--6{margin-left: -60px;}
+input.bid_amount{font-size: 16px;font-family:'calibri';float: left;width: 80px;margin-left: -9px;margin-top: -10px;margin-right: 5px;float: left;width: 75px}
+label.perhrs{ margin-left: 2px;margin-top: 6px;position: absolute;}
+.marg-bot-20{margin-bottom: 20px;}
+.marg-left--6{margin-left: -60px;}
+
 @media screen and (max-width: 320px) {
 	.jobdes-bordered-wrapper{padding-left: 10px!important; padding-right: 10px!important;}
 	.no-pad-mob{padding-left: 0px; padding-right:0px;}
@@ -185,3 +231,4 @@ div.right-section p{
 	.container {width: 1000px;}
 	.pad-large{padding-left: 15px;padding-right: 30px;}
 }
+

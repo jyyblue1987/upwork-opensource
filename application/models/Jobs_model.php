@@ -396,4 +396,12 @@ class Jobs_model extends CI_Model {
         
         return $query->row();
     }
+    
+    public function load_jobs($val, $limit, $offset){
+        $this->db
+                ->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left')
+                ->order_by("jobs.id", "desc");
+        $query = $this->db->get_where('jobs', $val, $limit, $offset);
+        return $query;
+    }
 }

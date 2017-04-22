@@ -367,7 +367,7 @@
                             <div style="" class="row margin-top-2 border-bottom total-work">
                                 <div class="col-md-12">
                                     <label style="" class="label-side">
-                                    <?php echo $workedhours ?> Hours Worked
+                                    <?= $workedhours != "" ? $workedhours : 0; ?> Hours Worked
                                     </label>
                                 </div>
                             </div>

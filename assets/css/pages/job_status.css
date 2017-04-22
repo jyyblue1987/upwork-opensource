@@ -362,6 +362,10 @@ margin-bottom: -3px;
 	padding-right:0px;
 }
 
+.show_notification{
+        color: #28da28 !important;
+        font-size: 18px;
+}
 @media screen and (max-width: 350px) {
     .main-feed{
 		margin-left: 0px;
@@ -370,7 +374,8 @@ margin-bottom: -3px;
 		padding:0;
     	
     }
-
+    .ack-box{padding-left:0px;padding-right:0px;}
+    .pad-top-xs{padding-top:15px;}
 }
  .container {
      margin-right: auto;
@@ -383,7 +388,7 @@ margin-bottom: -3px;
     }
 
     @media (max-width: 320px){
-
+    .ackbox{padding-left:0px;padding-right:0px;}
 		.table-responsive {
 			width: 100%!important;
 			margin-bottom: 15px!important;
@@ -462,7 +467,7 @@ margin-bottom: -3px;
 		}
 
       .bordered-alert h4, .show_notification{
-    		font-size:13px;
+    		font-size:12px;
     	}
       .search-field{
       	width: 98%!important;
@@ -732,8 +737,8 @@ label.jobTitle{
 	color: #37A000!important;
 }
 
-.show_notification{
-    		color: #28da28 !important;
-    		font-size: 18px;
-
+.marg-top-20{margin-top:15px;}
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
 }

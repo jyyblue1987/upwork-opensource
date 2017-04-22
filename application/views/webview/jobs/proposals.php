@@ -47,7 +47,7 @@ span.rating-badge {
 			<div class="jobdes-bordered-wrapper">
                 <div class="row jobdes-bordered page-label">
                     <div class="col-md-3 text-center">
-                        <label style="font-family: calibri;font-size: 17px;">Job Type</label> <br /> <span><?php echo ucfirst($value->get_jobtype()) ?></span>
+                        <label>Job Type</label> <br /> <span><?php echo ucfirst($value->get_jobtype()) ?></span>
                     </div>
 
                     <div class="col-md-3 text-center page-label">
@@ -58,20 +58,20 @@ span.rating-badge {
                     </div>
 
                     <div class="col-md-3 text-center page-label">
-                        <label style="font-family: calibri;font-size: 17px;">Job Duration</label><br /> <span><?php echo $value->get_duration() ?></span>
+                        <label>Job Duration</label><br /> <span><?php echo $value->get_duration() ?></span>
                     </div>
 
                     <div class="col-md-3 last-div text-center page-label">
-                        <label style="font-family: calibri;font-size: 17px;">Experience Level</label><br /> <span><?php echo $value->get_exp(); ?></span>
+                        <label>Experience Level</label><br /> <span><?php echo $value->get_exp(); ?></span>
                     </div>
                 </div>
 </div>
 
                 <div class="row margin-top page-label">
                     <div class="col-md-2">
-                        <label style="font-family: calibri;font-size: 16px;">Job Category</label>
+                        <label>Job Category</label>
                     </div>
-                    <div style="margin-top: 4px;" class="col-md-10">
+                    <div  class="col-md-10 margin-top-4">
                        <?php echo $value->get_subcategory(); ?>
                     </div>
                 </div>
@@ -98,7 +98,7 @@ span.rating-badge {
                     <div class="col-md-9">
                         <label>Detail</label>
                     </div>
-                    <div style="font-family: calibri; font-size: 16px; margin-bottom: 17px; margin-top: 8px;" class="col-md-12 text-justify page-label"><?php echo $value->get_jobdesc()?></div>
+                    <div  class="col-md-12 text-justify page-label job_desc"><?php echo $value->get_jobdesc()?></div>
 
                 </div>
                 <?php if ($value->get_attachments()[0] != "") { ?>
@@ -118,25 +118,25 @@ span.rating-badge {
 <div class="jobdes-bordered-wrapper">
                 <div class="row jobdes-bordered page-label">
                     <div class="col-md-4 text-center">
-                        <label style="font-family: calibri;font-size: 17px;">Proposals</label> <br /> <span><?=$applicants;?></span>
+                        <label>Proposals</label> <br /> <span><?=$applicants;?></span>
                     </div>
 
                     <div class="col-md-4 text-center page-label">
-                        <label style="font-family: calibri;font-size: 17px;">Interviewing</label><br /> <span><?=$interviews;?></span>
+                        <label>Interviewing</label><br /> <span><?=$interviews;?></span>
                     </div>
 
                     <div class="col-md-4 last-div text-center page-label">
-                        <label style="font-family: calibri;font-size: 17px;">Hired</label><br /> <span>
+                        <label>Hired</label><br /> <span>
                             <?php echo $hires;?>
                         </span>
                     </div>
                 </div>
                 </div>
             
-            <div class="col-md-12 no-pad" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; ">
+            <div class="col-md-12 no-pad back-col" >
                 <div class='form-msg'></div>            
                
-                    <div style="border: 1px solid rgb(204, 204, 204); border-radius: 4px;margin-top: 20px;" class="col-md-12">
+                    <div  class="col-md-12 subm">
                         <div class="row">
                             <?php
                             if($status=='1'){?>
@@ -146,10 +146,10 @@ span.rating-badge {
                                     <?php }else{
                                     }
                             ?>
-                            <div style="text-align: center;" class="col-md-12 col-centered custom_sp no-pad">
+                            <div  class="col-md-12 col-centered custom_sp no-pad text-center">
 								<div class="row">
                                     <div class="col-md-12">
-                                        <label style="margin-bottom: -3px;">Submitted Proposal</label>
+                                        <label  class="marg-bot--3">Submitted Proposal</label>
                                     </div>
                                 </div>
 
@@ -195,21 +195,21 @@ span.rating-badge {
                 <div class="row no-pad">
                     <div class="col-md-11 no-pad-mob">
                         <div class="row">
-                            <div style="margin-top: 30px;" class="col-md-11 no-pad-mob margin-top-2">
+                            <div class="col-md-11 no-pad-mob margin-top-2 marg-top-30">
                                 <p class="custom_cover-letter">Cover Letter</p>
                             </div>
                         </div>
 
                         <div class="row margin-top-2">
                             <div class="col-md-11 margin-left-2 no-pad-mob">
-                                <p style="margin-bottom: 32px;" style="margin-bottom: 10px; color: rgb(73, 73, 73);" class="custom_cover-letter-text"><?php echo ucfirst($cover_letter) ?></p>
+                                <p class="custom_cover-letter-text cover_letter"><?php echo ucfirst($cover_letter) ?></p>
                             </div>
                         </div>
                     </div>
-                    <?php if($f_attachments[0] != ""){ ?>
+                    <?php if($f_attachments){ ?>
                     <div class="row margin-top page-label margin-top-5">
                     <div class="col-md-9">
-                        <label class="lab-details" style="font-size: 15px;">Attachments</label>
+                        <label class="lab-details font-15" >Attachments</label>
                     </div>
                     <div class="col-md-12 text-justify page-label div-details">
                     <?php 
@@ -228,34 +228,34 @@ span.rating-badge {
             <div class="col-md-3 no-pad">
                 <div class="row client-activity">
                     <div class="col-md-10 col-md-offset-2 right-section">
-                        <p class="margin-top-2">
+                        <p class="margin-top-1">
                                 
                                 <?php
                                         if ($emp->is_active() == 1 && $payment_set) {
                                             ?>
-                                            <i style="font-size: 25px; color: rgb(2, 143, 204);" class="fa fa-check-circle"></i>
+                                            <i class="fa fa-check-circle circle"></i>
                                         <?php
                                     } else {
                                         ?>
-                                        <i style="font-size: 25px; color: rgb(187, 187, 187);" class="fa fa-minus-circle"></i>
+                                        <i class="fa fa-minus-circle minus-circle"></i>
                                         <?php
                                     }
                                     ?>
                                 <label><?php echo ucfirst($emp->get_fname()) ?></label>
                          </p>
-                        <div style="margin-top: 10px;margin-bottom: 10px;" class="row margin-top-2 border-bottom">
+                        <div class="row margin-top-2 border-bottom marg-bot-10">
                             <div class="col-md-8 ">
                                 <?php if ($rating != 0) { ?>
                                         <span class="rating-badge"><?= number_format((float) $rating, 1, '.', ''); ?></span>
-                                        <div title="Rated <?= $rating; ?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em; margin-top:-5px; color:#DEDEDE; width: 4em">
+                                        <div title="Rated <?= $rating; ?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
                                             <span style="width:<?= (( $rating / 5) * 100) ?>% ; margin-top:0px;">
                                                 <strong itemprop="ratingValue"><?= $rating; ?></strong> out of 5
                                             </span>
                                         </div>
                                 <?php } else { ?>
                                         <span class="rating-badge">0.0</span>
-                                        <div title="Rated 0 out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em; margin-top:-5px;">
-                                            <span style="width:0% ;margin-top:-5px;">
+                                        <div title="Rated 0 out of 5" class="star-rating star-rating2" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="l">
+                                            <span class="span-0">
                                                 <strong itemprop="ratingValue">0</strong> out of 5
                                             </span>
                                         </div>
@@ -264,32 +264,33 @@ span.rating-badge {
                         </div>
                                
                         <p>
-                                <label style="font-family: Calibri;font-size: 18px;color: #494949;">
+                                <label class="job_posted">
                                    <?php echo $jobs_posted;  ?>
-                                    <span style="font-size: 14px;color: #494949;font-family: calibri;">Jobs Posted</span>
+                                    <span class="st">Jobs Posted</span>
                                     </label>
                         </p>
                         <p>
-                                <label style="font-family: Calibri;font-size: 18px;color: #494949;">
+                                <label class="job_posted">
                                 <?= $total_hired ;?> 
-                                <span style="font-size: 14px;color: #494949;font-family: calibri;">Hired</span>
+                                <span class="st">Hired</span>
                                 </label>
                         </p>
                         <p>
-                                <label style="font-family: Calibri;font-size: 18px;color: #494949;">
-				<?php echo $workedhours; ?> Hours Worked
-				</label>
+                                <label class="job_posted">
+                				<?= $workedhours != "" ? $workedhours : 0; ?>
+                                <span class="st">Hours Worked</span>
+                				</label>
                         </p>
                         <p>
-                                <label style="font-family: Calibri;font-size: 18px;color: #494949;">
+                                <label class="job_posted">
                                 $<?php echo round($total_spent,0);?>
-                                <span style="font-size: 14px;color: #494949;font-family: calibri;">Spent</span>
+                                <span class="st">Spent</span>
                                 </label>
                         </p>
                         <p>
                             <i class="fa fa-map-marker"></i>
-                            <label style="font-family: Calibri;font-size: 18px;color: #494949;">
-                            <span style="font-size: 14px;color: #494949;font-family: calibri;">
+                            <label class="job_posted">
+                            <span class="st">
                                 <?= ucfirst($country) ?></span>
 			</label>
                         </p>
@@ -305,22 +306,21 @@ span.rating-badge {
                 <!-- Modal -->
                 <div id="myModal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
-
                         <!-- Modal content-->
-                        <div style="border-bottom: 50px;padding-left:30px;padding-right:30px;padding-top: 50px;text-align: center;" class="modal-content">
-                            <div class="modal-header" style="border-bottom: 0;padding-top: 20px;border-radius: 4px 4px 0 0;">
-                                <button style="position: absolute;top: 35px;right: 29px;font-size: 30px;" type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                                <h4 style="margin-top: 0px;" class="modal-title">Withdraw Proposal</h4>
+                        <div class="modal-content modal-content1">
+                            <div class="modal-header modal-header1">
+                                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                                <h4 class="modal-title modal-title1">Withdraw Proposal</h4>
                             </div>
-                            <div style="border-radius: 0 0 4px 4px;margin-bottom: 50px;" class="modal-body">
-                                <p style="margin-left: 15px;font-size: 17px;font-family: calibri;margin-bottom: 20px;">Are you sure you want to withdraw this proposal?</p>
-                            <div class="modal-footer" style="text-align: left; border-top: none">
+                            <div class="modal-body modal-body1">
+                                <p class="sure">Are you sure you want to withdraw this proposal?</p>
+                            <div class="modal-footer modal-footer1">
                                 <form method="post" id='jobWithDraw'>
                                     <input type="hidden" name='bid_id' value='<?php echo $value->id; ?>'/>
                                     <input type="hidden" name='withdraw' value='1'/>
-                                    <input style="float: left;margin-left: 200px;" type="submit" class="btn-primary big_mass_active transparent-btn big_mass_button form-btn" value="Withdraw Proposal" />
-                                    <input style="float: left;" type="button" class="btn-primary transparent-btn big_mass_button" value="Cancel" data-dismiss="modal" />
-                                    <img src='/assets/img/version1/loader.gif' class="form-loader" style="display:none">
+                                    <input type="submit" class="btn-primary big_mass_active transparent-btn big_mass_button form-btn formb" value="Withdraw Proposal" />
+                                    <input type="button" class="btn-primary transparent-btn big_mass_button can" value="Cancel" data-dismiss="modal" />
+                                    <img src='/assets/img/version1/loader.gif' class="form-loader">
                                 </form>
                             </div>
                             </div>
@@ -335,52 +335,55 @@ span.rating-badge {
                     <div class="modal-dialog">
 
                         <!-- Modal content-->
-                        <div style="padding-top: 50px;padding-bottom: 50px;padding-left: 30px;padding-right: 30px;" class="modal-content">
-                            <div class="modal-header" style="border-bottom: 0;padding-top: 20px;border-radius: 4px 4px 0px 0px;">
-                                <button style="position: absolute;top: 35px;right: 29px;font-size: 30px;" type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                        <div class="modal-content modal-content2">
+                            <div class="modal-header modal-header2">
+                                <button type="button" class="close close2" data-dismiss="modal"><i class="fa fa-times"></i></button>
                                 <h4 class="modal-title">Proposed Terms</h4>
                             </div>
-                            <div style="border-radius: 0 0 4px 4px;" class="modal-body">
+                            <div class="modal-body modal-body2">
                                 <form method="post" id='jobApply'>
                                     <input type="hidden" name='bid_id' value='<?php echo $value->id; ?>'/>
                                     <input type="hidden" name='proposal' value='1'/>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div style="margin-bottom: 20px;margin-top: 15px;" class="row">
+                                            <div class="row row2">
                                                 <div class="col-md-3 col-md-offset-3 page-label">
                                                     <label>Your Bid</label>
                                                 </div>
 
-                                                <div style="margin-left: -60px;" class="col-md-6">
+                                                <div class="col-md-6 left--6">
                                                     <div class="col-md-1">$</div>
                                                     <div class="col-md-5">
-                                                        <input style="font-size: 16px;font-family: calibri;float: left;width: 80px;margin-left: -9px;margin-top: -10px;margin-right: 5px;" type="text" class="form-control" name='bid_amount' id='bid_amount' value='<?php echo round($value->bid_amount, 2); ?>' style="float: left;width: 75px"/><label style=' margin-left: 2px;margin-top: 6px;position: absolute;'><?php echo $perHrs ?></label>
+                                                        <input style="" type="text" class="form-control bid_amount" name='bid_amount' id='bid_amount' value='<?php echo round($value->bid_amount, 2); ?>' style=""/><label style='' class="perhrs"><?php echo $perHrs ?></label>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div style="margin-bottom: 20px;" class="row">
+                                            <div style="" class="row marg-bot-20">
                                                 <div class="col-md-3 col-md-offset-3 page-label">
                                                     <label>10% Winjob Fee</label>
                                                 </div>
 
-                                                <div style="margin-left: -60px;" class="col-md-6">
+                                                <div style="" class="col-md-6 marg-left--6">
                                                     <div class="col-md-1">$</div>
                                                     <div class="col-md-5">
-                                                        <input style="font-size: 16px;font-family: calibri;float: left;width: 80px;margin-left: -9px;margin-top: -10px;margin-right: 5px;" type="text" class="form-control" name='bid_fee' id='bid_fee' disabled style="float: left;width: 75px" /><label style=' margin-left: 2px;margin-top: 6px;position: absolute;'><?php echo $perHrs ?></label>
+                                                        <input type="text" class="form-control bid_amount" name='bid_fee' id='bid_fee' disabled  />
+                                                        <label class="perhrs"><?php echo $perHrs ?></label>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div style="margin-bottom: 20px;" class="row">
+                                            <div class="row  marg-bot-20">
                                                 <div class="col-md-3 col-md-offset-3 page-label">
                                                     <label>Your Earnings</label>
                                                 </div>
 
-                                                <div style="margin-left: -60px;" class="col-md-6">
+                                                <div class="col-md-6  marg-left--6">
                                                     <div class="col-md-1">$</div>
                                                     <div class="col-md-5">
-                                                        <input style="font-size: 16px;font-family: calibri;float: left;width: 80px;margin-left: -9px;margin-top: -10px;margin-right: 5px;" type="text" class="form-control" name='bid_earning' id='bid_earning' disabled style="float: left;width: 75px"/><label style=' margin-left: 2px;margin-top: 6px;position: absolute;'><?php echo $perHrs ?></label>
+                                                        <input type="text" class="form-control bid_amount" name='bid_earning' id='bid_earning' disabled/>
+
+                                                        <label class="perhrs"><?php echo $perHrs ?></label>
                                                     </div>
                                                 </div>
                                             </div>
