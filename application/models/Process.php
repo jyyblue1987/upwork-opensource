@@ -77,7 +77,7 @@ class Process extends CI_Model {
                 ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
                 ->where('job_progres_status', 2)
                 ->where('withdrawn',  NULL)
-                ->where(array('job_id' => $job_id, 'hired' => '1'));
+                ->where(array('job_id' => $job_id));
         $query = $this->db->get();
 
         $return_array = array();
@@ -368,9 +368,11 @@ class Process extends CI_Model {
         $attachments = $query->result_array();
         
         $files = array();
-        $attachments = explode(",", $attachments[0]['path']);
-        foreach($attachments AS $attachment){
-            $files[] = str_replace('"','', $attachment);
+        if($query->num_rows() > 0){
+            $attachments = explode(",", $attachments[0]['path']);
+            foreach($attachments AS $attachment){
+                $files[] = str_replace('"','', $attachment);
+            }
         }
         return $files;
     }

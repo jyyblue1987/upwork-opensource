@@ -184,40 +184,78 @@ define(function (require) {
     
     var $chat_screen     = $('.chat-screen');
     var $notif_msg_item  = $('.notif-message-details');
-    var current_bid      = null; 
+    var current_bid      = null;
     
-    $notif_msg_item.on('click', function(event){
+    var chat_selected    = $notif_msg_item.filter('.chat-item-active');
         
-        event.preventDefault();
+    function checkForUpdate()
+    {   
+        if(chat_selected == null || !chat_select.length) return;
         
-        var that  = $(this);
-        var datas = { bid_id: that.data('bid'), is_ticket: that.data('ticket')};
+        var datas = { bid_id: chat_selected.data('bid'), is_ticket: chat_selected.data('ticket')};
+        checkForNewMessages(datas, chat_selected);
+    }
+    
+    
+    function checkForNewMessages( datas, context ){
         
-        if(current_bid == that.data('bid')) return;
-            current_id = that.data('bid');
-            
-        var jqXhr = $.post(site_url + 'messageboard/load_details', datas, $.noop, 'json'); 
-        
+        var jqXhr = $.post(site_url + 'messageboard/load_new_message', datas, $.noop, 'json'); 
+
         jqXhr.done(function(result){
+            
+            if(current_bid !== context.data('bid')) return; //OLD SELECTED CHAT
+            
+            current_id = context.data('bid');
+            
+            $scroll_up.append( result.message );
+        });
+        
+        jqXhr.always(function(){
+            setTimeout(checkForUpdate, 5000);
+        });
+    }
+        
+    $notif_msg_item.on('click', function(event){
+
+        event.preventDefault();
+
+        chat_selected  = $(this);
+        var datas = { bid_id: chat_selected.data('bid'), is_ticket: chat_selected.data('ticket')};
+        
+        if(current_bid === chat_selected.data('bid')) return;
+        
+        current_id = chat_selected.data('bid');
+
+        var jqXhr = $.post(site_url + 'messageboard/load_details', datas, $.noop, 'json'); 
+
+        jqXhr.done(function(result){
+            
             if(result.status == 'success') {
                 $notif_msg_item.removeClass('chat-item-active');
-                that.addClass('seen chat-item-active');
+                chat_selected.addClass('seen chat-item-active');
                 $chat_screen.html( result.message );
-                
+
                 notif_container  = $('#msg_container');
                 chatbox          = $('textarea[name="chat_message"]');
                 $chat_detail     = $('.chat-details');
                 $scroll_up       = $('#scroll-ul');
                 container        = document.querySelector('.expandingArea');
                 $uploaded_files   = $('.uploaded_files');
-                
+
                 if( container)
                     makeExpandingArea( container );
                 $chat_detail.animate({scrollTop: $('.chat-details').prop("scrollHeight")}, 1);
-                
+
             } else {
                display_message(notif_container, 'alert-danger', 'hide', result.message);
             }
         });
+        
+        jqXhr.always(function(){
+            //setTimeout(checkForUpdate, 5000);
+        });
     });
+    
+    //poll new messages for active chat.
+    //checkForUpdate();
 });

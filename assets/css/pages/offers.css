@@ -1,0 +1,106 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20 avr. 2017, 20:30:37
+    Author     : Hermannovich <donfack.hermann@gmail.com>
+*/
+
+.confirm_hire{
+    border: 1px solid #ccc;
+    margin-right: 15px;
+    margin-top: 20px;
+}
+
+#hire_job{
+    margin-bottom: 0;
+}
+
+.page-title{
+    font-family: calibri;
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.contract-detail{
+    font-size:22px;
+    font-family: calibri;
+    margin-bottom: 15px;
+}
+
+.st_img{
+    padding-left: 15px;
+    margin: 0;
+}
+
+.st_img img{
+    margin-left: 0;
+}
+
+.freelancer-perso{
+    padding-left: 0;
+}
+
+.freelancer-infos{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.fix-price{
+    font-size:17px;
+    font-weight: 400;
+    font-family: calibri;
+}
+
+.bid-amount{
+    margin-top: 20px;
+}
+
+#hire_job .row{
+    margin-bottom: 20px
+}
+
+.content-limit{
+   min-height: 40px !important;
+}
+
+#weekly_limit_input{
+    width: 30%; 
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.modal .modal-body {
+    border: none;
+    padding: 0;
+}
+
+.modal .modal-body form{
+    margin-bottom: 0;
+}
+
+#weekly-limit-value{
+    height: 38px;
+    width: 60%;
+    display: inline-block;
+}
+
+#weekly-limit-value input{
+    width: 70px
+}
+
+#notif-interview-container{ color: #3c763d; margin: 0 10px;}
+#weekly_limit_error{ color: #a94442; margin: 0 10px; }
+
+.hire-btn-submit{ margin-left: 0;}
+
+.checkbox-policy{
+    margin: 10px 0 20px 0;
+}
+
+.alert{
+    margin-top: 20px;
+}

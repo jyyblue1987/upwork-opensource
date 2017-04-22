@@ -191,3 +191,9 @@ $lang['text_job_conversation_empty_message'] = 'Please enter your message';
 $lang['text_job_title_message_board'] = 'Messages';
 $lang['text_job_no_authorized_to_load_message'] = 'You are not authorized to load messages.';
 $lang['text_job_conversation_internal_error']   = 'Unable to send message.';
+
+$lang['text_job_offers_title']   = 'Confirm hired';
+$lang['text_job_hire_confirm']   = 'Confirm hire';
+$lang['text_job_hire_job_title'] = 'Job Title:';
+$lang['text_job_hire_contact_details'] = 'Contact Details';
+$lang['text_job_hire_title_optional']  = 'Title (Optional) :';

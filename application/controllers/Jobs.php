@@ -2466,6 +2466,7 @@ class Jobs extends Winjob_Controller {
         $this->Admintheme->custom_webview("jobs/proposals", $data);
     }
 
+    
     public function confirm_hired_fixed() {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {

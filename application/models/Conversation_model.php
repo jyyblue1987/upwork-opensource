@@ -56,7 +56,7 @@ class Conversation_model extends CI_Model {
                     ->join('jobs', 'jobs.id = job_conversation.job_id', 'inner')
                     ->join('webuser as wu', 'jobs.user_id = wu.webuser_id', 'inner')
                     ->where('job_conversation.bid_id', $bid_id)
-                    ->order_by("job_conversation.id", "asc")
+                    ->order_by("job_conversation.id", "ASC")
                     ->get();
         
         return $query->result();

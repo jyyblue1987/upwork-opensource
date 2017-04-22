@@ -1,0 +1,142 @@
+{% extends "webview/layout/twig/layout.twig" %}
+
+{% if job_status.hire_title is empty %}
+    {% set job_title = job_status.title %}
+{% else %}
+    {% set job_title = job_status.hire_title %}
+{% endif  %}
+                                    
+{% block title %}  {{ app_lang('text_job_offers_title') }} - Winjob  {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ site_url("assets/css/bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/font-awesome.min.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/fonts.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/header.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/croppic.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/footer.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/bootstrap-socil.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/normalize.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/style.css") }}">
+    <link rel="stylesheet" href="{{ base_url("assets/css/jquery.datetimepicker.min.css") }}">
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/offers.css") }}">
+{% endblock %}
+
+{% block content %}
+    <div class="row white-box-feed confirm_hire">
+        <div class="col-md-12">
+            <form action="{{ base_url("job/offers/hired") }}" id="hire_job" method="post">
+                
+                <h1 class="page-title confirm_hire_title"><b>{{ app_lang('text_job_hire_confirm') }}</b></h1>
+                
+                <h2 class="confirm_hire_title">{{ app_lang('text_job_hire_job_title') }}</h2>
+                <h4 class="main_title custom_confirm_hire_j_title">{{ job_details.title }}</h4>
+                <h4 class="contract-detail"><b>{{ app_lang('text_job_hire_contact_details') }}</b></h4>
+                
+                <div class="row">
+                    <div class="col-md-12 text-left">
+                        <h4 class="confirm_hire_title">
+                            {{ app_lang('text_job_hire_title_optional') }}
+                        </h4>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="input_title">
+                            <input name="title" type="text" class="form-control border-field" placeholder="{{ app_lang('text_job_hire_title_optional') }}" />
+                        </div>
+                    </div>
+                </div>
+                        
+                <div class="row freelancer-infos">
+                    <div class="pull-left st_img">
+                        <img class="offer-thumbnail" src="{{ app_user_img(user_details.cropped_image) }}"/>
+                    </div>
+                    <div class="col-xs-10 freelancer-perso">
+                        <label class="web_user_name">
+                            {{ user_details.webuser_fname ~ ' ' ~ user_details.webuser_lname }}
+                        </label> 
+                        <br /> 
+                        <label class="user_company_name">{{ user_details.tagline }}</label>
+                    </div>
+                </div>
+                 
+                <div class="row">
+                    <div class="col-md-12 text-left">
+                        <h4 class="confirm_hire_title">Job Type :</h4>
+                    </div>
+                    <div class="col-md-12">
+                       {% if job_details.job_type == constant('FIXED_JOB_TYPE') %}
+                            <strong class="fix-price">Fixed Price</strong>
+                       {% else %}
+                           <strong class="fix-price">Hourly</strong>
+                       {% endif %}
+                    </div>
+                </div>
+                 
+                {% if job_details.job_type == constant('FIXED_JOB_TYPE') %}
+                    {{ include('webview/jobs/partials/offer-fixed-amount-proposal.twig') }}
+                {% else %}
+                    {{ include('webview/jobs/partials/offer-hourly-amount-proposal.twig') }}
+                {% endif %}    
+                
+                <div class="col-md-12 text-left">
+                    <h4 class="confirm_hire_title">Job Duration :</h4>
+                </div>
+                <div class="col-md-12">
+                   <strong class="fix-price">{{ job_details.job_duration|replace({'_': '-'}) }}</strong>
+                </div>
+                    
+                <div class="col-md-12 text-left">
+                    <h4 class="confirm_hire_title">Start Date :</h4>
+                </div>
+                <div class="col-sm-3 col-xs-12">
+                   <input value="{{ current_date }}" id="datetimepicker" name="start_date" type="text" class="form-control" >
+                </div>
+                    
+                <div class="col-md-12 text-left">
+                    <h4 class="confirm_hire_title">Message to freelancer :</h4>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-9">
+                   <textarea class="form-control" name="message" rows="6" cols="30"></textarea>
+                </div>
+                
+                <div class="checkbox col-xs-12 checkbox-policy">
+                    <label>
+                      <input type="checkbox" name="terms" id="tearms" required />
+                      I understand and agree to the Winjob <a href="#">user Agreement</a> and <a href="#">policy</a>
+                    </label>
+                </div>
+                
+                <input type="hidden" name="applier_id" id="applier_id" value="{{ decoded_f_id }}">
+                <input type="hidden" name="job_id" id="job_id" value="{{ decoded_j_id }}">
+                
+                <div class="col-md-12">
+                    <div class="pull-left">
+                        <input type="submit" value="Confirm hire" class="btn my_btn hire-btn-submit pull-left" /> 
+                    </div>
+
+                    <div class="cencel_content_btn pull-left">
+                        <input type="button" value="Cancel" class="btn my_btn" />
+                    </div>							
+                </div>
+                
+                <div class="col-xs-12">
+                    <div id="notif-container" class="alert hide"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+                
+    {% if job_details.job_type == constant('HOURLY_JOB_TYPE') %}
+        {{ include('webview/modals/propose-different-term.twig', {'hour': '/hr', 'client': true}) }}
+    {% endif %}
+{% endblock %}
+
+{% block js %}
+    
+    {# this variable defines the asset/modular/pages file to load #}
+    <script> var page = 'offers'; </script>
+    
+    <script data-main="{{ app_modular_js("winjob") }}" src="{{ app_modular_js("lib/require.dev.js") }}"></script>
+    <script src="{{ site_url("assets/js/vendor/modernizr-2.8.3.min.js") }}"></script>
+    
+{% endblock %}

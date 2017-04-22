@@ -17,8 +17,7 @@ class Bids_model extends CI_Model {
         $this->db->where('job_id', $job_id);
 
         $query = $this->db->get();
-        $result = $query->result();
-        return $result[0];    
+        return $query->row(); 
     }
    
     public function remaing_to_pay($job_id, $fuser_id) {
@@ -48,6 +47,24 @@ class Bids_model extends CI_Model {
         $this->db->update('job_bids', array($field => $value));
     }
     
+    
+    public function hire_on($job_id, $applier_id, $budget)
+    {
+        $this->db->where('job_id', $job_id)
+                ->where('user_id', $applier_id)
+                ->update('job_bids', array('hired_on' => $budget));
+    }
+    
+    public function update($data, $conditions)
+    {
+        foreach($conditions as $field =>  $value)
+        {
+            $this->db->where($field, $value);
+        }
+        
+        return $this->db->update('job_bids', $data);
+    }
+        
     public function insert_bid($data){
         $this->db->insert('job_bids', $data);
         return $this->db->insert_id();

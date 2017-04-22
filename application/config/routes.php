@@ -16,6 +16,7 @@ $route['jobs/my-bids/archived']     = 'jobs/archived_bids_list';
 $route['jobs/proposals/(:any)/(:any)'] = 'jobs/withdraw_system/($2)'; 
 $route['my-offers/archived']           = 'Active_interview/declined_interview';
 $route['proposals/my-interview']       = 'freelancerinvite';
+$route['jobs/offers']                  = 'job/offers';
 
 /****************************************
  * USER FRIENDLY URL FOR CLIENT/EMPLOYER

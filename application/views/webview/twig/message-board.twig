@@ -33,18 +33,34 @@
                     
                     <div data-bid="{{ message['bid_id'] }}" data-ticket="{{ message['is_ticket'] }}" 
                          class='notif-message-details col-sm-12  {% if message['have_seen'] == 0 %} seen {% endif %} {% if last_message is defined and ( message['bid_id'] == last_message.bid_id ) %} chat-item-active {% endif %}'>
-                        <div data-id="{{ message['bid_id'] }}" id="notif-{{ message['bid_id'] }}"
+                        <div id="notif-{{ message['bid_id'] }}"
                              class="sidebar-block">
                             <div class="col-xs-3">
                                 <i class="fa fa-comments fa-3x" aria-hidden="true"></i>
                             </div>
                             <div class='col-xs-9'>
-                                <span class="pull-left">{{ app_substr(name, 15, '...') }}</span>
+                                <span class="pull-left">
+                                    {% if message['is_ticket'] == 0 %}
+                                        {{ app_substr(name, 15, '...') }}
+                                    {% else %}
+                                        {{ app_substr(message['title'], 15, '...') }}
+                                    {% endif %}
+                                </span>
                                 {% set message_datetime = current_user_datetime(message['created'], user_timezone) %}
                                 <span class="pull-right chat-time">{{  message_datetime.format("d-m-Y") }}</span>
                                 <span class="clearfix clear-both"></span>
-                                <span class="chat-title"><b>{{ app_substr(message['title'], 20, '...') }}</b></span>
-                                <span class="chat-message">{{ app_substr(message['message_conversation'], 40, '...') }}</span>
+                                <span class="chat-title">
+                                    <b>
+                                        {% if message['is_ticket'] == 0 %}
+                                            {{ app_substr(message['title'], 20, '...') }}
+                                        {% else %}
+                                            {{ app_substr(message['message_conversation'], 20, '...') }}
+                                        {% endif %}
+                                    </b>
+                                </span>
+                                {% if message['is_ticket'] == 0 %}
+                                    <span class="chat-message">{{ app_substr(message['message_conversation'], 40, '...') }}</span>
+                                {% endif %}
                             </div>
                         </div>
                         <div class='clearfix clear-both'></div>
@@ -53,7 +69,7 @@
                 {% endfor %}
             </div>
             <div class="col-md-9 col-sm-9 col-xs-12 messages-container">
-                {% set chat_infos = {'fname': last_message.fname, 'lname': last_message.lname, 'job_title': last_message.title, 'conversation': chat_details, 'user_timezone': user_timezone, 'crt_user_time': crt_user_time, 'images': images, 'bid_id': last_message.bid_id, 'job_id': last_message.job_id, 'user_id': last_message.r_id, 'receiver_id': last_message.r_id, 'is_ticket': last_message.is_ticket} %}
+                {% set chat_infos = {'fname': other_fname, 'lname': other_lname, 'job_title': last_message.title, 'conversation': chat_details, 'user_timezone': user_timezone, 'crt_user_time': crt_user_time, 'images': images, 'bid_id': last_message.bid_id, 'job_id': last_message.job_id, 'user_id': last_message.r_id, 'receiver_id': last_message.r_id, 'is_ticket': last_message.is_ticket} %}
                 {{ include('webview/twig/partials/chat-interview.twig', chat_infos) }}
             </div>
             {% endif %}

@@ -309,7 +309,7 @@ class Webuser_model extends CI_Model {
             'jc.message_conversation', 
             'jc.sender_id', 
             'jc.receiver_id', 
-            'jc.created', 
+            'jc.created  as created', 
             'jc.have_seen',
             'webuser.webuser_fname', 
             'webuser.webuser_lname', 
@@ -324,7 +324,9 @@ class Webuser_model extends CI_Model {
             ->from('job_conversation jc')
             ->join('webuser', 'jc.sender_id = webuser.webuser_id', 'inner')
             ->join('jobs', 'jobs.id = jc.job_id', 'inner')
-            ->where('jc.receiver_id', $user_id);
+            ->group_start()
+            ->or_where(array("jc.sender_id" => $user_id, "jc.receiver_id" => $user_id))
+            ->group_end();
                         
         $query_one = $this->db->get_compiled_select();
         
@@ -335,7 +337,7 @@ class Webuser_model extends CI_Model {
             'wt.subject as message_conversation',
             'wtm.sender_id', 
             'wtm.receiver_id', 
-            'wtm.created', 
+            'wtm.created as created', 
             'wtm.have_seen',
             '"" as webuser_fname', 
             '"" as webuser_lname',  
@@ -351,11 +353,13 @@ class Webuser_model extends CI_Model {
             ->join('user', 'wtm.sender_id = user.id and sender = "support" ', 'left')
             ->join('webuser', 'wtm.sender_id = webuser.webuser_id and sender = "user" ', 'left')
             ->join('webuser_tickets wt', 'wt.id = wtm.ticket_id', 'inner')
-            ->where('wt.webuser_id', $user_id);
+            ->group_start()
+            ->or_where(array("wtm.sender_id" => $user_id, "wtm.receiver_id" => $user_id))
+            ->group_end();
         
 	$query_two = $this->db->get_compiled_select();
         
-        $query = $this->db->query($query_one . ' UNION ALL ' . $query_two . ' Order by 7 desc, 1 desc');
+        $query = $this->db->query($query_one . ' UNION ALL ' . $query_two . ' ORDER BY created DESC');
         
         return  $query->result();
     }
@@ -386,7 +390,7 @@ class Webuser_model extends CI_Model {
             '1 as is_ticket'
         );
         
-        $query = $this->db->select($fields)
+        $query = $this->db->select( $fields )
                 ->from('webuser_ticket_messages wtm')
                 ->join('user', 'wtm.sender_id = user.id and sender = "support" ', 'left')
                 ->join('webuser', 'wtm.sender_id = webuser.webuser_id and sender = "user"', 'left')

@@ -1,0 +1,52 @@
+<div class="row bid-amount">
+    <div class="col-md-12 text-left">
+        <h4 class="confirm_hire_title">Hourly rate :</h4>
+    </div>
+    
+    {% if bid_details.offer_bid_amount != '' %}
+        {% set bid_amount = bid_details.offer_bid_amount %}
+    {% else %}
+        {% set bid_amount = bid_details.bid_amount %}
+    {% endif %}
+                                                        
+    <div class="col-md-12">
+       <strong id="bid_amount_perhour" class="fix-price">$<span id='_bid_amount'>{{ bid_amount }}</span>/hr&nbsp;</strong>
+       <a href="#" data-toggle="modal" data-target="#myModal2"><i style="margin-left: 10px;" class="fa fa-pencil-square-o blue-text"></i></a>
+       <span id="notif-interview-container"></div>
+    </div>
+    <div class="col-md-5">
+        <input type="hidden" name="bid_amount_old" id="budget" class="form-control" value="{{ bid_amount }}" />
+        <input type="text" name="bid_amount" id="bid_amount_result" class="form-control hide custom_amount_box" value="{{ bid_amount }}" />
+    </div>
+</div>
+    
+<div class="col-md-12 text-left">
+    <h4 class="confirm_hire_title">Weekly limit :</h4>
+</div>
+<div class="radio col-xs-12">
+    <label class="content-limit">
+      <input type="radio" name="limit" id="weekly_limit" value="1" checked>
+      Limit to
+    </label>
+    <span id="weekly-limit-value">
+        <span id="weekly-limit-text">
+            <input type="text" name="weekly_limit_hour" id="weekly_limit_input" class="form-control" />
+            &nbsp;hrs/week</span> 
+            &nbsp;&nbsp;<span class="hide" id="weekly-limit-amount">= $0.00 max/week </span>
+    </span>
+    <span id="weekly_limit_error"></span>
+    <input type="hidden" id="weekly_limit_amount" name="weekly_limit_amount">
+</div>
+<div class="radio col-xs-12">
+    <label>
+      <input type="radio" name="limit" value="0">
+      No limit
+    </label>
+</div>
+
+<div class="checkbox col-xs-12">
+    <label>
+        <input type="checkbox" name="allow_freelancer" value="1">
+        Allow freelancer to log time manually
+    </label>
+</div>

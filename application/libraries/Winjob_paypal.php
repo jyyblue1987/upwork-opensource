@@ -250,6 +250,49 @@ class Winjob_paypal {
         }
         return false;
     }
+    
+    public function paid($amount, $currency, $service)
+    {
+        //Process payment of the current invoice.
+        $amount = new BasicAmountType(strtoupper($currency), $amount * 100);
+        
+        // Information about the payment.
+        $paymentDetails                = new PaymentDetailsType();
+        $paymentDetails->OrderTotal    = $amount;
+        $paymentDetails->NotifyURL     = site_url( PAYPAL_IPN_NOTIFY_URL );
+        
+        $RTRequestDetails = new DoReferenceTransactionRequestDetailsType();
+        
+        $RTRequestDetails->PaymentDetails = $paymentDetails;
+        $RTRequestDetails->ReferenceID    = $service->service_payer_id;
+        $RTRequestDetails->PaymentAction  = 'Sale';
+        $RTRequestDetails->PaymentType    = 'Any';
+        
+        $RTRequest = new DoReferenceTransactionRequestType();
+        $RTRequest->DoReferenceTransactionRequestDetails  = $RTRequestDetails;
+
+        $RTReq = new DoReferenceTransactionReq();
+        $RTReq->DoReferenceTransactionRequest = $RTRequest;
+        
+        try 
+        {
+            $RTResponse = $this->get_paypal_service()->DoReferenceTransaction($RTReq);
+            
+            if( strtolower($RTResponse->Ack) == 'success' )
+            {   
+                $transaction    = $RTResponse->DoReferenceTransactionResponseDetails;
+                $transaction    = $transaction->PaymentInfo;
+                
+                return $transaction;
+            }
+        }
+        catch (Exception $ex) 
+        {   
+            log_message('error', 'Error when charging the client #' . $service->service_payer_id . ' ' . $ex->getMessage());
+        }
+        return null;
+    }
+    
     private function _get_api_rest_context()
     {
         $apiContext = new ApiContext(

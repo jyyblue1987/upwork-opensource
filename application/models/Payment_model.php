@@ -32,6 +32,10 @@ class Payment_model extends CI_Model {
         ));
     }
     
+    public function save( $data_payment ){
+        $this->db->insert('payments', $data_payment);
+    }
+    
     /**
      * Retreive all amount in progress for the current user
      * 
