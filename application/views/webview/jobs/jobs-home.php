@@ -82,7 +82,7 @@
                                 <div class="col-md-4 col-sm-4 col-xs-12 nopadding">
                                     <label class="gray-text">
                                         <span class="hidden-xs hidden-sm margin-10-left">&nbsp;</span>
-                                        <a href='<?= site_url('edit-jobs/' . $value['job_id']); ?>>Edit Posting <span class='glyphicon custom_client_icon glyphicon-edit co'></span>
+                                        <a href='<?= site_url('edit-jobs/' . $value['job_id']); ?>'>Edit Posting <span class='glyphicon custom_client_icon glyphicon-edit co'></span>
                                         </a>
                                     </label>
                                 </div>

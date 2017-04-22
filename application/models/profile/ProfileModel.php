@@ -105,6 +105,98 @@ class ProfileModel extends CI_Model{
         $query = $this->db->get();
         return $query->result_array();
     }
+    
+    public function get_profile_completeness($user_id){
+        $profilecompleteness = array();
+        $pcompleteness = 0;
+
+        $this->db
+                ->select('*')
+                ->from('webuser')
+                ->where('webuser.webuser_id', $user_id)
+                ->where('webuser.webuser_picture !=', "");
+        $query_img = $this->db->get();
+        $checkimage = $query_img->row();
+ 
+        if (!empty($checkimage)) {
+            $pcompleteness += 10;
+            $profilecompleteness['addpicture'] = 1;
+        } else {
+            $profilecompleteness['addpicture'] = 0;
+            $pcompleteness += 0;
+        }
+
+        $this->db
+                ->select('*')
+                ->from('user_categories')
+                ->where('user_categories.user_id', $user_id);
+        $query_category = $this->db->get();
+        $checkcat = $query_category->row();
+        
+        if (!empty($checkcat)) {
+            $pcompleteness += 25;
+            $profilecompleteness['addcat'] = 1;
+        } else {
+            $pcompleteness += 0;
+            $profilecompleteness['addcat'] = 0;
+        }
+
+        $this->db
+                ->select('*')
+                ->from('webuser_portfolio')
+                ->where('webuser_portfolio.webuser_id', $user_id)
+                ->where('webuser_portfolio.project_url !=', "");
+        $query_portfolio = $this->db->get();
+        $checkport = $query_portfolio->row();
+
+        if (!empty($checkport)) {
+            $pcompleteness += 25;
+            $profilecompleteness['addportfolio'] = 1;
+        } else {
+            $pcompleteness += 0;
+            $profilecompleteness['addportfolio'] = 0;
+        }
+
+        $this->db
+                ->select('*')
+                ->from('user_experience')
+                ->where('user_experience.user_id', $user_id);
+        $query_exp = $this->db->get();
+        $checkexp = $query_exp->row();
+
+        if (!empty($checkexp)) {
+            $pcompleteness += 25;
+            $profilecompleteness['addexp'] = 1;
+        } else {
+            $pcompleteness += 0;
+            $profilecompleteness['addexp'] = 0;
+        }
+
+        $this->db
+                ->select('*')
+                ->from('freelancer_education')
+                ->where('freelancer_education.fuser_id', $user_id)
+                ->where('freelancer_education.degree !=', "");
+        $query_exp = $this->db->get();
+        $checkexp = $query_exp->row();
+        
+        if (!empty($checkexp)) {
+            $pcompleteness += 15;
+            $profilecompleteness['addedu'] = 1;
+        } else {
+            $pcompleteness += 0;
+            $profilecompleteness['addedu'] = 0;
+        }
+
+        $return_array = array();
+        
+        $return_array = array(
+            'pcompleteness' => $pcompleteness,
+            'profilecompleteness' => $profilecompleteness
+        );
+        
+        return $return_array;
+    }
 }
 
 ?>

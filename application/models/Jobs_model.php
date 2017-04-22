@@ -397,11 +397,44 @@ class Jobs_model extends CI_Model {
         return $query->row();
     }
     
-    public function load_jobs($val, $limit, $offset){
-        $this->db
-                ->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left')
-                ->order_by("jobs.id", "desc");
-        $query = $this->db->get_where('jobs', $val, $limit, $offset);
+    public function load_jobs($keyword, $sql, $limit, $offset, $id){
+        $keywords = "";
+        if (isset($keyword)) {
+            $keywords = $keyword;
+        }
+
+        if (isset($sql) && $sql != "" && strlen($sql) >= 1) {
+            if ($this->session->userdata('type') == '2') {
+                $val = array(
+                    '1' => '1',
+                    'status' => 1
+                );
+
+                if (strlen($keywords) > 0) {
+                    $jobCatPage = true;
+                    $this->db->like("jobs.title", $keywords);
+                } else {
+                    $this->db->where_in('jobs.category', $sql, FALSE);
+                }
+
+                $query = $this->db->get_where('jobs', $val, $limit, $offset);
+
+            } else if ($this->session->userdata('type') == '1') {
+                $val = array(
+                    'user_id' => $id,
+                    'status' => 1
+                );
+
+                $query = $this->db->get_where('jobs', $val, $limit, $offset);
+            }
+        } else {
+            $query = "";
+        }
+
         return $query;
+    }
+    
+    function jobs_by_category($val, $limit, $offset){
+        return $this->db->get_where('jobs', $val, $limit, $offset);
     }
 }

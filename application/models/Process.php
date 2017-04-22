@@ -475,4 +475,13 @@ class Process extends CI_Model {
         $query = $this->db->get();
         return $query->num_rows();
     }
+    
+    public function get_job_bids($job_id){
+        $this->db
+                ->select('*')
+                ->from('job_bids')
+                ->where(array('job_id' => $job_id, 'bid_reject' => 0, 'status!=1' => null));
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
 }

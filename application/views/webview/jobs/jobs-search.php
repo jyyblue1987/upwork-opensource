@@ -219,7 +219,7 @@ $clientend = $Conversation->clientend();
 
                             </div>
                         </div>
-
+                        
                         <div class="row account-progress">
                             <div class="col-md-12 white-box margin-top-space side-cont-bot">
                                 <div class='row'>
@@ -227,12 +227,12 @@ $clientend = $Conversation->clientend();
                                         <span class="gray-text side-cont-bot-span">Profile Completeness</span>
 
                                         <div class="progress side-cont-prog">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:<?=$profilecompleteness['profileprogress'];?>%">
-                                                <?=$profilecompleteness['profileprogress'];?>%
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:<?=$profilecompleteness['pcompleteness'];?>%">
+                                                <?=$profilecompleteness['pcompleteness'];?>%
                                             </div>
                                         </div>
                                     </div>
-									<?php if($profilecompleteness['addpicture'] !=1){ ?>
+									<?php if($profilecompleteness['profilecompleteness']['addpicture'] !=1){ ?>
 										  <div class="col-md-12 element">
 											 <a href="<?php echo base_url();?>profile-settings">
 												<i class="fa fa-plus-circle" aria-hidden="true"></i> Add
@@ -240,7 +240,7 @@ $clientend = $Conversation->clientend();
 											 </a>
 										</div>
 									<?php } ?>
-									<?php if($profilecompleteness['addcat'] !=1){ ?>
+									<?php if($profilecompleteness['profilecompleteness']['addcat'] !=1){ ?>
 										<div class="col-md-12 element">
 											<a href="<?php echo base_url();?>categories/choose">
 												<i class="fa fa-plus-circle" aria-hidden="true"></i> Add
@@ -248,7 +248,7 @@ $clientend = $Conversation->clientend();
 											</a>
 										</div>
 									<?php } ?>
-									<?php if($profilecompleteness['addportfolio'] !=1){ ?>
+									<?php if($profilecompleteness['profilecompleteness']['addportfolio'] !=1){ ?>
 										<div class="col-md-12 element">
 											<a href="<?php echo base_url();?>profile/basic_bio">
 												<i class="fa fa-plus-circle" aria-hidden="true"></i> Add
@@ -256,7 +256,7 @@ $clientend = $Conversation->clientend();
 											</a>
 										</div>
 									<?php } ?>
-									<?php if($profilecompleteness['addexp'] !=1){ ?>
+									<?php if($profilecompleteness['profilecompleteness']['addexp'] !=1){ ?>
 										<div class="col-md-12 element">
 											<a href="<?php echo base_url();?>profile/basic_bio">
 												<i class="fa fa-plus-circle" aria-hidden="true"></i> Add
@@ -264,7 +264,7 @@ $clientend = $Conversation->clientend();
 											</a>
 										</div>
 									<?php } ?>
-									<?php if($profilecompleteness['addedu'] !=1){ ?>
+									<?php if($profilecompleteness['profilecompleteness']['addedu'] !=1){ ?>
 										<div class="col-md-12 element">
 											<a href="<?php echo base_url();?>profile/basic_bio">
 												<i class="fa fa-plus-circle" aria-hidden="true"></i> Add

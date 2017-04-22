@@ -1,5 +1,5 @@
 <?php
-error_reporting(0 );
+error_reporting(0);
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Jobs extends Winjob_Controller {
@@ -297,87 +297,73 @@ class Jobs extends Winjob_Controller {
             $offset = $limit * $offsetId;
             $keywords = $this->input->post('keywords');
 
+            if (empty($category)) {
+                if ($sql != "" && strlen($sql) >= 1) {
+                    if ($this->session->userdata('type') == '2') {
 
+                        $val = array(
+                            '1' => '1',
+                            'status' => 1
+                        );
 
-                if (empty($category)) {
+                        $this->db->where_in('jobs.category', $sql, FALSE);
 
-                    if ($sql != "" && strlen($sql) >= 1) {
-                        if ($this->session->userdata('type') == '2') {
-                            $val = array(
-                                '1' => '1',
-                                'status' => 1
-                            );
-                            $this->db->where_in('jobs.category', $sql, FALSE);
-                            if (strlen($keywords) > 0) {
-                                $this->db->like("jobs.title", $keywords);
-                                $this->db->or_like("jobs.job_description", $keywords);
-                            }
-                            $query = $this->db->get_where('jobs', $val, $limit, $offset);
-
-                            // Davit start
-                            $jobTypeQuery = '';
-                            if (!empty($jobType)) {
-                                $jobTypeQuery = implode(',', array_map(function($arr){
-                                    return "'" . $arr . "'";
-                                }, $jobType));
-
-                                $jobTypeQuery = ' AND (jobs.job_type IN (' . $jobTypeQuery . '))';
-
-                            }
-                            
-                            $sortQuery = " ORDER BY jobs.created DESC ";
-                            if($sort == 0){
-                                $sortQuery = " ORDER BY jobs.created ASC ";
-                            }
-                            
-                            $query = $this->db->query(
-                                    "SELECT * FROM jobs "
-                                    . "LEFT JOIN webuser "
-                                    . "ON webuser.webuser_id=jobs.user_id "
-                                    . "WHERE jobs.status = 1 "
-                                    . "AND jobs.category in(" . $sql . ") "
-                                    . "AND (jobs.title like '%" . $keywords . "%' "
-                                    . "OR jobs.job_description like '%" . $keywords . "%') {$jobTypeQuery} "
-                                    . $sortQuery
-                                    . "LIMIT " . $offset . ',' . $limit);
-                            // Davit end
-
-                            //   var_dump($keywords);die();
-                        } else if ($this->session->userdata('type') == '1') {
-                            $val = array(
-                                'user_id' => $id,
-                                'status' => 1
-                            );
-                            $query = $this->db->get_where('jobs', $val, $limit, $offset);
+                        if (strlen($keywords) > 0) {
+                            $this->db->like("jobs.title", $keywords);
+                            $this->db->or_like("jobs.job_description", $keywords);
                         }
+
+                        $query = $this->db->get_where('jobs', $val, $limit, $offset);
+
+                        $jobTypeQuery = '';
+                        if (!empty($jobType)) {
+                            $jobTypeQuery = implode(',', array_map(function($arr){
+                                return "'" . $arr . "'";
+                            }, $jobType));
+
+                            $jobTypeQuery = ' AND (jobs.job_type IN (' . $jobTypeQuery . '))';
+
+                        }
+
+                        $sortQuery = " ORDER BY jobs.created DESC ";
+                        if($sort == 0){
+                            $sortQuery = " ORDER BY jobs.created ASC ";
+                        }
+
+                        $query = $this->db->query(
+                                "SELECT * FROM jobs "
+                                . "LEFT JOIN webuser "
+                                . "ON webuser.webuser_id=jobs.user_id "
+                                . "WHERE jobs.status = 1 "
+                                . "AND jobs.category in(" . $sql . ") "
+                                . "AND (jobs.title like '%" . $keywords . "%' "
+                                . "OR jobs.job_description like '%" . $keywords . "%') {$jobTypeQuery} "
+                                . $sortQuery
+                                . "LIMIT " . $offset . ',' . $limit);
+
+                    } else if ($this->session->userdata('type') == '1') {
+                        $val = array(
+                            'user_id' => $id,
+                            'status' => 1
+                        );
+                        $query = $this->db->get_where('jobs', $val, $limit, $offset);
                     }
-                } else {
+                }
+            } else {
 
-//                    $this->db->where_in('jobs.category', $sql, FALSE);
-//                    if (strlen($keywords) > 0) {
-//                        var_dump($keywords);die();
-//                        $this->db->like("jobs.title", $keywords);
-//                       $this->db->or_like("jobs.job_description", $keywords);
-//                    }
-//
-//                  //  $this->db->where_in('jobs.category', $category);
-//                    $query = $this->db->get_where('jobs', $val, $limit, $offset);
-//
-                    // Davit start
-                    $jobTypeQuery = '';
-                    if (!empty($jobType)) {
-                        $jobTypeQuery = implode(',', array_map(function($arr){
-                            return "'" . $arr . "'";
-                        }, $jobType));
+                $jobTypeQuery = '';
+                if (!empty($jobType)) {
+                    $jobTypeQuery = implode(',', array_map(function($arr){
+                        return "'" . $arr . "'";
+                    }, $jobType));
 
-                        $jobTypeQuery = ' AND (jobs.job_type IN (' . $jobTypeQuery . '))';
-
-                    }
+                    $jobTypeQuery = ' AND (jobs.job_type IN (' . $jobTypeQuery . '))';
+                }
                     
-                    $sortQuery = " ORDER BY jobs.created DESC ";
-                            if($sort == 0){
-                                $sortQuery = " ORDER BY jobs.created ASC ";
-                            }
+                $sortQuery = " ORDER BY jobs.created DESC ";
+                    if($sort == 0){
+                        $sortQuery = " ORDER BY jobs.created ASC ";
+                    }
 
                     $query = $this->db->query(""
                             . "SELECT * FROM jobs "
@@ -389,12 +375,9 @@ class Jobs extends Winjob_Controller {
                             . "OR jobs.job_description like '%" . $keywords . "%') {$jobTypeQuery} "
                             . $sortQuery
                             . "LIMIT " . $offset . ',' . $limit);
-                    // Davit end
                 }
 
-
                 if ($query->num_rows() > 0 && is_object($query)){
-
                     $records = $query->result();
                     $s=array();
                     foreach ($records as $record) {
@@ -412,19 +395,14 @@ class Jobs extends Winjob_Controller {
                         $record->skills=$s;
                         $s=[];
                         }
-                
                 }
 
                 $data = array('records' => $records, 'limit' => $limit);
-                
-                // Davit start
-                //$this->load->view('webview/jobs/content', $data);
                 $content = $this->load->view('webview/jobs/content', $data, true);
                 die (json_encode([
                     'result' => $content,
                     'count' => count($records)
                 ]));
-                // Davit end
             } else {
 
                 $offset = 0;
@@ -434,86 +412,43 @@ class Jobs extends Winjob_Controller {
                         'status' => 1
                     );
                     $jobCatPage = true;
-                    $query = $this->db->get_where('jobs', $val, $limit, $offset);
+                    $query = $this->jobs_model->jobs_by_category($val, $limit, $offset);
+
                 } else {
-                    $keywords = "";
-                    if (isset($_GET['q'])) {
-                        $keywords = $this->input->get("q");
-                    }
-
-                    if (isset($sql) && $sql != "" && strlen($sql) >= 1) {
-
-                        if ($this->session->userdata('type') == '2') {
-                            $val = array(
-                                '1' => '1',
-                                'status' => 1
-                            );
-                            if (strlen($keywords) > 0) {
-                                //   die("dkkd");
-
-                                $jobCatPage = true;
-                                $this->db->like("jobs.title", $keywords);
-                                //$data['totalJobFound'] = $this->db->count_all_results();
-                            } else {
-                                $this->db->where_in('jobs.category', $sql, FALSE);
-                            }
-                            $query = $this->db->get_where('jobs', $val, $limit, $offset);
-                        } else if ($this->session->userdata('type') == '1') {
-                            $val = array(
-                                'user_id' => $id,
-                                'status' => 1
-                            );
-                            $query = $this->db->get_where('jobs', $val, $limit, $offset);
-                        }
-                    } else {
-                        $query = "";
-                    }
+                    $query = $this->jobs_model->load_jobs($this->input->get('q'), $sql, $limit, $offset, $id);
                 }
                 if (is_object($query) && $query->num_rows() > 0) {
                     $records = $query->result();
-                    $s=array();
+
                     foreach ($records as $record) {
-                        $q="SELECT job_skills.skill_name from job_skills where job_skills.job_id ='";
-                        $q.=$record->id."'";
-                        $skills = $this->db->query($q)->result();
-                        if(!empty($skills)){
-                            foreach($skills as $skill){
-                                array_push($s,$skill->skill_name);
-                            }
-                        }
-                        else{
-                            continue;
-                        }
-                        $record->skills=$s;
-            $s=[];
+                        $employer = new Employer($record->webuser_id);
+                        $job = new Job_details($record->id);
+
+                        $record->skills         = $this->Skills_model->get_skills($record->id);
+                        $record->payment_set    = $this->payment_methods_model->get_primary($employer->get_userid());
+                        $record->is_active      = $employer->is_active();
+                        $record->total_spent    = $this->payment_model->get_amount_spent($employer->get_userid());
+                        $record->rating         = $this->Webuser_model->get_total_rating($employer->get_userid(), true);
+                        $record->country        = ucfirst($employer->get_country());
+                        $record->job_created    = $this->process->time_elapsed_string($record->job_created);
+                        $record->bids           = $this->process->get_job_bids($record->id);
+                        $record->hrs_per_week   = $job->get_hrs_perweek();
                     }
+
                 } else {
                     $records = null;
                 }
-                $user_id = $this->session->userdata('id');
-                $this->db->select('jobs.*, job_bids.*,webuser.*,job_bids.user_id AS bid_user_id,job_bids.status AS bid_status,job_bids.created AS bid_created,job_conversation.bid_id AS jbid_id');
-                $this->db->join('job_bids', 'jobs.id=job_bids.job_id', 'left');
-                $this->db->join('webuser', 'jobs.user_id=webuser.webuser_id', 'left');
-                $this->db->join('job_conversation', 'job_bids.id=job_conversation.bid_id', 'left');
-                $this->db->where('job_bids.user_id',$user_id);
-                $this->db->where('job_bids.status','0');
-                $this->db->where('job_bids.bid_reject','0');
-                $this->db->where('job_bids.job_progres_status', '1');
-                $this->db->where(array('job_bids.withdrawn' => NULL)); 
-                $this->db->group_by('jbid_id'); 
-                $this->db->order_by("jobs.id", "desc");
-                $query=$this->db->get('jobs');
-                $record = $query->result();
-                $data['int'] = count($record);
-                //$record = $query->result();
+                $user_id = $this->user_id;
+                $active_interview = $this->process->get_active_interviews($this->user_id);
+                $data['int'] = $active_interview['rows'];
+
                 $this->db->select('*');
                 $this->db->from('job_bids');
                 $this->db->where('job_bids.user_id', $user_id);
                 $this->db->where('job_bids.status', 0);
-                // added by jahid start 
+
                 $this->db->where('job_bids.job_progres_status', 0);
                 $this->db->where(array('job_bids.withdrawn' => NULL));                
-                // added by jahid end 
                 
                 $this->db->group_by('job_bids.id');
                 $query_proposal = $this->db->get();
@@ -524,84 +459,7 @@ class Jobs extends Winjob_Controller {
                     $proposal_no = null;
                 }
 
-
-                $profilecompleteness = array();
-                $pcompleteness = 0;
-                //progress for image
-                $this->db->select('*');
-                $this->db->from('webuser');
-                $this->db->where('webuser.webuser_id', $id);
-                $this->db->where('webuser.webuser_picture !=', "");
-                $query_ing = $this->db->get();
-                $checkimage = $query_ing->row();
-                //$this->db->last_query();
-                if (!empty($checkimage)) {
-                    $pcompleteness += 10;
-                    $profilecompleteness['addpicture'] = 1;
-                } else {
-                    $profilecompleteness['addpicture'] = 0;
-                    $pcompleteness += 0;
-                }
-
-                //progress for category
-                $this->db->select('*');
-                $this->db->from('user_categories');
-                $this->db->where('user_categories.user_id', $id);
-                $query_category = $this->db->get();
-                $checkcat = $query_category->row();
-                if (!empty($checkcat)) {
-                    $pcompleteness += 25;
-                    $profilecompleteness['addcat'] = 1;
-                } else {
-                    $pcompleteness += 0;
-                    $profilecompleteness['addcat'] = 0;
-                }
-
-                //progress for portfolio
-                $this->db->select('*');
-                $this->db->from('webuser_portfolio');
-                $this->db->where('webuser_portfolio.webuser_id', $id);
-                $this->db->where('webuser_portfolio.project_url !=', "");
-                $query_port = $this->db->get();
-                $checkport = $query_port->row();
-                if (!empty($checkport)) {
-                    $pcompleteness += 25;
-                    $profilecompleteness['addportfolio'] = 1;
-                } else {
-                    $pcompleteness += 0;
-                    $profilecompleteness['addportfolio'] = 0;
-                }
-
-                //progress for Experience
-                $this->db->select('*');
-                $this->db->from('user_experience');
-                $this->db->where('user_experience.user_id', $id);
-                $query_exp = $this->db->get();
-                $checkexp = $query_exp->row();
-                if (!empty($checkexp)) {
-                    $pcompleteness += 25;
-                    $profilecompleteness['addexp'] = 1;
-                } else {
-                    $pcompleteness += 0;
-                    $profilecompleteness['addexp'] = 0;
-                }
-
-                //progress for Eaducation
-                $this->db->select('*');
-                $this->db->from('freelancer_education');
-                $this->db->where('freelancer_education.fuser_id', $id);
-                $this->db->where('freelancer_education.degree !=', "");
-                $query_exp = $this->db->get();
-                $checkexp = $query_exp->row();
-                if (!empty($checkexp)) {
-                    $pcompleteness += 15;
-                    $profilecompleteness['addedu'] = 1;
-                } else {
-                    $pcompleteness += 0;
-                    $profilecompleteness['addedu'] = 0;
-                }
-                $profilecompleteness['profileprogress'] = $pcompleteness;
-
+                $profile_progress = $this->ProfileModel->get_profile_completeness($this->user_id);
 
                 $this->db->select('*');
                 $this->db->from('webuser');
@@ -610,7 +468,17 @@ class Jobs extends Winjob_Controller {
                 $ststus = $query_status->row();
                 
                 $offers = $this->process->get_total_offers($id);
-                $data = array('js' => array('internal/find_job.js'), 'records' => $records, 'offers' => $offers['rows'], 'limit' => $limit, 'no_of_interview' => count($record), 'proposal_no' => $proposal_no, 'profilecompleteness' => $profilecompleteness, 'ststus' => $ststus);
+                
+                $data = array(
+                    'js'                  => array('internal/find_job.js'), 
+                    'records'             => $records, 
+                    'offers'              => $offers['rows'], 
+                    'limit'               => $limit, 
+                    'no_of_interview'     => count($record), 
+                    'proposal_no'         => $proposal_no, 
+                    'profilecompleteness' => $profile_progress, 
+                    'ststus'              => $ststus
+                );
 
                 if (isset($subCateList) && !empty($subCateList)) {
                     $data['subCateList'] = $subCateList['rows'];
@@ -619,44 +487,16 @@ class Jobs extends Winjob_Controller {
                 }
                 $data['jobCatSelected'] = $jobCat;
 
-                // Davit start
-//                $this->db->select('id');
-//                $monthStart = date('Y-m-01');
-//                $monthEnd = date('Y-m-t');
-//                $this->db->where("(created BETWEEN '{$monthStart}' AND '{$monthEnd}')");
-//                $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id));
-//                $proposals = $query->num_rows();
-                
-                $this->db->select('*');
-                $this->db->from('job_bids');
-                $this->db->where(array('bid_reject' => 0, 'status!=1' => null));
-                $this->db->where('user_id', $id);
-                $this->db->where('job_progres_status', 0);
-                $this->db->where(array('withdrawn' => NULL));
-                $query = $this->db->get();
-                $proposals = $query->num_rows();
-                
-                $data['proposals'] = $proposals;
+                $freelancer_proposals = $this->process->get_proposed_bids($user_id);
+                $data['proposals']    = $freelancer_proposals;
 
                 $sql = "SELECT cropped_image FROM webuser WHERE webuser_id =  " . $this->session->userdata(USER_ID);
                 $croppedImage =    $this->db->query($sql)->row();
                 $data['croppedImage'] = $croppedImage;
                 
-                $this->db->select('jobs.*, job_bids.*,webuser.*,job_bids.user_id AS bid_user_id,job_bids.status AS bid_status,job_bids.created AS bid_created,job_conversation.bid_id AS jbid_id');
-                $this->db->join('job_bids', 'jobs.id=job_bids.job_id', 'left');
-                $this->db->join('webuser', 'jobs.user_id=webuser.webuser_id', 'left');
-                $this->db->join('job_conversation', 'job_bids.id=job_conversation.bid_id', 'left');
-                $this->db->where('job_bids.user_id',$user_id);
-                $this->db->where('job_bids.status','0');
-                $this->db->where('job_bids.bid_reject','0');
-                $this->db->where('job_bids.job_progres_status', '1');
-                $this->db->where(array('job_bids.withdrawn' => NULL)); 
-                $this->db->group_by('jbid_id'); 
-                $this->db->order_by("jobs.id", "desc");
-                $query=$this->db->get('jobs');
-                $record = $query->result();
-                $data['int'] = count($record);
-                // Davit end
+                $active_interview = $this->process->get_active_interviews($user_id);
+                $data['int'] = $active_interview['rows'];
+                
                 if ($jobCatPage) {
 
                     if ((isset($keywords)) && (strlen($keywords) > 0)) {
@@ -908,8 +748,8 @@ class Jobs extends Winjob_Controller {
                 $data['bid_fee']     = round($data['bid_amount'] / 10, 2);
                 $data['bid_earning'] = $data['bid_amount'] - $data['bid_fee'];
 
-                if ($this->Bids_model->insert_bid($data)) {
-                    $insert_id = $this->Bids_model->insert_bid($data);
+                if ($this->db->insert('job_bids', $data)) {
+                    $insert_id = $this->db->insert_id();
 
                     $dataAttach = array(
                         'job_bid_id' => $insert_id,
