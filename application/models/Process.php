@@ -440,4 +440,39 @@ class Process extends CI_Model {
         $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $user_id, 'job_bids.id' => $bidId));
         return $query->row_array();
     }
+    
+    public function get_active_interviews($user_id){
+        $this->db
+                ->select('jobs.*, job_bids.*,webuser.*,job_bids.user_id AS bid_user_id,job_bids.status AS bid_status,job_bids.created AS bid_created,job_conversation.bid_id AS jbid_id')
+                ->join('job_bids', 'jobs.id=job_bids.job_id', 'left')
+                ->join('webuser', 'jobs.user_id=webuser.webuser_id', 'left')
+                ->join('job_conversation', 'job_bids.id=job_conversation.bid_id', 'left')
+                ->where('job_bids.user_id',$user_id)
+                ->where('job_bids.status','0')
+                ->where('job_bids.bid_reject','0')
+                ->where('job_bids.job_progres_status', '1')
+                ->where('job_bids.withdrawn',  NULL)
+                ->group_by('jbid_id')
+                ->order_by("jobs.id", "desc");
+        $query = $this->db->get('jobs');
+
+        $return_array = array();
+        $return_array['rows'] = $query->num_rows();
+        if ($return_array['rows'] > 0) {
+            $return_array['data'] = $query->result();
+        }
+        return $return_array;
+    }
+    
+    public function get_proposed_bids($user_id){
+        $this->db
+                ->select('*')
+                ->from('job_bids')
+                ->where(array('bid_reject' => 0, 'status!=1' => null))
+                ->where('user_id', $user_id)
+                ->where('job_progres_status', 0)
+                ->where(array('withdrawn' => NULL));
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
 }
