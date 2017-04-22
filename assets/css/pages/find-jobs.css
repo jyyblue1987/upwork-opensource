@@ -371,6 +371,7 @@ h1.job-title{
     height: 46px;
     width: 100%!important;
     float:left;
+    margin-bottom:10px;
 }
 
 .search-btn {

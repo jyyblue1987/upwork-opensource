@@ -38,14 +38,14 @@
     } ?>
 
     <div class="search-top">
-        <div class="row">
+        <div class="row marg-top-20">
             <form id="freelacer-search" action="<?= site_url() ?>freelancers-search" method="GET">
                 <div class="col-md-10 col-lg-10 col-sm-10 col-xs-12 no-pad search-cont">
                     <input type="text" name="q" class="form-control search-field" placeholder="Find freelancers" id="jobsearch" value=""/> 
                     <i aria-hidden="true" class="fa fa-search search-btn search-freelancer custom_btn"></i>
                 </div>
-                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-12 no-pad">
-                    <a style="" class="btn btn-block btn-primary post-job" href="<?php echo site_url('post-job'); ?>">
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-12 no-pad pad-top-xs">
+                    <a class="btn btn-block btn-primary post-job" href="<?php echo site_url('post-job'); ?>">
                         Post a job
                     </a>
                 </div>
@@ -82,7 +82,7 @@
                                 <div class="col-md-4 col-sm-4 col-xs-12 nopadding">
                                     <label class="gray-text">
                                         <span class="hidden-xs hidden-sm margin-10-left">&nbsp;</span>
-                                        <a href='<?= site_url('edit-jobs/' . $value['job_id']); ?>'style="color: #37A000">Edit Posting <span class='glyphicon custom_client_icon glyphicon-edit co'></span>
+                                        <a href='<?= site_url('edit-jobs/' . $value['job_id']); ?>>Edit Posting <span class='glyphicon custom_client_icon glyphicon-edit co'></span>
                                         </a>
                                     </label>
                                 </div>
