@@ -50,9 +50,9 @@ class Bids_model extends CI_Model {
     
     public function hire_on($job_id, $applier_id, $budget)
     {
-        $this->db->where('job_id', $job_id)
-                ->where('user_id', $applier_id)
-                ->update('job_bids', array('hired_on' => $budget));
+        return $this->db->where('job_id', $job_id)
+                    ->where('user_id', $applier_id)
+                    ->update('job_bids', array('hired_on' => $budget));
     }
     
     public function update($data, $conditions)
