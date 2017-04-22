@@ -356,7 +356,8 @@ ul.cus_main_side_nav_bar li{list-style: none!important;}
 .marg-bot-0{margin-bottom:0px;}
 .h3{font-size: 20px;font-family: "Calibri";font-weight: 800;}
 .job-history{padding:10px 15px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; margin-top: 30px; border: 1px solid rgb(204, 204, 204);}
-.his_{border: 0;border-bottom: 1px solid #ccc;}
+.his_{border: 0;}
+.his_bord{border: 0;border-bottom: 1px solid #ccc;}
 .marg-5{margin-bottom: 5px;}
 .job-status{color: rgb(73, 73, 73); font-style: italic; font-size: 17.5px; font-weight: 500;margin-top:3px;}
 .pad-top-0{padding-top: 0px;}
@@ -365,7 +366,7 @@ ul.cus_main_side_nav_bar li{list-style: none!important;}
 .pad-0{padding:0;}
 .pull-right{float:right;}
 .pos-ab{position: absolute;}
-h3.style{padding-top:5px;margin-bottom:-5px;float:right;font-size: 20px;font-family: "Calibri";}
+h3.style{margin-bottom:-5px;float:right;font-size: 20px;font-family: "Calibri";}
 .pull-left{float:left;}
 .marg-top-5{margin-top:5px;}
 .marg-right-5{margin-right:5px;}

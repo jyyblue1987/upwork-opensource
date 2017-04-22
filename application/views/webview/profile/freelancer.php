@@ -234,7 +234,8 @@ foreach ($accepted_jobs as $job_data) {
                                     
                                 <?php
                                 if (!empty($accepted_jobs)) {
-                                    foreach ($accepted_jobs as $job_data) {
+                                    $accepted_jobs_count = count($accepted_jobs) - 1;
+                                    foreach ($accepted_jobs as $index => $job_data) {
                                         $this->db->select('*');
                                         $this->db->from('job_feedback');
                                         $this->db->where('job_feedback.feedback_userid', $job_data->fuser_id);
@@ -244,7 +245,8 @@ foreach ($accepted_jobs as $job_data) {
                                         $jobfeedback = $query->row();
                                         ?>
                                         
-                                <div class="history_section his_">
+                                     
+                                <div class="history_section  <? echo $accepted_jobs_count != $index ? "his_" : "";?> his_bord">                                
                                         <div class="row no-pad">
                                             <div class="col-md-8 col-sm-6 col-xs-12 no-pad-mob">
                                                 <div class="buttonsidethreeleft">
@@ -388,9 +390,7 @@ foreach ($accepted_jobs as $job_data) {
                                             </div>
                                             </div>
                                             <?php } ?>
-                                         
-
-                                        </div>
+                                        </div>                                        
                                     <div class="col-md-3 col-sm-3">
                                         
                                     </div>
@@ -545,7 +545,8 @@ foreach ($experience as $val) { ?>
                         <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <?php
-                            foreach ($educations as $education) {
+                            $educ_count = count($educations) - 1;
+                            foreach ($educations as $index => $education) {
                                 ?> 
                                 <div class="education_head"> 
                                     <p class="exp-title"><a><?= $education->school ?></a></p>
@@ -555,7 +556,7 @@ foreach ($experience as $val) { ?>
                                     <p class="exp-year"><a><?= $education->dates_attend_from ?> – <?= $education->dates_attend_to ?></a></p>
                                     <div class="feedback_comment"><p><?= $education->description ?></p></div>
                                 </div>
-                                <hr>  
+                                <? echo $educ_count != $index ? "<hr>" : "";?> 
                             <?php } ?>
                         </div>
                     </div>
