@@ -77,7 +77,7 @@ class Process extends CI_Model {
                 ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
                 ->where('job_progres_status', 2)
                 ->where('withdrawn',  NULL)
-                ->where(array('job_id' => $job_id, 'hired' => '1'));
+                ->where(array('job_id' => $job_id));
         $query = $this->db->get();
 
         $return_array = array();

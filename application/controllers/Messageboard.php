@@ -102,8 +102,8 @@ class Messageboard extends Winjob_Controller
         extract($this->view_datas);
         
         $html = $this->twig->render('webview/twig/partials/chat-interview', array(
-            'fname'         => $last_message->fname, 
-            'lname'         => $last_message->lname, 
+            'fname'         => $other_fname, 
+            'lname'         => $other_lname, 
             'job_title'     => $last_message->title, 
             'conversation'  => $chat_details, 
             'user_timezone' => $user_timezone, 
@@ -170,9 +170,27 @@ class Messageboard extends Winjob_Controller
         
         $this->view_datas['images']       = $images;
         $this->view_datas['chat_details'] = $messages;
-        $nb_messages          = count($messages);
+        $nb_messages                      = count($messages);
         if( $nb_messages > 0)
-            $this->view_datas['last_message'] = $messages[count($messages) - 1];
+        {
+            $last_message                     = $messages[count($messages) - 1];
+            $this->view_datas['last_message'] = $last_message;
+            
+            if($is_ticket == 0)
+            {
+                $other_user_id                    = ($last_message->sender_id == $user_id) ? $last_message->receiver_id :
+                                                    $last_message->sender_id;
+            
+                $other_user = $this->webuser_model->load_informations( $other_user_id );
+                $this->view_datas['other_fname'] = $other_user->webuser_fname;
+                $this->view_datas['other_lname'] = $other_user->webuser_lname;
+            }
+            else
+            {
+                $this->view_datas['other_fname'] = $last_message->fname;
+                $this->view_datas['other_lname'] = '';
+            }
+        }
     }
     
     public function post_message()
