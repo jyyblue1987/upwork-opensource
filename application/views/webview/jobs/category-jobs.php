@@ -170,7 +170,7 @@
                             <div style="border: 1px solid #ccc;border-radius: 3px;padding-bottom: 20px;" class='row white-box'>
                                 <div class="row ">
                                     <div style="margin-bottom: 8px;" class="col-md-9 no-padding">
-                                        <a style="color: #3bafdb;font-size: 16px;font-family: calibri;font-weight: bold;" href="<?php echo base_url() ?>Active_interview">Active Interview<p style="float: right;margin: 0;"><?= $no_of_interview ?></p></a>
+                                        <a style="color: #3bafdb;font-size: 16px;font-family: calibri;font-weight: bold;" href="<?php echo base_url() ?>Active_interview">Active Interview<p style="float: right;margin: 0;"><?= $int ?></p></a>
                                     </div>
                                 </div>
 
@@ -199,12 +199,12 @@
                                         <span style="font-size: 17px; margin: 0px 0px 0px -3px;font-family: calibri;font-weight: bold;" class="gray-text">Profile completeness</span>
 										
                                         <div style="margin-top: 10px;" class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:<?=$profilecompleteness['profileprogress'];?>%">
-                                                <?=$profilecompleteness['profileprogress'];?>%
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:<?=$profilecompleteness['pcompleteness'];?>%">
+                                                <?=$profilecompleteness['pcompleteness'];?>%
                                             </div>
                                         </div>
                                     </div>
-									<?php if($profilecompleteness['addpicture'] !=1){ ?>
+									<?php if($profilecompleteness['profilecompleteness']['addpicture'] !=1){ ?>
 										  <div class="col-md-12 element">
 											 <a href="<?php echo base_url();?>profile-settings">
 												<i class="fa fa-plus-circle" aria-hidden="true"></i> Add
@@ -212,7 +212,7 @@
 											 </a>
 										</div>
 									<?php } ?>
-									<?php if($profilecompleteness['addcat'] !=1){ ?>
+									<?php if($profilecompleteness['profilecompleteness']['addcat'] !=1){ ?>
 										<div class="col-md-12 element">
 											<a href="<?php echo base_url();?>categories/choose">
 												<i class="fa fa-plus-circle" aria-hidden="true"></i> Add
@@ -220,7 +220,7 @@
 											</a>
 										</div>
 									<?php } ?>
-									<?php if($profilecompleteness['addportfolio'] !=1){ ?>
+									<?php if($profilecompleteness['profilecompleteness']['addportfolio'] !=1){ ?>
 										<div class="col-md-12 element">
 											<a href="<?php echo base_url();?>profile/basic_bio">
 												<i class="fa fa-plus-circle" aria-hidden="true"></i> Add
@@ -228,7 +228,7 @@
 											</a>
 										</div>
 									<?php } ?>	
-									<?php if($profilecompleteness['addexp'] !=1){ ?>
+									<?php if($profilecompleteness['profilecompleteness']['addexp'] !=1){ ?>
 										<div class="col-md-12 element">
 											<a href="<?php echo base_url();?>profile/basic_bio">
 												<i class="fa fa-plus-circle" aria-hidden="true"></i> Add
@@ -236,7 +236,7 @@
 											</a>
 										</div>
 									<?php } ?>
-									<?php if($profilecompleteness['addedu'] !=1){ ?>
+									<?php if($profilecompleteness['profilecompleteness']['addedu'] !=1){ ?>
 										<div class="col-md-12 element">
 											<a href="<?php echo base_url();?>profile/basic_bio">
 												<i class="fa fa-plus-circle" aria-hidden="true"></i> Add
