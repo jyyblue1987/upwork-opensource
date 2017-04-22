@@ -39,7 +39,7 @@ ul.cus_main_side_nav_bar li{list-style: none!important;}
 	background: #fff;
     border: 1px solid #ccc;
     position: relative;
-    padding:10px;
+    padding-top:10px;
 }
 .buttonsidetwo {
 	padding: 15px;
@@ -229,41 +229,36 @@ ul.cus_main_side_nav_bar li{list-style: none!important;}
 	background: #fff;
 	border: 1px solid #ccc;
 	margin-top: 25px;
-	padding-top: 30px;
+	padding: 40px;
 	margin-bottom: 40px;
-	margin:0;
 	margin-top: 25px;
 	margin-bottom: 40px;
+
 }
-.protilo-left h2 {
+.protilo-left h3 {
 	font-family: "Calibri";
 	padding-bottom: 25px;
-	padding-top: 31px;
-	padding-left: 30px;
     color: #000;
+    margin:0;
 }
-.protfilhead h1 {
+.protfilhead h3 {
+	margin-top:0px;
 	font-family: "Calibri";
 	padding-bottom: 20px;
-	padding-left: 30px;
-	font-size: 22px;
 	font-weight: 800;
 }
 .exp-showcase {
-	padding-left: 30px;
     font-family: "Calibri";
-}
-.exp-showcase h4 {
 }
 .feedback_comment p {
 	padding-top: 10px;
 	font-family: "Calibri";
-	padding-left: 30px;
-	margin-bottom: 10px;
+	margin-bottom: 30px;
 }
-.protfilheadtwo h1 {
+.protfilheadtwo h3 {
 	font-family: "Calibri";
 	padding-bottom: 25px;
+	margin: 0;
 
 }
 .protfilio-bottom {
@@ -271,7 +266,6 @@ ul.cus_main_side_nav_bar li{list-style: none!important;}
 }
 .protfilheadtwo {
 	padding-bottom: 10px;
-	padding-left: 30px;
 }
 .port_img h1 a {
 	color: #494949;
@@ -295,9 +289,7 @@ ul.cus_main_side_nav_bar li{list-style: none!important;}
   margin-bottom: 5px;
   text-align: center;
 }
-.proftilbutt,.protilo-right,.proftilbutttwo {
-	margin-left: 102px;
-}
+
 .protfilheadtwo p, h2, h3, h4, h5, h6 {
 	/* padding-bottom: 21px; */
 	/* padding-left: 30px; */
@@ -307,10 +299,7 @@ ul.cus_main_side_nav_bar li{list-style: none!important;}
 	margin-bottom: 10px;
     font-family: "Calibri";
 }
-.education_head {
-	margin-left: 30px;
-	/* margin-bottom: 20px; */
-}
+
 .marg-top{margin-top:-5px;}
 /*Freelancer profile end*/
 
@@ -367,7 +356,8 @@ ul.cus_main_side_nav_bar li{list-style: none!important;}
 .marg-bot-0{margin-bottom:0px;}
 .h3{font-size: 20px;font-family: "Calibri";font-weight: 800;}
 .job-history{padding:10px 15px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; margin-top: 30px; border: 1px solid rgb(204, 204, 204);}
-.his_{border: 0;border-bottom: 1px solid #ccc;}
+.his_{border: 0;}
+.his_bord{border: 0;border-bottom: 1px solid #ccc;}
 .marg-5{margin-bottom: 5px;}
 .job-status{color: rgb(73, 73, 73); font-style: italic; font-size: 17.5px; font-weight: 500;margin-top:3px;}
 .pad-top-0{padding-top: 0px;}
@@ -375,7 +365,8 @@ ul.cus_main_side_nav_bar li{list-style: none!important;}
 .marg-bot--8{margin-bottom: -8px;}
 .pad-0{padding:0;}
 .pull-right{float:right;}
-h3.style{padding-top:5px;margin-bottom:-5px;float:right;font-size: 20px;font-family: "Calibri";}
+.pos-ab{position: absolute;}
+h3.style{margin-bottom:-5px;float:right;font-size: 20px;font-family: "Calibri";}
 .pull-left{float:left;}
 .marg-top-5{margin-top:5px;}
 .marg-right-5{margin-right:5px;}
@@ -384,17 +375,27 @@ h3.style{padding-top:5px;margin-bottom:-5px;float:right;font-size: 20px;font-fam
 .width-0{width:0%;}
 .text-right{text-align: right;}
 .h3-bot{position: absolute;top: 23px;}
-.marg-right-t8{margin-right:28px}
 .color-gray{color:gray;}
 .color-black{color:#000;}
 .color-company{color:#494949;}
 .marg-top-0{margin-top: 0px;}
 h6.text-right{margin: 0px}
 h3.text-right{margin:0px;padding-bottom: 0px;}
+.new_title{font-weight: 600;color: rgba(0,0,0,.85);}
+.new_company{line-height: 20px;font-weight: 400;color: rgba(0, 0, 0, 0.85);font-size: 17px;}
+.exp-but{float:right;font-size:25px;}
+p.exp-title {margin-bottom:0px;font-family: 'Calibri';margin-bottom:5px;}
+p.exp-company {margin:0px;}
+p.exp-company {margin:0px;}
+p.exp-title a{font-size:18px!important;color:#000!important;font-weight: bold;}
+p.exp-company a{font-size:17px!important;color:#000!important;}
+p.exp-year a{padding:0;margin-bottom:0!important;font-size:16px!important;color: rgba(0,0,0,.55);!important;}
+.marg-left-lg{margin-left: -5px;padding-left:-5px!important;}
 @media(max-width: 480px){
 	.buttonsidefoure{margin-top:20px!important;}
 	.job-history{padding-left:20px!important;}
 	.no-pad-mob{padding-left:0px;padding-right:0px!important;}
+	.edit-portfolio{width:100%;}
 }
 @media (min-width: 481px) and (max-width: 768px) {
 	.container {width: 740px;}
@@ -403,8 +404,10 @@ h3.text-right{margin:0px;padding-bottom: 0px;}
 }
 @media (min-width: 1200px) {
 	.container {width: 1000px;}
-	.job-history{padding:40px;
+	.job-history{padding:40px;}
+	.pad-left-right{padding-left:15px;padding-right:25px;}
 }
 @media (min-width: 1024px) {
 	.container {width: 1000px;}
+	.pad-left-right{padding-left:15px;padding-right:25px;}
 }

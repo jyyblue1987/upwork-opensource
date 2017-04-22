@@ -12,197 +12,77 @@ input[type=file] {
         visibility: hidden;
         margin-left: -40px;
     }
-    
     ul {
         list-style-type: none;
     }
-    
+    label.label-side{
+        font-size: 14px;
+    }
+    span.rating-badge {
+        background: #F77D0E none repeat scroll 0 0;
+        border-radius: 2px;
+        color: #fff;
+        padding: 2px 4px 2px 5px;
+        font-size: 12px;
+        float: left;
+    }
+    .hire_cover_letter span {
+        font-size: 15px;
+        font-weight: normal;
+    }
+    .decline {
+        margin-bottom: 20px;
+    }
+    .review_ratting {
+        margin-left: 15px;
+    }
 </style>
 
-<?php
-function time_elapsed_string($ptime)
-{
-    $etime = time() - $ptime;
-
-    if ($etime < 1)
-    {
-        return '0 seconds';
-    }
-
-    $a = array(365 * 24 * 60 * 60 => 'year',
-        30 * 24 * 60 * 60 => 'month',
-        24 * 60 * 60 => 'day',
-        60 * 60 => 'hour',
-        60 => 'minute',
-        1 => 'second'
-    );
-    $a_plural = array('year' => 'years',
-        'month' => 'months',
-        'day' => 'days',
-        'hour' => 'hours',
-        'minute' => 'minutes',
-        'second' => 'seconds'
-    );
-
-    foreach ($a as $secs => $str)
-    {
-        $d = $etime / $secs;
-        if ($d >= 1)
-        {
-            $r = round($d);
-            return $r . ' ' . ($r > 1 ? $a_plural[$str] : $str) . ' ago';
-        }
-    }
-}
-?>
-
-<?php
-/* find client payment set status start */
-$this->db->select('*');
-$this->db->from('job_accepted');
-$this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-$this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
-$this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
-$this->db->where('job_accepted.buser_id',$value->webuser_id);
-
-$query=$this->db->get();
-$accepted_jobs = $query->result();
-$total_feedbackScore=0 ;
-$total_budget=0 ;
-if (count($accepted_jobs) > 0) {
-    foreach($accepted_jobs as $job_data){
-        $this->db->select('*');
-        $this->db->from('job_feedback');
-        $this->db->where('job_feedback.feedback_userid',$job_data->fuser_id);
-        $this->db->where('job_feedback.sender_id !=',$job_data->fuser_id);
-        $this->db->where('job_feedback.feedback_job_id',$job_data->job_id);
-        $query=$this->db->get();
-        $jobfeedback= $query->row();
-        
-        if($job_data->jobstatus == 1){
-            if(!empty($jobfeedback)){
-                if($job_data->job_type == "fixed"){
-                    $total_price_fixed=$job_data->fixedpay_amount;
-                    $total_feedbackScore += ($jobfeedback->feedback_score *$total_price_fixed);
-                    $total_budget += $total_price_fixed;
-                }else{
-                    $this->db->select('*');
-                    $this->db->from('job_workdairy');
-                    $this->db->where('fuser_id',$job_data->fuser_id);
-                    $this->db->where('jobid',$job_data->job_id);
-                    $query_done = $this->db->get();
-                    $job_done = $query_done->result();
-                    $total_work = 0;
-                    foreach($job_done as $work){
-                        $total_work +=$work->total_hour;
-                    }
-                    
-                    if($job_data->offer_bid_amount) {
-                    $amount = $job_data->offer_bid_amount;
-                    } else {$amount =  $job_data->bid_amount;} 
-                     $total_price= $total_work *$amount;
-                    $total_budget += $total_price ;
-                    $total_feedbackScore += ($jobfeedback->feedback_score *$total_price);
-                }
-            }
-        }
-    }
-}
-
-$this->db->select('*');
-$this->db->from('billingmethodlist');
-$this->db->where('billingmethodlist.belongsTo', $value->webuser_id);
-// $this->db->where('billingmethodlist.paymentMethod', "stripe");
-$this->db->where('billingmethodlist.isDeleted', "0");
-$query = $this->db->get();
-$paymentSet = 0;
-if (is_object($query)) {
-    $paymentSet = $query->num_rows();
-}
-/* find client payment set status end */
-
-
-/* find total spent by client start */
-$client_id=$value->webuser_id;
-$query_spent = $this->db->query("SELECT SUM(payment_gross) as total_spent FROM `payments` INNER JOIN `webuser` ON `webuser`.`webuser_id` = `payments`.`user_id` INNER JOIN `jobs` ON `jobs`.`id` = `payments`.`job_id` INNER JOIN `job_accepted` ON `job_accepted`.`job_id` = `payments`.`job_id` INNER JOIN `job_bids` ON `job_bids`.`job_id` = `payments`.`job_id` WHERE `job_accepted`.`fuser_id` = `payments`.`user_id` AND
-    `job_bids`.`user_id` = `payments`.`user_id` AND `payments`.`buser_id` = $client_id");
-$row_spent = $query_spent->row();
-$total_spent=$row_spent->total_spent;
-/* find total soent by client end */
-
-?>
 
 <section id="big_header">
-
     <div class="container">
         <div class="row">
             <div class="col-md-9 col-md-offset-0 white-box job-cont">
                 <div class='form-msg'></div>
                 <div class="row">
                     <div class="col-md-10 page-label">
-                        <h1 class="job-title cos_job-title"><?php echo ucfirst($value->title) ?></h1>
+                        <h1 class="job-title cos_job-title"><?php echo $value->get_title() ?></h1>
                     </div>
                     
                     <div class="col-md-2 page-label">                        
-                        <span class="pull-right marg-top-neg"><?php 
-                         $timeDate = strtotime($value->job_created);
-                            $dateInLocal = date("Y-m-d H:i:s", $timeDate);
-                        echo time_elapsed_string(strtotime($dateInLocal)); ?></span>
+                        <span class="pull-right marg-top-neg"><?php echo $time ?></span>
                     </div>
                     
                 </div>
-<div class="jobdes-bordered-wrapper">
+                <div class="jobdes-bordered-wrapper">
                 <div class="row jobdes-bordered page-label">
                     <div class="col-md-3 text-center">
-                        <label class="lab-res">Job Type</label> <br /> <span><?php echo ucfirst($value->job_type) ?></span>
+                        <label class="lab-res">Job Type</label> <br /> <span><?php echo ucfirst($value->get_jobtype()) ?></span>
                     </div>
 
                     <div class="col-md-3 text-center page-label">
                         <label class="lab-res">
-                            <?php
-                            if ($value->job_type == 'hourly')
-                            {
-                                echo "Hourly Per week";
-                            } else
-                            {
-                                echo 'Budget $';
-                            }
-                            ?>
-                        </label><br /><span><?php
-                            if ($value->job_type == 'hourly')
-                            {
-                                echo $value->hours_per_week;
-                            } else
-                            {
-                                echo '$' . round($value->budget, 2);
-                            }
-                            ?></span>
+                            <?= $value->get_jobtype() == 'hourly' ? "Hourly Per week" : 'Budget $'; ?>
+                        </label><br /><span>
+                            <?= $value->get_jobtype() == 'hourly' ? $value->get_hrs_perweek() : '$' . round($value->get_budget(), 2); ?></span>
                     </div>
 
                     <div class="col-md-3 text-center page-label">
-                        <label class="lab-res">Job Duration</label><br /> <span><?php echo str_replace('_', '-', $value->job_duration) ?></span>
+                        <label class="lab-res">Job Duration</label><br /> <span><?php echo $value->get_duration() ?></span>
                     </div>
 
                     <div class="col-md-3 last-div text-center page-label">
-                        <label class="lab-res">Experience Level</label><br /> <span><?php echo ucfirst($value->experience_level); ?></span>
+                        <label class="lab-res">Experience Level</label><br /> <span><?php echo $value->get_exp() ?></span>
                     </div>
                 </div>
-</div>
+                </div>
 
                 <div class="row margin-top margin-top-15">
                     <div class="col-md-2">
                         <label class="job-cat">Job Category</label>
                     </div>
                     <div class="col-md-10 margin-top-4">
-                        <?php 
-                       
-                        $this->db->select('*');
-                        $this->db->from('job_subcategories'); 
-                        $this->db->where('subcat_id',$value->category);
-                        $query_done = $this->db->get();
-                        $result= $query_done->row();
-                        echo $result->subcategory_name;
-                        ?>
+                        <?php echo $value->get_subcategory(); ?>
                     </div>
                 </div>
 
@@ -214,12 +94,9 @@ $total_spent=$row_spent->total_spent;
                     <div class="col-md-10 skills page-label margin-top-neg-2">
                         <div class="custom_user_skills">
                             <?php
-                            if (isset($skills) && !empty($skills))
-                            {
-                                
-                                foreach($skills AS $key => $_skills){
-                                    foreach($_skills AS $skill)
-                                    echo "<span style='font-family: Calibri; font-size: 10.5px; padding-right: 5px;'>".ucwords($skill)."</span> ";
+                            if (isset($skills) && !empty($skills)) {
+                                foreach ($skills AS $key => $_skill) {
+                                    echo "<span> " . $_skill['skill_name'] . "</span> ";
                                 }
                             }
                             ?>
@@ -232,84 +109,49 @@ $total_spent=$row_spent->total_spent;
                         <label>Detail</label>
                     </div>
 
-                    <div class="col-md-12 text-justify page-label job-desc"><?php echo ucfirst($value->job_description) ?></div>
+                    <div class="col-md-12 text-justify page-label job-desc"><?php echo $value->get_jobdesc()?></div>
                 </div>
 
-                <?php if($value->userfile != ""){ ?>
-                <div class="row margin-top page-label">
-                    <div class="col-md-9">
-                        <label>Attachment</label>
+                <?php if ($value->get_attachments()[0] != "") { ?>
+                    <div class="row margin-top page-label margin-top-5">
+                        <div class="col-md-9">
+                            <label class="lab-details">Attachments</label>
+                        </div>
+                        <div class="col-md-12 text-justify page-label div-details">
+                            <?php
+                            foreach ($value->get_attachments() AS $attachment) {
+                                echo '<a href="' . site_url() . 'jobs/download?dir=' . $value->get_employerid() . '/' . $value->get_tid() . '&file=' . $attachment . ' ">' . $attachment . '</a><br>';
+                            }
+                            ?>
+                        </div>
                     </div>
-
-                    <div class="col-md-12 text-justify page-label job-desc">
-                         <?php 
-                    $attachments = explode(",", $value->userfile);
-                        foreach($attachments AS $attachment){
-                            echo '<a href="'.site_url().'jobs/download?dir='.$value->user_id.'/'.$value->tid.'&file='.str_replace('"','', $attachment).' ">'.str_replace('"','', $attachment).'</a><br>'; 
-                        }
-                    ?>
-                    </div>
-                </div>
                 <?php } ?>
                 
-<div class="jobdes-bordered-wrapper">
+                <div class="jobdes-bordered-wrapper">
                 <div class="row jobdes-bordered page-label">
                    
                     <div class="col-md-4 text-center">
- <?php 
- 
- 
-$this->db->select('*');
-$this->db->from('job_bids');
-$this->db->where(array('job_id'=>$value->job_id,'bid_reject'=>0, 'status!=1'=>null));
-$query =$this->db->get();
-$Proposals_count = $query->num_rows();
-//var_dump($value->id);var_dump($Proposals_count);die();
 
-$jobfeedback= $query->result();
-?>
                         <label class="lab-res">Proposals</label> <br /> <span>
-                       <?=$applicants;?>
+                       <?= $applicants; ?>
                         </span>
                     </div>
 
                     <div class="col-md-4 text-center page-label">
- <?php 
-$this->db->select('*');
-$this->db->from('job_conversation');
-$this->db->where('job_conversation.sender_id', $value->user_id);
-$this->db->join('job_bids', 'job_bids.id=job_conversation.bid_id', 'inner');
-$this->db->where('job_conversation.job_id', $value->job_id);
-$this->db->where('job_bids.bid_reject', 0);
-$this->db->group_by('bid_id'); 
-$query=$this->db->get();
-$interview_count = $query->num_rows();
-?>
-                        <label class="lab-res">Interviewing</label><br /> <span><?=$interviews;?> </span>
+                        <label class="lab-res">Interviewing</label><br /> <span><?= $interviews; ?> </span>
                     </div>
 
                     <div class=" last-div col-md-4 text-center page-label">
-<?php
-$this->db->select('*');
-$this->db->from('job_accepted');
-$this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
-$this->db->where('job_accepted.buser_id',$value->user_id);
-$this->db->where('job_accepted.job_id',$value->job_id);
-$this->db->where('job_bids.hired', '0' );
-$this->db->where('job_bids.jobstatus', '0' );
-$query=$this->db->get();
-$hire_count = $query->num_rows();
-?>
                         <label class="lab-res">Hired</label><br /> <span>
                             <?php echo $hires;?>
                         </span>
                     </div>
                 </div>
-    </div>
-            
+                </div>
+
             <form method="post" id='jobApply'>
-                <input type="hidden" name='job_id' id='jobId' value='<?php echo $value->job_id; ?>'/>
-                <input type="hidden" name='job_title' id='job_title' value='<?php echo $value->title; ?>'/>
+                <input type="hidden" name='job_id' id='jobId' value='<?php echo $value->get_jobid(); ?>'/>
+                <input type="hidden" name='job_title' id='job_title' value='<?php echo $value->get_title(); ?>'/>
                 <div class="col-md-12 white-box col-md-offset-0 proposed">
 
                     <div class="row">
@@ -329,10 +171,11 @@ $hire_count = $query->num_rows();
                                     <table>
                                         <tr>
                                             <td><span class="font-17">$</span> </td>
-                                            <td>                                        <?php
+                                            <td>
+                                        <?php
                                         $bidAmt = '';
                                         $perHrs='';
-                                        if ($value->job_type == 'hourly')
+                                        if ($value->get_jobtype() == 'hourly')
                                         {
                                             if ($rate)
                                             {
@@ -341,7 +184,7 @@ $hire_count = $query->num_rows();
                                                 $rateMsg = 1;
                                             $perHrs='/hr';
                                         }else{
-                                            $bidAmt = $value->budget;
+                                            $bidAmt = $value->get_budget();
                                         }
                                         ?>
                                         <input type="text" class="form-control pro-input" name='bid_amount' id='bid_amount' value='<?php echo $bidAmt; ?>'/></td>
@@ -397,7 +240,7 @@ $hire_count = $query->num_rows();
                         <div class="col-md-4"></div>
 
                     </div>
-                    <?php if ($value->job_type != 'hourly') { ?>
+                    <?php if ($value->get_jobtype() != 'hourly') { ?>
                     <div class="row margin-top-15">
                         <div class="col-md-12 page-label">
                             <label>Job Duration</label>
@@ -444,15 +287,6 @@ $hire_count = $query->num_rows();
                                     <input type="hidden" name="attachments" id="attachments" />
                                 </div>
                         </div>
-                        
-
-<!--                        <div class="col-md-12 job-attachment" style="display: none;">
-                            <div class="dropzone" id="my-dropzone" name="job_attachement">
-                                <div class="fallback">
-                                    <input name="job_attachement" type="file" multiple />
-                                </div>
-                            </div>
-                        </div>-->
                     </div>
 
                     <div class="row margin-top">
@@ -478,9 +312,7 @@ $hire_count = $query->num_rows();
                         <div class="row margin-top-2">
                             <div class="col-md-12">
                                 
-                                <?php
-if ($value->isactive && $paymentSet) {
-    ?>
+                                <?php if ($emp->is_active() == 1 && $payment_set) { ?>
                                         <i style="" class="fa fa-check-circle circ-check"></i>
                                         <?php
                                     } else {
@@ -489,42 +321,35 @@ if ($value->isactive && $paymentSet) {
                                         <?php
                                     }
                                     ?>
-                                <label class="pad-25"><?php echo ucfirst($value->webuser_fname) ?></label>
+                                <label class="pad-25"><?php echo ucfirst($emp->get_fname()) ?></label>
                                 
                                 
                             </div>
                         </div>
                         <div style="" class="row margin-top-2 border-bottom right-cont">
                             <div class="col-md-8 ">
-								<?php if($total_feedbackScore !=0 && $total_budget!=0){
-                                $totalscore = ($total_feedbackScore / $total_budget);
-                                $rating_feedback = ($totalscore/5)*100;
-                               ?>
-                                <button style="" class="totscore" id="buttonfirst"><?=number_format((float)$totalscore,1,'.','');?></button>
-								<div title="Rated <?=$totalscore;?> out of 5" class="star-rating revrat" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
-								<span style="width:<?=$rating_feedback;?>%">
-									<strong itemprop="ratingValue"><?=$totalscore;?></strong> out of 5
-								</span>
-								</div>
-							<?php  }else{ ?>
-                             <button style="" class="totscore"  id="buttonfirst">0.0</button>
-								<div style="" title="Rated 0 out of 5" class="star-rating revrat" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
-								<span class="width0">
-									<strong itemprop="ratingValue">0</strong> out of 5
-								</span>
-								</div>
-                          <?php   } ?>
+				<?php if ($rating != 0) { ?>
+                                        <span class="rating-badge"><?= number_format((float) $rating, 1, '.', ''); ?></span>
+                                        <div title="Rated <?= $rating; ?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em; margin-top:-5px; color:#DEDEDE; width: 4em">
+                                            <span style="width:<?= (( $rating / 5) * 100) ?>% ; margin-top:0px;">
+                                                <strong itemprop="ratingValue"><?= $rating; ?></strong> out of 5
+                                            </span>
+                                        </div>
+                                <?php } else { ?>
+                                        <span class="rating-badge">0.0</span>
+                                        <div title="Rated 0 out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em; margin-top:-5px;">
+                                            <span style="width:0% ;margin-top:-5px;">
+                                                <strong itemprop="ratingValue">0</strong> out of 5
+                                            </span>
+                                        </div>
+                                        <?php } ?>
                                
                             </div>
                         </div>
                         <div style="" class="row margin-top-2 border-bottom job-posted">
                             <div class="col-md-12">
                                 <label style="" class="label-side">
-                                   <?php if(!empty($record_sidebar)){
-                                        echo $record_sidebar;
-                                    }else{
-                                        echo "0";
-                                    } ?>
+                                   <?php echo $jobs_posted;  ?>
                                 <span class="span-side">Jobs Posted</span>
                                 </label>
                             </div>
@@ -532,7 +357,7 @@ if ($value->isactive && $paymentSet) {
                         <div class="row margin-top-2 border-bottom hired">
                             <div class="col-md-12">
                                 <label style="" class="label-side">
-                                <?=$hire;?> 
+                                <?= $total_hired ;?> 
                                 <span class="span-side">Hired</span>
                                 </label>
                             </div>
@@ -540,15 +365,7 @@ if ($value->isactive && $paymentSet) {
                         <div style="" class="row margin-top-2 border-bottom total-work">
                             <div class="col-md-12">
                                 <label style="" class="label-side">
-                                <?php $total_work = 0;
-                                    if(!empty($workedhours)){
-                                        foreach($workedhours as $work){
-                                            $total_work +=$work->total_hour;
-                                        }
-                                        echo $total_work." <span class='total-works'>Hours</span>";
-                                    }else{
-                                        echo " 0 <span class='total-works'>Hours Worked</span>";
-                                    }?>
+                                <?php echo $workedhours; ?> Hours Worked
                                 </label>
                             </div>
                         </div>
@@ -563,16 +380,9 @@ if ($value->isactive && $paymentSet) {
                         </div>
                         <div class="row margin-top-2 border-bottom">
                             <div style="" class="maste">
-                                
                                 <i class="fa fa-map-marker"></i>
-                                
                                 <label style="" class="label-side">
-                                <span class="span-side"><?php
-                                $this->db->where('country_id', $value->webuser_country);
-                                $q = $this->db->get('country');
-                                $record = $q->row();
-                                echo ucfirst($record->country_name);
-                                ?></span>
+                                <span class="span-side"><?= ucfirst($country) ?></span>
                                 </label>
                             </div>
                         </div>

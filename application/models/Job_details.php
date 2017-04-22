@@ -68,7 +68,7 @@ class Job_details extends CI_Model {
     }
     
     function get_title(){
-        return $this->title;
+        return ucwords($this->title);
     }
     
     function get_category(){
@@ -98,11 +98,22 @@ class Job_details extends CI_Model {
     }
     
     function get_duration(){
-        return str_replace('_', '-', $this->job_duration);
+        switch($this->job_duration){
+            case "not_sure":
+            case "more_than_6_months":
+            case "less_than_1_months":
+            case "less_than_1_week":
+                return ucfirst(str_replace('_', ' ', $this->job_duration));
+                break;
+            case "3_6_months":
+            case "1_3_months":
+                return substr(str_replace('_', '-', $this->job_duration), 0, 3).' months';
+                break;
+        }
     }
     
     function get_exp(){
-        return $this->exp_level;
+        return ucfirst($this->exp_level);
     }
     
     function get_budget(){
@@ -110,9 +121,15 @@ class Job_details extends CI_Model {
     }
     
     function get_hrs_perweek(){
-        return $this->hrs_per_week;
+        if($this->hrs_per_week == "not_sure"){
+            return ucfirst(str_replace('_', ' ', $this->hrs_per_week));
+        }else if($this->hrs_per_week == "40_plus"){
+            return "More than 40 hours";
+        }else{
+            return $this->hrs_per_week;
+        }
     }
-    
+
     function get_attachments(){
         $files = array();
         $attachments = explode(",", $this->files);

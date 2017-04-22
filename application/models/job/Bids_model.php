@@ -64,4 +64,13 @@ class Bids_model extends CI_Model {
         
         return $this->db->update('job_bids', $data);
     }
+        
+    public function insert_bid($data){
+        $this->db->insert('job_bids', $data);
+        return $this->db->insert_id();
+    }
+    
+    public function add_bid_attachment($dataAttach){
+        return $this->db->insert('job_bid_attachments', $dataAttach);
+    }
 }
