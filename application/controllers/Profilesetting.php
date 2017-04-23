@@ -44,7 +44,13 @@ class Profilesetting extends CI_Controller {
                     $user_timezone = date_default_timezone_get();
                 }
                 
-                $date_time_zone = new DateTimeZone($user_timezone);
+                try{
+                    $date_time_zone = new DateTimeZone($user_timezone);
+                }catch(\Exception $e){
+                    $user_timezone = date_default_timezone_get();
+                    $date_time_zone = new DateTimeZone($user_timezone);
+                }
+                
                 $time_offset    = format_GMT_offset( $date_time_zone->getOffset(new DateTime(NULL, $date_time_zone)) );
                 
                 $data = array(
