@@ -444,11 +444,17 @@ class Jobs_model extends CI_Model {
         return $this->db->get_where('jobs', $val, $limit, $offset);
     }
     
-    function filter_jobs($jobType, $jobDuration, $jobHours){
+    function filter_jobs($jobType, $jobDuration, $jobHours, $category, $sql, $keywords, $limit, $offset, $category){
+        
+        $val = array(
+                '1' => '1',
+                'status' => 1
+            );
+
         if (!empty($jobType)) {
             $jobType = explode(",", $jobType);
             foreach ($jobType as $type) {
-                $this->db->or_where('jobs.job_type', $type);
+                $this->db->where('jobs.job_type', $type);
             }
         }
         if (!empty($jobDuration)) {
@@ -463,5 +469,17 @@ class Jobs_model extends CI_Model {
                 $this->db->or_where('jobs.hours_per_week', $hour);
             }
         }
+        
+        if (empty($category)) {
+            if ($sql != "" && strlen($sql) >= 1) {
+                $this->db->where_in('jobs.category', $sql, FALSE);
+
+                if (strlen($keywords) > 0) {
+                    $this->db->like("jobs.title", $keywords);
+                    $this->db->or_like("jobs.job_description", $keywords);
+                }
+            }
+        }
+        return $this->db->get_where('jobs', $val, $limit, $offset);
     }
 }

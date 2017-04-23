@@ -245,8 +245,8 @@ class Jobs extends Winjob_Controller {
         $limit = 10;
         $records = array();
 
-        $this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
-        $this->db->order_by("jobs.id", "desc");
+//        $this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
+//        $this->db->order_by("jobs.id", "desc");
 
         if ($this->input->is_ajax_request()) {
             
@@ -271,10 +271,6 @@ class Jobs extends Winjob_Controller {
                     }
                 }
             }
-            
-            $val = array(
-                '1' => '1',
-            );
 
             $offset = $limit * $offsetId;
             $keywords = $this->input->post('keywords');
@@ -283,47 +279,10 @@ class Jobs extends Winjob_Controller {
                 if ($sql != "" && strlen($sql) >= 1) {
                     if ($this->session->userdata('type') == '2') {
 
-                        $val = array(
-                            '1' => '1',
-                            'status' => 1
-                        );
-
-                        $this->db->where_in('jobs.category', $sql, FALSE);
-
-                        if (strlen($keywords) > 0) {
-                            $this->db->like("jobs.title", $keywords);
-                            $this->db->or_like("jobs.job_description", $keywords);
-                        }
-
-                        $query = $this->db->get_where('jobs', $val, $limit, $offset);
-
-                        $jobTypeQuery = '';
-                        if (!empty($jobType)) {
-                            $jobTypeQuery = implode(',', array_map(function($arr){
-                                return "'" . $arr . "'";
-                            }, $jobType));
-
-                            $jobTypeQuery = ' AND (jobs.job_type IN (' . $jobTypeQuery . '))';
-
-                        }
-
-                        $sortQuery = " ORDER BY jobs.created DESC ";
-                        if($sort == 0){
-                            $sortQuery = " ORDER BY jobs.created ASC ";
-                        }
-
-                        $query = $this->db->query(
-                                "SELECT * FROM jobs "
-                                . "LEFT JOIN webuser "
-                                . "ON webuser.webuser_id=jobs.user_id "
-                                . "WHERE jobs.status = 1 "
-                                . "AND jobs.category in(" . $sql . ") "
-                                . "AND (jobs.title like '%" . $keywords . "%' "
-                                . "OR jobs.job_description like '%" . $keywords . "%') {$jobTypeQuery} "
-                                . $sortQuery
-                                . "LIMIT " . $offset . ',' . $limit);
+                        $query = $this->jobs_model->filter_jobs($jobType, $jobDuration, $jobHours, $category, $sql, $keywords, $limit, $offset, $category);
 
                     } else if ($this->session->userdata('type') == '1') {
+
                         $val = array(
                             'user_id' => $id,
                             'status' => 1
@@ -361,22 +320,21 @@ class Jobs extends Winjob_Controller {
 
                 if ($query->num_rows() > 0 && is_object($query)){
                     $records = $query->result();
-                    $s=array();
+
                     foreach ($records as $record) {
-                        $q="SELECT job_skills.skill_name from job_skills where job_skills.job_id ='";
-                        $q.=$record->id."'";
-                        $skills = $this->db->query($q)->result();
-                        if(!empty($skills)){
-                            foreach($skills as $skill){
-                                array_push($s,$skill->skill_name);
-                            }
-                        }
-                        else{
-                            continue;
-                        }
-                        $record->skills=$s;
-                        $s=[];
-                        }
+                        $employer = new Employer($record->user_id);
+                        $job      = new Job_details($employer->get_userid(), $record->id);
+
+                        $record->skills         = $this->Skills_model->get_skills($record->id);
+                        $record->payment_set    = $this->payment_methods_model->get_primary($employer->get_userid());
+                        $record->is_active      = $employer->is_active();
+                        $record->total_spent    = $this->payment_model->get_amount_spent($employer->get_userid());
+                        $record->rating         = $this->Webuser_model->get_total_rating($employer->get_userid(), true);
+                        $record->country        = ucfirst($employer->get_country());
+                        $record->job_created    = $this->process->time_elapsed_string($record->job_created);
+                        $record->bids           = $this->process->get_job_bids($record->id);
+                        $record->hrs_per_week   = $job->get_hrs_perweek();
+                    }
                 }
 
                 $data = array('records' => $records, 'limit' => $limit);
