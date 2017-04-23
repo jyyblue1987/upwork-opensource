@@ -284,36 +284,13 @@ class Jobs extends Winjob_Controller {
                             'user_id' => $id,
                             'status' => 1
                         );
-                        $query = $this->db->get_where('jobs', $val, $limit, $offset);
+
+                        $query = $this->jobs_model->jobs_by_category($val, $limit, $offset);
                     }
                 }
             } else {
-
-                $jobTypeQuery = '';
-                if (!empty($jobType)) {
-                    $jobTypeQuery = implode(',', array_map(function($arr){
-                        return "'" . $arr . "'";
-                    }, $jobType));
-
-                    $jobTypeQuery = ' AND (jobs.job_type IN (' . $jobTypeQuery . '))';
-                }
-                    
-                $sortQuery = " ORDER BY jobs.created DESC ";
-                    if($sort == 0){
-                        $sortQuery = " ORDER BY jobs.created ASC ";
-                    }
-
-                    $query = $this->db->query(""
-                            . "SELECT * FROM jobs "
-                            . "LEFT JOIN webuser "
-                            . "ON webuser.webuser_id=jobs.user_id "
-                            . "WHERE jobs.status = 1 "
-                            . "AND jobs.category in(" . implode(',', $category) . ") "
-                            . "AND (jobs.title like '%" . $keywords . "%' "
-                            . "OR jobs.job_description like '%" . $keywords . "%') {$jobTypeQuery} "
-                            . $sortQuery
-                            . "LIMIT " . $offset . ',' . $limit);
-                }
+                $query = $this->jobs_model->filter_jobs($jobType, $jobDuration, $jobHours, $category, $sql, $keywords, $limit, $offset, $category, $sort);
+            }
 
                 if ($query->num_rows() > 0 && is_object($query)){
                     $records = $query->result();
@@ -336,9 +313,10 @@ class Jobs extends Winjob_Controller {
 
                 $data = array('records' => $records, 'limit' => $limit);
                 $content = $this->load->view('webview/jobs/content', $data, true);
+                
                 die (json_encode([
                     'result' => $content,
-                    'count' => count($records)
+                    'count'  => count($records)
                 ]));
             } else {
 
@@ -346,7 +324,7 @@ class Jobs extends Winjob_Controller {
                 if (intval($jobCat) > 0) {
                     $val = array(
                         'category' => $jobCat,
-                        'status' => 1
+                        'status'   => 1
                     );
                     $jobCatPage = true;
                     $query = $this->jobs_model->jobs_by_category($val, $limit, $offset);
@@ -376,7 +354,6 @@ class Jobs extends Winjob_Controller {
                 } else {
                     $records = null;
                 }
-
 
                 $profile_progress = $this->ProfileModel->get_profile_completeness($this->user_id);
                 $active_interview = $this->process->get_active_interviews($this->user_id);

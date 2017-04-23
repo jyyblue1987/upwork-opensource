@@ -419,7 +419,7 @@ class Jobs_model extends CI_Model {
                 } else {
                     $this->db->where_in('jobs.category', $sql, FALSE);
                 }
-
+                $this->db->order_by("jobs.id", "DESC");
                 $query = $this->db->get_where('jobs', $val, $limit, $offset);
 
             } else if ($this->session->userdata('type') == '1') {
@@ -427,7 +427,7 @@ class Jobs_model extends CI_Model {
                     'user_id' => $id,
                     'status' => 1
                 );
-
+                $this->db->order_by("jobs.id", "DESC");
                 $query = $this->db->get_where('jobs', $val, $limit, $offset);
             }
         } else {
@@ -444,7 +444,7 @@ class Jobs_model extends CI_Model {
         return $this->db->get_where('jobs', $val, $limit, $offset);
     }
     
-    function filter_jobs($jobType, $jobDuration, $jobHours, $category, $sql, $keywords, $limit, $offset, $category){
+    function filter_jobs($jobType, $jobDuration, $jobHours, $category, $sql, $keywords, $limit, $offset, $category, $sort = FALSE){
         
         $val = array(
                 '1' => '1',
@@ -460,13 +460,13 @@ class Jobs_model extends CI_Model {
         if (!empty($jobDuration)) {
             $jobDuration = explode(",", $jobDuration);
             foreach ($jobDuration as $duretion) {
-                $this->db->or_where('jobs.job_duration', $duretion);
+                $this->db->where('jobs.job_duration', $duretion);
             }
         }
         if (!empty($jobHours)) {
             $jobHours = explode(",", $jobHours);
             foreach ($jobHours as $hour) {
-                $this->db->or_where('jobs.hours_per_week', $hour);
+                $this->db->where('jobs.hours_per_week', $hour);
             }
         }
         
@@ -475,11 +475,29 @@ class Jobs_model extends CI_Model {
                 $this->db->where_in('jobs.category', $sql, FALSE);
 
                 if (strlen($keywords) > 0) {
-                    $this->db->like("jobs.title", $keywords);
+                    $this->db->where("jobs.title", $keywords);
+                    $this->db->or_like("jobs.job_description", $keywords);
+                }
+            }
+        }else{
+            if ($sql != "" && strlen($sql) >= 1) {
+                $this->db->where_in('jobs.category', $sql);
+
+                if (strlen($keywords) > 0) {
+                    $this->db->where("jobs.title", $keywords);
                     $this->db->or_like("jobs.job_description", $keywords);
                 }
             }
         }
+
+        if($sort != FALSE){
+            if($sort == 0){
+                $this->db->order_by('jobs.job_created', 'ASC');
+            }else{
+                $this->db->order_by('jobs.job_created', 'DESC');
+            }
+        }
+        
         return $this->db->get_where('jobs', $val, $limit, $offset);
     }
 }
