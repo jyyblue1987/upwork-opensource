@@ -245,11 +245,8 @@ class Jobs extends Winjob_Controller {
         $limit = 10;
         $records = array();
 
-//        $this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
-//        $this->db->order_by("jobs.id", "desc");
-
         if ($this->input->is_ajax_request()) {
-            
+
             $category    = array();
             $jobCat      = $this->input->post('jobCat');
             $jobType     = $this->input->post('jobtype');
@@ -257,7 +254,7 @@ class Jobs extends Winjob_Controller {
             $jobHours    = $this->input->post('jobweekhour');
             $offsetId    = $this->input->post('limit');
             $keywords    = $this->input->post('keywords');
-            
+
             if (intval($offsetId) >= 0 == false) {
                 $offsetId = 0;
             }
