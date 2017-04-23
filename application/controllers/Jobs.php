@@ -271,25 +271,7 @@ class Jobs extends Winjob_Controller {
                     }
                 }
             }
-            if (!empty($jobType)) {
-                $jobType = explode(",", $jobType);
-                foreach ($jobType as $type) {
-                    $this->db->or_where('jobs.job_type', $type);
-                }
-            }
-            if (!empty($jobDuration)) {
-                $jobDuration = explode(",", $jobDuration);
-                foreach ($jobDuration as $duretion) {
-                    $this->db->or_where('jobs.job_duration', $duretion);
-                }
-            }
-            if (!empty($jobHours)) {
-                $jobHours = explode(",", $jobHours);
-                foreach ($jobHours as $hour) {
-                    $this->db->or_where('jobs.hours_per_week', $hour);
-                }
-            }
-
+            
             $val = array(
                 '1' => '1',
             );
@@ -417,12 +399,13 @@ class Jobs extends Winjob_Controller {
                 } else {
                     $query = $this->jobs_model->load_jobs($this->input->get('q'), $sql, $limit, $offset, $id);
                 }
+       
                 if (is_object($query) && $query->num_rows() > 0) {
                     $records = $query->result();
 
                     foreach ($records as $record) {
-                        $employer = new Employer($record->webuser_id);
-                        $job = new Job_details($record->id);
+                        $employer = new Employer($record->user_id);
+                        $job      = new Job_details($employer->get_userid(), $record->id);
 
                         $record->skills         = $this->Skills_model->get_skills($record->id);
                         $record->payment_set    = $this->payment_methods_model->get_primary($employer->get_userid());
@@ -438,46 +421,21 @@ class Jobs extends Winjob_Controller {
                 } else {
                     $records = null;
                 }
-                $user_id = $this->user_id;
-                $active_interview = $this->process->get_active_interviews($this->user_id);
-                $data['int'] = $active_interview['rows'];
 
-                $this->db->select('*');
-                $this->db->from('job_bids');
-                $this->db->where('job_bids.user_id', $user_id);
-                $this->db->where('job_bids.status', 0);
-
-                $this->db->where('job_bids.job_progres_status', 0);
-                $this->db->where(array('job_bids.withdrawn' => NULL));                
-                
-                $this->db->group_by('job_bids.id');
-                $query_proposal = $this->db->get();
-                
-                if (is_object($query)) {
-                    $proposal_no = $query_proposal->num_rows();
-                } else {
-                    $proposal_no = null;
-                }
 
                 $profile_progress = $this->ProfileModel->get_profile_completeness($this->user_id);
-
-                $this->db->select('*');
-                $this->db->from('webuser');
-                $this->db->where('webuser.webuser_id', $id);
-                $query_status = $this->db->get();
-                $ststus = $query_status->row();
-                
-                $offers = $this->process->get_total_offers($id);
+                $active_interview = $this->process->get_active_interviews($this->user_id);
+                $offers           = $this->process->get_total_offers($this->user_id);
                 
                 $data = array(
                     'js'                  => array('internal/find_job.js'), 
                     'records'             => $records, 
                     'offers'              => $offers['rows'], 
                     'limit'               => $limit, 
-                    'no_of_interview'     => count($record), 
-                    'proposal_no'         => $proposal_no, 
+                    'int'                 => $active_interview['rows'], 
                     'profilecompleteness' => $profile_progress, 
-                    'ststus'              => $ststus
+                    'status'              => $this->Webuser_model->get_status($this->user_id),
+                    'proposals'           => $this->process->get_proposed_bids($this->user_id)
                 );
 
                 if (isset($subCateList) && !empty($subCateList)) {
@@ -487,16 +445,6 @@ class Jobs extends Winjob_Controller {
                 }
                 $data['jobCatSelected'] = $jobCat;
 
-                $freelancer_proposals = $this->process->get_proposed_bids($user_id);
-                $data['proposals']    = $freelancer_proposals;
-
-                $sql = "SELECT cropped_image FROM webuser WHERE webuser_id =  " . $this->session->userdata(USER_ID);
-                $croppedImage =    $this->db->query($sql)->row();
-                $data['croppedImage'] = $croppedImage;
-                
-                $active_interview = $this->process->get_active_interviews($user_id);
-                $data['int'] = $active_interview['rows'];
-                
                 if ($jobCatPage) {
 
                     if ((isset($keywords)) && (strlen($keywords) > 0)) {
@@ -508,7 +456,7 @@ class Jobs extends Winjob_Controller {
                     $this->Admintheme->webview("jobs/category-jobs", $data);
                 } else {
                     $data['page'] = "find-jobs";
-                    $data['css']  = array("","","","assets/css/pages/find-jobs.css");
+                    $data['css']  = array("", "", "", "assets/css/pages/find-jobs.css");
                     $this->Admintheme->custom_webview("jobs/jobs-search", $data);
                 }
             }

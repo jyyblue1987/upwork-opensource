@@ -47,35 +47,37 @@
 
 <?php
 if (count($records) > 0) {
-    foreach ($records as $key => $value) { ?>
+    foreach ($records as $key => $value) {
+        ?>
         <div style="margin-top: -15px;" class="row" id="all-jobs">
             <div style="margin-bottom: 5px;" class="col-md-12 col-md-offset-0 page-jobs no-pad">
                 <h1 style="margin-bottom: 12px;"><a style="font-family: 'Calibri';font-size: 22px;color: rgb(2, 143, 204);" href="<?php echo site_url("jobs/" . url_title($value->title) . '/' . base64_encode($value->id)); ?>"><?php echo ucfirst($value->title) ?></a></h1>			
                 <div class="custom_find_job">
                     <h5><b><?php echo ucfirst($value->job_type) ?></b></h5>
                     <h5><b>-</b></h5>
-                    <h5 style="margin-right: 10px;"><b><?php
-                        if ($value->job_type == 'hourly') {
-                            echo $value->hrs_per_week . " hours/wk";
-                        } else {
-                            echo '$' . round($value->budget, 2);
-                        }
-                        ?>
-                    </b></h5>
+                    <h5 style="margin-right: 10px;"><b>
+                            <?php
+                            if ($value->job_type == 'hourly') {
+                                echo $value->hrs_per_week . " hours/wk";
+                            } else {
+                                echo '$' . round($value->budget, 2);
+                            }
+                            ?>
+                        </b></h5>
 
                     <h5 style="margin-right: 10px;"><?php
-                            echo ucfirst($value->experience_level);
-                            if (trim($value->experience_level) == 'Entry level')
-                                echo " ($)";
-                            else if (trim($value->experience_level) == 'Entermediate')
-                                echo " ($$)";
-                            else
-                                echo " ($$$)";
-                            ?></h5> 
-              
+                        echo ucfirst($value->experience_level);
+                        if (trim($value->experience_level) == 'Entry level')
+                            echo " ($)";
+                        else if (trim($value->experience_level) == 'Entermediate')
+                            echo " ($$)";
+                        else
+                            echo " ($$$)";
+                        ?></h5> 
+
                     <h5 style="margin-right: 10px;">Posted: <?php
-                    echo $value->job_created;
-                    ?></h5>
+                        echo $value->job_created;
+                        ?></h5>
                     <h5><b><?php echo $value->bids; ?></b> quotes</h5>
                 </div>
             </div>
@@ -88,29 +90,28 @@ if (count($records) > 0) {
                     <h6 style="float:left;font-size: 14px;margin: 0;margin-top: 3px;margin-right: -8px;" class="page-sub-title more">Attachment</h6>
                     <div class="attachments">
                         <br>
-            <?php
-            $attachments = explode(",", $value->userfile);
-            foreach ($attachments AS $attachment) {
-                echo '<a href="' . site_url() . 'jobs/download?dir=' . $value->user_id . '/' . $value->tid . '&file=' . str_replace('"', '', $attachment) . ' ">' . str_replace('"', '', $attachment) . '</a><br>';
-            }
-            ?>
+                        <?php
+                        $attachments = explode(",", $value->userfile);
+                        foreach ($attachments AS $attachment) {
+                            echo '<a href="' . site_url() . 'jobs/download?dir=' . $value->user_id . '/' . $value->tid . '&file=' . str_replace('"', '', $attachment) . ' ">' . str_replace('"', '', $attachment) . '</a><br>';
+                        }
+                        ?>
                     </div>
                 </div>
-                    <?php } ?>
+        <?php } ?>
 
             <div class="col-md-12 col-md-offset-0 page-jobs no-pad" style=" margin-bottom: 10px;">
 
                 <h6 style="float:left;font-size: 14px;margin: 0;margin-top: 3px;margin-right: -8px;" class="page-sub-title more">Skills</h6>
                 <div class="custom_user_skills">
                     <br>
-        <?php
-
-        if (isset($value->skills) && !empty($value->skills)) {
-            foreach ($value->skills AS $skills) {
-                echo "<span style='font-family: Calibri; font-size: 10.5px; padding-right: 5px;'>" . ucwords($skills['skill_name']) . "</span> ";
-            }
-        }
-        ?><br>
+                    <?php
+                    if (isset($value->skills) && !empty($value->skills)) {
+                        foreach ($value->skills AS $skills) {
+                            echo "<span style='font-family: Calibri; font-size: 10.5px; padding-right: 5px;'>" . ucwords($skills['skill_name']) . "</span> ";
+                        }
+                    }
+                    ?><br>
                 </div>
             </div>
 
@@ -118,9 +119,9 @@ if (count($records) > 0) {
                 <nav>
                     <ul class="job-navigation custom_find_job_bottom">
 
-        <?php
-        if ($value->is_active == 1 && $value->payment_set) {
-            ?>
+                        <?php
+                        if ($value->is_active == 1 && $value->payment_set) {
+                            ?>
                             <li>
                                 <i style="color: rgb(2, 143, 204);" class="fa fa-check-circle"></i>Verified
                             </li>
@@ -137,12 +138,12 @@ if (count($records) > 0) {
                         <li><b>$<?php echo round($value->total_spent, 0); ?></b> Spent</li>
                         <li style="padding-top: 5px;margin-bottom: 4px;">
                             <?php if ($value->rating != 0) { ?>
-                            <span class="rating-badge"><?= number_format((float) $value->rating, 1, '.', ''); ?></span>
-                                        <div title="Rated <?= $value->rating; ?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em; margin-top:-5px; color:#DEDEDE; width: <?= $value->rating - 1 ?>em">
-                                            <span style="width:<?= (( $value->rating / 5) * 100) ?>% ; margin-top:0px;">
-                                                <strong itemprop="ratingValue"><?= $value->rating; ?></strong> out of 5
-                                            </span>
-                                        </div>
+                                <span class="rating-badge"><?= number_format((float) $value->rating, 1, '.', ''); ?></span>
+                                <div title="Rated <?= $value->rating; ?> out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em; margin-top:-5px; color:#DEDEDE; width: <?= $value->rating - 1 ?>em">
+                                    <span style="width:<?= (( $value->rating / 5) * 100) ?>% ; margin-top:0px;">
+                                        <strong itemprop="ratingValue"><?= $value->rating; ?></strong> out of 5
+                                    </span>
+                                </div>
                             <?php } else { ?>
                                 <span style="font-size: 10px;background: #F77D0E;padding: 2px 5px;border-radius: 2px;margin-right: 1px;" class="rating-badge">0.0</span>
                                 <div title="Rated 0 out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="top:-5px;height: 1.2em;">
@@ -162,12 +163,12 @@ if (count($records) > 0) {
         </div>
         <div class="line custon_line no-pad"></div>
         <br/>
-                            <?php
-                        }
-                    } else {
-                        ?>
+        <?php
+    }
+} else {
+    ?>
     <h3 style="text-align: center; padding-bottom: 35px;" class="no-result-container">No Results Found</h3>
-    <?php }
+<?php }
 ?>
 <script type="text/javascript" src="<?= site_url() ?>assets/js/dynamic_shorten.js"></script>
 <script type="text/javascript" src="<?= site_url() ?>assets/js/internal/show_moretext.js"></script>

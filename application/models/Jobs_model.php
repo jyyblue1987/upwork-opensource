@@ -438,6 +438,30 @@ class Jobs_model extends CI_Model {
     }
     
     function jobs_by_category($val, $limit, $offset){
+        $this->db
+                ->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left')
+                ->order_by("jobs.id", "desc");
         return $this->db->get_where('jobs', $val, $limit, $offset);
+    }
+    
+    function filter_jobs($jobType, $jobDuration, $jobHours){
+        if (!empty($jobType)) {
+            $jobType = explode(",", $jobType);
+            foreach ($jobType as $type) {
+                $this->db->or_where('jobs.job_type', $type);
+            }
+        }
+        if (!empty($jobDuration)) {
+            $jobDuration = explode(",", $jobDuration);
+            foreach ($jobDuration as $duretion) {
+                $this->db->or_where('jobs.job_duration', $duretion);
+            }
+        }
+        if (!empty($jobHours)) {
+            $jobHours = explode(",", $jobHours);
+            foreach ($jobHours as $hour) {
+                $this->db->or_where('jobs.hours_per_week', $hour);
+            }
+        }
     }
 }
