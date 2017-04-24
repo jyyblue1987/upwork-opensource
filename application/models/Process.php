@@ -77,7 +77,7 @@ class Process extends CI_Model {
                 ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
                 ->where('job_progres_status', 2)
                 ->where('withdrawn',  NULL)
-                ->where(array('job_id' => $job_id));
+                ->where(array('job_id' => $job_id, 'hired' => '1'));
         $query = $this->db->get();
 
         $return_array = array();
@@ -324,7 +324,7 @@ class Process extends CI_Model {
     
     function get_total_offers($user_id){
         $this->db
-                ->select('*')
+                ->select('*, job_bids.id as bid_id')
                 ->from('job_bids')
                 ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
                 ->where('job_bids.job_progres_status', 2)
@@ -444,8 +444,8 @@ class Process extends CI_Model {
     public function get_active_interviews($user_id){
         $this->db
                 ->select('jobs.*, job_bids.*,webuser.*,job_bids.user_id AS bid_user_id,job_bids.status AS bid_status,job_bids.created AS bid_created,job_conversation.bid_id AS jbid_id')
-                ->join('job_bids', 'jobs.id=job_bids.job_id', 'left')
-                ->join('webuser', 'jobs.user_id=webuser.webuser_id', 'left')
+                ->join('job_bids', 'jobs.id=job_bids.job_id', 'inner')
+                ->join('webuser', 'jobs.user_id=webuser.webuser_id', 'inner')
                 ->join('job_conversation', 'job_bids.id=job_conversation.bid_id', 'left')
                 ->where('job_bids.user_id',$user_id)
                 ->where('job_bids.status','0')

@@ -518,4 +518,20 @@ function format_timezone_name($name) {
     return $name;
 }
 
+function app_convert_date_in_local($date_string, $timezone)
+{
+    try{
+        $local_timezone = new DateTimeZone($timezone);
+    }
+    catch(\Exception $e)
+    {
+        $local_timezone = new DateTimeZone(date_default_timezone_get());
+    }
+    
+    $_date = new DateTime($date_string, new DateTimeZone('UTC'));
+    $_date->setTimezone($local_timezone);
+    $convert_date = \Carbon\Carbon::createFromTimestamp($_date->getTimestamp(), $local_timezone);
+    return $convert_date;
+}
+
 // added by (Donfack Zeufack Hermann) end

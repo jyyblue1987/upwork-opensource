@@ -1,0 +1,63 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 23 avr. 2017, 14:16:50
+    Author     : Hermannovich <donfack.hermann@gmail.com>
+*/
+
+a{ 
+    text-decoration: none !important;
+}
+
+.offer-container{
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.offer-container .row, 
+.offer_made_side{
+    margin-top: 20px;
+}
+
+.offer_title,
+.accept_cus_right_txt {
+    font-size: 16px;
+    font-family: "Calibri";
+}
+
+.accept_cus_right_txt{
+    font-size: 17px;
+}
+
+.offer_date{
+   margin-top: 20px; 
+}
+
+.offer_date span{
+    color: red;
+    font-size: 17px;
+}
+
+.job_details{
+    border-top: 1px solid #ccc;
+}
+.no-padding-right{
+    padding-right: 0;
+}
+
+.no-padding-left{
+    padding-left: 0;
+}
+
+.no-float,
+.no-float input{ float: none; }
+
+.offer_bordered {
+    border: 1px solid #ccc;
+    border-radius: 3px;    
+}
+
+.accept_cus_right_txt{ margin-left: 0}

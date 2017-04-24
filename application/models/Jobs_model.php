@@ -45,6 +45,30 @@ class Jobs_model extends CI_Model {
         return $query->row();
     }
     
+    public function load_offer($job_id, $bid_id){
+        
+        $fields = array(
+            'jobs.*', 
+            'jobs.user_id as client_id',
+            'job_bids.*', 
+            'job_bids.status as bid_status', 
+            'jobs.job_duration as jobduration',
+            'job_bids.id as bid_id',
+            'job_bids.created as bid_created'
+        );
+        
+        $query = $this->db->select($fields)
+                    ->join('job_bids', 'jobs.id=job_bids.job_id', 'inner')
+                    ->where('job_bids.id', $bid_id)
+                    ->where('job_bids.job_id', $job_id)
+                    ->where('job_bids.hired', '1')
+                    ->where('job_bids.job_progres_status','2')
+                    ->where('job_bids.status', 0)
+                    ->get('jobs');
+            
+        return $query->row();
+    }
+    
     public function load_job_status($sender_id, $user_id, $job_id, $with_country = false) {
         
         $this->db->select('*, job_bids.created AS bid_created, job_bids.id as bid_id, jobs.status AS job_status,jobs.job_duration AS jobduration,jobs.created AS job_created, webuser.cropped_image, job_bids.status as bid_status');

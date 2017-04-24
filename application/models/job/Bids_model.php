@@ -9,6 +9,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Bids_model extends CI_Model {
     
+    public function load_informations( $bid_id )
+    {
+        $query = $this->db->select('*')
+                    ->from('job_bids')
+                    ->where('id', $bid_id)
+                    ->get();
+        
+        return $query->row();
+    }
+    
     public function load($job_id, $fuser_id){
         
         $this->db->select('*');

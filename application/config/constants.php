@@ -169,3 +169,6 @@ defined('WITHDRAW_PAYONEER')  || define('WITHDRAW_PAYONEER', 'payoneer');
 
 defined('WITHDRAW_PROCESSED')    || define('WITHDRAW_PROCESSED', 'processed');
 defined('WITHDRAW_PENDING')    || define('WITHDRAW_PENDING', 'pending');
+
+
+defined('POSTED_JOB_VALID_DURATION')  || define('POSTED_JOB_VALID_DURATION', 30); //30 days before display job expiration.

@@ -1,0 +1,86 @@
+{% extends "webview/layout/twig/layout.twig" %}
+
+{% block title %}  Confirm offer agreement - Winjob  {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ site_url("assets/css/bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/font-awesome.min.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/fonts.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/header.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/croppic.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/footer.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/bootstrap-socil.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/normalize.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/style.css") }}">
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/accept-offers.css") }}">
+{% endblock %}
+
+{% block content %}
+    <div class="white-box-feed accept-offers-container job_accept_2">
+        <div class="row">
+            <div class="col-md-12">
+                
+                <form method="post" id='offerconfirmed' action="">
+
+                    <div class="row">
+                        <div class="col-md-12"><span class="accept_title">Accept Offer</span></div>
+                    </div>
+                    <div class="row margin-top">
+                        <div class="col-md-3 col-xs-12"><label class="gray-text">Send a Message</label></div>
+                        <div class="col-md-8">
+                            <textarea rows="6" cols="" class="form-control" name="confo_notes" id="confo_notes"></textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="row margin-top-1">
+                        <div class="col-md-3 col-xs-12"><label class="gray-text">&nbsp;</label></div>
+                        <div class="col-md-8">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="terms" id="terms">
+                                    I agree to the Winjob  <a href="#"> Terms and Conditions, Policies</a>
+                                </label>
+                            </div> 
+                        </div>
+                    </div>
+
+
+                    <div class="row margin-top-2">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-8">
+                            
+                            <input name="client_id" type="hidden" id="client_id"  value="{{ client_details.webuser_id }}"  />
+                            <input name="bid_id" type="hidden" id="bid_id"  value="{{ bid_id }}"  />
+                            <input name="job_id" type="hidden" id="job_id"  value="{{ job_id }}"  />
+                            <input type="hidden" name='cnfirmed' value='0'/>
+                            
+                            <input type="button" class="btn-primary transparent-btn big_mass_button custom_blue_button" id="accept_offer" value="Accept Offer" />
+                            
+                            <a href="{{ base_url('jobs/offers?fmJob=' ~ job_id ~ '&bid_id=' ~ bid_id ) }}">
+                                <input type="button" class="btn-primary transparent-btn big_mass_button" value="Cancel" />
+                            </a>
+                        </div>
+                    </div>
+                                
+                    <div class="row margin-top-2">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-8">
+                            <div id="notif-container" class="alert hide"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+
+    {# this variable defines the asset/modular/pages file to load #}
+    <script> var page = 'accept-offers';</script>
+
+    <script data-main="{{ app_modular_js("winjob") }}" src="{{ app_modular_js("lib/require.dev.js") }}"></script>
+    <script src="{{ site_url("assets/js/vendor/modernizr-2.8.3.min.js") }}"></script>
+
+{% endblock %}

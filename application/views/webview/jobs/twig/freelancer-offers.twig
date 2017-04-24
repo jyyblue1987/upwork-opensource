@@ -1,0 +1,221 @@
+{% extends "webview/layout/twig/layout.twig" %}
+                                    
+{% block title %}  {{ app_lang('text_job_freelancer_offers_title') }} - Winjob  {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ site_url("assets/css/bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/font-awesome.min.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/fonts.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/header.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/croppic.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/footer.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/bootstrap-socil.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/normalize.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/style.css") }}">
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/freelancer-offer.css") }}">
+{% endblock %}
+
+{% block content %}
+    <div class="white-box-feed offer-container offer_bordered ">
+        
+        <div class="offer_made_side row">
+            <h4>Offer Made By</h4>
+
+            <div class="pull-left">
+                <div class="st_img">
+                    <img src="{{ app_user_img(client_details.webuser_picture) }}" width="64" height="64" />
+                </div>
+            </div>
+            <div class="col-md-9 text-left margin-left">
+                <label class="blue-text">
+                    {{ client_details.webuser_fname ~ ' ' ~ client_details.webuser_lname }}
+                </label> 
+                <br> 
+                {{ client_details.webuser_company }}
+            </div>
+            
+            {% if job_details.hire_title is empty %}
+                {% set job_title = job_details.title %}
+            {% else %}
+                {% set job_title = job_details.hire_title %}
+            {% endif  %}
+            
+            {% set username  = client_details.webuser_fname ~ ' ' ~ client_details.webuser_lname %}
+
+            <div class="pull-right gray-text">
+		<div class="c_offer_msg hour_btn">
+                    <input type="button" 
+                            class="btn-primary transparent-btn big_mass_button _job_btn_message"
+                            data-bid="{{ job_details.bid_id }}"
+                            data-uid="{{ client_details.webuser_id }}"
+                            data-jid="{{ job_details.id }}"
+                            data-title="{{ job_title }}"
+                            value="{{ app_lang('text_job_btn_message') }}">
+        	</div>
+            </div>
+        </div>
+                
+        <div class="row job_details">
+            <div class="col-md-12 text-left blue-text">
+                <div class="offer_date">
+                    {% set job_start_date = str_replace('/', '-',job_details.start_date) %}
+                    {% set local_datetime = app_convert_date_in_local(job_start_date , user_timezone) %}
+                    <span>Pending, Expire on {{ local_datetime.copy().addDays(constant('POSTED_JOB_VALID_DURATION')).format(' F j, Y ') }}</span>
+                </div>
+            </div>
+        </div>
+                
+        <div class="row">
+            <div class="col-md-3">
+                <div class="offer_title">
+                    <label><b>Job Title: </b></label>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-12 col-xs-12 accept_cus_right_txt">
+                <b>{{ job_title }}</b>
+                <br/>
+                <a href="{{ base_url('jobs') }}/{{ job_details.title|replace(' ', '-') }}/{{ base64_encode(job_details.job_id) }}">
+                    View Origial job post
+                </a>
+            </div>
+        </div>
+                    
+        {% if job_details.job_type == 'hourly' %}
+            <div class="row">
+                {% if job_details.offer_bid_amount !="" %}
+                    {% set rate = job_details.offer_bid_amount %}
+                {% else %}
+                    {% set rate = job_details.bid_amount %}
+                {% endif %}
+                                                
+                <div class="col-md-3">
+                    <div class="offer_title">
+                        <label><b>Hourly Rate: </b></label>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-12 col-xs-12 accept_cus_right_txt">
+                    <b>${{ rate ~ '/hr' }}</b>
+                </div>
+            </div>        
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="offer_title">
+                        <label><b>Weekly Limit: </b></label>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-12 col-xs-12 accept_cus_right_txt">
+                    <b>{{ job_details.weekly_limit }} {% if job_details.weekly_limit > 1 %}Hrs{% else %}Hr{% endif %}</b>
+                </div>
+            </div>
+        {% else %}
+            
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="offer_title">
+                        <label><b>Budget Rate: </b></label>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-12 col-xs-12 accept_cus_right_txt">
+                    <b>${{ job_details.hired_on }}</b>
+                </div>
+            </div>
+                
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="offer_title">
+                        <label><b>Budget Type: </b></label>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-12 col-xs-12 accept_cus_right_txt">
+                    {% set type = job_details.fixed_pay_status %}
+                    {% if type == 1 %}
+                        Paid All
+                    {% elseif type == 0 %}
+                        Paid Nothing
+                    {% elseif type == 2 %}
+                        Milestone
+                    {% endif %}
+                </div>
+            </div>
+                    
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="offer_title">
+                        <label><b>Paid Amount: </b></label>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-12 col-xs-12 accept_cus_right_txt">
+                    <b>
+                        {% if type == 1 or type == 2 %}
+                            ${{ job_details.fixedpay_amount }}
+                        {% else %}
+                            $0.00
+                        {% endif %}
+                    </b>
+                </div>
+            </div>
+                
+        {% endif %}
+        
+        <div class="row">
+            <div class="col-md-3">
+                <div class="offer_title">
+                    <label><b>Offer date: </b></label>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-12 col-xs-12 accept_cus_right_txt">
+                {{ local_datetime.format(' F j, Y ') }}
+            </div>
+        </div>
+                
+        <div class="row">
+            <div class="col-md-3">
+                <div class="offer_title">
+                    <label><b>Job Duration: </b></label>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-12 col-xs-12 accept_cus_right_txt">
+                {{ job_details.jobduration|replace('_', '-') }}
+            </div>
+        </div>
+                
+        <div class="row">
+            <div class="col-md-3">
+                <div class="offer_title">
+                    <label><b>Message to Client: </b></label>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-12 col-xs-12 accept_cus_right_txt">
+                {{ job_details.hire_message }}
+            </div>
+        </div>
+            
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6 text-center">
+                <a class="no-float" href="{{ base_url('jobs/offers/accept?fmJob=' ~ base64_encode(job_details.job_id) ~ '&fmBiD=' ~ base64_encode( job_details.bid_id ) ) }}"> 
+                    <input type="button"class="btn-primary big_mass_active transparent-btn big_mass_button" style="margin-right: 4px;" value="Accept" />
+                </a>
+               
+                <button class="btn-primary transparent-btn big_mass_button no-float" id='_btn_decline_offer' data-bid="{{ job_details.bid_id }}" >
+                    Decline Offer
+                </button>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div id='notif-container' class="alert hide"></div>
+        </div>
+    </div>
+    
+    {{ include('webview/modals/message-conversion-modal.twig', {'webuser_fname': client_details.webuser_fname, 'webuser_lname': client_details.webuser_lname , 'job_title': job_title }) }}
+{% endblock %}
+
+{% block js %}
+    
+    {# this variable defines the asset/modular/pages file to load #}
+    <script> var page = 'freelancer-offer'; </script>
+    
+    <script data-main="{{ app_modular_js("winjob") }}" src="{{ app_modular_js("lib/require.dev.js") }}"></script>
+    <script src="{{ site_url("assets/js/vendor/modernizr-2.8.3.min.js") }}"></script>
+    
+{% endblock %}

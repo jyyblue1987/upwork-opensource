@@ -1,1 +1,86 @@
-{# empty Twig template #}
+{% extends "webview/layout/twig/layout.twig" %}
+                                    
+{% block title %}  {{ app_lang('text_job_my_offers_title') }} - Winjob  {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ site_url("assets/css/bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/font-awesome.min.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/fonts.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/header.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/croppic.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/footer.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/bootstrap-socil.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/normalize.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/style.css") }}">
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/Active_interview.css") }}">
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/my-offers.css") }}">
+{% endblock %}
+
+{% block content %}
+    <div class="white-box-feed my-offers-container">
+        <div class="row">
+            <div class="col-md-12 bottom-blue-border padding-2">
+                <span><b>My Offers </b></span>
+                <span class="badge">{{ offers['rows'] }}</span>
+            </div>
+            <div class="col-md-9 text-center bordered-alert margin-top" >
+                {% if offers['rows'] != 0 %}
+                    {% if offers['rows'] == 1 %}
+                        {% set offers_text = " Offer Available" %}
+                    {% else %}
+                        {% set offers_text = " Offers Available" %}
+                    {% endif %}
+                    {% set msg_offers = offers['rows'] ~ offers_text %}
+                {% else %}
+                    {% set msg_offers = "No Pending Job Offers" %}
+                {% endif %}
+                {{ msg_offers }}
+            </div>
+        </div>
+            
+        <div class="row margin-top-15">
+            <div class="col-md-2 col-sm-6 col-xs-6">
+                <label>Applied Date</label>
+            </div>
+
+            <div class="col-md-10 col-sm-6 col-xs-6">
+                <label>Job Title</label>
+            </div>
+        </div>
+            
+        {% for offer in offers['data'] %}
+            <div class="row">
+                <div class="col-md-12 custom_bids_list_border">
+                    <div class="row">
+                        {% set local_datetime = app_convert_date_in_local(offer.job_created, user_timezone) %}
+                        <div class="col-md-2 col-sm-6 col-xs-6">{{ local_datetime.format(' M j, Y ') }}</div>
+                        <div class="col-md-10 blue-text col-sm-6 col-xs-6">
+                            <a href="{{ base_url('jobs/offers?fmJob=' ~ base64_encode(offer.job_id) ~ '&bid_id=' ~ base64_encode(offer.bid_id) ) }}"> 
+                             {{ offer.title }} 
+                             </a>
+                        </div>
+                    </div>
+
+                     <div class="row margin-top-1">
+                        <div class="col-md-2 col-xs-6 col-sm-6">
+                            {{ app_time_elapsed_string( local_datetime.timestamp ) }}
+                        </div>
+                        <div class="col-md-10  col-xs-6 col-sm-6">
+                           {{ offer.webuser_company }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block js %}
+    
+    {# this variable defines the asset/modular/pages file to load #}
+    <script> var page = 'my-offers'; </script>
+    
+    <script data-main="{{ app_modular_js("winjob") }}" src="{{ app_modular_js("lib/require.dev.js") }}"></script>
+    <script src="{{ site_url("assets/js/vendor/modernizr-2.8.3.min.js") }}"></script>
+    
+{% endblock %}

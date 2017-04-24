@@ -20,6 +20,7 @@ class Winjob_Controller extends CI_Controller {
             'functions' => array(
                 'character_limiter',
                 'app_substr',
+                'str_replace',
                 'url_title',
                 'app_date',
                 'base64_encode',
@@ -34,7 +35,7 @@ class Winjob_Controller extends CI_Controller {
                 'app_user_img',
                 'has_flash', 'flashdata', 'csrf_name', 'csrf_token',
                 'app_time_elapsed_string', 'strtotime', 'app_workdiary_capture', 
-                'current_user_datetime', 'round', 'get_all_php_timezones'
+                'current_user_datetime', 'round', 'get_all_php_timezones', 'app_convert_date_in_local'
              )
         ));
         // added by (Donfack Zeufack Hermann) end
@@ -60,7 +61,7 @@ class Winjob_Controller extends CI_Controller {
     }
     
     private function initialize_global_view_variable(){
-        $this->load->model('notification_model');
+        $this->load->model(array('notification_model', 'webuser_model'));
         $user_id = $this->session->userdata('id');
         $this->twig->addGlobal('notification', $this->conversation->index());
         $this->twig->addGlobal('notification_details', $this->conversation->details());
@@ -69,6 +70,7 @@ class Winjob_Controller extends CI_Controller {
         $this->twig->addGlobal('clientend', $this->conversation->clientend());
         $this->twig->addGlobal('notif_count', $this->notification_model->user_notification_count( $user_id ));
         $this->twig->addGlobal('notifications', $this->notification_model->user_notification( $user_id ));
+        $this->twig->addGlobal('user_timezone', $this->webuser_model->get_address_field('timezone',  $user_id ));
     }
     
         

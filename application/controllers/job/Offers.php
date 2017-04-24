@@ -24,13 +24,23 @@ class Offers extends Winjob_Controller{
         parent::load_language();
         $this->lang->load('job', $this->get_default_lang());
         $this->load->model( array( 
-            'webuser_model', 'skills_model', 'jobs_model', 
-            'payment_methods_model', 'job/bids_model', 'payment_model'
+            'webuser_model', 
+            'skills_model', 
+            'jobs_model', 
+            'payment_methods_model', 
+            'job/bids_model', 
+            'payment_model', 
+            'process'
         ));
     }
     
     public function index()
     {
+        //Display offer for decision
+        if($this->session->userdata('type') == FREELANCER)
+            return $this->decide_on_offer();
+        
+        //display offer on client side.
         $this->checkForEmployer();
         
         // check if account is suspend then redirect to payment start 
@@ -65,12 +75,364 @@ class Offers extends Winjob_Controller{
             'job_details'  => $job,
             'user_details' => $webuser_profile,
             'bid_details'  => $bid,
-            'current_date' => date('d/m/Y'),
+            'current_date' => date('d-m-Y'),
             'decoded_f_id' => $decoded_f_id,
             'decoded_j_id' => $decoded_j_id
         );
         
         $this->twig->display("webview/jobs/twig/offers", $data);
+    }
+    
+    public function decide_on_offer()
+    {
+        $this->checkForFreelancer();
+         
+        $user_id = $this->session->userdata(USER_ID);
+        
+        $job_id = $this->input->get('fmJob');
+        $bid_id = $this->input->get('bid_id');
+        
+        if(empty($job_id) || empty($bid_id))
+        {
+            $this->session->set_flashdata('error', 'Some parameters are missing.');
+            redirect(back());
+        }
+        
+        $job_id        = base64_decode($job_id);
+        $bid_id        = base64_decode($bid_id);
+        $job_details   = $this->jobs_model->load_offer($job_id, $bid_id );
+        
+        if(empty($job_details))
+        {
+            $this->session->set_flashdata('error', 'Offer does not exists or has been withdrawn by client.');
+            redirect(back());
+        }
+        
+        $user_details  = $this->webuser_model->load_profile( $user_id );
+        $client_detail = $this->webuser_model->load_profile( $job_details->client_id );
+        
+        $data = array(
+            'job_details'        => $job_details, 
+            'client_details'     => $client_detail, 
+            'user_details'       => $user_details
+        );
+        
+        $this->twig->display("webview/jobs/twig/freelancer-offers", $data);
+    }
+    
+    private function _generate_characters( $length )
+    {
+        $alphabets = range('A', 'Z');
+        $numbers = range('0', '9');
+        $final_array = array_merge($alphabets, $numbers);
+        $rcovercode = '';
+        $length = 10;
+        while ($length--) {
+            $key = array_rand($final_array);
+            $rcovercode .= $final_array[$key];
+        }
+        
+        return $rcovercode;
+    }
+    
+    public function accept()
+    {
+        if(is_post())
+        {
+            if ( ! $this->Adminlogincheck->checkx() ){
+                $this->ajax_response (array(
+                    'message' => 'Refresh your browser before to process',
+                    'status'  => 'error'
+                ));
+            }
+
+            if ($this->session->userdata('type') != FREELANCER) 
+            {
+                $this->ajax_response (array(
+                    'message' => 'You do not have the rights to decline this offer.',
+                    'status'  => 'error'
+                ));
+            }
+            
+            parse_str($this->input->post('form'), $form);
+            
+            $user_id   = $this->session->userdata( USER_ID );
+            $client_id = $form['client_id'];
+            $message   = trim(rtrim($form['confo_notes']));
+            $job_id    = $form['job_id'];
+            $bid_id    = $form['bid_id'];
+            $terms     = $form['terms'];
+            
+            if(empty($message))
+            {
+                $this->ajax_response (array(
+                    'message' => 'Please enter a message.',
+                    'status'  => 'error'
+                ));
+            }
+            
+            if($terms != 'on')
+            {
+                $this->ajax_response (array(
+                    'message' => 'Please accept the user agreement.',
+                    'status'  => 'error'
+                ));
+            }
+            
+            if(empty($bid_id) || empty($job_id) || empty($client_id ) || !is_numeric($client_id))
+            {
+                $this->ajax_response (array(
+                    'message' => 'Please refresh your browser and try again.',
+                    'status'  => 'error'
+                ));
+            }
+            
+            $job_id    = base64_decode($form['job_id']);
+            $bid_id    = base64_decode($form['bid_id']);
+            
+            $bid = $this->bids_model->load_informations($bid_id);
+        
+            if(empty($bid) || $bid->job_progres_status != 2 || $bid->hired != '1' || $bid->user_id != $user_id)
+            {
+                $this->ajax_response (array(
+                    'message'  => 'You accept or decline this offer.',
+                    'status'   => 'error',
+                    'redirect' => true,
+                    'redirect_url' => site_url('my-offers')
+                ));
+            }
+            
+            /* contact id */
+            $contact_id = $user_id . '_' . $this->_generate_characters( 10 );
+            $payment    = '$'.$bid->bid_earning;
+            
+            $client_address = $this->webuser_model->load_address($client_id);
+            
+            if(!empty($client_address))
+            {
+                $address  = $client_address->address.' '.$client_address->address1;
+                $address1 = $client_address->city.' '.$client_address->state.' '.$client_address->zipcode;
+                $country  = $client_address->country;
+            }
+            
+            $freelancer_tax = $this->webuser_model->load_tax_informations($user_id);
+            
+            if(!empty($freelancer_tax))
+            {
+                $fl_address  = $freelancer_tax->address.' '.$freelancer_tax->address_line1;
+                $fl_address1 = $freelancer_tax->city.' '.$freelancer_tax->state.' '.$freelancer_tax->zipcode;
+                $fl_country  = $freelancer_tax->country;
+            }
+            
+            
+            $freelancer_address = $this->webuser_model->load_address($user_id);
+            
+            if(!empty($client_address))
+            {
+                $address_profile  = $freelancer_address->address.' '.$freelancer_address->address1;
+                $address1_profile = $freelancer_address->city.' '.$freelancer_address->state.' '.$freelancer_address->zipcode;
+                $country_profile  = $freelancer_address->country;
+            }
+            
+            $job        = $this->jobs_model->load_informations($bid->job_id);
+            
+            if (!empty($job)) {
+                $job_title = $job->title;
+            }
+            
+            $freelancer = $this->webuser_model->load_informations( $user_id );
+            $client     = $this->webuser_model->load_informations( $client_id );
+            
+            $client_name     = ($client->webuser_fname . ' ' . $client->webuser_lname);
+            $freelancer_name = ($freelancer->webuser_fname . ' ' . $freelancer->webuser_lname);
+                    
+            $subject      = "Invoice for Contract $contact_id";
+            $company_name = $freelancer->webuser_company;
+            
+            $details = array(
+                'fname'         => $freelancer_name,
+                'company'       => 'Winjob',
+                'verification'  => site_url()."jobs/" . str_replace(' ', '-', $job_title) . "/" . $form['job_id'],
+                'slogan'        => 'Hire Talented Freelancers For a Low Cost',
+                'para1'         => 'You have successfully received '.$payment.' from '.$company_name.'. Please see details below.',
+                'payment'       => $payment,
+                'company_name'  => $company_name,
+                'client'        => $client_name,
+                'date'          => date('F j, Y'),
+                'contract'      => $contact_id,
+                'invoice_no'    => mt_rand() . "<br>",
+                'job_title'     => $job_title
+            );
+            
+            $details_employer = array(
+                'company'      => 'Winjob',
+                'slogan'       => 'Hire Talented Freelancers For a Low Cost',
+                'payment'      => $payment,
+                'company_name' => $company_name,
+                'client'       => $client_name,
+                'freelancer'   => $freelancer_name,
+                'date'         => date('F j, Y'),
+                'contract'     => $contact_id,
+                'invoice_no'   => !empty($invoice_no) ? $invoice_no : null,
+                'job_title'    => $job_title,
+                'address'      => $address,
+                'address1'     => $address1,
+                'country'      => $country,
+                'fl_address'   => $fl_address ? $fl_address : $address_profile,
+                'fl_address1'  => $fl_address1 ? $fl_address1 : $address1_profile,
+                'fl_country'   => $fl_country ? $fl_country : $country_profile
+            );
+            
+            //Email sent to client when offer is accepted 
+            $accept_subject = "Job Offer has been Accepted by $freelancer_name";
+            $accept_email = array(
+                'company'      => 'Winjob',
+                'slogan'       => 'Hire Talented Freelancers For a Low Cost',
+                'fname'        => $client_name,
+                'verification' => site_url()."jobs/" . str_replace(' ', '-', $job_title) . "/" . $form['job_id'],
+                'para1'        => 'Your contract has started with ' . $freelancer_name . '. Please review the job post below.',
+            );
+            
+            //Email sent to freelancer when offer is accepted
+            $accept_freelancer_sbj = "You have Accepted Job Offer from $client_name";
+            $accept_freelancer = array(
+                'company'      => 'Winjob',
+                'slogan'       => 'Hire Talented Freelancers For a Low Cost',
+                'fname'        => $freelancer_name,
+                'verification' => site_url()."jobs/" . str_replace(' ', '-', $job_title) . "/" . $form['job_id'],
+                'para1'        => 'Your contract has started with '.$client_name.'. Please review the job post below.',
+            );
+            
+            $this->Sesmailer->sesemail($freelancer_name, $subject, $this->Emailtemplate->emailview('freelancer_invoice', $details));
+            $this->Sesmailer->sesemail($client->webuser_email,$subject,$this->Emailtemplate->emailview('employer_invoice', $details_employer));
+            $this->Sesmailer->sesemail($client->webuser_email,$accept_subject,$this->Emailtemplate->emailview('job_offer', $accept_email));
+            $this->Sesmailer->sesemail($freelancer->webuser_email,$accept_freelancer_sbj,$this->Emailtemplate->emailview('job_offer', $accept_freelancer));
+            
+            $offer_confo_data = array(
+                'fuser_id'   => $user_id,
+                'job_id'     => $job_id,
+                'buser_id'   => $client_id,
+                'bid_id'     => $bid_id,
+                'comments'   => $message,
+                'contact_id' => $contact_id,
+            );
+            
+            $this->db->insert('job_accepted', $offer_confo_data);
+            
+            $this->bids_model->update(array(
+                'job_progres_status' => 3,
+                'hired' => '0'
+            ), array(
+                'user_id' => $user_id ,
+                'job_id'  => $job_id
+            ));
+            
+            $this->ajax_response (array(
+                'message'      => 'Offer accepted.',
+                'status'       => 'success',
+                'redirect'     => true,
+                'redirect_url' => site_url('win-jobs')
+            ));
+        }
+        else
+        {   
+            $this->authorized();
+            
+            $job_id = $this->input->get('fmJob');
+            $bid_id = $this->input->get('fmBiD');
+
+            if(empty($job_id) || empty($bid_id))
+            {
+                $this->session->set_flashdata('error', 'Some parameters are missing.');
+                redirect(back());
+            }
+
+            $display_job_id = $job_id;
+            $display_bid_id = $bid_id;
+            $job_id         = base64_decode($job_id);
+            $bid_id         = base64_decode($bid_id);
+            $job_details    = $this->jobs_model->load_offer($job_id, $bid_id );
+
+            if(empty($job_details))
+            {
+                $this->session->set_flashdata('error', 'Offer does not exists or has been withdrawn by client.');
+                redirect(back());
+            }
+
+            $user_id = $this->session->userdata('id');
+
+            $user_details  = $this->webuser_model->load_profile( $user_id );
+            $client_detail = $this->webuser_model->load_profile( $job_details->client_id );
+
+            $data = array(
+                'user_details'   => $user_details, 
+                'client_details' => $client_detail,
+                'job_id'         => $display_job_id,
+                'bid_id'         => $display_bid_id
+            );
+
+            $this->twig->display('webview/jobs/twig/accept-offer', $data);
+        }
+    }
+    
+    public function decline()
+    {
+        if ( ! $this->Adminlogincheck->checkx() ){
+            $this->ajax_response (array(
+                'message' => 'Refresh your browser before to process',
+                'status'  => 'error'
+            ));
+        }
+        
+        if ($this->session->userdata('type') != FREELANCER) 
+        {
+            $this->ajax_response (array(
+                'message' => 'You do not have the rights to decline this offer.',
+                'status'  => 'error'
+            ));
+        }
+        
+        $bid_id  = $this->input->post('bid_id');
+        
+        if(empty($bid_id))
+        {
+            $this->ajax_response (array(
+                'message' => 'Please refresh your browser and try again.',
+                'status'  => 'error'
+            ));
+        }
+        
+        $user_id = $this->session->userdata( USER_ID );
+        
+        $bid = $this->bids_model->load_informations($bid_id);
+        
+        if(empty($bid) || $bid->job_progres_status != 2 || $bid->hired != '1' || $bid->user_id != $user_id)
+        {
+            $this->ajax_response (array(
+                'status'   => 'error',
+                'redirect' => true,
+                'redirect_url' => site_url('my-offers')
+            ));
+        }
+        
+        if($this->bids_model->update(array('hired' => '0'), array('id' => $bid_id)))
+        {
+            //refund if client has make milestone or full paid.
+            
+            $this->ajax_response (array(
+                'message'      => 'Well done! You have successfully decline offer.',
+                'status'       => 'success',
+                'redirect'     => true,
+                'redirect_url' => site_url('jobs-home')
+            ));
+        }
+        else
+        {
+            $this->ajax_response (array(
+                'message'      => 'An error has occured! Try to refresh your page and try again.',
+                'status'       => 'error',
+            ));
+        }
     }
     
     public function hired()
@@ -183,10 +545,10 @@ class Offers extends Winjob_Controller{
         
         $bid_data = array(
             'job_progres_status' =>  2, 
-            'hired'              =>  1,
+            'hired'              =>  '1',
             'hire_title'         =>  ( !empty($title) ? $title : $job->title ), 
             'hire_message'       =>  $message,
-            'start_date'         =>  $start_date
+            'start_date'         =>  str_replace('/', '-', $start_date)
         ); 
         
         if( $job->job_type == FIXED_JOB_TYPE )
@@ -273,6 +635,16 @@ class Offers extends Winjob_Controller{
                 'status'  => 'error'
             ));
         }
+    }
+
+    public function active()
+    {
+        $this->checkForFreelancer();
+        
+        $user_id = $this->session->userdata(USER_ID);
+        $offers  = $this->process->get_total_offers($user_id);
+        
+        $this->twig->display('webview/jobs/twig/my-offers', compact('offers'));
     }
 }
 

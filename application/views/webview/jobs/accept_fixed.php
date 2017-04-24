@@ -22,8 +22,8 @@
 									width="64" height="64" />
 							</div>
 							<div class="col-md-7 text-left margin-left-3">
-								<label class="blue-text">Edward East</label> <br> Billion Dollar
-								Baby
+								<label class="blue-text">Edward East</label> 
+                                                                <br> Billion Dollar Baby
 							</div>
 						</div>
 					</div>

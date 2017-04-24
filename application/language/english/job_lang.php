@@ -197,3 +197,5 @@ $lang['text_job_hire_confirm']   = 'Confirm hire';
 $lang['text_job_hire_job_title'] = 'Job Title:';
 $lang['text_job_hire_contact_details'] = 'Contact Details';
 $lang['text_job_hire_title_optional']  = 'Title (Optional) :';
+$lang['text_job_my_offers_title'] = 'My offers';
+$lang['text_job_freelancer_offers_title'] = 'Job offer';

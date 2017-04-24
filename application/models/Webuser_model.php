@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Webuser_model extends CI_Model {
     
-    public function load_informations($id, $with_skill = false) {
+    public function load_informations($id) {
         
         $this->db->select('*');
         $this->db->from('webuser');
@@ -18,7 +18,27 @@ class Webuser_model extends CI_Model {
         return $query_status->row();
     }
     
-    public function load_profile($id, $with_skill = false)
+    public function load_address($id) {
+        
+        $query = $this->db->select('*')
+                    ->from('webuseraddresses')
+                    ->where('webuseraddresses.webuser_id', $id)
+                    ->get();
+        
+        return $query->row();
+    }
+    
+    public function load_tax_informations($id) {
+        
+        $query = $this->db->select('*')
+                    ->from('webuser_tax_information')
+                    ->where('webuser_tax_information.webuser_id', $id)
+                    ->get();
+        
+        return $query->row();
+    }
+    
+    public function load_profile($id)
     {
         $this->db->select(
                 'webuser.*, webuser_basic_profile.tagline, '
@@ -92,13 +112,32 @@ class Webuser_model extends CI_Model {
                     ->get();
         
         $webuser  = $query->row();
-        $username = '';
+        $field_value = '';
         
         if(isset($webuser)){
-            $username = $webuser->{$field_name};
+            $field_value = $webuser->{$field_name};
         }
         
-        return $username;
+        return $field_value;
+        
+    }
+    
+    public function get_address_field( $field_name, $user_id ){
+        
+        $query = $this->db
+                    ->select( $field_name )
+                    ->from('webuseraddresses')
+                    ->where('webuseraddresses.webuser_id', $user_id)
+                    ->get();
+        
+        $address  = $query->row();
+        $field_value = '';
+        
+        if(isset($address)){
+            $field_value = $address->{$field_name};
+        }
+        
+        return $field_value;
         
     }
     
