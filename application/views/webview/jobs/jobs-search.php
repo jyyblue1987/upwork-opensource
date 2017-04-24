@@ -1,13 +1,3 @@
-<?php
-$Conversation = new Conversation();
-$notification = $Conversation->index();
-$notification_details = $Conversation->details();
-$job_alert_count = $Conversation->job_alert();
-
-
-$freelancerend = $Conversation->freelancerend();
-$clientend = $Conversation->clientend();
-?>
 <section id="big_header">
 <?php if ($offers != 0) { ?>
             <div class="row margin-top-1">
@@ -179,18 +169,9 @@ $clientend = $Conversation->clientend();
 
                         </div>
                         <div  class="row white-box text-center side-content margin-top-space">
-                            <?php
-                            $user_id = $this->session->userdata('id');
-                            // var_dump($user_id);die();
-                            $this->db->select('*');
-                            $this->db->from('webuser');
-                            $this->db->where('webuser.webuser_id',$user_id);
-                            $query= $this->db->get();
-                            $webuser = $query->row();
-                            ?>
                             <div class="col-md-12">
                                 <label class="blue-text side-menu-j"><?php echo $this->session->userdata("fname") . " " . $this->session->userdata("lname"); ?></label><br>
-                                <a class="side-menu-j" href="<?php echo site_url('profile/'.$webuser->webuser_username); ?>" class="view-profile">View Profile</a>
+                                <a class="side-menu-j" href="<?php echo site_url('profile/'.$this->session->userdata("username")); ?>" class="view-profile">View Profile</a>
 
                             </div>
                         </div>
