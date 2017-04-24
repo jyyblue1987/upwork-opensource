@@ -1,4 +1,19 @@
-<section id="big_header"  style=" margin-bottom: 40px; height: auto;">
+<style>
+    .load-more
+    {
+        background-color: #23a8d9; 
+        color: #fff; 
+        padding: 10px; 
+        text-align: center; 
+        cursor: pointer; 
+        margin-top: -32px;
+    }
+    .page-jobs h5
+    {
+        padding-right:5px
+    }
+</style>
+<section id="big_header"  style="height: auto;">
     <div class="container">
         <div class="row"> 
             <div class="col-md-10 col-md-offset-0">
@@ -14,7 +29,7 @@
             <div class="col-md-2 margin-top-1 page-title">
             </div>
         </div>
-        <div class="row" style="margin-top:32px;">
+        <div class="row">
 
             <div class="col-md-12 nopadding">
                 <div class="col-md-2">
@@ -106,9 +121,8 @@
                 </div> 
                 <div class="col-md-8"> 
                     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/rating.css">
-                    <style>.page-sub-title {margin-top: 10px;}.page-jobs input {margin-top: 5px;}.load-more{background-color: #23a8d9; color: #fff; padding: 10px; text-align: center; cursor: pointer; margin-top: -32px;}.page-jobs h5{padding-right:5px}</style>
-                    <section id="big_header" style="margin-bottom: 50px; height: auto;">
-                        <div style="padding-bottom: 0;" class="job-data white-box-feed">
+                    <section id="big_header" style="height: auto;">
+                        <div style="padding-bottom: 0; margin-top: -35px;" class="job-data white-box-feed">
                             
                             <div class="col-md-8 col-sm-8 no-padding">
                                 <label class="col-md-4 no-padding">Sort by:</label>
@@ -129,8 +143,7 @@
                             <div class="line custon_line"></div>
                             <br/>
                             <div class="row white-box" id="all-jobs">  
-<?php include 'content.php'; ?>
-
+                                <?php include 'content.php'; ?>
                             </div>
                         </div>
                         <!-- Load more for keyword search -->
@@ -141,15 +154,15 @@
                 <div class="col-md-2"> 
 
                     <div class="row">
-                        <div class="col-md-12 no-padding">
+                        <div class="col-md-12 col-sm-12 col-xs-12 white-box text-center side-content">
                             <?php
-                            if (strlen($this->session->userdata("webuser_picture")) > 0) {
+                            if (! empty($croppedImage)) {
                                 ?>
-                                <img src="<?php echo base_url() . $this->session->userdata("webuser_picture") ?>" class="profile-pic" />
+                                <img src="<?php echo $croppedImage ?>" class="profile-pic" />
                                 <?php
                             } else {
                                 ?>
-                                <img src="<?php echo base_url() ?>assets/img/profile_img.jpg" class="profile-pic" />
+                                <img src="<?php echo base_url() ?>assets/user.png" class="profile-pic" />
                                 <?php
                             }
                             ?>
@@ -160,7 +173,7 @@
 
                         <div class="col-md-12">
                             <label class="blue-text"><?php echo $this->session->userdata("fname") . " " . $this->session->userdata("lname"); ?></label><br> 
-                            <a style="color: #3bafdb;font-size: 16px;font-family: calibri;font-weight: bold;" href="profile/my-freelancer-profile" class="view-profile">View Profile</a>
+                            <a style="color: #3bafdb;font-size: 16px;font-family: calibri;font-weight: bold;" href="<?php echo site_url('profile/'.$this->session->userdata("username")); ?>" class="view-profile">View Profile</a>
 
                         </div>
                     </div>   
@@ -170,7 +183,7 @@
                             <div style="border: 1px solid #ccc;border-radius: 3px;padding-bottom: 20px;" class='row white-box'>
                                 <div class="row ">
                                     <div style="margin-bottom: 8px;" class="col-md-9 no-padding">
-                                        <a style="color: #3bafdb;font-size: 16px;font-family: calibri;font-weight: bold;" href="<?php echo base_url() ?>Active_interview">Active Interview<p style="float: right;margin: 0;"><?= $int ?></p></a>
+                                        <a style="color: #3bafdb;font-size: 16px;font-family: calibri;font-weight: bold;" href="<?php echo base_url() ?>my-offers">Active Interview<p style="float: right;margin: 0;"><?= $int ?></p></a>
                                     </div>
                                 </div>
 

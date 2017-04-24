@@ -524,4 +524,27 @@ class Jobs_model extends CI_Model {
         
         return $this->db->get_where('jobs', $val, $limit, $offset);
     }
+    
+    function generate_random_jobs($keywords, $sql, $limit, $offset){
+        if (isset($sql) && $sql != "" && strlen($sql) >= 1) {
+
+            $val = array(
+                '1' => '1',
+                'status' => 1
+            );
+
+            $this->db->select('r.*');
+            if (strlen($keywords) > 0) {
+                $this->db->like("r.title", $keywords);
+            } else {
+                $this->db->where('(SELECT COUNT(*) FROM jobs r1
+                                      WHERE r.category = r1.category AND r.id < r1.id
+                                    ) <= 1');
+                $this->db->where_in('r.category', $sql, FALSE);
+            }
+
+            $this->db->order_by('r.category ASC, RAND()');
+            return $this->db->get_where('jobs r', $val, $limit, $offset);
+        }
+    }
 }

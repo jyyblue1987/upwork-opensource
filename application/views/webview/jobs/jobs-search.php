@@ -1,20 +1,9 @@
-<?php
-$Conversation = new Conversation();
-$notification = $Conversation->index();
-$notification_details = $Conversation->details();
-$job_alert_count = $Conversation->job_alert();
-
-
-$freelancerend = $Conversation->freelancerend();
-$clientend = $Conversation->clientend();
-?>
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/css/rating.css">
 <section id="big_header">
-<?php if ($job_alert_count) { ?>
+<?php if ($offers != 0) { ?>
             <div class="row margin-top-1">
                 <div class="bordered-alert text-center ack-box">
-                    <h4 class="h4">! You have  <a href="<?php echo site_url("my-offers"); ?>" class="show_notification"><?= $offers ?> pending offer- Accept to start working</a>
-
-                    </h4>
+                    <h4 class="h4">! You have  <a href="<?php echo site_url("my-offers"); ?>" class="show_notification"><?= $offers ?> pending offer- Accept to start working</a></h4>
                 </div>
             </div>
 <?php }
@@ -144,8 +133,6 @@ $clientend = $Conversation->clientend();
                         </div>
                        </div>
                     <div class="col-md-8 no-pad no-pad-xs margin-top-xs mar-bot-20">
-
-                        <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/rating.css">
                         <style></style>
 
                         <section id="big_header" style="height: auto;">
@@ -165,11 +152,11 @@ $clientend = $Conversation->clientend();
                     </div>
                     <div class="col-md-2">
                         <div class="row side">
-                            <div class="col-md-12 col-sm-12 col-xs-12 white-box text-center side-content    ">
+                            <div class="col-md-12 col-sm-12 col-xs-12 white-box text-center side-content">
                                 <?php
-                                if (! empty($croppedImage->cropped_image)) {
+                                if (! empty($croppedImage)) {
                                     ?>
-                                    <img src="<?php echo $croppedImage->cropped_image ?>" class="profile-pic" />
+                                    <img src="<?php echo $croppedImage ?>" class="profile-pic" />
                                     <?php
                                 } else {
                                     ?>
@@ -181,18 +168,9 @@ $clientend = $Conversation->clientend();
 
                         </div>
                         <div  class="row white-box text-center side-content margin-top-space">
-                            <?php
-                            $user_id = $this->session->userdata('id');
-                            // var_dump($user_id);die();
-                            $this->db->select('*');
-                            $this->db->from('webuser');
-                            $this->db->where('webuser.webuser_id',$user_id);
-                            $query= $this->db->get();
-                            $webuser = $query->row();
-                            ?>
                             <div class="col-md-12">
                                 <label class="blue-text side-menu-j"><?php echo $this->session->userdata("fname") . " " . $this->session->userdata("lname"); ?></label><br>
-                                <a class="side-menu-j" href="<?php echo site_url('profile/'.$webuser->webuser_username); ?>" class="view-profile">View Profile</a>
+                                <a class="side-menu-j" href="<?php echo site_url('profile/'.$this->session->userdata("username")); ?>" class="view-profile">View Profile</a>
 
                             </div>
                         </div>

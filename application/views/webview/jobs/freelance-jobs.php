@@ -1,8 +1,33 @@
-<section id="big_header"  style="margin-bottom: 40px; height: auto;">
-    <div class="container">
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/css/rating.css">
+<style>
+    .page-sub-title 
+    {
+        margin-top: 10px;
+    }
+    .page-jobs input 
+    {
+        margin-top: 5px;
+    }
+    
+    .load-more
+    {
+        background-color: #23a8d9; 
+        color: #fff; 
+        padding: 10px; 
+        text-align: center; 
+        cursor: pointer; 
+        margin-top: -32px;
+    }
+    .page-jobs h5
+    {
+        padding-right:5px
+    }
+</style>
+<section id="big_header"  style="height: auto;">
+    <div class="container" style="margin-top: -50px;">
         <div class="row">
             <div class="col-md-10 col-md-offset-0">
-                <div style="margin-top: -23px;" class="row">
+                <div class="row">
                     <div class="col-md-12 no-padding margin-top-search" style="padding: 0px;">
                         <form action="<?= site_url() ?>freelance-jobs" method="GET" id="job-search-form">
                             <input type="text" placeholder="Find job" name="q" id="jobsearch" value="<?= isset($_GET['q']) ? $_GET['q'] : ''  ?>"  class="form-control search-field" />
@@ -91,10 +116,8 @@
                         </div>
                        </div>
                     <div class="col-md-8">
-                        <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/rating.css">
-                        <style>.page-sub-title {margin-top: 10px;}.page-jobs input {margin-top: 5px;}.load-more{background-color: #23a8d9; color: #fff; padding: 10px; text-align: center; cursor: pointer; margin-top: -32px;}.page-jobs h5{padding-right:5px}</style>
                         <section id="big_header" style="height: auto;">
-                            <div style="border: 1px solid #ccc;padding-top: 25px; padding-left: 20px; padding-bottom: 0;" class="job-data white-box-feed">
+                            <div style="margin-top: -35px; border: 1px solid #ccc;padding-top: 25px; padding-left: 20px; padding-bottom: 0;" class="job-data white-box-feed">
                                 <div class="col-md-8 col-sm-8 no-padding" align="center">
                                     <label class="col-md-4 no-padding">Sort by:</label>
                                     <div class="col-md-7 no-padding">
