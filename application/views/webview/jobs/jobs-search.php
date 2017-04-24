@@ -9,12 +9,10 @@ $freelancerend = $Conversation->freelancerend();
 $clientend = $Conversation->clientend();
 ?>
 <section id="big_header">
-<?php if ($job_alert_count) { ?>
+<?php if ($offers != 0) { ?>
             <div class="row margin-top-1">
                 <div class="bordered-alert text-center ack-box">
-                    <h4 class="h4">! You have  <a href="<?php echo site_url("my-offers"); ?>" class="show_notification"><?= $offers ?> pending offer- Accept to start working</a>
-
-                    </h4>
+                    <h4 class="h4">! You have  <a href="<?php echo site_url("my-offers"); ?>" class="show_notification"><?= $offers ?> pending offer- Accept to start working</a></h4>
                 </div>
             </div>
 <?php }
