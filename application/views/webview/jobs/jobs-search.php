@@ -1,7 +1,4 @@
-
-
 <?php
-//include 'content.php';
 $Conversation = new Conversation();
 $notification = $Conversation->index();
 $notification_details = $Conversation->details();
@@ -31,7 +28,7 @@ $clientend = $Conversation->clientend();
 				</div>
 			</div>
 			<?php } ?>
-			<?php if($ststus->isactive==0){ ?>
+			<?php if($status == 0){ ?>
 				<div class="row ">
 					<div class="bordered-alert text-center ack-box finance" >
 						<h4 class="h4red">! Your financial Account has been Suspended.</h4>
@@ -47,7 +44,7 @@ $clientend = $Conversation->clientend();
 				</div>
 			</div>
 			<?php } ?>
-			<?php if($ststus->isactive==0){ ?>
+			<?php if($status == 0){ ?>
 				<div class="row ">
 					<div class="bordered-alert text-center ack-box suspended">
 						<h4 class="h4red">! Your financial Account has been Suspended.</h4>

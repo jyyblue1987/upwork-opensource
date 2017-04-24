@@ -245,11 +245,8 @@ class Jobs extends Winjob_Controller {
         $limit = 10;
         $records = array();
 
-        $this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
-        $this->db->order_by("jobs.id", "desc");
-
         if ($this->input->is_ajax_request()) {
-            
+
             $category    = array();
             $jobCat      = $this->input->post('jobCat');
             $jobType     = $this->input->post('jobtype');
@@ -257,7 +254,7 @@ class Jobs extends Winjob_Controller {
             $jobHours    = $this->input->post('jobweekhour');
             $offsetId    = $this->input->post('limit');
             $keywords    = $this->input->post('keywords');
-            
+
             if (intval($offsetId) >= 0 == false) {
                 $offsetId = 0;
             }
@@ -271,28 +268,6 @@ class Jobs extends Winjob_Controller {
                     }
                 }
             }
-            if (!empty($jobType)) {
-                $jobType = explode(",", $jobType);
-                foreach ($jobType as $type) {
-                    $this->db->or_where('jobs.job_type', $type);
-                }
-            }
-            if (!empty($jobDuration)) {
-                $jobDuration = explode(",", $jobDuration);
-                foreach ($jobDuration as $duretion) {
-                    $this->db->or_where('jobs.job_duration', $duretion);
-                }
-            }
-            if (!empty($jobHours)) {
-                $jobHours = explode(",", $jobHours);
-                foreach ($jobHours as $hour) {
-                    $this->db->or_where('jobs.hours_per_week', $hour);
-                }
-            }
-
-            $val = array(
-                '1' => '1',
-            );
 
             $offset = $limit * $offsetId;
             $keywords = $this->input->post('keywords');
@@ -301,107 +276,47 @@ class Jobs extends Winjob_Controller {
                 if ($sql != "" && strlen($sql) >= 1) {
                     if ($this->session->userdata('type') == '2') {
 
-                        $val = array(
-                            '1' => '1',
-                            'status' => 1
-                        );
-
-                        $this->db->where_in('jobs.category', $sql, FALSE);
-
-                        if (strlen($keywords) > 0) {
-                            $this->db->like("jobs.title", $keywords);
-                            $this->db->or_like("jobs.job_description", $keywords);
-                        }
-
-                        $query = $this->db->get_where('jobs', $val, $limit, $offset);
-
-                        $jobTypeQuery = '';
-                        if (!empty($jobType)) {
-                            $jobTypeQuery = implode(',', array_map(function($arr){
-                                return "'" . $arr . "'";
-                            }, $jobType));
-
-                            $jobTypeQuery = ' AND (jobs.job_type IN (' . $jobTypeQuery . '))';
-
-                        }
-
-                        $sortQuery = " ORDER BY jobs.created DESC ";
-                        if($sort == 0){
-                            $sortQuery = " ORDER BY jobs.created ASC ";
-                        }
-
-                        $query = $this->db->query(
-                                "SELECT * FROM jobs "
-                                . "LEFT JOIN webuser "
-                                . "ON webuser.webuser_id=jobs.user_id "
-                                . "WHERE jobs.status = 1 "
-                                . "AND jobs.category in(" . $sql . ") "
-                                . "AND (jobs.title like '%" . $keywords . "%' "
-                                . "OR jobs.job_description like '%" . $keywords . "%') {$jobTypeQuery} "
-                                . $sortQuery
-                                . "LIMIT " . $offset . ',' . $limit);
+                        $query = $this->jobs_model->filter_jobs($jobType, $jobDuration, $jobHours, $category, $sql, $keywords, $limit, $offset, $category);
 
                     } else if ($this->session->userdata('type') == '1') {
+
                         $val = array(
                             'user_id' => $id,
                             'status' => 1
                         );
-                        $query = $this->db->get_where('jobs', $val, $limit, $offset);
+
+                        $query = $this->jobs_model->jobs_by_category($val, $limit, $offset);
                     }
                 }
             } else {
-
-                $jobTypeQuery = '';
-                if (!empty($jobType)) {
-                    $jobTypeQuery = implode(',', array_map(function($arr){
-                        return "'" . $arr . "'";
-                    }, $jobType));
-
-                    $jobTypeQuery = ' AND (jobs.job_type IN (' . $jobTypeQuery . '))';
-                }
-                    
-                $sortQuery = " ORDER BY jobs.created DESC ";
-                    if($sort == 0){
-                        $sortQuery = " ORDER BY jobs.created ASC ";
-                    }
-
-                    $query = $this->db->query(""
-                            . "SELECT * FROM jobs "
-                            . "LEFT JOIN webuser "
-                            . "ON webuser.webuser_id=jobs.user_id "
-                            . "WHERE jobs.status = 1 "
-                            . "AND jobs.category in(" . implode(',', $category) . ") "
-                            . "AND (jobs.title like '%" . $keywords . "%' "
-                            . "OR jobs.job_description like '%" . $keywords . "%') {$jobTypeQuery} "
-                            . $sortQuery
-                            . "LIMIT " . $offset . ',' . $limit);
-                }
+                $query = $this->jobs_model->filter_jobs($jobType, $jobDuration, $jobHours, $category, $sql, $keywords, $limit, $offset, $category, $sort);
+            }
 
                 if ($query->num_rows() > 0 && is_object($query)){
                     $records = $query->result();
-                    $s=array();
+
                     foreach ($records as $record) {
-                        $q="SELECT job_skills.skill_name from job_skills where job_skills.job_id ='";
-                        $q.=$record->id."'";
-                        $skills = $this->db->query($q)->result();
-                        if(!empty($skills)){
-                            foreach($skills as $skill){
-                                array_push($s,$skill->skill_name);
-                            }
-                        }
-                        else{
-                            continue;
-                        }
-                        $record->skills=$s;
-                        $s=[];
-                        }
+                        $employer = new Employer($record->user_id);
+                        $job      = new Job_details($employer->get_userid(), $record->id);
+
+                        $record->skills         = $this->Skills_model->get_skills($record->id);
+                        $record->payment_set    = $this->payment_methods_model->get_primary($employer->get_userid());
+                        $record->is_active      = $employer->is_active();
+                        $record->total_spent    = $this->payment_model->get_amount_spent($employer->get_userid());
+                        $record->rating         = $this->Webuser_model->get_total_rating($employer->get_userid(), true);
+                        $record->country        = ucfirst($employer->get_country());
+                        $record->job_created    = $this->process->time_elapsed_string($record->job_created);
+                        $record->bids           = $this->process->get_job_bids($record->id);
+                        $record->hrs_per_week   = $job->get_hrs_perweek();
+                    }
                 }
 
                 $data = array('records' => $records, 'limit' => $limit);
                 $content = $this->load->view('webview/jobs/content', $data, true);
+                
                 die (json_encode([
                     'result' => $content,
-                    'count' => count($records)
+                    'count'  => count($records)
                 ]));
             } else {
 
@@ -409,20 +324,27 @@ class Jobs extends Winjob_Controller {
                 if (intval($jobCat) > 0) {
                     $val = array(
                         'category' => $jobCat,
-                        'status' => 1
+                        'status'   => 1
                     );
                     $jobCatPage = true;
                     $query = $this->jobs_model->jobs_by_category($val, $limit, $offset);
 
                 } else {
+
+                    if($this->input->get('q')){
+                        $keywords = $this->input->get('q');
+                        $jobCatPage = true;
+                    }
+
                     $query = $this->jobs_model->load_jobs($this->input->get('q'), $sql, $limit, $offset, $id);
                 }
+
                 if (is_object($query) && $query->num_rows() > 0) {
                     $records = $query->result();
 
                     foreach ($records as $record) {
-                        $employer = new Employer($record->webuser_id);
-                        $job = new Job_details($record->id);
+                        $employer = new Employer($record->user_id);
+                        $job      = new Job_details($employer->get_userid(), $record->id);
 
                         $record->skills         = $this->Skills_model->get_skills($record->id);
                         $record->payment_set    = $this->payment_methods_model->get_primary($employer->get_userid());
@@ -438,46 +360,20 @@ class Jobs extends Winjob_Controller {
                 } else {
                     $records = null;
                 }
-                $user_id = $this->user_id;
-                $active_interview = $this->process->get_active_interviews($this->user_id);
-                $data['int'] = $active_interview['rows'];
-
-                $this->db->select('*');
-                $this->db->from('job_bids');
-                $this->db->where('job_bids.user_id', $user_id);
-                $this->db->where('job_bids.status', 0);
-
-                $this->db->where('job_bids.job_progres_status', 0);
-                $this->db->where(array('job_bids.withdrawn' => NULL));                
-                
-                $this->db->group_by('job_bids.id');
-                $query_proposal = $this->db->get();
-                
-                if (is_object($query)) {
-                    $proposal_no = $query_proposal->num_rows();
-                } else {
-                    $proposal_no = null;
-                }
 
                 $profile_progress = $this->ProfileModel->get_profile_completeness($this->user_id);
-
-                $this->db->select('*');
-                $this->db->from('webuser');
-                $this->db->where('webuser.webuser_id', $id);
-                $query_status = $this->db->get();
-                $ststus = $query_status->row();
-                
-                $offers = $this->process->get_total_offers($id);
+                $active_interview = $this->process->get_active_interviews($this->user_id);
+                $offers           = $this->process->get_total_offers($this->user_id);
                 
                 $data = array(
                     'js'                  => array('internal/find_job.js'), 
                     'records'             => $records, 
                     'offers'              => $offers['rows'], 
                     'limit'               => $limit, 
-                    'no_of_interview'     => count($record), 
-                    'proposal_no'         => $proposal_no, 
+                    'int'                 => $active_interview['rows'], 
                     'profilecompleteness' => $profile_progress, 
-                    'ststus'              => $ststus
+                    'status'              => $this->Webuser_model->get_status($this->user_id),
+                    'proposals'           => $this->process->get_proposed_bids($this->user_id)
                 );
 
                 if (isset($subCateList) && !empty($subCateList)) {
@@ -487,28 +383,17 @@ class Jobs extends Winjob_Controller {
                 }
                 $data['jobCatSelected'] = $jobCat;
 
-                $freelancer_proposals = $this->process->get_proposed_bids($user_id);
-                $data['proposals']    = $freelancer_proposals;
-
-                $sql = "SELECT cropped_image FROM webuser WHERE webuser_id =  " . $this->session->userdata(USER_ID);
-                $croppedImage =    $this->db->query($sql)->row();
-                $data['croppedImage'] = $croppedImage;
-                
-                $active_interview = $this->process->get_active_interviews($user_id);
-                $data['int'] = $active_interview['rows'];
-                
                 if ($jobCatPage) {
-
                     if ((isset($keywords)) && (strlen($keywords) > 0)) {
                         $data['searchKeyword'] = $keywords;
-                        $data['checkAll'] = true;
+                        $data['checkAll'] = TRUE;
                     } else {
-                        $data['checkAll'] = false;
+                        $data['checkAll'] = FALSE;
                     }
                     $this->Admintheme->webview("jobs/category-jobs", $data);
                 } else {
                     $data['page'] = "find-jobs";
-                    $data['css']  = array("","","","assets/css/pages/find-jobs.css");
+                    $data['css']  = array("", "", "", "assets/css/pages/find-jobs.css");
                     $this->Admintheme->custom_webview("jobs/jobs-search", $data);
                 }
             }
@@ -2929,117 +2814,75 @@ class Jobs extends Winjob_Controller {
     }
     
     public function jobs_no_auth($url_rewrite = null, $sort = 1){
-            $jobCat = $this->uri->segment(2);
+        $jobCat = $this->uri->segment(2);
 
-            $jobCatPage = false;
-            $user_categories = $this->Category->get_user_subcategories();
+        $url_rewrite = substr($url_rewrite, 1, -1);
+        
+        $id              = $this->user_id;
+        $user_categories = $this->Category->get_user_subcategories($this->user_id);
+        $jobCat          = $this->uri->segment(2);
+        $jobCatPage      = false;
+        $sql             = "";
 
-            if (sizeof($user_categories) > 0) {
-                $sql = "";
-                foreach ($user_categories as $sub) {
-                    $sql .= $sub->subcat_id . ",";
-                }
-                $sql = substr($sql, 0, strlen($sql) - 1);
-                $sqlIn = " AND subcat_id IN ( " . $sql . " ) ";
-                $subCateList = $this->Common_mod->get(SUBCATEGORY_TABLE, null, $sqlIn);
+        if (sizeof($user_categories) > 0) {
+            foreach($user_categories AS $cat){
+                $sql .= $cat->subcat_id . ",";
             }
+        }
 
-            $limit = 25;
-            $records = array();
+        $sql         = substr($sql, 0, strlen($sql) - 1);
+        $sqlIn       = " AND subcat_id IN ( " . $sql . " ) ";
+        $subCateList = $this->Common_mod->get(SUBCATEGORY_TABLE, null, $sqlIn);
 
-            if ($this->input->is_ajax_request()) {
-                $category = array();
-                $jobCat = $this->input->post('jobCat');
+        $limit = 25;
+        $records = array();
 
-                $jobType = $this->input->post('jobtype');
-                $jobDuration = $this->input->post('jobduratin');
-                $jobHours = $this->input->post('jobweekhour');
+        if ($this->input->is_ajax_request()) {
+            
+            $category    = array();
+            $jobCat      = $this->input->post('jobCat');
+            $jobType     = $this->input->post('jobtype');
+            $jobDuration = $this->input->post('jobduratin');
+            $jobHours    = $this->input->post('jobweekhour');
+            $offsetId    = $this->input->post('limit');
+            $keywords    = $this->input->post('keywords');
 
-                $offsetId = $this->input->post('limit');
-                $keywords = $this->input->post('keywords');
-                if (intval($offsetId) >= 0 == false) {
-                    $offsetId = 0;
-                }
-                if (strlen($jobCat) > 0) {
-                    $catIds = explode(",", $jobCat);
-                    if (sizeof($catIds) > 0) {
-                        foreach ($catIds as $cat) {
-                            if (intval($cat) > 0) {
-                                $category[] = $cat;
-                            }
+            if (intval($offsetId) >= 0 == false) {
+                $offsetId = 0;
+            }
+            if (strlen($jobCat) > 0) {
+                $catIds = explode(",", $jobCat);
+                if (sizeof($catIds) > 0) {
+                    foreach ($catIds as $cat) {
+                        if (intval($cat) > 0) {
+                            $category[] = $cat;
                         }
                     }
                 }
+            }
 
-                if (!empty($jobType)) {
-                    $jobType = explode(",", $jobType);
-                    foreach ($jobType as $type) {
-                        $this->db->or_where('r.job_type', $type);
+            $val = array(
+                '1' => '1',
+                'status' => 1
+            );
+
+            $offset = $limit * $offsetId;
+            $keywords = $this->input->post('keywords');
+
+            if (empty($category)) {
+                if ($sql != "" && strlen($sql) >= 1) {
+                    $val = array(
+                        '1' => '1',
+                        'status' => 1
+                    );
+                    $this->db->select('r.*');
+                    $this->db->where_in('r.category', $sql, FALSE);
+                    if (strlen($keywords) > 0) {
+                        $this->db->like("r.title", $keywords);
+                        $this->db->or_like("r.job_description", $keywords);
                     }
-                }
-                if (!empty($jobDuration)) {
-                    $jobDuration = explode(",", $jobDuration);
-                    foreach ($jobDuration as $duretion) {
-                        $this->db->or_where('r.job_duration', $duretion);
-                    }
-                }
-                if (!empty($jobHours)) {
-
-                    $jobHours = explode(",", $jobHours);
-                    foreach ($jobHours as $hour) {
-                        $this->db->or_where('r.hours_per_week', $hour);
-                    }
-                }
-
-                $val = array(
-                    '1' => '1',
-                    'status' => 1
-                );
-                $offset = $limit * $offsetId;
-                $keywords = $this->input->post('keywords');
-
-                if (empty($category)) {
-                    if ($sql != "" && strlen($sql) >= 1) {
-                            $val = array(
-                                '1' => '1',
-                                'status' => 1
-                            );
-                            $this->db->select('r.*');
-                            $this->db->where_in('r.category', $sql, FALSE);
-                            if (strlen($keywords) > 0) {
-                                $this->db->like("r.title", $keywords);
-                                $this->db->or_like("r.job_description", $keywords);
-                            }
-                            $this->db->order_by('r.category ASC, RAND()');
-                            $query = $this->db->get_where('jobs r', $val, $limit, $offset);
-
-                            $jobTypeQuery = '';
-                            if (!empty($jobType)) {
-                                $jobTypeQuery = implode(',', array_map(function($arr){
-                                    return "'" . $arr . "'";
-                                }, $jobType));
-
-                                $jobTypeQuery = ' AND (r.job_type IN (' . $jobTypeQuery . '))';
-                            }
-                            
-                            $sortQuery = " ORDER BY r.created DESC ";
-                            if($sort == 0){
-                                $sortQuery = " ORDER BY r.created ASC ";
-                            }
-                            
-                            $query = $this->db->query(
-                                    "SELECT r.* FROM jobs r "
-                                    . "WHERE (SELECT COUNT(*) FROM jobs r1
-                                      WHERE r.category = r1.category AND r.id < r1.id
-                                    ) <= 1 "
-                                    . "AND r.status = 1 "
-                                    . "AND r.category in(" . $sql . ") "
-                                    . "AND (r.title like '%" . $keywords . "%' "
-                                    . "OR r.job_description like '%" . $keywords . "%') {$jobTypeQuery} "
-                                    . $sortQuery
-                                    . "LIMIT " . $offset . ',' . $limit);
-                    }
-                } else {
+                    $this->db->order_by('r.category ASC, RAND()');
+                    $query = $this->db->get_where('jobs r', $val, $limit, $offset);
 
                     $jobTypeQuery = '';
                     if (!empty($jobType)) {
@@ -3048,132 +2891,160 @@ class Jobs extends Winjob_Controller {
                         }, $jobType));
 
                         $jobTypeQuery = ' AND (r.job_type IN (' . $jobTypeQuery . '))';
-
                     }
-                    
-                    $sortQuery = " ORDER BY r.created DESC, r.category ASC, RAND() ";
-                            if($sort == 0){
-                                $sortQuery = " ORDER BY r.created ASC, r.category ASC, RAND() ";
-                            }
 
-                    $query = $this->db->query(""
-                            . "SELECT r.* FROM jobs r "
-                            . "WHERE r.status = 1 "
-                            . "AND r.category in(" . implode(',', $category) . ") "
-                            . "AND (r.title like '%" . $keywords . "%' "
-                            . "OR r.job_description like '%" . $keywords . "%') {$jobTypeQuery} "
-                            . $sortQuery
-                            . "LIMIT " . $offset . ',' . $limit);
+                        $sortQuery = " ORDER BY r.created DESC ";
+                        if($sort == 0){
+                            $sortQuery = " ORDER BY r.created ASC ";
+                        }
+
+                $query = $this->db->query(
+                        "SELECT r.* FROM jobs r "
+                        . "WHERE (SELECT COUNT(*) FROM jobs r1
+                          WHERE r.category = r1.category AND r.id < r1.id
+                        ) <= 1 "
+                        . "AND r.status = 1 "
+                        . "AND r.category in(" . $sql . ") "
+                        . "AND (r.title like '%" . $keywords . "%' "
+                        . "OR r.job_description like '%" . $keywords . "%') {$jobTypeQuery} "
+                        . $sortQuery
+                        . "LIMIT " . $offset . ',' . $limit);
                 }
-
-                if ($query->num_rows() > 0 && is_object($query)){
-
-                    $records = $query->result();
-                    $s=array();
-                    foreach ($records as $record) {
-                        $q="SELECT job_skills.skill_name from job_skills where job_skills.job_id ='";
-                        $q.=$record->id."'";
-                        $skills = $this->db->query($q)->result();
-                        if(!empty($skills)){
-                            foreach($skills as $skill){
-                                array_push($s,$skill->skill_name);
-                            }
-                        }
-                        else{
-                            continue;
-                        }
-                        $record->skills=$s;
-                        $s=[];
-                        }
-                }
-
-                $data = array('records' => $records, 'limit' => $limit);
-
-                $content = $this->load->view('webview/jobs/no_auth_content', $data, true);
-                die (json_encode([
-                    'result' => $content,
-                    'count' => count($records)
-                ]));
             } else {
 
-                $offset = 0;
-                if (intval($jobCat) > 0) {
-                    $val = array(
-                        'category' => $jobCat,
-                        'status' => 1
-                    );
-                    $jobCatPage = true;
-                    $query = $this->db->get_where('jobs', $val, $limit, $offset);
-                } else {
-                    $keywords = "";
-                    if (isset($_GET['q'])) {
-                        $keywords = $this->input->get("q");
-                    }
+                $jobTypeQuery = '';
+                if (!empty($jobType)) {
+                    $jobTypeQuery = implode(',', array_map(function($arr){
+                        return "'" . $arr . "'";
+                    }, $jobType));
 
-                    if (isset($sql) && $sql != "" && strlen($sql) >= 1) {
-                            $val = array(
-                                '1' => '1',
-                                'status' => 1
-                            );
-                            $this->db->select('r.*');
-                            if (strlen($keywords) > 0) {
-                                $jobCatPage = true;
-                                $this->db->like("r.title", $keywords);
-                            } else {
-                                $this->db->where('(SELECT COUNT(*) FROM jobs r1
-                                                      WHERE r.category = r1.category AND r.id < r1.id
-                                                    ) <= 1');
-                                $this->db->where_in('r.category', $sql, FALSE);
-                            }
-                            $this->db->order_by('r.category ASC, RAND()');
-                            $query = $this->db->get_where('jobs r', $val, $limit, $offset);
-                    }
+                    $jobTypeQuery = ' AND (r.job_type IN (' . $jobTypeQuery . '))';
+
                 }
-                if (is_object($query) && $query->num_rows() > 0) {
-                    $records = $query->result();
-                    $s=array();
-                    foreach ($records as $record) {
-                        $q="SELECT job_skills.skill_name from job_skills where job_skills.job_id ='";
-                        $q.=$record->id."'";
-                        $skills = $this->db->query($q)->result();
-                        if(!empty($skills)){
-                            foreach($skills as $skill){
-                                array_push($s,$skill->skill_name);
-                            }
+
+                $sortQuery = " ORDER BY r.created DESC, r.category ASC, RAND() ";
+                        if($sort == 0){
+                            $sortQuery = " ORDER BY r.created ASC, r.category ASC, RAND() ";
                         }
-                        else{
-                            continue;
+
+                $query = $this->db->query(""
+                        . "SELECT r.* FROM jobs r "
+                        . "WHERE r.status = 1 "
+                        . "AND r.category in(" . implode(',', $category) . ") "
+                        . "AND (r.title like '%" . $keywords . "%' "
+                        . "OR r.job_description like '%" . $keywords . "%') {$jobTypeQuery} "
+                        . $sortQuery
+                        . "LIMIT " . $offset . ',' . $limit);
+            }
+
+            if ($query->num_rows() > 0 && is_object($query)){
+
+                $records = $query->result();
+                $s=array();
+                foreach ($records as $record) {
+                    $q="SELECT job_skills.skill_name from job_skills where job_skills.job_id ='";
+                    $q.=$record->id."'";
+                    $skills = $this->db->query($q)->result();
+                    if(!empty($skills)){
+                        foreach($skills as $skill){
+                            array_push($s,$skill->skill_name);
                         }
-                        $record->skills=$s;
-            $s=[];
                     }
-                } else {
-                    $records = null;
-                }
-                
-                $data = array('js' => array('internal/find_job.js'), 'records' => $records, 'limit' => $limit);
-
-                if (isset($subCateList) && !empty($subCateList)) {
-                    $data['subCateList'] = $subCateList['rows'];
-                } else {
-                    $data['subCateList'] = "";
-                }
-                $data['jobCatSelected'] = $jobCat;
-
-                if ($jobCatPage) {
-
-                    if ((isset($keywords)) && (strlen($keywords) > 0)) {
-                        $data['searchKeyword'] = $keywords;
-                        $data['checkAll'] = true;
-                    } else {
-                        $data['checkAll'] = false;
+                    else{
+                        continue;
                     }
-                    $data['categories'] = $this->Category->get_categories();
-                    $this->Admintheme->webview("jobs/freelance-jobs", $data);
-                } else {
-                    $data['categories'] = $this->Category->get_categories();
-                    $this->Admintheme->webview("jobs/freelance-jobs", $data);
+                    $record->skills=$s;
+                    $s=[];
+                    }
+            }
+
+            $data = array('records' => $records, 'limit' => $limit);
+
+            $content = $this->load->view('webview/jobs/no_auth_content', $data, true);
+            die (json_encode([
+                'result' => $content,
+                'count' => count($records)
+            ]));
+        } else {
+
+            $offset = 0;
+            if (intval($jobCat) > 0) {
+                $val = array(
+                    'category' => $jobCat,
+                    'status' => 1
+                );
+                $jobCatPage = true;
+                $query = $this->db->get_where('jobs', $val, $limit, $offset);
+            } else {
+                $keywords = "";
+                if (isset($_GET['q'])) {
+                    $keywords = $this->input->get("q");
+                }
+
+                if (isset($sql) && $sql != "" && strlen($sql) >= 1) {
+                        $val = array(
+                            '1' => '1',
+                            'status' => 1
+                        );
+                        $this->db->select('r.*');
+                        if (strlen($keywords) > 0) {
+                            $jobCatPage = true;
+                            $this->db->like("r.title", $keywords);
+                        } else {
+                            $this->db->where('(SELECT COUNT(*) FROM jobs r1
+                                                  WHERE r.category = r1.category AND r.id < r1.id
+                                                ) <= 1');
+                            $this->db->where_in('r.category', $sql, FALSE);
+                        }
+                        $this->db->order_by('r.category ASC, RAND()');
+                        $query = $this->db->get_where('jobs r', $val, $limit, $offset);
                 }
             }
+            if (is_object($query) && $query->num_rows() > 0) {
+                $records = $query->result();
+                $s=array();
+                foreach ($records as $record) {
+                    $q="SELECT job_skills.skill_name from job_skills where job_skills.job_id ='";
+                    $q.=$record->id."'";
+                    $skills = $this->db->query($q)->result();
+                    if(!empty($skills)){
+                        foreach($skills as $skill){
+                            array_push($s,$skill->skill_name);
+                        }
+                    }
+                    else{
+                        continue;
+                    }
+                    $record->skills=$s;
+        $s=[];
+                }
+            } else {
+                $records = null;
+            }
+
+            $data = array('js' => array('internal/find_job.js'), 'records' => $records, 'limit' => $limit);
+
+            if (isset($subCateList) && !empty($subCateList)) {
+                $data['subCateList'] = $subCateList['rows'];
+            } else {
+                $data['subCateList'] = "";
+            }
+            $data['jobCatSelected'] = $jobCat;
+
+            if ($jobCatPage) {
+
+                if ((isset($keywords)) && (strlen($keywords) > 0)) {
+                    $data['searchKeyword'] = $keywords;
+                    $data['checkAll'] = true;
+                } else {
+                    $data['checkAll'] = false;
+                }
+                $data['categories'] = $this->Category->get_categories();
+                $this->Admintheme->webview("jobs/freelance-jobs", $data);
+            } else {
+                $data['categories'] = $this->Category->get_categories();
+                $this->Admintheme->webview("jobs/freelance-jobs", $data);
+            }
+        }
     }
 }
