@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/css/rating.css">
 <section id="big_header">
 <?php if ($offers != 0) { ?>
             <div class="row margin-top-1">
@@ -132,8 +133,6 @@
                         </div>
                        </div>
                     <div class="col-md-8 no-pad no-pad-xs margin-top-xs mar-bot-20">
-
-                        <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/rating.css">
                         <style></style>
 
                         <section id="big_header" style="height: auto;">

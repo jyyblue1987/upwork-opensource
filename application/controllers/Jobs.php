@@ -2975,56 +2975,44 @@ class Jobs extends Winjob_Controller {
                     'category' => $jobCat,
                     'status' => 1
                 );
+
                 $jobCatPage = true;
-                $query = $this->db->get_where('jobs', $val, $limit, $offset);
+                $query      = $this->jobs_model->jobs_by_category($val, $limit, $offset);
+
             } else {
-                $keywords = "";
                 if (isset($_GET['q'])) {
                     $keywords = $this->input->get("q");
+                    $jobCatPage = true;
                 }
 
-                if (isset($sql) && $sql != "" && strlen($sql) >= 1) {
-                        $val = array(
-                            '1' => '1',
-                            'status' => 1
-                        );
-                        $this->db->select('r.*');
-                        if (strlen($keywords) > 0) {
-                            $jobCatPage = true;
-                            $this->db->like("r.title", $keywords);
-                        } else {
-                            $this->db->where('(SELECT COUNT(*) FROM jobs r1
-                                                  WHERE r.category = r1.category AND r.id < r1.id
-                                                ) <= 1');
-                            $this->db->where_in('r.category', $sql, FALSE);
-                        }
-                        $this->db->order_by('r.category ASC, RAND()');
-                        $query = $this->db->get_where('jobs r', $val, $limit, $offset);
-                }
+                $query = $this->jobs_model->generate_random_jobs($keywords, $sql, $limit, $offset);
             }
             if (is_object($query) && $query->num_rows() > 0) {
                 $records = $query->result();
-                $s=array();
+                
                 foreach ($records as $record) {
-                    $q="SELECT job_skills.skill_name from job_skills where job_skills.job_id ='";
-                    $q.=$record->id."'";
-                    $skills = $this->db->query($q)->result();
-                    if(!empty($skills)){
-                        foreach($skills as $skill){
-                            array_push($s,$skill->skill_name);
-                        }
-                    }
-                    else{
-                        continue;
-                    }
-                    $record->skills=$s;
-        $s=[];
+                    $employer = new Employer($record->user_id);
+                    $job      = new Job_details($employer->get_userid(), $record->id);
+
+                    $record->skills         = $this->Skills_model->get_skills($record->id);
+                    $record->payment_set    = $this->payment_methods_model->get_primary($employer->get_userid());
+                    $record->is_active      = $employer->is_active();
+                    $record->total_spent    = $this->payment_model->get_amount_spent($employer->get_userid());
+                    $record->rating         = $this->Webuser_model->get_total_rating($employer->get_userid(), true);
+                    $record->country        = ucfirst($employer->get_country());
+                    $record->job_created    = $this->process->time_elapsed_string($record->job_created);
+                    $record->bids           = $this->process->get_job_bids($record->id);
+                    $record->hrs_per_week   = $job->get_hrs_perweek();
                 }
             } else {
                 $records = null;
             }
 
-            $data = array('js' => array('internal/find_job.js'), 'records' => $records, 'limit' => $limit);
+            $data = array(
+                'records' => $records, 
+                'limit'   => $limit,
+                'js'      => array('internal/find_job.js')
+            );
 
             if (isset($subCateList) && !empty($subCateList)) {
                 $data['subCateList'] = $subCateList['rows'];
@@ -3037,7 +3025,7 @@ class Jobs extends Winjob_Controller {
 
                 if ((isset($keywords)) && (strlen($keywords) > 0)) {
                     $data['searchKeyword'] = $keywords;
-                    $data['checkAll'] = true;
+                    $data['checkAll']      = true;
                 } else {
                     $data['checkAll'] = false;
                 }
