@@ -330,9 +330,15 @@ class Jobs extends Winjob_Controller {
                     $query = $this->jobs_model->jobs_by_category($val, $limit, $offset);
 
                 } else {
+
+                    if($this->input->get('q')){
+                        $keywords = $this->input->get('q');
+                        $jobCatPage = true;
+                    }
+
                     $query = $this->jobs_model->load_jobs($this->input->get('q'), $sql, $limit, $offset, $id);
                 }
-       
+
                 if (is_object($query) && $query->num_rows() > 0) {
                     $records = $query->result();
 
@@ -378,12 +384,11 @@ class Jobs extends Winjob_Controller {
                 $data['jobCatSelected'] = $jobCat;
 
                 if ($jobCatPage) {
-
                     if ((isset($keywords)) && (strlen($keywords) > 0)) {
                         $data['searchKeyword'] = $keywords;
-                        $data['checkAll'] = true;
+                        $data['checkAll'] = TRUE;
                     } else {
-                        $data['checkAll'] = false;
+                        $data['checkAll'] = FALSE;
                     }
                     $this->Admintheme->webview("jobs/category-jobs", $data);
                 } else {
