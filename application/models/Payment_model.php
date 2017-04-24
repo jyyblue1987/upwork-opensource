@@ -11,6 +11,17 @@ use Carbon\Carbon;
  */
 class Payment_model extends CI_Model {
     
+    public function load_all_payment($bid_id)
+    {
+        $query = $this->db->select('*')
+                    ->from('payments')
+                    ->where('payments.bid_id', $bid_id)
+                    ->order_by("payment_create", "DESC")
+                    ->get();
+        
+        return $query->result();
+    }
+    
     public function load_job_transactions($sender_id, $user_id, $job_id) {
         $this->db->select('*');
         $this->db->from('payments');
@@ -491,6 +502,16 @@ class Payment_model extends CI_Model {
         }
         
         return $sql;
+    }
+    
+    public function update($data, $conditions)
+    {
+        foreach($conditions as $field =>  $value)
+        {
+            $this->db->where($field, $value);
+        }
+        
+        return $this->db->update('payments', $data);
     }
     
 }

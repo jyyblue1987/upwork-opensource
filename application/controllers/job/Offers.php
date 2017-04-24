@@ -415,9 +415,25 @@ class Offers extends Winjob_Controller{
             ));
         }
         
-        if($this->bids_model->update(array('hired' => '0'), array('id' => $bid_id)))
+        if($this->bids_model->update(array('hired' => '1'), array('id' => $bid_id)))
         {
-            //refund if client has make milestone or full paid.
+            $all_payments = $this->payment_model->load_all_payment($bid_id);
+            
+            if(!empty($all_payments))
+            {
+                foreach($all_payments as $payment)
+                {
+                    //load related library
+                    $service_library = 'winjob_' . strtolower($payment->service_name);
+                    if( ! property_exists($this, $service_library) )
+                        $this->load->library($service_library);
+                    
+                    if($this->{$service_library}->refund($payment->txn_id))
+                    {
+                        $this->payment_model->update(array('refund' => true), array('payment_id' => $payment->payment_id));
+                    }
+                }
+            }
             
             $this->ajax_response (array(
                 'message'      => 'Well done! You have successfully decline offer.',
@@ -571,56 +587,59 @@ class Offers extends Winjob_Controller{
         
         $bid_data = array_merge($bid_data, $additionnal_data);
         
-        if($this->bids_model->update($bid_data, array('user_id' => $applier_id , 'job_id' => $job_id)))
+        if($job->job_type == FIXED_JOB_TYPE && !empty( $budget_type ) && !empty($budget))
         {
-            if($job->job_type == FIXED_JOB_TYPE && !empty( $budget_type ) && !empty($budget))
+            //get employer primary method for charging.
+            $primary = $this->payment_methods_model->get_primary( $buser_id );
+
+            if( empty( $primary ) )
             {
-                //get employer primary method for charging.
-                $primary = $this->payment_methods_model->get_primary( $buser_id );
-
-                if( empty( $primary ) )
-                {
-                    $this->ajax_response(array(
-                        'message'      => 'Unsuccessfull.',
-                        'status'       => 'error',
-                        'redirect'     => true,
-                        'redirect_url' => site_url("pay/methods_card"),
-                    ));
-                }
-                
-                //load related library
-                $service_library = 'winjob_' . strtolower($primary->service_name);
-                if( ! property_exists($this, $service_library) )
-                    $this->load->library($service_library);
-                
-                $transaction = $this->{$service_library}->paid($budget, "usd", $primary);
-                
-                if( $transaction == null)
-                {
-                    $this->ajax_response(array(
-                        'message'      => 'Failed payment for insufficient funds.',
-                        'status'       => 'error'
-                    ));
-                }
-
-                if ($budget_type == 1) 
-                {
-                    $des = 'Full Paid';
-                } 
-                elseif ($budget_type == 2)
-                {
-                    $des = 'Milestone';
-                }
-                
-                $this->payment_model->save(array(
-                    'job_id'        => (int) $job_id,
-                    'user_id'       => (int) $applier_id,
-                    'buser_id'      => (int) $buser_id,
-                    'payment_gross' => $budget,
-                    'des'           => $des
+                $this->ajax_response(array(
+                    'message'      => 'Unsuccessfull.',
+                    'status'       => 'error',
+                    'redirect'     => true,
+                    'redirect_url' => site_url("pay/methods_card"),
                 ));
             }
-            
+
+            //load related library
+            $service_library = 'winjob_' . strtolower($primary->service_name);
+            if( ! property_exists($this, $service_library) )
+                $this->load->library($service_library);
+
+            $transaction_id = $this->{$service_library}->paid($budget, "usd", $primary);
+
+            if( $transaction_id == null)
+            {
+                $this->ajax_response(array(
+                    'message'      => 'Failed payment for insufficient funds.',
+                    'status'       => 'error'
+                ));
+            }
+
+            if ($budget_type == 1) 
+            {
+                $des = 'Full Paid';
+            } 
+            elseif ($budget_type == 2)
+            {
+                $des = 'Milestone';
+            }
+
+            $this->payment_model->save(array(
+                'job_id'        => (int) $job_id,
+                'user_id'       => (int) $applier_id,
+                'buser_id'      => (int) $buser_id,
+                'bid_id'        => $bid->id,
+                'payment_gross' => $budget,
+                'des'           => $des,
+                'service_name'  => $primary->service_name,
+                'txn_id'        => $transaction_id
+            ));
+        }
+        
+        if($this->bids_model->update($bid_data, array('user_id' => $applier_id , 'job_id' => $job_id)))
+        { 
             $this->ajax_response(array(
                 'message'      => 'Offer sent.',
                 'status'       => 'success',

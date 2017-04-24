@@ -13,6 +13,8 @@ use PayPal\EBLBaseComponents\PaymentDetailsType;
 use PayPal\EBLBaseComponents\DoReferenceTransactionRequestDetailsType;
 use PayPal\PayPalAPI\DoReferenceTransactionRequestType;
 use PayPal\PayPalAPI\DoReferenceTransactionReq;
+use PayPal\PayPalAPI\RefundTransactionReq;
+use PayPal\PayPalAPI\RefundTransactionRequestType;
 
 
 use PayPal\Rest\ApiContext;
@@ -281,9 +283,7 @@ class Winjob_paypal {
             if( strtolower($RTResponse->Ack) == 'success' )
             {   
                 $transaction    = $RTResponse->DoReferenceTransactionResponseDetails;
-                $transaction    = $transaction->PaymentInfo;
-                
-                return $transaction;
+                return $transaction->TransactionID;
             }
         }
         catch (Exception $ex) 
@@ -291,6 +291,31 @@ class Winjob_paypal {
             log_message('error', 'Error when charging the client #' . $service->service_payer_id . ' ' . $ex->getMessage());
         }
         return null;
+    }
+    
+    public function refund($transaction_id)
+    {
+        $refundRequest = new RefundTransactionRequestType();
+        $refundRequest->RefundType = 'FULL';
+        $refundRequest->TransactionID = $transaction_id;
+        
+        $refundReq = new RefundTransactionReq();
+        $refundReq->RefundTransactionRequest = $refundRequest;
+        
+        try 
+        {
+            /* wrap API method calls on the service object with a try catch */
+            $refundResponse = $this->get_paypal_service()->RefundTransaction($refundReq);
+            
+            if(isset($refundResponse) && strtolower($refundResponse->Ack) == 'success' ) 
+            {
+                return true;
+            }
+        } catch (Exception $ex) {
+            log_message('error', 'Error when refunding the client for transaction #' . $transaction_id . ' ' . $ex->getMessage());
+        }
+        
+        return false;
     }
     
     private function _get_api_rest_context()

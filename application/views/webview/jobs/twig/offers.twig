@@ -78,49 +78,51 @@
                     {{ include('webview/jobs/partials/offer-hourly-amount-proposal.twig') }}
                 {% endif %}    
                 
-                <div class="col-md-12 text-left">
-                    <h4 class="confirm_hire_title">Job Duration :</h4>
-                </div>
-                <div class="col-md-12">
-                   <strong class="fix-price">{{ job_details.job_duration|replace({'_': '-'}) }}</strong>
-                </div>
-                    
-                <div class="col-md-12 text-left">
-                    <h4 class="confirm_hire_title">Start Date :</h4>
-                </div>
-                <div class="col-sm-3 col-xs-12">
-                   <input value="{{ current_date }}" id="datetimepicker" name="start_date" type="text" class="form-control" >
-                </div>
-                    
-                <div class="col-md-12 text-left">
-                    <h4 class="confirm_hire_title">Message to freelancer :</h4>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-9">
-                   <textarea class="form-control" name="message" rows="6" cols="30"></textarea>
-                </div>
-                
-                <div class="checkbox col-xs-12 checkbox-policy">
-                    <label>
-                      <input type="checkbox" name="terms" id="tearms" required />
-                      I understand and agree to the Winjob <a href="#">user Agreement</a> and <a href="#">policy</a>
-                    </label>
-                </div>
-                
-                <input type="hidden" name="applier_id" id="applier_id" value="{{ decoded_f_id }}">
-                <input type="hidden" name="job_id" id="job_id" value="{{ decoded_j_id }}">
-                
-                <div class="col-md-12">
-                    <div class="pull-left">
-                        <input type="submit" value="Confirm hire" class="btn my_btn hire-btn-submit pull-left" /> 
+                <div class="row">
+                    <div class="col-md-12 text-left">
+                        <h4 class="confirm_hire_title">Job Duration :</h4>
+                    </div>
+                    <div class="col-md-12">
+                       <strong class="fix-price">{{ job_details.job_duration|replace({'_': '-'}) }}</strong>
                     </div>
 
-                    <div class="cencel_content_btn pull-left">
-                        <input type="button" value="Cancel" class="btn my_btn" />
-                    </div>							
-                </div>
-                
-                <div class="col-xs-12">
-                    <div id="notif-container" class="alert hide"></div>
+                    <div class="col-md-12 text-left">
+                        <h4 class="confirm_hire_title">Start Date :</h4>
+                    </div>
+                    <div class="col-sm-3 col-xs-12">
+                       <input value="{{ current_date }}" id="datetimepicker" name="start_date" type="text" class="form-control" >
+                    </div>
+
+                    <div class="col-md-12 text-left">
+                        <h4 class="confirm_hire_title">Message to freelancer :</h4>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-9">
+                       <textarea class="form-control" name="message" rows="6" cols="30"></textarea>
+                    </div>
+
+                    <div class="checkbox col-xs-12 checkbox-policy">
+                        <label>
+                          <input type="checkbox" name="terms" id="tearms" required />
+                          I understand and agree to the Winjob <a href="#">user Agreement</a> and <a href="#">policy</a>
+                        </label>
+                    </div>
+
+                    <input type="hidden" name="applier_id" id="applier_id" value="{{ decoded_f_id }}">
+                    <input type="hidden" name="job_id" id="job_id" value="{{ decoded_j_id }}">
+
+                    <div class="col-md-12">
+                        <div class="pull-left">
+                            <input type="submit" value="Confirm hire" class="btn my_btn hire-btn-submit pull-left" /> 
+                        </div>
+
+                        <div class="cencel_content_btn pull-left">
+                            <input type="button" value="Cancel" class="btn my_btn" />
+                        </div>							
+                    </div>
+
+                    <div class="col-xs-12">
+                        <div id="notif-container" class="alert hide"></div>
+                    </div>
                 </div>
             </form>
         </div>

@@ -77,7 +77,7 @@ class Winjob_stripe {
             if( ! empty($charge) ) {
                 $invoice->forgiven = true;
                 $invoice->save();
-                return $charge->balance_transaction;
+                return $charge->id;
             }
             
         } 
@@ -110,6 +110,25 @@ class Winjob_stripe {
         return null;
     }
     
+    public function refund($charge_id)
+    {
+        try 
+        {
+            $re = \Stripe\Refund::create(array( "charge" => $charge_id ));
+            
+            if(!empty($re))
+            {
+                return true;
+            }
+        } 
+        catch (Exception $ex)
+        {
+            log_message('error', 'Error when refund a charge #' . $charge_id . $ex->getMessage());
+        }
+        
+        return false;
+    }
+    
     public function paid($amount, $currency, $service)
     {
         $now = Carbon::now(new DateTimeZone('UTC'));
@@ -124,7 +143,8 @@ class Winjob_stripe {
                             "description" => "Offer's payment for fixed job - " . date("d-m-Y H:i:s", $now->timestamp)
                         ));
             
-            return $charge;
+            if(!empty($charge))
+                return $charge->id;
         }
         catch (\Stripe\Error\RateLimit $e) {
             // Too many requests made to the API too quickly
