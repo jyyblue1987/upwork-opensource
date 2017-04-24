@@ -153,7 +153,7 @@
                     </div>
                     <div class="col-md-2">
                         <div class="row side">
-                            <div class="col-md-12 col-sm-12 col-xs-12 white-box text-center side-content    ">
+                            <div class="col-md-12 col-sm-12 col-xs-12 white-box text-center side-content">
                                 <?php
                                 if (! empty($croppedImage)) {
                                     ?>
