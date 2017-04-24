@@ -364,6 +364,7 @@ class Jobs extends Winjob_Controller {
                 $profile_progress = $this->ProfileModel->get_profile_completeness($this->user_id);
                 $active_interview = $this->process->get_active_interviews($this->user_id);
                 $offers           = $this->process->get_total_offers($this->user_id);
+                $image            = $this->Webuser_model->load_informations($this->user_id);
                 
                 $data = array(
                     'js'                  => array('internal/find_job.js'), 
@@ -373,7 +374,8 @@ class Jobs extends Winjob_Controller {
                     'int'                 => $active_interview['rows'], 
                     'profilecompleteness' => $profile_progress, 
                     'status'              => $this->Webuser_model->get_status($this->user_id),
-                    'proposals'           => $this->process->get_proposed_bids($this->user_id)
+                    'proposals'           => $this->process->get_proposed_bids($this->user_id),
+                    'croppedImage'        => $image->webuser_picture
                 );
 
                 if (isset($subCateList) && !empty($subCateList)) {
@@ -382,7 +384,7 @@ class Jobs extends Winjob_Controller {
                     $data['subCateList'] = "";
                 }
                 $data['jobCatSelected'] = $jobCat;
-
+                
                 if ($jobCatPage) {
                     if ((isset($keywords)) && (strlen($keywords) > 0)) {
                         $data['searchKeyword'] = $keywords;

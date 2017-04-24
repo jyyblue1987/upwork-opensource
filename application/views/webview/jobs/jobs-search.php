@@ -155,9 +155,9 @@
                         <div class="row side">
                             <div class="col-md-12 col-sm-12 col-xs-12 white-box text-center side-content    ">
                                 <?php
-                                if (! empty($croppedImage->cropped_image)) {
+                                if (! empty($croppedImage)) {
                                     ?>
-                                    <img src="<?php echo $croppedImage->cropped_image ?>" class="profile-pic" />
+                                    <img src="<?php echo $croppedImage ?>" class="profile-pic" />
                                     <?php
                                 } else {
                                     ?>
