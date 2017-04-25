@@ -124,7 +124,7 @@ class Job_details extends CI_Model {
         if($this->hrs_per_week == "not_sure"){
             return ucfirst(str_replace('_', ' ', $this->hrs_per_week));
         }else if($this->hrs_per_week == "40_plus"){
-            return "More than 40 hours";
+            return "40 +";
         }else{
             return $this->hrs_per_week;
         }
