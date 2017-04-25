@@ -89,7 +89,7 @@ class Jobs extends Winjob_Controller {
                 'tid' => time()
             );
             
-            $this->Admintheme->webview("jobs/post-job", $data);
+            $this->Admintheme->custom_webview("jobs/post-job", $data);
         }
         else if($this->input->is_ajax_request() && is_post() && $this->input->post('title'))//Here we need to handle job creation
         {
