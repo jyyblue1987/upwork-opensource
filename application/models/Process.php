@@ -436,10 +436,10 @@ class Process extends CI_Model {
         $this->db
                 ->select(array('job_bids.*', 'jobs.title', 'jobs.job_type', 'jobs.id as jobid',
                         'jobs.budget', 'jobs.hours_per_week', 'jobs.job_duration', 'jobs.category',
-                        'jobs.experience_level', 'jobs.skills', 'jobs.job_description', 'jobs.user_id as clientid', 'jobs.userfile', 'jobs.tid', 'jobs.job_created'))
+                        'jobs.experience_level', 'jobs.skills', 'jobs.job_description', 'jobs.user_id as clientid', 'jobs.userfile', 'jobs.tid', 'jobs.job_created', 'TIME(job_bids.created) AS bid_created'))
                 ->join('jobs', 'jobs.id=job_bids.job_id', 'left')
                 ->order_by("job_bids.id", "desc");
-        $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $user_id, 'job_bids.id' => $bidId));
+        $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $user_id, 'job_bids.job_id' => $bidId));
         return $query->row_array();
     }
     
@@ -458,7 +458,6 @@ class Process extends CI_Model {
                 ->where('job_bids.job_progres_status', '0')
                 ->where('job_bids.withdrawn',  NULL)
                 ->where('jobs.created >= ',  $expired_job_date->subDays(POSTED_JOB_VALID_DURATION)->format('Y-m-d H:i:s'))
-                ->group_by('jbid_id')
                 ->order_by("jobs.id", "desc");
         $query = $this->db->get('jobs');
 
