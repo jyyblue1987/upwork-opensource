@@ -468,7 +468,7 @@ class Jobs_model extends CI_Model {
         return $this->db->get_where('jobs', $val, $limit, $offset);
     }
     
-    function filter_jobs($jobType, $jobDuration, $jobHours, $category, $sql, $keywords, $limit, $offset, $category, $sort = FALSE){
+    function filter_jobs($jobType, $jobDuration, $jobHours, $category, $sql, $keywords, $limit, $offset, $sort = FALSE){
         
         $val = array(
                 '1' => '1',
@@ -548,7 +548,7 @@ class Jobs_model extends CI_Model {
         }
     }
     
-    function filter_random_jobs($jobType, $jobDuration, $jobHours, $category, $sql, $keywords, $limit, $offset, $category, $sort = FALSE){
+    function filter_random_jobs($jobType, $jobDuration, $jobHours, $category, $sql, $keywords, $limit, $offset, $sort = FALSE){
         $val = array(
                 '1' => '1',
                 'status' => 1

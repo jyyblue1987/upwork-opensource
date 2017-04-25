@@ -51,18 +51,17 @@
                                                 CATEGORIES
                                                 <?php foreach($categories AS $category){ ?>
                                                 <li style="padding: 5px 15px 5px 15px; font-family: calibri; font-size: 14px; font-weight: bold; color: #686361;" data-toggle="collapse" data-target="#category<?= $category->cat_id ?>" class="collapsed">
-                                                <?= $category->category_name; ?> <span class="arrow"></span>
+                                                <?= $category->category_name; ?><input type="hidden" value="<?= $category->cat_id ?>" name="jobCat[]"> <span class="arrow"></span>
                                                 </li>
                                                 <?php
                                                 $query = $this->db->get_where('job_subcategories', array('cat_id' => $category->cat_id));
                                                 ?>
                                                     <ul style="padding-top: 12px;margin-bottom: -8px;" class="sub-menu collapse" id="category<?= $category->cat_id ?>">
                                                         <?php foreach($query->result() AS $s){ ?>
-                                                        <li style="position:relative; margin-left: 10px;"><input type="checkbox" class="choose-job-cat" value="<?= $s->subcat_id ?>" name="jobCat[]"/> &nbsp;<span style="color: #686361;position: absolute;top: -2px;"><?= $s->subcategory_name ?></span></li>
+                                                        <li style="position:relative; margin-left: 10px;"><input type="checkbox" class="choose-job-cat" value="<?= $s->subcat_id ?>" name="subCat[]"/> &nbsp;<span style="color: #686361;position: absolute;top: -2px;"><?= $s->subcategory_name ?></span></li>
                                                         <?php } ?>
                                                     </ul>
                                                 <?php
-                                                
                                                 }
                                                 ?>
                                             </ul>
@@ -152,9 +151,3 @@
     </div>
 
 </section>
-
-</div>
-
-</section>
-<!-- big_header-->
-

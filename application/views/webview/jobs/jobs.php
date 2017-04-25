@@ -21,6 +21,7 @@
         margin-left: 15px;
     }
 </style>
+
 <p class="result-msg"></p>
 <section id="big_header">
     <div class="container">
@@ -282,7 +283,9 @@
                     <?php } ?>
                 </div>
                 <div class="col-md-3 no-pad">
-                    <?php
+                     <?php if ($f_active == FALSE) { ?>
+                            <a style="padding-left: 0;" href="#" id="place_bid" class="place_bid" data-job-id="<?= $value->get_jobid(); ?>" data-title="<?= $value->get_title() ?>" data-toggle="modal" data-target="#myModal"><button type="button" style="width: 200px; float: right;" class="btn btn-primary custon_send_pro send-pro">Send a Proposal</button></a>
+                    <?php }
                     if ($this->session->userdata('type') == '2') {
                         if ($is_applied > 0) {
                             ?>
@@ -303,9 +306,9 @@
                                         <div class="alert alert-warning">
                                             <strong>Warning!</strong> You reach your monthly proposals limit.
                                         </div>
-                            <?php } else { ?>
+                                    <?php } else { ?>
                                         <a style="padding-left: 0;" href="<?php echo site_url("jobs/" . url_title($value->get_title()) . '/' . base64_encode($value->get_jobid()) . '/apply'); ?>"><button type="button" class="btn btn-primary custon_send_pro send-pro">Send a Proposal</button></a>
-                            <?php } ?>
+                                    <?php } ?>
                                 </div>
                             </div>
                     <?php }
@@ -394,3 +397,12 @@
             </div>
         </div>
 </section>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="<?= site_url() ?>assets/js/internal/popup_register.js"></script>

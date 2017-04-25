@@ -524,7 +524,7 @@ class Jobs extends Winjob_Controller {
     }
 
     public function view($title = NULL, $postId = NULL) {
-            $this->authorized();
+            //$this->authorized();
 
             $postId   = base64_decode($postId);
             $employer = $this->jobs_model->load_client_infos($postId);
@@ -2799,27 +2799,20 @@ class Jobs extends Winjob_Controller {
     }
     
     public function jobs_no_auth($url_rewrite = null, $sort = 1){
-        $jobCat = $this->uri->segment(2);
-
-        $url_rewrite = substr($url_rewrite, 1, -1);
-        
-        $id              = $this->user_id;
-        $user_categories = $this->Category->get_user_subcategories($this->user_id);
         $jobCat          = $this->uri->segment(2);
+        $url_rewrite     = substr($url_rewrite, 1, -1);
+        $user_categories = $this->Category->get_categories();
         $jobCatPage      = false;
         $sql             = "";
 
         if (sizeof($user_categories) > 0) {
             foreach($user_categories AS $cat){
-                $sql .= $cat->subcat_id . ",";
+                $sql .= $cat->cat_id . ",";
             }
         }
 
-        $sql         = substr($sql, 0, strlen($sql) - 1);
-        $sqlIn       = " AND subcat_id IN ( " . $sql . " ) ";
-        $subCateList = $this->Common_mod->get(SUBCATEGORY_TABLE, null, $sqlIn);
-
-        $limit = 25;
+        $sql     = substr($sql, 0, strlen($sql) - 1);
+        $limit   = 25;
         $records = array();
 
         if ($this->input->is_ajax_request()) {
@@ -2852,31 +2845,32 @@ class Jobs extends Winjob_Controller {
             );
 
             $offset = $limit * $offsetId;
-            $keywords = $this->input->post('keywords');
 
             if (empty($category)) {
                 if ($sql != "" && strlen($sql) >= 1) {
-                    $query = $this->jobs_model->filter_random_jobs($jobType, $jobDuration, $jobHours, $category, $sql, $keywords, $limit, $offset, $category);
+                    $query = $this->jobs_model->filter_random_jobs($jobType, $jobDuration, $jobHours, $category, $sql, $this->input->get('q'), $limit, $offset);
                 }
             } else {
-                $query = $this->jobs_model->filter_random_jobs($jobType, $jobDuration, $jobHours, $category, $sql, $keywords, $limit, $offset, $category, $sort);
+                $query = $this->jobs_model->filter_random_jobs($jobType, $jobDuration, $jobHours, $category, $sql, $this->input->get('q'), $limit, $offset, $sort);
             }
 
             if ($query->num_rows() > 0 && is_object($query)){
                 $records = $query->result();
                 
-                $employer = new Employer($record->user_id);
-                $job      = new Job_details($employer->get_userid(), $record->id);
+                foreach ($records as $record) {
+                    $employer = new Employer($record->user_id);
+                    $job      = new Job_details($employer->get_userid(), $record->id);
 
-                $record->skills         = $this->Skills_model->get_skills($record->id);
-                //$record->payment_set    = $this->payment_methods_model->get_primary($employer->get_userid());
-                $record->is_active      = $employer->is_active();
-                //$record->total_spent    = $this->payment_model->get_amount_spent($employer->get_userid());
-                $record->rating         = $this->Webuser_model->get_total_rating($employer->get_userid(), true);
-                $record->country        = ucfirst($employer->get_country());
-                $record->job_created    = $this->process->time_elapsed_string($record->job_created);
-                $record->bids           = $this->process->get_job_bids($record->id);
-                $record->hrs_per_week   = $job->get_hrs_perweek();
+                    $record->skills         = $this->Skills_model->get_skills($record->id);
+                    $record->payment_set    = $this->payment_methods_model->get_primary($employer->get_userid());
+                    $record->is_active      = $employer->is_active();
+                    $record->total_spent    = $this->payment_model->get_amount_spent($employer->get_userid());
+                    $record->rating         = $this->Webuser_model->get_total_rating($employer->get_userid(), true);
+                    $record->country        = ucfirst($employer->get_country());
+                    $record->job_created    = $this->process->time_elapsed_string($record->job_created);
+                    $record->bids           = $this->process->get_job_bids($record->id);
+                    $record->hrs_per_week   = $job->get_hrs_perweek();
+                }
             }
 
             $data = array(
@@ -2907,7 +2901,7 @@ class Jobs extends Winjob_Controller {
                     $jobCatPage = true;
                 }
 
-                $query = $this->jobs_model->generate_random_jobs($keywords, $sql, $limit, $offset);
+                $query = $this->jobs_model->generate_random_jobs($this->input->get('q'), $sql, $limit, $offset);
             }
             if (is_object($query) && $query->num_rows() > 0) {
                 $records = $query->result();

@@ -85,7 +85,7 @@ if (count($records) > 0) {
                 <h3 style="margin-bottom: 12px;">
                     <a style="font-family: 'Calibri';font-size: 22px;color: rgb(2, 143, 204);" href="<?php echo site_url("jobs/" . url_title($value->title) . '/' . base64_encode($value->id)); ?>"><?php echo ucfirst($value->title) ?>
                     </a>
-                    <a href="#" class="btn btn-info btn-lg place_bid" id="place_bid" data-job-id="<?= $value->id; ?>" data-title="<?= $value->title ?>" data-toggle="modal" data-target="#myModal" >Place Bid</a></h3>
+                    <a href="#" class="btn btn-info btn-lg place_bid" id="place_bid" data-job-id="<?= $value->id; ?>" data-title="<?= $value->title ?>" data-toggle="modal" data-target="#myModal">Place Bid</a></h3>
                 <div class="custom_find_job">
                     <h5><b><?php echo ucfirst($value->job_type) ?></b></h5>
                     <h5><b>-</b></h5>
