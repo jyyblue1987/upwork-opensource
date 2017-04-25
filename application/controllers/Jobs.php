@@ -2827,8 +2827,8 @@ class Jobs extends Winjob_Controller {
             $category    = array();
             $jobCat      = $this->input->post('jobCat');
             $jobType     = $this->input->post('jobtype');
-            $jobDuration = $this->input->post('jobduratin');
-            $jobHours    = $this->input->post('jobweekhour');
+            $jobDuration = $this->input->post('jobDuration');
+            $jobHours    = $this->input->post('jobHours');
             $offsetId    = $this->input->post('limit');
             $keywords    = $this->input->post('keywords');
 
@@ -2856,94 +2856,33 @@ class Jobs extends Winjob_Controller {
 
             if (empty($category)) {
                 if ($sql != "" && strlen($sql) >= 1) {
-                    $val = array(
-                        '1' => '1',
-                        'status' => 1
-                    );
-                    $this->db->select('r.*');
-                    $this->db->where_in('r.category', $sql, FALSE);
-                    if (strlen($keywords) > 0) {
-                        $this->db->like("r.title", $keywords);
-                        $this->db->or_like("r.job_description", $keywords);
-                    }
-                    $this->db->order_by('r.category ASC, RAND()');
-                    $query = $this->db->get_where('jobs r', $val, $limit, $offset);
-
-                    $jobTypeQuery = '';
-                    if (!empty($jobType)) {
-                        $jobTypeQuery = implode(',', array_map(function($arr){
-                            return "'" . $arr . "'";
-                        }, $jobType));
-
-                        $jobTypeQuery = ' AND (r.job_type IN (' . $jobTypeQuery . '))';
-                    }
-
-                        $sortQuery = " ORDER BY r.created DESC ";
-                        if($sort == 0){
-                            $sortQuery = " ORDER BY r.created ASC ";
-                        }
-
-                $query = $this->db->query(
-                        "SELECT r.* FROM jobs r "
-                        . "WHERE (SELECT COUNT(*) FROM jobs r1
-                          WHERE r.category = r1.category AND r.id < r1.id
-                        ) <= 1 "
-                        . "AND r.status = 1 "
-                        . "AND r.category in(" . $sql . ") "
-                        . "AND (r.title like '%" . $keywords . "%' "
-                        . "OR r.job_description like '%" . $keywords . "%') {$jobTypeQuery} "
-                        . $sortQuery
-                        . "LIMIT " . $offset . ',' . $limit);
+                    $query = $this->jobs_model->filter_random_jobs($jobType, $jobDuration, $jobHours, $category, $sql, $keywords, $limit, $offset, $category);
                 }
             } else {
-
-                $jobTypeQuery = '';
-                if (!empty($jobType)) {
-                    $jobTypeQuery = implode(',', array_map(function($arr){
-                        return "'" . $arr . "'";
-                    }, $jobType));
-
-                    $jobTypeQuery = ' AND (r.job_type IN (' . $jobTypeQuery . '))';
-
-                }
-
-                $sortQuery = " ORDER BY r.created DESC, r.category ASC, RAND() ";
-                        if($sort == 0){
-                            $sortQuery = " ORDER BY r.created ASC, r.category ASC, RAND() ";
-                        }
-
-                $query = $this->db->query(""
-                        . "SELECT r.* FROM jobs r "
-                        . "WHERE r.status = 1 "
-                        . "AND r.category in(" . implode(',', $category) . ") "
-                        . "AND (r.title like '%" . $keywords . "%' "
-                        . "OR r.job_description like '%" . $keywords . "%') {$jobTypeQuery} "
-                        . $sortQuery
-                        . "LIMIT " . $offset . ',' . $limit);
+                $query = $this->jobs_model->filter_random_jobs($jobType, $jobDuration, $jobHours, $category, $sql, $keywords, $limit, $offset, $category, $sort);
             }
 
             if ($query->num_rows() > 0 && is_object($query)){
-
                 $records = $query->result();
-                $s=array();
-                foreach ($records as $record) {
-                    $q="SELECT job_skills.skill_name from job_skills where job_skills.job_id ='";
-                    $q.=$record->id."'";
-                    $skills = $this->db->query($q)->result();
-                    if(!empty($skills)){
-                        foreach($skills as $skill){
-                            array_push($s,$skill->skill_name);
-                        }
-                    }
-                    else{
-                        continue;
-                    }
-                    $record->skills=$s;
-                    $s=[];
-                    }
+                
+                $employer = new Employer($record->user_id);
+                $job      = new Job_details($employer->get_userid(), $record->id);
+
+                $record->skills         = $this->Skills_model->get_skills($record->id);
+                //$record->payment_set    = $this->payment_methods_model->get_primary($employer->get_userid());
+                $record->is_active      = $employer->is_active();
+                //$record->total_spent    = $this->payment_model->get_amount_spent($employer->get_userid());
+                $record->rating         = $this->Webuser_model->get_total_rating($employer->get_userid(), true);
+                $record->country        = ucfirst($employer->get_country());
+                $record->job_created    = $this->process->time_elapsed_string($record->job_created);
+                $record->bids           = $this->process->get_job_bids($record->id);
+                $record->hrs_per_week   = $job->get_hrs_perweek();
             }
 
-            $data = array('records' => $records, 'limit' => $limit);
+            $data = array(
+                'records' => $records, 
+                'limit'   => $limit
+            );
 
             $content = $this->load->view('webview/jobs/no_auth_content', $data, true);
             die (json_encode([

@@ -15,13 +15,18 @@
         font-family: calibri;
         color: rgb(98, 98, 98);
     }
-    .custom_find_job_bottom li:last-child{margin-right: 0px;}
-    .custom_find_job_bottom li i{margin-right: 5px;
-                                 font-size: 19px;}
+    
+    .custom_find_job_bottom li:last-child{
+        margin-right: 0px;
+    }
+    .custom_find_job_bottom li i{
+        margin-right: 5px;
+        font-size: 19px;
+    }
     .star-rating span, #feedbackbutton h4 span {
-
         font-size: 19px !important;
     }
+    
     .star-rating::before {
         font-size: 19px;
     }
@@ -54,6 +59,14 @@
         font-family: calibri;
         font-size: 16px;
         color: #494949;
+    }
+    span.rating-badge {
+        background: #F77D0E none repeat scroll 0 0;
+        border-radius: 2px;
+        color: #fff;
+        padding: 2px 4px 2px 5px;
+        font-size: 12px;
+        float: left;
     }
 </style>
 
