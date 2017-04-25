@@ -661,9 +661,12 @@ class Offers extends Winjob_Controller{
         $this->checkForFreelancer();
         
         $user_id = $this->session->userdata(USER_ID);
-        $offers  = $this->process->get_total_offers($user_id);
+        $offers  = $this->process->get_active_offers($user_id);
+        $archived_offers  = $this->process->get_archived_offers($user_id);
         
-        $this->twig->display('webview/jobs/twig/my-offers', compact('offers'));
+        //dump($archived_offers, true); 
+        
+        $this->twig->display('webview/jobs/twig/my-offers', compact('offers', 'archived_offers'));
     }
 }
 

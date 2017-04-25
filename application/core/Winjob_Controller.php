@@ -18,7 +18,7 @@ class Winjob_Controller extends CI_Controller {
         // load twig library with custom helper function
         $this->load->library('twig', array(
             'functions' => array(
-                'character_limiter',
+                'character_limiter', 'url_title',
                 'app_substr',
                 'str_replace',
                 'url_title',

@@ -73,9 +73,16 @@ class Freelancerinvite extends Winjob_Controller {
         
         //Get the timezone.
         $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS, null, " AND webuser_id=" . $id);
-        $timezone              = $this->timezone->get($webUserContactDetails['rows'][0]['timezone']);
-        $user_timezone         = get_right_timezone( $timezone['name'] );
-        $date                  = Carbon::now( new DateTimeZone( $user_timezone ) );
+        
+        try
+        {
+            $timezone = new DateTimeZone( $webUserContactDetails['rows'][0]['timezone'] );
+        }
+        catch(\Exception $e)
+        {
+            $timezone = new DateTimeZone( date_default_timezone_get() );
+        }
+        $date                  = Carbon::now( $timezone );
         
         $payment_set    = $this->payment_methods_model->get_primary( $record->user_id );
         $record_sidebar = $this->jobs_model->num_sent_by( $record->user_id );
@@ -99,7 +106,6 @@ class Freelancerinvite extends Winjob_Controller {
             'fname'            => $record->webuser_fname,
             'lname'            => $record->webuser_lname,
             'crt_user_time'    => $date, //Current time from user timezone
-            'user_timezone'    => $user_timezone,
             'payment_set'      => $payment_set,
             'record_sidebar'   => $record_sidebar,
             'hire'             => $record_hire,
@@ -109,12 +115,11 @@ class Freelancerinvite extends Winjob_Controller {
             'cover_letter'     => $bids_details->cover_latter, 
             'user_id'          => $record->clientid,
             'f_id'             => $bids_details->user_id,
-            'f_attachments'    => $attachments, 
-            'accepted_jobs'    => $accepted_jobs,
+            'f_attachments'    => $attachments,
             'rating'           => $rating,
             'amount_spent'     => $amount_spent
         );
         
         $this->twig->display('webview/twig/my-interview', $data);
-    }
+    }    
 }

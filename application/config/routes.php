@@ -15,6 +15,7 @@ $route['jobs/applications/(:any)']  = 'jobs/applied/($1)';
 $route['jobs/my-bids/archived']     = 'jobs/archived_bids_list';
 $route['jobs/proposals/(:any)/(:any)'] = 'jobs/withdraw_system/($2)'; 
 $route['my-offers/archived']           = 'Active_interview/declined_interview';
+$route['my-interviews']                = 'Active_interview';
 $route['proposals/my-interview']       = 'freelancerinvite';
 $route['jobs/offers']                  = 'job/offers';
 $route['jobs/offers/accept']           = 'job/offers/accept';

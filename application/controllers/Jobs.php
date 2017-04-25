@@ -363,7 +363,7 @@ class Jobs extends Winjob_Controller {
 
                 $profile_progress = $this->ProfileModel->get_profile_completeness($this->user_id);
                 $active_interview = $this->process->get_active_interviews($this->user_id);
-                $offers           = $this->process->get_total_offers($this->user_id);
+                $offers           = $this->process->get_active_offers($this->user_id);
                 $image            = $this->Webuser_model->load_informations($this->user_id);
                 
                 $data = array(
@@ -690,50 +690,33 @@ class Jobs extends Winjob_Controller {
             $this->Admintheme->custom_webview("jobs/apply", $data);
     }
 
-    public function bids_list() {
-        if ($this->Adminlogincheck->checkx()) {
-            if ($this->session->userdata('type') != 2) {
-                redirect(site_url("jobs-home"));
-            }
-            $records = array();
+    public function bids_list() 
+    {   
+        $this->checkForFreelancer();
+        
+        $user_id     = $this->session->userdata(USER_ID);
+        $bids        = $this->process->get_active_bids($user_id);
+                
+        $this->twig->display('webview/jobs/twig/my-bids', compact('bids'));
 
-            $id = $this->session->userdata('id');
-            $this->db->select(array('job_bids.*', 'jobs.title', 'jobs.user_id as client_id', '(select webuser_company from webuser where webuser_id=jobs.user_id) as company'));
-            $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'left');
-            $this->db->where('job_bids.status', 0);
-            $this->db->where('job_bids.bid_reject', 0);
-            
-            // added by jahid start 
-             $this->db->where('job_bids.job_progres_status', 0);
-             $this->db->where(array('job_bids.withdrawn' => NULL)); 
-             // added by jahid end    
-             
-            $this->db->order_by("job_bids.id", "desc");
-            $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id));
-            if ($query->num_rows() > 0)
-                $records = $query->result();
+        /*$this->db->select('*');
+        $this->db->from('job_bids');
+        $this->db->where('user_id', $this->session->userdata(USER_ID));
+        $this->db->where('job_bids.job_progres_status', 0);
+        $this->db->where("(withdrawn=1 OR bid_reject=1)");
+        $query_totalreject = $this->db->get();
+        $reject_count = $query_totalreject->num_rows();*/
 
-            // Davit start
-            $this->db->select('id');
-            $monthStart = date('Y-m-01');
-            $monthEnd = date('Y-m-t');
-            $this->db->where("(created BETWEEN '{$monthStart}' AND '{$monthEnd}')");
-            $query = $this->db->get_where('job_bids', array('job_bids.user_id' => $id));
-
-            $proposals = $query->num_rows();
-            
-            $this->db->select('*');
-            $this->db->from('job_bids');
-            $this->db->where('user_id', $this->session->userdata(USER_ID));
-            $this->db->where('job_bids.job_progres_status', 0);
-            $this->db->where("(withdrawn=1 OR bid_reject=1)");
-            $query_totalreject = $this->db->get();
-            $reject_count = $query_totalreject->num_rows();
-
-            $data = array('records' => $records, 'proposals' => $proposals, 'title' => 'My Bids - Winjob', 'css' => array("","","","assets/css/pages/bids_list.css"));
-            // Davit end
-            $this->Admintheme->custom_webview("jobs/my-bids", $data);
-        }
+        /*$data = array(
+            'records' => $records, 
+            'proposals' => $proposals, 
+            'title' => 'My Bids - Winjob', 
+            'css' => array("","","","assets/css/pages/bids_list.css"
+        ));*/
+        
+        // Davit end
+        //$this->Admintheme->custom_webview("jobs/my-bids", $data);
+        
     }
 
     public function archived_bids_list() {

@@ -183,7 +183,13 @@
                             <div style="border: 1px solid #ccc;border-radius: 3px;padding-bottom: 20px;" class='row white-box'>
                                 <div class="row ">
                                     <div style="margin-bottom: 8px;" class="col-md-9 no-padding">
-                                        <a style="color: #3bafdb;font-size: 16px;font-family: calibri;font-weight: bold;" href="<?php echo base_url() ?>my-offers">Active Interview<p style="float: right;margin: 0;"><?= $int ?></p></a>
+                                        <a style="color: #3bafdb;font-size: 16px;font-family: calibri;font-weight: bold;" href="<?php echo base_url() ?>my-interviews">Active Interview<p style="float: right;margin: 0;"><?= $int ?></p></a>
+                                    </div>
+                                </div>
+                                
+                                <div class="row ">
+                                    <div style="margin-bottom: 8px;" class="col-md-9 no-padding">
+                                        <a style="color: #3bafdb;font-size: 16px;font-family: calibri;font-weight: bold;" href="<?php echo base_url() ?>my-offers">Active Offer<p style="float: right;margin: 0;"><?= $offers ?></p></a>
                                     </div>
                                 </div>
 
