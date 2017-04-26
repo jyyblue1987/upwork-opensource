@@ -1,15 +1,8 @@
-<style type="text/css">
-p{margin-bottom: 10px;
-font-size: 16px;
-font-family: calibri;}
-b{font-size: 17px;
-font-family: calibri;}
-#mid_contant{margin-top: 0 !important;}
-</style>	
-<section id="big_header" style="margin-top:40px;margin-bottom:40px;height: auto;"> 
-    <div style="border: 1px solid #ccc;background: #fff;border-radius: 4px;padding-top: 20px;padding-bottom: 20px;" class="container">
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/css/pages/terms.css">
+<section id="big_header"> 
+    <div class="white-box">
 	  
-	<h1 style="font-size: 21px;font-family: calibri;font-weight: bold;margin-bottom: 20px;" class="text-center">Terms & Conditions</h1>
+	<h1 style="" class="text-center title">Terms & Conditions</h1>
 		
 <p>The following Terms of Service, which include the Privacy Policy, IP Policy, and any guideline, policy or content displayed on the Website, are a legally binding contractual agreement between you (“User, “you,” “your”) and Websoft, LLC. d/b/a Winjob.com (“Winjob.com,” “we,” “us”) (hereinafter collectively referred to as the “Terms of Service”).  By visiting or using the services available from the domain and sub-domains of www.winjob.com (the “Website”), you agree to be legally bound by these Terms of Service. We reserve the right to revise these Terms of Service and all linked information from time to time in our sole discretion by updating this posting or any linked information. Unless otherwise provided in such revision, the revised terms will take effect when they are posted.</p>
 <b>1.REGISTRATION</b>

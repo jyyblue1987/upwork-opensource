@@ -22,7 +22,7 @@ class FooterPages extends CI_Controller{
             'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
             'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
         );
-        $this->Admintheme->webview("footerpages/cancellation", $data);
+        $this->Admintheme->custom_webview("footerpages/cancellation", $data);
     }
 
     public function desktop_app(){
@@ -33,7 +33,7 @@ class FooterPages extends CI_Controller{
             'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
             'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
         );
-        $this->Admintheme->webview("footerpages/desktop_app", $data);
+        $this->Admintheme->custom_webview("footerpages/desktop_app", $data);
     }
 
     public function enterprise(){
@@ -44,7 +44,7 @@ class FooterPages extends CI_Controller{
             'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
             'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
         );
-        $this->Admintheme->webview("footerpages/enterprise", $data);
+        $this->Admintheme->custom_webview("footerpages/enterprise", $data);
     }
 
     public function fees(){
@@ -55,7 +55,7 @@ class FooterPages extends CI_Controller{
             'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
             'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
         );
-        $this->Admintheme->webview("footerpages/fees", $data);
+        $this->Admintheme->custom_webview("footerpages/fees", $data);
     }
 
     public function getwork_done(){
@@ -66,7 +66,7 @@ class FooterPages extends CI_Controller{
             'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
             'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
         );
-        $this->Admintheme->webview("footerpages/getworkdone", $data);
+        $this->Admintheme->custom_webview("footerpages/getworkdone", $data);
     }
     
     //Added by Ralfh 3/22/2017
@@ -776,7 +776,7 @@ class FooterPages extends CI_Controller{
             'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
             'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
         );
-        $this->Admintheme->webview("footerpages/join", $data);
+        $this->Admintheme->custom_webview("footerpages/join", $data);
     }
 
     public function make_better(){
@@ -787,7 +787,7 @@ class FooterPages extends CI_Controller{
             'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
             'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
         );
-        $this->Admintheme->webview("footerpages/make_better", $data);
+        $this->Admintheme->custom_webview("footerpages/make_better", $data);
     }
 
     public function press(){
@@ -798,7 +798,7 @@ class FooterPages extends CI_Controller{
             'jsf' =>array("assets/js/layerslider.transitions.js","assets/js/layerslider.kreaturamedia.jquery.js","assets/js/owl.carousel.min.js","assets/js/homepage.js"),
             'css' =>array("assets/css/layerslider.css","assets/css/owl.carousel.css","assets/css/owl.theme.css"),
         );
-        $this->Admintheme->webview("footerpages/press",$data);
+        $this->Admintheme->custom_webview("footerpages/press",$data);
     }
 
     public function create_ticket(){
@@ -809,7 +809,7 @@ class FooterPages extends CI_Controller{
             'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
             'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
         );
-        $this->Admintheme->webview("footerpages/ticket", $data);
+        $this->Admintheme->custom_webview("footerpages/ticket", $data);
     }
 
     public function trust_safety(){
@@ -820,7 +820,7 @@ class FooterPages extends CI_Controller{
             'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
             'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
         );
-        $this->Admintheme->webview("footerpages/trustsafety", $data);
+        $this->Admintheme->custom_webview("footerpages/trustsafety", $data);
     }
     
     public function feedback(){
@@ -831,6 +831,6 @@ class FooterPages extends CI_Controller{
             'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
             'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
         );
-        $this->Admintheme->webview("footerpages/feedback", $data);
+        $this->Admintheme->custom_webview("footerpages/feedback", $data);
     }
 }
