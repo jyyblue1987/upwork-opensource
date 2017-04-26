@@ -826,7 +826,7 @@ class Jobs extends Winjob_Controller {
             'skillList' => $skillList,
             'js' => array('vendor/jquery.form.js', 'internal/job_edit.js'));
 
-        $this->Admintheme->webview("jobs/edit-jobs", $data);
+        $this->Admintheme->custom_webview("jobs/edit-jobs", $data);
     }
 
     public function browse() {
