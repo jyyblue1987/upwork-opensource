@@ -1,0 +1,78 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 26 avr. 2017, 00:04:50
+    Author     : Hermannovich <donfack.hermann@gmail.com>
+*/
+
+.application-wrapper{
+    margin: 40px 0;
+}
+
+.main_job_titie{
+    margin-bottom: 20px;
+}
+
+.client-job-activity-current > li{ margin: 0; padding: 0; }
+
+.client-job-activity-current > li a{ 
+    padding-left: 5px;
+    padding-right: 5px;
+    display: block;
+    text-align: center;
+}
+
+.client-job-activity-current > li.drop_btn{
+    padding: 21px 5px 20px 5px;
+    border: 2px solid #e0e0e0;
+    background-color: #fff;
+    text-align: center;
+    font-size: 22px;
+}
+
+.custom-application_drop_down{ width: 100% }
+
+.custom-application_drop_down li a {
+    border: none; 
+    font-size: 15px;
+    text-align: left;
+    padding: 5px;
+}
+
+.job-process-header{
+    margin-bottom: 40px;
+}
+
+/*@media ('min-width': 601px and 'max-width': 764px){
+    .client-job-activity-current li.col-sm-4.second-line.drop_btn,
+    .client-job-activity-current li.col-sm-4.second-line a{
+        border-top: none;
+    }
+    
+    .client-job-activity-current li.col-sm-4:nth-child(3) a{
+        border-right: 2px solid #e0e0e0;
+    }
+}*/
+
+@media (max-width: 400px){
+    .client-job-activity-current > li.col-xs-12.drop_btn,
+    .client-job-activity-current > li.col-xs-12 a{
+        border: 2px solid #e0e0e0;
+        border-bottom: none;
+    }
+    
+    .client-job-activity-current > li.col-xs-12.drop_btn{
+        border-bottom: 2px solid #e0e0e0;
+    }
+}
+
+._js_decline_btn{
+    font-size: 20px;
+}
+
+.candidate-list{
+    padding-top: 0px;
+}

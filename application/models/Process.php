@@ -9,9 +9,14 @@ use Carbon\Carbon;
  */
 class Process extends CI_Model {
 
-    function get_applications($job_id) {
+    function get_applications($job_id, $count = false) 
+    {
+        if($count === false)
+            $this->db->select('*');
+        else
+            $this->db->select('COUNT(*) as count');
+        
         $this->db
-                ->select('*')
                 ->from('job_bids')
                 ->where('job_id', $job_id)
                 ->where('bid_reject', '0')
@@ -19,6 +24,15 @@ class Process extends CI_Model {
                 ->where('withdrawn', NULL)
                 ->where('job_progres_status', '0');
         $query = $this->db->get();
+        
+        if($count !== false)
+        {
+            $result = $query->row();
+            
+            if( ! empty($result))
+                return $result->count;
+            return 0;
+        }
 
         $return_array = array();
         $return_array['rows'] = $query->num_rows();
@@ -28,18 +42,31 @@ class Process extends CI_Model {
         return $return_array;
     }
 
-    function get_rejected($job_id) {
-        $this->db
-                ->select('*, job_bids.id as bid_id')
-                ->from('job_bids')
-                ->join('webuser', 'webuser.webuser_id = job_bids.user_id', 'inner')
-                ->join('country', 'country.country_id = webuser.webuser_country', 'inner')
-                ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
-                ->where('job_bids.job_id', $job_id)
-                ->where('job_bids.hired', '0')
-                ->where('(job_bids.withdrawn = 1 OR job_bids.bid_reject = 1)');
-        $query = $this->db->get();
+    function get_rejected($job_id, $count = false) 
+    {
+        if($count === false)
+            $this->db->select('*, job_bids.id as bid_id');
+        else
+            $this->db->select('COUNT(*) as count');
+        
+        $query =  $this->db->from('job_bids')
+                        ->join('webuser', 'webuser.webuser_id = job_bids.user_id', 'inner')
+                        ->join('country', 'country.country_id = webuser.webuser_country', 'inner')
+                        ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
+                        ->where('job_bids.job_id', $job_id)
+                        ->where('job_bids.hired', '0')
+                        ->where('(job_bids.withdrawn = 1 OR job_bids.bid_reject = 1)')
+                        ->get();
 
+        if($count !== false)
+        {
+            $result = $query->row();
+            
+            if( ! empty($result))
+                return $result->count;
+            return 0;
+        }
+             
         $return_array = array();
         $return_array['rows'] = $query->num_rows();
         if ($return_array['rows'] > 0) {
@@ -48,9 +75,14 @@ class Process extends CI_Model {
         return $return_array;
     }
 
-    function get_interviews($user_id, $job_id) {
+    function get_interviews($user_id, $job_id, $count = false) 
+    {
+        if($count === false)
+            $this->db->select('*');
+        else
+            $this->db->select('COUNT(*) as count');
+        
         $this->db
-                ->select('*')
                 ->from('job_conversation')
                 ->join('job_bids', 'job_conversation.bid_id = job_bids.id', 'inner')
                 ->join('webuser', 'webuser.webuser_id=job_bids.user_id', 'left')
@@ -61,6 +93,15 @@ class Process extends CI_Model {
                 ->where('job_bids.withdrawn', NULL)
                 ->group_by('job_conversation.bid_id');
         $query = $this->db->get();
+        
+        if($count !== false)
+        {
+            $result = $query->row();
+            
+            if( ! empty($result))
+                return $result->count;
+            return 0;
+        }
 
         $return_array = array();
         $return_array['rows'] = $query->num_rows();
@@ -70,17 +111,32 @@ class Process extends CI_Model {
         return $return_array;
     }
 
-    function get_offers($job_id) {
-        $this->db
-                ->select('*, job_bids.id as bid_id')
-                ->from('job_bids')
+    function get_offers($job_id, $count = false) 
+    {
+        if($count === false)
+            $this->db->select('*, job_bids.id as bid_id');
+        else
+            $this->db->select('COUNT(*) as count');
+        
+        
+        $this->db->from('job_bids')
                 ->join('webuser', 'webuser.webuser_id = job_bids.user_id', 'inner')
                 ->join('country', 'country.country_id = webuser.webuser_country', 'inner')
                 ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
                 ->where('job_progres_status', 2)
                 ->where('withdrawn',  NULL)
                 ->where(array('job_id' => $job_id, 'hired' => '1'));
+            
         $query = $this->db->get();
+        
+        if($count !== false)
+        {
+            $result = $query->row();
+            
+            if( ! empty($result) )
+                return $result->count;
+            return 0;
+        }
 
         $return_array = array();
         $return_array['rows'] = $query->num_rows();
@@ -90,9 +146,14 @@ class Process extends CI_Model {
         return $return_array;
     }
     
-    function get_hires($user_id, $job_id){
+    function get_hires($user_id, $job_id, $count = false)
+    {
+        if($count === false)
+            $this->db->select('*');
+        else
+            $this->db->select('COUNT(*) as count');
+        
         $this->db
-                ->select('*')
                 ->from('job_accepted')
                 ->join('webuser', 'webuser.webuser_id=job_accepted.fuser_id', 'inner')
                 ->join('webuser_basic_profile', 'webuser_basic_profile.webuser_id=webuser.webuser_id', 'inner')
@@ -107,6 +168,16 @@ class Process extends CI_Model {
                 ->where('job_bids.withdrawn', NULL);
         $query = $this->db->get();
 
+        
+        if($count !== false)
+        {
+            $result = $query->row();
+            
+            if( ! empty($result) )
+                return $result->count;
+            return 0;
+        }
+        
         $return_array = array();
         $return_array['rows'] = $query->num_rows();
         if ($return_array['rows'] > 0) {
@@ -458,7 +529,33 @@ class Process extends CI_Model {
                 ->where('job_bids.job_progres_status', '0')
                 ->where('job_bids.withdrawn',  NULL)
                 ->where('jobs.created >= ',  $expired_job_date->subDays(POSTED_JOB_VALID_DURATION)->format('Y-m-d H:i:s'))
-                ->order_by("jobs.id", "desc");
+                ->order_by("job_bids.created", "desc");
+        $query = $this->db->get('jobs');
+
+        $return_array = array();
+        $return_array['rows'] = $query->num_rows();
+        if ($return_array['rows'] > 0) {
+            $return_array['data'] = $query->result();
+        }
+        return $return_array;
+    }
+    
+    public function get_archive_bids($user_id)
+    {
+        $expired_job_date = Carbon::now(new DateTimeZone('UTC'));
+        
+        $this->db
+                ->select('jobs.*, job_bids.*,webuser.*,job_bids.user_id AS bid_user_id,job_bids.status AS bid_status,job_bids.created AS bid_created,job_conversation.bid_id AS jbid_id')
+                ->join('job_bids', 'jobs.id=job_bids.job_id', 'inner')
+                ->join('webuser', 'jobs.user_id=webuser.webuser_id', 'inner')
+                ->join('job_conversation', 'job_bids.id=job_conversation.bid_id', 'left')
+                ->where('job_bids.user_id',$user_id)
+                ->where('job_bids.status','0')
+                ->where('job_bids.bid_reject','0')
+                ->where('job_bids.job_progres_status', '0')
+                ->where('job_bids.withdrawn',  NULL)
+                ->where('jobs.created < ',  $expired_job_date->subDays(POSTED_JOB_VALID_DURATION)->format('Y-m-d H:i:s'))
+                ->order_by("job_bids.created", "desc");
         $query = $this->db->get('jobs');
 
         $return_array = array();
@@ -564,7 +661,7 @@ class Process extends CI_Model {
         $expired_job_date = Carbon::now(new DateTimeZone('UTC'));
         
         $this->db
-                ->select('jobs.*, job_bids.*,webuser.*,job_bids.user_id AS bid_user_id,job_bids.status AS bid_status,job_bids.created AS bid_created,job_conversation.bid_id AS jbid_id')
+                ->select('jobs.*, job_bids.*,webuser.*,job_bids.user_id AS bid_user_id,job_bids.status AS bid_status, job_bids.id AS bid_id,job_bids.created AS bid_created,job_conversation.bid_id AS jbid_id')
                 ->join('job_bids', 'jobs.id=job_bids.job_id', 'inner')
                 ->join('webuser', 'jobs.user_id=webuser.webuser_id', 'inner')
                 ->join('job_conversation', 'job_bids.id=job_conversation.bid_id', 'left')

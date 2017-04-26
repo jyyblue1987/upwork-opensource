@@ -1,0 +1,44 @@
+<ul class="client-job-activity-current col-xs-12">
+    <li class="col-md-2 col-sm-4 col-xs-12">
+        <a class="{{ applications_active }}" href='{{ site_url('jobs/applications/' ~ display_job_id) }}'>
+            Applications
+            <span class="badge">{{ applicants }}</span>
+        </a>
+    </li>
+    <li class="col-md-2 col-sm-4 col-xs-12">
+        <a class="{{ interviews_active }}" href='{{ site_url('jobs/interviews/' ~ display_job_id) }}'>
+            Interviews
+            <span class="badge">{{ interviews }}</span>
+        </a>
+    </li>
+    <li class="col-md-2 col-sm-4 col-xs-12">
+        <a class="{{ offered_active }}" href='{{ site_url('offered?job_id=' ~ display_job_id) }}'>
+            Offered
+            <span class="badge">{{ offered }}</span>
+        </a>
+    </li>
+    <li class="col-md-2 col-sm-4 second-line col-xs-12">
+        <a  class="{{ hired_active }}" href='{{ site_url('hired?job_id=' ~ display_job_id) }}'>
+            Hired
+            <span class="badge">{{ hired }}</span>
+        </a>
+    </li>
+    <li class="col-md-2 col-sm-4 second-line col-xs-12">
+        <a  class="{{ declined_active }}" href='{{ site_url('declined?job_id=' ~ display_job_id) }}'>
+            Declined
+            <span class="badge">{{ declined }}</span>
+        </a>
+    </li>
+    <li class="drop_btn col-md-2 col-sm-4 second-line col-xs-12">
+        <div class="dropdown custom-application_drop_down">
+            <button style="margin-left: -14px;" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+            job action <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#">View Job Posting</a></li>
+                <li><a href="#">Edit Job Posting</a></li>
+                <li><a href="#">Remove Job Posting</a></li>
+            </ul>
+        </div>
+    </li>
+ </ul> 

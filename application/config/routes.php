@@ -4,15 +4,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /************************************
  * USER FRIENDLY URL FOR FREELANCER
  ************************************/
-$route['win-jobs']       = 'win_jobs';
-$route['ended-jobs']     = 'ended_jobs';
-$route['my-balance']     = 'pay/balance';
-$route['jobs/my-bids']   = 'jobs/bids_list';
+$route['win-jobs']               = 'win_jobs';
+$route['ended-jobs']             = 'ended_jobs';
+$route['my-balance']             = 'pay/balance';
+$route['jobs/my-bids']           = 'job/bids';
+$route['jobs/my-bids/archived']  = 'job/bids/archived';
+
 
 $route['my-offers']                 = 'job/offers/active';
 $route['jobs/interviews/(:any)']    = 'jobs/interviews/($1)';
-$route['jobs/applications/(:any)']  = 'jobs/applied/($1)';
-$route['jobs/my-bids/archived']     = 'jobs/archived_bids_list';
+
 $route['jobs/proposals/(:any)/(:any)'] = 'jobs/withdraw_system/($2)'; 
 $route['my-offers/archived']           = 'Active_interview/declined_interview';
 $route['my-interviews']                = 'Active_interview';
@@ -34,9 +35,12 @@ $route['pay/add-card']            = 'pay/add_card';
 $route['pay/add-paypal-account']  = 'pay/add_paypal_account';
 $route['billing-history']         = 'pay';
 $route['edit-jobs/(:any)']        = 'jobs/edit/($1)';
-$route['jobs/(:any)/(:any)']      = 'jobs/view/($1)/($2)';
-$route['jobs/preview-job-posting'] = 'jobs/preview_job_posting';
-$route['freelancer/(:any)']       = 'profile/profileSearch/($1)'; 
+$route['jobs/applications/(:any)']  = 'job/applications/index/($1)';
+$route['jobs/applied/(:any)']       = 'jobs/applied/($1)';
+$route['jobs/(:any)/(:any)']        = 'jobs/view/($1)/($2)';
+$route['jobs/preview-job-posting']  = 'jobs/preview_job_posting';
+$route['freelancer/(:any)']         = 'profile/profileSearch/($1)';
+
 
 $route['default_controller'] = 'home';
 $route['404_override'] = '';

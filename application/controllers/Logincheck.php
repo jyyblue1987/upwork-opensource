@@ -65,6 +65,10 @@ class Logincheck extends CI_Controller {
                 $this->session->set_userdata('webuser_country', $stud->webuser_country);
                 $this->session->set_userdata('webuser_picture', $stud->webuser_picture);
                 
+                $this->load->model('common_mod');
+                $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS, null, " AND webuser_id=" . $stud->webuser_id);
+                $user_timezone         =  $webUserContactDetails['rows'][0]['timezone'];
+                $this->session->set_userdata('user_timezone', validate_user_timezone( $user_timezone ));
                  
                 if ($this->session->userdata('type') == '1'){
                     redirect(site_url("jobs-home"));

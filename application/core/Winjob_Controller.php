@@ -70,7 +70,7 @@ class Winjob_Controller extends CI_Controller {
         $this->twig->addGlobal('clientend', $this->conversation->clientend());
         $this->twig->addGlobal('notif_count', $this->notification_model->user_notification_count( $user_id ));
         $this->twig->addGlobal('notifications', $this->notification_model->user_notification( $user_id ));
-        $this->twig->addGlobal('user_timezone', $this->webuser_model->get_address_field('timezone',  $user_id ));
+        $this->twig->addGlobal('user_timezone',  $this->session->userdata('user_timezone'));
     }
     
         

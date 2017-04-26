@@ -11,3 +11,21 @@ and open the template in the editor.
 .my-offers-container{
     margin-top: 40px;
 }
+
+.archived-items{
+    margin-left: 20px;
+    display: inline-block;
+}
+
+.bordered-alert {
+    height: auto !important;
+}
+
+@media(max-width: 479px){
+    .archived-items{
+        margin-left: 0;
+        width: 100%;
+        display: block;
+        margin-top: 10px;
+    }
+}

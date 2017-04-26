@@ -20,19 +20,32 @@
     <div class="white-box-feed my-offers-container">
         <div class="row">
             <div class="col-md-12 bottom-blue-border padding-2">
-                <span><b>My Bids </b></span>
+                {% if display == 'active' %}
+                    <span><b>Active Bids </b></span>
+                {% else %}
+                    <a href='{{ site_url('jobs/my-bids') }}'><b>Active Bids </b></a>
+                {% endif %}
                 <span class="badge">{{ bids['rows'] }}</span>
+                    
+                <div class="archived-items">
+                {% if display == 'archived' %}
+                    <span><b>Archived Bids </b></span>
+                {% else %}
+                    <a href='{{ site_url('jobs/my-bids/archived') }}'><b>Archived Bids </b></a>
+                {% endif %}
+                <span class="badge">{{ archived_bids['rows'] }}</span>
+                </div>
             </div>
             <div class="col-md-9 text-center bordered-alert margin-top" >
                 {% if bids['rows'] != 0 %}
                     {% if bids['rows'] == 1 %}
-                        {% set offers_text = " Bid  Available" %}
+                        {% set offers_text = (display == 'archived' ? " Archived Bid" : " Active Bid Available") %}
                     {% else %}
-                        {% set offers_text = " Bids Available" %}
+                        {% set offers_text = (display == 'archived' ? " Archived Bids" : " Actives Bids Available") %}
                     {% endif %}
                     {% set msg_offers = bids['rows'] ~ offers_text %}
                 {% else %}
-                    {% set msg_offers = "No Pending Bid" %}
+                    {% set msg_offers = (display == 'archived' ? "No Archived Bids" : "No Pending Bid") %}
                 {% endif %}
                 {{ msg_offers }}
             </div>
@@ -48,12 +61,12 @@
                     <label>Job Title</label>
                 </div>
             </div>
-
-            {% for offer in bids['data'] %}
+            {% set items = (display == 'archived' ? archived_bids : bids) %}
+            {% for offer in items['data'] %}
                 <div class="row">
                     <div class="col-md-12 custom_bids_list_border">
                         <div class="row">
-                            {% set local_datetime = app_convert_date_in_local(offer.job_created, user_timezone) %}
+                            {% set local_datetime = app_convert_date_in_local( offer.bid_created, user_timezone ) %}
                             <div class="col-md-2 col-sm-6 col-xs-6">{{ local_datetime.format(' M j, Y ') }}</div>
                             <div class="col-md-10 blue-text col-sm-6 col-xs-6">
                                 <a href="{{ base_url('jobs/proposals/' ~ url_title(offer.title) ~ '/' ~ base64_encode(offer.job_id) ) }}"> 
@@ -64,7 +77,7 @@
 
                          <div class="row margin-top-1">
                             <div class="col-md-2 col-xs-6 col-sm-6">
-                                {{ app_time_elapsed_string( local_datetime.timestamp ) }}
+                                {{ app_time_elapsed_string( local_datetime.timestamp, user_timezone ) }}
                             </div>
                             <div class="col-md-10  col-xs-6 col-sm-6">
                                {{ offer.webuser_company }}

@@ -26,11 +26,11 @@ class Employer extends CI_Model {
     private $payment_set;
     private $total_spent;
     
-    function __construct($user_id = FALSE) {
+    function __construct($user_id = false) {
         parent::__construct();
         if(is_numeric($user_id)){
             return $this->init($user_id);
-        }else{
+        }else if($user_id !== false){
             $result = $this->db->query("SELECT webuser_id FROM webuser WHERE webuser_username = '$user_id'");
             $_uid = $result->row_array();
             return $this->init($_uid['webuser_id']);

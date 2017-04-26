@@ -317,8 +317,14 @@ if( !function_exists('csrf_token')){
 
 if( ! function_exists('app_time_elapsed_string') ){
     
-    function app_time_elapsed_string($ptime){
-        $etime = time() - $ptime;
+    function app_time_elapsed_string($ptime, $user_timezone = null){
+        
+        if($user_timezone === null)
+            $user_timezone = date_default_timezone_get ();
+        
+        $utc_date = new DateTime(NULL, new DateTimeZone( $user_timezone ));
+        $etime    = $utc_date->getTimestamp() - $ptime;
+        
         if ($etime < 1) {
             return '0 seconds';
         }
@@ -532,6 +538,21 @@ function app_convert_date_in_local($date_string, $timezone)
     $_date->setTimezone($local_timezone);
     $convert_date = \Carbon\Carbon::createFromTimestamp($_date->getTimestamp(), $local_timezone);
     return $convert_date;
+}
+
+function validate_user_timezone( $user_timezone )
+{
+    $valid_user_timezone = $user_timezone;
+    
+    try{
+        $local_timezone = new DateTimeZone($timezone);
+    }
+    catch(\Exception $e)
+    {
+        $valid_user_timezone = date_default_timezone_get();
+    }
+    
+    return $valid_user_timezone;
 }
 
 // added by (Donfack Zeufack Hermann) end

@@ -634,6 +634,7 @@ class Jobs extends Winjob_Controller {
 
                 $data['bid_fee']     = round($data['bid_amount'] / 10, 2);
                 $data['bid_earning'] = $data['bid_amount'] - $data['bid_fee'];
+                $data['created']     = date('Y-m-d H:i:s');
 
                 if ($this->db->insert('job_bids', $data)) {
                     $insert_id = $this->db->insert_id();
@@ -688,35 +689,6 @@ class Jobs extends Winjob_Controller {
             );
 
             $this->Admintheme->custom_webview("jobs/apply", $data);
-    }
-
-    public function bids_list() 
-    {   
-        $this->checkForFreelancer();
-        
-        $user_id     = $this->session->userdata(USER_ID);
-        $bids        = $this->process->get_active_bids($user_id);
-                
-        $this->twig->display('webview/jobs/twig/my-bids', compact('bids'));
-
-        /*$this->db->select('*');
-        $this->db->from('job_bids');
-        $this->db->where('user_id', $this->session->userdata(USER_ID));
-        $this->db->where('job_bids.job_progres_status', 0);
-        $this->db->where("(withdrawn=1 OR bid_reject=1)");
-        $query_totalreject = $this->db->get();
-        $reject_count = $query_totalreject->num_rows();*/
-
-        /*$data = array(
-            'records' => $records, 
-            'proposals' => $proposals, 
-            'title' => 'My Bids - Winjob', 
-            'css' => array("","","","assets/css/pages/bids_list.css"
-        ));*/
-        
-        // Davit end
-        //$this->Admintheme->custom_webview("jobs/my-bids", $data);
-        
     }
 
     public function archived_bids_list() {

@@ -3,7 +3,7 @@
 
 ini_set('max_execution_time', 300000);
 ini_set('memory_limit','1024M');
-date_default_timezone_set('Africa/Accra');
+date_default_timezone_set('UTC');
 
 if ( ! isset( $_SERVER['SERVER_NAME'] ) || $_SERVER['SERVER_NAME'] == 'localhost' ){
    define('ENVIRONMENT', 'development');

@@ -1,0 +1,57 @@
+{% extends "webview/layout/twig/layout.twig" %}
+                                    
+{% block title %}  Applications - Winjob  {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ site_url("assets/css/bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/font-awesome.min.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/fonts.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/header.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/croppic.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/footer.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/bootstrap-socil.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/normalize.css") }}">
+    <link rel="stylesheet" href="{{ site_url("assets/css/style.css") }}">
+    <link rel="stylesheet" href="{{ base_url("assets/css/pages/applications.css") }}">
+{% endblock %}
+
+{% block content %}
+    <div class="application-wrapper">
+        <div class="row"> 
+            <div class="col-xs-12 main_job_titie">
+              <b>  {{ job_type ~ " - " ~ job_title }}</b> 
+            </div>
+        </div>
+         
+        <div class="row job-process-header"> 
+            {{ include('webview/jobs/partials/job-process-header.twig', {'applications_active': 'active-link'}) }}
+        </div>
+        
+        {% if applications is not empty %}
+            {% for application in applications %}
+                <div class="col-md-12 white-box candidate-list">
+                    <div class="row">
+                        <a class="col-md-12 _js_decline_btn text-right" href="#" data-bid="{{ application.bid_id }}">
+                            <i class="fa fa-times"></i>
+                        </a>
+                        <div class="col-md-12">
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}   
+        {% else %}
+            <p>No application yet.</p>
+        {% endif %}
+        
+    </div>
+{% endblock %}
+
+{% block js %}
+    
+    {# this variable defines the asset/modular/pages file to load #}
+    <script> var page = 'applications'; </script>
+    
+    <script data-main="{{ app_modular_js("winjob") }}" src="{{ app_modular_js("lib/require.dev.js") }}"></script>
+    <script src="{{ site_url("assets/js/vendor/modernizr-2.8.3.min.js") }}"></script>
+    
+{% endblock %}
