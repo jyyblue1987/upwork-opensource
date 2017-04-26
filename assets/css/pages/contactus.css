@@ -1,0 +1,124 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,300italic,500,400italic,600,500italic,700italic,700,600italic);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800);
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+body {color: #333;font-family: "Roboto" !important;font-size: 14px;line-height: 1.42857;}
+html {color: #222;font-size: 1em;line-height: 1.4;}
+.buttonsidefoure {background: white;border: 1px solid #ccc;padding: 10px;height: 100%;padding-bottom: 20px;}
+.buttonsidefoure ul li {padding: 13px 0px 0px 5px;}
+.buttonsidefoure h2 {font-size: 21.26px;margin: -8px 30px 15px 7px;color: #494949;font-family:'Calibri';src: url(../fonts/Calibri.ttf);display: block;padding: 15px 0 0 0;font-weight:800;}
+.buttonsidefoure ul li a {text-decoration: none;color: #494949;font-family: 'Calibri';src: url(../fonts/Calibri.ttf);font-size: 16.26px;display: block;font-weight: bold;}
+span.rating-badge {background: #F77D0E none repeat scroll 0 0;border-radius: 2px;color: #fff;padding: 2px 4px 2px 5px;font-size: 12px;}
+.user_view_img img {border-radius: 50%;height: 100px;width: 100px;margin: 10px 0px 0px 10px;}
+span.rating-badge {background: #F77D0E none repeat scroll 0 0;border-radius: 2px;color: #fff;padding: 2px 4px 2px 5px;font-size: 12px;}
+.profile_star-rating::before {top: -8px;left:-2px;}
+ul.cus_main_side_nav_bar li{list-style: none!important;}
+.custom_active_interview .custom_interview_border{height: 1px;background: #ccc;width: 108.2%;margin-top: 25px;margin-left: -44px;}
+#big_header{margin-top: 40px; margin-bottom: 40px; height: auto;}
+.menu ul {list-style:none;margin: 0;padding:0;}.menu li {margin: 0;padding: 0px;float:left;}
+.menu ul li  a {font-family:'Arial';display: block;color: #35a7d6;text-decoration:none;font-size:16px; padding: 0px 28px;margin-top:14px;border:none;   }
+.menu ul li  a.first-menu {font-family:'Arial';display: block;color: #35a7d6;text-decoration:none;font-size:16px; padding: 0px 28px 0px 6px;margin-top:14px;border:none;    }
+.menu  a:hover {color: #e84c3d;-webkit-transition:1s;-moz-transition:1s;-o-transition:1s;transition:1s;}
+#mid_contant{width:100%;float:left;background-color: #f0f0f0;min-height: 483px;margin-top:10px;}
+.white-box{background-color:white;border-radius: 4px;padding: 10px;}
+.bottom-blue-border {border-bottom: 1px solid #1ea7da;}
+.white-box-feed{background-color:white;border-radius: 4px;margin: 0px;padding: 30px;}
+input.btn-default_activv{background:#028FFC;color:#fff;}
+input.btn-default_activv:hover{background:#286090;color:#fff;}
+input.btn-cancel{border:1px solid #CED0D4;color:#1CA7DB;background:#fff;}
+input.btn-cancel:hover{border:1px solid transparent;color:#fff;background:#286090;}
+
+.contract-section{
+    margin-top: 36px; 
+    margin-bottom: 40px; 
+    height: auto;
+    margin-left: 14px;
+}
+
+.payment-modal .modal-content{
+    padding: 10px;
+}
+
+.payment-modal .modal-content button.close,
+.payment-modal .modal-body,
+.payment-modal .modal-header{  border: none; }
+
+.payment-modal .modal-content button.close {
+    top: 30px;
+    position: absolute;
+    right: 20px;
+}
+
+button._job_btn_payment {
+    border: 1px solid #CED0D4;
+    color: #1CA7DB;
+    background: #fff;
+}
+
+button._job_btn_payment:hover {
+    border: 1px solid transparent;
+    color: #fff;
+    background: #286090;
+}
+
+.payment-modal label{
+    font-size: 16px;
+}
+
+.payment-modal input.amount{
+    font-size: 16px;
+    font-family: calibri;
+    margin-top: 5px;
+}
+
+.payment-modal .modal-header h4{
+    margin: 0px;
+    font-size: 17px;
+    font-weight: bold;
+}
+.payment-modal .modal-header h4 span{
+    font-size: 17px;
+}
+
+
+.payment-modal .modal-body{
+    padding-top: 5px;
+}
+
+.payment-modal form{
+    margin-bottom: 0;
+}
+    
+.payment-modal .btn-container{
+    margin-top: 10px;
+}
+
+.payment-modal .input-content{
+   margin: 10px 0; 
+}
+.contact_header{background: #fff;margin-top: 40px;margin-bottom: 40px;border: 1px solid #ccc;border-radius: 3px;padding: 0px 13px;}
+p.red{color:red;}
+.marg-bot-40{margin-bottom: 40px;}
+label.attach{float: left;margin-right: 5px;}
+input.security{width: 39%;}
+.rightcont{margin-left: 67px;font-family: 'calibri';}
+.big_mass_active{background:#028cc9;color:#fff;border: 1px solid transparent;}
+.transparent-btn {background: #fff none repeat scroll 0 0;border: 1px solid #CED0D4;color: #1ca7db;font-family: "calibri";src: url(../fonts/Calibri.ttf);padding: 4px 30px 4px 30px;font-weight: 600;}
+.big_mass_button {font-size: 15px;padding: 2px 15px;float: right;border-radius: 2px;}
+.big_mass_button:hover{background:#286090;color:#fff;}
+h4.header{font-weight: bold;margin-top: 20px;margin-bottom: 20px;}
+
+@media(max-width: 480px){
+    .no-pad-mob{padding-left:0px;padding-right:0px!important;}
+}
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {width: 740px;}
+    .no-pad-mob{padding-left:0px;padding-right:0px!important;}
+}
+@media (min-width: 1200px) {
+    .container {width: 1000px;}
+    .pad-left-right{padding-left:15px;padding-right:25px;}
+}
+@media (min-width: 1024px) {
+    .container {width: 1000px;}
+    .pad-left-right{padding-left:15px;padding-right:25px;}
+}

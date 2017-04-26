@@ -14,19 +14,20 @@
         margin-left: -40px;
     }
 </style>
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/css/pages/edit-jobs.css" />
 <script src="<?php echo site_url("assets/js/chosen.jquery.js"); ?>"></script>
-<section id="big_header" style="margin-top: 40px; margin-bottom: 40px; height: auto;overflow: hidden;border-right: 1px solid #ccc;margin-left: 13px;border-radius: 4px;">
-    <div  style="border:1px solid #ccc;" class="container white-box-feed">
+<section id="big_header">
+    <div  class="container white-box-feed pad-left-right">
         <div class="row">
-            <div style="margin-bottom: 15px;" class="col-md-7 col-md-offset-0 page-title">
-                <h1 style="color:black">Update your job</h1> <br/>
-                <h5 style="margin-top: -14px;" class="page-sub-title">Post a project for free and start getting receiving proposals within minutes</h5>
+            <div class="col-md-7 col-md-offset-0 page-title">
+                <h1 class="black">Update your job</h1> <br/>
+                <h5 class="page-sub-title">Post a project for free and start getting receiving proposals within minutes</h5>
             </div>
         </div>
         <div class="row">
             <div class='form-msg'></div>
             <form class="custom_job_post_form" id="jobEdit" method="post" action="" enctype="multipart/form-data">
-                <div class="col-md-9 form-group">
+                <div class="col-md-9 form-group no-pad-mob">
                     <div class="row">
                         <div class="col-md-12">
                             <h4 class="main_title">Title</h4>
@@ -37,7 +38,7 @@
                         </div>
                     </div>
 
-                    <div style="margin-top: 15px;" class="row">
+                    <div class="row marg-top-15">
                         <div class="col-md-12">
                             <h4 class="main_title">Select Category</h4>
                         </div>
@@ -86,7 +87,7 @@
                         <div class="col-md-12">
                             <div class="edit_title">
                                 <div class="input_skills">
-                                    <select class="choose-skills" name="skills[]"  data-placeholder="Skills" style="width:100%;" multiple>
+                                    <select class="choose-skills" name="skills[]"  data-placeholder="Skills" multiple>
                                         <?php foreach($value->get_skills() as $item){
                                           ?>
                                         <option value="<?php echo $item; ?>" selected><?php echo $item; ?></option> 
@@ -113,16 +114,16 @@
                         </div>
                     </div>
 
-                    <div style="margin-top: 15px;" class="row">
+                    <div class="row marg-top-15">
                         <div class="col-md-12">
                             <h4 class="main_title">Attach File</h4>
                         </div>
                         <div class="col-md-12">
                             <div class="upload_file">
                                     <input type="file" name="files" id="files" />
-                                    <input type="button" id="uploader" value="Add files" style="margin-left: 0px;" class="btn my_btn" />
-                                    <div id="file_lists" style="margin: 0">
-                                        <ul id="lists">
+                                    <input type="button" id="uploader" value="Add files" class="btn my_btn marg-left-0" />
+                                    <div id="file_lists" class="marg-0">
+                                        <ul id="lists" class="list-none">
                                             <?php 
                                                 foreach($value->get_attachments() AS $attachment){
                                                     echo '<li>'.$attachment.'<img src="'.site_url().'assets/img/delete_icon.gif" data-formDiscard="'.$value->get_employerid().'/'.$value->get_tid().'" class="remove_attachment"></li>'; 
@@ -140,7 +141,7 @@
                         <div class="col-md-12">
                             <h4 class="main_title">Job Type</h4>
                         </div>
-                        <div class="col-md-9" style="margin-top: 6px;margin-left: 20px;">
+                        <div class="col-md-9 job-type">
                             <div class="row">
                                 <div class="col-md-12 radio">
                                     <input type="radio" value="hourly" name="job_type"   <?php if($value->get_jobtype() =='hourly') echo 'checked="checked"' ?> ><h4>Hourly - Pay by the hour verify with the work diary</h4>
@@ -157,18 +158,18 @@
                         </div>
                     </div>
 
-                    <div style="margin-top: 15px;" class="row">
+                    <div class="row marg-top-15">
                         <div class="col-md-12">
                             <h4 class="main_title">Experience Level</h4>
                         </div>
-                        <div style="margin-left: 19px;" class="col-md-12 radio">
+                        <div class="col-md-12 radio left-19">
 							<div class="edit_title">
 								<input type="radio" name="experience_level" id="experience_level" value="Entry level" <?php if($value->get_exp() =='Entry level') echo 'checked="checked"' ?> />
-								<h4 style="margin-bottom: 0;">Entry Level $</h4>
+								<h4 class="bot-0">Entry Level $</h4>
 								<br />
 
 								<input type="radio" name="experience_level" id="experience_level" value="Entermediate" <?php if($value->get_exp() =='Entermediate') echo 'checked="checked"' ?> />
-								<h4 style="margin-bottom: 0;">Intermediate $$</h4>
+								<h4 class="bot-0">Intermediate $$</h4>
 								<br />
 
 								<input type="radio" name="experience_level" id="experience_level" value="Experienced" <?php if($value->get_exp() =='Experienced') echo 'checked="checked"' ?> />
@@ -182,7 +183,7 @@
                             <h4 class="main_title">Budget$</h4>
                         </div>
                         <div class="col-md-12">
-                            <input style="width: 80px;" type="text" name="budget" id="budget" value="<?php echo round($value->get_budget(),2);?>" class="" />
+                            <input type="text" name="budget" id="budget" value="<?php echo round($value->get_budget(),2);?>" class="width-80" />
                         </div>
                     </div>
 					
@@ -201,7 +202,7 @@
                             </select>
                         </div>
                     </div>
-                    <div style="margin-top: 15px;" class="row">
+                    <div class="row marg-top-15">
                         <div class="col-md-12">
                             <h4 class="main_title">Job Duration</h4>
                         </div>
@@ -239,14 +240,7 @@
 </section>
 <!-- big_header-->
 <style>
-.search-field {
-border: none;
-height: auto;
-}
-.row .form-group{margin-left:0;}
-.white-box-feed {
-padding-left: 40px;
-}
+
 </style>
 <script>
     $(".choose-skills").chosen(); 
