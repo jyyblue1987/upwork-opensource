@@ -27,7 +27,7 @@ class Contact extends CI_Controller {
 		}
 
 		$data['captcha'] = $this->get_captcha();
-		$this->Admintheme->webview3("contactus",$data);
+		$this->Admintheme->custom_webview("contactus",$data);
 		// added by Sergey end
 
 

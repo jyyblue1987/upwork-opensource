@@ -1,18 +1,19 @@
+<link rel="stylesheet" href="<?php echo site_url("assets/css/pages/contactus.css"); ?>">  
 <?php if(!empty($sent) && $sent && !empty($ticketID)) {?>
     <h1 class="text-center">Thanks for your message!</h1>
     <h3 class="text-center">Your ticketID is <strong><?php echo $ticketID?></strong></h3>
 <?php } ?>
 
-<div style="background: #fff;margin-top: 40px;margin-bottom: 40px;border: 1px solid #ccc;border-radius: 3px;padding: 0px 13px;" class="row">
+<div style="" class="row contact_header">
     <div class="col-md-12 col-sm-12">
-        <header>Contact</header>
+        <h4 class="header">Contact</h4>
     </div>
     <div style="clear:both"></div>
     <div class="col-md-7 col-sm-12">
         <div class="leftside">
 <!--            <form>-->
 
-            <?php if(!empty($error)){ ?><p style="color:red;"><?php echo $error; ?></p><?php }?>
+            <?php if(!empty($error)){ ?><p style="" class="red"><?php echo $error; ?></p><?php }?>
 
             <?php echo form_open_multipart(site_url("contactcheck"),array('id' => 'contactus_form'));?>
                 <div class="form-group">
@@ -44,12 +45,12 @@
                     </select>
 
                 </div>
-                <div style="margin-bottom: 40px;" class="form-group">
+                <div style="" class="form-group marg-bot-40">
                     <label for="Message">Message:</label>
                     <textarea class="form-control" id="Message" placeholder="Message" name="body"></textarea>
                 </div>
                 <div class="form-group" id="attachFile">
-                    <label style="float: left;margin-right: 5px;" for="Input">Attach File
+                    <label style="" for="Input" class="attach">Attach File
                         <div class="addplus">
                             <a href="" id="addUserFile">
                                 [Add File]
@@ -67,16 +68,16 @@
                 </div>
                 <div class="form-group">
                     <label for="Security">Security Code:</label>
-                    <input style="width: 39%;" type="Security" name="captcha" class="form-control" id="Security">
+                    <input style="" type="Security" name="captcha" class="form-control security" id="Security">
                 </div>
                 <button type="submit" class="btn-primary big_mass_active transparent-btn big_mass_button">Save</button>
-                <button style="margin-bottom: 30px;" type="submit" class="btn-primary transparent-btn big_mass_button">Cancel</button>
+                <button style="" type="submit" class="btn-primary transparent-btn big_mass_button marg-bot-40">Cancel</button>
             </form>
         </div>
     </div>
-    <div style="margin-left: 67px;font-family: calibri;" class="col-md-4 col-sm-12">
+    <div style="" class="col-md-4 col-sm-12 right-cont">
         <div class="rightside">
-            <div class="col-md-8 col-sm-12 headingone">
+            <div class="col-md-12 col-sm-12 headingone no-pad">
                 <h1>Our addresses</h1>
             </div>
             <div style="clear:both"></div>
