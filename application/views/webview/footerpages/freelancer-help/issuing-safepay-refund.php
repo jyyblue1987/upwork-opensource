@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/css/pages/help-pages.css">
 			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 			<h3><?=$title?></h3>
 			<p>If you no longer want to work on a job and there are funds in SafePay, you’ll want to return those funds to your employer.</p>

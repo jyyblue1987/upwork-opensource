@@ -159,31 +159,9 @@ border: 1px solid #ccc;}
     }
 
     @media (max-width: 320px){
-
-	#help_big_header div button{
-		width: 100%;
-		background-color: #ffffff;
-		color: #000;
-		height:60px;
-		margin-bottom: 10px;
-	}    	
-		#help_big_header div.form_center div p{
-			font-size: 20px;
-			color:#fff;
-			margin-bottom:20px;
-		}
     }
 
     @media (min-width: 321px) and (max-width: 480px){
-		#help_big_header div.form_center{
-			position: relative;
-			color: #DDD;
-			width: 60%;
-			margin:0  auto;
-			font-family: 'Roboto';
-			padding-top:10px;
-			padding-bottom:10px;
-		}
     }
 
     @media (min-width: 768px) {

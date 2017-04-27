@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/css/pages/help-pages.css">
 			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 			<h3><?=$title?></h3>
 			<p>Negotiation is only possible if there are funds in SafePay and one of two things happen:</p>

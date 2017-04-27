@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/css/pages/help-pages.css">
 			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 			<h3><?=$title?></h3>
 			<p>Once you’ve hired a freelancer, the system will create a workroom for your job. This will be the place for you to communicate with your freelancer.</p>

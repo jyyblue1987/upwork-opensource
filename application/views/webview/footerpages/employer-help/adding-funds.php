@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/css/pages/help-pages.css">
 			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 				<h3><?=$title?></h3>
 					<p>SafePay is a system that lets your freelancer know that there are funds available for payment without releasing it until you've received work. SafePay is built into the workroom for every freelancer you hire at no extra cost.</p>

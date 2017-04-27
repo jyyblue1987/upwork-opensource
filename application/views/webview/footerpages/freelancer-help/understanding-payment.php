@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/css/pages/help-pages.css">
 			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 			<h3><?=$title?></h3>
 			<p>You and your employer have two transaction options in our mandatory billing & payment system—paying invoices alone and paying invoices via SafePay. SafePay provides more payment protection than invoicing alone.</p>

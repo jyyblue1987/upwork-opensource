@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/css/pages/help-pages.css">
 			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 				<h3><?=$title?></h3>
 				<p>If you and a freelancer decide to not move forward with a job, you'll want to request a refund of the SafePay funds you've added.</p>

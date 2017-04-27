@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/css/pages/help-pages.css">
 			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 				<h3><?=$title?></h3>
 				<p>If a resolution cannot be reached in negotiation you can choose to escalate the case to arbitration.  This will let our arbitration team look at evidence provided and decide how the funds should be paid.</p>	

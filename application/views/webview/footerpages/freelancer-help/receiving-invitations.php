@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/css/pages/help-pages.css">
 			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 			<h3><?=$title?></h3>
 			<p>From time to time you’ll receive an invitation by an employer. It’s purely optional to respond to an invite. Responding to an invitation costs 0 bids.</p>

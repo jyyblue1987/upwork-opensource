@@ -1,3 +1,4 @@
+ <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/pages/freelancer-help.css">
  <section id="help_big_header" class="hidden-xs">
 	<div class="form_center">
 		<input type="text" name="" class="form-control" placeholder="How can we help?">

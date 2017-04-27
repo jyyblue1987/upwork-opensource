@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/css/pages/help-pages.css">
 			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 				<h3><?=$title?></h3>
 <p>If you opt into the free 1099 tax form service, Winjobs.com will issue 1099 tax forms every January on your behalf to the IRS and to qualifying freelancers who you have paid more than $600 during the previous tax year.</p>

@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/css/pages/help-pages.css">
 			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 				<h3><?=$title?></h3>
 <p>Employers and freelancers can rate each other within 60 days of payment.</p>

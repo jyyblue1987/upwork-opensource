@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/css/pages/help-pages.css">
 			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 			<h3><?=$title?></h3>
 			<p>Look for the blue check mark next to your employer’s name to confirm that they have a verified payment method. Working with an employer who has a verified payment method benefits you in two big ways:</p>

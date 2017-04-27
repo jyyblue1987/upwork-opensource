@@ -127,7 +127,7 @@ class Admintheme extends CI_Model {
         $text = $this->siteconfig->text();
         $data['text']=$text;
 
-        $this->load->view('webview/layout/header.php',$data, false);
+        $this->load->view('webview/layout/header4.php',$data, false);
         $this->load->view('webview/layout/afterheader.php',$data, false);
         $this->load->view('webview/layout/employer-help-menu.php',$data, false);
         $this->load->view('webview/'.$page,$data, false);
@@ -138,7 +138,7 @@ class Admintheme extends CI_Model {
         $text = $this->siteconfig->text();
         $data['text']=$text;
 
-        $this->load->view('webview/layout/header.php',$data, false);
+        $this->load->view('webview/layout/header4.php',$data, false);
         $this->load->view('webview/layout/afterheader.php',$data, false);
         $this->load->view('webview/layout/freelancer-help-menu.php',$data, false);
         $this->load->view('webview/'.$page,$data, false);

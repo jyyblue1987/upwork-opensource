@@ -11,7 +11,7 @@ class FooterPages extends CI_Controller{
 		'jsf' =>array("assets/js/layerslider.transitions.js","assets/js/layerslider.kreaturamedia.jquery.js","assets/js/owl.carousel.min.js","assets/js/homepage.js"),
 		'css' =>array("assets/css/layerslider.css","assets/css/owl.carousel.css","assets/css/owl.theme.css"),
             );
-            	$this->Admintheme->webview("footerpages/add_fund",$data);
+            	$this->Admintheme->custom_webview("footerpages/add_fund",$data);
 	}
 
     public function cancellation(){
@@ -77,9 +77,9 @@ class FooterPages extends CI_Controller{
             'page' => "employer-help",
             'js' => array(),
             'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
-            'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css", "assets/css/pages/employer-help.css"),
+            'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
         );
-        $this->Admintheme->webview("footerpages/employer-help/employer-help", $data);
+        $this->Admintheme->custom_webview("footerpages/employer-help/employer-help", $data);
     }
 
     public function freelancer_help(){
@@ -88,9 +88,9 @@ class FooterPages extends CI_Controller{
             'page' => "freelancer-help",
             'js' => array(),
             'jsf' => array("assets/js/layerslider.transitions.js", "assets/js/layerslider.kreaturamedia.jquery.js", "assets/js/owl.carousel.min.js", "assets/js/homepage.js"),
-            'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css", "assets/css/pages/freelancer-help.css"),
+            'css' => array("assets/css/layerslider.css", "assets/css/owl.carousel.css", "assets/css/owl.theme.css"),
         );
-        $this->Admintheme->webview("footerpages/freelancer-help/freelancer-help", $data);
+        $this->Admintheme->custom_webview("footerpages/freelancer-help/freelancer-help", $data);
     }
     //first
     public function registering_account(){
