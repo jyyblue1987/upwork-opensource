@@ -19,8 +19,10 @@ class Messageboard extends Winjob_Controller
             'common_mod', 
             'Category', 
             'profile/ProfileModel', 
+            'job/bids_model', 
             'timezone', 
             'webuser_model',
+            'jobs_model',
             'conversation_model',
             'process',
         ));
@@ -184,6 +186,7 @@ class Messageboard extends Winjob_Controller
                 $other_user = $this->webuser_model->load_informations( $other_user_id );
                 $this->view_datas['other_fname'] = $other_user->webuser_fname;
                 $this->view_datas['other_lname'] = $other_user->webuser_lname;
+                
             }
             else
             {
@@ -196,13 +199,23 @@ class Messageboard extends Winjob_Controller
     public function post_message()
     {
         $sender_id     = (int)$this->session->userdata(USER_ID);
-        $receiver_id   = (int)$this->input->post('receiver_id');
         $job_id        = (int)$this->input->post('job_id');
         $bid_id        = (int)$this->input->post('bid_id');
         $_timezone     = $this->input->post('timezone');
         $timezone      = ! empty($_timezone) ? $_timezone : date_default_timezone_get();
         $message       = rtrim(trim($this->input->post('chat_message')));
         $is_ticket     = $this->input->post( 'is_ticket' );
+
+        // receiver id fetch
+        $bis_dtl= $this->bids_model->load_informations( $bid_id );
+
+        if($bis_dtl->user_id==$sender_id){
+            $job_dtl   =$this->jobs_model->load_informations( $job_id );
+            $receiver_id   = $job_dtl->user_id;
+        }
+        else{
+            $receiver_id   = $bis_dtl->user_id;
+        }
         
         if(empty($message))
         {
@@ -247,7 +260,13 @@ class Messageboard extends Winjob_Controller
                     'status'  => 'error'
                 ));
             }
-            
+           else
+                {   ///Email send 
+                    $email    = $this->webuser_model->get_field("webuser_email", $receiver_id );
+                    $fname    = $this->webuser_model->get_field("webuser_fname", $sender_id );
+                    $body = nl2br($message);
+                    $response=$this->Sesmailer->sesemailfromreply($email,"New message from $fname",$body);
+                }
             //update the bid state (bid is being in interview process)
             $this->bids_model->update_field($bid_id, 'job_progres_status', 1);
             
