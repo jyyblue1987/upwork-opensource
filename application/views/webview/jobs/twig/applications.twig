@@ -28,17 +28,115 @@
         </div>
         
         {% if applications is not empty %}
-            {% for application in applications %}
+            {% for app in applications %}
                 <div class="col-md-12 white-box candidate-list">
                     <div class="row">
-                        <a class="col-md-12 _js_decline_btn text-right" href="#" data-bid="{{ application.bid_id }}">
+                        <a class="col-md-12 _js_decline_btn text-right" href="#" data-bid="{{ app.bid.bid_id }}">
                             <i class="fa fa-times"></i>
                         </a>
                         <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <div class="st_img">
+                                        <img src="{{ site_url(app.applicant.pic) }}" width="64" height="64" >
+                                    </div>
+                                </div>
+                                <div class="col-md-8 text-left">
+                                    <div class="aplicant_identity">
+                                        <label class="aplicant_name">
+                                            <a href="{{ app.applicant.user_url }}">{{ app.applicant.fname }} {{ app.applicant.lname }}</a>
+                                        </label>
+                                        <br/>
+                                        <span><b>{{ app.applicant.tagline }}</b></span>
+                                    </div>
+                                    <div class="row margin-top-2">
+                                        <div class="col-md-2" style="font-size:16px;">
+                                            <b>${{ app.bid.bid_amount|number_format(2) }}
+                                                {% if app.job.get_jobtype() == "hourly" %}
+                                                    <span class="cc_normal_txt">/hr</span>
+                                                {% endif %}
+                                            </b>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="review_ratting">
+                                                {% if app.applicant.totalscore != 0 and app.applicant.rating_feedback != 0 %}
+                                                    <span class="rating-badge">{{ app.applicant.rating|number_format(1, '.', '') }}</span>
+                                                    <div title="Rated {{ app.applicant.rating }} out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em;margin-top:-5px;color:#DEDEDE; width: 4em">
+                                                        <span style="width:{{ app.applicant.rating_feedback }}% ; margin-top:0px;">
+                                                            <strong itemprop="ratingValue">{{ app.applicant.rating }}</strong> out of 5
+                                                        </span>
+                                                    </div>
+                                                {% else %}
+                                                    <span class="rating-badge">0.0</span>
+                                                    <div title="Rated 0 out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em; margin-top:px;">
+                                                        <span style="width:0;margin-top:-5px;">
+                                                            <strong itemprop="ratingValue">0</strong> out of 5
+                                                        </span>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-2 text-right"  style="font-size:16px;">
+                                            <b>
+                                                {% if app.applicant.total_work %}
+                                                   {{ app.applicant.total_work }}<span class='cc_normal_txt'>hrs</span>
+                                                {% else %}
+                                                    0.00 <span class='cc_normal_txt'>hrs</span>
+                                                {% endif %}
+                                              </b>
+
+                                        </div>
+
+                                        <div class="col-md-2 text-right" style="font-size:16px;">
+                                            <b>{{ app.applicant.ended_jobs }}</b>jobs
+                                        </div>
+
+                                        <div class="col-md-3 text-right">
+                                            <i style="font-size: 15px;" class="fa fa-map-marker"></i>
+                                            <b> {{ app.applicant.country }}</b>
+                                        </div>
+                                    </div>
+
+                                    <div class="row margin-top-1">
+                                        <div class="col-md-12 text-justify">
+                                            <div class="hire_cover_letter">
+                                              <span>{{ app.bid.cover_latter }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row margin-top-1">
+                                        <div class="col-md-1">
+                                            <span class="gray-text" style="font-size:14px;">Skills</span></div>
+                                        <div class="col-md-11 text-left skills">
+
+                                            <div class="user_skills">
+                                                {% for skill in app.applicant.skills %}
+                                                    <span>{{ skill.skill_name }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 margin-top-5 text-right msg-buttons">
+                                    <div class="hire_sms_btn">
+                                        <a class="btn btn-primary form-btn" href="{{ app.applicant.user_url }}">Message</a>
+                                    </div>
+
+                                    <div class="hire_me_btn">
+                                        <a class="btn btn-primary form-btn" href="#">Hire Me</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            {% endfor %}   
+            {% endfor %}
+
         {% else %}
             <p>No application yet.</p>
         {% endif %}

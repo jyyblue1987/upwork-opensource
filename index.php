@@ -5,10 +5,13 @@ ini_set('max_execution_time', 300000);
 ini_set('memory_limit','1024M');
 date_default_timezone_set('UTC');
 
-if ( ! isset( $_SERVER['SERVER_NAME'] ) || $_SERVER['SERVER_NAME'] == 'localhost' ){
-   define('ENVIRONMENT', 'development');
+if(isset($_SERVER['CI_ENV'])) {
+	define("ENVIRONMENT", $_SERVER['CI_ENV']);
+}
+if ( ! isset( $_SERVER['SERVER_NAME'] ) || $_SERVER['SERVER_NAME'] === 'localhost' ){
+   defined("ENVIRONMENT") || define('ENVIRONMENT', 'development');
 }else{
-   define('ENVIRONMENT', 'production');
+   defined("ENVIRONMENT") || define('ENVIRONMENT', 'production');
 }
 
 switch (ENVIRONMENT)

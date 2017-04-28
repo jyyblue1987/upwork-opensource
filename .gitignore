@@ -1,3 +1,5 @@
 /nbproject/private/
 
 /application/cache/
+/application/config/development
+/application/config/production

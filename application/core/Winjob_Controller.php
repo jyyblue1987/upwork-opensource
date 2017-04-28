@@ -6,6 +6,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Base controller repository of all common controller functionnality.
  *
  * @author Hermannovich <donfack.hermann@gmail.com>
+ *
+ * @property CI_Session $session
+ * @property CI_Lang    $lang
+ * @property CI_Config  $config
+ * @property CI_Router  $router
+ * @property CI_URI     $uri
+ * @property Twig       $twig
  */
 class Winjob_Controller extends CI_Controller {
     
