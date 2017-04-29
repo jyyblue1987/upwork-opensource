@@ -24,6 +24,8 @@ function successResp(rs)
             $('#bid_earning_read').text($('#bid_earning').val());
         }
         $(data.modal).find('.close').click();
+        $('.propose-terms-btn-c').hide();
+        $('.withdraw-btn-c').hide();
     }
     $('.form-loader').hide();
     $('.form-msg').html(data.msg);

@@ -45,7 +45,7 @@ class Bids extends Winjob_Controller {
         $bids           = $this->process->get_active_bids($user_id);
         $archived_bids  = $this->process->get_archive_bids($user_id);
         $display        = 'archived';
-        
+
         $this->twig->display('webview/jobs/twig/my-bids', compact('bids', 'archived_bids', 'display'));
     }
 }

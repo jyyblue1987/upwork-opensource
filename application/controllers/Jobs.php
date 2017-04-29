@@ -2,6 +2,9 @@
 error_reporting(0);
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * @property Bids_model $Bids_model
+ */
 class Jobs extends Winjob_Controller {
     
     private $process;
@@ -2117,6 +2120,7 @@ class Jobs extends Winjob_Controller {
 
         $data = array(
             'emp'         => $client,
+			'bid_id'      => $bid['id'],
             'user_id'     => $this->user_id,
             'tid'         => time(),
             'bid_created' => $bid['bid_created'],
@@ -2142,7 +2146,11 @@ class Jobs extends Winjob_Controller {
             'rating'      => $this->Webuser_model->get_total_rating($client->get_userid(), true),
             'country'     => ucfirst($client->get_country()),
             'f_active'    => $freelancer_active,
-            'js'          => array('dropzone.js', 'vendor/jquery.form.js', 'internal/job_apply.js'), 
+			'is_archived' => $this->Bids_model->isArchived($bid, $job),
+			'is_rejected' => $this->Bids_model->isRejected($bid),
+			'is_withdrawn' => $this->Bids_model->isWithdrawn($bid),
+			'is_offer'    => $this->Bids_model->isOffer($bid),
+            'js'          => array('dropzone.js', 'vendor/jquery.form.js', 'internal/job_apply.js', 'internal/job_withdraw.js'),
             'css'         => array("","","","assets/css/pages/apply.css")
             );
         

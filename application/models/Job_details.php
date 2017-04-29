@@ -164,4 +164,15 @@ class Job_details extends CI_Model {
         $result= $query->row();
         return $result->subcategory_name;
     }
+    
+    public function __get( $key )
+	{
+		$getter = 'get_' . $key;
+		
+		if(method_exists($this, $getter)) {
+			return $this->{$getter}();
+		}
+		
+		return parent::__get( $key );
+	}
 }

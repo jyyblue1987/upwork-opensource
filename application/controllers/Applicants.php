@@ -122,7 +122,7 @@ class Applicants extends Winjob_Controller {
             'skills'          => $skills,
             'job_info'        => $job_info,
             'rating'          => $user_rating,
-            'conversation'    => $conversation,
+            'conversation'    => $conversation['data'],
             'hourly_rate'     => $freelancer->hourly_rate,
             'exp'             => $freelancer->work_experience_year,
             'f_attachments'   => $this->process->get_attachments($bid_id),

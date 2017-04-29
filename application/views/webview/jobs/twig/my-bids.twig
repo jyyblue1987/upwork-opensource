@@ -17,6 +17,8 @@
 {% endblock %}
 
 {% block content %}
+    {% set items = (display == 'archived' ? archived_bids['data'] : bids['data']) %}
+
     <div class="white-box-feed my-offers-container">
         <div class="row">
             <div class="col-md-12 bottom-blue-border padding-2">
@@ -37,13 +39,13 @@
                 </div>
             </div>
             <div class="col-md-9 text-center bordered-alert margin-top" >
-                {% if bids['rows'] != 0 %}
-                    {% if bids['rows'] == 1 %}
+                {% if items|length != 0 %}
+                    {% if items|length == 1 %}
                         {% set offers_text = (display == 'archived' ? " Archived Bid" : " Active Bid Available") %}
                     {% else %}
                         {% set offers_text = (display == 'archived' ? " Archived Bids" : " Actives Bids Available") %}
                     {% endif %}
-                    {% set msg_offers = bids['rows'] ~ offers_text %}
+                    {% set msg_offers = items|length ~ offers_text %}
                 {% else %}
                     {% set msg_offers = (display == 'archived' ? "No Archived Bids" : "No Pending Bid") %}
                 {% endif %}
@@ -51,7 +53,7 @@
             </div>
         </div>
          
-        {% if bids['rows'] != 0 %}
+        {% if items|length != 0 %}
             <div class="row margin-top-15">
                 <div class="col-md-2 col-sm-6 col-xs-6">
                     <label>Applied Date</label>
@@ -61,8 +63,8 @@
                     <label>Job Title</label>
                 </div>
             </div>
-            {% set items = (display == 'archived' ? archived_bids : bids) %}
-            {% for offer in items['data'] %}
+
+            {% for offer in items %}
                 <div class="row">
                     <div class="col-md-12 custom_bids_list_border">
                         <div class="row">

@@ -83,4 +83,64 @@ class Bids_model extends CI_Model {
     public function add_bid_attachment($dataAttach){
         return $this->db->insert('job_bid_attachments', $dataAttach);
     }
+	
+	/**
+	 * @param array|object $bid
+	 *
+	 * @return bool
+	 */
+    public function isOffer($bid)
+	{
+		$bid = (object) $bid;
+
+		return $bid->job_progres_status == 2
+			&& is_null($bid->withdrawn)
+			&& $bid->hired == 1;
+	}
+	
+	/**
+	 * @param array|object $bid
+	 *
+	 * @return bool
+	 */
+    public function isWithdrawn($bid)
+	{
+		$bid = (object) $bid;
+
+		return $bid->hired == 0
+			&& $bid->withdrawn == 1;
+	}
+	
+	/**
+	 * @param array|object $bid
+	 *
+	 * @return bool
+	 */
+    public function isRejected($bid)
+	{
+		$bid = (object) $bid;
+
+		return $bid->hired == 0
+			&& $bid->bid_reject == 1;
+	}
+	
+	/**
+	 * @param array|object $bid
+	 * @param array|object $job
+	 *
+	 * @return bool
+	 */
+    public function isArchived($bid, $job)
+	{
+		$bid = (object) $bid;
+		$job = (object) $job;
+
+		$expire_job_date = \Carbon\Carbon::now(new DateTimeZone('UTC'));
+
+		return $bid->status == 0
+			&& $bid->bid_reject == 0
+			&& $bid->job_progres_status == 0
+			&& is_null($bid->withdrawn)
+			&& strtotime($job->created) < $expire_job_date->subDays(POSTED_JOB_VALID_DURATION)->timestamp;
+	}
 }

@@ -138,18 +138,22 @@ span.rating-badge {
                
                     <div  class="col-md-12 subm">
                         <div class="row">
-                            <?php
-                            if($status=='1'){?>
-                                    <div class="alert custom-alert-warning">
-                                            <strong>Warning!</strong> You have withdraw with this job.
-                                    </div>
-                                    <?php }else{
-                                    }
-                            ?>
-                            <div  class="col-md-12 col-centered custom_sp no-pad text-center">
+                            <div class="col-md-12 col-centered custom_sp no-pad text-center">
 								<div class="row">
                                     <div class="col-md-12">
-                                        <label  class="marg-bot--3">Submitted Proposal</label>
+                                        <label  class="marg-bot--3">
+											<?php if($is_archived)
+											{
+												echo 'Expired';
+											} elseif($is_rejected) {
+												echo 'Declined by employer';
+											} elseif($is_withdrawn) {
+												echo 'Declined by you';
+											} else {
+												echo 'Submitted Proposal';
+											} ?>
+											
+										</label>
                                     </div>
                                 </div>
 
@@ -173,20 +177,19 @@ span.rating-badge {
                                     </div>
 
                                 </div>
-                                <?php if($status!='1')
-                                {?>
-                                <div class="row margin-top-2">
-                                    <div class="col-md-12">
-                                        <input type="button" class="btn btn-primary form-btn" value="Propose Different Terms" data-toggle="modal" data-target="#myModal2"/>
-                                    </div>
-                                </div>
-
-                                <div class="row margin-top-2">
-                                    <div class="col-md-12 text-center">
-                                        <a href="#" data-toggle="modal" data-target="#myModal">Withdraw Proposal</a>
-                                    </div>
-                                </div>
- <?php }?>
+                                <?php if($status != '1' && !$is_archived && !$is_rejected && !$is_withdrawn && !$is_offer) {?>
+									<div class="row margin-top-2 propose-terms-btn-c">
+										<div class="col-md-12">
+											<input type="button" class="btn btn-primary form-btn" value="Propose Different Terms" data-toggle="modal" data-target="#myModal2"/>
+										</div>
+									</div>
+	
+									<div class="row margin-top-2 withdraw-btn-c">
+										<div class="col-md-12 text-center">
+											<a href="#" data-toggle="modal" data-target="#myModal">Withdraw Proposal</a>
+										</div>
+									</div>
+ 								<?php }?>
                             </div>
                         </div>
                     </div>
@@ -316,9 +319,9 @@ span.rating-badge {
                                 <p class="sure">Are you sure you want to withdraw this proposal?</p>
                             <div class="modal-footer modal-footer1">
                                 <form method="post" id='jobWithDraw'>
-                                    <input type="hidden" name='bid_id' value='<?php echo $value->id; ?>'/>
+                                    <input type="hidden" name='bid_id' value='<?php echo $bid_id; ?>'/>
                                     <input type="hidden" name='withdraw' value='1'/>
-                                    <input type="submit" class="btn-primary big_mass_active transparent-btn big_mass_button form-btn formb" value="Withdraw Proposal" />
+                                    <input type="submit" class="btn-primary big_mass_active transparent-btn big_mass_button formb" value="Withdraw Proposal" />
                                     <input type="button" class="btn-primary transparent-btn big_mass_button can" value="Cancel" data-dismiss="modal" />
                                     <img src='/assets/img/version1/loader.gif' class="form-loader">
                                 </form>
