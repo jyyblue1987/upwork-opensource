@@ -23,7 +23,7 @@
             </div>
         </div>
          
-        <div class="row job-process-header"> 
+        <div class="row">
             {{ include('webview/jobs/partials/job-process-header.twig', {'applications_active': 'active-link'}) }}
         </div>
         
@@ -31,9 +31,12 @@
             {% for app in applications %}
                 <div class="col-md-12 white-box candidate-list">
                     <div class="row">
-                        <a class="col-md-12 _js_decline_btn text-right" href="#" data-bid="{{ app.bid.bid_id }}">
+                        <a class="col-md-12 text-right _js_decline_btn" href="#"
+                           data-id="{{ app.bid.id }}"
+                           data-job="{{ app.job.id }}">
                             <i class="fa fa-times"></i>
                         </a>
+
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-1">
@@ -44,7 +47,7 @@
                                 <div class="col-md-8 text-left">
                                     <div class="aplicant_identity">
                                         <label class="aplicant_name">
-                                            <a href="{{ app.applicant.user_url }}">{{ app.applicant.fname }} {{ app.applicant.lname }}</a>
+                                            <a href="{{ app.applicant.profile_url }}">{{ app.applicant.fname }} {{ app.applicant.lname }}</a>
                                         </label>
                                         <br/>
                                         <span><b>{{ app.applicant.tagline }}</b></span>
@@ -59,10 +62,14 @@
                                         </div>
 
                                         <div class="col-md-3">
-                                            <div class="review_ratting">
+
+                                            <div class="review_ratting text-center">
                                                 {% if app.applicant.totalscore != 0 and app.applicant.rating_feedback != 0 %}
                                                     <span class="rating-badge">{{ app.applicant.rating|number_format(1, '.', '') }}</span>
-                                                    <div title="Rated {{ app.applicant.rating }} out of 5" class="star-rating" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating" style="left:0;height: 1.2em;margin-top:-5px;color:#DEDEDE; width: 4em">
+                                                    <div title="Rated {{ app.applicant.rating }} out of 5" class="star-rating star-rating-custom"
+                                                         itemtype="http://schema.org/Rating"
+                                                         itemscope=""
+                                                         itemprop="reviewRating">
                                                         <span style="width:{{ app.applicant.rating_feedback }}% ; margin-top:0px;">
                                                             <strong itemprop="ratingValue">{{ app.applicant.rating }}</strong> out of 5
                                                         </span>
@@ -123,12 +130,23 @@
                                 </div>
 
                                 <div class="col-md-2 margin-top-5 text-right msg-buttons">
-                                    <div class="hire_sms_btn">
-                                        <a class="btn btn-primary form-btn" href="{{ app.applicant.user_url }}">Message</a>
+                                    <div class="ms_hr_massage_butt ms_hr_massage_butt--applications">
+                                        <div class="mystaff_msg_btnx hour_btn message_btn ">
+                                            <input type="button"
+                                                   class="btn btn-primary form-btn _job_btn_message"
+                                                   data-bid="{{ job.bid_id }}"
+                                                   data-uid="{{ chat_receiver_id }}"
+                                                   data-jid="{{ job.job_id }}"
+                                                   data-title="{{ title }}"
+                                                   data-uname="{{ username }}"
+                                                   value="{{ app_lang('text_job_btn_message') }}">
+                                        </div>
                                     </div>
 
                                     <div class="hire_me_btn">
-                                        <a class="btn btn-primary form-btn" href="#">Hire Me</a>
+                                        <a class="btn btn-primary form-btn" href="{{ app.applicant.hire_url }}">
+                                            Hire Me
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -142,6 +160,8 @@
         {% endif %}
         
     </div>
+
+    {{ include('webview/modals/message-conversion-modal.twig') }}
 {% endblock %}
 
 {% block js %}

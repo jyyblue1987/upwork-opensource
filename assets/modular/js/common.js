@@ -9,6 +9,7 @@ requirejs.config({
     baseUrl: site_url + 'assets/modular/js/lib',
     shim : {
         bootstrap : { "deps" :['jquery'] },
+		main   : { "deps" :['jquery'] },
         chatbox   : { "deps" :['jquery', 'bootstrap'] },
         payment   : { "deps" :['jquery', 'bootstrap'] },
         jquery_datetime_picker: { "deps" :['jquery'] },
@@ -16,6 +17,7 @@ requirejs.config({
         bootstrap_form_validation: { "deps" :['jquery', 'form_validation'] }
     },
     paths: {
+		main: '../modules/main',
         pages: '../pages',
         bootstrap: '../lib/bootstrap',
         jquery: '../lib/jquery-2.2.3',

@@ -4,8 +4,9 @@ define(function (require) {
      * LOAD DEPENDENCIES
      */
     var $           = require('jquery'),
-        bootstrap   = require('bootstrap');
-        
+        bootstrap   = require('bootstrap'),
+        common      = require('main');
+
     function makeExpandingArea(container) 
     {
         if ( window.opera && /Mac OS X/.test( navigator.appVersion ) ) {
@@ -181,20 +182,4 @@ define(function (require) {
     
     $chat_detail.animate({scrollTop: $chat_detail.prop("scrollHeight")}, 1);
     
-    
-    $('#btn-decline-applicant').on('click', function(){
-        var x    = confirm("Are you sure! want to Decline the User?");
-        var that = $(this);
-               
-        if (x) {
-            $.post(site_url + 'jobs/bid_decline', {form: that.data('id')}, function (data) {
-                if (data.success) {
-                    $('.result-msg').html('You have successfully Decline the Post');
-                    window.location =  site_url + "declined?job_id=" + that.data('job');
-                } else {
-                    alert('Opps!! Something went wrong.');
-                }
-            }, 'json');
-        }
-    });
 });

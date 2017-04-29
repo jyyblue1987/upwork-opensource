@@ -5,15 +5,9 @@ define(function (require) {
      */
     var $           = require('jquery'),
         bootstrap   = require('bootstrap'), 
-        chatBox     = require('chatbox'),
+        common      = require('main'),
         payment     = require('payment');
         
-    $('._job_btn_message').chatbox({
-        sendto:      site_url + "jobconvrsation/add_conversetion",
-        receivefrom: site_url + "jobconvrsation/message_from_superhero",
-        boxModal:    '#message_convertionModal' 
-    });
-    
     $('._job_btn_payment').payment({
         paymentUrl:      site_url + "pay/contract",
         remainToPaidUrl: site_url + "pay/remaining",

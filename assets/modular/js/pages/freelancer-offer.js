@@ -5,15 +5,9 @@ define(function (require) {
      */
     var $           = require('jquery'),
         bootstrap   = require('bootstrap'),
-        Utils       = require('helper'), 
-        chatBox     = require('chatbox');
+        Utils       = require('helper'),
+		common      = require('main');
         
-    $('._job_btn_message').chatbox({
-        sendto:      site_url + "jobconvrsation/add_conversetion",
-        receivefrom: site_url + "jobconvrsation/message_from_superhero",
-        boxModal:    '#message_convertionModal' 
-    });
-    
     var $notif_container = $('#notif-container');
     $('#_btn_decline_offer').on('click', function(event){
         event.preventDefault();

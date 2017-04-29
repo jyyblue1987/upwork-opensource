@@ -26,24 +26,22 @@ and open the template in the editor.
 }
 
 .client-job-activity-current > li.drop_btn{
-    padding: 21px 5px 20px 5px;
     border: 2px solid #e0e0e0;
     background-color: #fff;
     text-align: center;
     font-size: 22px;
 }
 
-.custom-application_drop_down{ width: 100% }
+.custom-application_drop_down{
+    width: 100%;
+    padding: 21px 35px 20px 35px;
+}
 
 .custom-application_drop_down li a {
     border: none; 
     font-size: 15px;
     text-align: left;
     padding: 5px;
-}
-
-.job-process-header{
-    margin-bottom: 40px;
 }
 
 /*@media ('min-width': 601px and 'max-width': 764px){
@@ -74,5 +72,78 @@ and open the template in the editor.
 }
 
 .candidate-list{
-    padding-top: 0px;
+    padding-top: 0;
+}
+
+
+.message_lists{
+    max-height: 250px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+span.rating-badge {
+    background: #F77D0E none repeat scroll 0 0;
+    border-radius: 2px;
+    color: #fff;
+    padding: 2px 4px 2px 5px;
+    font-size: 12px;
+}
+.hire_cover_letter span {
+    font-size: 15px;
+    font-weight: normal;
+}
+.decline {
+    margin-bottom: 20px;
+}
+.review_ratting {
+    margin-left: 10px;
+}
+.user_skills span {
+    background: #ccc none repeat scroll 0 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: #494949;
+    display: inline-block;
+    font-size: 12px;
+    margin-bottom: 4px;
+    padding: 1px 5px 1px 5px;
+    margin-right: 2px;
+}
+.user_skills span:hover {
+    background: #008329;
+    color: #fff;
+}
+
+.drop_btn {
+    padding: 15px 60px 65px 40px;
+    background: white;
+    border: 2px solid #e0e0e0;
+    font-weight: 900;
+    font-size: 18px;
+}
+.drop_btn ul li a {
+    padding: 10px;
+    margin: 0;
+    font-size: 15px;
+}
+.drop_btn ul li {
+    padding: 2px;
+    margin: 0;
+}
+.drop_btn ul li a{
+    border: none;
+    border-right: none;
+    list-style: none;
+}
+.star-rating-custom {
+    left:0;
+    line-height: 1.05em;
+    color:#DEDEDE;
+    width: 4.5em;
+}
+.ms_hr_massage_butt--applications {
+    position: static;
+    padding: 0 0 10px 0;
+    margin: 0 0 0 155px;
 }
