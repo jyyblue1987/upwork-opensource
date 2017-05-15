@@ -68,7 +68,7 @@
                 <div class="row">
                     <div class="col-md-12 custom_bids_list_border">
                         <div class="row">
-                            {% set local_datetime = app_convert_date_in_local(offer.bid_created, user_timezone) %}
+                            {% set local_datetime = app_convert_date_in_local(offer.interview_created, user_timezone) %}
                             <div class="col-md-2 col-sm-6 col-xs-6">{{ local_datetime.format(' M j, Y ') }}</div>
                             <div class="col-md-10 blue-text col-sm-6 col-xs-6">
                                 <a href="{{ base_url('proposals/my-interview?fmJob=' ~ base64_encode(offer.job_id) ) }}"> 

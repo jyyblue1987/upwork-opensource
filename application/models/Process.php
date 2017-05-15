@@ -554,7 +554,7 @@ class Process extends CI_Model {
             ->group_start()
                 ->group_start()
                     ->where('job_bids.bid_reject','0')
-                    ->where('job_bids.job_progres_status', '0')
+                    ->where_in('job_bids.job_progres_status', [0, 1])
                     ->where('jobs.created < ',  $expired_job_date->subDays(POSTED_JOB_VALID_DURATION)->format('Y-m-d H:i:s'))
                 ->group_end()
                 ->or_group_start()
@@ -634,31 +634,34 @@ class Process extends CI_Model {
     public function get_archived_interviews($user_id)
     {
         $expired_job_date = Carbon::now(new DateTimeZone('UTC'));
+    
+        $query = $this->db->query("SELECT `jobs`.*,
+                               `job_bids`.*,
+                               `webuser`.*,
+                               `job_bids`.`user_id` AS `bid_user_id`,
+                               `job_bids`.`status` AS `bid_status`,
+                               `job_bids`.`created` AS `bid_created`,
+                               `conversation`.`bid_id` AS `jbid_id`,
+                               `conversation`.`created` AS `interview_created`
+                        FROM `jobs`
+                        INNER JOIN `job_bids` ON `jobs`.`id`=`job_bids`.`job_id`
+                        INNER JOIN `webuser` ON `jobs`.`user_id`=`webuser`.`webuser_id`
+                        INNER JOIN
+                          (SELECT bid_id,
+                                  created
+                           FROM job_conversation
+                           ORDER BY job_conversation.created ASC) conversation ON `job_bids`.`id`=`conversation`.`bid_id`
+                        WHERE `job_bids`.`user_id` = ?
+                          AND `job_bids`.`job_progres_status` IN(1)
+                          AND ( ( `jobs`.`created` < ? )
+                               OR ( `withdrawn` = 1 )
+                               OR ( `bid_reject` = 1 ) )
+                        GROUP BY `jbid_id`
+                        ORDER BY `conversation`.`created` DESC", [
+            $user_id,
+            $expired_job_date->subDays(POSTED_JOB_VALID_DURATION)->format('Y-m-d H:i:s'),
+        ]);
         
-        $this->db
-            ->select('jobs.*, job_bids.*,webuser.*,job_bids.user_id AS bid_user_id,job_bids.status AS bid_status,job_bids.created AS bid_created,job_conversation.bid_id AS jbid_id')
-            ->join('job_bids', 'jobs.id=job_bids.job_id', 'inner')
-            ->join('webuser', 'jobs.user_id=webuser.webuser_id', 'inner')
-            ->join('job_conversation', 'job_bids.id=job_conversation.bid_id', 'left')
-            ->where('job_bids.user_id',$user_id)
-            ->where('job_bids.status','0')
-            ->group_start()
-                //interviews whom job has expired
-                ->group_start()
-                    ->where_in('job_bids.job_progres_status', [0, 1])
-                    ->where('jobs.created < ',  $expired_job_date->subDays(POSTED_JOB_VALID_DURATION)->format('Y-m-d H:i:s'))
-                ->group_end()
-                ->or_group_start()
-                    ->where('withdrawn', 1)
-                ->group_end()
-                ->or_group_start()
-                    ->where('bid_reject', 1)
-                ->group_end()
-            ->group_end()
-            ->group_by('jbid_id')
-            ->order_by("jobs.id", "desc");
-        $query = $this->db->get('jobs');
-
         $return_array = array();
         $return_array['rows'] = $query->num_rows();
         if ($return_array['rows'] > 0) {
