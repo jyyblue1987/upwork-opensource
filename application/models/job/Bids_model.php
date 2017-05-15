@@ -139,7 +139,6 @@ class Bids_model extends CI_Model {
 
 		return $bid->status == 0
 			&& $bid->bid_reject == 0
-			&& $bid->job_progres_status == 0
 			&& is_null($bid->withdrawn)
 			&& strtotime($job->created) < $expire_job_date->subDays(POSTED_JOB_VALID_DURATION)->timestamp;
 	}

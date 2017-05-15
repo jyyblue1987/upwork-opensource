@@ -33,7 +33,7 @@ class Freelancerinvite extends Winjob_Controller {
         $this->checkForFreelancer();
         
         $job_id = $this->input->get('fmJob');
-        $id = $this->session->userdata('id');
+        $user_id = $this->session->userdata(USER_ID);
         
         if(empty($job_id))
         {
@@ -49,9 +49,9 @@ class Freelancerinvite extends Winjob_Controller {
 
         $postId       = base64_decode($job_id);
         $record       = $this->jobs_model->load_client_infos( $postId );
-        $bids_details = $this->bids_model->load($postId, $id);
-        $job          = $this->Job_details->init($bids_details->clientid, $bids_details->cjob_id);
-        
+        $bids_details = $this->bids_model->load($postId, $user_id);
+        $this->Job_details->init($record->webuser_id, $bids_details->job_id);
+
         if( empty( $bids_details ) ){
             //$this->session->set_flashdata('error', $this->lang->line('text_app_invalid_application_state'));
             redirect( home_url() );
@@ -77,7 +77,7 @@ class Freelancerinvite extends Winjob_Controller {
         $hires      = $this->process->get_hires($record->user_id, $postId);
         
         //Get the timezone.
-        $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS, null, " AND webuser_id=" . $id);
+        $webUserContactDetails = $this->common_mod->get(WEB_USER_ADDRESS, null, " AND webuser_id=" . $user_id);
         
         try
         {
@@ -118,12 +118,12 @@ class Freelancerinvite extends Winjob_Controller {
             'workedhours'      => $workedhours, 
             'country'          => ucfirst($country['country_name']),
             'cover_letter'     => $bids_details->cover_latter, 
-            'user_id'          => $record->clientid,
+            'user_id'          => $record->webuser_id,
             'f_id'             => $bids_details->user_id,
             'f_attachments'    => $attachments,
             'rating'           => $rating,
             'amount_spent'     => $amount_spent,
-            'is_expired'      => $this->bids_model->isExpired($bids_details, $job),
+            'is_expired'      => $this->bids_model->isExpired($bids_details, $this->Job_details),
             'is_rejected'      => $this->bids_model->isRejected($bids_details),
             'is_withdrawn'     => $this->bids_model->isWithdrawn($bids_details),
             'is_offer'         => $this->bids_model->isOffer($bids_details),

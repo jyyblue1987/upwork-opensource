@@ -69,29 +69,30 @@
                     <div class="col-md-12 custom_bids_list_border">
                         <div class="row">
                             {% set local_datetime = app_convert_date_in_local( offer.bid_created, user_timezone ) %}
-                            <div class="col-md-2 col-sm-4 col-xs-6">{{ local_datetime.format(' M j, Y ') }}</div>
-                            <div class="col-md-8 blue-text col-sm-5 col-xs-6">
+                            <div class="col-md-2 col-sm-6 col-xs-6">{{ local_datetime.format(' M j, Y ') }}</div>
+                            <div class="col-md-10 blue-text col-sm-6 col-xs-6">
                                 <a href="{{ base_url('jobs/proposals/' ~ url_title(offer.title) ~ '/' ~ base64_encode(offer.job_id) ) }}"> 
                                  {{ offer.title }} 
                                  </a>
                             </div>
-                            <div class="col-md-2 col-sm-3">
-                                {% if offer.bid_reject == 1 %}
-                                    Declined By Client
-                                {% elseif offer.withdrawn == 1 %}
-                                    Declined By You
-                                {% elseif display == 'archived' %}
-                                    Expired
-                                {% endif %}
-                            </div>
                         </div>
 
-                         <div class="row margin-top-1">
-                            <div class="col-md-2 col-xs-6 col-sm-4">
+                        <div class="row margin-top-1">
+                            <div class="col-md-2 col-xs-6 col-sm-6">
                                 {{ app_time_elapsed_string( local_datetime.timestamp, user_timezone ) }}
                             </div>
                             <div class="col-md-10 col-xs-6 col-sm-6">
-                               {{ offer.webuser_company }}
+                                {% if display == 'archived' %}
+                                    {% if offer.bid_reject == 1 %}
+                                        Declined By Client
+                                    {% elseif offer.withdrawn == 1 %}
+                                        Declined By You
+                                    {% elseif display == 'archived' %}
+                                        Expired
+                                    {% endif %}
+                                {% else %}
+                                    {{ offer.webuser_company }}
+                                {% endif %}
                             </div>
                         </div>
                     </div>
