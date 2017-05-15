@@ -7,12 +7,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * @author Hermannovich <donfack.hermann@gmail.com>
  *
- * @property CI_Session $session
- * @property CI_Lang    $lang
- * @property CI_Config  $config
- * @property CI_Router  $router
- * @property CI_URI     $uri
- * @property Twig       $twig
+ * @property CI_Session          $session
+ * @property CI_Lang             $lang
+ * @property CI_Config           $config
+ * @property CI_Router           $router
+ * @property CI_Input            $input
+ * @property CI_DB_query_builder $db
+ * @property CI_URI              $uri
+ * @property Twig                $twig
  */
 class Winjob_Controller extends CI_Controller {
     
@@ -60,7 +62,10 @@ class Winjob_Controller extends CI_Controller {
         $back_url = $this->agent->referrer();
         $this->session->set_userdata('redirect_back',  ( !empty($back_url) ? $back_url : home_url() ) );
         // added by (Donfack Zeufack Hermann) end
-          
+        
+        if (ENVIRONMENT === "development" && !$this->input->is_ajax_request()) {
+            $this->output->enable_profiler(true);
+        }
     }
     
     public function get_default_lang() {

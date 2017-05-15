@@ -175,7 +175,7 @@ $lang['text_job_title_applicant']  = "Interview";
 $lang['text_job_hire_me'] = 'Hire me';
 
 $lang['text_job_declined_by_free']   = 'Declined by Freelancer';
-$lang['text_job_declined_by_you']    = 'Declined by You';
+$lang['text_job_declined_by_you']    = 'Declined by Employer';
 $lang['text_job_declined_candidate'] = 'Decline Candidate';
 $lang['text_job_chat_no_message']    = 'No message sent yet.';
 $lang['text_job_chat_today']         = 'Today';

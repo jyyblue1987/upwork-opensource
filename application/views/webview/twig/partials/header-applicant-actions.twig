@@ -35,9 +35,10 @@
                 <div class="decline-line">
                     <i class="fa fa-times-circle" aria-hidden="true"></i> 
                     <small>
-                        <a id="btn-decline-applicant" href="javascript:void(0)" 
+                        <a id="btn-decline-applicant" href="{{ site_url('jobs/bid_decline/') }}"
                            data-id='{{ job_info['bid_id'] }}' 
-                           data-job='{{ job_id }}'>
+                           data-job='{{ job_id }}'
+                           data-redirect="{{ site_url('declined?job_id=' ~ job_id) }}" >
                             {{ app_lang('text_job_declined_candidate') }}
                         </a>
                     </small>

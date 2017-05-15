@@ -23,10 +23,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-if(ENVIRONMENT=="development"){
-$config['base_url'] = 'http://localhost/winjob/';
-}else{
-$config['base_url'] = 'http://www.winjob.com/';
+if (ENVIRONMENT == "development") {
+    $config['base_url'] = 'http://localhost/winjob/';
+} else {
+    $config['base_url'] = 'http://www.winjob.com/';
 }
 
 /*

@@ -1,8 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-use Carbon\Carbon; 
+use Carbon\Carbon;
 
+/**
+ * @property Bids_model $bids_model
+ */
 class Freelancerinvite extends Winjob_Controller {
 	
     public function __construct()
@@ -40,12 +43,14 @@ class Freelancerinvite extends Winjob_Controller {
         
         $this->load->model(array(
             'job/bids_model', 'timezone', 'payment_methods_model', 
-            'job_work_diary_model', 'webuser_model', 'payment_model'
+            'job_work_diary_model', 'webuser_model', 'payment_model',
+            'Job_details',
         ));
-        
+
         $postId       = base64_decode($job_id);
-	$record       = $this->jobs_model->load_client_infos( $postId );
+        $record       = $this->jobs_model->load_client_infos( $postId );
         $bids_details = $this->bids_model->load($postId, $id);
+        $job          = $this->Job_details->init($bids_details->clientid, $bids_details->cjob_id);
         
         if( empty( $bids_details ) ){
             //$this->session->set_flashdata('error', $this->lang->line('text_app_invalid_application_state'));
@@ -117,9 +122,13 @@ class Freelancerinvite extends Winjob_Controller {
             'f_id'             => $bids_details->user_id,
             'f_attachments'    => $attachments,
             'rating'           => $rating,
-            'amount_spent'     => $amount_spent
+            'amount_spent'     => $amount_spent,
+            'is_expired'      => $this->bids_model->isExpired($bids_details, $job),
+            'is_rejected'      => $this->bids_model->isRejected($bids_details),
+            'is_withdrawn'     => $this->bids_model->isWithdrawn($bids_details),
+            'is_offer'         => $this->bids_model->isOffer($bids_details),
         );
-        
+
         $this->twig->display('webview/twig/my-interview', $data);
     }    
 }

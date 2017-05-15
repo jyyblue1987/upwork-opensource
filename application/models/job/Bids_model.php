@@ -130,7 +130,7 @@ class Bids_model extends CI_Model {
 	 *
 	 * @return bool
 	 */
-    public function isArchived($bid, $job)
+    public function isExpired($bid, $job)
 	{
 		$bid = (object) $bid;
 		$job = (object) $job;

@@ -19,7 +19,7 @@ class Jobs extends Winjob_Controller {
         $this->load_language();
         // added by (Donfack Zeufack Hermann) end
         $this->load->model(array('Category', 'Common_mod', 'Webuser_model', 'Process', 'Employer', 
-            'profile/ProfileModel', 'Job_work_diary_model', 'Skills_model', 'jobs_model', 
+            'profile/ProfileModel', 'Job_work_diary_model', 'Skills_model', 'jobs_model',
             'Job_details', 'payment_model', 'payment_methods_model', 'job/Bids_model'));
         $this->load->library('paypal_lib');
         $this->process = new Process();
@@ -2072,51 +2072,53 @@ class Jobs extends Winjob_Controller {
         $interviews        = $this->process->get_interviews($client->get_userid(), $bid['job_id']);
         $hires             = $this->process->get_hires($client->get_userid(), $bid['job_id']);
         $rate              = $this->ProfileModel->get_profile($this->user_id);
-
+    
         if ($this->input->post('proposal')) {
             $data = array();
-            $data['bid_amount']  = $this->input->post('bid_amount');
-            $bidId               = $this->input->post('bid_id');
-            $data['bid_fee']     = round($data['bid_amount'] / 10, 2);
+            $data['bid_amount'] = $this->input->post('bid_amount');
+            $bidId = $this->input->post('bid_id');
+            $data['bid_fee'] = round($data['bid_amount'] / 10, 2);
             $data['bid_earning'] = $data['bid_amount'] - $data['bid_fee'];
-
+        
             $this->db->where('id', $bidId);
             if ($this->db->update('job_bids', $data)) {
                 $rs = array(
-                    'code' => '1', 
-                    'modal' => '#myModal2', 
-                    'amt' => '1', 
-                    'msg' => '<div class="alert alert-success"><strong>Success!</strong> You proposal has been revised.</div>');
+                    'code' => '1',
+                    'modal' => '#myModal2',
+                    'amt' => '1',
+                    'msg' => '<div class="alert alert-success"><strong>Success!</strong> You proposal has been revised.</div>'
+                );
             } else {
                 $rs = array(
-                    'code' => '0', 
+                    'code' => '0',
+                    'msg' => '<div class="alert alert-danger"><strong>Warning!</strong> Something went wrong.</div>'
+                );
+            }
+            echo json_encode($rs);
+            die;
+        }
+        else if ($this->input->post('withdraw')) {
+            $data = array();
+            $data['status'] = '1';
+            $data['withdrawn'] = '1';
+            $data['withdrawn_by'] = '1';
+
+            $bidId = $this->input->post('bid_id');
+            $this->db->where('id', $bidId);
+            if ($this->db->update('job_bids', $data)) {
+                $rs = array(
+                    'code' => '1',
+                    'modal' => '#myModal',
+                    'amt' => '0',
+                    'msg' => '<div class="alert alert-success"><strong>Success!</strong> You have successfully withdraw with this job.</div>');
+            } else {
+                $rs = array(
+                    'code' => '0',
                     'msg' => '<div class="alert alert-danger"><strong>Warning!</strong> Something went wrong.</div>');
             }
             echo json_encode($rs);
             die;
-            }
-            if ($this->input->post('withdraw')) {
-                $data = array();
-                $data['status'] = '1';
-                $data['withdrawn'] = '1';
-                $data['withdrawn_by'] = '1';
-
-                $bidId = $this->input->post('bid_id');
-                $this->db->where('id', $bidId);
-                if ($this->db->update('job_bids', $data)) {
-                    $rs = array(
-                        'code' => '1', 
-                        'modal' => '#myModal', 
-                        'amt' => '0', 
-                        'msg' => '<div class="alert alert-success"><strong>Success!</strong> You have successfully withdraw with this job.</div>');
-                } else {
-                    $rs = array(
-                        'code' => '0', 
-                        'msg' => '<div class="alert alert-danger"><strong>Warning!</strong> Something went wrong.</div>');
-                }
-                echo json_encode($rs);
-                die;
-            }
+        }
 
         $data = array(
             'emp'         => $client,
@@ -2146,7 +2148,7 @@ class Jobs extends Winjob_Controller {
             'rating'      => $this->Webuser_model->get_total_rating($client->get_userid(), true),
             'country'     => ucfirst($client->get_country()),
             'f_active'    => $freelancer_active,
-			'is_archived' => $this->Bids_model->isArchived($bid, $job),
+			'is_expired' => $this->Bids_model->isExpired($bid, $job),
 			'is_rejected' => $this->Bids_model->isRejected($bid),
 			'is_withdrawn' => $this->Bids_model->isWithdrawn($bid),
 			'is_offer'    => $this->Bids_model->isOffer($bid),
@@ -2762,12 +2764,14 @@ class Jobs extends Winjob_Controller {
             $user_id = $this->session->userdata('id');
           // added by jahid start 
             if ($freelancer_hit_id != null) {
-                $sql = "UPDATE  job_bids set status = '1',withdrawn=1,withdrawn_by=1 WHERE job_id ='" . $freelancer_hit_id . "' AND user_id=" . $user_id;
-                $this->db->query($sql);
-                redirect(site_url('my-offers'));
+                $sql = "UPDATE  job_bids set status = '1',withdrawn=1,withdrawn_by=1 WHERE id = ?" ;
+                $this->db->query($sql, [$freelancer_hit_id]);
+                if(!$this->input->is_ajax_request()) {
+                    redirect(site_url('my-offers'));
+                }
             } else {
                 $bid_id = $_POST['form'];
-                $sql = "UPDATE  job_bids set bid_reject = '1',withdrawn=1,withdrawn_by=2  WHERE id ='" . $bid_id . "'";
+                $sql = "UPDATE  job_bids set bid_reject = '1',withdrawn_by=2  WHERE id ='" . $bid_id . "'";
                 $this->db->query($sql);
             }
          // added by jahid end 

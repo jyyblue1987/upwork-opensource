@@ -8,15 +8,21 @@ define(['require', 'jquery'], function (require, $) {
 		});
 	});
 
-	$('._js_decline_btn,#btn-decline-applicant').on('click', function(){
+	$('._js_decline_btn,#btn-decline-applicant').on('click', function(e){
+		e.preventDefault();
+
 		var x    = confirm("Are you sure! want to Decline the User?");
 		var that = $(this);
 
 		if (x) {
-			$.post(site_url + 'jobs/bid_decline', {form: that.data('id')}, function (data) {
+			$.post(this.href, {form: that.data('id')}, function (data) {
 				if (data.success) {
-					$('.result-msg').html('You have successfully Decline the Post');
-					window.location =  site_url + "declined?job_id=" + that.data('job');
+					$('.result-msg').eq(0).html('You have successfully Decline the Post');
+					if(that.data('redirect')) {
+						window.location = that.data('redirect');
+					} else {
+						window.location =  site_url + "declined?job_id=" + that.data('job');
+					}
 				} else {
 					alert('Opps!! Something went wrong.');
 				}

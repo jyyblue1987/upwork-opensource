@@ -37,8 +37,10 @@ $route['billing-history']         = 'pay';
 $route['edit-jobs/(:any)']        = 'jobs/edit/($1)';
 $route['jobs/applications/(:any)']  = 'job/applications/index/($1)';
 $route['jobs/applied/(:any)']       = 'jobs/applied/($1)';
+$route['jobs/bid_decline/(:any)']  = 'jobs/bid_decline/$1';
 $route['jobs/(:any)/(:any)']        = 'jobs/view/($1)/($2)';
 $route['jobs/preview-job-posting']  = 'jobs/preview_job_posting';
+
 $route['freelancer/(:any)']         = 'profile/profileSearch/($1)';
 
 

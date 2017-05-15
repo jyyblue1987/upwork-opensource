@@ -142,7 +142,7 @@ span.rating-badge {
 								<div class="row">
                                     <div class="col-md-12">
                                         <label  class="marg-bot--3">
-											<?php if($is_archived)
+											<?php if($is_expired)
 											{
 												echo 'Expired';
 											} elseif($is_rejected) {
@@ -177,7 +177,7 @@ span.rating-badge {
                                     </div>
 
                                 </div>
-                                <?php if($status != '1' && !$is_archived && !$is_rejected && !$is_withdrawn && !$is_offer) {?>
+                                <?php if($status != '1' && !$is_expired && !$is_rejected && !$is_withdrawn && !$is_offer) {?>
 									<div class="row margin-top-2 propose-terms-btn-c">
 										<div class="col-md-12">
 											<input type="button" class="btn btn-primary form-btn" value="Propose Different Terms" data-toggle="modal" data-target="#myModal2"/>

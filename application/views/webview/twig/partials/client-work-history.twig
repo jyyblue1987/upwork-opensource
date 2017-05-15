@@ -58,16 +58,16 @@
     
 <div class="topriht" style='margin-top: 20px;'>
     {% if  bid_details.withdrawn == 1 or bid_details.bid_reject == 1 %}
-        {% if bid_details.withdrawn_by == 1 %}
+        {% if bid_details.withdrawn == 1 %}
             <small>{{ app_lang('text_job_declined_by_free') }} </small>
-        {% elseif bid_details.withdrawn_by == 2 %}
+        {% elseif bid_details.bid_reject == 1 %}
             <small>{{ app_lang('text_job_declined_by_you') }}</small>
         {% endif %}
    {% else %}
         <div class="decline-line text-center">
             <i class="fa fa-times-circle" aria-hidden="true"></i> 
             <small>
-                <a id="btn-decline-applicant" href="{{ site_url('jobs/bid_decline/' ~ bid_details.job_id) }}">
+                <a id="btn-decline-applicant" href="{{ site_url('jobs/bid_decline/' ~ bid_details.id) }}" data-redirect="{{ site_url('jobs/my-bids/archived') }}" >
                     Decline Job
                 </a>
             </small>

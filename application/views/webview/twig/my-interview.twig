@@ -164,7 +164,15 @@
                 <div style="border: 1px solid #ccc;">
                     <div class="text-center">
                         <label style="color: #000;font-family: calibri;font-size: 17px;margin-top: 3px; width: 100%">
-                            Submitted Proposal
+                            {% if is_expired %}
+                                Expired
+                            {% elseif is_rejected %}
+                                Declined by employer
+                            {% elseif is_withdrawn %}
+                                Declined by you
+                            {% else %}
+                                Submitted Proposal
+                            {% endif %}
                         </label>
                         <label style="color: #000;font-family: calibri;font-size: 17px; width: 100%">
                             Your proposed terms
@@ -175,7 +183,7 @@
                             <span id='bid_amount_read' style="font-weight: normal">($<span id='_bid_amount'>{{ round(bid_details.bid_amount, 2) }}</span>{{ hour }} charge to client)</span>
                         </label>
                         <div style="margin-left: 12px;margin-top: 6px;margin-bottom: 8px;">
-                            {% if bids_details.withdrawn == 0 %}
+                            {% if status != 1 and is_expired == 0 and is_rejected == 0 and is_withdrawn == 0 and is_offer == 0 %}
                             <input type="button" 
                                    class="btn btn-primary form-btn"
                                    value="Propose Different Terms" 
