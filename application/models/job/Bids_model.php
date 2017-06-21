@@ -67,6 +67,7 @@ class Bids_model extends CI_Model {
     
     public function update($data, $conditions)
     {
+		
         foreach($conditions as $field =>  $value)
         {
             $this->db->where($field, $value);

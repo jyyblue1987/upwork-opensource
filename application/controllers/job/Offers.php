@@ -36,6 +36,7 @@ class Offers extends Winjob_Controller{
     
     public function index()
     {
+		
         //Display offer for decision
         if($this->session->userdata('type') == FREELANCER)
             return $this->decide_on_offer();
@@ -415,8 +416,14 @@ class Offers extends Winjob_Controller{
             ));
         }
         
-        if($this->bids_model->update(array('hired' => '1'), array('id' => $bid_id)))
+		//echo "Created date is " . date("Y-m-d h:i:sa", $d);
+		
+
+        if($this->bids_model->update(array('hired' => '0','job_progres_status' => 3,'end_date' => date('Y-m-d H:i:s'), 'withdrawn_by' => '2', 'withdrawn' => '1'), array('id' => $bid_id)))
         {
+			
+		  
+			
             $all_payments = $this->payment_model->load_all_payment($bid_id);
             
             if(!empty($all_payments))
@@ -608,7 +615,8 @@ class Offers extends Winjob_Controller{
                 $this->load->library($service_library);
 
             $transaction_id = $this->{$service_library}->paid($budget, "usd", $primary);
-
+				
+			
             if( $transaction_id == null)
             {
                 $this->ajax_response(array(
@@ -664,10 +672,22 @@ class Offers extends Winjob_Controller{
         $offers  = $this->process->get_active_offers($user_id);
         $archived_offers  = $this->process->get_archived_offers($user_id);
         
-        //dump($archived_offers, true); 
-        
-        $this->twig->display('webview/jobs/twig/my-offers', compact('offers', 'archived_offers'));
+		$display = 'active';
+		
+        $this->twig->display('webview/jobs/twig/my-offers', compact('offers', 'archived_offers', 'display'));
     }
+	//added by Chen
+	public function archived(){
+		$this->checkForFreelancer();
+		$user_id = $this->session->userdata(USER_ID);
+        $offers  = $this->process->get_active_offers($user_id);
+        $archived_offers  = $this->process->get_archived_offers($user_id);
+        
+		$display = 'archived';
+		$this->twig->display('webview/jobs/twig/my-offers', compact('offers', 'archived_offers', 'display'));
+		
+	}
+	//ended by Chen
 }
 
 

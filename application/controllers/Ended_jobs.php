@@ -21,15 +21,15 @@ class Ended_jobs extends Winjob_Controller{
         $this->lang->load('job', $this->get_default_lang());
     }
     
-    public function index()    {
+    public function index(){
         
         if ($this->Adminlogincheck->checkx()){
             if($this->session->userdata('type') != 2){
-            redirect(site_url("jobs-home"));
-        }
+				redirect(site_url("jobs-home"));
+			}
             $user_id = $this->session->userdata('id');
             
-             $this->db->select('*,job_bids.id as bid_id,job_bids.status AS bid_status,jobs.job_duration AS jobduration,job_bids.created AS bid_created');
+            $this->db->select('*,job_bids.id as bid_id,job_bids.status AS bid_status,jobs.job_duration AS jobduration,job_bids.created AS bid_created');
 			$this->db->from('job_accepted');
 			$this->db->join('webuser', 'webuser.webuser_id=job_accepted.buser_id', 'inner');
 			$this->db->join('webuser_basic_profile', 'webuser_basic_profile.webuser_id=webuser.webuser_id', 'inner');
@@ -37,9 +37,9 @@ class Ended_jobs extends Winjob_Controller{
 			$this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
 			$this->db->join('country', 'country.country_id=webuser.webuser_country', 'inner');
             $this->db->where('job_accepted.fuser_id',$user_id);
-			 $this->db->where('job_bids.jobstatus', '1' );
+			$this->db->where('job_bids.jobstatus', '1' );
             
-             $query=$this->db->get();
+            $query=$this->db->get();
 			$acccept_jobList = $query->result();
 			
             $data = array(

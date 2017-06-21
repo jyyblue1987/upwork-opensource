@@ -61,13 +61,14 @@ class Jobs_model extends CI_Model {
                     ->join('job_bids', 'jobs.id=job_bids.job_id', 'inner')
                     ->where('job_bids.id', $bid_id)
                     ->where('job_bids.job_id', $job_id)
-                    ->where('job_bids.hired', '1')
-                    ->where('job_bids.job_progres_status','2')
+                   // ->where('job_bids.hired', '1')
+                  //  ->where('job_bids.job_progres_status','2')
                     ->where('job_bids.status', 0)
                     ->get('jobs');
             
         return $query->row();
     }
+	
     
     public function load_job_status($sender_id, $user_id, $job_id, $with_country = false) {
         

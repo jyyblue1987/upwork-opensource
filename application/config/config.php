@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 if (ENVIRONMENT == "development") {
-    $config['base_url'] = 'http://localhost/winjob/';
+    $config['base_url'] = 'http://localhost:81/';
 } else {
     $config['base_url'] = 'http://www.winjob.com/';
 }

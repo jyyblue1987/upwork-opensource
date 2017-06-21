@@ -152,6 +152,29 @@ class Winjob_Controller extends CI_Controller {
         $this->authorized();
         $this->isFreelancer();
     }
+	
+	// added by chen start 
+	// Check user type 
+	/************************************************/
+	/* 	
+		purpose: get the usertype
+		param:  none
+	    return value: user type
+						0:  employer
+						1:  freelancer
+	/************************************************/
+	protected function checkUsertype(){	
+		$this->authorized();	
+		switch($this->session->userdata('type')){
+			case EMPLOYER:
+				return 0;
+			case FREELANCER:
+				return 1;
+			default:
+				return 2;
+		}
+	}
+	
     
     protected function display_active_contracts( $is_active_contract_page = true ){
         

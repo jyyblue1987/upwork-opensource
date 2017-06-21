@@ -602,15 +602,18 @@ class Process extends CI_Model {
     
     
     public function get_archived_offers($user_id)
-    {
+    { 
         $expired_job_date = Carbon::now(new DateTimeZone('UTC'));
         
         $this->db
                 ->select('*, job_bids.id as bid_id')
                 ->from('job_bids')
                 ->join('jobs', 'jobs.id=job_bids.job_id', 'inner')
-                ->where('job_bids.hired', '1')
-                ->where('job_bids.bid_reject', '0')
+                ->where('job_bids.hired', '0')
+				->group_start()
+                ->where('job_bids.bid_reject', '1')
+                ->or_where('job_bids.withdrawn', '1')
+				 ->group_end()
                 ->where('job_bids.status', '0')
                 ->where('jobs.status', '1')
                 ->group_start()
@@ -620,7 +623,8 @@ class Process extends CI_Model {
                     ->group_end()        
                     ->or_where('job_bids.job_progres_status',  3)
                 ->group_end()
-                ->where('job_bids.user_id', $user_id);
+                ->where('job_bids.user_id', $user_id)
+                ->order_by("job_bids.end_date", "desc");
         $query = $this->db->get();
 
         $return_array = array();

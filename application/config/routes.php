@@ -11,11 +11,14 @@ $route['jobs/my-bids']           = 'job/bids';
 $route['jobs/my-bids/archived']  = 'job/bids/archived';
 
 
-$route['my-offers']                 = 'job/offers/active';
+$route['my-offers']               = 'job/offers/active';
+
+
 $route['jobs/interviews/(:any)']    = 'jobs/interviews/($1)';
 
 $route['jobs/proposals/(:any)/(:any)'] = 'jobs/withdraw_system/($2)'; 
-$route['my-offers/archived']           = 'Active_interview/declined_interview';
+$route['my-offers/archived']           = 'job/offers/archived';
+
 $route['my-interviews']                = 'Active_interview';
 $route['my-interviews/archived']       = 'Active_interview/archived';
 $route['proposals/my-interview']       = 'freelancerinvite';

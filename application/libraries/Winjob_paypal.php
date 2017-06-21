@@ -256,7 +256,7 @@ class Winjob_paypal {
     public function paid($amount, $currency, $service)
     {
         //Process payment of the current invoice.
-        $amount = new BasicAmountType(strtoupper($currency), $amount * 100);
+        $amount = new BasicAmountType(strtoupper($currency), $amount);
         
         // Information about the payment.
         $paymentDetails                = new PaymentDetailsType();
@@ -279,11 +279,12 @@ class Winjob_paypal {
         try 
         {
             $RTResponse = $this->get_paypal_service()->DoReferenceTransaction($RTReq);
-            
+           
             if( strtolower($RTResponse->Ack) == 'success' )
             {   
+				
                 $transaction    = $RTResponse->DoReferenceTransactionResponseDetails;
-                return $transaction->TransactionID;
+				return  $transaction->PaymentInfo->TransactionID;
             }
         }
         catch (Exception $ex) 
