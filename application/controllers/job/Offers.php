@@ -446,7 +446,7 @@ class Offers extends Winjob_Controller{
                 'message'      => 'Well done! You have successfully decline offer.',
                 'status'       => 'success',
                 'redirect'     => true,
-                'redirect_url' => site_url('jobs-home')
+                'redirect_url' => site_url('my-offers/archived')
             ));
         }
         else

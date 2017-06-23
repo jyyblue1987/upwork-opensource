@@ -1096,7 +1096,6 @@ margin-bottom: -20px;
 }
 .hire_me_btn {
 	padding: 0px 0px 10px 15px;
-    margin: 0px 0px 0px 130px
 }
 .hire_sms_btn {
     padding: 0px 0px 10px 15px;
@@ -4811,4 +4810,9 @@ margin-top: 14px !important;}
  
  div#next_header {
     margin-bottom: 20px;
+}
+
+
+#codeigniter_profiler{
+	display:none;
 }

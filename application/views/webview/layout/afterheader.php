@@ -250,7 +250,7 @@ if ($this->session->userdata('loggedx')) {
                                     <li><a href="<?php echo site_url("post-job/") ?>" class="current">Post a Job</a></li>      
                                     <li><a href="<?php echo site_url("jobs/my-contracts") ?>"> My Contracts </a></li>			
                                     <li><a href="<?php echo site_url("jobs/work-diary") ?>"> Work Diary</a></li>
-                                    <li><a href="<?php echo site_url("jobs/my-bids") ?>"> My Offer</a></li>
+                                    
                                 </ul>
                             </div>
                         </div>

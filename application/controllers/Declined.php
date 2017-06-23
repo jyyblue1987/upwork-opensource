@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Declined extends CI_Controller {
+class Declined extends Winjob_Controller {
 
     private $process;
     private $user_id;
@@ -10,14 +10,19 @@ class Declined extends CI_Controller {
     
     public function __construct() {
         parent::__construct();
-        $this->load->model(array('Category', 'Common_mod', 'Webuser_model', 'Process', 'Employer', 'profile/ProfileModel', 'Job_work_diary_model'));
+        $this->load->model(array('Category', 'Common_mod', 'Webuser_model', 'Process', 'Employer', 'profile/ProfileModel', 'Job_work_diary_model', 'adminforms', 'job_details'));
+		
+		$this->load_language();
+		
         $this->process = new Process();
-        $this->user_id = $this->session->userdata('id');
+        $this->user_id = $this->session->userdata(USER_ID);
         $this->employer = new Employer($this->user_id);
     }
 
     public function index() {
-
+	
+		
+	
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
                 redirect(site_url("find-jobs"));
@@ -32,17 +37,29 @@ class Declined extends CI_Controller {
             $_freelancer = array();
             
             $job_id = base64_decode($_GET['job_id']);
+			
+			// hui added for job details
+			$user_id = $this->session->userdata(USER_ID);
+			$this->job_details->init($user_id, $job_id );
             $bids = $this->process->get_bids($job_id);
             $emp = $this->employer->is_active();
             $job_details = $this->process->get_job_details($job_id);
-
-            $applicants = $this->process->get_applications($job_id);
-            $rejects = $this->process->get_rejected($job_id);
-            $offers = $this->process->get_offers($job_id);
-            $hires = $this->process->get_hires($this->user_id, $job_id);
-            $interviews = $this->process->get_interviews($this->user_id, $job_id);
-
+			
+			//Hui added for twig 
+			$applicants = $this->process->get_applications( $job_id, TRUE );
+			$declined = $this->process->get_rejected( $job_id, TRUE);
+			$offered = $this->process->get_offers( $job_id, TRUE );
+			$hired = $this->process->get_hires( $user_id, $job_id, TRUE );
+			$interviews = $this->process->get_interviews( $user_id, $job_id, TRUE );
+			
+			
+		
+			// hui ended
+			 
+			$rejects = $this->process->get_rejected($job_id);
+			
             foreach($rejects['data'] AS $_rejects){
+								
                $ended_jobs = $this->process->cnt_ended_jobs($_rejects->webuser_id);
                $freelancer_profile = $this->ProfileModel->get_profile($_rejects->webuser_id);
                $accepted_jobs = $this->process->accepted_jobs($_rejects->webuser_id);
@@ -81,7 +98,8 @@ class Declined extends CI_Controller {
                         }
                     }
                 }
-
+			
+			/*
                 $records[] = array(
                    'ended_jobs' => $ended_jobs,
                    'tagline' => ucfirst($freelancer_profile['tagline']),
@@ -100,25 +118,75 @@ class Declined extends CI_Controller {
                    'skills' => $skills,
                    'rating' => $user_rating,
                    'bid_reject' => $_rejects->bid_reject
-                );
+                );*/
+				
+				
+				/**********************************************************************************/
+				/**********************************************************************************/
+				
+				if($feedbackScore && $budget) {
+					$totalscore = $feedbackScore / $budget;
+					$rating_feedback = ($totalscore/5)*100;
+				}
+				
+				$applicant = [
+					'ended_jobs' => $ended_jobs,
+					'tagline' => ucfirst($freelancer_profile['tagline']),
+					'earned' => $budget,
+					'totalscore' => $totalscore,
+					'rating_feedback' => $rating_feedback,
+					'rating' => $user_rating,
+					'total_work' => $total_work,
+					'pic' => $pic != "" ? $pic : "assets/user.png",
+					'fname' => $_rejects->webuser_fname,
+					'lname' => $_rejects->webuser_lname,
+					'hire_url' => site_url("jobs/offers?user_id=" . base64_encode($_rejects->webuser_id)
+						. "&job_id=" . base64_encode($this->job_details->get_jobid())),
+					'profile_url' => site_url("applicants?user_id=") . base64_encode($_rejects->webuser_id) . "&job_id="
+						. base64_encode($this->job_details->get_jobid()) . "&bid_id=" . base64_encode($_rejects->id),
+					'user_id' => $_rejects->webuser_id,
+					'skills' => $skills,
+					'country' => ucfirst($country['country_name']),
+				];
+				
+				$applications[] = array(
+					'job' => $this->job_details,
+					'bid' => $_rejects,
+					'applicant' => $applicant,
+					'decline' => '1',
+					'bid_reject' => $_rejects->bid_reject
+				);
+				
+				
+				
+				
+				/**********************************************************************************/
+				/**********************************************************************************/
+			
             }
 
-            $data = array(
-                'records' => $records,
-                'jobId' => base64_encode($job_id),
-                'status' => $emp,
-                'applicants' => $applicants['rows'],
-                'rejects' => $rejects['rows'],
-                'offers' => $offers['rows'],
-                'hires' => $hires['rows'],
-                'interviews' => $interviews['rows'],
-                'job_type' => ucfirst($job_details['job_type']),
-                'job_title' => ucwords($job_details['title']),
-                'title' => 'Rejected - Winjob'
-            );
-            
-            $this->Admintheme->webview("declined", $data);
+		
+
+		
+		 $this->twig->display('webview/jobs/twig/applications', [
+        	'is_active' => $this->employer->is_active(),
+            'applications' => $applications,
+			'job_type' => $this->job_details->get_jobtype(),
+			'job_title' => $this->job_details->get_title(),
+			'display_job_id' => base64_encode($job_id),
+            'applicants' => $applicants,
+			'declined' => $declined,
+			'offered' => $offered,
+			'hired' => $hired,
+			'display' => 'decline',
+			'interviews' => $interviews
+			]);
+		
+		
         }
-    }
+    
+	
+	
+	}
 
 }

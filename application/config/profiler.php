@@ -12,10 +12,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |	https://codeigniter.com/user_guide/general/profiling.html
 |
 */
-$config['config'] = true;
-$config['queries'] = true;
-$config['memory_usage'] = true;
-$config['post'] = true;
-$config['uri_string'] = true;
-$config['session_data'] = true;
-$config['query_toggle_count'] = true;
+$config['config'] = false;
+$config['queries'] = false;
+$config['memory_usage'] = false;
+$config['post'] = false;
+$config['uri_string'] = false;
+$config['session_data'] = false;
+$config['query_toggle_count'] = false;

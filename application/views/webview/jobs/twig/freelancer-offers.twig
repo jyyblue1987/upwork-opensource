@@ -59,7 +59,7 @@
             <div class="col-md-12 text-left blue-text">
                 <div class="offer_date">
 				{% set job_status = job_details.job_progres_status %}
-				{% if job_status == 2%}
+				{% if job_status == 3%}
                     {% set job_start_date = str_replace('/', '-',job_details.start_date) %}
                     {% set local_datetime = app_convert_date_in_local(job_start_date , user_timezone) %}
                     <span>Pending, Expire on {{ local_datetime.copy().addDays(constant('POSTED_JOB_VALID_DURATION')).format(' F j, Y ') }}</span>

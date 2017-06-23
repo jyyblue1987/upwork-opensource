@@ -145,5 +145,11 @@ span.rating-badge {
 .ms_hr_massage_butt--applications {
     position: static;
     padding: 0 0 10px 0;
-    margin: 0 0 0 155px;
 }
+/*   Hui added for applicant  */
+.no-applicant{
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+}
+/*   end */

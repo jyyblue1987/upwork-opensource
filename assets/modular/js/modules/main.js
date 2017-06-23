@@ -12,11 +12,13 @@ define(['require', 'jquery'], function (require, $) {
 		e.preventDefault();
 
 		var x    = confirm("Are you sure! want to Decline the User?");
+		
 		var that = $(this);
-
+		
 		if (x) {
-			$.post(this.href, {form: that.data('id')}, function (data) {
+			$.post('/jobs/bid_decline/', {form: that.data('id')}, function (data) {
 				if (data.success) {
+				
 					$('.result-msg').eq(0).html('You have successfully Decline the Post');
 					if(that.data('redirect')) {
 						window.location = that.data('redirect');

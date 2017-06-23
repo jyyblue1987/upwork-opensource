@@ -60,7 +60,8 @@ class Applications extends Winjob_Controller {
 		$offered = $this->process->get_offers( $job_id, TRUE );
 		$hired = $this->process->get_hires( $user_id, $job_id, TRUE );
 		$interviews = $this->process->get_interviews( $user_id, $job_id, TRUE );
-	
+		
+		
         $applications = array();
 		if ($bids['rows'] > 0){
 			
@@ -127,26 +128,31 @@ class Applications extends Winjob_Controller {
 					'user_id' => $bid->user_id,
 					'skills' => $skills,
 					'country' => ucfirst($country->get_country()),
+					
 				];
 				
 				$applications[] = array(
 					'job' => $this->job_details,
 					'bid' => $bid,
 					'applicant' => $applicant,
+					'decline' => '0',
+					'bid_reject' => $bid->bid_reject
 				);
 			}
 		}
         
+		
         $this->twig->display('webview/jobs/twig/applications', [
         	'is_active' => $this->employer->is_active(),
             'applications' => $applications,
 			'job_type' => $this->job_details->get_jobtype(),
 			'job_title' => $this->job_details->get_title(),
-			'display_job_id' => $job_id,
+			'display_job_id' => base64_encode($job_id),
             'applicants' => $applicants,
 			'declined' => $declined,
 			'offered' => $offered,
 			'hired' => $hired,
+			'display' => 'application',
 			'interviews' => $interviews
         ]);
     }

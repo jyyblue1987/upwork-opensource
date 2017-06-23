@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="application-wrapper">
+    <div class="application-wrapper clearfix">
         <div class="row"> 
             <div class="col-xs-12 main_job_titie">
               <b>  {{ job_type ~ " - " ~ job_title }}</b> 
@@ -24,22 +24,67 @@
         </div>
          
         <div class="row">
-            {{ include('webview/jobs/partials/job-process-header.twig', {'applications_active': 'active-link'}) }}
+			
+			{% if display == "application" %}
+				{{ include('webview/jobs/partials/job-process-header.twig', {'applications_active': 'active-link'}) }}
+			{% endif %}
+			
+			
+			{% if display == "decline"  %}
+				{{ include('webview/jobs/partials/job-process-header.twig', {'declined_active': 'active-link'}) }}
+			{% endif %}
+		
+			{% if display == "interview"  %}
+				{{ include('webview/jobs/partials/job-process-header.twig', {'interviews_active': 'active-link'}) }}
+			{% endif %}
+			
+			{% if display == "offered"  %}
+				{{ include('webview/jobs/partials/job-process-header.twig', {'offered_active': 'active-link'}) }}
+			{% endif %}
+			
+			{% if display == "hired"  %}
+				{{ include('webview/jobs/partials/job-process-header.twig', {'hired_active': 'active-link'}) }}
+			{% endif %}
+			
+			
+			
+			
         </div>
         
         {% if applications is not empty %}
             {% for app in applications %}
                 <div class="col-md-12 white-box candidate-list">
                     <div class="row">
+					
+					{% if app.decline == '1'%}
+					
+
+					
+						<div class="decline" style="position: relative;float: right;padding-right: 10px;padding-top: 10px;">
+                                <div class="hire_decline">
+								
+								{% if app.bid_reject == '1'%}
+								  Declined By You
+								{% endif %}
+								
+								
+								{% if app.bid_reject == '0'%}
+								  Declined By Freelancer
+								{% endif %}
+								
+								</div>  
+                        </div>
+					{% else %}	
                         <a class="col-md-12 text-right _js_decline_btn" href="#"
                            data-id="{{ app.bid.id }}"
-                           data-job="{{ app.job.id }}">
+                           data-job="{{ display_job_id}}">
                             <i class="fa fa-times"></i>
                         </a>
-
+					{% endif %}
+					
                         <div class="col-md-12">
                             <div class="row">
-                                <div class="col-md-1">
+                                <div class="col-md-2">
                                     <div class="st_img">
                                         <img src="{{ site_url(app.applicant.pic) }}" width="64" height="64" >
                                     </div>
@@ -53,7 +98,7 @@
                                         <span><b>{{ app.applicant.tagline }}</b></span>
                                     </div>
                                     <div class="row margin-top-2">
-                                        <div class="col-md-2" style="font-size:16px;">
+                                        <div class="col-md-2" style="font-size: 15px;font-weight: bold;">
                                             <b>${{ app.bid.bid_amount|number_format(2) }}
                                                 {% if app.job.get_jobtype() == "hourly" %}
                                                     <span class="cc_normal_txt">/hr</span>
@@ -132,14 +177,21 @@
                                 <div class="col-md-2 margin-top-5 text-right msg-buttons">
                                     <div class="ms_hr_massage_butt ms_hr_massage_butt--applications">
                                         <div class="mystaff_msg_btnx hour_btn message_btn ">
-                                            <input type="button"
-                                                   class="btn btn-primary form-btn _job_btn_message"
-                                                   data-bid="{{ job.bid_id }}"
-                                                   data-uid="{{ chat_receiver_id }}"
-                                                   data-jid="{{ job.job_id }}"
-                                                   data-title="{{ title }}"
-                                                   data-uname="{{ username }}"
-                                                   value="{{ app_lang('text_job_btn_message') }}">
+									
+										<a class="btn btn-primary form-btn" href="{{ app.applicant.profile_url }}/{% if display == "decline" %}
+																				declined
+																			{% elseif display == "interview" %}
+																				interview
+																			{% elseif display == "offered" %}
+																				offered
+																			{% elseif display == "hired" %}
+																				hired
+																			{% else %}
+																			
+																			{% endif %}">
+											Message
+										</a>
+										
                                         </div>
                                     </div>
 
@@ -155,8 +207,32 @@
                 </div>
             {% endfor %}
 
-        {% else %}
-            <p>No application yet.</p>
+        {% else %} 
+				
+				
+			{% if display == "application" %}
+				 <p class = "no-applicant">No application yet.</p>
+			{% endif %}
+			
+			
+			{% if display == "decline"  %}
+				<p class = "no-applicant">No Decline yet.</p>
+			{% endif %}
+		
+			{% if display == "interview"  %}
+				<p class = "no-applicant">No interview yet.</p>
+			{% endif %}
+			
+			{% if display == "offered"  %}
+				<p class = "no-applicant"> No Offer yet.</p>
+			{% endif %}
+			
+			{% if display == "hired"  %}
+				<p class = "no-applicant">No hired yet.</p>
+			{% endif %}
+	
+	
+           
         {% endif %}
         
     </div>
