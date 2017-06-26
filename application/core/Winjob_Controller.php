@@ -182,7 +182,7 @@ class Winjob_Controller extends CI_Controller {
            
         // load models
         try{
-            $this->load->model(array('jobs_model', 'webuser_model'));
+            $this->load->model(array('jobs_model', 'Webuser_model'));
         }catch(RuntimeException $e){
             log_message('debug', $e->getMessage());
             $this->session->set_flashdata('error', $this->lang->line('text_job_runtime_exception_message'));

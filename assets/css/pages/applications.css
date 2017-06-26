@@ -152,4 +152,8 @@ span.rating-badge {
 	font-size: 18px;
 	font-weight: bold;
 }
+.right-align-button{
+	float:left;
+	min-width: 80px;
+}
 /*   end */

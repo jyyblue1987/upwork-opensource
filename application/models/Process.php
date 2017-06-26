@@ -150,7 +150,7 @@ class Process extends CI_Model {
     function get_hires($user_id, $job_id, $count = false)
     {
         if($count === false)
-            $this->db->select('*');
+            $this->db->select('*, job_bids.status as bid_status');
         else
             $this->db->select('COUNT(*) as count');
         

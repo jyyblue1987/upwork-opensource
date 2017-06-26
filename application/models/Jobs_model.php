@@ -143,6 +143,7 @@ class Jobs_model extends CI_Model {
         $this->db->where('job_accepted.buser_id', $employer_id);
         $this->db->where('job_bids.hired', '0');
         $this->db->where('job_bids.jobstatus', '0');
+          $this->db->order_by("job_accepted.created", "desc");
         $query = $this->db->get();
         $result = $query->result();
         
@@ -230,6 +231,42 @@ class Jobs_model extends CI_Model {
         return array( 'total_hour' => 0, 'amount_by_hour' => null, 'amount' => 0.00 );
     }
     
+	/*   Hui added for total hour  */
+	
+	public function get_freelancer_total_hour( $job_id, $user_id ,$this_week_start = null, $today = null){
+		if(empty($job_id) ||  empty($user_id))
+            return array();
+      
+        $this->db
+            ->select('fuser_id, jobid, SUM(total_hour) as total_hour')
+            ->from('job_workdairy')
+			->where('jobid =',  $job_id)
+			->where('fuser_id  =',  $user_id);
+           
+        
+        if( $this_week_start != null )
+            $this->db->where('working_date >=', $this_week_start);
+        
+        if( $today != null )
+            $this->db->where('working_date <=', $today);
+        
+        $this->db->group_by(array('fuser_id', 'jobid'));
+        
+        $query    = $this->db->get();
+        $job_done = $query->result();
+		
+        $result = array();  
+        
+        if($job_done != null){
+            foreach($job_done as $job){
+                $result[$job->jobid][$job->fuser_id] =  (int) $job->total_hour;
+            }
+        }
+        return $result;
+	}
+	
+	/*   end */
+	
     public function get_work_total_hour($job_id, $user_id, $begin = null, $end = null){
         $result = $this->get_each_work_total_hour(array($job_id), $user_id, $begin, $end);
         

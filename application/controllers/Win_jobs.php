@@ -38,8 +38,10 @@ class Win_jobs extends Winjob_Controller{
 			$this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
 			$this->db->join('country', 'country.country_id=webuser.webuser_country', 'inner');
             $this->db->where('job_accepted.fuser_id',$user_id);
-			 $this->db->where('job_bids.jobstatus', '0' );
-            
+			$this->db->where('job_bids.jobstatus', '0' );
+            $this->db->order_by("job_accepted.created", "desc");
+			
+			
              $query=$this->db->get();
 			$acccept_jobList = $query->result();
             

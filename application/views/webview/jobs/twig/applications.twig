@@ -53,12 +53,220 @@
         
         {% if applications is not empty %}
             {% for app in applications %}
+				{% set job =  app.bid %}	
+				{% if app.decline == '3'%}	
+					 <div class="col-md-12 white-box candidate-list">
+						<div class="row">
+						
+					
+							<div class="decline" style="position: relative;float: right;padding-right: 10px;padding-top: 10px;">
+									<div class="hire_decline">
+									</div>  
+							</div>
+						
+						
+							<div class="col-md-12">
+								<div class="row">
+									<div class="col-md-4">
+										<div class="row">
+											<div class="col-md-5">
+												<div class="st_img">
+													<img src="{{ site_url(app.applicant.pic) }}" width="64" height="64" >
+												</div>
+											</div>
+											
+											<div class="col-md-7">
+												<div class="aplicant_identity">
+													<label class="aplicant_name">
+														<a href="{{ app.applicant.profile_url }}">{{ app.applicant.fname }} {{ app.applicant.lname }}</a>
+													</label>
+													<br/>
+													
+													<div>
+														<i style="font-size: 14px;" class="fa fa-map-marker"></i>
+														<b> {{ app.applicant.country }}</b>
+													</div>
+												</div>
+											</div>
+											
+										</div>
+									</div>
+									
+									<div class="col-md-5 text-center">
+									
+									
+									{% if display == "hired"  %}	
+									
+										{% set employerStatus =  app.applicant.webuser.isactive %}
+										{% set freelancer_job_hour =  app.freelancer_job_hour %}
+										
+										{% if job.job_type == 'hourly' %}
+										
+											{% set job_id     = job.job_id %}
+											{% set fuser_id   = job.fuser_id %}
+											{% set total_hour = 0 %}
+											{% set text_job_total_hour = 'text_job_total_hour' %}
+
+											{% if page == 'pasthire' %}
+												{% set text_job_total_hour = 'text_job_total_hour_pasthire' %}
+											{% endif %}
+											
+											{% if freelancer_job_hour[ job_id ] is defined and freelancer_job_hour[ job_id ][ fuser_id] is defined and freelancer_job_hour[ job_id ][ fuser_id]  > 0 %}
+												{% set total_hour = freelancer_job_hour[job_id][fuser_id] %}
+												{{ app_lang(text_job_total_hour)|format( total_hour )|raw }}
+											{% else %}
+												{{ app_lang(text_job_total_hour)|format( '0.00' )|raw }}
+											{% endif %}
+
+											<br/>
+
+											{% if job.offer_bid_amount %}
+												{% set amount   = job.offer_bid_amount %}
+											{% else %}
+												{% set amount   = job.bid_amount %}
+											{% endif %}
+
+											@ {{ app_lang('text_job_by_hours')|format(amount) }} = <b> ${{ amount * total_hour }}</b>
+
+										
+									{% else %}
+										
+												<span>
+													
+													<b>${{ job.fixedpay_amount }}</b>
+													{{ app_lang('text_job_paid_of')|format(job.hired_on) }}
+													
+												</span>
+											
+									{% endif %}
+										
+										
+										
+										
+										{% if app.applicant.jobstatus != 1 %}
+													{% if employerStatus == 0 %}
+													<br />
+													<p style="margin:0 !important;">This contract has been hold</p>
+													<hr>
+													{% elseif app.applicant.bid_status == 2 %}
+													<br />
+													<p style="margin:0 !important;">This contract has been paused</p>
+													<hr>
+													{% endif %}
+												{% endif %}
+								{% endif %}
+									</div>
+									
+									
+									<div class="col-md-3 text-right msg-buttons">
+										<div class = "row">
+										
+											<div class="right-align-button">
+												<div class="right-align-button col-xs-4">
+											
+												<a class="btn btn-primary form-btn" href="{{ app.applicant.profile_url }}/offered">
+													Message
+												</a>
+												
+												</div>
+											</div>
+
+											<div class="right-align-button">
+												{% if display == "offered"  %}
+												<a class="btn btn-primary form-btn" href="{{ app.applicant.cancel_url }}">
+													Cancel Offer
+												</a>
+												{% else %}
+												
+											
+												
+													{% if job.job_type == 'hourly' %}
+														
+																<a href="{{ base_url() }}jobs/work-diary?fmJob={{ app.bid_id_encoded }}">
+																	<input type="button" class="btn btn-primary form-btn" value="{{ app_lang('text_job_btn_work_diary') }}" />
+																</a>
+														
+													{% else %}
+														{% if not freelancer %}
+													
+																<a href="{{ app.applicant.payment_url }}">
+																	<input type="button" class="btn btn-primary form-btn my-btn"  value="{{ app_lang('text_job_btn_payment') }}"/>
+																</a>
+														
+														{% endif %}
+													{% endif %}
+												
+												
+												
+												{% endif %}
+											</div>
+											
+											<div class="right-align-button">
+												
+													<div class="dropdown">
+														<button style="margin-left: -14px;" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+														 <span class="caret"></span>
+														</button>
+														<ul class="dropdown-menu">
+											
+											
+											{% if display == "hired"  %}	
+												{% if job.job_type == "fixed" %}
+												<li><a href="{{ app.applicant.payment_url }}">{{ app_lang('text_job_btn_op_give_milestone') }}</a></li>
+												{% endif %}
+												<li><a href="{{ app.applicant.payment_url }}">{{ app_lang('text_job_btn_op_view_contract') }}</a></li>
+												<li><a href="{{ app.applicant.profile_url  }}">{{ app_lang('text_job_btn_op_view_profile') }}</a></li>
+												<li><a href="end-contract?fmJob={{ app.bid_id_encoded }}">{{ app_lang('text_job_btn_op_end_contract') }}</a></li>
+												
+											{%  else %}
+												<li><a href="#">View Offer</a></li>
+											{% endif %}
+															
+															
+															
+															
+									
+															
+															
+														</ul>
+													</div>
+												
+											</div>
+										
+										</div>
+										
+									</div>
+									
+									
+									
+								</div>
+							
+								<div class = "row">
+										<div class = "job_detais col-md-12">
+										{% if display == "offered"  %}
+										<a href="{{ app.applicant.cancel_url }}"> Job Details  </a> - <strong>{{job.hire_title}} </strong>
+										{% else %}
+										<a href="{{ app.applicant.payment_url }}"> Job Details  </a> - <strong>{{job.hire_title}} </strong>
+										{% endif %}
+										</div>
+								</div>
+							
+							</div>
+					   
+
+					   </div>
+					</div>
+					
+					  
+				{% endif %}				
+		
+
+		{% if app.decline != '3'%}	
+			
                 <div class="col-md-12 white-box candidate-list">
                     <div class="row">
 					
 					{% if app.decline == '1'%}
-					
-
 					
 						<div class="decline" style="position: relative;float: right;padding-right: 10px;padding-top: 10px;">
                                 <div class="hire_decline">
@@ -201,10 +409,16 @@
                                         </a>
                                     </div>
                                 </div>
+								
+								
+								
                             </div>
                         </div>
-                    </div>
+                   
+
+				   </div>
                 </div>
+				{% endif %}			
             {% endfor %}
 
         {% else %} 
