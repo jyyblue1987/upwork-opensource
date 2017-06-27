@@ -64,7 +64,7 @@ class Winjob_Controller extends CI_Controller {
         // added by (Donfack Zeufack Hermann) end
         
         if (ENVIRONMENT === "development" && !$this->input->is_ajax_request()) {
-            $this->output->enable_profiler(true);
+          //  $this->output->enable_profiler(true);
         }
     }
     

@@ -591,6 +591,8 @@ class Jobs extends Winjob_Controller {
     }
 
     public function apply($title = NULL, $postId = NULL) {
+		
+		
         $this->authorized();
 
         $postId   = base64_decode($postId);
@@ -2800,7 +2802,16 @@ class Jobs extends Winjob_Controller {
             print_r(json_encode($response));
         }
     }
-
+	/*   Hui added for remove past by url  */
+	public function removejobpost($id){
+		if ($this->Adminlogincheck->checkx()) {
+			$job_id = base64_decode($id);
+			$sql = "UPDATE  jobs set status = '0' WHERE id ='" . $job_id . "'";
+			$this->db->query($sql);
+		}
+		redirect(site_url('my-offers'));
+	}
+	/*   end */
     public function removepost() {
         if ($this->Adminlogincheck->checkx()) {
 

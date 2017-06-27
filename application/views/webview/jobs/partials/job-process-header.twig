@@ -35,9 +35,11 @@
             job action <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#">View Job Posting</a></li>
-                <li><a href="#">Edit Job Posting</a></li>
-                <li><a href="#">Remove Job Posting</a></li>
+                <li><a href='{{site_url('jobs/' ~ url_title(job_title) ~ '/' ~ display_job_id)}}'>View Job Posting </a></li>
+				
+				
+                <li><a href='{{site_url('edit-jobs/' ~ display_job_id)}}'>Edit Job Posting</a></li>
+                <li><a href="{{site_url('jobs/removejobpost/' ~ display_job_id)}}"  onclick="return confirm('Are you sure?')"  >Remove Job Posting</a></li>
             </ul>
         </div>
     </li>

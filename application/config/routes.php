@@ -43,6 +43,8 @@ $route['jobs/applied/(:any)']       = 'jobs/applied/($1)';
 
 $route['jobs/bid_decline/(:any)']  = 'jobs/bid_decline/$1';
 
+$route['jobs/removejobpost/(:any)']  = 'jobs/removejobpost/$1';
+
 
 
 $route['jobs/(:any)/(:any)']        = 'jobs/view/($1)/($2)';
