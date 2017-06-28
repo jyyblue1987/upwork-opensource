@@ -54,6 +54,9 @@
         {% if applications is not empty %}
             {% for app in applications %}
 				{% set job =  app.bid %}	
+				{% set chat_receiver_id      = job.fuser_id %}
+				{% set username         = app.applicant.fname  ~ ' ' ~ app.applicant.lname %}
+				
 				{% if app.decline == '3'%}	
 					 <div class="col-md-12 white-box candidate-list">
 						<div class="row">
@@ -164,9 +167,21 @@
 											<div class="right-align-button">
 												<div class="right-align-button col-xs-4">
 											
-												<a class="btn btn-primary form-btn" href="{{ app.applicant.profile_url }}/offered">
-													Message
-												</a>
+												
+												 <div class="ms_hr_massage_butt">
+													<div class="mystaff_msg_btnx hour_btn message_btn ">
+														<input type="button" 
+															   class="btn btn-primary form-btn _job_btn_message"
+															   data-bid="{{ job.bid_id }}"
+															   data-uid="{{ chat_receiver_id }}"
+															   data-jid="{{ job.job_id }}"
+															   data-title="{{ job_title }}"
+															   data-uname="{{ username }}"
+															   value="{{ app_lang('text_job_btn_message') }}">
+													</div>
+												</div>
+                    
+												
 												
 												</div>
 											</div>
@@ -219,7 +234,7 @@
 												<li><a href="end-contract?fmJob={{ app.bid_id_encoded }}">{{ app_lang('text_job_btn_op_end_contract') }}</a></li>
 												
 											{%  else %}
-												<li><a href="#">View Offer</a></li>
+												<li><a href="{{ app.applicant.cancel_url }}">View Offer</a></li>
 											{% endif %}
 															
 															

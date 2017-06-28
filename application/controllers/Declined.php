@@ -142,8 +142,8 @@ class Declined extends Winjob_Controller {
 					'lname' => $_rejects->webuser_lname,
 					'hire_url' => site_url("jobs/offers?user_id=" . base64_encode($_rejects->webuser_id)
 						. "&job_id=" . base64_encode($this->job_details->get_jobid())),
-					'profile_url' => site_url("applicants?user_id=") . base64_encode($_rejects->webuser_id) . "&job_id="
-						. base64_encode($this->job_details->get_jobid()) . "&bid_id=" . base64_encode($_rejects->id),
+					'profile_url' => site_url("freelancer/" . $_rejects->webuser_username),	
+						
 					'user_id' => $_rejects->webuser_id,
 					'skills' => $skills,
 					'country' => ucfirst($country['country_name']),

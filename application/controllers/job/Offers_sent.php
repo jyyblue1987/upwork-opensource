@@ -39,6 +39,10 @@ class Offers_sent extends Winjob_Controller {
         $this->db->where('jobs.user_id', $user_id);
         $this->db->where('job_bids.hired', '1');
         $this->db->group_by('bid_id');
+		
+		/*   Hui added for orderby  */
+        $this->db->order_by('job_bids.created', 'desc');
+		/*   end */
         $query = $this->db->get();
         $offer_count = $query->num_rows();
         $result = $query->result();
@@ -59,6 +63,7 @@ class Offers_sent extends Winjob_Controller {
         $this->db->where('job_accepted.buser_id', $user_id);
         $this->db->where('job_bids.hired', '0');
         $this->db->where('job_bids.jobstatus', '1');
+		
         $query = $this->db->get();
         $past_hire = $query->num_rows();
 

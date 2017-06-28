@@ -114,6 +114,8 @@ class Hired extends Winjob_Controller {
 				
 				 $webuser             = $this->Webuser_model->load_informations($_offers->webuser_id);
 				 
+				//var_dump($_offers->webuser_username);
+			
 			
 				$applicant = [
 					'ended_jobs' => $ended_jobs,
@@ -128,8 +130,7 @@ class Hired extends Winjob_Controller {
 					'lname' => $_offers->webuser_lname,
 					'hire_url' => site_url("jobs/offers?user_id=" . base64_encode($_offers->webuser_id)
 						. "&job_id=" . base64_encode($this->job_details->get_jobid())),
-					'profile_url' => site_url("applicants?user_id=") . base64_encode($_offers->webuser_id) . "&job_id="
-						. base64_encode($this->job_details->get_jobid()) . "&bid_id=" . base64_encode($_offers->id),
+					'profile_url' => site_url("freelancer/" . $_offers->webuser_username),
 					'user_id' => $_offers->webuser_id,
 					'skills' => $skills,
 					'country' => ucfirst($country['country_name']),
@@ -148,10 +149,6 @@ class Hired extends Winjob_Controller {
 				
 				
 				$freelancer_job_hour = $this->jobs_model->get_freelancer_total_hour($this->job_details->get_jobid(), $_offers->webuser_id, $this_week_start, $today);
-				
-				
-				
-					
 				
 				$applications[] = array(
 					'job' => $this->job_details,

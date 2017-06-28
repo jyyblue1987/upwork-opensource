@@ -18,7 +18,12 @@ class Offered extends Winjob_Controller {
 		
 		$this->load_language();
     }
-
+	/*   Hui added for langugae  */
+	protected function load_language(){
+        parent::load_language();
+        $this->lang->load('job', $this->get_default_lang());
+    }
+	/*   end */
     public function index() {
         
         $this->checkForEmployer();
@@ -36,14 +41,10 @@ class Offered extends Winjob_Controller {
                 'currency_code' => $paypalInfo["mc_currency"],
                 'payer_email' => $paypalInfo["payer_email"]
             );
-
             $this->db->insert('payments', $data);
         }
 
         if (isset($_GET['job_id'])) {
-			
-			
-			
             $records = array();
             $job_id = base64_decode($_GET['job_id']);
             $bids = $this->process->get_bids($job_id);
@@ -63,11 +64,8 @@ class Offered extends Winjob_Controller {
 			$offered = $this->process->get_offers( $job_id, TRUE );
 			$hired = $this->process->get_hires( $user_id, $job_id, TRUE );
 			$interviews = $this->process->get_interviews( $user_id, $job_id, TRUE );
-			
 			/*   end */
             
-			
-			
 			foreach($offers['data'] AS $_offers){
                $accepted_jobs = $this->process->accepted_jobs($_offers->webuser_id);
                $pic = $this->Adminforms->getdatax("picture", "webuser", $_offers->webuser_id);
@@ -145,8 +143,7 @@ class Offered extends Winjob_Controller {
 					'lname' => $_offers->webuser_lname,
 					'hire_url' => site_url("jobs/offers?user_id=" . base64_encode($_offers->webuser_id)
 						. "&job_id=" . base64_encode($this->job_details->get_jobid())),
-					'profile_url' => site_url("applicants?user_id=") . base64_encode($_offers->webuser_id) . "&job_id="
-						. base64_encode($this->job_details->get_jobid()) . "&bid_id=" . base64_encode($_offers->id),
+					'profile_url' => site_url("freelancer/" . $_offers->webuser_username),
 					'user_id' => $_offers->webuser_id,
 					'skills' => $skills,
 					'country' => ucfirst($country['country_name']),

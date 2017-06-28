@@ -52,7 +52,11 @@
                                 {% set fuser_id_encoded      = base64_encode(job.fuser_id) %}
                                 {% set bid_id_encoded        = base64_encode(job.bid_id) %}
                                 
-                                {# set profil_link           = base_url() ~ "applicants?user_id=" ~ fuser_id_encoded ~ "&job_id=" ~ job_id_encoded ~ "&bid_id=" ~ bid_id_encoded #}
+                                {% set profile_link           = base_url() ~ "applicants?user_id=" ~ fuser_id_encoded ~ "&job_id=" ~ job_id_encoded ~ "&bid_id=" ~ bid_id_encoded %}
+								
+                                {% set profile_link           = site_url("freelancer/" ~ job . webuser_username) %}
+								
+								
                                 {% set job_detail_link   = base_url() ~ "contracts?fmJob=" ~ bid_id_encoded %}
                                 {% set end_contract_link = base_url() ~ "end-contract?fmJob=" ~ bid_id_encoded %}
                                 
