@@ -24,7 +24,6 @@ define(function (require) {
             {
                 Utils.display_message($notif_container, 'alert-danger', 'hide', data.message);
             }
-            
             if(data.redirect && data.redirect_url)
                 setTimeout(function(){ Utils.redirect(data.redirect_url); }, 1000);
         });

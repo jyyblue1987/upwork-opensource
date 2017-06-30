@@ -130,6 +130,8 @@ class Offered extends Winjob_Controller {
 					$rating_feedback = ($totalscore/5)*100;
 				}
 				
+				
+				
 				$applicant = [
 					'ended_jobs' => $ended_jobs,
 					'tagline' => ucfirst($freelancer_profile['tagline']),
@@ -147,7 +149,7 @@ class Offered extends Winjob_Controller {
 					'user_id' => $_offers->webuser_id,
 					'skills' => $skills,
 					'country' => ucfirst($country['country_name']),
-					'cancel_url' => site_url("canceloffer?bid_id=") . base64_encode($_offers->id) . "&job_id="
+					'cancel_url' => site_url("canceloffer?bid_id=") . base64_encode($_offers->bid_id) . "&job_id="
 						. base64_encode($this->job_details->get_jobid()),
 				];
 				

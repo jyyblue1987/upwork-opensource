@@ -13,6 +13,7 @@ class Canceloffer extends CI_Controller {
 
 	public function index() {
 
+	
 		if ($this->Adminlogincheck->checkx()){
 			
 			if(isset($_GET['bid_id']) && isset($_GET['job_id'])){

@@ -378,6 +378,7 @@ class Offers extends Winjob_Controller{
     
     public function decline()
     {
+		
         if ( ! $this->Adminlogincheck->checkx() ){
             $this->ajax_response (array(
                 'message' => 'Refresh your browser before to process',
@@ -403,10 +404,12 @@ class Offers extends Winjob_Controller{
             ));
         }
         
+		
+		
         $user_id = $this->session->userdata( USER_ID );
         
         $bid = $this->bids_model->load_informations($bid_id);
-        
+      
         if(empty($bid) || $bid->job_progres_status != 2 || $bid->hired != '1' || $bid->user_id != $user_id)
         {
             $this->ajax_response (array(
@@ -418,11 +421,8 @@ class Offers extends Winjob_Controller{
         
 		//echo "Created date is " . date("Y-m-d h:i:sa", $d);
 		
-
         if($this->bids_model->update(array('hired' => '0','job_progres_status' => 3,'end_date' => date('Y-m-d H:i:s'), 'withdrawn_by' => '2', 'withdrawn' => '1'), array('id' => $bid_id)))
         {
-			
-		  
 			
             $all_payments = $this->payment_model->load_all_payment($bid_id);
             
@@ -435,6 +435,7 @@ class Offers extends Winjob_Controller{
                     if( ! property_exists($this, $service_library) )
                         $this->load->library($service_library);
                     
+					
                     if($this->{$service_library}->refund($payment->txn_id))
                     {
                         $this->payment_model->update(array('refund' => true), array('payment_id' => $payment->payment_id));

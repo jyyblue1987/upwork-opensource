@@ -297,7 +297,7 @@ class Winjob_paypal {
     public function refund($transaction_id)
     {
         $refundRequest = new RefundTransactionRequestType();
-        $refundRequest->RefundType = 'FULL';
+        $refundRequest->RefundType = 'Full';
         $refundRequest->TransactionID = $transaction_id;
         
         $refundReq = new RefundTransactionReq();
@@ -307,7 +307,6 @@ class Winjob_paypal {
         {
             /* wrap API method calls on the service object with a try catch */
             $refundResponse = $this->get_paypal_service()->RefundTransaction($refundReq);
-            
             if(isset($refundResponse) && strtolower($refundResponse->Ack) == 'success' ) 
             {
                 return true;
