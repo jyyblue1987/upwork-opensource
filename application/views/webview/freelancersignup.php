@@ -66,11 +66,13 @@
                 </div>
             </div>
             <div class="form-group ">
-                <div id="captchaContainer" data-sitekey="6Lf-tggUAAAAAOzXu2Ub57Ws-IxAVy_WxEkB6WZ5"></div>
+                <div class="g-recaptcha" data-sitekey="6LdolycUAAAAAPQsW4jHgH6RLwEBDmB2KMBE1N9B"></div>
+				<script src='https://www.google.com/recaptcha/api.js'></script>
             </div>
 
 
-            <br><br>
+
+            <br/><br/>
                 <input style="" type="submit" value="Get Started get-started" id="next" class="btn btn-success">
             <!--<button type="submit" class="btn btn-primary pull-right">Next</button>--> 
                 <h2>By creating an account, you agree to our</h2>

@@ -194,7 +194,7 @@ if (isset($data) && is_array($data)) {
 </div>
 <?php
 //  $this->load->view("webview/includes/footer");
-$this->load->view("webview/includes/footer-common-script");
+//$this->load->view("webview/includes/footer-common-script");
 ?>
 
 

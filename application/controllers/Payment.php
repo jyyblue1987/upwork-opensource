@@ -195,6 +195,10 @@ class Payment extends CI_Controller
            // $webuserCountry = $this->common_mod->getSpecificColVal(COUNTEY_TABLE,"country_name"," AND country_id  =".$this->session->userdata('webuser_country'));
           //  $countryList = $this->common_mod->get(COUNTEY_TABLE,null," AND country_status=1");
            // print_r($webUserTaxdetails);die();
+		   
+		   $tax_country =  $this->common_mod->getSpecificColVal(COUNTEY_TABLE,"country_name"," AND country_id  =".$webUserTaxdetails['rows'][0]['country']);
+		 
+		   
             $params = array(
                     'title' => 'Tax Information - Winjob',
                     'country_name' => $country,
@@ -208,9 +212,11 @@ class Payment extends CI_Controller
                     'open' => 'account',
                     'openSub' =>'profile-basic',
                     'webuserContactDetails' =>$webUserContactDetails['rows'][0],
-                'webUserTaxdetails' =>$webUserTaxdetails['rows'][0],
+					'webUserTaxdetails' =>$webUserTaxdetails['rows'][0],
+					'tax_country' =>$tax_country,
 
                 );
+			
             $this->Admintheme->webview("payment/tax-information",$params);
         }else{
             redirect(site_url("signin"));

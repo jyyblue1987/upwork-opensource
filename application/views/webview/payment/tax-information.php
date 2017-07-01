@@ -96,8 +96,7 @@ border-radius: 4px;}
                             <label class="col-xs-4">Tax Country </label>
                             <div class="col-xs-8">
 								<!--*******Indsys Technologies 23/02/2017  country_dialingcode****-->
-                                <span id="adress"><?php
-                                echo getCountryName($webUserTaxdetails['country']);  ?> </span>
+                                <span id="adress"><?= $tax_country ?></span>
                             </div>
                         </div>
                         
@@ -243,7 +242,7 @@ border-radius: 4px;}
 
 </section>
 <?php
-$this->load->view("webview/includes/footer-common-script");
+	$this->load->view("webview/includes/footer-common-script");
 ?>
 <script type="text/javascript">
     var country_val = $(".select-country").val();
@@ -335,5 +334,3 @@ $this->load->view("webview/includes/footer-common-script");
     }
 </script>
 <!-- big_header-->
-
-<style>
