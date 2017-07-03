@@ -237,21 +237,32 @@ class Process extends CI_Model {
     }
 
     function accepted_jobs($user_id, $buser_id = false){
+		//$this->db->where('job_bids.jobstatus', "$type" );
+		$result = array();
+		for($i = 0; $i < 2; $i++){
+			$this->db->select('*');
+			$this->db->from('job_accepted');
+			$this->db->join('job_bids', 'job_bids.id = job_accepted.bid_id', 'inner');
+			$this->db->join('jobs', 'jobs.id = job_bids.job_id', 'inner');
+			$this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
 
-        $this->db->select('*');
-        $this->db->from('job_accepted');
-        $this->db->join('job_bids', 'job_bids.id = job_accepted.bid_id', 'inner');
-        $this->db->join('jobs', 'jobs.id = job_bids.job_id', 'inner');
-        $this->db->join('webuser', 'webuser.webuser_id=jobs.user_id', 'left');
-
-        if($buser_id){
-            $this->db->where('job_accepted.buser_id', $user_id);
-        }else{
-            $this->db->where('job_accepted.fuser_id', $user_id);
-        }
-
-        $query = $this->db->get();
-        return $query->result();
+			if($buser_id){
+				$this->db->where('job_accepted.buser_id', $user_id);
+			}else{
+				$this->db->where('job_accepted.fuser_id', $user_id);
+			}
+			
+			$this->db->where('job_bids.jobstatus', "$i");
+			if(!$i)
+				$this->db->order_by('jobs.job_type', 'desc' );
+			
+			$this->db->order_by('job_accepted.created', 'desc' );
+			
+			$query = $this->db->get();
+			$result = array_merge($result, $query->result());
+		}
+        
+        return $result;
     }
     
     function get_feedbacks($fuser_id, $job_id){

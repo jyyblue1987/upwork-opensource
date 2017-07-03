@@ -46,11 +46,6 @@ foreach ($accepted_jobs as $job_data) {
 ?>
 <!-- this css update by indsys tech 3 march -->
 
- <style type="text/css">
-
-
-    
- </style>
 <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/pages/freelancer-profile.css" />
 <section id="big_header">
 <!-- end code of 3 march indsys tech-->
@@ -246,7 +241,7 @@ foreach ($accepted_jobs as $job_data) {
                                         ?>
                                         
                                      
-                                <div class="history_section  <? echo $accepted_jobs_count != $index ? "his_" : "";?> his_bord">                                
+                                <div class="history_section  <?php echo $accepted_jobs_count != $index ? "his_" : "";?> his_bord">                                
                                         <div class="row no-pad">
                                             <div class="col-md-8 col-sm-6 col-xs-12 no-pad-mob">
                                                 <div class="buttonsidethreeleft">
@@ -276,7 +271,7 @@ foreach ($accepted_jobs as $job_data) {
                                                 <div class="buttonsidethreeright pull-right pad-0">
                                                     <?php } else { if ($job_data->jobstatus == 1) {
                                                     ?>
-                                                    <div class="buttonsidethreeright pull-right pad-0"> <?php } else { ?>
+                                                    <div class="buttonsidethreeright pull-right pad-0" style = "text-align: right;"> <?php } else { ?>
                                                         <div class="buttonsidethreeright pull-right pad-0">
                                                             <?php }
                                                         } ?>
@@ -284,9 +279,7 @@ foreach ($accepted_jobs as $job_data) {
 
                                                         <?php
                                                         if ($job_data->job_type == "fixed") {?>
-                                                        <!--<h6>$<?= $job_data->bid_amount ?></h6>-->
-
-                                                            <h3 class="style">Paid $<?= $total_price_fixed = $job_data->fixedpay_amount ?></h3><br>
+                                                      
                                                         <?php
                                                         if ($job_data->jobstatus == 1) {
                                                         if (!empty($jobfeedback)) {
@@ -306,8 +299,8 @@ foreach ($accepted_jobs as $job_data) {
                                                             
                                                             <div title="Rated 0 out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
                                                                 
-                                                                <span class="width-0">
-                                                                    <strong itemprop="ratingValue">0</strong> out of 5
+                                                                <span style="width:0%">
+                                                                    <strong itemprop="ratingValue">0.00</strong> out of 5
                                                                 </span>
                                                                 
                                                             </div>
@@ -316,10 +309,37 @@ foreach ($accepted_jobs as $job_data) {
                                                                 <?php }
                                                             } ?>
 
-                                                            
+                                                        </div>
+                                                          <h3 class="style" style =  "margin-bottom: 0px; margin-top:0px; ">Paid $<?= $total_price_fixed = $job_data->fixedpay_amount ?></h3><br>
+															
                                                         <?php
                                                         } else {?>
-                                                            <h6 class="text-right">
+															
+													<?php
+                                                        if ($job_data->jobstatus == 1) {
+                                                        if (!empty($jobfeedback)) {
+                                                        ?>
+															<span class="rate pull-right"><?= $jobfeedback->feedback_score; ?></span>
+                                                            <div title="Rated <?= $jobfeedback->feedback_score; ?> out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+                                                                <span style="width:<?= $rating_result; ?>%">
+                                                                    <strong itemprop="ratingValue"><?= $jobfeedback->feedback_score; ?></strong> out of 5
+                                                                </span>
+                                                            </div>
+                                                            
+
+															<?php } else { ?>
+															<span class="rate">0.00</span>
+															<div title="Rated 0 out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
+																<span style="width:0%">
+																	<strong itemprop="ratingValue">0</strong> out of 5
+																</span>
+															</div>
+															
+															<?php }
+                                                        } ?>
+														
+														
+                                                            <h6  class="margin-top-8" style = "margin-bottom:0px;">
                                                                 <?php
                                                                 $this->db->select('*');
                                                                 $this->db->from('job_workdairy');
@@ -339,39 +359,21 @@ foreach ($accepted_jobs as $job_data) {
                                                                 ?>
 
                                                             </h6>
-                                                            <h3 class="text-right marg-bot-0 marg-top-0">
-                                                        <?php
-                                                        if ($job_data->offer_bid_amount) {
-                                                        $amount = $job_data->offer_bid_amount;
-                                                        } else {
-                                                        $amount = $job_data->bid_amount;
-                                                        }
-                                                        ?>
-                                                        <?php $total_price = $total_work * $amount; ?>
-                                                        $<?= $total_price; ?> 
-                                                            </h3><?php
-                                                        if ($job_data->jobstatus == 1) {
-                                                        if (!empty($jobfeedback)) {
-                                                        ?>
-                                                            <div title="Rated <?= $jobfeedback->feedback_score; ?> out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
-                                                                <span style="width:<?= $rating_result; ?>%">
-                                                                    <strong itemprop="ratingValue"><?= $jobfeedback->feedback_score; ?></strong> out of 5
-                                                                </span>
-                                                            </div>
-                                                                    <span class="rate pull-right"><?= $jobfeedback->feedback_score; ?></span>
-
-                                                                    <?php } else { ?>
-                                                                    <div title="Rated 0 out of 5" class="star-rating pull-left" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
-                                                                        <span class="width:0%">
-                                                                            <strong itemprop="ratingValue">0</strong> out of 5
-                                                                        </span>
-                                                                    </div>
-                                                                    <span class="rate">0.00</span>
-                                                                    <?php }
-                                                                } ?>
-
+                                                            <h3 style = "margin-bottom:0px;text-align: right;">
+																<?php
+																if ($job_data->offer_bid_amount) {
+																$amount = $job_data->offer_bid_amount;
+																} else {
+																$amount = $job_data->bid_amount;
+																}
+																?>
+																<?php $total_price = $total_work * $amount; ?>
+																$<?= $total_price; ?> 
+                                                            </h3>
+														</div>
+													
                                                         <?php } ?>
-                                                        </div>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -556,7 +558,7 @@ foreach ($experience as $val) { ?>
                                     <p class="exp-year"><a><?= $education->dates_attend_from ?> – <?= $education->dates_attend_to ?></a></p>
                                     <div class="feedback_comment"><p><?= $education->description ?></p></div>
                                 </div>
-                                <? echo $educ_count != $index ? "<hr>" : "";?> 
+                                <?php echo $educ_count != $index ? "<hr>" : "";?> 
                             <?php } ?>
                         </div>
                     </div>

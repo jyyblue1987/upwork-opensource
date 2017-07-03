@@ -47,7 +47,7 @@
 if (strcmp($this->session->userdata('type'), "2") == 0) {
     ?>
                 <div class="grey <?php if($current_active == 'tax-information') echo 'active_setting'; ?>">
-                    <a href="<?php echo site_url('payment/tax-information') ?>">
+                    <a href="<?php echo site_url('payment/tax-info') ?>">
                         Tax Information
                     </a>
                 </div>

@@ -538,6 +538,7 @@ class Jobs extends Winjob_Controller {
 
             $freelancer_active = $this->Webuser_model->is_active($this->user_id);
             $accepted_jobs     = $this->process->accepted_jobs($client->get_userid(), TRUE);
+			
             $jobs_posted       = $this->jobs_model->num_sent_by($client->get_userid());
             $applicants        = $this->process->get_applications($postId);
             $interviews        = $this->process->get_interviews($client->get_userid(), $postId);

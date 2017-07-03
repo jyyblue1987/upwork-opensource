@@ -227,7 +227,7 @@ border-radius: 4px;}
                             <div style="margin-top: 20px;margin-left: -5px;  padding:2px;" class="col-xs-4">
                                 <button style="float: left;" type="button" id="update-tax" onclick="saveTax();" class="btn-primary big_mass_active transparent-btn big_mass_button">Update</button>
                                 <?php $tax_url = site_url('payment/tax-information');;?>
-                                <button style="margin-top:-28px;" type="button" class="btn-primary transparent-btn big_mass_button" onclick="location.href = '<?php echo $tax_url ?>'">Cancel</button>
+                                <button type="button" class="btn-primary transparent-btn big_mass_button" onclick="location.href = '<?php echo $tax_url ?>'">Cancel</button>
                             </div>
                             
                         </div>
@@ -253,8 +253,9 @@ border-radius: 4px;}
         $(".do-u-tax").show();
     }
     $(".select-country").change(function () {
+		
         var country_val = $(".select-country").val();
-        if (country_val == "9") {
+        if (country_val == "2") {
             $(".do-u-tax").hide();
         } else {
             $(".tax-no").show();

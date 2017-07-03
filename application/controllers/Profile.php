@@ -32,13 +32,29 @@ class Profile extends Winjob_Controller {
             $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
             $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
             $this->db->join('country', 'country.country_id=webuser.webuser_country', 'inner');
-            //  $this->db->where('job_feedback.feedback_userid',$user_id);
-            //  $this->db->where('job_feedback.sender_id !=',$user_id);
             $this->db->where('job_accepted.fuser_id', $user_id);
-            // $this->db->where('job_bids.jobstatus', '1' );
-
+            $this->db->where('job_bids.jobstatus', '0' );
+            $this->db->order_by('jobs.job_type', 'desc' );
+            $this->db->order_by('job_accepted.created', 'desc' );
+			
             $query = $this->db->get();
-            $params['accepted_jobs'] = $query->result();
+			$params['accepted_jobs'] = $query->result();
+			
+
+			$this->db->select('*,job_bids.id as bid_id,job_bids.status AS bid_status,jobs.job_duration AS jobduration,job_bids.created AS bid_created');
+            $this->db->from('job_accepted');
+            $this->db->join('webuser', 'webuser.webuser_id=job_accepted.buser_id', 'inner');
+            $this->db->join('webuser_basic_profile', 'webuser_basic_profile.webuser_id=webuser.webuser_id', 'inner');
+            $this->db->join('job_bids', 'job_bids.id=job_accepted.bid_id', 'inner');
+            $this->db->join('jobs', 'jobs.id=job_bids.job_id', 'inner');
+            $this->db->join('country', 'country.country_id=webuser.webuser_country', 'inner');
+            $this->db->where('job_accepted.fuser_id', $user_id);
+			$this->db->where('job_bids.jobstatus', '1');
+			$this->db->order_by('job_accepted.created', "desc" );
+			$query = $this->db->get();
+			$params['accepted_jobs'] = array_merge($params['accepted_jobs'], $query->result());
+			
+			
 
             $params['current_user_rating'] = $this->webuser_model->get_total_rating( $user_id );
                     

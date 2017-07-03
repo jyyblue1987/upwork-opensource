@@ -22,7 +22,7 @@ class Registercheck extends CI_Controller {
         $country=$_POST['country'];
         $password=$_POST['password'];
         
-	$token = self::generateRandomString(30);
+		$token = self::generateRandomString(30);
         
         $this->db->select('webuser_id');
         $this->db->from('webuser');
@@ -64,7 +64,7 @@ class Registercheck extends CI_Controller {
             $redirect_url = '&redirect='.site_url().'jobs/'.$title.'/'.$job_id.'/apply'; //temp placeholder
         }
         
-	$resetlink=site_url()."verifyemail?token=".$token.$redirect_url;
+		$resetlink=site_url()."verifyemail?token=".$token.$redirect_url;
 
         $this->db->insert('webuser', $add_data);
         $id=$this->db->insert_id();

@@ -72,12 +72,15 @@ class Common_mod extends CI_Model{
     // added by jeison arenales start
     public function getCount($table = null, $colValArray = null, $condition = null)
     {
+		
+		
       if($table != "")
       {
         $this->db->select("COUNT(id) AS total");
         $this->db->from($table);
 
         //$this->db->where('1=1');
+		
 
         if(! empty($colValArray))
           foreach($colValArray as $key => $val)
@@ -85,9 +88,8 @@ class Common_mod extends CI_Model{
 
         if($condition != null)
           $this->db->where($condition);
-
+	
         $query = $this->db->get()->row();
-
         return $query->total;
       }
       else

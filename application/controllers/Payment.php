@@ -229,6 +229,7 @@ class Payment extends CI_Controller
             $response['status'] = "error";
             $response['msg'] = "error";
             if(!empty($_POST) && $this->input->is_ajax_request()){
+				
                 $fieldCheck = array(
                     array(
                         'field' => 'legalName',
@@ -255,7 +256,7 @@ class Payment extends CI_Controller
                         'label' => 'Address line 2',
                         'rules' => 'required|trim|xss_clean|min_length[1]|max_length[155]'
                     ),
-                     array(
+                    array(
                         'field' => 'city',
                         'label' => 'City',
                         'rules' => 'required|trim|xss_clean|min_length[1]|max_length[155]'
@@ -276,6 +277,7 @@ class Payment extends CI_Controller
                     //$this->basicProfilePage();
                     $response['msg'] = validation_errors();
                 }else{
+					
                     $formVal['legal_name'] = $this->input->post("legalName");
                     $formVal['tax_no'] = $this->input->post("taxno");
                     $formVal['country'] = $this->input->post("country");
@@ -286,8 +288,11 @@ class Payment extends CI_Controller
                     $formVal['created_time'] = round(microtime(true)*1000);
                     $formVal['state'] = $this->input->post("state");
 
-                    $condition = " AND webuser_id=".$this->session->userdata(USER_ID)." ";
+                    $condition = " webuser_id=".$this->session->userdata(USER_ID)." ";
+					
                     if($this->common_mod->getCount(WB_TAX_INFO,null,$condition) > 0){
+						
+						 $condition = " and webuser_id=".$this->session->userdata(USER_ID)." ";
                         $updated = $this->common_mod->updateVal(WB_TAX_INFO,$formVal,null,$condition);
                         if($updated){
                             $response['status'] = "success";
