@@ -530,7 +530,7 @@ class Jobs extends Winjob_Controller {
 
     public function view($title = NULL, $postId = NULL) {
             //$this->authorized();
-
+			
             $postId   = base64_decode($postId);
             $employer = $this->jobs_model->load_client_infos($postId);
             $client   = new Employer($employer->webuser_id);

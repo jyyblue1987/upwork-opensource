@@ -1,37 +1,37 @@
 function editClickedExp(clicked_id) {
     var key = $(this).attr('accesskey');
     $.ajax({
-        url: base_url + "profile/addexp/" + clicked_id,
+        url: "/profile/addexp/" + clicked_id,
         data: ({key: key}),
         dataType: "html",
         type: "post",
         success: function (response) {
             $('#exp-details-modal').html(response.trim());
-            $('#edit-exp').modal('show');
+            
         },
         error: function (status, error, textStatus) {
             alert(error);
         }
     });
-    $('#edit-exp').modal('show');
+    $('.edit-exp-modal').trigger('click');
 }
 
 function editClickedEdu(clicked_id) {
     var key = $(this).attr('accesskey');
     $.ajax({
-        url: base_url + "profile/addedu/" + clicked_id,
+        url: "/profile/addedu/" + clicked_id,
         data: ({key: key}),
         dataType: "html",
         type: "post",
         success: function (response) {
             $('#edu-details-modal').html(response.trim());
-            $('#edit-edu').modal('show');
+			$('.edit-edu-modal').trigger('click');
         },
         error: function (status, error, textStatus) {
             alert(error);
         }
     });
-    $('#edit-edu').modal('show');
+    
 }
 
 $(document).ready(function() {
@@ -40,19 +40,19 @@ $(document).ready(function() {
         e.preventDefault();
         var key = $(this).attr('accesskey');
         $.ajax({
-            url: base_url + "profile/add-exp",
+            url: "/profile/add-exp",
             data: ({key: key}),
             dataType: "html",
             type: "post",
             success: function (response) {
                 $('#exp-details-modal').html(response.trim());
-                $('#edit-exp').modal('show');
+				 $('.edit-exp-modal').trigger('click');
             },
             error: function (status, error, textStatus) {
                 alert(error);
             }
         });
-        $('#edit-exp').modal('show');
+       
     });
 
     $('.edit-edu').click(function (e) {
@@ -60,20 +60,19 @@ $(document).ready(function() {
         e.preventDefault();
         var key = $(this).attr('accesskey');
         $.ajax({
-            url: base_url + "profile/addedu/",
+            url: "/profile/addedu/",
             data: ({key: key}),
             dataType: "html",
             type: "post",
             success: function (response) {
-
                 $('#edu-details-modal').html(response.trim());
-                $('#edit-edu').modal('show');
+				$('.edit-edu-modal').trigger('click');
             },
             error: function (status, error, textStatus) {
                 alert(error);
             }
         });
-        $('#edit-edu').modal('show');
+        
     });
 
     $('.remove-portfolio').click(function (e) {
@@ -83,7 +82,7 @@ $(document).ready(function() {
         var con = confirm("Are you sure to remove?");
         if (con) {
             $.ajax({
-                url: base_url + "profile/remove-portfolio",
+                url: "/profile/remove-portfolio",
                 data: ({key: key}),
                 dataType: "json",
                 type: "post",
@@ -105,20 +104,19 @@ $(document).ready(function() {
         e.preventDefault();
         var key = $(this).attr('accesskey');
         $.ajax({
-            url: base_url + "profile/edit-portfolio",
+            url: "/profile/edit-portfolio",
             data: ({key: key}),
             dataType: "html",
             type: "post",
             success: function (response) {
-                
                 $('#portfolio-details-modal').html(response.trim());
-                $('#edit-portfolio').modal('show');
+				$('.edit-portfolio-modal').trigger('click');
             },
             error: function (status, error, textStatus) {
                 alert(error);
             }
         });
-        $('#edit-portfolio').modal('show');
+       
     });
    
 });

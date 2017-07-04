@@ -2,7 +2,6 @@
     <div class="container white-box" >
         <div class="row"> 
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <?php //$this->load->view("webview/includes/system-message"); ?>
                 <?php $this->load->view("webview/includes/error_message"); ?>
             </div> 
             <div class="col-xs-12 col-sm-3 col-md-3 align-left">
@@ -12,7 +11,6 @@
                 );
                 $current_active = 'basic_bio';
                 $this->load->view("webview/profile/freelancer-profile-left-sidebar",$data) ?>
-                <?php //$this->load->view("webview/includes/error_message"); ?>
             </div>
 
             <div class="col-xs-12 col-sm-9 col-md-9">
@@ -29,7 +27,7 @@
                         <?php } ?>
                     </div>
                 </div>   
-                <div class="row"> 
+                <div class="row" style = "text-align: center;"> 
 
 
                     <?php
@@ -101,7 +99,7 @@
                                     <div><h4 style="color:grey;"><?php echo $val->company; ?></h4></div>
                                     <div style="color:grey;">
                                         <?php echo DatetimeHelper::getMonthByNum($val->month1); ?>-<?php echo $val->year1; ?>
-                                        <? if ((int)$val->year2 === 0) {
+                                        <?php if ((int)$val->year2 === 0) {
                                             echo ' - Till present';
                                         }
                                         else {
@@ -178,12 +176,66 @@
         </div>
     </div>
 </section>
-<?php
-$this->load->view("webview/profile/portfolio-modal"); 
-$this->load->view("webview/profile/exp-modal");
-$this->load->view("webview/profile/edu-modal");
-$this->load->view("webview/includes/footer-common-script");
-?>
+
+  <button type="button" class="btn btn-info btn-lg edit-exp-modal displaynone" data-toggle="modal" data-target="#edit-exp"></button>
+  
+  <button type="button" class="btn btn-info btn-lg edit-portfolio-modal displaynone" data-toggle="modal" data-target="#edit-portfolio"></button>
+  
+  <button type="button" class="btn btn-info btn-lg edit-edu-modal displaynone" data-toggle="modal" data-target="#edit-edu"></button>
+  
+<div id="edit-portfolio" class="modal fade profile-basic"  role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="protfilhead clearfix">
+            <h1>Edit Portfolio</h1>
+        </div>
+      </div>
+     <div class="modal-body" id="portfolio-details-modal">
+        
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div id="edit-exp" class="modal fade profile-basic" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="protfilhead">
+            <h1>Edit Experience</h1>
+        </div>
+      </div>
+     <div class="modal-body" id="exp-details-modal">
+        
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="edit-edu" class="modal fade profile-basic" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="protfilhead">
+            <h1>Edit Education</h1>
+        </div>
+      </div>
+     <div class="modal-body" id="edu-details-modal">
+        
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <!-- big_header-->
 <script type="text/javascript">
     var base_url = '<?php echo base_url() ?>';

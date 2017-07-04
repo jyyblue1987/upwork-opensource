@@ -94,6 +94,9 @@ body{
 	background-color:white;
 }
 
+.displaynone{
+	display:none !important;
+}
 /*************************
   main_area
 **************************/
@@ -1722,10 +1725,10 @@ color: #7d7d7d;
 }
 .protfilhead h1 {
 	font-family: "Calibri";
-	padding-bottom: 20px;
-	padding-left: 30px;
-	font-size: 22px;
+	padding: 15px 30px;
+	font-size: 25px;
 	font-weight: 800;
+	line-height: 40px;
 }
 .exp-showcase {
 	padding-left: 30px;
@@ -4259,9 +4262,7 @@ span.cc_normal_txt{font-weight: normal;}
 
 .modal-dialog{width:750px !important;}
 .modal .modal-header{border: 1px solid #ccc;
-padding-top: 0px;margin-top:20px;
-padding-bottom: 0;}
-.modal .modal-content{padding: 20px;}
+padding-top: 0px;padding-bottom: 0;background-color: #f9f9f9;}
 .modal .chat-details-topbar h3{padding: 0;
 font-weight: bold;
 padding-top: 0;
@@ -4294,7 +4295,7 @@ transform: rotate(90deg);}
 .modal .modal-content h4.modal-title {margin-top: -23px;font-size: 25px;}
 .modal .modal-content button.close {margin-top: -33px;margin-right: -11px;font-size: 40px;}
 .modal-dialog h4{font-size: 25px;}
-.modal-dialog .modal-content button.close{margin-top: -33px;margin-right: -11px;font-size: 40px;}
+.modal-dialog .modal-content button.close{margin-top: 0px;margin-right: 0px;font-size: 40px; line-height: 55px;}
 .modal-dialog .modal-content button.close span{font-size: 40px;}
 .modal-dialog #milestone-details-modal form .col-md-6 input.form-control{width:80px;}
 
@@ -4814,4 +4815,9 @@ margin-top: 14px !important;}
 
 #codeigniter_profiler{
 	display:none;
+}
+
+/************************************Hui Added********************************************/
+.profile-basic{
+	
 }

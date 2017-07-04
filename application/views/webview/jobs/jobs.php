@@ -161,7 +161,7 @@
 
                     </div> 
                 </div>
-                <div class="buttonsidethree">
+                <div class="buttonsidethree" style = "border-bottom: none;">
                     <div class="row margin-top page-label">
                         <div class="col-md-6 col-sm-6">
                             <div class="buttonsidethreeleft">
@@ -192,8 +192,6 @@
                                                 if (!empty($job_data['comment'])) {
                                                     echo $job_data['comment'];
                                                     ?>
-                                                </p>
-                                                <p class="job-feedback">
                                                 <?php
                                                 }
                                             } else {
