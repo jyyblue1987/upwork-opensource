@@ -151,7 +151,11 @@ ul.cus_main_side_nav_bar li{list-style: none!important;}
 	background: #fff;
 	border: 1px solid #ccc;
 	padding: 20px 0px;
-	padding-bottom: 50px;
+}
+
+.his_{
+	padding-bottom: 40px;
+	
 }
 
 .buttonsidethreeright h6, h3 {
@@ -177,8 +181,8 @@ ul.cus_main_side_nav_bar li{list-style: none!important;}
 
 /* job view page*/
 .buttonsidethree {
- 
-  margin-top: 16px;
+      margin-bottom: 10px;
+	  margin-top: 15px;
 }
 .marg-bot-30{margin-bottom: 30px;}
 .buttonsidethreeleft p {
@@ -236,16 +240,22 @@ ul.cus_main_side_nav_bar li{list-style: none!important;}
 }
 .protilo-left h3 {
 	font-family: "Calibri";
-	padding-bottom: 25px;
+	padding-bottom: 45px;
     color: #000;
     margin:0;
 }
 .protfilhead h3 {
 	margin-top:0px;
 	font-family: "Calibri";
-	padding-bottom: 20px;
+	padding-bottom: 35px;
 	font-weight: 800;
 }
+
+.no-portfolio  h6 {
+	font-size: 18px;
+	padding-bottom: 35px;
+}
+
 .exp-showcase {
     font-family: "Calibri";
 }
@@ -261,10 +271,10 @@ ul.cus_main_side_nav_bar li{list-style: none!important;}
 
 }
 .protfilio-bottom {
-	margin-bottom: 20px;
+	
 }
 .protfilheadtwo {
-	padding-bottom: 10px;
+	padding-bottom: 20px;
 }
 .port_img h1 a {
 	color: #494949;
@@ -358,7 +368,7 @@ ul.cus_main_side_nav_bar li{list-style: none!important;}
 .his_{border: 0;}
 .his_bord{border: 0;border-bottom: 1px solid #ccc;}
 .marg-5{margin-bottom: 5px;}
-.job-status{color: rgb(73, 73, 73); font-style: italic; font-size: 17.5px; font-weight: 500;margin-top:3px;}
+.job-status{color: rgb(73, 73, 73); font-style: italic; font-size: 17.5px; font-weight: 500;margin-top:5px;}
 .pad-top-0{padding-top: 0px;}
 .marg-top--15{margin-top: -15px;}
 .marg-bot--8{margin-bottom: -8px;}
@@ -409,4 +419,8 @@ p.exp-year a{padding:0;margin-bottom:0!important;font-size:16px!important;color:
 @media (min-width: 1024px) {
 	.container {width: 1000px;}
 	.pad-left-right{padding-left:15px;padding-right:25px;}
+}
+.hids_end{
+	border:none !important;
+	padding-bottom: 10px;
 }

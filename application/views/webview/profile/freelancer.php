@@ -241,9 +241,16 @@ foreach ($accepted_jobs as $job_data) {
                                         ?>
                                         
                                      
-                                <div class="history_section  <?php echo $accepted_jobs_count != $index ? "his_" : "";?> his_bord">                                
+                                <div class="history_section  <?php echo $accepted_jobs_count != $index ? "his_" : "hids_end";?> his_bord">                                
                                         <div class="row no-pad">
-                                            <div class="col-md-8 col-sm-6 col-xs-12 no-pad-mob">
+                                            <div class="col-md-8 col-sm-6 col-xs-12 no-pad-mob"  style = "<?php    
+												if ($job_data->jobstatus == 1){
+													if (!empty($jobfeedback)) 
+														echo 'min-height:80px;';
+												}
+												else
+													echo 'min-height:80px;';
+													?>">
                                                 <div class="buttonsidethreeleft">
                                                     <p> <?= $job_data->hire_title ?></p>
                                                     <h3 class="marg-bot--8"><?php echo date(' M j, Y ', strtotime($job_data->start_date)); ?>
@@ -257,7 +264,7 @@ foreach ($accepted_jobs as $job_data) {
                                                     if (!empty($jobfeedback)) {
                                                         echo $jobfeedback->feedback_comment;
                                                         $rating_result = ($jobfeedback->feedback_score / 5) * 100;
-                                                    }
+														}
                                                     } else {
                                                     echo "Job in progress";
                                                     }
@@ -310,7 +317,7 @@ foreach ($accepted_jobs as $job_data) {
                                                             } ?>
 
                                                         </div>
-                                                          <h3 class="style" style =  "margin-bottom: 0px; margin-top:0px; ">Paid $<?= $total_price_fixed = $job_data->fixedpay_amount ?></h3><br>
+                                                          <h3 class="style" style =  "margin-bottom: 0px; margin-top:7px; ">Paid $<?= $total_price_fixed = $job_data->fixedpay_amount ?></h3><br>
 															
                                                         <?php
                                                         } else {?>
@@ -337,16 +344,22 @@ foreach ($accepted_jobs as $job_data) {
 															
 															<?php }
                                                         } ?>
-														
-														
-                                                            <h6  class="margin-top-8" style = "margin-bottom:0px;">
-                                                                <?php
+															   <?php
                                                                 $this->db->select('*');
                                                                 $this->db->from('job_workdairy');
                                                                 $this->db->where('fuser_id', $job_data->fuser_id);
                                                                 $this->db->where('jobid', $job_data->job_id);
                                                                 $query_done = $this->db->get();
-                                                                $job_done = $query_done->result();
+                                                                $job_done = $query_done->result();?>
+														</div>	
+														<div class="buttonsidethreeright pull-right pad-0">
+                                                            <h6  class="margin-top-8" style = "<?php  
+																if (!empty($job_done)) 
+																	echo 'margin-bottom: 5px;';
+																else 
+																	echo 'margin-top: 10px;';
+																?>">
+                                                                <?php
                                                                 $total_work = 0;
                                                                 if (!empty($job_done)) {
                                                                     foreach ($job_done as $work) {
@@ -354,12 +367,12 @@ foreach ($accepted_jobs as $job_data) {
                                                                     }
                                                                     echo $total_work . " hours";
                                                                 } else {
-                                                                    echo "0.00 hours";
+                                                                    echo "0.00 hour";
                                                                 }
                                                                 ?>
 
                                                             </h6>
-                                                            <h3 style = "margin-bottom:0px;text-align: right;">
+                                                            <h3 style = "margin-bottom:0px;text-align: right;padding-bottom: 0px;">
 																<?php
 																if ($job_data->offer_bid_amount) {
 																$amount = $job_data->offer_bid_amount;
@@ -422,16 +435,16 @@ foreach ($accepted_jobs as $job_data) {
                 </div>
                 <div class="mainprotfilio">
                         <div class="row">
-<?php
-if (isset($portfolios) && is_array($portfolios) && sizeof($portfolios) > 0) {
-    $count = 0;
-    foreach ($portfolios as $portfolio) {
-        if ($count % 4 == 0) {
-            ?>
-                                        <div class="clearfix"></div>
-            <?php
-        }
-        ?>
+							<?php
+							if (isset($portfolios) && is_array($portfolios) && sizeof($portfolios) > 0) {
+								$count = 0;
+								foreach ($portfolios as $portfolio) {
+									if ($count % 4 == 0) {
+										?>
+										<div class="clearfix"></div>
+										<?php
+									}
+									?>
                                     <div class="col-md-3 col-sm-3 col-xs-12" id="div-<?php echo $count ?>">
                                         <div class="col-md-12 col-xs-12 protfilimg no-pad">
                                             <div class="port_img">
@@ -467,12 +480,17 @@ if (isset($portfolios) && is_array($portfolios) && sizeof($portfolios) > 0) {
         $count ++;
     }
 }else {
-    echo "No portfolio was added";
+	?>
+	 <div class="col-md-12 col-xs-12 no-portfolio">
+	   <h6> No portfolio was added</h6>
+
+	</div>
+	<?php
 }
 ?>
 
                         </div>
-                        <div><hr></div>
+
                 </div>
                 <div class="mainprotfilio-mid no-pad-mob">
                     <div class="row">
@@ -526,7 +544,7 @@ foreach ($experience as $val) { ?>
             </div>
         </div>
     </div>
-    <div><hr /></div>
+
 <?php } ?>
                 </div>
                 <div class="protfilio-bottom">
@@ -558,7 +576,7 @@ foreach ($experience as $val) { ?>
                                     <p class="exp-year"><a><?= $education->dates_attend_from ?> – <?= $education->dates_attend_to ?></a></p>
                                     <div class="feedback_comment"><p><?= $education->description ?></p></div>
                                 </div>
-                                <?php echo $educ_count != $index ? "<hr>" : "";?> 
+                                <?php echo $educ_count != $index ? "" : "";?> 
                             <?php } ?>
                         </div>
                     </div>

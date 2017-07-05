@@ -161,7 +161,7 @@
 
                     </div> 
                 </div>
-                <div class="buttonsidethree" style = "border-bottom: none;">
+                <div class="buttonsidethree" style = "border-bottom: none;margin-bottom: 40px;">
                     <div class="row margin-top page-label">
                         <div class="col-md-6 col-sm-6">
                             <div class="buttonsidethreeleft">
@@ -172,9 +172,11 @@
                 </div>
                 <?php
                 if (!empty($job_history)) {
+					$count = 0;
                     foreach ($job_history as $key => $job_data) {
+						$count++;
                         ?>
-                        <div class="buttonsidethree">
+                        <div class="buttonsidethree  <?php echo count($job_history) != $count ? "" : "buttonsidethree_end";?>">
                             <div class="row  page-label">
                                 <div class="col-md-8 col-sm-6">
                                     <div class="buttonsidethreeleft">
@@ -220,7 +222,7 @@
                                                                 <strong itemprop="ratingValue"><?= $job_data['rating']; ?></strong> out of 5
                                                             </span>
                                                         </div>
-                                                        <span class="rate pull-right"><?= $job_data['rating']; ?></span>
+                                                        <span class="rate pull-right rate-amount"><?= $job_data['rating']; ?></span>
                                                 <?php } else { ?>
                                                         <div title="Rated 0 out of 5" class="star-rating pull-right" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
                                                             <span class="width0">
@@ -244,19 +246,23 @@
                                                                 <strong itemprop="ratingValue"><?= $job_data['rating']; ?></strong> out of 5
                                                             </span>
                                                         </div>
-                                                        <span class="rate pull-right"><?= $job_data['rating']; ?></span>
+                                                        <span class="rate pull-right rate-amount"><?= $job_data['rating']; ?></span>
                                                     <?php } else { ?>
                                                         <div title="Rated 0 out of 5" class="star-rating pull-right" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating">
                                                             <span class="width0">
                                                                 <strong itemprop="ratingValue">0</strong> out of 5
                                                             </span>
                                                         </div>
-                                                        <span class="rate pull-right">0.00</span>
+                                                        <span class="rate pull-right rate-amount">0.00</span>
                                                         <?php }
                                                     } ?>
 
-                                                <h6 class="margin-top-8">
-                                                <?php echo $job_data['total_work'] . ' Hours'; ?>
+                                                <h6>
+                                                <?php  if($job_data['total_work'] > 0.00)
+															echo $job_data['total_work'] . ' Hours'; 
+														else 
+															echo $job_data['total_work'] . ' Hour'; 
+												?>
 
                                                 </h6>
                                                 <h3 class="job-data">
