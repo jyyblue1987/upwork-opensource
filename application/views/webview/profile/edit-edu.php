@@ -79,8 +79,8 @@
     </div>
     <div class="row">
         <div class="col-md-9">
-            <input id="next" class="btn btn-primary form-btn" type="submit" value="Save"> 
-            <input id="next" class="btn btn-primary form-btn" type="submit" value="Cancel" onclick="document.location.reload(); return false;">
+            <input class="btn btn-primary form-btn" type="submit" value="Save"> 
+            <input class="btn btn-primary form-btn" type="submit" value="Cancel" onclick="document.location.reload(); return false;">
             <a href="<?php echo site_url("profile/remove-edu/{$edu_id}" . (isset($page_from) ? '/' . $page_from : ''))?>">
                 Remove this education
             </a>

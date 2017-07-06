@@ -392,7 +392,7 @@ h6.text-right{margin: 0px}
 h3.text-right{margin:0px;padding-bottom: 0px;}
 .new_title{font-weight: 600;color: rgba(0,0,0,.85);}
 .new_company{line-height: 20px;font-weight: 400;color: rgba(0, 0, 0, 0.85);font-size: 17px;}
-.exp-but{float:right;font-size:25px;}
+.exp-but{float:right;font-size:20px;}
 p.exp-title {margin-bottom:0px;font-family: 'Calibri';margin-bottom:5px;}
 p.exp-company {margin:0px;}
 p.exp-company {margin:0px;}
@@ -424,3 +424,85 @@ p.exp-year a{padding:0;margin-bottom:0!important;font-size:16px!important;color:
 	border:none !important;
 	padding-bottom: 10px;
 }
+
+
+#exp-details-modal,  #edu-details-modal{
+	padding: 20px 30px;
+}
+
+.modal-dialog{width:750px !important;}
+.modal .modal-header{border: 1px solid #ccc;
+padding-top: 0px;padding-bottom: 0;background-color: #f9f9f9;}
+.modal .chat-details-topbar h3{padding: 0;
+font-weight: bold;
+padding-top: 0;
+margin-top: 7px;
+margin-bottom: 6px;}
+.modal .chat-details-topbar h5{font-size: 14px;
+padding: 0;}
+.modal .modal-body{padding:0;border-left:1px solid #ccc;border-right:1px solid #ccc;border-bottom:1px solid #ccc;padding-bottom: 40px;}
+.modal .modal-body textarea#usermsg{border: 2px solid #1ca7db;
+height: 40px;margin-left:15px;
+border-radius: 4px;}
+.modal .modal-body input#submitmsg{margin-top: 0;
+height: 40px;
+padding: 0 0;margin-right:15px;
+background: #1ca7db;
+color: #fff;
+font-size: 18px;
+font-family: calibri;
+border: 0;
+width: 106px;}
+.modal .modal-body input#submitmsg:hover{background:#008ACB;}
+.modal .modal-body .message_lists{border-bottom: 1px solid #ccc;
+margin-bottom: 20px;}
+.modal .modal-body #conversion_message{background:#008ACB;}
+.modal .modal-body .attach_icon{position: absolute;
+right: 132px;
+font-size: 26px;
+transform: rotate(90deg);}
+.modal .modal-body .m_list.scroll-ul > li {border:0;}
+.modal .modal-content h4.modal-title {margin-top: -23px;font-size: 25px;}
+.modal .modal-content button.close {margin-top: -33px;margin-right: -11px;font-size: 40px;}
+.modal-dialog h4{font-size: 25px;}
+.modal-dialog .modal-content button.close{margin-top: 0px;margin-right: 0px;font-size: 40px; line-height: 55px;}
+.modal-dialog .modal-content button.close span{font-size: 40px;}
+.modal-dialog #milestone-details-modal form .col-md-6 input.form-control{width:80px;}
+
+
+    .message_lists{
+        max-height: 250px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+    .m_list.scroll-ul > li {
+        display: block;
+        margin: 10px 0 21px 5px;
+        overflow: hidden;
+        width: 100%;
+        border-bottom: 1px solid #dddddf;
+        padding-bottom: 4px;
+    }
+    .chat-identity .img-circle {
+        float: left;
+        margin-right: 14px;
+    }
+    #conversion_message > input {
+        background: rgb(28, 167, 219) none repeat scroll 0 0;
+        float: right;
+        font-size: 21px;
+        height: 50px;
+        margin-top: 4%;
+        vertical-align: middle;
+        width: 19%;
+    }
+    #conversion_message textarea {
+        float: left;
+        height: 100px;
+        width: 80%;
+    }
+    .modal-body {
+        overflow: hidden;
+    }
+	
+	

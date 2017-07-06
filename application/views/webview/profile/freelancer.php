@@ -427,7 +427,7 @@ foreach ($accepted_jobs as $job_data) {
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-6">
                                 <div class="proftilbutt">
-                                    <p class="exp-but"><a href="#" id ="buttonrei" class="color-gray"><i class="fa fa-plus" aria-hidden="true"></i></a> </p>
+                                    <p class="exp-but"><a href="#" id ="buttonrei" class="color-gray edit-portfolio" accesskey="0"><i class="fa fa-plus" aria-hidden="true"></i></a> </p>
                                 </div>
                             </div>
                         </div>
@@ -453,7 +453,7 @@ foreach ($accepted_jobs as $job_data) {
                                                     <i class="fa fa-pencil" aria-hidden="true"></i>
                                                 </a>
 
-                                                <a href="#" class="remove-portfolio" alt="<?php echo $count ?>" accesskey="<?php echo base64_encode($portfolio['id']) ?>">
+                                                <a href="#" class="remove-portfolio pull-right" alt="<?php echo $count ?>" accesskey="<?php echo base64_encode($portfolio['id']) ?>">
                                                     <i class="glyphicon glyphicon-remove"></i>
                                                 </a>
                                             </div>
@@ -501,51 +501,70 @@ foreach ($accepted_jobs as $job_data) {
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <div class="protilo-right">
-                                <p class="exp-but"><a href="#" id ="buttonrei" class="color-gray"><i class="fa fa-plus" aria-hidden="true"></i></a> </p>
+                                <p class="exp-but"><a href="#" id ="buttonrei" class="color-gray edit-exp" accesskey="0"><i class="fa fa-plus" aria-hidden="true"></i></a> </p>
                             </div>
                         </div>
                     </div>
-<?php $cntexp = count($experience);
-foreach ($experience as $val) { ?>
-    <div class="mainprotfilio-mid-button">
-        <div class="">
-            <div class="row">
-                <div class="col-md-12 col-sm-12 exp-showcase">
-                   <p class="exp-but"><a href="#" id ="<?php echo $val->id; ?>" onclick="editClickedExp(this.id)" class="color-gray"><i class="fa fa-pencil" aria-hidden="true"></i></a> </p>
-                    <p class="exp-title"><a href=""><?php echo $val->title; ?></a></p>
+			<?php $cntexp = count($experience);
+			$count = 0;
+		if($cntexp){
+			foreach ($experience as $val) { 
+				$count++;
+			?>
+				<div class="mainprotfilio-mid-button">
+					<div class="">
+						<div class="row">
+							<div class="col-md-12 col-sm-12 exp-showcase">
+							   <p class="exp-but"><a href="#" id ="<?php echo $val->id; ?>" onclick="editClickedExp(this.id)" class="color-gray"><i class="fa fa-pencil" aria-hidden="true"></i></a> </p>
+								<p class="exp-title"><a href=""><?php echo $val->title; ?></a></p>
 
-                    <p class="exp-company"><a href=""><?php echo $val->company; ?></a></p>
-                    <p class="exp-year"><a href="">
-                            <span>
-                                <?= DatetimeHelper::getMonthByNum($val->month1)."-".$val->year1; ?>
-                                <?php if ((int)$val->year2 === 0) {
-                                    echo ' - Till present | ';
-                                }
-                                else {
-                                    echo 'To ' . DatetimeHelper::getMonthByNum($val->month2) . ' - ' . $val->year2." | ";
-                                    ;
-                                } 
-                                 echo $val->location; 
-                                ?>
-                            </span>
-                        </a></p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="mainprotfilio-mid-ph">
-        <div class="">
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <div class="feedback_comment">
-                        <p><?php echo $val->description; ?> </p>
-                    </div>  
-                </div>
-            </div>
-        </div>
-    </div>
+								<p class="exp-company"><a href=""><?php echo $val->company; ?></a></p>
+								<p class="exp-year"><a href="">
+										<span>
+											<?= DatetimeHelper::getMonthByNum($val->month1)."-".$val->year1; ?>
+											<?php if ((int)$val->year2 === 0) {
+												echo ' - Till present | ';
+											}
+											else {
+												echo 'To ' . DatetimeHelper::getMonthByNum($val->month2) . ' - ' . $val->year2." | ";
+												;
+											} 
+											 echo $val->location; 
+											?>
+										</span>
+									</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mainprotfilio-mid-ph">
+					<div class="">
+						<div class="row">
+							<div class="col-md-12 col-sm-12">
+								<div class="feedback_comment">
+									<p><?php echo $val->description; ?> </p>
+								</div>  
+							</div>
+						</div>
+					</div>
+				</div>
+		<?php 
+		
+				echo $cntexp != $count ?  "<hr>"  : "";
+		
+		} 
+		}
+		else{
+			?>
+		
+		<div class="col-md-12 col-xs-12 no-portfolio">
+		   <h6> No Experience was added</h6>
+		</div>
+		
+	<?php
+	}
 
-<?php } ?>
+	?>
                 </div>
                 <div class="protfilio-bottom">
                     <div class="">
@@ -558,17 +577,19 @@ foreach ($experience as $val) { ?>
 
                             <div class="col-md-6 col-sm-6 col-xs-6">
                                 <div class="proftilbutttwo">
-                                <p class="exp-but"><a href="#" id ="buttonrei" class="color-gray"><i class="fa fa-plus" aria-hidden="true"></i></a> </p>
+                                <p class="exp-but"><a href="#" id ="buttonrei" class="color-gray edit-edu"><i class="fa fa-plus" aria-hidden="true"></i></a> </p>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <?php
+						if(count($educations)){
                             $educ_count = count($educations) - 1;
                             foreach ($educations as $index => $education) {
                                 ?> 
                                 <div class="education_head"> 
+									<p class="exp-but"><a href="#" id ="<?php echo $education->id; ?>" onclick="editClickedEdu(this.id)" class="color-gray"><i class="fa fa-pencil" aria-hidden="true"></i></a> </p>
                                     <p class="exp-title"><a><?= $education->school ?></a></p>
                                     <p class="exp-company"><a><?= $education->degree ?></a></p>
                                     <p class="exp-company"><a><?= $education->field_of_study ?></a></p>
@@ -576,21 +597,88 @@ foreach ($experience as $val) { ?>
                                     <p class="exp-year"><a><?= $education->dates_attend_from ?> – <?= $education->dates_attend_to ?></a></p>
                                     <div class="feedback_comment"><p><?= $education->description ?></p></div>
                                 </div>
-                                <?php echo $educ_count != $index ? "" : "";?> 
-                            <?php } ?>
+                                <?php echo $educ_count != $index ?  "<hr>"  : "";?> 
+                            <?php } 
+						}
+						else{
+						?>
+						
+					<div class="col-md-12 col-xs-12 no-portfolio">
+					   <h6> No Education was added</h6>
+					</div>
+						
+						<?php
+						}
+							
+							?>
                         </div>
                     </div>
                 </div>
                 </div>
                 <?php } ?>
         </div>
-<?php
-$this->load->view("webview/profile/portfolio-modal");
-$this->load->view("webview/profile/exp-modal");
-$this->load->view("webview/profile/edu-modal");
-// $this->load->view("webview/includes/footer"); 
-$this->load->view("webview/includes/footer-common-script");
-?>
+
+		  <button type="button" class="btn btn-info btn-lg edit-exp-modal displaynone" data-toggle="modal" data-target="#edit-exp"></button>
+  
+  <button type="button" class="btn btn-info btn-lg edit-portfolio-modal displaynone" data-toggle="modal" data-target="#edit-portfolio"></button>
+  
+  <button type="button" class="btn btn-info btn-lg edit-edu-modal displaynone" data-toggle="modal" data-target="#edit-edu"></button>
+  
+<div id="edit-portfolio" class="modal fade profile-basic"  role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="protfilhead clearfix">
+            <h1>Edit Portfolio</h1>
+        </div>
+      </div>
+     <div class="modal-body" id="portfolio-details-modal">
+        
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div id="edit-exp" class="modal fade profile-basic" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="protfilhead">
+            <h1>Edit Experience</h1>
+        </div>
+      </div>
+     <div class="modal-body" id="exp-details-modal">
+        
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="edit-edu" class="modal fade profile-basic" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="protfilhead">
+            <h1>Edit Education</h1>
+        </div>
+      </div>
+     <div class="modal-body" id="edu-details-modal">
+        
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+		
+		
         <script type="text/javascript">
             var base_url = '<?php echo base_url() ?>';
         </script>

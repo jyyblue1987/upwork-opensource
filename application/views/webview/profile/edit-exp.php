@@ -86,13 +86,11 @@
         <div class="margin-top"></div>
         <div class="row">
             <div class="col-md-9">
-                <span>
-                    <input type="submit" id="" value="Save" class="form-btn" />
-                </span>
-                    
-                <span>
-                    <input type="submit" id="" value="Cancel" class="form-btn" onclick="document.location.reload(); return false;" />
-                </span>
+              
+                    <input type="submit" id="" value="Save" class="form-btn  btn-default btn-primary" />
+            
+                    <input type="submit" id="" value="Cancel" class="form-btn btn-default" onclick="document.location.reload(); return false;" />
+              
 
                 <?php if (isset($exp_id)) { ?>
                     <span>

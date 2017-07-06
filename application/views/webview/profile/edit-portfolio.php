@@ -112,8 +112,8 @@
     </div> 
     <div class="form-group">
         <div class="col-md-4">
-            <input id="submit-portfolio" type="button" onclick="submitPortfolio(event, this)" value="Save" class="btn btn-primary" />
-            <input type="button" value="Cancel" class="btn btn-default" onclick="closeModal()"/>
+            <input id="submit-portfolio" type="button" onclick="submitPortfolio(event, this)" value="Save" class="btn btn-primary" style = "min-width:80px">
+            <input type="button" value="Cancel" class="btn btn-default" onclick="closeModal()" style = "min-width:80px">
         </div>
         <div class="col-md-8 sys-message"> </div>
     </div>

@@ -43,11 +43,11 @@
                             <div class="col-md-4 col-sm-4 col-xs-12 padding-left-off" id="div-<?php echo $count ?>">
                                 <div class="col-md-12 col-xs-12 protfilimg padding-left-off">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <a href="#" class="edit-portfolio" alt="<?php echo $count ?>" accesskey="<?php echo base64_encode($portfolio['id']) ?>">
+                                        <a href="#" class="edit-portfolio pull-left" alt="<?php echo $count ?>" accesskey="<?php echo base64_encode($portfolio['id']) ?>">
                                             <i class="fa fa-pencil" aria-hidden="true"></i>
                                         </a>
 
-                                        <a href="#" class="remove-portfolio" alt="<?php echo $count ?>" accesskey="<?php echo base64_encode($portfolio['id']) ?>">
+                                        <a href="#" class="remove-portfolio pull-right" alt="<?php echo $count ?>" accesskey="<?php echo base64_encode($portfolio['id']) ?>">
                                             <i class="glyphicon glyphicon-remove"></i>
                                         </a>
                                     </div>
@@ -87,7 +87,8 @@
                     </div>
                 </div>   
                 <?php $cntexp = count($experience);
-                foreach ($experience as $val) {
+				if($experience)
+					foreach ($experience as $val) {
                     ?>
                     <div class="mainprotfilio-mid-button">
                         <div class="row">
@@ -134,7 +135,20 @@
                         ?>
 
                     </div>
-<?php } ?>
+<?php 	} 
+		else{
+?>
+			<div class="mainprotfilio-mid-button">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+								No Experience Added
+							</div>
+						</div>
+			</div>
+<?php			
+		
+		}
+?>
                 <div class="margin-top"></div>
 
                 <div class="row title-line">
@@ -147,6 +161,7 @@
                     </div>
                 </div>  
                 <?php
+			if(count($educations))
                 foreach ($educations as $education) {
                     ?> 
                     <div class="protfilheadtwo"> 
@@ -169,6 +184,18 @@
 
                     <?php
                 }
+			else{
+		?>		
+				
+		
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+								No Education Added
+							</div>
+						</div>
+		
+		<?php		
+			}
                 ?>
 
             </div>
@@ -342,10 +369,6 @@
     function updatename() {
         var fname = $("#infname").val();
         var lname = $("#inlname").val();
-
-
-
-
         jQuery.ajax({
             type: "POST",
             url: siteurl + "json/api/type/regapi/page/updatename",

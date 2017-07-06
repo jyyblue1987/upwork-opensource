@@ -353,3 +353,7 @@ body{
     .notif-item .notif-item-link{
         text-decoration: none; color: #333;
     }
+	
+	.displaynone{
+		display:none;
+	}

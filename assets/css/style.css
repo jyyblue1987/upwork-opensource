@@ -3104,9 +3104,7 @@ margin-bottom: -3px;
     border-radius: 5px;
     padding: 20px;
 }
-.glyphicon { 
-    top: -6px; 
-}
+
 .mid_contant { 
     background-color: #f0f0f0; 
 }
@@ -3172,7 +3170,7 @@ p-btn,.pause-btn {
     
 }
 .title-line{
-    border-bottom: 1px solid #ded6d6;
+  /*  border-bottom: 1px solid #ded6d6;*/
     margin-right: 5px;
     margin-bottom: 25px;
 }
@@ -4821,3 +4819,8 @@ margin-top: 14px !important;}
 .profile-basic{
 	
 }
+
+.profile-basic   #exp-details-modal, .profile-basic  #edu-details-modal{
+	padding: 20px 30px;
+}
+
