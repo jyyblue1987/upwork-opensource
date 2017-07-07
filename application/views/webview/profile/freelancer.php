@@ -43,6 +43,12 @@ foreach ($accepted_jobs as $job_data) {
         }
     }
 }
+
+	$edit_enable = 0;
+	if(isset($flag_edit_enable)){
+		$edit_enable = 1;
+	}
+
 ?>
 <!-- this css update by indsys tech 3 march -->
 
@@ -323,7 +329,7 @@ foreach ($accepted_jobs as $job_data) {
                                                         } else {?>
 															
 													<?php
-                                                        if ($job_data->jobstatus == 1) {
+                                                        if ($job_data->jobstatus == 1){
                                                         if (!empty($jobfeedback)) {
                                                         ?>
 															<span class="rate pull-right"><?= $jobfeedback->feedback_score; ?></span>
@@ -427,7 +433,13 @@ foreach ($accepted_jobs as $job_data) {
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-6">
                                 <div class="proftilbutt">
+									<?php
+										if($edit_enable){
+									?>
                                     <p class="exp-but"><a href="#" id ="buttonrei" class="color-gray edit-portfolio" accesskey="0"><i class="fa fa-plus" aria-hidden="true"></i></a> </p>
+									<?php
+										}
+									?>
                                 </div>
                             </div>
                         </div>
@@ -448,16 +460,23 @@ foreach ($accepted_jobs as $job_data) {
                                     <div class="col-md-3 col-sm-3 col-xs-12" id="div-<?php echo $count ?>">
                                         <div class="col-md-12 col-xs-12 protfilimg no-pad">
                                             <div class="port_img">
+											<?php
+												if($edit_enable){
+											?>
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <a href="#" class="edit-portfolio" alt="<?php echo $count ?>" accesskey="<?php echo base64_encode($portfolio['id']) ?>">
-                                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                                </a>
+													<a href="#" class="edit-portfolio" alt="<?php echo $count ?>" accesskey="<?php echo base64_encode($portfolio['id']) ?>">
+														<i class="fa fa-pencil" aria-hidden="true"></i>
+													</a>
 
-                                                <a href="#" class="remove-portfolio pull-right" alt="<?php echo $count ?>" accesskey="<?php echo base64_encode($portfolio['id']) ?>">
-                                                    <i class="glyphicon glyphicon-remove"></i>
-                                                </a>
-                                            </div>
+													<a href="#" class="remove-portfolio pull-right" alt="<?php echo $count ?>" accesskey="<?php echo base64_encode($portfolio['id']) ?>">
+														<i class="glyphicon glyphicon-remove"></i>
+													</a>
+												</div>
                                                     <?php
+											}
+								
+								
+								
                                                     if (strlen($portfolio['thumnail_image']) > 10) {
                                                         ?>
                                                 <img class="img-responsive" src="<?php echo base_url() ?>uploads/portfolio/<?php echo $portfolio['thumnail_image']; ?>"/>
@@ -488,9 +507,7 @@ foreach ($accepted_jobs as $job_data) {
 	<?php
 }
 ?>
-
                         </div>
-
                 </div>
                 <div class="mainprotfilio-mid no-pad-mob">
                     <div class="row">
@@ -501,7 +518,14 @@ foreach ($accepted_jobs as $job_data) {
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <div class="protilo-right">
+							
+								<?php
+									if($edit_enable){
+								?>
                                 <p class="exp-but"><a href="#" id ="buttonrei" class="color-gray edit-exp" accesskey="0"><i class="fa fa-plus" aria-hidden="true"></i></a> </p>
+								<?php
+									}
+								?>
                             </div>
                         </div>
                     </div>
@@ -515,7 +539,13 @@ foreach ($accepted_jobs as $job_data) {
 					<div class="">
 						<div class="row">
 							<div class="col-md-12 col-sm-12 exp-showcase">
+							<?php
+								if($edit_enable){
+							?>
 							   <p class="exp-but"><a href="#" id ="<?php echo $val->id; ?>" onclick="editClickedExp(this.id)" class="color-gray"><i class="fa fa-pencil" aria-hidden="true"></i></a> </p>
+							<?php
+							}
+							?>   
 								<p class="exp-title"><a href=""><?php echo $val->title; ?></a></p>
 
 								<p class="exp-company"><a href=""><?php echo $val->company; ?></a></p>
@@ -576,9 +606,15 @@ foreach ($accepted_jobs as $job_data) {
                             </div> 
 
                             <div class="col-md-6 col-sm-6 col-xs-6">
+								<?php
+									if($edit_enable){
+								?>
                                 <div class="proftilbutttwo">
                                 <p class="exp-but"><a href="#" id ="buttonrei" class="color-gray edit-edu"><i class="fa fa-plus" aria-hidden="true"></i></a> </p>
                                 </div>
+								<?php
+									}
+								?>
                             </div>
                         </div>
                         <div class="row">
@@ -589,7 +625,15 @@ foreach ($accepted_jobs as $job_data) {
                             foreach ($educations as $index => $education) {
                                 ?> 
                                 <div class="education_head"> 
+									
+									<?php
+										if($edit_enable){
+									?>
 									<p class="exp-but"><a href="#" id ="<?php echo $education->id; ?>" onclick="editClickedEdu(this.id)" class="color-gray"><i class="fa fa-pencil" aria-hidden="true"></i></a> </p>
+									<?php
+										}
+									?>
+									
                                     <p class="exp-title"><a><?= $education->school ?></a></p>
                                     <p class="exp-company"><a><?= $education->degree ?></a></p>
                                     <p class="exp-company"><a><?= $education->field_of_study ?></a></p>
@@ -618,65 +662,73 @@ foreach ($accepted_jobs as $job_data) {
                 <?php } ?>
         </div>
 
-		  <button type="button" class="btn btn-info btn-lg edit-exp-modal displaynone" data-toggle="modal" data-target="#edit-exp"></button>
+		<?php
+			
+			if($edit_enable){
+		
+		?>
+		
+		<button type="button" class="btn btn-info btn-lg edit-exp-modal displaynone" data-toggle="modal" data-target="#edit-exp"></button>
+		<button type="button" class="btn btn-info btn-lg edit-portfolio-modal displaynone" data-toggle="modal" data-target="#edit-portfolio"></button>
+		<button type="button" class="btn btn-info btn-lg edit-edu-modal displaynone" data-toggle="modal" data-target="#edit-edu"></button>
   
-  <button type="button" class="btn btn-info btn-lg edit-portfolio-modal displaynone" data-toggle="modal" data-target="#edit-portfolio"></button>
-  
-  <button type="button" class="btn btn-info btn-lg edit-edu-modal displaynone" data-toggle="modal" data-target="#edit-edu"></button>
-  
-<div id="edit-portfolio" class="modal fade profile-basic"  role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content ">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <div class="protfilhead clearfix">
-            <h1>Edit Portfolio</h1>
-        </div>
-      </div>
-     <div class="modal-body" id="portfolio-details-modal">
-        
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<div id="edit-exp" class="modal fade profile-basic" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <div class="protfilhead">
-            <h1>Edit Experience</h1>
-        </div>
-      </div>
-     <div class="modal-body" id="exp-details-modal">
-        
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+		<div id="edit-portfolio" class="modal fade profile-basic"  role="dialog">
+		  <div class="modal-dialog" role="document">
+			<div class="modal-content ">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<div class="protfilhead clearfix">
+					<h1>Edit Portfolio</h1>
+				</div>
+			  </div>
+			 <div class="modal-body" id="portfolio-details-modal">
+				
+			  </div>
+			  <div class="modal-footer">
+			  </div>
+			</div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		<div id="edit-exp" class="modal fade profile-basic" role="dialog">
+		  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<div class="protfilhead">
+					<h1>Edit Experience</h1>
+				</div>
+			  </div>
+			 <div class="modal-body" id="exp-details-modal">
+				
+			  </div>
+			  <div class="modal-footer">
+			  </div>
+			</div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 
-<div id="edit-edu" class="modal fade profile-basic" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <div class="protfilhead">
-            <h1>Edit Education</h1>
-        </div>
-      </div>
-     <div class="modal-body" id="edu-details-modal">
-        
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
+		<div id="edit-edu" class="modal fade profile-basic" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<div class="protfilhead">
+					<h1>Edit Education</h1>
+				</div>
+			  </div>
+			 <div class="modal-body" id="edu-details-modal">
+				
+			  </div>
+			  <div class="modal-footer">
+			  </div>
+			</div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+	
+		<?php
+		
+		}
+		?>
 		
 		
         <script type="text/javascript">

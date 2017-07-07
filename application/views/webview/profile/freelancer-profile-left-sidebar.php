@@ -1,4 +1,5 @@
  
+ 
 <div class="columns" >
     <ul class="price">
         <div class="heeed" id="faq1" onclick="faqselect(1);">My Account <i class="fa <?php echo (strcmp($open, "account") == 0) ? 'fa-angle-down' : 'fa-angle-right' ?>" id="faqicon1" aria-hidden="true" style="float:right;"></i></div>
@@ -36,7 +37,7 @@
                     <a href="<?php echo site_url("categories/choose"); ?>">Manage Category</a>
                 </div>
                 <div class="grey ">
-                    <a href="<?php echo site_url("/profile/{$username}"); ?>">View My Profile</a>
+                    <a href="<?php echo site_url("/profile/{$this->session->userdata('username')}"); ?>">View My Profile</a>
 					
                 </div>
             </div>

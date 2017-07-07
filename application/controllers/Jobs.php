@@ -531,6 +531,7 @@ class Jobs extends Winjob_Controller {
     public function view($title = NULL, $postId = NULL) {
             //$this->authorized();
 			
+			
             $postId   = base64_decode($postId);
             $employer = $this->jobs_model->load_client_infos($postId);
             $client   = new Employer($employer->webuser_id);
@@ -546,7 +547,7 @@ class Jobs extends Winjob_Controller {
             $jobids            = $this->process->get_job_ids($client->get_userid());
 
             foreach($accepted_jobs AS $_accepted){
-                $jobfeedback = $this->process->get_feedbacks($_accepted->fuser_id, $_accepted->job_id);
+                $jobfeedback = $this->process->get_feedbacks($_accepted->buser_id, $_accepted->job_id);
                 $total_work = $this->process->feedback_worked_hrs($_accepted->fuser_id, $_accepted->job_id);
                 $amount = $_accepted->offer_bid_amount ? $_accepted->offer_bid_amount : $_accepted->bid_amount;
 
@@ -1512,7 +1513,8 @@ class Jobs extends Winjob_Controller {
 					'lname' => $_interviews->webuser_lname,
 					'hire_url' => site_url("jobs/offers?user_id=" . base64_encode($_interviews->user_id)
 						. "&job_id=" . base64_encode($this->job_details->get_jobid())),
-					'profile_url' => site_url("freelancer/" . $_interviews->webuser_username),	
+					'profile_url' => site_url("applicants?user_id=") . base64_encode($_interviews->user_id) . "&job_id="
+						. base64_encode($this->job_details->get_jobid()) . "&bid_id=" . base64_encode($_interviews->id) . '/interview',
 					'user_id' => $_interviews->user_id,
 					'skills' => $skills,
 					'country' => ucfirst($country->get_country()),

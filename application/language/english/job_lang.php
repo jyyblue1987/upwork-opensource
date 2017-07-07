@@ -173,6 +173,7 @@ $lang['text_job_statement_ending_balance'] = 'Ending Balance';
 
 $lang['text_job_title_applicant']  = "Interview";
 $lang['text_job_hire_me'] = 'Hire me';
+$lang['text_job_invite_job'] = 'Invite Job';
 
 $lang['text_job_declined_by_free']   = 'Declined by Freelancer';
 $lang['text_job_declined_by_employer']   = 'Declined by Employer';

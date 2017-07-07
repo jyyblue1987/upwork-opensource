@@ -170,12 +170,12 @@ span.text1 {text-transform: capitalize;}
 #view-profile-btn {
     margin-top: 20px;
     background: #1ba7db;
-    padding: 8px 36px 8px 31px;
-    color: #FFF;
-    margin: 20px 5px 0px 2px;
-    font-size: 14px;
-    font-family: "Calibri";
-    font-weight: bold;
+	padding: 5px 38px 5px 38px;
+	color: #FFF;
+	margin: 20px 2px 0px 2px;
+	font-size: 20px;
+	font-family: "Calibri";
+	font-weight: bold;
 }
 
 .decline-line, .fa a {

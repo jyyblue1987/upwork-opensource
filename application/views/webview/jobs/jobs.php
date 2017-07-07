@@ -196,6 +196,8 @@
                                                     ?>
                                                 <?php
                                                 }
+												else
+													echo 'Waiting for Feedback.';
                                             } else {
                                                 echo "Job in progress";
                                             }
