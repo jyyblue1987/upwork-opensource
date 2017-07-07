@@ -130,7 +130,7 @@ class Hired extends Winjob_Controller {
 					'lname' => $_offers->webuser_lname,
 					'hire_url' => site_url("jobs/offers?user_id=" . base64_encode($_offers->webuser_id)
 						. "&job_id=" . base64_encode($this->job_details->get_jobid())),
-					'profile_url' => site_url("applicants?user_id=") . base64_encode($_offers->webuser_id) . "&job_id=" . base64_encode($this->job_details->get_jobid()) . "&bid_id=" . base64_encode($_offers->id) . '/hired',
+					'profile_url' => site_url("applicants?user_id=") . base64_encode($_offers->webuser_id) . "&job_id=" . base64_encode($this->job_details->get_jobid()) . "&bid_id=" . base64_encode($_offers->id),
 					'user_id' => $_offers->webuser_id,
 					'skills' => $skills,
 					'country' => ucfirst($country['country_name']),

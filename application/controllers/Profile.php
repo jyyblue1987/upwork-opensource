@@ -14,9 +14,12 @@ class Profile extends Winjob_Controller {
      public function index($username=null) {
 		 
         if ($this->Adminlogincheck->checkx()) {
+			/*
             if ($this->session->userdata('type') != 2) {
                 redirect(site_url("jobs-home"));
             }
+			*/
+			
             
             $this->load->model('webuser_model');
             

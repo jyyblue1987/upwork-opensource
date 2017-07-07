@@ -420,7 +420,7 @@ foreach ($accepted_jobs as $job_data) {
                             <div class="clear-both"></div>
             </div>
             </div>
-              <?php if ($this->session->userdata('type') == 2) { ?>
+              
             <div class="row pad-left-right">
                 <div class="main_portfolio col-md-9 col-sm-12 col-xs-12 no-pad-mob">
                     <div class="protfilio">
@@ -659,7 +659,7 @@ foreach ($accepted_jobs as $job_data) {
                     </div>
                 </div>
                 </div>
-                <?php } ?>
+              
         </div>
 
 		<?php

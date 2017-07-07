@@ -1514,7 +1514,7 @@ class Jobs extends Winjob_Controller {
 					'hire_url' => site_url("jobs/offers?user_id=" . base64_encode($_interviews->user_id)
 						. "&job_id=" . base64_encode($this->job_details->get_jobid())),
 					'profile_url' => site_url("applicants?user_id=") . base64_encode($_interviews->user_id) . "&job_id="
-						. base64_encode($this->job_details->get_jobid()) . "&bid_id=" . base64_encode($_interviews->id) . '/interview',
+						. base64_encode($this->job_details->get_jobid()) . "&bid_id=" . base64_encode($_interviews->id),
 					'user_id' => $_interviews->user_id,
 					'skills' => $skills,
 					'country' => ucfirst($country->get_country()),

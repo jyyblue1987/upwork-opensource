@@ -50,7 +50,7 @@ $route['jobs/removejobpost/(:any)']  = 'jobs/removejobpost/$1';
 $route['jobs/(:any)/(:any)']        = 'jobs/view/($1)/($2)';
 $route['jobs/preview-job-posting']  = 'jobs/preview_job_posting';
 
-$route['freelancer/(:any)']         = 'profile/profileSearch/($1)';
+$route['freelancer/(:any)']         = 'profile/index/($1)';
 
 
 $route['default_controller'] = 'home';
