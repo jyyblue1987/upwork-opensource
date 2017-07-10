@@ -937,11 +937,15 @@ font-size: 17 px;
 .margin-top-1{
     margin-top: 10px;
 }
-
+.margin-top-15{
+    margin-top: 10px;
+}
 .margin-top-2{
     margin-top: 20px;
 }
-
+.margin-top-25{
+    margin-top: 25px;
+}
 .margin-top-3{
     margin-top: 30px;
 }
@@ -4249,7 +4253,7 @@ padding-left: 14px !important;}
 
 span.cc_normal_txt{font-weight: normal;}
 
-.custom_invite .hire_sms_btn{padding: 0px 0px 10px 5px;}
+.custom_invite .hire_sms_btn{padding: 0px 0px 10px 5px; margin: 0px;}
 .custom_invite .hire_me_btn{padding: 0px 0px 10px 23px;}
 
 .custom_home .bordered-alert{width: 100%;}
@@ -4816,11 +4820,30 @@ margin-top: 14px !important;}
 }
 
 /************************************Hui Added********************************************/
-.profile-basic{
-	
-}
-
 .profile-basic   #exp-details-modal, .profile-basic  #edu-details-modal{
 	padding: 20px 30px;
 }
 
+.send-invitation-container{
+	background-color: #fff;
+	padding:45px;
+}
+
+
+.send-invitation-container .invite-btn{
+	margin:0px;
+	background: #028fcc;
+	color:#fff;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin-right: 28px;
+	padding-top:13px;
+	padding-bottom:13px;
+}
+
+.send-invitation-container .chosen-container{
+	min-width:350px;
+}
+.send-invitation-container .chosen-container ul{
+	padding: 0px;
+}

@@ -29,7 +29,7 @@ class Hired extends Winjob_Controller {
             if ($this->session->userdata('type') != 1) {
                 redirect(site_url("find-jobs"));
             }
-/*   Hui added for hired  */
+			/*   Hui added for hired  */
             $records = array();
             $job_id = base64_decode($_GET['job_id']);
             $bids = $this->process->get_bids($job_id);
@@ -69,14 +69,14 @@ class Hired extends Winjob_Controller {
 				/*   Hui added for offered  */
 				$ended_jobs = $this->process->cnt_ended_jobs($_offers->webuser_id);
                 $freelancer_profile = $this->ProfileModel->get_profile($_offers->webuser_id);
-               $accepted_jobs = $this->process->accepted_jobs($_offers->webuser_id);
-               $pic = $this->Adminforms->getdatax("picture", "webuser", $_offers->webuser_id);
-               $country = $this->ProfileModel->get_country($_offers->webuser_country);
-               $skills = $this->ProfileModel->get_skills($_offers->webuser_id);
-               $user_rating = $this->Webuser_model->get_total_rating($_offers->webuser_id);
-               $_pic = $pic != "" ? $pic : "assets/user.png";
+                $accepted_jobs = $this->process->accepted_jobs($_offers->webuser_id);
+                $pic = $this->Adminforms->getdatax("picture", "webuser", $_offers->webuser_id);
+                $country = $this->ProfileModel->get_country($_offers->webuser_country);
+                $skills = $this->ProfileModel->get_skills($_offers->webuser_id);
+                $user_rating = $this->Webuser_model->get_total_rating($_offers->webuser_id);
+                $_pic = $pic != "" ? $pic : "assets/user.png";
 
-               foreach($accepted_jobs AS $a_jobs){
+                foreach($accepted_jobs AS $a_jobs){
                    $feedbacks = $this->process->get_feedbacks($a_jobs->fuser_id, $a_jobs->job_id);
                    $diary = $this->Job_work_diary_model->get_work_hours($a_jobs->fuser_id, $a_jobs->job_id);
 
@@ -114,9 +114,7 @@ class Hired extends Winjob_Controller {
 				
 				 $webuser             = $this->Webuser_model->load_informations($_offers->webuser_id);
 				 
-				//var_dump($_offers->webuser_username);
-			
-			
+				
 				$applicant = [
 					'ended_jobs' => $ended_jobs,
 					'tagline' => ucfirst($freelancer_profile['tagline']),

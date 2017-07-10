@@ -12,6 +12,7 @@ class Jobs extends Winjob_Controller {
     private $employer;
     
     public function __construct() {
+		
         parent::__construct();
         
         // added by (Donfack Zeufack Hermann) start 
@@ -2063,9 +2064,10 @@ class Jobs extends Winjob_Controller {
     }
 
     public function send_invitation($user_id = null) {
+		
         if ($this->Adminlogincheck->checkx()) {
             $data = array();
-
+			
             if ($user_id != null) {
                 $data['user_id'] = $user_id;
             } else {
@@ -2081,6 +2083,9 @@ class Jobs extends Winjob_Controller {
 
                 redirect(site_url('jobs-home'));
             }
+			
+			$this->load->model( array('skills_model'));
+			$data['skillList'] = $this->skills_model->get_list();
             $this->Admintheme->webview("jobs/send_invitation", $data);
         }
     }

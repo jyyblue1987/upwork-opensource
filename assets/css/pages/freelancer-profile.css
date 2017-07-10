@@ -3,7 +3,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 body {color: #333;font-family: "Roboto" !important;font-size: 14px;line-height: 1.42857;}
 html {color: #222;font-size: 1em;line-height: 1.4;}
-.buttonsidefoure {background: white;border: 1px solid #ccc;padding: 10px;height: 100%;padding-bottom: 20px;}
+.buttonsidefoure {background: white;border: 1px solid #ccc;padding: 10px;height: 100%;padding-bottom: 20px;margin-top: -140px;}
 .buttonsidefoure ul li {padding: 13px 0px 0px 5px;}
 .buttonsidefoure h2 {font-size: 21.26px;margin: -8px 30px 15px 7px;color: #494949;font-family:'Calibri';src: url(../fonts/Calibri.ttf);display: block;padding: 15px 0 0 0;font-weight:800;}
 .buttonsidefoure ul li a {text-decoration: none;color: #494949;font-family: 'Calibri';src: url(../fonts/Calibri.ttf);font-size: 16.26px;display: block;font-weight: bold;}
@@ -396,9 +396,9 @@ h3.text-right{margin:0px;padding-bottom: 0px;}
 p.exp-title {margin-bottom:0px;font-family: 'Calibri';margin-bottom:5px;}
 p.exp-company {margin:0px;}
 p.exp-company {margin:0px;}
-p.exp-title a{font-size:18px!important;color:#000!important;font-weight: bold;}
-p.exp-company a{font-size:17px!important;color:#000!important;}
-p.exp-year a{padding:0;margin-bottom:0!important;font-size:16px!important;color: rgba(0,0,0,.55);!important;}
+p.exp-title{font-size:18px!important;color:#000!important;font-weight: bold;}
+p.exp-company{font-size:17px!important;color:#000!important;}
+p.exp-year{padding:0;margin-bottom:0!important;font-size:16px!important;color: rgba(0,0,0,.55);!important;}
 .marg-left-lg{margin-left: -5px;padding-left:-5px!important;}
 @media(max-width: 480px){
 	.buttonsidefoure{margin-top:20px!important;}
@@ -505,4 +505,32 @@ transform: rotate(90deg);}
         overflow: hidden;
     }
 	
+	.topriht1 {
+		background: #fff;
+		padding: 15px 5px;
+		border: 1px solid #ddd;
+	}
+	.align-center {
+		text-align: center;
+	}
+	#buttonsecond {
+		background: #18a7dc;
+		color: #fff;
+		border-radius: 3px;
+		border: none;
+		padding: 7px 38px 7px 38px;
+		font-size: 21.88px;
+		font-family: 'Calibri';
+		font-weight: bold;
+	}
+	#view-profile-btn {
+		margin-top: 20px;
+		background: #1ba7db;
+		padding: 10px 27px 10px 27px;
+		color: #FFF;
+		margin: 20px 2px 0px 2px;
+		font-size: 20px;
+		font-family: "Calibri";
+		font-weight: bold;
+	}
 	

@@ -31,8 +31,6 @@ class Profile extends Winjob_Controller {
             $query   = $this->db->query($sql)->row();
 			$user_id = $query->webuser_id;
 			
-			
-			
            // $user_id = $this->session->userdata('id');
 
             $sql = "SELECT cropped_image FROM webuser WHERE webuser_id =  " . $user_id;
@@ -68,8 +66,6 @@ class Profile extends Winjob_Controller {
 			$query = $this->db->get();
 			$params['accepted_jobs'] = array_merge($params['accepted_jobs'], $query->result());
 			
-			
-
             $params['current_user_rating'] = $this->webuser_model->get_total_rating( $user_id );
                     
             //get webuser info//
@@ -129,20 +125,9 @@ class Profile extends Winjob_Controller {
 
                     $profileExp = $this->ProfileModel->getExp($user_id);
                     $params['experience'] = $profileExp;
-
                     $params['educations'] = $educations;
-
-                    //$this->load->view("webview/profile/freelancer-profile", $params);
-
-                   /* echo phpinfo();
-                    die();*/
                     if (!empty($timezone)) {
                         $date =  new \DateTime(date('Y-m-d h:i:s',time()), new DateTimezone('UTC'));
-                        //$date->setTimezone(new \DateTimezone($timezone['gmt']));
-                      /*  print_r($timezone['gmt']);
-                        echo "<br>";
-                        print_r($date);
-                        die();*/
                         $params['localtime'] = $date->format('h:i A');
                     } else {
                         $params['localtime'] = date('h:i A');

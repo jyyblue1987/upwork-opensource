@@ -117,6 +117,7 @@ class Applicants extends Winjob_Controller {
             'slag'            => strtolower(str_replace(' ', '-', $freelancer->webuser_fname . '-' . $freelancer->webuser_lname)),
             'fname'           => $freelancer->webuser_fname,
             'lname'           => $freelancer->webuser_lname,
+            'username'           => $freelancer->webuser_username,
             'cropped_img'     => $freelancer->cropped_image,
             'freelancer_id'   => $freelancer->webuser_id,
             'skills'          => $skills,

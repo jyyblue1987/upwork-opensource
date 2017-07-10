@@ -1,3 +1,7 @@
+
+<link rel="stylesheet" href="<?php echo site_url("assets/css/chosen.css"); ?>">
+<script src="<?php echo site_url("assets/js/chosen.jquery.js"); ?>"></script>
+
 <div class="col-md-7 form-group">
 	<div class="row">
 		<div class="col-md-3 <?php echo $class?>">
@@ -58,9 +62,22 @@
 			Required Skills
 		</div>
 		<div class="col-md-9">
-			<input type="text" value="" name="skills" class="form-control"
-				id="title">
+			<div class="input_skills">
+				<select class="choose-skills" name="skills[]"  data-placeholder="Skills"  multiple class="skills">
+						<?php foreach($skillList as $skill){
+                                  ?>
+                                <option value="<?php echo $skill->skill_name; ?>"><?php echo $skill->skill_name; ?></option> 
+                                <?php 
+                        }?>
+				
+				</select>
+		   </div>
+						   
 		</div>
+		
+		
+		
+		
 	</div>
 </div>
 
@@ -79,7 +96,7 @@
 <div class="col-md-7 form-group">
 	<div class="row">
 		<div class="col-md-3 <?php echo $class?>">
-			Upload File
+			Attach File
 		</div>
 		<div class="col-md-9">
 			<input type="file" value="" name="userfile" class="" id="user_file">
@@ -122,16 +139,18 @@
 		<div class="col-md-3 <?php echo $class?>">
 			Experience Level
 		</div>
-		<div class="col-md-9">
+		<div class="col-md-12">
 			<input type="radio" name="experience_level" id="experience_level"
 				value="entry_levle" /> <label>Entry Level</label> <span
-				class="dollar-sign">$</span> <input type="radio"
+				class="dollar-sign">$</span> 
+		</div>
+		<div class="col-md-12">	
+			<input type="radio"
 				name="experience_level" id="experience_level" value="intermediate" />
 			<label>Intermediate</label> <span class="dollar-sign">$$</span> 
-			
-			<?php if(isset($mode) && $mode== 'invitation') {?> <br/> <?php } ?>
-			 <input
-				type="radio" name="experience_level" id="experience_level"
+		</div>
+		<div class="col-md-12">	
+			 <input type="radio" name="experience_level" id="experience_level"
 				value="experienced" /> <label>Experienced</label> <span
 				class="dollar-sign">$$$</span>
 
@@ -186,3 +205,12 @@
 		</div>
 	</div>
 </div>
+
+
+<script>
+	$(".choose-skills").chosen();
+    $('.chosen-drop').hide();
+    $(".chosen-container").bind('keyup',function(e) {
+        $('.chosen-drop').show();
+    });
+</script>

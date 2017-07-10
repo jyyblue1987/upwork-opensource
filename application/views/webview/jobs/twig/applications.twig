@@ -230,7 +230,7 @@
 												<li><a href="{{ app.applicant.payment_url }}">{{ app_lang('text_job_btn_op_give_milestone') }}</a></li>
 												{% endif %}
 												<li><a href="{{ app.applicant.payment_url }}">{{ app_lang('text_job_btn_op_view_contract') }}</a></li>
-												<li><a href="{{ app.applicant.profile_url  }}">{{ app_lang('text_job_btn_op_view_profile') }}</a></li>
+												<li><a href="freelancer/{{  app.applicant.webuser.webuser_username  }}">{{ app_lang('text_job_btn_op_view_profile') }}</a></li>
 												<li><a href="end-contract?fmJob={{ app.bid_id_encoded }}">{{ app_lang('text_job_btn_op_end_contract') }}</a></li>
 												
 											{%  else %}
