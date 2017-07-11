@@ -119,6 +119,7 @@ define(function (require) {
     
     $('#chat-submit').on('click', function () {
         
+	
         if(sending_message) return;
         
         var message = chatbox.val();

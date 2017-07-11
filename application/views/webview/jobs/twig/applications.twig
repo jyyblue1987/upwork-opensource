@@ -81,7 +81,17 @@
 											<div class="col-md-7">
 												<div class="aplicant_identity">
 													<label class="aplicant_name">
-														<a href="{{ app.applicant.profile_url }}">{{ app.applicant.fname }} {{ app.applicant.lname }}</a>
+														<a href="{{ app.applicant.profile_url }}/{% if display == "decline" %}
+																				declined
+																			{% elseif display == "interview" %}
+																				interview
+																			{% elseif display == "offered" %}
+																				offered
+																			{% elseif display == "hired" %}
+																				hired
+																			{% else %}
+																			
+																			{% endif %}">{{ app.applicant.fname }} {{ app.applicant.lname }}</a>
 													</label>
 													<br/>
 													
@@ -315,7 +325,17 @@
                                 <div class="col-md-8 text-left">
                                     <div class="aplicant_identity">
                                         <label class="aplicant_name">
-                                            <a href="{{ app.applicant.profile_url }}">{{ app.applicant.fname }} {{ app.applicant.lname }}</a>
+                                            <a href="{{ app.applicant.profile_url }}/{% if display == "decline" %}
+																				declined
+																			{% elseif display == "interview" %}
+																				interview
+																			{% elseif display == "offered" %}
+																				offered
+																			{% elseif display == "hired" %}
+																				hired
+																			{% else %}
+																			
+																			{% endif %}">{{ app.applicant.fname }} {{ app.applicant.lname }}</a>
                                         </label>
                                         <br/>
                                         <span><b>{{ app.applicant.tagline }}</b></span>

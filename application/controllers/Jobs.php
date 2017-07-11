@@ -1528,15 +1528,8 @@ class Jobs extends Winjob_Controller {
 					'decline' => '0',
 					'bid_reject' => $_interviews->bid_reject
 				);
-				
-            
-			
 			}
 
-           
-			
-		
-			
 			$this->twig->display('webview/jobs/twig/applications', [
 				'is_active' => $this->employer->is_active(),
 				'applications' => $applications,
@@ -1550,11 +1543,7 @@ class Jobs extends Winjob_Controller {
 				'display' => 'interview',
 				'interviews' => $interviews
 			]);
-				
-		
-			
         }
-		
 		//hui end
     }
 
@@ -2072,16 +2061,134 @@ class Jobs extends Winjob_Controller {
                 $data['user_id'] = $user_id;
             } else {
                 if (isset($_POST)) {
-                    $job_id = $this->input->post('job_id');
-                    $message = $this->input->post('message');
-                    $fuser_id = $this->input->post('fuser_id');
-                    $sender_id = $this->session->userdata('id');
-                    $data = "INSERT INTO job_conversation set job_id = '" . $job_id . "', bid_id = '0',  message_conversation = '" . $message . "', sender_id = '" . $sender_id . "', receiver_id = '" . $fuser_id . "', have_seen = 1 ";
-
-                    redirect(site_url('my-offers'));
+					
+					if($this->input->post('optradio-jobselect') == '2'){ //
+						// create the job.
+						$this->load->model( array( 'webuser_model', 'skills_model', 'jobs_model'));
+						// check if account is suspend then redirect to payment start 
+						$user_id = $this->session->userdata('id');
+						if( ! $this->webuser_model->is_active( $user_id))
+							redirect(site_url("pay/methods_card"));
+						
+						$data = array(
+							'title' => $this->input->post('title'),
+							'category' => $this->input->post('category'),
+							'job_description' => $this->input->post('job_description'),
+							'job_type' => $this->input->post('job_type'),
+							'job_duration' => $this->input->post('job_duration'),
+							'experience_level' => $this->input->post('experience_level'),
+							'budget' => $this->input->post('budget'),
+							'hours_per_week' => $this->input->post('hours_per_week'),
+							'userfile' => $this->input->post('userfile'),
+							'status' => 1,
+							'job_created' => date('Y-m-d H:i:s'),
+							'userfile' => $this->input->post('attachments'),
+							'user_id'  => $user_id,
+							'tid'  => $this->input->post('tid')
+						);
+					
+						$job_id  = $this->jobs_model->create( $data );
+						if( $job_id != null )
+						{
+							$skills = $this->input->post('skills');
+							$this->jobs_model->link_to_skills( $job_id, $skills);                    
+							$this->ajax_response( array('code' => '0', 'id' => base64_encode($job_id), 'type' => $data['job_type']) );
+						}
+						else 
+						{
+							$rs = array(
+								'code' => '0',
+								'msg' => '<div class="alert alert-warning"><strong>Warning!</strong>Something went wrong.</div>'
+							);
+							echo json_encode($rs);
+							exit;
+						}
+						
+					}
+					else{
+						$job_id    = $this->input->post('job_id');
+					}
+										
+					if($this->input->post('optradio-jobselect') == '1'){ // from the existing job
+					
+						$message   = $this->input->post('message');
+						$fuser_id  = $this->input->post('fuser_id');
+						$sender_id = $this->session->userdata('id');
+						
+						$is_applied = $this->process->is_applied($job_id, $fuser_id);
+						if ($is_applied > 0) {
+							
+						}
+						else{
+							$this->db->select('*');
+							$this->db->from('jobs');
+							$this->db->where('jobs.id', $job_id);
+							$query = $this->db->get();
+							$result = $query->result();
+							
+							if($result[0]->job_type == "fixed"){
+								$bid_amount = $result[0]->budget;
+							}
+							else{
+								
+								$this->db->select('*');
+								$this->db->from('webuser_basic_profile');
+								$this->db->where('webuser_basic_profile.webuser_id', $fuser_id);
+								$query = $this->db->get();
+								$result = $query->result();
+								$bid_amount = $result[0]->hourly_rate;
+							}
+							
+							// create bid
+							$bid_data = array();
+							$bid_data['bid_amount']  = $bid_amount;
+							$bid_data['job_id']  = $job_id;
+							$bid_data['user_id']     = $fuser_id;
+							$bid_data['bid_fee']     = round($data['bid_amount'] / 10, 2);
+							$bid_data['bid_earning'] = $bid_data['bid_amount'] - $bid_data['bid_fee'];
+							$bid_data['created']     = date('Y-m-d H:i:s');
+							$bid_data['job_progres_status']     = 1;
+								
+							if ($this->db->insert('job_bids', $bid_data)) {
+								$bid_id = $this->db->insert_id();
+							
+								$this->load->model(array('conversation_model', 'job/bids_model', 'webuser_model'));
+								$current_date = date('Y-m-d H:i:s');
+								$message_item = array(
+									"job_id"               => $job_id,
+									"bid_id"               => $bid_id,
+									"message_conversation" => $message,
+									"sender_id"            => $sender_id,
+									"receiver_id"          => $fuser_id,
+									"created"              => $current_date,
+									"have_seen"            => 1,
+								);
+								$message_item_id = $this->conversation_model->create($message_item);
+							}else{
+								$rs = array(
+									'code' => '0',
+									'msg' => '<div class="alert alert-warning"><strong>Warning!</strong>Something went wrong.</div>'
+								);
+								echo json_encode($rs);
+								exit;
+							}
+						}
+					}
+					else{ // create new job.
+						//create new job
+							
+							
+								
+								
+								exit;
+					}
+					
+				
+					redirect(site_url('my-offers'));
                 }
 
-                redirect(site_url('jobs-home'));
+				
+                //redirect(site_url('jobs-home'));
             }
 			
 			$this->load->model( array('skills_model'));

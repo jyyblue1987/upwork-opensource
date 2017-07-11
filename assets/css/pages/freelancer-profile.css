@@ -518,7 +518,7 @@ transform: rotate(90deg);}
 		color: #fff;
 		border-radius: 3px;
 		border: none;
-		padding: 7px 38px 7px 38px;
+		padding: 3px 38px 3px 38px;
 		font-size: 21.88px;
 		font-family: 'Calibri';
 		font-weight: bold;
@@ -526,7 +526,7 @@ transform: rotate(90deg);}
 	#view-profile-btn {
 		margin-top: 20px;
 		background: #1ba7db;
-		padding: 10px 27px 10px 27px;
+		padding: 12px 20px 12px 20px;
 		color: #FFF;
 		margin: 20px 2px 0px 2px;
 		font-size: 20px;

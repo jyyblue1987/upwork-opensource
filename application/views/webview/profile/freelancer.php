@@ -146,19 +146,16 @@ foreach ($accepted_jobs as $job_data) {
 							<div class="side_header">
 								<div class="topriht1 align-center">
 									<a href="confirm_hired_hourly">
-										<button id="buttonsecond">Hire me&nbsp;&nbsp;
-											<i class="fa fa-caret-right" aria-hidden="true"></i>
+										<button id="buttonsecond">Hire me
 										</button>
 									</a>
 									<br/>
-
-									<a href="http://localhost:81/freelancer/arun">
+									<a href="/jobs/send_invitation/<?= $webUserInfo['webuser_id'] ?>">
 										<button class="btn" id="view-profile-btn">
-											Invite to Job  <i class="fa fa-caret-right" aria-hidden="true"></i>
+											Invite to Job 
 										</button>
 									</a>
 									<br/>
-
 								</div>
 							</div>
 						</div>

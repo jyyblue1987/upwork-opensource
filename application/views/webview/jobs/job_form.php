@@ -206,6 +206,7 @@
 	</div>
 </div>
 
+  <input type="hidden" name="tid" value="<?= time() ?>" />
 
 <script>
 	$(".choose-skills").chosen();

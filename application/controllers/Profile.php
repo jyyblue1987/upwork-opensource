@@ -69,7 +69,7 @@ class Profile extends Winjob_Controller {
             $params['current_user_rating'] = $this->webuser_model->get_total_rating( $user_id );
                     
             //get webuser info//
-            $cols = array("webuser_fname", "webuser_lname", "webuser_picture", "webuser_country");
+            $cols = array("webuser_fname", "webuser_lname", "webuser_picture", "webuser_country", "webuser_id");
             $condition = " AND webuser_id=" . $user_id;
             $data = $this->common_mod->getColsVal(WEB_USER_TABLE, $cols, $condition);
 

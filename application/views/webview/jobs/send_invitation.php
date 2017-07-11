@@ -69,15 +69,16 @@
 								</div>
 							</div>
 							<div class = "col-md-8">
-									<?php
+								<?php
 									$sender_id = $this->session->userdata('id'); 
 									$this->db->select('*');
 									$this->db->from('jobs');  
 									$this->db->where('jobs.status', '1');
 									$this->db->where('jobs.user_id', $sender_id);
+									$this->db->order_by("jobs.created", "desc");
 									$query = $this->db->get();
 									$result = $query->result();
-									?>
+								?>
 								
 										<select id = "job_id" class="form-control" name="job_id" style = "marging:0px;">
 											<?php

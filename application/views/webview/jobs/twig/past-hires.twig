@@ -51,14 +51,14 @@
                                 {% set job_id_encoded        = base64_encode(job.job_id) %}
                                 {% set fuser_id_encoded      = base64_encode(job.fuser_id) %}
                                 {% set bid_id_encoded        = base64_encode(job.bid_id) %}
-                                {% set profil_link           = base_url() ~ "applicants?user_id=" ~ fuser_id_encoded ~ "&job_id=" ~ job_id_encoded ~ "&bid_id=" ~ bid_id_encoded %}
+                                {% set profil_link           = base_url() ~ "/freelancer/" ~ job.webuser_username %}
                                 
                                 {% set job_detail_link       = base_url() ~ "contracts?fmJob=" ~ bid_id_encoded %}
                                 
                                 {# Specifics partials #}
                                 {% set specific_btn_template = 'webview/jobs/partials/job-hire-button.twig' %}
                                 {% set options_dropdown      = 'webview/jobs/partials/job-hire-dropdown.twig' %}
-
+							
                                 {{ include('webview/jobs/partials/job-item.twig') }}
                              {% endfor %}
                         {% endif %}
