@@ -5,14 +5,10 @@
         <form method="post" action="<?php echo site_url('jobs/send_invitation'); ?>">
         <div class="row margin-left-4">
             <div class="col-md-9 send-invitation-container">
-
-
                 <div class="row part-profile">
-                   
                     <div class="col-md-12">
-
                         <div class="row">
-                            <div class="col-md-2 col-sm-3">
+                            <div class = "pull-left st_img">
                                 <?php
                                     $pic = $this->Adminforms->getdatax("picture", "webuser", $user_id);
                                     if ($pic == "") {
@@ -103,7 +99,7 @@
 					</div>
                 </div>
 				
-				 <div class="row hidden margin-top-1 margin-left-3" id="job_form">
+				<div class="row hidden margin-top-1 margin-left-3" id="job_form">
                      <?php $this->load->view('webview/jobs/job_form', ['class' => 'text-left', 'mode' => 'invitation']); ?>
                 </div> 
 				

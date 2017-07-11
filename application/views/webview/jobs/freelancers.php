@@ -210,7 +210,7 @@ span.rating-badge {
 								</div>
 								
                                 <div class="hire_me_btn">
-									<a class ="btn btn-primary form-btn" href="">Hire Me</a>
+									<a class ="btn btn-primary form-btn" href="<?php echo site_url('jobs/make-offers?user_id='. base64_encode($fp->webuser_id)); ?>">Hire Me</a>
 								</div>                                 
                             </div>
                         </div>

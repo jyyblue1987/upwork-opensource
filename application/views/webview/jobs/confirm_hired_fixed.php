@@ -213,8 +213,6 @@ $(document).on('keyup', '#milestone_input', function() {
 	} else {
 		$('#budget').val($('#milestone_input').val());
 	}
-
-
 });
 </script>
 

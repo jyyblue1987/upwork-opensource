@@ -4294,7 +4294,7 @@ right: 132px;
 font-size: 26px;
 transform: rotate(90deg);}
 .modal .modal-body .m_list.scroll-ul > li {border:0;}
-.modal .modal-content h4.modal-title {margin-top: -23px;font-size: 25px;}
+.modal .modal-content h4.modal-title {font-size: 25px;}
 .modal .modal-content button.close {margin-top: -33px;margin-right: -11px;font-size: 40px;}
 .modal-dialog h4{font-size: 25px;}
 .modal-dialog .modal-content button.close{margin-top: 0px;margin-right: 0px;font-size: 40px; line-height: 55px;}
@@ -4827,8 +4827,13 @@ margin-top: 14px !important;}
 .send-invitation-container{
 	background-color: #fff;
 	padding:45px;
+	border: 1px solid #ccc;
 }
 
+.send-invitation-container  .st_img{
+	padding-left: 15px;
+    margin: 0;
+}
 
 .send-invitation-container .invite-btn{
 	margin:0px;
@@ -4836,7 +4841,7 @@ margin-top: 14px !important;}
 	color:#fff;
 	padding-left: 20px;
 	padding-right: 20px;
-	margin-right: 27px;
+	margin-right: 25px;
 	padding-top: 13px;
 	padding-bottom:13px;
 }

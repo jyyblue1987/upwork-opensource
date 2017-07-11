@@ -3,11 +3,9 @@
         <div class="topriht align-center">
             {% if status %}
                 {% if job_info['hired'] == 0 %}
-                    {% if job_type == 'fixed' %}
-                        {% set link =  base_url("jobs/confirm_hired_fixed?user_id=" ~ v_user_id ~ '&job_id=' ~ v_job_id ) %}
-                    {% else %}
-                        {% set link =  base_url("jobs/confirm_hired_hourly?user_id=" ~ v_user_id ~ '&job_id=' ~ v_job_id ) %}
-                    {% endif %}
+               
+                    {% set link =  base_url("jobs/offers?user_id=" ~ v_user_id ~ '&job_id=' ~ v_job_id ) %}
+                   
                     <a href="{{ link }}">
                         <button id="buttonsecond">
                             {{ app_lang('text_job_hire_me') }}&nbsp;&nbsp;

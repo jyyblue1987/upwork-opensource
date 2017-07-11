@@ -2182,13 +2182,9 @@ class Jobs extends Winjob_Controller {
 								
 								exit;
 					}
-					
-				
 					redirect(site_url('my-offers'));
                 }
-
-				
-                //redirect(site_url('jobs-home'));
+                redirect(site_url('jobs-home'));
             }
 			
 			$this->load->model( array('skills_model'));
@@ -2331,6 +2327,52 @@ class Jobs extends Winjob_Controller {
         $this->Admintheme->custom_webview("jobs/proposals", $data);
     }
 
+	public function make_offers(){
+		//http://localhost:81/jobs/make-offers?user_id=MTM=&job_id=MTgx
+		if ($this->Adminlogincheck->checkx()) {
+			$data = array();
+			if ($this->session->userdata('type') != 1) {
+                redirect(site_url("find-jobs"));
+            }
+			$user_id = $this->session->userdata('id');
+			if( ! $this->webuser_model->is_active( $user_id))
+				redirect(site_url("pay/methods_card"));
+			/* check payment method is set or not ? start */
+                        
+            $user_id = $this->session->userdata('id');
+            $this->db->select('*');            
+            $this->db->from('billingmethodlist');
+            $this->db->where('billingmethodlist.belongsTo', $user_id);            
+            $this->db->where('billingmethodlist.isDeleted', "0");
+            $query = $this->db->get();   
+            $paymentSet=0;
+                if (is_object($query)) {
+                    $paymentSet = $query->num_rows();
+                }
+                
+            if(!$paymentSet)    
+            {                
+                redirect(site_url("pay/methods_card"));                
+            }
+			
+            /* check payment method is set or not ? end */
+			if (isset($_GET['user_id'])){
+				
+				$data['user_id'] = base64_decode($_GET['user_id']);
+                $this->load->model( array('skills_model'));
+				$data['skillList'] = $this->skills_model->get_list();
+				
+				$this->Admintheme->webview("jobs/make-offers", $data);
+				
+			}
+			else{
+			}
+			
+			
+		
+		}
+	}
+	
     public function confirm_hired_fixed() {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {

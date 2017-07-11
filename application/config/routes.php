@@ -47,6 +47,8 @@ $route['jobs/removejobpost/(:any)']  = 'jobs/removejobpost/$1';
 
 $route['jobs/send_invitation/(:any)']  = 'jobs/send_invitation/$1';
 
+$route['jobs/make-offers']  = 'jobs/make_offers';
+
 
 
 $route['jobs/(:any)/(:any)']        = 'jobs/view/($1)/($2)';
