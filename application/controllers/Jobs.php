@@ -69,10 +69,6 @@ class Jobs extends Winjob_Controller {
         $this->lang->load('job', $this->get_default_lang());
     }
 
-    public function index() {
-        
-    }
-
     public function create() {
         $this->checkForEmployer();
         $this->load->model( array( 'webuser_model', 'skills_model', 'jobs_model' ) );
@@ -1824,7 +1820,6 @@ class Jobs extends Winjob_Controller {
         }
     }
     
-
     public function mystaff() {
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
@@ -2327,6 +2322,31 @@ class Jobs extends Winjob_Controller {
         $this->Admintheme->custom_webview("jobs/proposals", $data);
     }
 
+	public function find_job($job_id){
+        if ($this->Adminlogincheck->checkx()) {
+			$user_id = $this->session->userdata('id');
+			$this->db->select('*');
+			$this->db->from('jobs');  
+			$this->db->where('jobs.status', '1');
+			$this->db->where('jobs.user_id', $user_id);
+			$this->db->where('jobs.id', $job_id);
+			$query = $this->db->get();
+			$result = $query->result();
+			
+			$json_data = array();
+			
+			if(count($result)){
+				$json_data['status'] = 1;
+				$json_data['data'] = $result[0];
+			}
+			else
+			{
+				$json_data['status'] = 0;
+			}
+			echo  json_encode($json_data);
+        }
+    }
+	
 	public function make_offers(){
 		//http://localhost:81/jobs/make-offers?user_id=MTM=&job_id=MTgx
 		if ($this->Adminlogincheck->checkx()) {

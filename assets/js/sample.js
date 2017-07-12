@@ -485,6 +485,3 @@ var position = p.position();
 	 loadpost("start");
 	 
  }
- 
- 
- 

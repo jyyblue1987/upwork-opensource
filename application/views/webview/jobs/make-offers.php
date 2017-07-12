@@ -52,6 +52,18 @@
                     <div class="col-md-12 text-left"> <strong>Choose a job : </strong></div>
 					
 					<div class="col-md-12">
+						<?php
+							$sender_id = $this->session->userdata('id'); 
+							$this->db->select('*');
+							$this->db->from('jobs');  
+							$this->db->where('jobs.status', '1');
+							$this->db->where('jobs.user_id', $sender_id);
+							$this->db->order_by("jobs.created", "desc");
+							$query = $this->db->get();
+							$result = $query->result();
+							
+							if(count($result)){
+							?>
 						<div class = "row">
 							<div class = "col-md-4">
 								<div class="radio">
@@ -59,16 +71,7 @@
 								</div>
 							</div>
 							<div class = "col-md-8">
-								<?php
-									$sender_id = $this->session->userdata('id'); 
-									$this->db->select('*');
-									$this->db->from('jobs');  
-									$this->db->where('jobs.status', '1');
-									$this->db->where('jobs.user_id', $sender_id);
-									$this->db->order_by("jobs.created", "desc");
-									$query = $this->db->get();
-									$result = $query->result();
-								?>
+								
 								
 										<select id = "job_id" class="form-control" name="job_id" style = "marging:0px;">
 											<?php
@@ -81,8 +84,10 @@
 										</select>
 									
 							</div>
-							
 						</div>
+						<?php
+							}
+						?>
 						<div class = "row">
 							<div class = "col-md-12">
 								<div class="radio">
@@ -97,18 +102,7 @@
                      <?php $this->load->view('webview/jobs/job_form', ['class' => 'text-left', 'mode' => 'invitation']); ?>
                 </div> 	
 					
-				<div class="row ">
-					<div class="col-md-12"><h4 class="confirm_hire_title">Job Title :</h4></div>
-					<div class="col-md-12">
-						<div class="hire_job_title">
-							<h4 class="main_title custom_confirm_hire_j_title">Hello world</h4>
-						</div>
-					</div>
-					
-					<div class="col-md-12">
-						<h4 style="font-size:22px;font-family: calibri;margin-bottom: 15px;"><b>Contact Details</b></h4>
-					</div>
-				</div>
+				
 				
 				<div class="row">
 					<div class="col-md-12"><h4 class="confirm_hire_title">Title (Optional) :</h4></div>
@@ -126,15 +120,58 @@
 				<div class="row">
 					<div class="col-md-12"><h4 style="margin-top: 5px;" class="confirm_hire_title">Job Type :</h4></div>
 					<div class="col-md-12">
-						<strong style="font-size:17px;font-weight: 400;font-family: calibri;">Hourly</strong>
+						<strong style="font-size:17px;font-weight: 400;font-family: calibri;" class = "make-offers-jobtype"></strong>
+					</div>
+				</div>
+			
+			<div class = "fixed-action displaynone">	
+				<div class="row bid-amount">
+					<div class="col-md-12 text-left">
+						<h4 class="confirm_hire_title">Amount :</h4>
+					</div>
+					<div class="col-md-12">
+					   <strong id="budget-show" class="fix-price"></strong>
+					   <a id="budget-edit"><i style="margin-left: 10px;" class="fa fa-pencil-square-o blue-text"></i></a>
+					</div>
+					<div class="col-md-5">
+						<input type="hidden" name="budget_old" id="budget" class="form-control" value="" />
+						<input type="text" name="budget" id="budget-edit-field" class="form-control hide custom_amount_box" value="" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="radio">
+							<label>
+							  <input type="radio" name="budget_type" value="1" checked>
+							  Paid All
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+							  <input type="radio" name="budget_type" value="0" >
+							  Paid Nothing
+							</label>
+						</div>
+						<div class="radio">
+							<label class="pull-left">
+							  <input type="radio" name="budget_type" id="milestone_radio"  value="2">
+							  Milestone
+							</label>
+							<div class="col-xs-3 hide" id="milestone-input-container">    
+								$<input type="text" name="milestone_input" class="form-control" style="width: 50%; display: inline-block" >
+							</div>
+						</div>
 					</div>
 				</div>
 				
-				<div class="row margin-top-1">
+			</div>	
+				
+			
+				<div class="row margin-top-1 hourly-action displaynone">
 					<div class="col-md-12"><h4 class="confirm_hire_title">Hourly Rate :</h4></div>
 					<div class="col-md-12">
-						<strong id="bid_amount_perhour" style="font-size:17px;font-weight: 400;font-family: calibri;">$15/hr</strong>
-						
+						<strong id="bid_amount_perhour" style="font-size:17px;font-weight: 400;font-family: calibri;"><?= $profile->hourly_rate ?></strong>
 						
 						<!-- <a href="#" aria-hidden="true" data-toggle="modal" data-target="myModal2"><i class="fa fa-pencil-square-o blue-text"></i></a> -->					
 						<a href="#" data-toggle="modal" data-target="#myModal2"><i style="margin-left: 10px;" class="fa fa-pencil-square-o blue-text"></i></a>
@@ -142,27 +179,25 @@
 				</div>
 				
 				
-				<div class="row margin-top-1">
+				<div class="row margin-top-1 hourly-action displaynone">
 					<div class="col-md-12"><h4 style="margin-bottom: 25px;" class="confirm_hire_title">Weekly limit :</h4></div>
-						<div class="col-md-12">
+					<div class="col-md-12">
 							<div class="col-md-2 nopadding">
-								<input type="hidden" id="bid_amount_result" value="15">
-								<input style="float: left;margin-right: 10px;" type="radio" checked name="limit" id="weekly_limit" value="" />
+								<input type="hidden" id="bid_amount_result" value="">
+								<input style="float: left;margin-right: 10px;" type="radio" checked name="limit" id="weekly_limit" value="1" />
 								<p style="margin-bottom: 0;margin-top: -2px;font-size: 17px;font-family: calibri;">Limit to:</p>
 							</div>
 							<div style="margin-top: -2px !important;" id="weekly_limit_field" class="col-md-10 nopadding" >
 								<div style="margin-top: -8px !important;width: 80px;" class="col-md-2 nopadding" >
 									<input type="text" id="weekly_limit_input" class="form-control" />
 								</div>
-								<div style="font-size: 17px;font-family: calibri;" class="col-md-10">hrs/week<span class="limit_total_check" style="display:none;"> = $<span class="limit_total">0.00</span> mas/week</span>
+								<div style="font-size: 17px;font-family: calibri;" class="col-md-10">hrs/week<span class="limit_total_check" style="display:none;"> = $<span class="limit_total">0.00</span> max/week</span>
 								</div>
 								<p class="weekly_limit_error" style="color:red;display:block;"></p>
 								<input type="hidden" id="weekly_limit_amount" name="weekly_limit_amount">
 							</div>
 					</div>
-				</div>
-				
-				<div class="row margin-top-1">
+					
 					<div class="col-md-12 text-left"></div>
 					<div class="col-md-12">
 						<div class="col-md-2 nopadding" style="font-size:13px">
@@ -170,19 +205,21 @@
 							<p style="margin-bottom: 0;font-size: 17px;margin-top: -2px;font-family: calibri;">No Limit</p>
 						</div>
 					</div>
-				</div>
-	
-				<div class="row margin-top-1">
+					
 					<div class="col-md-12 text-left"></div>
 					<div class="col-md-12" style="font-size:13px;margin-top: 8px;">
 						<input style="float: left;margin-right: 10px;" type="checkbox" name="allow_freelancer" value="1" /> <p style="margin-bottom: 3px;margin-top: -2px;font-size: 17px;font-family: calibri;">Allow freelancer to log time manually</p>
 					</div>
+					
 				</div>
+				
+			
+	
 					
 				<div class="row margin-top-1">
 					<div class="col-md-12 text-left"><h4 class="confirm_hire_title" style="margin-bottom: 6px;">Job Duration :</h4></div>
 					<div class="col-md-12" style="font-size:13px">
-						<strong style="font-size:17px;font-weight: 400;font-family: calibri;">Not Sure</strong>
+						<strong style="font-size:17px;font-weight: 400;font-family: calibri;" class = "make-offers-jobduration"></strong>
 					</div>
 
 				</div>
@@ -214,7 +251,17 @@
 
 				</div>
 				
-				
+				<div class="row">
+					<div style="margin-left: -30px;" class="col-md-12">
+						<div class="confirm_hire_btn" style="margin-right: 30px">
+							<input style="float: left;margin-right: -2px;" type="submit" value="Confirm hire" class="btn my_btn" /> 
+						</div>
+						
+						<div class="cencel_content_btn" style="margin-left: -65px">
+							<input type="button" value="Cancel" class="btn my_btn" />
+						</div>							
+					</div>
+				</div>	
 				
 			</div>
 		</div>
@@ -223,7 +270,6 @@
 </section>
 <!-- big_header-->
 
-	
 <div id="myModal2" class="modal fade" role="dialog">
 			<div class="modal-dialog custom_job_apply55">
 
@@ -249,7 +295,7 @@
 											<div style="margin-left: -45px;" class="col-md-4">
 												<div style="font-family: calibri;font-size: 17px;" class="col-md-1">$</div>
 												<div class="col-md-6">
-													<input type="text" class="form-control" name='bid_amount' id='bid_amount' value='12' style="float: left;width: 80px;margin-left: -9px;margin-top: -10px;margin-right: 5px;" /> <label style=" margin-left: 2px;margin-top: 1px;position: absolute;">/hr</label>
+													<input type="text" class="form-control" name='bid_amount' id='bid_amount' value="<?= $profile->hourly_rate ?>" style="float: left;width: 80px;margin-left: -9px;margin-top: -10px;margin-right: 5px;" /> <label style=" margin-left: 2px;margin-top: 1px;position: absolute;">/hr</label>
 												</div>
 											</div>
 										</div>
@@ -317,6 +363,29 @@
 			$('#bid_earning').val('');
 		}
 	}
+	
+	$('#weekly_limit_input').on('keyup', function() {
+	 
+		if(isNaN($('#weekly_limit_input').val()) === true) {
+			$('.weekly_limit_error').html('Enter Numbers Only');
+			$(".weekly_limit_error").show().delay(5000).fadeOut(); 
+			return false;
+		}
+		$('.limit_total_check').show();	
+		var bid_amount = parseInt($('#bid_amount_result').val());
+		var week_limit = parseInt($('#weekly_limit_input').val());
+		var total = bid_amount * week_limit;
+		if(total > 0){
+			$('.limit_total').html(total.toFixed(2));
+			$('#weekly_limit_amount').val(total.toFixed(2));
+			
+		} else {
+			$('.limit_total').html("0.00");
+		}
+		$('#weekly_limit').val($('#weekly_limit_input').val());
+    });
+	
+	
 
 	$(document).ready(function () {
 		setFee();
@@ -335,6 +404,108 @@
 				$('#job_id').addClass('hidden');
 			}
 		});
+		
+		/////////////////////////////////////////////////
+		
+		function getJobInfo(){
+			var optionSelected = $("option:selected", $("#job_id"));
+			var valueSelected = optionSelected.val();
+			//alert(valueSelected);
+			
+			var response = "";
+			var base_url = '<?php echo base_url() ?>';
+			
+			$.ajax({
+				type        : 'POST',
+				url         : base_url + 'find-job/' + valueSelected,
+				data        : $('form#hire_job').serialize(),
+				dataType    : 'json',
+				encode      : true,
+			})
+			.done(function(res) {
+				
+				if(res.status == '1')
+				{
+					var data = res.data;
+					
+					var job_type = data.job_type;
+					$(".make-offers-jobtype").html(job_type);
+					
+					if(job_type == "fixed"){
+						
+						$("#budget-show").html('$' + data.budget);
+						$("#budget").val(data.budget);
+						$("#budget-edit-field").val(data.budget);
+						
+						
+						$(".fixed-action").removeClass("displaynone");
+						$(".hourly-action").addClass("displaynone");
+					}
+					else{
+						
+						//$("#bid_amount_perhour").html()
+					
+						$(".fixed-action").addClass("displaynone");
+						$(".hourly-action").removeClass("displaynone");
+					}
+					
+					// job duration
+					var job_duration = "";
+					switch(data.job_duration){
+						case 'more_than_6_months':
+							job_duration = "More than 6 Months";
+							break;
+						case '3_6_months':
+							job_duration = "3 - 6 Months";
+							break;
+						case '1_3_months':
+							job_duration = "1 - 3 Months";
+							break;
+						case 'less_than_1_months':
+							job_duration = "Less than 1 Month";
+							break;
+						case 'less_than_1_week':
+							job_duration = "Less than 1 Week";
+							break;
+						default:
+							job_duration = "Not Sure";
+					}
+					$(".make-offers-jobduration").html(job_duration);
+				}
+				else{
+					
+				}
+				
+				
+			});
+		}
+		getJobInfo();
+		$('#job_id').on('change', function (e) {
+			getJobInfo();
+		});
+	
+		// fixed action 
+		
+		$("#budget-edit").click(function(){
+			$(this).addClass("hide");
+			$("#budget-edit-field").removeClass("hide");
+		});
+		
+		$(document).on("click","input[name='budget_type']", function(){
+			if($(this).val() == '2')
+				$("#milestone-input-container").removeClass("hide");
+			else
+				$("#milestone-input-container").addClass("hide");
+		});
+		
+		//hourly-action
+		$(document).on("click","input[name='limit']", function(){
+			if($(this).val() == '1')
+				$("#weekly_limit_field").removeClass("hide");
+			else
+				$("#weekly_limit_field").addClass("hide");
+		});
+		
 	});
 	
 </script>

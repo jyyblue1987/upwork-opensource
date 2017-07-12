@@ -148,7 +148,11 @@
         $('#job_form').removeClass('hidden');
     });
 
-    $('#existing_job').on('click', function () {
+    $('#existing_job').on('click', function (){
         $('#job_form').addClass('hidden');
     });
+	
+	
+	
+	
 </script>

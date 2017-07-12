@@ -25,6 +25,8 @@ $route['jobs/offers']                  = 'job/offers';
 $route['jobs/offers/accept']           = 'job/offers/accept';
 $route['jobs/offers/decline']          = 'job/offers/decline';
 
+$route['find-job/(:any)'] 			= 'jobs/find_job/$1';
+
 /****************************************
  * USER FRIENDLY URL FOR CLIENT/EMPLOYER
  ****************************************/

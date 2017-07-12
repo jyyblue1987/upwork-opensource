@@ -214,4 +214,9 @@
     $(".chosen-container").bind('keyup',function(e) {
         $('.chosen-drop').show();
     });
+	
+	$("input[name = 'job_type']").click(function(event){
+		alert("a");
+	});
+	
 </script>
