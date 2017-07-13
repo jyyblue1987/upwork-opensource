@@ -14,14 +14,13 @@ class Jobs extends Winjob_Controller {
     public function __construct() {
 		
         parent::__construct();
-        
         // added by (Donfack Zeufack Hermann) start 
         // load the default language for the current user.
         $this->load_language();
         // added by (Donfack Zeufack Hermann) end
         $this->load->model(array('Category', 'Common_mod', 'Webuser_model', 'Process', 'Employer', 
             'profile/ProfileModel', 'Job_work_diary_model', 'Skills_model', 'jobs_model',
-            'Job_details', 'payment_model', 'payment_methods_model', 'job/Bids_model', 'adminforms', 'job_details'));
+            'Job_details', 'payment_model', 'payment_methods_model', 'job/bids_model', 'adminforms', 'job_details'));
 	
 			
         $this->load->library('paypal_lib');
@@ -2348,7 +2347,6 @@ class Jobs extends Winjob_Controller {
     }
 	
 	public function make_offers(){
-		//http://localhost:81/jobs/make-offers?user_id=MTM=&job_id=MTgx
 		if ($this->Adminlogincheck->checkx()) {
 			$data = array();
 			if ($this->session->userdata('type') != 1) {
@@ -2387,11 +2385,311 @@ class Jobs extends Winjob_Controller {
 			}
 			else{
 			}
-			
-			
-		
 		}
 	}
+	
+	public function direct_hire(){
+		
+		if(is_get()){
+			$this->ajax_response(array(
+					'message' => 'This method is not permit.',
+					'redirect_url' => home_url(),
+					'status'  => 'error'
+			));
+		}
+		else{
+			if ( ! $this->Adminlogincheck->checkx() )
+			{
+				$this->ajax_response(array(
+					'message' => 'Please refresh your page.',
+					'status'  => 'error'
+				));
+			}	
+			
+			if ($this->session->userdata('type') != EMPLOYER) 
+			{
+				$this->ajax_response(array(
+					'message' => 'You do not have the right to access to this page.',
+					'status'  => 'error',
+					'redirect'     => true,
+					'redirect_url' => home_url(),
+				));
+			}
+			
+			
+				if($this->input->post('optradio-jobselect') == '2'){ //
+					// create the job.
+					$this->load->model( array( 'webuser_model', 'skills_model', 'jobs_model'));
+					// check if account is suspend then redirect to payment start 
+					$user_id = $this->session->userdata('id');
+					if( ! $this->webuser_model->is_active( $user_id))
+						$this->ajax_response(array(
+							'message' => 'You are not active. Please contact with win job.',
+							'status'  => 'error'
+						));
+					
+					$data = array(
+						'title' => $this->input->post('title'),
+						'category' => $this->input->post('category'),
+						'job_description' => $this->input->post('job_description'),
+						'job_type' => $this->input->post('job_type'),
+						'job_duration' => $this->input->post('job_duration'),
+						'experience_level' => $this->input->post('experience_level'),
+						'budget' => $this->input->post('budget'),
+						'hours_per_week' => $this->input->post('hours_per_week'),
+						'userfile' => $this->input->post('userfile'),
+						'status' => 1,
+						'job_created' => date('Y-m-d H:i:s'),
+						'userfile' => $this->input->post('attachments'),
+						'user_id'  => $user_id,
+						'tid'  => $this->input->post('tid')
+					);
+				
+					$job_id  = $this->jobs_model->create( $data );
+					if( $job_id != null )
+					{
+						$skills = $this->input->post('skills');
+						$this->jobs_model->link_to_skills( $job_id, $skills);                    
+						
+					}
+					else 
+					{
+						$this->ajax_response(array(
+							'message' => 'An error has occurred! Refresh your page and try again',
+							'status'  => 'error'
+						));
+					}
+					
+				}
+				else{
+					$job_id    = $this->input->post('job_id');
+				}
+			
+			$buser_id    = $this->session->userdata( USER_ID );	
+			$applier_id  = $this->input->post('applier_id');
+			
+			$title       = $this->input->post('title_hire');
+			$term        = $this->input->post('terms');
+			
+			if(empty($applier_id) || empty($job_id))
+			{
+				$this->ajax_response(array(
+					'message' => 'An error has occurred! Refresh your page and try again',
+					'status'  => 'error'
+				));
+			}
+			 
+			if(empty($term) || $term != 'on')
+			{
+				$this->ajax_response(array(
+					'message' => 'Have you understand our Agreement and policy?',
+					'status'  => 'error'
+				));
+			}
+			$job = $this->jobs_model->load_informations( $job_id );
+			
+			if(empty($job))
+			{
+				$this->ajax_response(array(
+					'message' => 'The jobs do not exist or has been deleted',
+					'status'  => 'error',
+					'redirect'     => true,
+					'redirect_url' => home_url(),
+				));
+			}
+			
+			if($job->user_id != $buser_id)
+			{
+				$this->ajax_response(array(
+					'message' => 'You do not have a rights on the current job.',
+					'status'  => 'error',
+					'redirect'     => true,
+					'redirect_url' => home_url(),
+				));
+			}
+			
+			$is_offered = $this->process->is_offered($applier_id, $job_id);
+			if($is_offered > 0 ){
+				$this->ajax_response(array(
+					'message' => 'Already you applied to this job.',
+					'status'  => 'error',
+					'redirect'     => true,
+					'redirect_url' => home_url(),
+				));
+			}
+			
+			// create bid
+			$is_applied = $this->process->is_applied($job_id, $applier_id);
+			if ($is_applied == 0) {
+				
+				$bid_data = array();
+			    $bid_data['user_id'] = $applier_id;
+			    $bid_data['job_id']  = $job_id;
+				
+				
+				if($job->job_type == FIXED_JOB_TYPE){
+					$bid_data['job_duration'] =  $this->input->post('job_duration');
+					$bid_data['bid_amount']   = $this->input->post('bid_amount_fixed');
+				}  
+				else{
+					$bid_data['bid_amount'] = $this->input->post('bid_amount_hourly');
+				}
+				
+                $bid_data['bid_fee']     = round($bid_data['bid_amount'] / 10, 2);
+                $bid_data['bid_earning'] = $bid_data['bid_amount'] - $bid_data['bid_fee'];
+                $bid_data['created']     = date('Y-m-d H:i:s');
+
+                if ($this->db->insert('job_bids', $bid_data)){
+                    $bid = $this->db->insert_id();
+                } else {
+					$this->ajax_response(array(
+						'message' => 'Have errors.',
+						'status'  => 'error',
+						'redirect'     => true,
+						'redirect_url' => home_url(),
+					));
+                }
+			}
+
+			$bid = $this->bids_model->load( $job_id, $applier_id );
+			if(empty($bid))
+			{
+				$this->ajax_response(array(
+					'message' => 'The current bid do not exists or has been deleted.',
+					'status'  => 'error'
+				)); 
+			}
+			
+			$message    = $this->input->post('message');
+			$start_date = $this->input->post('start_date');
+            $budget     = $bid_data['bid_amount'];
+			
+			$this->bids_model->hire_on($job_id, $applier_id, $budget);
+			
+			$budget_type = $this->input->post('budget_type');
+			if( $job->job_type == FIXED_JOB_TYPE )
+			{
+				if($budget_type == 2)
+				{
+					$budget = $this->input->post('milestone_input');
+				}
+			}
+			else
+			{   
+				$weekly_limit = $this->input->post('limit');
+				if ($weekly_limit != 0) {
+					$weekly_limit_amount = $this->input->post('weekly_limit_amount');
+				} else {
+					$weekly_limit_amount = 0.00;
+				}
+				
+				$allow_freelancer = $this->input->post('allow_freelancer');
+				if (empty($allow_freelancer)) 
+				{
+					$allow_freelancer = 0;
+				}
+			}
+			
+			$bid_data = array(
+				'job_progres_status' =>  2, 
+				'hired'              =>  '1',
+				'hire_title'         =>  ( !empty($title) ? $title : $job->title ), 
+				'hire_message'       =>  $message,
+				'start_date'         =>  str_replace('/', '-', $start_date)
+			);
+			if( $job->job_type == FIXED_JOB_TYPE )
+			{
+				$additionnal_data = array(
+					'fixedpay_amount'  => $budget,
+					'fixed_pay_status' => $budget_type, 
+					'payment_status'   => 0
+				);
+			}
+			else
+			{
+				$additionnal_data = array(
+					'weekly_limit'     => $weekly_limit, 
+					'allow_freelancer' => $allow_freelancer, 
+					'weekly_amount'    => $weekly_limit_amount, 
+					'payment_status'   => 0
+				);
+			}
+			$bid_data = array_merge($bid_data, $additionnal_data);
+			
+			if($job->job_type == FIXED_JOB_TYPE && !empty( $budget_type ) && !empty($budget))
+			{
+				//get employer primary method for charging.
+				$primary = $this->payment_methods_model->get_primary( $buser_id );
+
+				if( empty( $primary ) )
+				{
+					$this->ajax_response(array(
+						'message'      => 'Unsuccessfull.',
+						'status'       => 'error',
+						'redirect'     => true,
+						'redirect_url' => site_url("pay/methods_card"),
+					));
+				}
+
+				//load related library
+				$service_library = 'winjob_' . strtolower($primary->service_name);
+				if( ! property_exists($this, $service_library) )
+					$this->load->library($service_library);
+
+				$transaction_id = $this->{$service_library}->paid($budget, "usd", $primary);
+					
+				
+				if( $transaction_id == null)
+				{
+					$this->ajax_response(array(
+						'message'      => 'Failed payment for insufficient funds.',
+						'status'       => 'error'
+					));
+				}
+
+				if ($budget_type == 1) 
+				{
+					$des = 'Full Paid';
+				} 
+				elseif ($budget_type == 2)
+				{
+					$des = 'Milestone';
+				}
+
+				$this->payment_model->save(array(
+					'job_id'        => (int) $job_id,
+					'user_id'       => (int) $applier_id,
+					'buser_id'      => (int) $buser_id,
+					'bid_id'        => $bid->id,
+					'payment_gross' => $budget,
+					'des'           => $des,
+					'service_name'  => $primary->service_name,
+					'txn_id'        => $transaction_id
+				));
+			}
+			if($this->bids_model->update($bid_data, array('user_id' => $applier_id , 'job_id' => $job_id)))
+			{ 
+				$this->ajax_response(array(
+					'message'      => 'Offer sent.',
+					'status'       => 'success',
+					'redirect'     => true,
+					'redirect_url' => site_url("offered?job_id=" . base64_encode($job_id)),
+				));
+			}
+			else
+			{
+				$this->ajax_response(array(
+					'message' => 'Unsuccessfull.',
+					'status'  => 'error'
+				));
+			}
+			
+			
+			
+			
+		}
+	}
+	
 	
     public function confirm_hired_fixed() {
         if ($this->Adminlogincheck->checkx()) {

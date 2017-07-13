@@ -3,9 +3,13 @@
 	
 	<section id="big_header">
 		<div style="border:1px solid #ccc;margin-right: 15px;" class="row white-box-feed confirm_hire">
+			
+		<form method="post" id='make-offers-form'>
+			
+			<input type = "hidden" name = "applier_id" value = "<?= $user_id ?>";
+			
 			<div class="col-md-9">
 				<div class='success' style="color: red; "></div>
-				
 				<div class="row part-profile">
                     <div class="col-md-12">
                         <div class="row">
@@ -21,7 +25,7 @@
                                         <img src="<?php echo site_url($pic); ?>" width="64" height="64">
                                         <?php
                                     }
-                                    ?>
+                                ?>
                             </div>
                             <div class="col-md-10 col-sm-9">
                                 <?php
@@ -50,7 +54,6 @@
 
 				<div class="row margin-top">
                     <div class="col-md-12 text-left"> <strong>Choose a job : </strong></div>
-					
 					<div class="col-md-12">
 						<?php
 							$sender_id = $this->session->userdata('id'); 
@@ -61,7 +64,6 @@
 							$this->db->order_by("jobs.created", "desc");
 							$query = $this->db->get();
 							$result = $query->result();
-							
 							if(count($result)){
 							?>
 						<div class = "row">
@@ -71,18 +73,15 @@
 								</div>
 							</div>
 							<div class = "col-md-8">
-								
-								
-										<select id = "job_id" class="form-control" name="job_id" style = "marging:0px;">
-											<?php
-											   foreach ($result as $job){
-											?>
-											<option value="<?php echo $job->id; ?>"><?php echo $job->title; ?></option> 
-											<?php
-											   }
-											?>
-										</select>
-									
+								<select id = "job_id" class="form-control" name="job_id" style = "marging:0px;">
+									<?php
+									   foreach ($result as $job){
+									?>
+									<option value="<?php echo $job->id; ?>"><?php echo $job->title; ?></option> 
+									<?php
+									   }
+									?>
+								</select>
 							</div>
 						</div>
 						<?php
@@ -110,7 +109,7 @@
 						<div class="row">
 							<div class="col-md-8">
 								<div class="input_title">
-									<input type="text" name="title" class="form-control border-field" placeholder="Job title (optional)" />
+									<input type="text" name="title_hire" class="form-control border-field" placeholder="Job title (optional)" />
 								</div>
 							</div>
 						</div>
@@ -124,50 +123,49 @@
 					</div>
 				</div>
 			
-			<div class = "fixed-action displaynone">	
-				<div class="row bid-amount">
-					<div class="col-md-12 text-left">
-						<h4 class="confirm_hire_title">Amount :</h4>
+				<div class = "fixed-action displaynone">	
+					<div class="row bid-amount">
+						<div class="col-md-12 text-left">
+							<h4 class="confirm_hire_title">Amount :</h4>
+						</div>
+						<div class="col-md-12">
+						   <strong id="budget-show" class="fix-price"></strong>
+						   <a id="budget-edit"><i style="margin-left: 10px;" class="fa fa-pencil-square-o blue-text"></i></a>
+						</div>
+						<div class="col-md-5">
+							<input type="hidden" name="budget_old" id="budget_old" class="form-control" value="" />
+							<input type="text" name="bid_amount_fixed" id="budget-edit-field" class="form-control hide custom_amount_box" value="" />
+						</div>
 					</div>
-					<div class="col-md-12">
-					   <strong id="budget-show" class="fix-price"></strong>
-					   <a id="budget-edit"><i style="margin-left: 10px;" class="fa fa-pencil-square-o blue-text"></i></a>
-					</div>
-					<div class="col-md-5">
-						<input type="hidden" name="budget_old" id="budget" class="form-control" value="" />
-						<input type="text" name="budget" id="budget-edit-field" class="form-control hide custom_amount_box" value="" />
-					</div>
-				</div>
 
-				<div class="row">
-					<div class="col-xs-12">
-						<div class="radio">
-							<label>
-							  <input type="radio" name="budget_type" value="1" checked>
-							  Paid All
-							</label>
-						</div>
-						<div class="radio">
-							<label>
-							  <input type="radio" name="budget_type" value="0" >
-							  Paid Nothing
-							</label>
-						</div>
-						<div class="radio">
-							<label class="pull-left">
-							  <input type="radio" name="budget_type" id="milestone_radio"  value="2">
-							  Milestone
-							</label>
-							<div class="col-xs-3 hide" id="milestone-input-container">    
-								$<input type="text" name="milestone_input" class="form-control" style="width: 50%; display: inline-block" >
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="radio">
+								<label>
+								  <input type="radio" name="budget_type" value="1" checked>
+								  Paid All
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+								  <input type="radio" name="budget_type" value="0" >
+								  Paid Nothing
+								</label>
+							</div>
+							<div class="radio">
+								<label class="pull-left">
+								  <input type="radio" name="budget_type" id="milestone_radio"  value="2">
+								  Milestone
+								</label>
+								<div class="col-xs-3 hide" id="milestone-input-container">    
+									$<input type="text" name="milestone_input" class="form-control" style="width: 50%; display: inline-block" >
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+					
+				</div>	
 				
-			</div>	
-				
-			
 				<div class="row margin-top-1 hourly-action displaynone">
 					<div class="col-md-12"><h4 class="confirm_hire_title">Hourly Rate :</h4></div>
 					<div class="col-md-12">
@@ -183,7 +181,7 @@
 					<div class="col-md-12"><h4 style="margin-bottom: 25px;" class="confirm_hire_title">Weekly limit :</h4></div>
 					<div class="col-md-12">
 							<div class="col-md-2 nopadding">
-								<input type="hidden" id="bid_amount_result" value="">
+								<input type="hidden" id="bid_amount_result" name = "bid_amount_hourly" value="">
 								<input style="float: left;margin-right: 10px;" type="radio" checked name="limit" id="weekly_limit" value="1" />
 								<p style="margin-bottom: 0;margin-top: -2px;font-size: 17px;font-family: calibri;">Limit to:</p>
 							</div>
@@ -245,7 +243,7 @@
 				
 				<div style="margin-top: 15px;" class="row">
 					<div class="col-md-12">
-						<input style="float: left;margin-right: 10px;" type="checkbox" id="tearms" name="tearms" required/> <p>I understand and agree to the Winjob <a href="">user Agreement</a> and <a href="">policy</a></p>
+						<input style="float: left;margin-right: 10px;" type="checkbox" id="terms" name="terms"> <p>I understand and agree to the Winjob <a href="">user Agreement</a> and <a href="">policy</a></p>
 						<p class="tarms_conditions" style="color:red;display:none;"></p>
 					</div>
 
@@ -254,7 +252,7 @@
 				<div class="row">
 					<div style="margin-left: -30px;" class="col-md-12">
 						<div class="confirm_hire_btn" style="margin-right: 30px">
-							<input style="float: left;margin-right: -2px;" type="submit" value="Confirm hire" class="btn my_btn" /> 
+							<input id = "make-offers-button" style="float: left;margin-right: -2px;" type="submit" value="Confirm hire" class="btn my_btn" /> 
 						</div>
 						
 						<div class="cencel_content_btn" style="margin-left: -65px">
@@ -264,6 +262,9 @@
 				</div>	
 				
 			</div>
+		
+		</form>
+		
 		</div>
 	</section>
 	</div>
@@ -282,7 +283,7 @@
 							<button type="button" class="close" data-dismiss="modal"> </button>
 						</div>
 						  <div style="border: 0;" class="modal-body">
-							<form method="post" id='jobApply'>
+							<form method="post" id='' action="<?php echo base_url() ?>jobs/direct-hire">
 								<input type="hidden" name='bid_id' value='1234'/>
 								<input type="hidden" name='proposal' value='1'/>
 								<div style="margin-top: 15px;" class="row">
@@ -346,6 +347,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js"></script>
 <script>
+	var base_url_val = '<?php echo base_url() ?>';
 	jQuery('#datetimepicker').datetimepicker({
 	   timepicker:false,
 	 format:'d/m/Y'
@@ -411,30 +413,22 @@
 			var optionSelected = $("option:selected", $("#job_id"));
 			var valueSelected = optionSelected.val();
 			//alert(valueSelected);
-			
 			var response = "";
-			var base_url = '<?php echo base_url() ?>';
 			
 			$.ajax({
 				type        : 'POST',
-				url         : base_url + 'find-job/' + valueSelected,
-				data        : $('form#hire_job').serialize(),
+				url         : base_url_val + 'find-job/' + valueSelected,
 				dataType    : 'json',
 				encode      : true,
-			})
-			.done(function(res) {
-				
+			}).done(function(res) {
 				if(res.status == '1')
 				{
 					var data = res.data;
-					
 					var job_type = data.job_type;
 					$(".make-offers-jobtype").html(job_type);
-					
 					if(job_type == "fixed"){
-						
 						$("#budget-show").html('$' + data.budget);
-						$("#budget").val(data.budget);
+						$("#budget_old").val(data.budget);
 						$("#budget-edit-field").val(data.budget);
 						
 						
@@ -475,8 +469,6 @@
 				else{
 					
 				}
-				
-				
 			});
 		}
 		getJobInfo();
@@ -506,6 +498,29 @@
 				$("#weekly_limit_field").addClass("hide");
 		});
 		
+		////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////
+		$("#make-offers-button").click(function(event){
+			event.stopPropagation();
+			event.preventDefault();
+			
+			$.ajax({
+				type        : 'POST',
+				url         : base_url_val + 'jobs/direct-hire',
+				data        : $('form#make-offers-form').serialize(),
+				dataType    : 'json',
+				encode      : true,
+			}).done(function(res) {
+				if(res.status == "success"){
+					alert("Success");
+				}
+				else{
+					alert("Fail. " + res.message);
+				}
+			});
+			
+		});
+		//?optradio-jobselect=1&job_id=182&title=&category=1&job_description=&userfile=&job_type=hourly&budget=&hours_per_week=not_sure&job_duration=not_sure&tid=1499927574&title=&budget_old=&budget=&budget_type=1&milestone_input=&limit=1&weekly_limit_amount=&start_date=13%2F07%2F2017&message=sd&tearms=on
 	});
 	
 </script>

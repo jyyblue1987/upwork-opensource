@@ -141,7 +141,7 @@
 		</div>
 		<div class="col-md-12">
 			<input type="radio" name="experience_level" id="experience_level"
-				value="entry_levle" /> <label>Entry Level</label> <span
+				value="entry_levle" checked /> <label>Entry Level</label> <span
 				class="dollar-sign">$</span> 
 		</div>
 		<div class="col-md-12">	
@@ -216,7 +216,15 @@
     });
 	
 	$("input[name = 'job_type']").click(function(event){
-		alert("a");
+	
+		if($('input[name=job_type]:checked').val() == "fixed"){
+			$("#fixed-control").removeClass("hidden"); 
+			$("#hourly-control").addClass("hidden");
+		}
+		else{
+			$("#fixed-control").addClass("hidden"); 
+			$("#hourly-control").removeClass("hidden"); 
+		}
 	});
 	
 </script>

@@ -35,8 +35,7 @@ class Offers extends Winjob_Controller{
     }
     
     public function index()
-    {
-		
+    {		
         //Display offer for decision
         if($this->session->userdata('type') == FREELANCER)
             return $this->decide_on_offer();
@@ -690,24 +689,3 @@ class Offers extends Winjob_Controller{
 	}
 	//ended by Chen
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -433,6 +433,13 @@ class Process extends CI_Model {
         return $query->num_rows();
     }
     
+	function is_offered($user_id, $job_id){
+        $query = $this->db->get_where('job_bids', array('job_id' => $job_id, 'user_id' => $user_id, 'status!=1' => null, 'job_progres_status' => 2));
+		
+	
+        return $query->num_rows();
+    }
+	
     function get_freelancer_proposals($user_id){
         $monthStart = date('Y-m-01');
         $monthEnd = date('Y-m-t');
