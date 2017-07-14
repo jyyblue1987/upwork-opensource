@@ -99,7 +99,7 @@
 					</div>
                 </div>
 				
-				<div class="row hidden margin-top-1 margin-left-3" id="job_form">
+				<div class="row hidden margin-top-1 margin-left-3 custom_job_post_form"" id="job_form">
                      <?php $this->load->view('webview/jobs/job_form', ['class' => 'text-left', 'mode' => 'invitation']); ?>
                 </div> 
 				

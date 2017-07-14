@@ -67,12 +67,12 @@
 							if(count($result)){
 							?>
 						<div class = "row">
-							<div class = "col-md-4">
+							<div class = "col-md-3">
 								<div class="radio">
 									<label><input type="radio" name="optradio-jobselect" checked value = '1'>Choose an Existing Job</label>
 								</div>
 							</div>
-							<div class = "col-md-8">
+							<div class = "col-md-9">
 								<select id = "job_id" class="form-control" name="job_id" style = "marging:0px;">
 									<?php
 									   foreach ($result as $job){
@@ -97,7 +97,7 @@
 					</div>
                 </div>
 				
-				<div class="row hidden margin-top-1 margin-left-3" id="job_form">
+				<div class="row hidden margin-top-1 margin-left-3 custom_job_post_form" id="job_form">
                      <?php $this->load->view('webview/jobs/job_form', ['class' => 'text-left', 'mode' => 'invitation']); ?>
                 </div> 	
 					
@@ -332,7 +332,6 @@
 								
 								<div class="modal-footer" style="text-align: center; border-top: none">
 									
-									<input style="float: left;margin-left: 312px" type="submit" class="btn-primary big_mass_active transparent-btn big_mass_button" id="bid_value_change" value="Done" />
 									<input type="button" style="float: left;" class="btn-primary transparent-btn big_mass_button" value="Cancel" data-dismiss="modal" />
 									<img src='/assets/img/version1/loader.gif' class="form-loader" style="display:none">
 								</div>
@@ -402,8 +401,9 @@
 				$('#job_id').removeClass('hidden');
 			}
 			else{ // new job
-				 $('#job_form').removeClass('hidden');
+				$('#job_form').removeClass('hidden');
 				$('#job_id').addClass('hidden');
+				createNewJobChnage();
 			}
 		});
 		
@@ -421,8 +421,7 @@
 				dataType    : 'json',
 				encode      : true,
 			}).done(function(res) {
-				if(res.status == '1')
-				{
+				if(res.status == '1'){
 					var data = res.data;
 					var job_type = data.job_type;
 					$(".make-offers-jobtype").html(job_type);
@@ -520,7 +519,65 @@
 			});
 			
 		});
-		//?optradio-jobselect=1&job_id=182&title=&category=1&job_description=&userfile=&job_type=hourly&budget=&hours_per_week=not_sure&job_duration=not_sure&tid=1499927574&title=&budget_old=&budget=&budget_type=1&milestone_input=&limit=1&weekly_limit_amount=&start_date=13%2F07%2F2017&message=sd&tearms=on
+		
+		
+		//  when user click the create job click
+		
+		function createNewJobChnage(){
+			var job_type = $('input[name=job_type]:checked').val();
+			$(".make-offers-jobtype").html(job_type);
+			if(job_type == "fixed"){
+				var budget = $("#budget").val();
+				$("#budget-show").html('$' + budget);
+				$("#budget_old").val(budget);
+				$("#budget-edit-field").val(budget);
+				
+				$(".fixed-action").removeClass("displaynone");
+				$(".hourly-action").addClass("displaynone");
+			}
+			else{
+				//$("#bid_amount_perhour").html()
+				$(".fixed-action").addClass("displaynone");
+				$(".hourly-action").removeClass("displaynone");
+			}
+			
+		
+				// job duration
+				var job_duration = $('.job_duration').val();
+					switch(job_duration){
+						case 'more_than_6_months':
+							job_duration = "More than 6 Months";
+							break;
+						case '3_6_months':
+							job_duration = "3 - 6 Months";
+							break;
+						case '1_3_months':
+							job_duration = "1 - 3 Months";
+							break;
+						case 'less_than_1_months':
+							job_duration = "Less than 1 Month";
+							break;
+						case 'less_than_1_week':
+							job_duration = "Less than 1 Week";
+							break;
+						default:
+							job_duration = "Not Sure";
+					}
+				$(".make-offers-jobduration").html(job_duration);
+		}
+		
+		$('#budget').on('keyup', function() {
+			createNewJobChnage();
+		});
+		
+		$(".job_duration").change(function(){
+			createNewJobChnage();
+		});
+		
+		$("input[name = 'job_type']").click(function(event){
+			createNewJobChnage();
+		});
+		
 	});
 	
 </script>
