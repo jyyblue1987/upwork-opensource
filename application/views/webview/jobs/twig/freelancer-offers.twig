@@ -1,5 +1,5 @@
 {% extends "webview/layout/twig/layout.twig" %}
-                                    
+   {% set local_datetime = app_convert_date_in_local(job_details.end_date, user_timezone) %}                                   
 {% block title %}  {{ app_lang('text_job_freelancer_offers_title') }} - Winjob  {% endblock %}
 
 {% block styles %}
@@ -63,6 +63,9 @@
                     {% set job_start_date = str_replace('/', '-',job_details.start_date) %}
                     {% set local_datetime = app_convert_date_in_local(job_start_date , user_timezone) %}
                     <span>Pending, Expire on {{ local_datetime.copy().addDays(constant('POSTED_JOB_VALID_DURATION')).format(' F j, Y ') }}</span>
+				{%  else %}
+				
+					 <span>Pending, Expire on {{ local_datetime.copy().addDays(30).format(' F j, Y ') }}</span>
 				{% endif %}	
 					
                 </div>
@@ -210,7 +213,7 @@
 				</div>
 			{% elseif job_status == 3%}
 			<div class="col-md-offset-2 col-md-8 text-center alert  alert-danger ">	
-                    {% set local_datetime = app_convert_date_in_local(job_details.end_date, user_timezone) %}
+                  
                    This offer is expired on {{ local_datetime.format(' M j, Y ') }}
 					
 			 

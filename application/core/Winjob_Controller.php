@@ -213,18 +213,13 @@ class Winjob_Controller extends CI_Controller {
     }
     
     protected function display_ended_contracts( $is_ended_contracts_page = true ){
-        
         $this->checkForEmployer();
-        
         $user_id = $this->session->userdata('id');
-        
         $this->load->model( array( 'contracts_model', 'jobs_model' ) );
-
         $result              = $this->contracts_model->get_ended_of( $user_id );
         $past_hire           = count( $result );
         $job_ids             = $this->extrat_all_job_ids( $result );
         $freelancer_job_hour = $this->jobs_model->get_all_freelancer_total_hour($job_ids);
-
         $data = array(
             'messages' => $result,
             'past_hire' => $past_hire, 

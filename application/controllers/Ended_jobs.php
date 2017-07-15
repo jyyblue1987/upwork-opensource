@@ -38,6 +38,8 @@ class Ended_jobs extends Winjob_Controller{
 			$this->db->join('country', 'country.country_id=webuser.webuser_country', 'inner');
             $this->db->where('job_accepted.fuser_id',$user_id);
 			$this->db->where('job_bids.jobstatus', '1' );
+			$this->db->order_by("jobs.job_type", "desc");
+			$this->db->order_by('job_bids.id', 'desc');
             
             $query=$this->db->get();
 			$acccept_jobList = $query->result();

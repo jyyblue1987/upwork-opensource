@@ -61,12 +61,10 @@
 					 <div class="col-md-12 white-box candidate-list">
 						<div class="row">
 						
-					
 							<div class="decline" style="position: relative;float: right;padding-right: 10px;padding-top: 10px;">
 									<div class="hire_decline">
 									</div>  
 							</div>
-						
 						
 							<div class="col-md-12">
 								<div class="row">
@@ -81,14 +79,12 @@
 											<div class="col-md-7">
 												<div class="aplicant_identity">
 													<label class="aplicant_name">
-														<a href="{{ app.applicant.profile_url }}/{% if display == "decline" %}
-																				declined
+														<a href="{{ app.applicant.profile_url }}{% if display == "decline" %}
+																				/declined
 																			{% elseif display == "interview" %}
-																				interview
-																			{% elseif display == "offered" %}
-																				offered
+																				/interview
 																			{% elseif display == "hired" %}
-																				hired
+																				/hired
 																			{% else %}
 																			
 																			{% endif %}">{{ app.applicant.fname }} {{ app.applicant.lname }}</a>
@@ -140,8 +136,6 @@
 											{% endif %}
 
 											@ {{ app_lang('text_job_by_hours')|format(amount) }} = <b> ${{ amount * total_hour }}</b>
-
-										
 									{% else %}
 										
 												<span>
@@ -152,9 +146,6 @@
 												</span>
 											
 									{% endif %}
-										
-										
-										
 										
 										{% if app.applicant.jobstatus != 1 %}
 													{% if employerStatus == 0 %}
@@ -190,9 +181,6 @@
 															   value="{{ app_lang('text_job_btn_message') }}">
 													</div>
 												</div>
-                    
-												
-												
 												</div>
 											</div>
 
@@ -202,9 +190,6 @@
 													Cancel Offer
 												</a>
 												{% else %}
-												
-											
-												
 													{% if job.job_type == 'hourly' %}
 														
 																<a href="{{ base_url() }}jobs/work-diary?fmJob={{ app.bid_id_encoded }}">
@@ -220,9 +205,6 @@
 														
 														{% endif %}
 													{% endif %}
-												
-												
-												
 												{% endif %}
 											</div>
 											
@@ -246,13 +228,6 @@
 											{%  else %}
 												<li><a href="{{ app.applicant.cancel_url }}">View Offer</a></li>
 											{% endif %}
-															
-															
-															
-															
-									
-															
-															
 														</ul>
 													</div>
 												
@@ -261,9 +236,6 @@
 										</div>
 										
 									</div>
-									
-									
-									
 								</div>
 							
 								<div class = "row">
@@ -275,32 +247,22 @@
 										{% endif %}
 										</div>
 								</div>
-							
 							</div>
-					   
-
 					   </div>
 					</div>
-					
-					  
 				{% endif %}				
-		
-
 		{% if app.decline != '3'%}	
 			
                 <div class="col-md-12 white-box candidate-list">
                     <div class="row">
 					
 					{% if app.decline == '1'%}
-					
 						<div class="decline" style="position: relative;float: right;padding-right: 10px;padding-top: 10px;">
                                 <div class="hire_decline">
 								
 								{% if app.bid_reject == '1'%}
 								  Declined By You
 								{% endif %}
-								
-								
 								{% if app.bid_reject == '0'%}
 								  Declined By Freelancer
 								{% endif %}
@@ -329,8 +291,6 @@
 																				declined
 																			{% elseif display == "interview" %}
 																				interview
-																			{% elseif display == "offered" %}
-																				offered
 																			{% elseif display == "hired" %}
 																				hired
 																			{% else %}
@@ -348,9 +308,7 @@
                                                 {% endif %}
                                             </b>
                                         </div>
-
                                         <div class="col-md-3">
-
                                             <div class="review_ratting text-center">
                                                 {% if app.applicant.totalscore != 0 and app.applicant.rating_feedback != 0 %}
                                                     <span class="rating-badge">{{ app.applicant.rating|number_format(1, '.', '') }}</span>
@@ -371,7 +329,6 @@
                                                     </div>
                                                 {% endif %}
                                             </div>
-
                                         </div>
 
                                         <div class="col-md-2 text-right"  style="font-size:16px;">
@@ -382,7 +339,6 @@
                                                     0.00 <span class='cc_normal_txt'>hrs</span>
                                                 {% endif %}
                                               </b>
-
                                         </div>
 
                                         <div class="col-md-2 text-right" style="font-size:16px;">
@@ -425,8 +381,6 @@
 																				declined
 																			{% elseif display == "interview" %}
 																				interview
-																			{% elseif display == "offered" %}
-																				offered
 																			{% elseif display == "hired" %}
 																				hired
 																			{% else %}

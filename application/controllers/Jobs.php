@@ -589,10 +589,7 @@ class Jobs extends Winjob_Controller {
     }
 
     public function apply($title = NULL, $postId = NULL) {
-		
-		
         $this->authorized();
-
         $postId   = base64_decode($postId);
         $employer = $this->jobs_model->load_client_infos($postId);
         $client   = new Employer($employer->webuser_id);
@@ -610,7 +607,6 @@ class Jobs extends Winjob_Controller {
         if ($this->input->post('job_id')) {
             $is_applied = $this->process->is_applied($this->input->post('job_id'), $this->user_id);
                 if ($is_applied > 0) {
-
                     $rs = array(
                         'code' => '0',
                         'msg'  => '<div class="alert alert-warning"><strong>Warning!</strong> You have already applied for this job.</div>'
@@ -640,18 +636,21 @@ class Jobs extends Winjob_Controller {
                 $data['bid_fee']     = round($data['bid_amount'] / 10, 2);
                 $data['bid_earning'] = $data['bid_amount'] - $data['bid_fee'];
                 $data['created']     = date('Y-m-d H:i:s');
-
+				
+				
+				
                 if ($this->db->insert('job_bids', $data)) {
                     $insert_id = $this->db->insert_id();
-
-                    $dataAttach = array(
-                        'job_bid_id' => $insert_id,
-                        'path' => $this->input->post('attachments'),
-                        'tid' => $this->input->post('tid')
-                    );
-
-                    $this->Bids_model->add_bid_attachment($dataAttach);
-
+					
+					if($this->input->post('attachments')){
+						 $dataAttach = array(
+							'job_bid_id' => $insert_id,
+							'path' => $this->input->post('attachments'),
+							'tid' => $this->input->post('tid')
+						);
+						$this->bids_model->add_bid_attachment($dataAttach);
+					}
+					
                     $rs = array(
                         'code' => '1',
                         'msg' => ''
@@ -667,9 +666,10 @@ class Jobs extends Winjob_Controller {
                     );
                     echo json_encode($rs);
                 }
+				
                 die;
-            }
-
+        }
+		
         $data = array(
             'emp'         => $client,
             'user_id'     => $this->user_id,
@@ -693,7 +693,7 @@ class Jobs extends Winjob_Controller {
             'css'         => array("","","","assets/css/pages/apply.css")
             );
 
-            $this->Admintheme->custom_webview("jobs/apply", $data);
+        $this->Admintheme->custom_webview("jobs/apply", $data);
     }
 
     public function archived_bids_list() {
@@ -1471,30 +1471,13 @@ class Jobs extends Winjob_Controller {
                     }
                 }
 
-				/*
-                $records[] = array(
-                   'ended_jobs' => $ended_jobs,
-                   'tagline' => ucfirst($freelancer_profile['tagline']),
-                   'budget' => $budget,
-                   'feedback_score' => $feedbackScore,
-                   'total_work' => $total_work,
-                   'pic' => $_pic,
-                   'fname' => $_interviews->webuser_fname,
-                   'lname' => $_interviews->webuser_lname,
-                   'user_id' => $_interviews->user_id,
-                   'job_id' => $_interviews->job_id,
-                   'bid_id' => $_interviews->id,
-                   'bid_amount' => $_interviews->bid_amount,
-                   'country' => ucfirst($country->get_country()),
-                   'letter' => $_interviews->cover_latter,
-                   'skills' => $skills,
-                   'rating' => $user_rating
-                );*/
-				
+			
 				if($feedbackScore && $budget) {
 					$totalscore = $feedbackScore / $budget;
 					$rating_feedback = ($totalscore/5)*100;
 				}
+				
+				$_interviews->cover_latter = mb_substr($_interviews->cover_latter, 0, 100);
 				
 				$applicant = [
 					'ended_jobs' => $ended_jobs,

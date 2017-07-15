@@ -20,9 +20,6 @@ class Declined extends Winjob_Controller {
     }
 
     public function index() {
-	
-		
-	
         if ($this->Adminlogincheck->checkx()) {
             if ($this->session->userdata('type') != 1) {
                 redirect(site_url("find-jobs"));
@@ -51,15 +48,10 @@ class Declined extends Winjob_Controller {
 			$offered = $this->process->get_offers( $job_id, TRUE );
 			$hired = $this->process->get_hires( $user_id, $job_id, TRUE );
 			$interviews = $this->process->get_interviews( $user_id, $job_id, TRUE );
-			
-			
-		
 			// hui ended
 			 
 			$rejects = $this->process->get_rejected($job_id);
-			
             foreach($rejects['data'] AS $_rejects){
-								
                $ended_jobs = $this->process->cnt_ended_jobs($_rejects->webuser_id);
                $freelancer_profile = $this->ProfileModel->get_profile($_rejects->webuser_id);
                $accepted_jobs = $this->process->accepted_jobs($_rejects->webuser_id);
@@ -99,31 +91,8 @@ class Declined extends Winjob_Controller {
                     }
                 }
 			
-			/*
-                $records[] = array(
-                   'ended_jobs' => $ended_jobs,
-                   'tagline' => ucfirst($freelancer_profile['tagline']),
-                   'budget' => $budget,
-                   'feedback_score' => $feedbackScore,
-                   'total_work' => $total_work,
-                   'pic' => $_pic,
-                   'fname' => $_rejects->webuser_fname,
-                   'lname' => $_rejects->webuser_lname,
-                   'user_id' => $_rejects->webuser_id,
-                   'job_id' => $_rejects->job_id,
-                   'bid_id' => $_rejects->bid_id,
-                   'bid_amount' => $_rejects->bid_amount,
-                   'country' => ucfirst($country['country_name']),
-                   'letter' => $_rejects->cover_latter,
-                   'skills' => $skills,
-                   'rating' => $user_rating,
-                   'bid_reject' => $_rejects->bid_reject
-                );*/
-				
-				
-				/**********************************************************************************/
-				/**********************************************************************************/
-				
+				$_rejects->cover_latter = mb_substr($_rejects->cover_latter, 0, 100);
+			
 				if($feedbackScore && $budget) {
 					$totalscore = $feedbackScore / $budget;
 					$rating_feedback = ($totalscore/5)*100;

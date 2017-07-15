@@ -208,8 +208,8 @@ class Process extends CI_Model {
                 ->where('job_bids.withdrawn',  NULL)
                 ->where('job_id', $job_id)
                 ->where('bid_reject', 0)
-                ->where('status != 1')
-                ->order_by('job_bids.id', 'desc');
+                ->where('status != 1');
+            //    ->order_by('job_bids.id', 'desc');
         $query = $this->db->get('job_bids');
         
         $return_array = array();

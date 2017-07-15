@@ -1,7 +1,9 @@
 {% if page != "endedjobs" %}
 <div class="ph_rehire_butt">
     <div class="rehire-btn">
-		<a href="/jobs/make-offers?user_id={{fuser_id_encoded}}">
+	
+	
+		<a href="{{base_url()}}jobs/make-offers?user_id={{fuser_id_encoded}}">
 			<input type="button" class="btn btn-primary form-btn" value="{{ app_lang('text_job_btn_refired') }}" />
 		</a>
     </div>

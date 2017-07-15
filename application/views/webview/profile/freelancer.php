@@ -145,11 +145,11 @@ foreach ($accepted_jobs as $job_data) {
 						<div class="col-md-3 col-sm-3 col-xs-12">
 							<div class="side_header">
 								<div class="topriht1 align-center">
-									<a href="/jobs/make-offers?user_id=<?= base64_encode($webUserInfo['webuser_id']) ?>">
+									<a href="<?=   base_url() ?>jobs/make-offers?user_id=<?= base64_encode($webUserInfo['webuser_id']) ?>">
 										<button id="buttonsecond">Hire me </button>
 									</a>
 									<br/>
-									<a href="/jobs/send_invitation/<?= $webUserInfo['webuser_id'] ?>">
+									<a href="<?=  base_url() ?>jobs/send_invitation/<?= $webUserInfo['webuser_id'] ?>">
 										<button class="btn" id="view-profile-btn">
 											Invite to Job 
 										</button>

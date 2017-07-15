@@ -143,7 +143,8 @@ class Jobs_model extends CI_Model {
         $this->db->where('job_accepted.buser_id', $employer_id);
         $this->db->where('job_bids.hired', '0');
         $this->db->where('job_bids.jobstatus', '0');
-          $this->db->order_by("job_accepted.created", "desc");
+        $this->db->order_by("jobs.job_type", "desc");
+        $this->db->order_by("job_accepted.created", "desc");
         $query = $this->db->get();
         $result = $query->result();
         

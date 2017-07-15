@@ -47,7 +47,7 @@
 
                         <div class="row margin-top-25">
                             <div class="col-md-12">
-                                <span><strong>Already know this freelancer?</strong> <a href="">Hire Now</a></span>
+                                <span><strong>Already know this freelancer?</strong> <a href="<?=  base_url() . 'jobs/make-offers?user_id=' . base64_encode($user_id) ?>">Hire Now</a></span>
                             </div>
                         </div>
 

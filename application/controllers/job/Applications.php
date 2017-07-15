@@ -40,6 +40,7 @@ class Applications extends Winjob_Controller {
     
     public function index($job_id)
     {
+		
         $this->checkForEmployer();
         
         $job_id = base64_decode($job_id);

@@ -30,7 +30,6 @@ class Offered extends Winjob_Controller {
 
         $paypalInfo = $this->input->post();
         if (!empty($paypalInfo)) {
-
             $data = array(
                 'user_id' => $paypalInfo['custom'],
                 'buser_id' => base64_decode($_GET['buser_id']),
@@ -44,7 +43,7 @@ class Offered extends Winjob_Controller {
             $this->db->insert('payments', $data);
         }
 
-        if (isset($_GET['job_id'])) {
+        if (isset($_GET['job_id'])){
             $records = array();
             $job_id = base64_decode($_GET['job_id']);
             $bids = $this->process->get_bids($job_id);
@@ -145,7 +144,7 @@ class Offered extends Winjob_Controller {
 					'lname' => $_offers->webuser_lname,
 					'hire_url' => site_url("jobs/offers?user_id=" . base64_encode($_offers->webuser_id)
 						. "&job_id=" . base64_encode($this->job_details->get_jobid())),
-					'profile_url' => site_url("applicants?user_id=") . base64_encode($_offers->webuser_id) . "&job_id=" . base64_encode($this->job_details->get_jobid()) . "&bid_id=" . base64_encode($_offers->id),
+					'profile_url' => site_url("canceloffer?bid_id=") . base64_encode($_offers->bid_id) . "&job_id=" . base64_encode($this->job_details->get_jobid()),
 					'user_id' => $_offers->webuser_id,
 					'skills' => $skills,
 					'country' => ucfirst($country['country_name']),
@@ -163,23 +162,6 @@ class Offered extends Winjob_Controller {
 			
 				/*   end */
             }
-
-			/*
-            $data = array(
-                'records' => $records,
-                'jobId' => base64_encode($job_id),
-                'status' => $emp,
-                'applicants' => $applicants['rows'],
-                'rejects' => $rejects['rows'],
-                'offers' => $offers['rows'],
-                'hires' => $hires['rows'],
-                'interviews' => $interviews['rows'],
-                'job_type' => ucfirst($job_details['job_type']),
-                'job_title' => ucwords($job_details['title']),
-                'title' => 'Offers - Winjob'
-            );*/
-			
-			
         }
 		$this->twig->display('webview/jobs/twig/applications', [
         	'is_active' => $this->employer->is_active(),
@@ -194,7 +176,6 @@ class Offered extends Winjob_Controller {
 			'display' => 'offered',
 			'interviews' => $interviews
 			]);
-       // $this->Admintheme->webview("offered", $data);
     }
 
 }

@@ -118,7 +118,7 @@
 				<div class="row">
 					<div class="col-md-12 text-left blue-text">
 					   <div class="offer_date">
-					        <span>Pending, Expire on <?php echo date(' F j, Y ',strtotime(' + 5 day', strtotime($bid_details[0]->start_date)));?></span>
+					        <span>Pending, Expire on <?php echo date(' F j, Y ',strtotime(' + 30 day', strtotime($bid_details[0]->start_date)));?></span>
 					   </div>
 					</div>
 					
